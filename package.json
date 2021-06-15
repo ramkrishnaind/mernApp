@@ -1,0 +1,41 @@
+{
+  "name": "mernapp",
+  "version": "1.0.0",
+  "description": "\"Base Mern App with client, admin, server\"",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server/server.js",
+    "client": "npm start --prefix client",
+    "admin": "npm start --prefix admin",
+    "dev": "concurrently \" npm run server\" \"npm run client\" \"npm run admin\" "
+  },
+  "author": "Vikram Sinwal",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^3.2.0",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "colors": "^1.4.0",
+    "concurrently": "^6.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "express-jwt": "^6.0.0",
+    "express-session": "^1.17.2",
+    "handlebars": "^4.7.7",
+    "helmet": "^4.6.0",
+    "http": "0.0.1-security",
+    "joi": "^17.4.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "mongoose": "^5.12.4",
+    "nanoid": "^3.1.23",
+    "nodemailer": "^6.6.1",
+    "nodemon": "^2.0.7",
+    "path": "^0.12.7",
+    "prop-types": "^15.7.2"
+  }
+}
