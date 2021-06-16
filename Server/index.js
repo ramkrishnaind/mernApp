@@ -45,6 +45,7 @@ const MongoDBConnection = require('./Database/connection');
 
 //app.use('/api/pricing', require('./controllers/pricing.controller')({ MongoDBConnection }));
 app.use('/api/users', require('./Controllers/UsersController')({ MongoDBConnection }));
+app.use('/api/menuModule', require('./Controllers/MenuModuleController')({ MongoDBConnection }));
 
 
 // let reactHTMLPath = process.env.NODE_ENV === 'production' ? "../FX-React/build" : "";
