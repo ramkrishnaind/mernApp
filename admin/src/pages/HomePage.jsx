@@ -1,31 +1,30 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { productLists } from '../redux/actions/productAction';
-import ProductPage from './ProductPage'
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Alert } from 'react-bootstrap';
 import Loader from '../components/helpingComponents/Loader';
 import Message from '../components/helpingComponents/Message';
 const HomePage = () => {
     const dispatch = useDispatch();
-    const productList = useSelector(state => state.productList);
-    const { loading, products, error } = productList;
     useEffect(() => {
-        dispatch(productLists());
+        //dispatch(productLists());
     }, [dispatch]);
     return (
         <>
             {
-                loading ? <Loader/> : error ? <Message variant="danger">{error}</Message>
-                    :
-                    <Row>
-                        {
-                            products.map(product => (
-                                <Col key={product._id} md={3}>
-                                    <ProductPage product={product} />
-                                </Col>
-                            ))
-                        }
-                    </Row>
+                [
+                    'primary',
+                    'secondary',
+                    'success',
+                    'danger',
+                    'warning',
+                    'info',
+                    'light',
+                    'dark',
+                  ].map((variant, idx) => (
+                    <Alert key={idx} variant={variant}>
+                      This is a {variant} alert—check it out!
+                    </Alert>
+                  ))
             }
             
         </>

@@ -5,8 +5,6 @@ import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/HomePage';
-import Cart from './pages/CartPage';
-import ProductDetails from './pages/ProductDetails';
 function App() {
   return (
     <Router>
@@ -14,8 +12,6 @@ function App() {
       <main className="my-3">
         <Container>
           <Route path="/" component={Home} exact />
-          <Route path="/product/:id" component={ProductDetails} />
-          <Route path="/cart/:id?" component={Cart} />
         </Container>
       </main>
       <Footer />
