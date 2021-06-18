@@ -4,7 +4,7 @@ const { nanoid } = require('nanoid');
 
 var Schema = mongoose.Schema;
 
-const userSchema = new Schema({
+const userRoleSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -37,8 +37,8 @@ const userSchema = new Schema({
         default: null
     }
 }, {
-    collection: 'user'
+    collection: 'userRole'
 }
 );
 
-module.exports = userSchema;
+module.exports = userRoleSchema;

@@ -2,16 +2,18 @@ const _ = require('lodash');
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi)
 
+const errorResponseHelper = require('../../../Helper/errorResponse');
+
 const menuModuleSchema = Joi.object({
     parentID: Joi.objectId().allow(null),
     topParentID: Joi.objectId().allow(null),
     name: Joi.string().required(),
     icon: Joi.string().required(),
-    order: Joi.Number().required(),
-    level: Joi.Number().required(),
+    order: Joi.number().required(),
+    level: Joi.number().required(),
     endPoint: Joi.string().trim().required(),
     status: Joi.boolean().required(),
-    description: Joi.string(),
+    description: Joi.string().required(),
     createdBy: Joi.objectId().required()
 });
 
@@ -26,7 +28,7 @@ function createMenu(Models) {
             }
 
             // pick data from req.body
-            let bodyData = _.pick(req.body, ['parentID', 'topParentID', 'name', 'icon', 'order', 'level', 'endPoint', 'status', 'createdBy']);
+            let bodyData = _.pick(req.body, ['parentID', 'topParentID', 'name', 'icon', 'order', 'level', 'endPoint', 'description', 'status', 'createdBy']);
 
             // searching email or mobile already exists or not
             let findData = await Models.MenuModuleDB.findOne({ name: bodyData.name });
@@ -36,8 +38,8 @@ function createMenu(Models) {
             }
 
             let saveMenuModule = await new Models.MenuModuleDB(bodyData).save();
-
-            res.send({ status: true, message: "Menu Module Created.", mailSent: true });
+            console.log('saveMenuModule is', saveMenuModule)
+            res.send({ status: true, message: "Menu Module Created." });
         }
         catch (e) {
             console.log('saveMenuModule err', e);
@@ -46,7 +48,4 @@ function createMenu(Models) {
     }
     return create;
 }
-
-module.exports = {
-    createMenuModule: createMenu
-};
+module.exports = createMenu;

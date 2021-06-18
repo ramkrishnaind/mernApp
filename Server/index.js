@@ -9,7 +9,7 @@ const path = require('path');
 require('dotenv').config()
 
 var app = express();
-var PORT = process.env.PORT || 3333;
+var PORT = process.env.PORT || 3334;
 var config = require('./config.json');
 
 app.disable("x-powered-by");
@@ -31,7 +31,7 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: 'VikramJeetSinwal',
     resave: false,
     saveUninitialized: true
 }));

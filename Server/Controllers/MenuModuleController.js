@@ -2,16 +2,16 @@
 const express = require('express');
 var router = express.Router();
 
-const createMenuModule = require('./Routes/MenuModule/createMenuModule');
-
+const createMenu = require('./Routes/MenuModule/createMenuModule');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
     // console.log(conn)
-    const allCollection = require('../connection/connection1/getCollections')(conn.finvestfxDBConnection);
-    const userAuthMiddleware = userAuthMiddlewareFunction(allCollection);
+    const allCollection = require('../Database/getCollections')(conn.MongoDBConnection);
+    const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
+    const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.get('/createMenuModule', userAuthMiddleware, createMenuModule(allCollection))
+    router.post('/createMenu', requestAuthMiddleware, createMenu(allCollection))
 
     return router;
 };
