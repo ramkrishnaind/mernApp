@@ -42,7 +42,12 @@ function userAuthMiddleware(Models) {
 function requestAuthMiddleware() {
     async function requestAuth(req, res, next) {
         try {
-            let tokenArr = req.headers.authorization.split(' ');
+            let authToken = req.headers.authorization;
+
+            if (!authToken) {
+                throw { status: false, error: true, auth: false, message: "Token is required" };
+            }
+            let tokenArr = authToken.split(' ');
             let token = tokenArr[1];
 
             var decoded = jwt.verify(token, process.env.SESSION_SECRET);

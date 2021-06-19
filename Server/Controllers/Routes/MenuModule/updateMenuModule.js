@@ -5,18 +5,19 @@ Joi.objectId = require('joi-objectid')(Joi)
 const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const menuModuleSchema = Joi.object({
+    _id: Joi.objectId(),
     parentID: Joi.objectId().allow(null),
     topParentID: Joi.objectId().allow(null),
     name: Joi.string().required(),
     icon: Joi.string().required(),
-    endPoint: Joi.string().trim().allow(null),
+    endPoint: Joi.string().trim(),
     status: Joi.boolean().required(),
     description: Joi.string().required(),
-    createdBy: Joi.objectId().required()
+    updatedBy: Joi.objectId().required()
 });
 
-function createMenu(Models) {
-    async function create(req, res) {
+function updateMenu(Models) {
+    async function update(req, res) {
         try {
             // console.log(req.sessionID)
             // validate data using joi
@@ -26,10 +27,13 @@ function createMenu(Models) {
             }
 
             // pick data from req.body
-            let topMenuCount = await Models.MenuModuleDB.countDocuments({ topParentID: null });
+            let topMenuCount = await Models.MenuModuleDB.countDocuments({ topParentID: null }).lean();
+            let setData = {
+                password: hash
+            }
 
-
-            let bodyData = _.pick(req.body, ['parentID', 'topParentID', 'name', 'icon', 'endPoint', 'description', 'status', 'createdBy']);
+            let bodyData = _.pick(req.body, ['_id', 'parentID', 'topParentID', 'name', 'icon', 'order', 'endPoint', 'description', 'status', 'updatedBy']);
+            let checkOrderExist = await Models.MenuModuleDB.findOneAndUpdate({ $and: [{ _id: !bodyData._id }, { order: bodyData.order }] }, { $set: { order: topMenuCount + 1 } }).lean;
             if (bodyData.topParentID && bodyData.parentID) {
                 bodyData.level = 2;
                 bodyData.order = 0;
@@ -40,6 +44,7 @@ function createMenu(Models) {
                 bodyData.level = 0;
                 bodyData.order = topMenuCount + 1;
             }
+
             // searching email or mobile already exists or not
             let findData = await Models.MenuModuleDB.findOne({ name: bodyData.name });
             if (findData) {
@@ -47,15 +52,15 @@ function createMenu(Models) {
                 throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateMenuModule: true, statusCode: 401 };
             }
 
-            let saveMenuModule = await new Models.MenuModuleDB(bodyData).save();
-            console.log('saveMenuModule is', saveMenuModule)
-            res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
+            let updateMenuModule = await new Models.findOneAndUpdate({ _id: bodyData._id }, { $set: bodyData });
+            console.log('updateMenuModule is', updateMenuModule)
+            res.send({ status: true, message: CONSTANTSMESSAGE.UPDATE_SUCCESS_MESSAGE });
         }
         catch (e) {
-            console.log('saveMenuModule err', e);
-            await errorResponseHelper({ res, error: e, defaultMessage: "Error in saveMenuModule" });
+            console.log('updateMenuModule err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in updateMenuModule" });
         }
     }
-    return create;
+    return update;
 }
-module.exports = createMenu;
+module.exports = updateMenu;
