@@ -34,7 +34,7 @@ const menuModuleSchema = new Schema({
     },
     endPoint: {
         type: String,
-        required: true
+        required: false
     },
     status: {
         type: Boolean,
