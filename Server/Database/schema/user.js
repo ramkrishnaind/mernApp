@@ -62,12 +62,22 @@ const userSchema = new Schema({
         type: Boolean,
         default: true
     },
-    userCreationDate: {
-        type: Date,
-        default: Date.now
-    },
     lastLoginTime: {
         type: Date
+    }
+}, {
+    timestamps: {
+        createdAt: 'userCreationDate',
+        updatedAt: 'updated'
+    },
+    id: false,
+    toJSON: {
+        getters: true,
+        virtuals: true
+    },
+    toObject: {
+        getters: true,
+        virtuals: true
     }
 }, {
     collection: 'user'

@@ -2,7 +2,7 @@
 const express = require('express');
 var router = express.Router();
 
-const createMenu = require('./Routes/MenuModule/createMenuModule');
+let {createMenu, getMenuList} = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
@@ -12,6 +12,7 @@ module.exports = function (conn) {
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
     router.post('/createMenu', requestAuthMiddleware, createMenu(allCollection))
+    router.post('/getMenuList', requestAuthMiddleware, getMenuList(allCollection))
 
     return router;
 };

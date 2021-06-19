@@ -49,18 +49,24 @@ const menuModuleSchema = new Schema({
         ref: 'user',
         default: null
     },
-    creationDate: {
-        type: Date,
-        default: Date.now
-    },
     updatedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
         default: null
+    }
+}, {
+    timestamps: {
+        createdAt: 'created',
+        updatedAt: 'updated'
     },
-    updationDate: {
-        type: Date,
-        default: null
+    id: false,
+    toJSON: {
+        getters: true,
+        virtuals: true
+    },
+    toObject: {
+        getters: true,
+        virtuals: true
     }
 }, {
     collection: 'menuModule'

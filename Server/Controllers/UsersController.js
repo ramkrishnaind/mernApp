@@ -3,14 +3,8 @@ const express = require('express');
 
 var router = express.Router();
 
-const signupFunction = require('./Routes/Authentication/signup');
-const loginFunction = require('./Routes/Authentication/login');
-const forgotPasswordFunction = require('./Routes/Authentication/forgotPassword');
-const verificationFunction = require('./Routes/Authentication/verification');
-const setNewPasswordFunction = require('./Routes/Authentication/setNewPassword');
-const getAuthTokenFunction = require('./Routes/Authentication/getAuthToken');
-const logoutFunction = require('./Routes/Authentication/logout');
-
+let {forgotPasswordFunction, signupFunction, loginFunction, verificationFunction, setNewPasswordFunction,
+    getAuthTokenFunction, logoutFunction} = require('./Routes')
 
 module.exports = function (conn) {
     // console.log(conn)

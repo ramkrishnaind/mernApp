@@ -1,0 +1,17 @@
+@token= Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDA3MWQ0ZmNmM2E3MDdhODViMDUyNjMiLCJpYXQiOjE2MTEzOTM1MDB9.0JUQuUN5MtLZKucgY4yqA2e89hy4iLpw7P73BPmx9dI
+# @ip = http://192.46.214.45:9080/api/v1/
+@ip = http://localhost:3334/api/v1/
+
+
+############## Term and condition API ADMIN SIGNUP
+POST {{ip}}api/users/signup HTTP/1.1
+Content-type: application/json
+
+{
+    "firstName": "Akshay",
+    "lastName": "Jain",
+    "email": "coolakshayjain557@gmail.com",
+    "password": "123456",
+    "mobile": 1234567890,
+    "countryCode":91
+}
