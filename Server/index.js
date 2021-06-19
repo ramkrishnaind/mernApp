@@ -42,10 +42,12 @@ app.set('trust proxy', 1);
 const MongoDBConnection = require('./Database/connection');
 //const MySqlConnection = require('./Database/gammaDBConnection/connection');
 
+let prefix = '/api/';
 
 //app.use('/api/pricing', require('./controllers/pricing.controller')({ MongoDBConnection }));
-app.use('/api/users', require('./Controllers/UsersController')({ MongoDBConnection }));
-app.use('/api/menuModule', require('./Controllers/MenuModuleController')({ MongoDBConnection }));
+app.use(`${prefix}users`, require('./Controllers/UsersController')({ MongoDBConnection }));
+app.use(`${prefix}menuModule`, require('./Controllers/MenuModuleController')({ MongoDBConnection }));
+app.use(`${prefix}role`, require('./Controllers/RoleController')({ MongoDBConnection }));
 
 
 // let reactHTMLPath = process.env.NODE_ENV === 'production' ? "../FX-React/build" : "";

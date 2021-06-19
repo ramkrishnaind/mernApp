@@ -8,12 +8,12 @@ POST {{ip}}users/signup HTTP/1.1
 Content-type: application/json
 
 {
-    "firstName": "Akshay",
-    "lastName": "Jain",
-    "email": "coolakshayjain557@gmail.com",
-    "password": "123456",
-    "mobile": 1234567890,
-    "countryCode":91
+   "firstName": "Akshay",
+   "lastName": "Jain",
+   "email": "coolakshayjain557@gmail.com",
+   "password": "123456",
+   "mobile": 1234567890,
+   "countryCode":91
 }
 
 ###################################################### MENU ###########################################
@@ -25,5 +25,55 @@ Content-type: application/json
 Authorization: {{token}}
 
 {
-    "userRole":["test1"]
+   "userRole":["test1"]
 }
+
+###################################################### CREATE ROLE ###########################################
+
+############ craeteUserRole ########
+
+POST {{ip}}role/createUserRole HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "id": null,
+   "name": "testUser",
+   "rights": ["60cd51d29929671c8cbe390c", "60cd50f49929671c8cbe3908"],
+   "status": true,
+   "createdBy": "60cdd398285f20226c9345c8",
+   "updatedBy": "60cdd398285f20226c9345c8"
+}
+
+############ updateUserRole ########
+
+POST {{ip}}role/createUserRole HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "id": "60cdfef4065fd802c4478671",
+   "name": "testUser1",
+   "rights": ["60cd51d29929671c8cbe390c", "60cd50f49929671c8cbe3908"],
+   "status": true,
+   "createdBy": "60cdd398285f20226c9345c8",
+   "updatedBy": "60cd51d29929671c8cbe390c"
+}
+
+############ updateUserRole ########
+
+POST {{ip}}role/updateStatusUserRole HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "id": "60cdfef4065fd802c4478671",
+   "status": false,
+   "updatedBy": "60cd51d29929671c8cbe390c"
+}
+
+############ userRoleList ########
+
+POST {{ip}}role/userRoleList HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}

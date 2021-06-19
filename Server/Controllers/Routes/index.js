@@ -8,4 +8,7 @@ module.exports = {
     logoutFunction: require('./Authentication/logout'),
     getMenuList: require('./MenuModule/getMenuListModule'),
     createMenu: require('./MenuModule/createMenuModule'),
+    createUserRoleFunction: require('./RoleModule/createRoleModule'),
+    updateStatusUserRoleFunction: require('./RoleModule/updateStatusRole'),
+    userRoleListFunction: require('./RoleModule/userRoleList')
 }
