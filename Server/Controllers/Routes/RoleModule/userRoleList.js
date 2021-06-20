@@ -9,8 +9,26 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 function userRoleList(Models) {
     async function updateRole(req, res) {
         try {
-            
-            let userRoleModule = await Models.UserRoleDB.find({}).sort({ updated: -1 }).populate("MenuModule").lean();
+            let userRoleModule = await Models.UserRoleDB.aggregate([{
+                $lookup: {
+                    from: "users",
+                    let: { order_item: "$_id", order_qty: "$createdBy" },
+                    pipeline: [
+                        { $project: { firstName: 1, _id: 1, lastName:1 } }
+                    ],
+                    as: "createdByDetail"
+                }
+            },
+            {
+                $lookup: {
+                    from: "menumodules",
+                    let: { menu_id: "$_id", rights: "$rights" },
+                    pipeline: [
+                        { $project: { _id: 1, name:1 } }
+                    ],
+                    as: "rightsName"
+                }
+            }])
             res.send({ status: true, message: "", data: userRoleModule });
         }
         catch (e) {
