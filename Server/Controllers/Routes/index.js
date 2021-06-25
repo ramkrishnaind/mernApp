@@ -10,5 +10,10 @@ module.exports = {
     createMenu: require('./MenuModule/createMenuModule'),
     createUserRoleFunction: require('./RoleModule/createRoleModule'),
     updateStatusUserRoleFunction: require('./RoleModule/updateStatusRole'),
-    userRoleListFunction: require('./RoleModule/userRoleList')
+    userRoleListFunction: require('./RoleModule/userRoleList'),
+    uploadFileFunction: require('./MenuModule/uploadFileModule'),
+    createCallbackRequest: require('./CallbackModule/createCallbackModule'),
+    getCallbackRequest: require('./CallbackModule/getCallbackListModule'),
+    updateCallbackStatusRequest: require('./CallbackModule/updateCallbackStatusModule')
+
 }

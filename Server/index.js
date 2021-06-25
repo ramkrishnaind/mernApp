@@ -48,6 +48,7 @@ let prefix = '/api/';
 app.use(`${prefix}users`, require('./Controllers/UsersController')({ MongoDBConnection }));
 app.use(`${prefix}menuModule`, require('./Controllers/MenuModuleController')({ MongoDBConnection }));
 app.use(`${prefix}role`, require('./Controllers/RoleController')({ MongoDBConnection }));
+app.use(`${prefix}callback`, require('./Controllers/CallbackController')({ MongoDBConnection }));
 
 
 // let reactHTMLPath = process.env.NODE_ENV === 'production' ? "../FX-React/build" : "";

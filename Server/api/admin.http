@@ -77,3 +77,37 @@ Authorization: {{token}}
 POST {{ip}}role/userRoleList HTTP/1.1
 Content-type: application/json
 Authorization: {{token}}
+
+
+################# createCallback ################
+
+POST {{ip}}callback/createCallbackRequest HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "productId": "gdjhfghfgkjlkj",
+   "name": "Akshay jain",
+   "email": "akshay@gmail.com",
+   "phone": "0123456789",
+   "message": "test demo",
+   "isVisit": true
+}
+
+################# createCallback ################
+
+POST {{ip}}callback/getCallbackRequest HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+
+################# updateCallbackStatus ################
+
+POST {{ip}}callback/updateCallbackStatusRequest HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "id": "60d5df5e1649070c68ba001e",
+   "status": false
+}
