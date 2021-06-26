@@ -5,15 +5,13 @@ Joi.objectId = require('joi-objectid')(Joi)
 const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
-    productId: Joi.string().required(),
     name: Joi.string().required(),
     email:Joi.string().required(),
     phone: Joi.number().required(),
-    message: Joi.string().required(),
-    isVisit: Joi.boolean().required()
+    place: Joi.string().required()
 });
 
-function createCallbackRequest(Models) {
+function createEnquiryRequest(Models) {
     async function create(req, res) {
         try {
             // console.log(req.sessionID)
@@ -25,15 +23,15 @@ function createCallbackRequest(Models) {
 
             // pick data from req.body
          
-            let bodyData = _.pick(req.body, ["productId","name","email","phone","message","isVisit"]);
+            let bodyData = _.pick(req.body, ["name","email","phone","place"]);
             // searching email or mobile already exists or not
-            let findData = await Models.ReqCallbackDB.findOne({ email: bodyData.email });
+            let findData = await Models.EnquiryDB.findOne({ email: bodyData.email });
             if (findData) {
                 // if data found check 
                 throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateModule: true, statusCode: 401 };
             }
 
-            let saveModule = await new Models.ReqCallbackDB(bodyData).save();
+            let saveModule = await new Models.EnquiryDB(bodyData).save();
             console.log('saveModule is', saveModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
         }
@@ -44,4 +42,4 @@ function createCallbackRequest(Models) {
     }
     return create;
 }
-module.exports = createCallbackRequest;
+module.exports = createEnquiryRequest;

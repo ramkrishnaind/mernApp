@@ -83,7 +83,6 @@ Authorization: {{token}}
 
 POST {{ip}}callback/createCallbackRequest HTTP/1.1
 Content-type: application/json
-Authorization: {{token}}
 
 {
    "productId": "gdjhfghfgkjlkj",
@@ -109,5 +108,35 @@ Authorization: {{token}}
 
 {
    "id": "60d5df5e1649070c68ba001e",
+   "status": false
+}
+
+################# createEnquiry #################
+
+POST {{ip}}enquiry/createEnquiryRequest HTTP/1.1
+Content-type: application/json
+
+{
+   "name": "Akshay jain",
+   "email": "akshay@gmail.com",
+   "phone": "0123456789",
+   "place": "Bangalore"
+}
+
+################# createEnquiry ################
+
+POST {{ip}}enquiry/getEnquiryRequest HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+
+################# updateEnquiryStatus ################
+
+POST {{ip}}enquiry/updateEnquiryStatusRequest HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "id": "60d68cbbefcf390848f994fa",
    "status": false
 }

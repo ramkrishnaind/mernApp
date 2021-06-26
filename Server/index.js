@@ -49,6 +49,7 @@ app.use(`${prefix}users`, require('./Controllers/UsersController')({ MongoDBConn
 app.use(`${prefix}menuModule`, require('./Controllers/MenuModuleController')({ MongoDBConnection }));
 app.use(`${prefix}role`, require('./Controllers/RoleController')({ MongoDBConnection }));
 app.use(`${prefix}callback`, require('./Controllers/CallbackController')({ MongoDBConnection }));
+app.use(`${prefix}enquiry`, require('./Controllers/EnquiryController')({ MongoDBConnection }));
 
 
 // let reactHTMLPath = process.env.NODE_ENV === 'production' ? "../FX-React/build" : "";

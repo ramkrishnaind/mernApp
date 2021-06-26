@@ -4,7 +4,7 @@ var router = express.Router();
 const multer = require("multer");
 
 const path = require('path');
-let { createCallbackRequest, getCallbackRequest, updateCallbackStatusRequest } = require('./Routes');
+let { createEnquiryRequest, getEnquiryRequest, updateEnquiryStatusRequest } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
@@ -13,9 +13,9 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.post('/createCallbackRequest', createCallbackRequest(allCollection))
-    router.post('/getCallbackRequest', requestAuthMiddleware, getCallbackRequest(allCollection))
-    router.post('/updateCallbackStatusRequest', requestAuthMiddleware, updateCallbackStatusRequest(allCollection))
+    router.post('/createEnquiryRequest', createEnquiryRequest(allCollection))
+    router.post('/getEnquiryRequest', requestAuthMiddleware, getEnquiryRequest(allCollection))
+    router.post('/updateEnquiryStatusRequest', requestAuthMiddleware, updateEnquiryStatusRequest(allCollection))
     
     return router;
 };

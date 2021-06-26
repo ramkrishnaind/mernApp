@@ -14,6 +14,9 @@ module.exports = {
     uploadFileFunction: require('./MenuModule/uploadFileModule'),
     createCallbackRequest: require('./CallbackModule/createCallbackModule'),
     getCallbackRequest: require('./CallbackModule/getCallbackListModule'),
-    updateCallbackStatusRequest: require('./CallbackModule/updateCallbackStatusModule')
+    updateCallbackStatusRequest: require('./CallbackModule/updateCallbackStatusModule'),
+    createEnquiryRequest: require('./EnquiryModule/createEnquiryModule'),
+    getEnquiryRequest: require('./EnquiryModule/getEnquiryListModule'),
+    updateEnquiryStatusRequest: require('./EnquiryModule/updateEnquiryStatusModule')
 
 }
