@@ -140,3 +140,35 @@ Authorization: {{token}}
    "id": "60d68cbbefcf390848f994fa",
    "status": false
 }
+
+
+################# createreview ################
+
+POST {{ip}}review/createReviewRequest HTTP/1.1
+Content-type: application/json
+
+{
+   "productId": "gdjhfghfgkjlkj",
+   "name": "Akshay jain",
+   "email": "akshay@gmail.com",
+   "comment": "test demo",
+   "rating": "5"
+}
+
+################# createReview ################
+
+POST {{ip}}review/getReviewRequest HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+
+################# updateReviewStatus ################
+
+POST {{ip}}review/updateReviewStatusRequest HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "id": "60d7171f51113a1998714a8c",
+   "status": false
+}

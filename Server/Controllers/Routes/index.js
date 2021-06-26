@@ -17,6 +17,10 @@ module.exports = {
     updateCallbackStatusRequest: require('./CallbackModule/updateCallbackStatusModule'),
     createEnquiryRequest: require('./EnquiryModule/createEnquiryModule'),
     getEnquiryRequest: require('./EnquiryModule/getEnquiryListModule'),
-    updateEnquiryStatusRequest: require('./EnquiryModule/updateEnquiryStatusModule')
+    updateEnquiryStatusRequest: require('./EnquiryModule/updateEnquiryStatusModule'),
+    createReviewRequest: require('./ReviewModule/createReviewModule'),
+    getReviewRequest: require('./ReviewModule/getReviewListModule'),
+    updateReviewStatusRequest: require('./ReviewModule/updateReviewStatusModule')
+
 
 }

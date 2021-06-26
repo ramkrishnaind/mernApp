@@ -50,6 +50,7 @@ app.use(`${prefix}menuModule`, require('./Controllers/MenuModuleController')({ M
 app.use(`${prefix}role`, require('./Controllers/RoleController')({ MongoDBConnection }));
 app.use(`${prefix}callback`, require('./Controllers/CallbackController')({ MongoDBConnection }));
 app.use(`${prefix}enquiry`, require('./Controllers/EnquiryController')({ MongoDBConnection }));
+app.use(`${prefix}review`, require('./Controllers/ReviewController')({ MongoDBConnection }));
 
 
 // let reactHTMLPath = process.env.NODE_ENV === 'production' ? "../FX-React/build" : "";
