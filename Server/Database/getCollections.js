@@ -9,7 +9,7 @@ module.exports = function (mongoose) {
     const ReqCallbackDB = mongoose.model('reqCallback');
     const EnquiryDB = mongoose.model('enquiry');
     const ReviewDB = mongoose.model('review');
-    
+    const PropertyDB = mongoose.model('property');
     
     return {
         UserDB,
@@ -18,6 +18,7 @@ module.exports = function (mongoose) {
         UserRoleDB,
         ReqCallbackDB,
         EnquiryDB,
-        ReviewDB
+        ReviewDB,
+        PropertyDB
     }
 }

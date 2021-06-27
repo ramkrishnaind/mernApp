@@ -45,7 +45,7 @@ Authorization: {{token}}
    "updatedBy": "60cdd398285f20226c9345c8"
 }
 
-############ updateUserRole ########
+############ createUserRole ########
 
 POST {{ip}}role/createUserRole HTTP/1.1
 Content-type: application/json
@@ -85,7 +85,7 @@ POST {{ip}}callback/createCallbackRequest HTTP/1.1
 Content-type: application/json
 
 {
-   "productId": "gdjhfghfgkjlkj",
+   "productId": "60d7dc32d31ee41430c4fac8",
    "name": "Akshay jain",
    "email": "akshay@gmail.com",
    "phone": "0123456789",
@@ -93,7 +93,7 @@ Content-type: application/json
    "isVisit": true
 }
 
-################# createCallback ################
+################# getCallback ################
 
 POST {{ip}}callback/getCallbackRequest HTTP/1.1
 Content-type: application/json
@@ -123,7 +123,7 @@ Content-type: application/json
    "place": "Bangalore"
 }
 
-################# createEnquiry ################
+################# getEnquiry ################
 
 POST {{ip}}enquiry/getEnquiryRequest HTTP/1.1
 Content-type: application/json
@@ -148,14 +148,14 @@ POST {{ip}}review/createReviewRequest HTTP/1.1
 Content-type: application/json
 
 {
-   "productId": "gdjhfghfgkjlkj",
+   "productId": "60d7dc32d31ee41430c4fac8",
    "name": "Akshay jain",
-   "email": "akshay@gmail.com",
+   "email": "akshayq@gmail.com",
    "comment": "test demo",
    "rating": "5"
 }
 
-################# createReview ################
+################# getReview ################
 
 POST {{ip}}review/getReviewRequest HTTP/1.1
 Content-type: application/json
@@ -171,4 +171,35 @@ Authorization: {{token}}
 {
    "id": "60d7171f51113a1998714a8c",
    "status": false
+}
+
+################# createproperty ################
+
+POST {{ip}}property/createPropertyRequest HTTP/1.1
+Content-type: application/json
+
+{
+   "propertyName": "TEST",
+   "propertyAddress": "Bangalore",
+   "propertyArea": "1200",
+   "bedRoom": "3",
+   "kitchen": "2"
+}
+
+################# getProperty ################
+
+POST {{ip}}property/getPropertyRequest HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+
+################# updatePropertyStatus ################
+
+POST {{ip}}property/updatePropertyStatusRequest HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "id": "60d7dc32d31ee41430c4fac8",
+   "status": true
 }

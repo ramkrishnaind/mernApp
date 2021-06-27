@@ -9,7 +9,7 @@ function getCallbackList(Models)
 {
     async function callbackList(req, res) {
         try {
-            let findData = await Models.ReqCallbackDB.find({}).sort({ updated: -1 });            
+            let findData = await Models.ReqCallbackDB.find({}).populate("productId").sort({ updated: -1 });            
             let obj = {
                 total: findData.length,
                 list:findData

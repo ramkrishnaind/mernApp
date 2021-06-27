@@ -7,7 +7,5 @@ module.exports = function (mongoose) {
     mongoose.model('reqCallback', require('./schema/reqCallback'));
     mongoose.model('enquiry', require('./schema/enquiry'));
     mongoose.model('review', require('./schema/review'));
-    
-    
-    
+    mongoose.model('property', require('./schema/property'));
 }

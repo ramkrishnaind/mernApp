@@ -5,11 +5,11 @@ const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 
 const errorResponseHelper = require('../../../Helper/errorResponse');
 
-function getReviewList(Models)
+function getPropertyList(Models)
 {
-    async function ReviewList(req, res) {
+    async function PropertyList(req, res) {
         try {
-            let findData = await Models.ReviewDB.find({}).populate("productId").sort({ updated: -1 });            
+            let findData = await Models.PropertyDB.find({}).sort({ updated: -1 });            
             let obj = {
                 total: findData.length,
                 list:findData
@@ -22,7 +22,7 @@ function getReviewList(Models)
             await errorResponseHelper({ res, error: e, defaultMessage: "Error in Getting list" });
         }
     }
-    return ReviewList;
+    return PropertyList;
 }
 
-module.exports = getReviewList;
+module.exports = getPropertyList;

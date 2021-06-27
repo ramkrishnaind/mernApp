@@ -1,37 +1,34 @@
 
 const mongoose = require('mongoose');
-const { nanoid } = require('nanoid');
 
 var Schema = mongoose.Schema;
 
 const schema = new Schema({
-    name: {
+    propertyName: {
         type: String,
         required: true,
         trim: true
     },
-    email: {
+    propertyAddress: {
         type: String,
         required: true,
         trim: true
     },
-    comment: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    productId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'property',
-        default: null
-    },
-    rating: {
+    propertyArea: {
         type: Number,
-        required: true
+        required: true,
+    },
+    bedRoom: {
+        type: Number,
+        required: true,
+    },
+    kitchen: {
+        type: Number,
+        required: true,
     },
     status: {
         type: Boolean,
-        default: true
+        default: false
     }
 }, {
     timestamps: {
@@ -48,7 +45,7 @@ const schema = new Schema({
         virtuals: true
     }
 }, {
-    collection: 'review'
+    collection: 'property'
 }
 );
 

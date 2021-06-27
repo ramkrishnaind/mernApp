@@ -25,8 +25,9 @@ const schema = new Schema({
         trim: true
     },
     productId: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'property',
+        default: null
     },
     isVisit :{
         type: Boolean,
