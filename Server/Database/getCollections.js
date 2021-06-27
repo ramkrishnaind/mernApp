@@ -10,7 +10,7 @@ module.exports = function (mongoose) {
     const EnquiryDB = mongoose.model('enquiry');
     const ReviewDB = mongoose.model('review');
     const PropertyDB = mongoose.model('property');
-    
+    const FeedbackDB = mongoose.model('feedback');
     return {
         UserDB,
         AuthTokenDB,
@@ -19,6 +19,7 @@ module.exports = function (mongoose) {
         ReqCallbackDB,
         EnquiryDB,
         ReviewDB,
-        PropertyDB
+        PropertyDB,
+        FeedbackDB
     }
 }

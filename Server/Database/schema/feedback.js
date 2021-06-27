@@ -1,7 +1,5 @@
 
 const mongoose = require('mongoose');
-const { nanoid } = require('nanoid');
-
 var Schema = mongoose.Schema;
 
 const schema = new Schema({
@@ -10,18 +8,18 @@ const schema = new Schema({
         required: true,
         trim: true
     },
-    email: {
+    message: {
         type: String,
-        required: true,
-        trim: true
+        required: true
     },
-    phone: {
+    rating: {
         type: Number,
         required: true
     },
-    place: {
-        type: String,
-        required: true
+    productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'property',
+        default: null
     },
     status: {
         type: Boolean,
@@ -42,7 +40,7 @@ const schema = new Schema({
         virtuals: true
     }
 }, {
-    collection: 'enquiry'
+    collection: 'feedback'
 }
 );
 

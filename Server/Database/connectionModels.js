@@ -8,4 +8,5 @@ module.exports = function (mongoose) {
     mongoose.model('enquiry', require('./schema/enquiry'));
     mongoose.model('review', require('./schema/review'));
     mongoose.model('property', require('./schema/property'));
+    mongoose.model('feedback', require('./schema/feedback'));
 }

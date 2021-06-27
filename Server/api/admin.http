@@ -203,3 +203,33 @@ Authorization: {{token}}
    "id": "60d7dc32d31ee41430c4fac8",
    "status": true
 }
+
+################# createfeedback ################
+
+POST {{ip}}feedback/createFeedbackRequest HTTP/1.1
+Content-type: application/json
+
+{
+   "name": "TEST",
+   "rating":"5",
+   "message":"demo test",
+   "productId": "60d7dc32d31ee41430c4fac8"
+}
+
+################# getFeedback ################
+
+POST {{ip}}feedback/getFeedbackRequest HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+
+################# updateFeedbackStatus ################
+
+POST {{ip}}feedback/updateFeedbackStatusRequest HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "id": "60d7dc32d31ee41430c4fac8",
+   "status": true
+}

@@ -52,6 +52,7 @@ app.use(`${prefix}callback`, require('./Controllers/CallbackController')({ Mongo
 app.use(`${prefix}enquiry`, require('./Controllers/EnquiryController')({ MongoDBConnection }));
 app.use(`${prefix}review`, require('./Controllers/ReviewController')({ MongoDBConnection }));
 app.use(`${prefix}property`, require('./Controllers/PropertyController')({ MongoDBConnection }));
+app.use(`${prefix}feedback`, require('./Controllers/ClientFeedbackController')({ MongoDBConnection }));
 
 // let reactHTMLPath = process.env.NODE_ENV === 'production' ? "../FX-React/build" : "";
 
