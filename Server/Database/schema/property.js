@@ -4,27 +4,34 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const schema = new Schema({
-    propertyName: {
+    iAm:{
         type: String,
         required: true,
-        trim: true
     },
-    propertyAddress: {
+    name:{
         type: String,
-        required: true,
         trim: true
     },
-    propertyArea: {
-        type: Number,
-        required: true,
+    mobileNo:{
+        type:Number
     },
-    bedRoom: {
-        type: Number,
-        required: true,
+    email:{
+        type:String
     },
-    kitchen: {
-        type: Number,
-        required: true,
+    for:{
+        type:String
+    },
+    pType:{
+        type:String
+    },
+    postingAs:{
+        type:String
+    },
+    pCity:{
+        type:String
+    },
+    nameOfProject:{
+        type:String
     },
     status: {
         type: Boolean,

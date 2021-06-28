@@ -26,6 +26,7 @@ function createEnquiryRequest(Models) {
             let bodyData = _.pick(req.body, ["name","email","phone","place"]);
             // searching email or mobile already exists or not
             let findData = await Models.EnquiryDB.findOne({ email: bodyData.email });
+            console.log(findData);
             if (findData) {
                 // if data found check 
                 throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateModule: true, statusCode: 401 };
