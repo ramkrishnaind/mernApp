@@ -28,6 +28,36 @@ const schema = new Schema({
     bathrooms:{
         type:Number
     },
+    FloorsAllowedforconstruction:{
+        type:Number
+    },
+    Noofopensides:{
+        type:Number
+    },
+    Widthofroad:{
+        type:Number
+    },
+    AnyConstructiondone:{
+        type:Boolean
+    },
+    BoundaryWallMade:{
+        type:Boolean
+    },
+    Isinagatedcolony:{
+        type:Boolean
+    }, 
+    PlotArea:{
+        type:Number
+    },
+    PlotLength:{
+        type:Number
+    },
+    PlotBreadth:{
+        type:Number
+    },
+    IsCornerPlot:{
+        type:Boolean
+    },
     superArea:{
         type:Number
     },

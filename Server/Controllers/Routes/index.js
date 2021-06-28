@@ -26,6 +26,8 @@ module.exports = {
     updatePropertyStatusRequest: require('./PropertyModule/updatePropertyStatusModule'),
     createFeedbackRequest: require('./FeedbackModule/createFeedbackModule'),
     getFeedbackRequest: require('./FeedbackModule/getFeedbackListModule'),
-    updateFeedbackStatusRequest: require('./FeedbackModule/updateFeedbackStatusModule')
-
+    updateFeedbackStatusRequest: require('./FeedbackModule/updateFeedbackStatusModule'),
+    exteriorImage: require('./PropertyModule/exteriorImageModule'),
+    livingRoomImage: require('./PropertyModule/livingRoomImageModule'),
+    
 }
