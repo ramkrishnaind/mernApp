@@ -10,10 +10,40 @@ function exteriorImage(Models) {
         try {
 
             const bodyData = {
-                'productId':req.body.productId,
-                'exteriorView':req.files
+                'productId':req.body.productId
             }
 
+            switch(req.body.imagetype)
+            {
+                case 'exterior':
+                    bodyData['exteriorView'] = req.files;
+                break;
+                case 'livingRoom':
+                    bodyData['livingRoom'] = req.files;
+                break;
+                case 'badrooms':
+                    bodyData['badrooms'] = req.files;
+                break;
+                case 'bathrooms':
+                    bodyData['bathrooms'] = req.files;
+                break;
+                case 'kitchen':
+                    bodyData['kitchen'] = req.files;
+                break;
+                case 'floorPlan':
+                    bodyData['floorPlan'] = req.files;
+                break;
+                case 'masterPlan':
+                    bodyData['masterPlan'] = req.files;
+                break;
+                case 'locationMap':
+                    bodyData['locationMap'] = req.files;
+                break;
+                case 'other':
+                    bodyData['other'] = req.files;
+                break;
+            }
+            
             let findDataname = await Models.PImageDB.findOne({ productId:req.body.productId });
             if (findDataname) {
                 // if data found check 

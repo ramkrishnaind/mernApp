@@ -9,11 +9,59 @@ const schema = new Schema({
         ref: 'property',
         default: null
     },
-    expectedPrice:{
-        type:Number
+    expectedPrice: {
+        type: Number
     },
-    tokenAmount:{
-        type:Number
+    tokenAmount: {
+        type: Number
+    },
+    pricePerSqft: {
+        type: Number
+    },
+    priceIncludes: {
+        type: Array
+    },
+    otherCharges: {
+        type: Number
+    },
+    wishToEnter: {
+        type: String
+    },
+    basicPrice: {
+        type: Number
+    },
+    floorPLC: {
+        type: Number
+    },
+    facingPLC: {
+        type: Number
+    },
+    openCarParking: {
+        type: Number
+    },
+    openCarParkingFree: {
+        type: Boolean
+    },
+    coveredCarParking: {
+        type: Number
+    },
+    coveredCarParkingFree: {
+        type: Boolean
+    },
+    newComponent: {
+        type: string
+    },
+    taxRegistration: {
+        type: Boolean
+    },
+    maintenanceCharges: {
+        type: Number
+    },
+    per: {
+        type: String
+    },
+    Brokerage: {
+        type: Number
     }
 }, {
     timestamps: {

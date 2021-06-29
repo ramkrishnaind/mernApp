@@ -3,12 +3,17 @@ const express = require('express');
 const fs = require('fs')
 var router = express.Router();
 const multer = require("multer");
+var count = 0;
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        let fpathId = 'uploads/'+req.body.productId;
+        let fpathId = 'uploads/' + req.body.imagetype + '/' + req.body.productId;
         try {
             if (!fs.existsSync(fpathId)) {
-                fs.mkdirSync(fpathId)
+                fs.mkdirSync(fpathId, { recursive: true }, (err) => {
+                    if (err) {
+                        throw err;
+                    }
+                });
             }
         } catch (err) {
             console.error(err)
@@ -22,7 +27,7 @@ let storage = multer.diskStorage({
 });
 let upload = multer({ storage: storage });
 const path = require('path');
-let { createPropertyRequest, getPropertyRequest, updatePropertyStatusRequest,exteriorImage,
+let { createPropertyRequest, getPropertyRequest, updatePropertyStatusRequest, exteriorImage,
     livingRoomImage } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
@@ -35,8 +40,7 @@ module.exports = function (conn) {
     router.post('/createPropertyRequest', createPropertyRequest(allCollection))
     router.post('/getPropertyRequest', getPropertyRequest(allCollection))
     router.post('/updatePropertyStatusRequest', requestAuthMiddleware, updatePropertyStatusRequest(allCollection))
-    router.post('/exteriorImage', upload.array("exterior"), exteriorImage(allCollection))
-    router.post('/livingRoomImage', upload.array("livingRoom"), livingRoomImage(allCollection))
-    
+    router.post('/uploadImage', upload.array("image"), exteriorImage(allCollection))
+
     return router;
 };
