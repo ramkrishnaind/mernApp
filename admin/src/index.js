@@ -1,20 +1,37 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import './bootstrap.min.css';
+// @ts-check
+import React from "react";
+import ReactDOM from "react-dom";
+import { ThemeProvider } from "@material-ui/styles";
+import { CssBaseline, Grid } from "@material-ui/core";
+
+import Themes from "./themes";
+import App from "./components/App";
+import * as serviceWorker from "./serviceWorker";
+import { LayoutProvider } from "./context/LayoutContext";
+//import { UserProvider } from "./context/UserContext";
+import { store } from './_helpers';
 import { Provider } from 'react-redux';
-import store from './store';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
+  <LayoutProvider>
+    
+      <ThemeProvider theme={Themes.default}>
+        <CssBaseline />
+          
+             <ToastContainer />
+         
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </ThemeProvider>
+    
+  </LayoutProvider>,
+  document.getElementById("root"),
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: http://bit.ly/CRA-PWA
+serviceWorker.unregister();
