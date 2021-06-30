@@ -8,6 +8,11 @@ const schema = new Schema({
         type: String,
         required: true,
     },
+    userId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
+        default: null
+    },
     name:{
         type: String,
         trim: true

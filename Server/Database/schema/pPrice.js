@@ -49,7 +49,7 @@ const schema = new Schema({
         type: Boolean
     },
     newComponent: {
-        type: string
+        type: String
     },
     taxRegistration: {
         type: Boolean
