@@ -28,5 +28,13 @@ module.exports = {
     getFeedbackRequest: require('./FeedbackModule/getFeedbackListModule'),
     updateFeedbackStatusRequest: require('./FeedbackModule/updateFeedbackStatusModule'),
     exteriorImage: require('./PropertyModule/exteriorImageModule'),
-    getUserIdPropertyList: require('./PropertyModule/getUserPropertyListModule')
+    getUserIdPropertyList: require('./PropertyModule/getUserPropertyListModule'),
+    createCMS: require('./CMSModule/createCMSModule'),
+    getCMSList: require('./CMSModule/getCMSListModule'),
+    updateCMS:require('./CMSModule/updateCMSModule'),
+    updateCMSStatus: require('./CMSModule/updateCMSStatusModule'),
+    createSlider: require('./SliderModule/createSliderModule'),
+    getSliderList: require('./SliderModule/getSliderListModule'),
+    updateSlider:require('./SliderModule/updateSliderModule'),
+    updateSliderStatus: require('./SliderModule/updateSliderStatusModule'),
 }

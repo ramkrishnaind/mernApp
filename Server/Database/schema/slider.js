@@ -1,28 +1,22 @@
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const mongoose = require('mongoose');
-
-var Schema = mongoose.Schema;
-
-const schema = new Schema({
+let schema = new Schema({
     name: {
         type: String,
-        required: true,
-        trim: true
+        default: ""
     },
-    email: {
+    desc: {
         type: String,
-        required: true,
-        trim: true
+        default: ""
     },
-    phone: {
-        type: Number,
-        required: true
+    URL: {
+        type: String
     },
-    place: {
-        type: String,
-        required: true
+    image: {
+        type: Array
     },
-    status: {
+    isDisable: {
         type: Boolean,
         default: false
     }
@@ -41,8 +35,7 @@ const schema = new Schema({
         virtuals: true
     }
 }, {
-    collection: 'enquiry'
-}
-);
+    collection: 'slider'
+});
 
 module.exports = schema;
