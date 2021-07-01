@@ -35,7 +35,8 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-
+const dir = path.join(__dirname, '/uploads');
+app.use("/uploads", express.static(dir));
 app.set('trust proxy', 1);
 
 
@@ -53,6 +54,7 @@ app.use(`${prefix}enquiry`, require('./Controllers/EnquiryController')({ MongoDB
 app.use(`${prefix}review`, require('./Controllers/ReviewController')({ MongoDBConnection }));
 app.use(`${prefix}property`, require('./Controllers/PropertyController')({ MongoDBConnection }));
 app.use(`${prefix}feedback`, require('./Controllers/ClientFeedbackController')({ MongoDBConnection }));
+app.use(`${prefix}cms`, require('./Controllers/CMSController')({ MongoDBConnection }));
 
 // let reactHTMLPath = process.env.NODE_ENV === 'production' ? "../FX-React/build" : "";
 

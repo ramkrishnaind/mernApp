@@ -258,3 +258,58 @@ Authorization: {{token}}
    "id": "60d7dc32d31ee41430c4fac8",
    "status": true
 }
+
+########################## CMS #########################################
+
+POST {{ip}}cms/createCMS HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "position": "Footer",
+   "pageName": "Shipping",
+   "type": "Is this page",
+   "pageTitle": "Shipping Policyq",
+   "pageUrl": null,
+   "metaKeywords": "Shipping Policy",
+   "metaTitle": "Shipping Policy",
+   "metaDescription": "Shipping Policy",
+   "pageSortDescription": null,
+   "pageDescription": null,
+   "iconImage": null
+}
+
+#### 
+POST {{ip}}cms/getCMSList HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+##### 
+POST {{ip}}cms/updateCMS HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "id":"60dd1d346c09c301a8b67692",
+   "position": "Footer1",
+   "pageName": "Shipping",
+   "type": "Is this page",
+   "pageTitle": "Shipping Policyq",
+   "pageUrl": null,
+   "metaKeywords": "Shipping Policy",
+   "metaTitle": "Shipping Policy",
+   "metaDescription": "Shipping Policy",
+   "pageSortDescription": null,
+   "pageDescription": null,
+   "iconImage": null
+}
+###
+
+POST {{ip}}cms/updateCMSStatus HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "id": "60dd1d346c09c301a8b67692",
+   "isDisable":true
+}

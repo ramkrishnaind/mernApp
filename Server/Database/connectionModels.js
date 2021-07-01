@@ -11,6 +11,9 @@ module.exports = function (mongoose) {
     mongoose.model('pFeatures', require('./schema/pFeatures'));
     mongoose.model('pImage', require('./schema/pImage'));
     mongoose.model('pPrice', require('./schema/pPrice'));
+    mongoose.model('cms', require('./schema/cms'));
+    
+    
     
     
     
