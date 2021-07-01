@@ -34,10 +34,13 @@ function createCMS(Models) {
             let bodyData = _.pick(req.body, ["id", "position","pageName","type","pageUrl",
                                 "pageTitle","metaTitle","metaKeywords","metaDescription","pageSortDescription",
                             "pageDescription","iconImage"]);
+            if(req.files.length > 0)
+                bodyData.iconImage = req.files;
+
             let setData = {
-                position: req.body.position,
-                pageName: req.body.pageName,
-                type: req.body.type,
+                position: bodyData.position,
+                pageName: bodyData.pageName,
+                type: bodyData.type,
                 pageTitle: bodyData.pageTitle,
                 pageUrl: bodyData.pageUrl,
                 metaKeywords: bodyData.metaKeywords,

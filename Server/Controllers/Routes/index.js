@@ -33,4 +33,8 @@ module.exports = {
     getCMSList: require('./CMSModule/getCMSListModule'),
     updateCMS:require('./CMSModule/updateCMSModule'),
     updateCMSStatus: require('./CMSModule/updateCMSStatusModule'),
+    createSlider: require('./SliderModule/createSliderModule'),
+    getSliderList: require('./SliderModule/getSliderListModule'),
+    updateSlider:require('./SliderModule/updateSliderModule'),
+    updateSliderStatus: require('./SliderModule/updateSliderStatusModule'),
 }
