@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import { Typography } from "@material-ui/core";
 import {useDispatch} from 'react-redux';
 import * as LoginAction from '../../redux/actions/LoginAction';
+import {withRouter} from 'react-router-dom';
 
 const HomePage = (props) => {
   const dispatch = useDispatch();
@@ -17,4 +18,4 @@ const HomePage = (props) => {
   );
 };
 
-export default HomePage;
+export default withRouter(HomePage);
