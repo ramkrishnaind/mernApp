@@ -251,8 +251,7 @@ const Login = (props) => {
           </React.Fragment>
         </div>
         <Typography color="primary" className={classes.copyright}>
-          2021 © Eindia Bulk Fashion Jewelry ALL Rights Reserved. | Designed &
-          Developed by Dzone India
+          2021 © Vishal Properties
         </Typography>
       </div>
     </Grid>
