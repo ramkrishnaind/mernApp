@@ -11,7 +11,7 @@ const moduleSchema = Joi.object({
     URL: Joi.string()
 });
 
-function createSlider(Models) {
+function createServices(Models) {
     async function create(req, res) {
         try {
             // console.log(req.sessionID)
@@ -23,19 +23,19 @@ function createSlider(Models) {
 
             // pick data from req.body
          
-            let bodyData = _.pick(req.body, ["id", "name","desc","URL"]);
+            let bodyData = _.pick(req.body, ["id","name","shortDesc","desc"]);
             
             let setData = {
                 name: bodyData.name,
-                desc: bodyData.desc,
-                URL: bodyData.URL
+                shortDesc: bodyData.shortDesc,
+                desc: bodyData.desc
             }
             if(req.files.length > 0)
             {
                 bodyData.image = req.files;
                 setData ['image']= bodyData.image
             }
-            let updateModule = await Models.SliderDB.findOneAndUpdate({ _id: bodyData.id }, { $set: setData});
+            let updateModule = await Models.ServicesDB.findOneAndUpdate({ _id: bodyData.id }, { $set: setData});
             console.log('updateModule is', updateModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
         }
@@ -46,4 +46,4 @@ function createSlider(Models) {
     }
     return create;
 }
-module.exports = createSlider;
+module.exports = createServices;

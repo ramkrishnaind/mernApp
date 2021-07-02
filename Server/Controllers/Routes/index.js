@@ -41,4 +41,8 @@ module.exports = {
     getBuildingList: require('./BuildingMaterialsModule/getBuildingListModule'),
     updateBuilding:require('./BuildingMaterialsModule/updateBuildingModule'),
     updateBuildingStatus: require('./BuildingMaterialsModule/updateBuildingStatusModule'),
+    createServices: require('./ServicesMaterialsModule/createServicesModule'),
+    getServicesList: require('./ServicesMaterialsModule/getServicesListModule'),
+    updateServices:require('./ServicesMaterialsModule/updateServicesModule'),
+    updateServicesStatus: require('./ServicesMaterialsModule/updateServicesStatusModule'),
 }

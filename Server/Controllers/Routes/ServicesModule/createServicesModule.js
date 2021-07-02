@@ -5,35 +5,32 @@ Joi.objectId = require('joi-objectid')(Joi)
 const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
-    id: Joi.string().required(),
     name: Joi.string().required(),
+    shortDesc: Joi.string().required(),
+    desc: Joi.string().required()
 });
 
-function createBuilding(Models) {
+function createServices(Models) {
     async function create(req, res) {
         try {
-            // console.log(req.sessionID)
-            // validate data using joi
+
             let validateData = moduleSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: CONSTANTSMESSAGE.INVALID_DATA };
             }
 
             // pick data from req.body
-         
-            let bodyData = _.pick(req.body, ["id", "name"]);
-           
-            let setData = {
-                name: bodyData.name
+            let bodyData = _.pick(req.body, ["name","shortDesc","desc"]);
+            let findData = await Models.ServicesDB.findOne({ name: bodyData.name });
+          
+            if (findData) {
+                // if data found check 
+                throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateModule: true, statusCode: 401 };
             }
-            if(req.files.length > 0)
-            {
-                bodyData.image = req.files;
-                setData ['image']= bodyData.image
-            }
-            let updateModule = await Models.BuildingDB.findOneAndUpdate({ _id: bodyData.id }, { $set: setData});
-            console.log('updateModule is', updateModule)
-            res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
+            bodyData.image = req.files;
+            let saveModule = await new Models.ServicesDB(bodyData).save();
+            console.log('saveModule is', saveModule)
+            res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
         }
         catch (e) {
             console.log('saveModule err', e);
@@ -42,4 +39,4 @@ function createBuilding(Models) {
     }
     return create;
 }
-module.exports = createBuilding;
+module.exports = createServices;

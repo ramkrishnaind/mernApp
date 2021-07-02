@@ -17,6 +17,7 @@ module.exports = function (mongoose) {
     const CMSDB = mongoose.model('cms');
     const SliderDB = mongoose.model('slider');
     const BuildingDB = mongoose.model('buildingMaterials');
+    const ServicesDB = mongoose.model('services');
     
     return {
         UserDB,
@@ -33,6 +34,7 @@ module.exports = function (mongoose) {
         PImageDB,
         CMSDB,
         SliderDB,
-        BuildingDB
+        BuildingDB,
+        ServicesDB
     }
 }

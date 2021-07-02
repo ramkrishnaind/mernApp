@@ -34,9 +34,7 @@ function createCMS(Models) {
             let bodyData = _.pick(req.body, ["id", "position","pageName","type","pageUrl",
                                 "pageTitle","metaTitle","metaKeywords","metaDescription","pageSortDescription",
                             "pageDescription","iconImage"]);
-            if(req.files.length > 0)
-                bodyData.iconImage = req.files;
-
+            
             let setData = {
                 position: bodyData.position,
                 pageName: bodyData.pageName,
@@ -47,8 +45,12 @@ function createCMS(Models) {
                 metaTitle: bodyData.metaTitle,
                 metaDescription: bodyData.metaDescription,
                 pageSortDescription: bodyData.pageSortDescription,
-                pageDescription: bodyData.pageDescription,
-                iconImage: bodyData.iconImage
+                pageDescription: bodyData.pageDescription
+            }
+            if(req.files.length > 0)
+            {
+                bodyData.iconImage = req.files;
+                setData ['iconImage']= bodyData.iconImage
             }
             let updateModule = await Models.CMSDB.findOneAndUpdate({ _id: bodyData.id }, { $set: setData});
             console.log('updateModule is', updateModule)

@@ -9,9 +9,10 @@ const schema = Joi.object({
     isDisable: Joi.boolean().required()
 });
 
-function updateSliderStatus(Models) {
+function updateServicesStatus(Models) {
     async function update(req, res) {
         try {
+            // console.log(req.sessionID)
             // validate data using joi
             let validateData = schema.validate(req.body);
             if (validateData.error) {
@@ -22,7 +23,7 @@ function updateSliderStatus(Models) {
             let setData = {
                 isDisable: bodyData.isDisable,
             }
-            let updateModule = await Models.SliderDB.findOneAndUpdate({ _id: bodyData.id }, { $set: setData});
+            let updateModule = await Models.ServicesDB.findOneAndUpdate({ _id: bodyData.id }, { $set: setData});
             console.log('updateModule is', updateModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
         }
@@ -33,4 +34,4 @@ function updateSliderStatus(Models) {
     }
     return update;
 }
-module.exports = updateSliderStatus;
+module.exports = updateServicesStatus;
