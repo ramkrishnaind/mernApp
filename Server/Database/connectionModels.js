@@ -13,6 +13,8 @@ module.exports = function (mongoose) {
     mongoose.model('pPrice', require('./schema/pPrice'));
     mongoose.model('cms', require('./schema/cms'));
     mongoose.model('slider', require('./schema/slider'));
+    mongoose.model('buildingMaterials', require('./schema/BuildingMaterials'));
+    
     
     
     
