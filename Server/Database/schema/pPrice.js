@@ -19,7 +19,7 @@ const schema = new Schema({
         type: Number
     },
     priceIncludes: {
-        type: Array
+        type: Number
     },
     otherCharges: {
         type: Number
@@ -60,7 +60,7 @@ const schema = new Schema({
     per: {
         type: String
     },
-    Brokerage: {
+    brokerage: {
         type: Number
     }
 }, {

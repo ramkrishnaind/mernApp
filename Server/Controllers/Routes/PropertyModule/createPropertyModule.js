@@ -79,7 +79,6 @@ function createPropertyRequest(Models) {
             }
             else
             {
-                let saveModule = await new Models.PropertyDB(bodyData).save();
                 let findDataname = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
                 if (findDataname) {
                     moduleFeatureSchema.productId = findDataname._id;

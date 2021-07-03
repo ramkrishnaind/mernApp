@@ -29,6 +29,7 @@ module.exports = {
     updateFeedbackStatusRequest: require('./FeedbackModule/updateFeedbackStatusModule'),
     exteriorImage: require('./PropertyModule/exteriorImageModule'),
     getUserIdPropertyList: require('./PropertyModule/getUserPropertyListModule'),
+    updatePrice:require('./PropertyModule/updatePriceModule'),
     createCMS: require('./CMSModule/createCMSModule'),
     getCMSList: require('./CMSModule/getCMSListModule'),
     updateCMS:require('./CMSModule/updateCMSModule'),
