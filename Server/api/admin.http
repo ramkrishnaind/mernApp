@@ -10,11 +10,23 @@ Content-type: application/json
 {
    "firstName": "Akshay",
    "lastName": "Jain",
-   "email": "coolakshayjain557@gmail.com",
+   "email": "coolakshayjain@gmail.com",
    "password": "123456",
-   "mobile": 1234567890,
-   "countryCode":91
+   "mobile": 1234567870,
+   "countryCode":91,
+   "userRole":"60cdfef4065fd802c4478671"
 }
+
+############## Term and condition API ADMIN login
+POST {{ip}}users/login HTTP/1.1
+Content-type: application/json
+
+{
+   "email": "coolakshayjain@gmail.com",
+   "password": "123456"
+}
+
+
 
 ###################################################### MENU ###########################################
 
@@ -43,21 +55,6 @@ Authorization: {{token}}
    "status": true,
    "createdBy": "60cdd398285f20226c9345c8",
    "updatedBy": "60cdd398285f20226c9345c8"
-}
-
-############ createUserRole ########
-
-POST {{ip}}role/createUserRole HTTP/1.1
-Content-type: application/json
-Authorization: {{token}}
-
-{
-   "id": "60cdfef4065fd802c4478671",
-   "name": "testUser1",
-   "rights": ["60cd51d29929671c8cbe390c", "60cd50f49929671c8cbe3908"],
-   "status": true,
-   "createdBy": "60cdd398285f20226c9345c8",
-   "updatedBy": "60cd51d29929671c8cbe390c"
 }
 
 ############ updateUserRole ########
@@ -210,6 +207,15 @@ POST {{ip}}property/getPropertyRequest HTTP/1.1
 Content-type: application/json
 Authorization: {{token}}
 
+################# getUserIdPropertyRequest ################
+
+POST {{ip}}property/getUserIdPropertyRequest HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "userId": "60cdd398285f20226c9345c8"
+}
 
 ################# updatePropertyStatus ################
 
@@ -251,4 +257,59 @@ Authorization: {{token}}
 {
    "id": "60d7dc32d31ee41430c4fac8",
    "status": true
+}
+
+########################## CMS #########################################
+
+POST {{ip}}cms/createCMS HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "position": "Footer",
+   "pageName": "Shipping",
+   "type": "Is this page",
+   "pageTitle": "Shipping Policyq",
+   "pageUrl": null,
+   "metaKeywords": "Shipping Policy",
+   "metaTitle": "Shipping Policy",
+   "metaDescription": "Shipping Policy",
+   "pageSortDescription": null,
+   "pageDescription": null,
+   "iconImage": null
+}
+
+#### 
+POST {{ip}}cms/getCMSList HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+##### 
+POST {{ip}}cms/updateCMS HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "id":"60dd1d346c09c301a8b67692",
+   "position": "Footer1",
+   "pageName": "Shipping",
+   "type": "Is this page",
+   "pageTitle": "Shipping Policyq",
+   "pageUrl": null,
+   "metaKeywords": "Shipping Policy",
+   "metaTitle": "Shipping Policy",
+   "metaDescription": "Shipping Policy",
+   "pageSortDescription": null,
+   "pageDescription": null,
+   "iconImage": null
+}
+###
+
+POST {{ip}}cms/updateCMSStatus HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "id": "60dd1d346c09c301a8b67692",
+   "isDisable":true
 }

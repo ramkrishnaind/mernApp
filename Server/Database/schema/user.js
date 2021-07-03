@@ -41,9 +41,9 @@ const userSchema = new Schema({
         default: '91'
     },
     userRole: {
-        type: String,
-        required: true,
-        default: '1'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'userRole',
+        default: null
     },
     verified: {
         type: Boolean,

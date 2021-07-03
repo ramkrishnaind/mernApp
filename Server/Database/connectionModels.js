@@ -11,6 +11,18 @@ module.exports = function (mongoose) {
     mongoose.model('pFeatures', require('./schema/pFeatures'));
     mongoose.model('pImage', require('./schema/pImage'));
     mongoose.model('pPrice', require('./schema/pPrice'));
+    mongoose.model('cms', require('./schema/cms'));
+    mongoose.model('slider', require('./schema/slider'));
+    mongoose.model('buildingMaterials', require('./schema/BuildingMaterials'));
+    mongoose.model('services', require('./schema/services'));
+    
+
+    
+    
+    
+    
+    
+    
     
     
     

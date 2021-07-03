@@ -23,8 +23,8 @@ function logInHelper(Models) {
             }
 
             payload.email = String(payload.email).toLowerCase();
-            let userData = await Models.UserDB.findOne({ email: payload.email }).lean();
-
+            let userData = await Models.UserDB.findOne({ email: payload.email }).populate('userRole').lean();
+console.log(userData);
             if (!userData) {
                 throw { status: false, error: true, message: "Email/Password is incorrect", statusCode: 401, dataIncorrect: true };
             }
@@ -46,7 +46,7 @@ function logInHelper(Models) {
             }
 
             // create token and add in token collection
-            let token = jwt.sign({ date: new Date(), email: userData.email }, process.env.SECRET);
+            let token = "jhdfkhdf";//jwt.sign({ date: new Date(), email: userData.email }, process.env.SECRET);
 
             let tokenObj = {
                 email: userData.email,

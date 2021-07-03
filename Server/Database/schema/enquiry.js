@@ -1,6 +1,5 @@
 
 const mongoose = require('mongoose');
-const { nanoid } = require('nanoid');
 
 var Schema = mongoose.Schema;
 

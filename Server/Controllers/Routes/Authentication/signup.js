@@ -13,7 +13,8 @@ const signUpSchema = Joi.object({
     email: Joi.string().email().trim().required(),
     password: Joi.string().trim().required(),
     mobile: Joi.number().required(),
-    countryCode: Joi.number()
+    countryCode: Joi.number(),
+    userRole:Joi.string().required()
 });
 
 async function prepareTemplateSendMail(data) {
@@ -46,7 +47,7 @@ function signUpHelper(Models) {
             }
 
             // pick data from req.body
-            let userData = _.pick(req.body, ['firstName', 'lastName', 'email', 'password', 'mobile', 'countryCode']);
+            let userData = _.pick(req.body, ['firstName', 'lastName', 'email', 'password', 'mobile', 'countryCode', 'userRole']);
 
             // setting email to lowercase
             userData.email = String(userData.email).trim().toLowerCase();

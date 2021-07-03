@@ -3,7 +3,6 @@ const express = require('express');
 const fs = require('fs')
 var router = express.Router();
 const multer = require("multer");
-var count = 0;
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
         let fpathId = 'uploads/' + req.body.imagetype + '/' + req.body.productId;
@@ -28,7 +27,7 @@ let storage = multer.diskStorage({
 let upload = multer({ storage: storage });
 const path = require('path');
 let { createPropertyRequest, getPropertyRequest, updatePropertyStatusRequest, exteriorImage,
-    livingRoomImage } = require('./Routes');
+    getUserIdPropertyList } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
@@ -41,6 +40,7 @@ module.exports = function (conn) {
     router.post('/getPropertyRequest', getPropertyRequest(allCollection))
     router.post('/updatePropertyStatusRequest', requestAuthMiddleware, updatePropertyStatusRequest(allCollection))
     router.post('/uploadImage', upload.array("image"), exteriorImage(allCollection))
-
+    router.post('/getUserIdPropertyRequest', getUserIdPropertyList(allCollection))
+    
     return router;
 };

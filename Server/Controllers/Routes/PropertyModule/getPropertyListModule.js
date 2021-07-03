@@ -9,7 +9,24 @@ function getPropertyList(Models)
 {
     async function PropertyList(req, res) {
         try {
-            let findData = await Models.PropertyDB.find({}).sort({ updated: -1 });            
+            let findData = await Models.PropertyDB.aggregate([
+                { $lookup:
+                   {
+                     from: 'pfeatures',
+                     localField: '_id',
+                     foreignField: 'productId',
+                     as: 'features'
+                   }
+                 },
+                  { $lookup:
+                   {
+                     from: 'pimages',
+                     localField: '_id',
+                     foreignField: 'productId',
+                     as: 'images'
+                   }
+                 }
+                ]).sort({ updated: -1 });            
             let obj = {
                 total: findData.length,
                 list:findData
