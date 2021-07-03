@@ -5,6 +5,7 @@ const initialState = {
   success: false,
   error: null,
   data: null,
+  isAuth: true,
 };
 
 const LoginReducer = (state = initialState, action) => {

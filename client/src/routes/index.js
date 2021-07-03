@@ -1,7 +1,6 @@
-import HomePage from "../pages/home";
 import { Redirect } from "react-router-dom";
 import CartPage from "../pages/cart";
-const isAuth = false;
+import HomePage from "../pages/home";
 
 const routes = [
   {
@@ -12,10 +11,10 @@ const routes = [
   {
     path: "/cart",
     render: (props) => {
-        if(isAuth){
+        if(props.isAuth){
             return <CartPage />
         }
-        return <Redirect to={{pathname: "/", state: {from: props.location}}} />
+        return <Redirect to={{pathname: "/"}} />
     }
       ,
   },
