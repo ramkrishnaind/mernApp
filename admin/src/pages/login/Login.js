@@ -186,74 +186,7 @@ const Login = (props) => {
   const { classes } = props;
   return (
     <Grid container className={classes.container}>
-      <div className={classes.logotypeContainer}>
-        {/* <img src={logo} alt="logo" className={classes.logotypeImage} /> */}
-        <Typography className={classes.logotypeText}>
-          Vishal Properties
-        </Typography>
-      </div>
-      <div className={classes.formContainer}>
-        <div className={classes.form}>
-          <React.Fragment>
-            <TextField
-              id="email"
-              variant="outlined"
-              name="email"
-              label="Email"
-              InputProps={{
-                classes: {
-                  underline: classes.textFieldUnderline,
-                  input: classes.textField,
-                },
-              }}
-              value={state.email}
-              onChange={inputChange}
-              margin="normal"
-              placeholder="Email Adress"
-              type="email"
-              fullWidth
-            />
-            <TextField
-              id="password"
-              label="Password"
-              variant="outlined"
-              name="password"
-              InputProps={{
-                classes: {
-                  underline: classes.textFieldUnderline,
-                  input: classes.textField,
-                },
-              }}
-              value={state.password}
-              onChange={inputChange}
-              margin="normal"
-              placeholder="Password"
-              type="password"
-              fullWidth
-            />
-            <div className={classes.formButtons}>
-              {false ? (
-                <CircularProgress size={26} className={classes.loginLoader} />
-              ) : (
-                <Button
-                  disabled={
-                    state?.email?.length === 0 || state?.password?.length === 0
-                  }
-                  onClick={loginSubmit}
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                >
-                  Login
-                </Button>
-              )}
-            </div>
-          </React.Fragment>
-        </div>
-        <Typography color="primary" className={classes.copyright}>
-          2021 © Vishal Properties
-        </Typography>
-      </div>
+     <h1>Vishal Properties</h1>
     </Grid>
   );
 };
@@ -269,3 +202,71 @@ function mapStateToProps(state) {
 }
 export default connect(mapStateToProps)(withStyles(styles)(Login));
 //export default withRouter(Login);
+{/* <div className={classes.logotypeContainer}>
+{/* <img src={logo} alt="logo" className={classes.logotypeImage} /> */}
+{/* <Typography className={classes.logotypeText}>
+  Vishal Properties
+</Typography>
+</div>
+<div className={classes.formContainer}>
+<div className={classes.form}>
+  <React.Fragment>
+    <TextField
+      id="email"
+      variant="outlined"
+      name="email"
+      label="Email"
+      InputProps={{
+        classes: {
+          underline: classes.textFieldUnderline,
+          input: classes.textField,
+        },
+      }}
+      value={state.email}
+      onChange={inputChange}
+      margin="normal"
+      placeholder="Email Adress"
+      type="email"
+      fullWidth
+    />
+    <TextField
+      id="password"
+      label="Password"
+      variant="outlined"
+      name="password"
+      InputProps={{
+        classes: {
+          underline: classes.textFieldUnderline,
+          input: classes.textField,
+        },
+      }}
+      value={state.password}
+      onChange={inputChange}
+      margin="normal"
+      placeholder="Password"
+      type="password"
+      fullWidth
+    />
+    <div className={classes.formButtons}>
+      {false ? (
+        <CircularProgress size={26} className={classes.loginLoader} />
+      ) : (
+        <Button
+          disabled={
+            state?.email?.length === 0 || state?.password?.length === 0
+          }
+          onClick={loginSubmit}
+          variant="contained"
+          color="primary"
+          size="large"
+        >
+          Login
+        </Button>
+      )}
+    </div>
+  </React.Fragment>
+</div>
+<Typography color="primary" className={classes.copyright}>
+  2021 © Vishal Properties
+</Typography>
+</div> */} 
