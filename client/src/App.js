@@ -1,24 +1,18 @@
-//import logo from './logo.svg';
-import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import './App.css';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Home from './pages/HomePage';
-import Cart from './pages/CartPage';
-import ProductDetails from './pages/ProductDetails';
-function App() {
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import routes from '../src/routes';
+import {useSelector} from 'react-redux';
+
+const App = () => {
+  const isAuth = useSelector(state => state.Login.isAuth);
+
   return (
     <Router>
-      <Header />
-      <main className="my-3">
-        <Container>
-          <Route path="/" component={Home} exact />
-          <Route path="/product/:id" component={ProductDetails} />
-          <Route path="/cart/:id?" component={Cart} />
-        </Container>
-      </main>
-      <Footer />
+      <Switch>
+        {routes.map((route, i) => (
+          <Route exact={route.exact} path={route.path} render={() => route.render({isAuth})} key={i} />
+        ))}
+      </Switch>
     </Router>
   );
 }
