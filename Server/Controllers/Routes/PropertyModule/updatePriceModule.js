@@ -9,7 +9,7 @@ const moduleSchema = Joi.object({
     expectedPrice: Joi.number(),
     tokenAmount: Joi.number(),
     pricePerSqft: Joi.number(),
-    priceIncludes: Joi.number(),
+    priceIncludes: Joi.array(),
     otherCharges:Joi.number(),
     wishToEnter:Joi.string().empty(""),
     basicPrice:Joi.number(),

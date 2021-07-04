@@ -19,7 +19,7 @@ const schema = new Schema({
         type: Number
     },
     priceIncludes: {
-        type: Number
+        type: Array
     },
     otherCharges: {
         type: Number
