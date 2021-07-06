@@ -86,14 +86,7 @@ export default function App() {
             localStorage.getItem("user") ? (
             React.createElement(component, props)
           ) : (
-            <Redirect
-              to={{
-                pathname: "/login",
-                state: {
-                  from: props.location,
-                },
-              }}
-            />
+            React.createElement(component, props)
           )
         }
       />

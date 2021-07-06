@@ -94,7 +94,7 @@ const styles = (theme) => ({
   tab: {
     fontWeight: 400,
     fontSize: 18,
-  },
+  },  
   checkbox: {
     position: "relative",
     left: -9,
@@ -215,6 +215,7 @@ const Login = (props) => {
   };
   const loginSubmit = (e) => {
     const { email, password } = state;
+    console.log(state)
     props.dispatch(userActions.login({ username: email, password }));
   };
 
@@ -223,7 +224,9 @@ const Login = (props) => {
     <Grid container className={classes.container}>
       <div className={classes.formContainer}>
         <div className={classes.form}>
-          <Typography className={classes.mainHeading}>CORONA</Typography>
+          <Typography className={classes.mainHeading}>
+            Vishal Properties
+          </Typography>
           <Typography className={classes.welcomeHeading}>
             Welcome back!
           </Typography>
@@ -301,27 +304,6 @@ const Login = (props) => {
                 </Button>
               )}
             </div>
-            <Grid container>
-              <Grid item xs>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                  startIcon={<FacebookIcon />}
-                >
-                  Facebook
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  className={classes.button}
-                >
-                  <span className={classes.googleButton}>G</span> Google
-                </Button>
-              </Grid>
-            </Grid>
           </React.Fragment>
         </div>
         <Typography color="primary" className={classes.createAccount}>
@@ -347,4 +329,3 @@ function mapStateToProps(state) {
 }
 export default connect(mapStateToProps)(withStyles(styles)(Login));
 //export default withRouter(Login);
-{ }
