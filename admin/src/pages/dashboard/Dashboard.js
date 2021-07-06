@@ -55,13 +55,13 @@ class Dashboard extends Component {
       countrycode: "IND",
     };
     console.log(" orderData orderData in component", orderData);
-    this.props.dispatch(dashboardActions.getDashboardUserCount(data));
-    this.props.dispatch(dashboardActions.getDashboardOrderCount(orderData));
-    this.props.dispatch(dashboardActions.getLastOrderlist(lastOrder));
-    this.props.dispatch(
-      dashboardActions.getDashboardUserGraphData(UserGraphData)
-    );
-    this.props.dispatch(userActions.getUserList());
+    // this.props.dispatch(dashboardActions.getDashboardUserCount(data));
+    // this.props.dispatch(dashboardActions.getDashboardOrderCount(orderData));
+    // this.props.dispatch(dashboardActions.getLastOrderlist(lastOrder));
+    // this.props.dispatch(
+    //   dashboardActions.getDashboardUserGraphData(UserGraphData)
+    // );
+    // this.props.dispatch(userActions.getUserList());
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -110,7 +110,7 @@ class Dashboard extends Component {
       <>
         <div>
           <div className="page-header">
-            <h1 className="page-title">Dashboard</h1>
+            <h1 className="page-title" style={{color: "white"}}>Dashboard</h1>
           </div>
         </div>
       </>

@@ -12,13 +12,13 @@ import {
   ArrowBack as ArrowBackIcon,
   FingerprintRounded,
 } from "@material-ui/icons";
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
-import ContactMailIcon from '@material-ui/icons/ContactMail';
-import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
-import MemoryIcon from '@material-ui/icons/Memory';
-import WrapTextIcon from '@material-ui/icons/WrapText';
-import WbIncandescentIcon from '@material-ui/icons/WbIncandescent';
+import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
+import CameraAltIcon from "@material-ui/icons/CameraAlt";
+import ContactMailIcon from "@material-ui/icons/ContactMail";
+import CardGiftcardIcon from "@material-ui/icons/CardGiftcard";
+import MemoryIcon from "@material-ui/icons/Memory";
+import WrapTextIcon from "@material-ui/icons/WrapText";
+import WbIncandescentIcon from "@material-ui/icons/WbIncandescent";
 import { useTheme } from "@material-ui/styles";
 import { withRouter } from "react-router-dom";
 import classNames from "classnames";
@@ -41,7 +41,7 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import useStyles from "./styles";
 // components
 import SidebarLink from "./components/SidebarLink/SidebarLink";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 //import Dot from "./components/Dot";
 
 // context
@@ -51,36 +51,33 @@ import {
   toggleSidebar,
 } from "../../context/LayoutContext";
 
-
 const structure = [
   {
     id: 0,
     label: "Dashboard",
     link: "/app/dashboard",
     icon: <HomeIcon />,
-    value: "dashboard"
+    value: "dashboard",
   },
   {
     id: 1,
     label: "Admin Management",
     link: "/app/admin",
-    icon: < WbIncandescentIcon />,
-    value: "admin"
+    icon: <WbIncandescentIcon />,
+    value: "admin",
   },
 ];
 
-
-
 function Sidebar(props) {
   let { authentication, location } = props;
-  let { user } = authentication
+  let { user } = authentication;
   var classes = useStyles();
   var theme = useTheme();
 
   // global
   var { isSidebarOpened } = useLayoutState();
   var layoutDispatch = useLayoutDispatch();
-  const [selectedPermitRoles, setSelectedPermitRoles] = useState()
+  const [selectedPermitRoles, setSelectedPermitRoles] = useState();
 
   // local
   var [isPermanent, setPermanent] = useState(true);
@@ -97,15 +94,14 @@ function Sidebar(props) {
     setOpen(!open);
   };
 
-
-  useEffect(() => {
-    const permitRoles = user.role && (user.role?.role.map((itr) => {
-      return structure.find((element) => {
-        return (element.value === itr)
-      })
-    }))
-    setSelectedPermitRoles(permitRoles)
-  }, [user])
+  // useEffect(() => {
+  //   const permitRoles = user.role && (user.role?.role.map((itr) => {
+  //     return structure.find((element) => {
+  //       return (element.value === itr)
+  //     })
+  //   }))
+  //   setSelectedPermitRoles(permitRoles)
+  // }, [user])
 
   return (
     <div class="sidebar-area">
@@ -130,21 +126,14 @@ function Sidebar(props) {
               classes={{
                 root: classNames(
                   classes.headerIcon,
-                  classes.headerIconCollapse,
+                  classes.headerIconCollapse
                 ),
               }}
             />
           </IconButton>
         </div>
         <List className={classes.sidebarList}>
-          {selectedPermitRoles ? selectedPermitRoles?.map((link) => (
-            <SidebarLink
-              key={link.id}
-              location={location}
-              isSidebarOpened={isSidebarOpened}
-              {...link}
-            />
-          )) : structure?.map((link) => (
+          {structure?.map((link) => (
             <SidebarLink
               key={link.id}
               location={location}
@@ -186,8 +175,7 @@ function mapStateToProps(state) {
   console.log("appsettingappsettingappsetting", appsetting);
   return {
     appsetting,
-    authentication
+    authentication,
   };
 }
 export default connect(mapStateToProps)(withRouter(Sidebar));
-
