@@ -180,7 +180,7 @@ Content-type: application/json
    "name": "Akshay Jan",
    "mobileNo": "9589684828",
    "email": "akshay@gmail.com",
-   "for": "Sale",
+   "for": "Rent",
    "pType":"Flat/Apartment",
    "postingAs":"",
    "pCity":"Bangalore",
@@ -215,6 +215,18 @@ Authorization: {{token}}
 
 {
    "userId": "60cdd398285f20226c9345c8"
+}
+
+################# getUserIdPropertyRequest ################
+
+POST {{ip}}property/getSearchPropertyList HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "type": "Rent",
+   "keyword":"Bangalore",
+   "pType":"Flat/Apartment"
 }
 
 ################# updatePropertyStatus ################
