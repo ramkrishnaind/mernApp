@@ -15,6 +15,8 @@ module.exports = function (mongoose) {
     mongoose.model('slider', require('./schema/slider'));
     mongoose.model('buildingMaterials', require('./schema/BuildingMaterials'));
     mongoose.model('services', require('./schema/services'));
+    mongoose.model('contactus', require('./schema/contactus'));
+    
     
 
     

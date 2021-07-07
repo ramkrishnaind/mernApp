@@ -47,4 +47,8 @@ module.exports = {
     getServicesList: require('./ServicesModule/getServicesListModule'),
     updateServices:require('./ServicesModule/updateServicesModule'),
     updateServicesStatus: require('./ServicesModule/updateServicesStatusModule'),
+    createContactUs: require('./ContactUsModule/createContactUsModule'),
+    getContactUsList: require('./ContactUsModule/getContactUsListModule'),
+    updateContactUs:require('./ContactUsModule/updateContactUsModule'),
+    updateContactUsStatus: require('./ContactUsModule/updateContactUsStatusModule'),
 }
