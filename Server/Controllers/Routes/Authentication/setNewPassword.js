@@ -3,7 +3,7 @@ const _ = require('lodash');
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const errorResponseHelper = require('../../../helper/errorResponse');
+const errorResponseHelper = require('../../../Helper/errorResponse');
 
 const setNewPasswordSchema = Joi.object({
     newPassword: Joi.string().required(),
@@ -17,13 +17,13 @@ function setNewPasswordHelper(Models) {
             let payload = req.body;
             // validate data using joi
             let validateData = setNewPasswordSchema.validate(payload);
-            if(validateData.error) {
+            if (validateData.error) {
                 throw { status: false, error: validateData, message: "Invalid data", validationError: true };
             }
 
             let userData = await Models.UserDB.findOne({ forgetPasswordToken: payload.token }).lean();
 
-            if(!userData) {
+            if (!userData) {
                 throw { status: false, error: true, message: "Not authorised", statusCode: 401 };
             }
 
@@ -32,14 +32,14 @@ function setNewPasswordHelper(Models) {
             let setData = {
                 password: hash
             }
-            if(!userData.verified) {
+            if (!userData.verified) {
                 setData.verified = true;
                 setData.verificationDate = new Date();
             }
-            
+
             let updateUserData = await Models.UserDB.findOneAndUpdate({ _id: userData._id }, { $set: setData }, { new: true }).lean();
 
-            if(!updateUserData) {
+            if (!updateUserData) {
                 throw { status: false, error: true, message: "Errow while updating new password", statusCode: 500 };
             }
 

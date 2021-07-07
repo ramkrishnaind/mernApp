@@ -61,7 +61,7 @@ header.header-outer {
 	box-shadow: none;
 }
 .header-outer .MuiSvgIcon-root {
-	color: #004e96;
+	color: #fff;
 }
 /* .MuiSvgIcon-root{
 	cursor: pointer;
@@ -86,7 +86,7 @@ header.header-outer {
 	margin: 0 0 1.5rem 0;
 }
 .page-title {
-	color: #4A4A4A;
+	color: #6d6565;
 	font-size: 1.125rem;
 	margin-bottom: 0;
 }

@@ -38,9 +38,8 @@ class adminManagement extends Component {
     this.onDisable = this.onDisable.bind(this);
     this.updatehandleChangeInput = this.updatehandleChangeInput.bind(this);
     this.updatehandleSubmit = this.updatehandleSubmit.bind(this);
-    this.updatehandleOpenCreateModal = this.updatehandleOpenCreateModal.bind(
-      this,
-    );
+    this.updatehandleOpenCreateModal =
+      this.updatehandleOpenCreateModal.bind(this);
     this.state = {
       markers: [],
       places: [],
@@ -67,8 +66,8 @@ class adminManagement extends Component {
       pageNo: 1,
       size: this.state.size,
     };
-    this.props.dispatch(adminActions.getAdminList(data));
-    this.props.dispatch(adminActions.getRoles());
+    // this.props.dispatch(adminActions.getAdminList(data));
+    // this.props.dispatch(adminActions.getRoles());
   }
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.admin.addAdminSuccess) {
@@ -89,7 +88,7 @@ class adminManagement extends Component {
       };
     }
   }
- 
+
   handleClick = (offset, page) => {
     this.setState({ offset, page });
     let data = {
@@ -114,7 +113,7 @@ class adminManagement extends Component {
     this.setState({ adminCreateModal: true });
   }
   updatehandleOpenCreateModal(data) {
-    data['roleId']= data.role?.id;
+    data["roleId"] = data.role?.id;
     this.setState({ updateadminCreateModal: true, updateformData: data });
   }
   handleClose() {
@@ -140,27 +139,26 @@ class adminManagement extends Component {
 
   handleSubmit = () => {
     let reqData = {
-      name:this.state.formData.name,
-      email:this.state.formData.email,
-      password:this.state.formData.password,
-      contactNo:this.state.formData.contactNo,
-      role:this.state.formData.role,
-      status:this.state.formData.status
+      name: this.state.formData.name,
+      email: this.state.formData.email,
+      password: this.state.formData.password,
+      contactNo: this.state.formData.contactNo,
+      role: this.state.formData.role,
+      status: this.state.formData.status,
     };
     console.log("reqData  ", reqData);
     this.props.dispatch(adminActions.addAdmin(reqData));
   };
-  
+
   updatehandleSubmit = () => {
     let reqData = {
       id: this.state.updateformData.id,
-      name:this.state.updateformData.name,
+      name: this.state.updateformData.name,
       // email:this.state.updateformData.email,
       // password:this.state.updateformData.password,
-      contactNo:this.state.updateformData.contactNo,
-      role:this.state.updateformData.roleId,
-      status:this.state.updateformData.status
-      
+      contactNo: this.state.updateformData.contactNo,
+      role: this.state.updateformData.roleId,
+      status: this.state.updateformData.status,
     };
     console.log("reqData  ", reqData);
     this.props.dispatch(adminActions.updateAdmin(reqData));
@@ -169,8 +167,8 @@ class adminManagement extends Component {
   onChangeFile(event) {
     this.props.dispatch(
       adminActions.uploadImage(
-        event.target.files[event.target.files.length - 1],
-      ),
+        event.target.files[event.target.files.length - 1]
+      )
     );
   }
   onRowClick(data) {
@@ -191,7 +189,8 @@ class adminManagement extends Component {
       buttons: [
         {
           label: "Yes",
-          onClick: () => this.props.dispatch(adminActions.deleteAdmin(tempdata)),
+          onClick: () =>
+            this.props.dispatch(adminActions.deleteAdmin(tempdata)),
         },
         {
           label: "No",
@@ -217,8 +216,10 @@ class adminManagement extends Component {
 
     return (
       <>
-        <PageTitle title="Admin" />
-        <Grid container>
+         <div className="page-header">
+            <h1 className="page-title" style={{color: "white"}}>Admin</h1>
+          </div>
+        {/* <Grid container>
           <Grid item xs={12}>
             <Widget>
               <Grid container>
@@ -278,12 +279,11 @@ class adminManagement extends Component {
               ) : null}
             </Widget>
           </Grid>
-        </Grid>
+                  </Grid> */}
         <AddAdminDialog
           adminCreateModal={this.state.adminCreateModal}
           classes={classes}
           getRoles={getRoles}
-          
           formData={this.state.formData}
           handleSubmit={this.handleSubmit}
           handleChangeInput={this.handleChangeInput}
@@ -309,9 +309,9 @@ function mapStateToProps(state) {
   const { admin, users } = state;
   return {
     users,
-    admin
+    admin,
   };
 }
 export default connect(mapStateToProps)(
-  withStyles(styles)(withRouter(adminManagement)),
+  withStyles(styles)(withRouter(adminManagement))
 );

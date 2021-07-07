@@ -1,7 +1,7 @@
 
 const _ = require('lodash');
 const Joi = require('joi');
-const errorResponseHelper = require('../../../helper/errorResponse');
+const errorResponseHelper = require('../../../Helper/errorResponse');
 
 const verificationSchema = Joi.object({
     token: Joi.string().required()
