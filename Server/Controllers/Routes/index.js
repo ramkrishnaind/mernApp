@@ -50,4 +50,7 @@ module.exports = {
     getContactUsList: require('./ContactUsModule/getContactUsListModule'),
     updateContactUs:require('./ContactUsModule/updateContactUsModule'),
     updateContactUsStatus: require('./ContactUsModule/updateContactUsStatusModule'),
+    createSiteVisitRequest: require('./SiteVisitModule/createSiteVisitModule'),
+    getSiteVisitRequest: require('./SiteVisitModule/getSiteVisitListModule'),
+    updateSiteVisitStatusRequest: require('./SiteVisitModule/updateSiteVisitStatusModule'),
 }

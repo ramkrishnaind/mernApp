@@ -17,4 +17,6 @@ module.exports = function (mongoose) {
     mongoose.model('services', require('./schema/services'));
     mongoose.model('contactus', require('./schema/contactus'));
     mongoose.model('feedback', require('./schema/feedback'));
+    mongoose.model('sitevisit', require('./schema/sitevisit'));
+    
 }
