@@ -41,7 +41,7 @@ const schema = new Schema({
         virtuals: true
     }
 }, {
-    collection: 'sitevisit'
+    collection: 'siteVisit'
 }
 );
 
