@@ -19,7 +19,7 @@ module.exports = function (mongoose) {
     const BuildingDB = mongoose.model('buildingMaterials');
     const ServicesDB = mongoose.model('services');
     const ContactUsDB = mongoose.model('contactus');
-    const SiteVisitDB = mongoose.model('sitevisit');
+    const SiteVisitDB = mongoose.model('siteVisit');
     
     return {
         UserDB,
