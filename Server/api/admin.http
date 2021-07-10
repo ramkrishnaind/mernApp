@@ -8,13 +8,13 @@ POST {{ip}}users/signup HTTP/1.1
 Content-type: application/json
 
 {
-   "firstName": "Akshay",
-   "lastName": "Jain",
-   "email": "coolakshayjain@gmail.com",
+   "firstName": "Rajnath",
+   "lastName": "Mishra",
+   "email": "projectrzit@gmail.com",
    "password": "123456",
-   "mobile": 1234567870,
+   "mobile": 9599609259,
    "countryCode":91,
-   "userRole":"60cdfef4065fd802c4478671"
+   "userRole":"60e6a8304d0c632f2cf0cfaf"
 }
 
 ############## Term and condition API ADMIN login
@@ -22,7 +22,7 @@ POST {{ip}}users/login HTTP/1.1
 Content-type: application/json
 
 {
-   "email": "coolakshayjain@gmail.com",
+   "email": "projectrzit@gmail.com",
    "password": "123456"
 }
 

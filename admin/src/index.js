@@ -14,6 +14,7 @@ import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 ReactDOM.render(
   <LayoutProvider>
     
@@ -24,6 +25,7 @@ ReactDOM.render(
          
         <Provider store={store}>
           <App />
+          
         </Provider>
       </ThemeProvider>
     
