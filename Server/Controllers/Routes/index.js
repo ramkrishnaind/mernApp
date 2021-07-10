@@ -1,6 +1,5 @@
 module.exports = {
     forgotPasswordFunction: require('./Authentication/forgotPassword'),
-    signupFunction: require('./Authentication/signup'),
     loginFunction: require('./Authentication/login'),
     verificationFunction: require('./Authentication/verification'),
     setNewPasswordFunction: require('./Authentication/setNewPassword'),
@@ -29,6 +28,7 @@ module.exports = {
     updateFeedbackStatusRequest: require('./FeedbackModule/updateFeedbackStatusModule'),
     exteriorImage: require('./PropertyModule/exteriorImageModule'),
     getUserIdPropertyList: require('./PropertyModule/getUserPropertyListModule'),
+    getSearchPropertyList: require('./PropertyModule/searchPropertyModule'),
     updatePrice:require('./PropertyModule/updatePriceModule'),
     createCMS: require('./CMSModule/createCMSModule'),
     getCMSList: require('./CMSModule/getCMSListModule'),
@@ -46,4 +46,11 @@ module.exports = {
     getServicesList: require('./ServicesModule/getServicesListModule'),
     updateServices:require('./ServicesModule/updateServicesModule'),
     updateServicesStatus: require('./ServicesModule/updateServicesStatusModule'),
+    createContactUs: require('./ContactUsModule/createContactUsModule'),
+    getContactUsList: require('./ContactUsModule/getContactUsListModule'),
+    updateContactUs:require('./ContactUsModule/updateContactUsModule'),
+    updateContactUsStatus: require('./ContactUsModule/updateContactUsStatusModule'),
+    createSiteVisitRequest: require('./SiteVisitModule/createSiteVisitModule'),
+    getSiteVisitRequest: require('./SiteVisitModule/getSiteVisitListModule'),
+    updateSiteVisitStatusRequest: require('./SiteVisitModule/updateSiteVisitStatusModule'),
 }

@@ -11,9 +11,9 @@ const moduleSchema = Joi.object({
     size: Joi.number().integer().min(1),
 });
 
-function getEnquiryList(Models)
+function getSiteVisitList(Models)
 {
-    async function EnquiryList(req, res) {
+    async function SiteVisitList(req, res) {
         try {
             let validateData = moduleSchema.validate(req.body);
             if (validateData.error) {
@@ -24,8 +24,8 @@ function getEnquiryList(Models)
             if (bodyData.keyWord && bodyData.keyWord !== '') {
                 query = { 'name': { '$regex': bodyData.keyWord, '$options': 'i' } };
             }
-            let findData = await Models.EnquiryDB.find(query).skip(bodyData.size * (bodyData.pageNo - 1))
-            .limit(bodyData.size).sort({ updated: -1 })         
+            let findData = await Models.SiteVisitDB.find(query).skip(bodyData.size * (bodyData.pageNo - 1))
+            .limit(bodyData.size).sort({ updated: -1 })            
             let obj = {
                 total: findData.length,
                 list:findData
@@ -38,7 +38,7 @@ function getEnquiryList(Models)
             await errorResponseHelper({ res, error: e, defaultMessage: "Error in Getting list" });
         }
     }
-    return EnquiryList;
+    return SiteVisitList;
 }
 
-module.exports = getEnquiryList;
+module.exports = getSiteVisitList;

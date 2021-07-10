@@ -3,7 +3,8 @@ const express = require('express');
 
 var router = express.Router();
 
-let {forgotPasswordFunction, signupFunction, loginFunction, verificationFunction, setNewPasswordFunction,
+const signupFunction = require('./Routes/Authentication/signup');
+let {forgotPasswordFunction, loginFunction, verificationFunction, setNewPasswordFunction,
     getAuthTokenFunction, logoutFunction} = require('./Routes')
 
 module.exports = function (conn) {

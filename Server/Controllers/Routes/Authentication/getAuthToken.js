@@ -1,5 +1,5 @@
 
-const errorResponseHelper = require('../../../helper/errorResponse');
+const errorResponseHelper = require('../../../Helper/errorResponse');
 
 function getAuthToken(Models) {
     async function getAuth(req, res) {
