@@ -22,11 +22,7 @@ app.use(helmet({
 // if (process.env.NODE_ENV === 'development') {
 //     whitelist.push('http://localhost:3333');
 // }
-// app.use(cors({
-//     origin: whitelist,
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//     credentials: true
-// }));
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
