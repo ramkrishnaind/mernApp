@@ -199,6 +199,10 @@ const styles = (theme) => ({
     fontSize: "14px",
     color: "white",
   },
+
+  PhoneInput:{
+    marginTop: theme.spacing(3),
+  }
 });
 
 const Register = (props) => {
@@ -207,21 +211,37 @@ const Register = (props) => {
     password: "",
     fname:"",
     lname:"",
-    country:"",
+    phone:"",
   };
+  
   const [state, setState] = useState(initialState);
-
-  // props.dispatch(userActions.logout());
-
+  const [country, setCountry] = useState("+91");
+  
   const inputChange = (e) => {
     let { name, value } = e.target;
 
     setState({ ...state, [name]: value });
   };
+
+  
   const handleSubmit = (e) => {
-    const { email,fname,lname, password,country } = state;
-    console.log(state)
-    props.dispatch(userActions.login({ fname: email, password }));
+    
+    const { email, password,fname,lname,phone } = state;
+
+    let reqData = {
+      firstName: fname,
+      lastName: lname,
+      email: email,
+      password: password,
+      mobile: phone,
+      countryCode: country,
+      userRole: '60e84c1c8494c904475e8270',
+    };
+
+    console.log("reqData  ", reqData);
+    props.dispatch(userActions.registerAdmin(reqData));
+
+    // props.dispatch(userActions.login({ fname: email, password }));
   };
 
   const { classes } = props;
@@ -298,25 +318,36 @@ const Register = (props) => {
               fullWidth
             />
 
-            <TextField
-              id="mobile"
-              variant="outlined"
-              name="country"
-              className={classes.textField}
-              label="Mobile"
-              value={state.country}
-              onChange={inputChange}
-              margin="normal"
-              placeholder="Mobile number"
-              type="text"
-              fullWidth
-            />
-            <PhoneInput
-              international
-              countryCallingCodeEditable={false}
-              defaultCountry="IN"
-              value={mobile}
-              onChange={setMobile}/>
+            <Grid container spacing={1}>
+              <Grid item xs={12} sm={2}>
+                <PhoneInput
+                  className={classes.PhoneInput}
+                  international
+                  countryCallingCodeEditable={false}
+                  defaultCountry="IN"
+                  value={country}
+                  onChange={setCountry}/>
+              </Grid>
+              <Grid item xs={12} sm={10}>
+
+              <TextField
+                id="mobile"
+                variant="outlined"
+                name="phone"
+                className={classes.textField}
+                label="Mobile"
+                value={state.phone}
+                onChange={inputChange}
+                margin="normal"
+                placeholder="Mobile number"
+                type="number"
+                fullWidth
+              />
+              </Grid>
+            </Grid>
+            
+{/* Signup k time userRole me Ye Id Send karn hha    60e84c1c8494c904475e827 OKK  */}
+            
 
             <Grid container>
               <Grid item xs>

@@ -5,6 +5,7 @@ import { CONST } from '../_config';
 
 export const userService = {
     login,
+    registerAdmin,
     logout,
     addUser,
     uploadImage,
@@ -27,8 +28,6 @@ function logout() {
     localStorage.removeItem('user');
 }
 function login(data) {
-    console.log('process.env.SECRETprocess.env.SECRET',process.env.SECRET);
-
     let header = new Headers({
         'Content-Type': 'application/json',
         "Authorization": authHeader().Authorization
@@ -51,6 +50,27 @@ function login(data) {
             return userObj;
         });
 }
+
+function registerAdmin(data) {
+    let header = new Headers({
+        'Content-Type': 'application/json',
+        "Authorization": authHeader().Authorization
+    });
+    const requestOptions = {
+        method: "POST",
+        headers: header,
+        body: JSON.stringify(data)
+    }
+    return fetch(CONST.BACKEND_URL + `users/signup`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            let userObj = {
+                userinfo: user.data
+            }
+            return userObj;
+        });
+}
+
 function getUserList(data) {
     let header = new Headers({
         'Content-Type': 'application/json',
