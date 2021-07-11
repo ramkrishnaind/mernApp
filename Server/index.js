@@ -18,15 +18,15 @@ app.use(helmet({
 }));
 
 // white listing origin from infinityCoding.com
-let whitelist = [/\.infinitycoding\.in$/];
-if (process.env.NODE_ENV === 'development') {
-    whitelist.push('http://localhost:3333');
-}
-app.use(cors({
-    origin: whitelist,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-}));
+// let whitelist = [/\.infinitycoding\.in$/, "http://192.46.214.45:3333", "http://192.46.214.45:5555", "http://192.46.214.45:9999"];
+// if (process.env.NODE_ENV === 'development') {
+//     whitelist.push('http://localhost:3333');
+// }
+// app.use(cors({
+//     origin: whitelist,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     credentials: true
+// }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
