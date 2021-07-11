@@ -1,6 +1,7 @@
 
 import { authHeader } from '../_helpers';
 import { CONST } from '../_config';
+// require('dotenv').config()
 
 export const userService = {
     login,
@@ -26,6 +27,7 @@ function logout() {
     localStorage.removeItem('user');
 }
 function login(data) {
+    console.log('process.env.SECRETprocess.env.SECRET',process.env.SECRET);
 
     let header = new Headers({
         'Content-Type': 'application/json',
@@ -36,7 +38,7 @@ function login(data) {
         headers: header,
         body: JSON.stringify(data)
     }
-    return fetch(CONST.BACKEND_URL + `login`, requestOptions)
+    return fetch(CONST.BACKEND_URL + `users/login`, requestOptions)
         .then(handleResponse)
         .then(user => {
             let userObj = {

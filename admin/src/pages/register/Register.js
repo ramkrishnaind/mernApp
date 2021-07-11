@@ -14,6 +14,9 @@ import { withStyles } from "@material-ui/styles";
 import loginImage from "./adminLogin.jpg";
 import { userActions } from "../../_actions";
 
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
+
 const styles = (theme) => ({
   container: {
     height: "100vh",
@@ -202,7 +205,8 @@ const Register = (props) => {
   const initialState = {
     email: "",
     password: "",
-    username:"",
+    fname:"",
+    lname:"",
     country:"",
   };
   const [state, setState] = useState(initialState);
@@ -214,10 +218,10 @@ const Register = (props) => {
 
     setState({ ...state, [name]: value });
   };
-  const loginSubmit = (e) => {
-    const { email,username, password,country } = state;
+  const handleSubmit = (e) => {
+    const { email,fname,lname, password,country } = state;
     console.log(state)
-    props.dispatch(userActions.login({ username: email, password }));
+    props.dispatch(userActions.login({ fname: email, password }));
   };
 
   const { classes } = props;
@@ -234,15 +238,29 @@ const Register = (props) => {
           <Typography>Join us today! it takes only few steps</Typography>
           <React.Fragment>
             <TextField
-              id="username"
+              id="fname"
               variant="outlined"
-              name="username"
+              name="fname"
               className={classes.textField}
-              label="User Name"
-              value={state.username}
+              label="First Name"
+              value={state.fname}
               onChange={inputChange}
               margin="normal"
-              placeholder="User name"
+              placeholder="First name"
+              type="text"
+              fullWidth
+            />
+            
+            <TextField
+              id="lname"
+              variant="outlined"
+              name="lname"
+              className={classes.textField}
+              label="Last Name"
+              value={state.lname}
+              onChange={inputChange}
+              margin="normal"
+              placeholder="Last name"
               type="text"
               fullWidth
             />
@@ -281,18 +299,24 @@ const Register = (props) => {
             />
 
             <TextField
-              id="country"
+              id="mobile"
               variant="outlined"
               name="country"
               className={classes.textField}
-              label="User Name"
+              label="Mobile"
               value={state.country}
               onChange={inputChange}
               margin="normal"
-              placeholder="Country"
+              placeholder="Mobile number"
               type="text"
               fullWidth
             />
+            <PhoneInput
+              international
+              countryCallingCodeEditable={false}
+              defaultCountry="IN"
+              value={mobile}
+              onChange={setMobile}/>
 
             <Grid container>
               <Grid item xs>
@@ -323,10 +347,10 @@ const Register = (props) => {
               ) : (
                 <Button
                   fullWidth
-                  disabled={
-                    state?.email?.length === 0 || state?.password?.length === 0
-                  }
-                  onClick={loginSubmit}
+                  // disabled={
+                  //   state?.email?.length === 0 || state?.password?.length === 0
+                  // }
+                  onClick={handleSubmit}
                   variant="contained"
                   color="primary"
                   size="large"

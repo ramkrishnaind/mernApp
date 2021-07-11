@@ -12,13 +12,13 @@ import {
   Link,
   Checkbox,
 } from "@material-ui/core";
-import FacebookIcon from "@material-ui/icons/Facebook";
+
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/styles";
-import logo from "./adminlogo.png";
+
 import loginImage from "./adminLogin.jpg";
 import { userActions } from "../../_actions";
-import Register from './Register';
+
 
 const styles = (theme) => ({
   container: {
@@ -220,7 +220,7 @@ const Login = (props) => {
   const loginSubmit = (e) => {
     const { email, password } = state;
     console.log(state)
-    props.dispatch(userActions.login({ username: email, password }));
+    props.dispatch(userActions.login({ email: email, password }));
   };
 
   const { classes } = props;
@@ -297,9 +297,9 @@ const Login = (props) => {
               ) : (
                 <Button
                   fullWidth
-                  disabled={
-                    state?.email?.length === 0 || state?.password?.length === 0
-                  }
+                  // disabled={
+                  //   state?.email?.length === 0 || state?.password?.length === 0
+                  // }
                   onClick={loginSubmit}
                   variant="contained"
                   color="primary"
