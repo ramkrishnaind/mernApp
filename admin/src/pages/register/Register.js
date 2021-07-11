@@ -1,6 +1,3 @@
-
-
-
 import React, { useEffect, useState } from "react";
 
 import {
@@ -12,13 +9,10 @@ import {
   Link,
   Checkbox,
 } from "@material-ui/core";
-import FacebookIcon from "@material-ui/icons/Facebook";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/styles";
-import logo from "./adminlogo.png";
 import loginImage from "./adminLogin.jpg";
 import { userActions } from "../../_actions";
-import Register from './Register';
 
 const styles = (theme) => ({
   container: {
@@ -203,10 +197,13 @@ const styles = (theme) => ({
     color: "white",
   },
 });
-const Login = (props) => {
+
+const Register = (props) => {
   const initialState = {
     email: "",
     password: "",
+    username:"",
+    country:"",
   };
   const [state, setState] = useState(initialState);
 
@@ -218,14 +215,13 @@ const Login = (props) => {
     setState({ ...state, [name]: value });
   };
   const loginSubmit = (e) => {
-    const { email, password } = state;
+    const { email,username, password,country } = state;
     console.log(state)
     props.dispatch(userActions.login({ username: email, password }));
   };
 
   const { classes } = props;
   return (
-    <>
     <Grid container className={classes.container}>
       <div className={classes.formContainer}>
         <div className={classes.form}>
@@ -233,10 +229,24 @@ const Login = (props) => {
             Vishal Properties
           </Typography>
           <Typography className={classes.welcomeHeading}>
-            Welcome back!
+            New here?
           </Typography>
-          <Typography>Happy to see you again!</Typography>
+          <Typography>Join us today! it takes only few steps</Typography>
           <React.Fragment>
+            <TextField
+              id="username"
+              variant="outlined"
+              name="username"
+              className={classes.textField}
+              label="User Name"
+              value={state.username}
+              onChange={inputChange}
+              margin="normal"
+              placeholder="User name"
+              type="text"
+              fullWidth
+            />
+
             <TextField
               id="email"
               variant="outlined"
@@ -246,10 +256,11 @@ const Login = (props) => {
               value={state.email}
               onChange={inputChange}
               margin="normal"
-              placeholder="Email Adress"
+              placeholder="Email Address"
               type="email"
               fullWidth
             />
+
             <TextField
               id="password"
               label="Password"
@@ -268,6 +279,21 @@ const Login = (props) => {
               type="password"
               fullWidth
             />
+
+            <TextField
+              id="country"
+              variant="outlined"
+              name="country"
+              className={classes.textField}
+              label="User Name"
+              value={state.country}
+              onChange={inputChange}
+              margin="normal"
+              placeholder="Country"
+              type="text"
+              fullWidth
+            />
+
             <Grid container>
               <Grid item xs>
                 <Grid item xs>
@@ -281,7 +307,7 @@ const Login = (props) => {
                     variant="body2"
                     className={classes.alignCheckboxHeading}
                   >
-                    Keep me signed in
+                    Remember me
                   </Link>
                 </Grid>
               </Grid>
@@ -305,14 +331,14 @@ const Login = (props) => {
                   color="primary"
                   size="large"
                 >
-                  Login
+                  Register
                 </Button>
               )}
             </div>
           </React.Fragment>
         </div>
         <Typography color="primary" className={classes.createAccount}>
-          Don't have an account? <Link>Create</Link>
+        Already have an Account? <Link>Login</Link>
         </Typography>
       </div>
 
@@ -321,8 +347,7 @@ const Login = (props) => {
       </div>
       
     </Grid>
-    {/* <Register /> */}
-    </>
+    
   );
 };
 
@@ -335,5 +360,5 @@ function mapStateToProps(state) {
     users,
   };
 }
-export default connect(mapStateToProps)(withStyles(styles)(Login));
-//export default withRouter(Login);
+export default connect(mapStateToProps)(withStyles(styles)(Register));
+//export default withRouter(Register);

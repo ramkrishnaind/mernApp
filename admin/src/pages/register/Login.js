@@ -225,7 +225,6 @@ const Login = (props) => {
 
   const { classes } = props;
   return (
-    <>
     <Grid container className={classes.container}>
       <div className={classes.formContainer}>
         <div className={classes.form}>
@@ -321,8 +320,7 @@ const Login = (props) => {
       </div>
       
     </Grid>
-    {/* <Register /> */}
-    </>
+    
   );
 };
 
