@@ -27,7 +27,7 @@ app.use(helmet({
 //     methods: ['GET', 'POST', 'PUT', 'DELETE'],
 //     credentials: true
 // }));
-app.use(cors());
+app.use(cors({ origin: '*' }))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
