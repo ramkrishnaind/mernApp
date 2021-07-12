@@ -1,0 +1,26 @@
+.bg-green {
+    background-color: #06AEB8;
+}
+.bg-white {
+    background-color: #FFFFFF;
+}
+.btn-book-online {
+    background-image: linear-gradient(90deg, #da3287, #ffde5e);
+    border-radius: 16px;
+    margin-right: 10px;
+}
+.btn-request-site-visit {
+    background-color: #FF7601;
+}
+.menu {
+    padding: 0;
+    color: '#000000';
+    margin-right: 10;
+    font-family: "Open Sans",sans-serif;
+}
+.services-submenu-bg {
+    background-image: linear-gradient(45deg, #007bff, #28a745);
+}
+.services-submenu-bg-active {
+    color: #FFFFFF;
+}

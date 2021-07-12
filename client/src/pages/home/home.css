@@ -1,0 +1,38 @@
+.btn-readmore:hover {
+    background-color: #EF8821;
+    color: #FFFFFF;
+}
+.main-w3 {
+    background: url('../../images/banner-2.jpeg') no-repeat center;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+    z-index: 0;
+}
+.main-w3::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgb(98 45 0 / 90%);
+    z-index: -1;
+}
+.client-bg  {
+    background: url('../../images/client_bg.jpeg') no-repeat center;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+    z-index: 0;
+}
+.client-bg ::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    /* height: 100%; */
+    top: 0;
+    left: 0;
+    background: rgb(98 45 0 / 90%);
+    z-index: -1;
+}

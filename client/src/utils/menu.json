@@ -1,0 +1,157 @@
+[
+    {
+        "id": 1,
+        "title": "Home"
+    },
+    {
+        "id": 2,
+        "title": "About Us",
+        "submenu": [
+            {
+                "title": "About The Company"
+            },
+            {
+                "title": "About The Directors"
+            },
+            {
+                "title": "Invest With Us"
+            },
+            {
+                "title": "Construction Process"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Services",
+        "image": "",
+        "submenu": [
+            {
+                "title": "RENT",
+                "commercial": [
+                    {
+                        "title": "Office"
+                    },
+                    {
+                        "title": "Shop"
+                    }
+                ],
+                "residential": [
+                    {
+                        "title": "Flats"
+                    },
+                    {
+                        "title": "2 BHK Flats"
+                    },
+                    {
+                        "title": "3 BHK Flats"
+                    },
+                    {
+                        "title": "Villas"
+                    }
+                ]
+            },
+            {
+                "title": "SELL",
+                "commercial": [
+                    {
+                        "title": "Office S"
+                    },
+                    {
+                        "title": "Shop S"
+                    }
+                ],
+                "residential": [
+                    {
+                        "title": "Flats S"
+                    },
+                    {
+                        "title": "2 BHK Flats S"
+                    },
+                    {
+                        "title": "3 BHK Flats S"
+                    },
+                    {
+                        "title": "Villas S"
+                    }
+                ]
+            },
+            {
+                "title": "CONSTRUCTION",
+                "commercial": [
+                    {
+                        "title": "Office"
+                    },
+                    {
+                        "title": "Shop"
+                    }
+                ],
+                "residential": [
+                    {
+                        "title": "Flats"
+                    },
+                    {
+                        "title": "2 BHK Flats"
+                    },
+                    {
+                        "title": "3 BHK Flats"
+                    },
+                    {
+                        "title": "Villas"
+                    }
+                ]
+            },
+            {
+                "title": "INTERIOR",
+                "commercial": [
+                    {
+                        "title": "Office"
+                    },
+                    {
+                        "title": "Shop"
+                    }
+                ],
+                "residential": [
+                    {
+                        "title": "Flats"
+                    },
+                    {
+                        "title": "2 BHK Flats"
+                    },
+                    {
+                        "title": "3 BHK Flats"
+                    },
+                    {
+                        "title": "Villas"
+                    }
+                ]
+            }
+            
+        ]
+    },
+    {
+        "id": 4,
+        "title": "Property",
+        "image": "",
+        "submenu": [
+            {
+                "title": "Property Listing"
+            },
+            {
+                "title": "Property Detail"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "title": "Careers"
+    },
+    {
+        "id": 6,
+        "title": "Finance"
+    },
+    {
+        "id": 7,
+        "title": "Contact Us"
+    }
+]
