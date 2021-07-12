@@ -3,23 +3,23 @@ import { Typography, Grid, Container, makeStyles, Button, Box } from "@material-
 import {useDispatch} from 'react-redux';
 import * as LoginAction from '../../redux/actions/LoginAction';
 import {withRouter} from 'react-router-dom';
-import Header from '../../common/header';
-import SectionHeader from "../../common/section-header";
-import PropertyViewCard from "../../common/property-view-card";
-import OwlCarouselSlider from "../../common/carousel-slider";
+import Header from '../../components/header';
+import SectionHeader from "../../components/section-header";
+import PropertyViewCard from "../../components/property-view-card";
+import OwlCarouselSlider from "../../components/carousel-slider";
 import DescriptionIcon from '@material-ui/icons/Description';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import './home.css';
 import APP_CONSTANTS from "../../constants/app-constants";
-import OuterCarouselSlider from "../../common/outer-carousel-slider";
+import OuterCarouselSlider from "../../components/outer-carousel-slider";
 import propertieslist from '../../utils/properties-list.json';
 import feedbacks from '../../utils/feedbacks.json';
-import SectionTabs from "../../common/section-tabs";
-import SectionClient from "../../common/section-client";
-import ServiceCard from "../../common/service-card";
-import SectionFeedback from "../../common/section-feedback";
+import SectionTabs from "../../components/section-tabs";
+import SectionClient from "../../components/section-client";
+import ServiceCard from "../../components/service-card";
+import SectionFeedback from "../../components/section-feedback";
 import Footer
- from "../../common/footer";
+ from "../../components/footer";
 const useStyles = makeStyles((theme)=> ({
   text1: {
     fontFamily: '"Open Sans",sans-serif',
