@@ -11,9 +11,9 @@ const moduleSchema = Joi.object({
     size: Joi.number().integer().min(1),
 });
 
-function getReviewList(Models)
+function getSiteVisitList(Models)
 {
-    async function ReviewList(req, res) {
+    async function SiteVisitList(req, res) {
         try {
             let validateData = moduleSchema.validate(req.body);
             if (validateData.error) {
@@ -24,9 +24,8 @@ function getReviewList(Models)
             if (bodyData.keyWord && bodyData.keyWord !== '') {
                 query = { 'name': { '$regex': bodyData.keyWord, '$options': 'i' } };
             }
-            let findData = await Models.ReviewDB.find(query).skip(bodyData.size * (bodyData.pageNo - 1))
-            .limit(bodyData.size).sort({ updated: -1 }); 
-                      
+            let findData = await Models.SiteVisitDB.find(query).skip(bodyData.size * (bodyData.pageNo - 1))
+            .limit(bodyData.size).sort({ updated: -1 })            
             let obj = {
                 total: findData.length,
                 list:findData
@@ -39,7 +38,7 @@ function getReviewList(Models)
             await errorResponseHelper({ res, error: e, defaultMessage: "Error in Getting list" });
         }
     }
-    return ReviewList;
+    return SiteVisitList;
 }
 
-module.exports = getReviewList;
+module.exports = getSiteVisitList;

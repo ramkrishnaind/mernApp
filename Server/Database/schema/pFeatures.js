@@ -25,6 +25,21 @@ const schema = new Schema({
     furnishedStatus:{
         type:String
     },
+    washrooms:{
+        type:Number
+    },
+    noOfSeats:{
+        type:Number
+    },
+    meetingRooms:{
+        type:Number
+    },
+    personalWashroom:{
+        type:Boolean
+    },
+    Pantry:{
+        type:String
+    },
     bathrooms:{
         type:Number
     },

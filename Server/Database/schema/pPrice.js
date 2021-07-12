@@ -60,7 +60,7 @@ const schema = new Schema({
     per: {
         type: String
     },
-    Brokerage: {
+    brokerage: {
         type: Number
     }
 }, {

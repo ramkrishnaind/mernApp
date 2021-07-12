@@ -38,6 +38,15 @@ const schema = new Schema({
     nameOfProject:{
         type:String
     },
+    locality:{
+        type:String
+    },
+    landZone:{
+        type:String
+    },
+    idealForBusinesses:{
+        type:String
+    },
     status: {
         type: Boolean,
         default: false

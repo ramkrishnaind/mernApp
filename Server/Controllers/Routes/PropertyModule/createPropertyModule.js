@@ -47,7 +47,7 @@ function createPropertyRequest(Models) {
                                                 "builtUpArea","carpetArea","transactionType","possessionStatus","availableFromMonth",
                                                 "availableFromYear","ageOfConstruction"]);
             // searching email or mobile already exists or not
-            let findData = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
+            // let findData = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
             const moduleFeatureSchema = {
                 bedrooms: bodyData.bathrooms,
                 balconies: bodyData.balconies,
@@ -65,29 +65,29 @@ function createPropertyRequest(Models) {
                 ageOfConstruction:bodyData.ageOfConstruction
             };
             
-            if (findData) {
-                // if data found check 
-                let findDataname = await Models.PFeaturesDB.findOne({ productId:findData._id });
-                if (findDataname) {
-                    // if data found check 
-                    throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateModule: true, statusCode: 401 };
-                }
-                moduleFeatureSchema.productId = findData._id;
-                let saveModule = await new Models.PFeaturesDB(moduleFeatureSchema).save();
-                console.log('saveModule is', saveModule)
-                res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
-            }
-            else
-            {
-                let saveModule = await new Models.PropertyDB(bodyData).save();
-                let findDataname = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
-                if (findDataname) {
-                    moduleFeatureSchema.productId = findDataname._id;
-                    let saveModule = await new Models.PFeaturesDB(moduleFeatureSchema).save();
-                    console.log('saveModule is', saveModule)
+            // if (findData) {
+            //     // if data found check 
+            //     let findDataname = await Models.PFeaturesDB.findOne({ productId:findData._id });
+            //     if (findDataname) {
+            //         // if data found check 
+            //         throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateModule: true, statusCode: 401 };
+            //     }
+            //     moduleFeatureSchema.productId = findData._id;
+            //     let saveModule = await new Models.PFeaturesDB(moduleFeatureSchema).save();
+            //     console.log('saveModule is', saveModule)
+            //     res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
+            // }
+            // else
+            // {
+            //     let findDataname = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
+            //     if (findDataname) {
+            //         moduleFeatureSchema.productId = findDataname._id;
+                    let saveModule = await new Models.PropertyDB(bodyData).save();
+                    let featureSchemaModule = await new Models.PFeaturesDB(moduleFeatureSchema).save();
+                    console.log('saveModule is', featureSchemaModule)
                     res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
-                }
-            }
+            //     }
+            // }
 
         }
         catch (e) {

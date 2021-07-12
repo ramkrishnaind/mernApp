@@ -18,15 +18,16 @@ app.use(helmet({
 }));
 
 // white listing origin from infinityCoding.com
-let whitelist = [/\.infinitycoding\.in$/];
-if (process.env.NODE_ENV === 'development') {
-    whitelist.push('http://localhost:3333');
-}
-app.use(cors({
-    origin: whitelist,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-}));
+// let whitelist = [/\.infinitycoding\.in$/, "http://192.46.214.45:3333", "http://192.46.214.45:5555", "http://192.46.214.45:9999"];
+// if (process.env.NODE_ENV === 'development') {
+//     whitelist.push('http://localhost:3333');
+// }
+// app.use(cors({
+//     origin: whitelist,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     credentials: true
+// }));
+app.use(cors({ origin: '*' }))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -57,8 +58,9 @@ app.use(`${prefix}feedback`, require('./Controllers/ClientFeedbackController')({
 app.use(`${prefix}cms`, require('./Controllers/CMSController')({ MongoDBConnection }));
 app.use(`${prefix}slider`, require('./Controllers/SliderController')({ MongoDBConnection }));
 app.use(`${prefix}builder`, require('./Controllers/BuildingMaterialsController')({ MongoDBConnection }));
-app.use(`${prefix}services`, require('./Controllers/BuildingMaterialsController')({ MongoDBConnection }));
-
+app.use(`${prefix}services`, require('./Controllers/ServicesController')({ MongoDBConnection }));
+app.use(`${prefix}contactus`, require('./Controllers/ContactUsController')({ MongoDBConnection }));
+app.use(`${prefix}sitevisit`, require('./Controllers/siteVisitController')({ MongoDBConnection }));
 // let reactHTMLPath = process.env.NODE_ENV === 'production' ? "../FX-React/build" : "";
 
 // reactHTMLPath = path.join(__dirname, reactHTMLPath);

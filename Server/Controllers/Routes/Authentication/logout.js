@@ -4,13 +4,13 @@ const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { prepareTemplateSendMail } = require('./signup');
-const errorResponseHelper = require('../../../helper/errorResponse');
+const errorResponseHelper = require('../../../Helper/errorResponse');
 
 function logInHelper(Models) {
     async function logIn(req, res) {
         try {
-            
-            if(!req.session || !req.session.user || !req.session.user) {
+
+            if (!req.session || !req.session.user || !req.session.user) {
                 return res.send({ status: true, message: "Successfully logout", tokenNotFound: true });
             }
 

@@ -6,16 +6,21 @@ import {
   Typography,
   Button,
   TextField,
+  Link,
+  Checkbox,
 } from "@material-ui/core";
-
+import FacebookIcon from "@material-ui/icons/Facebook";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/styles";
 import logo from "./adminlogo.png";
+import loginImage from "./adminLogin.jpg";
 import { userActions } from "../../_actions";
 
 const styles = (theme) => ({
   container: {
     height: "100vh",
+    backgroundColor: "black",
+    color: "white",
     width: "100vw",
     display: "flex",
     justifyContent: "center",
@@ -24,9 +29,11 @@ const styles = (theme) => ({
     top: 0,
     left: 0,
   },
+
   logotypeContainer: {
-    backgroundColor: theme.palette.primary.main,
-    width: "43%",
+    backgroundImage: "url(" + loginImage + ")",
+    backgroundSize: "cover",
+    width: "55%",
     height: "100%",
     display: "flex",
     flexDirection: "column",
@@ -38,6 +45,12 @@ const styles = (theme) => ({
     [theme.breakpoints.down("md")]: {
       display: "none",
     },
+  },
+
+  googleButton: {
+    fontWeight: "bolder",
+    color: "white",
+    marginRight: 6,
   },
   logotypeImage: {
     width: "42%",
@@ -54,7 +67,7 @@ const styles = (theme) => ({
     },
   },
   formContainer: {
-    width: "57%",
+    width: "45%",
     height: "100%",
     display: "flex",
     flexDirection: "column",
@@ -64,12 +77,33 @@ const styles = (theme) => ({
       width: "50%",
     },
   },
+
+  mainHeading: {
+    fontWeight: "bolder",
+    letterSpacing: 4,
+    fontSize: 23,
+    paddingBottom: 10,
+  },
+
+  welcomeHeading: {
+    fontWeight: "bold",
+  },
   form: {
     width: 320,
   },
   tab: {
     fontWeight: 400,
     fontSize: 18,
+  },  
+  checkbox: {
+    position: "relative",
+    left: -9,
+    top: -10,
+  },
+  alignCheckboxHeading: {
+    top: -10,
+    position: "relative",
+    left: -15,
   },
   greeting: {
     fontWeight: 500,
@@ -81,13 +115,7 @@ const styles = (theme) => ({
     textAlign: "center",
     marginTop: theme.spacing(2),
   },
-  googleButton: {
-    marginTop: theme.spacing(6),
-    boxShadow: theme.customShadows.widget,
-    backgroundColor: "white",
-    width: "100%",
-    textTransform: "none",
-  },
+
   googleButtonCreating: {
     marginTop: 0,
   },
@@ -136,7 +164,8 @@ const styles = (theme) => ({
     },
   },
   textField: {
-    borderBottomColor: theme.palette.background.light,
+    borderColor: theme.palette.background.light,
+    borderWidth: "5px",
   },
   formButtons: {
     width: "100%",
@@ -145,6 +174,7 @@ const styles = (theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     cursor: "pointer",
+    marginBottom: theme.spacing(2),
   },
   forgetButton: {
     textTransform: "none",
@@ -162,6 +192,12 @@ const styles = (theme) => ({
       bottom: theme.spacing(2),
     },
   },
+  createAccount: {
+    marginTop: theme.spacing(2),
+    whiteSpace: "nowrap",
+    fontSize: "14px",
+    color: "white",
+  },
 });
 const Login = (props) => {
   const initialState = {
@@ -174,38 +210,34 @@ const Login = (props) => {
 
   const inputChange = (e) => {
     let { name, value } = e.target;
-    
-    setState({...state,  [name]: value });
+
+    setState({ ...state, [name]: value });
   };
   const loginSubmit = (e) => {
-    const { email, password}  = state
+    const { email, password } = state;
+    console.log(state)
     props.dispatch(userActions.login({ username: email, password }));
   };
-
 
   const { classes } = props;
   return (
     <Grid container className={classes.container}>
-      <div className={classes.logotypeContainer}>
-        {/* <img src={logo} alt="logo" className={classes.logotypeImage} /> */}
-        <Typography className={classes.logotypeText}>
-          Vishal Properties
-        </Typography>
-      </div>
       <div className={classes.formContainer}>
         <div className={classes.form}>
+          <Typography className={classes.mainHeading}>
+            Vishal Properties
+          </Typography>
+          <Typography className={classes.welcomeHeading}>
+            Welcome back!
+          </Typography>
+          <Typography>Happy to see you again!</Typography>
           <React.Fragment>
             <TextField
               id="email"
               variant="outlined"
               name="email"
+              className={classes.textField}
               label="Email"
-              InputProps={{
-                classes: {
-                  underline: classes.textFieldUnderline,
-                  input: classes.textField,
-                },
-              }}
               value={state.email}
               onChange={inputChange}
               margin="normal"
@@ -231,11 +263,35 @@ const Login = (props) => {
               type="password"
               fullWidth
             />
+            <Grid container>
+              <Grid item xs>
+                <Grid item xs>
+                  <Checkbox
+                    className={classes.checkbox}
+                    value="checkedA"
+                    inputProps={{ "aria-label": "Checkbox A" }}
+                  />
+                  <Link
+                    href="#"
+                    variant="body2"
+                    className={classes.alignCheckboxHeading}
+                  >
+                    Keep me signed in
+                  </Link>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  Forget password?
+                </Link>
+              </Grid>
+            </Grid>
             <div className={classes.formButtons}>
               {false ? (
                 <CircularProgress size={26} className={classes.loginLoader} />
               ) : (
                 <Button
+                  fullWidth
                   disabled={
                     state?.email?.length === 0 || state?.password?.length === 0
                   }
@@ -250,9 +306,13 @@ const Login = (props) => {
             </div>
           </React.Fragment>
         </div>
-        <Typography color="primary" className={classes.copyright}>
-          2021 © Vishal Properties
+        <Typography color="primary" className={classes.createAccount}>
+          Don't have an account? <Link>Create</Link>
         </Typography>
+      </div>
+
+      <div className={classes.logotypeContainer}>
+        {/* <img src={logo} alt="logo" className={classes.logotypeImage} /> */}
       </div>
     </Grid>
   );

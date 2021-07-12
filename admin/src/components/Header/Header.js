@@ -1,11 +1,6 @@
 import React, { useState } from "react";
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Menu,
-} from "@material-ui/core";
-import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, IconButton, Menu, TextField } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import {
   Menu as MenuIcon,
   Person as AccountIcon,
@@ -20,6 +15,8 @@ import {
   toggleSidebar,
 } from "../../context/LayoutContext";
 
+
+
 export default function Header(props) {
   var classes = useStyles();
 
@@ -29,16 +26,15 @@ export default function Header(props) {
   var [isSearchOpen, setSearchOpen] = useState(false);
 
   return (
-    <AppBar position="fixed" className="header-outer">
+    <AppBar position="fixed" className="header-outer" style={{backgroundColor:"#38425e"}}>
       <Toolbar className={classes.toolbar}>
-
         <IconButton
           color="inherit"
           onClick={() => toggleSidebar(layoutDispatch)}
           className={classNames(
             classes.headerMenuButton,
             classes.headerMenuButtonCollapse,
-            classes.mybutton,
+            classes.mybutton
           )}
         >
           {layoutState.isSidebarOpened ? (
@@ -46,7 +42,7 @@ export default function Header(props) {
               classes={{
                 root: classNames(
                   classes.headerIcon,
-                  classes.headerIconCollapse,
+                  classes.headerIconCollapse
                 ),
               }}
             />
@@ -55,20 +51,20 @@ export default function Header(props) {
               classes={{
                 root: classNames(
                   classes.headerIcon,
-                  classes.headerIconCollapse,
+                  classes.headerIconCollapse
                 ),
               }}
             />
           )}
         </IconButton>
-{/* 
+        {/* 
         <div className="logo">
           <img src={process.env.PUBLIC_URL + '/images/logo.png'} alt="" />
         </div> */}
 
-        {/* <Typography variant="h6" weight="medium" className={classes.logotype}>
-         Admin 
-        </Typography> */}
+        <Typography variant="h6" weight="medium" className={classes.logotype}>
+         Vishal Properties 
+        </Typography>
         <div className={classes.grow} />
         <div
           className={classNames(classes.search, {
@@ -80,17 +76,18 @@ export default function Header(props) {
               [classes.searchIconOpened]: isSearchOpen,
             })}
             onClick={() => setSearchOpen(!isSearchOpen)}
-          >
-          </div>
+          ></div>
         </div>
+
         <IconButton
           aria-haspopup="true"
           color="inherit"
           className={classes.headerMenuButton}
           aria-controls="profile-menu"
-          onClick={e => setProfileMenu(e.currentTarget)}
+          onClick={(e) => setProfileMenu(e.currentTarget)}
         >
           <AccountIcon classes={{ root: classes.headerIcon }} />
+          
         </IconButton>
         <Menu
           id="profile-menu"
@@ -103,15 +100,10 @@ export default function Header(props) {
         >
           <div className={classes.profileMenuUser}>
             <Link to="/login">
-              <Typography
-                className={classes.profileMenuLink}
-                color="primary"
-              >
+              <Typography className={classes.profileMenuLink} color="primary">
                 Sign Out
-            </Typography>
+              </Typography>
             </Link>
-
-
           </div>
         </Menu>
       </Toolbar>

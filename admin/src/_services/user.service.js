@@ -36,7 +36,7 @@ function login(data) {
         headers: header,
         body: JSON.stringify(data)
     }
-    return fetch(CONST.BACKEND_URL + `/adminlogin`, requestOptions)
+    return fetch(CONST.BACKEND_URL + `login`, requestOptions)
         .then(handleResponse)
         .then(user => {
             let userObj = {
