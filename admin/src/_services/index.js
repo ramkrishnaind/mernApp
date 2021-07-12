@@ -7,3 +7,4 @@ export * from "./admin.service";
 export * from "./theme.service";
 export * from "./user.service";
 export * from "./client.service";
+export * from "./menu.service";

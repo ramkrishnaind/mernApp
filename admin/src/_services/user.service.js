@@ -41,10 +41,10 @@ function login(data) {
         .then(handleResponse)
         .then(user => {
             let userObj = {
-                userinfo: user.data
+                userinfo: user.user
             }
-            if (user.data) {
-                localStorage.setItem('user', JSON.stringify(user.data));
+            if (user.user) {
+                localStorage.setItem('user', JSON.stringify(user.user));
             }
 
             return userObj;

@@ -11,6 +11,7 @@ import { admin } from "./admin.reducer";
 import { client } from "./client.reducer";
 import {users} from "./users.reducer";
 
+import {menu} from "./menu.reducer";
 const rootReducer = combineReducers({
   //branch,
   authentication,
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   orders,
   admin,
   client,
-   users
+   users,
+   menu
 });
 
 export default rootReducer;

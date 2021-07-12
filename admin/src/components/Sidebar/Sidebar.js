@@ -66,6 +66,13 @@ const structure = [
     icon: <WbIncandescentIcon />,
     value: "admin",
   },
+  {
+    id: 2,
+    label: "Menu Management",
+    link: "/app/menu",
+    icon: <WbIncandescentIcon />,
+    value: "menu",
+  },
 ];
 
 function Sidebar(props) {

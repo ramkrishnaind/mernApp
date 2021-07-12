@@ -3,6 +3,11 @@ import { userService } from '../_services';
 import { alertActions } from './';
 import { toast } from 'react-toastify';
 import { history } from '../_helpers';
+
+import { useContext } from 'react';
+import SnackbarContext from '../context/SnackbarContext';
+
+
 export const userActions = {
     login,
     registerAdmin,
@@ -50,6 +55,7 @@ function registerAdmin(data) {
             .then(
                 user => {
                     dispatch(success(user));
+                    // setSnackbar({ type: "success", active: true, text: data.message, timeout: 4000 });
                 },
                 error => {
                     dispatch(failure(error));
@@ -57,6 +63,8 @@ function registerAdmin(data) {
                 }
             );
     };
+
+   
 
     function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
     function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }

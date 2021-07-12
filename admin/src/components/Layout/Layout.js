@@ -9,7 +9,7 @@ import Dashboard from "../../pages/dashboard";
 import { useLayoutState } from "../../context/LayoutContext";
 import { store } from "../../_helpers";
 import Admin from "../../pages/adminManagement/adminManagement";
-
+import Menu from "../../pages/MenuManagement/MenuManagement";
 
 function Layout(props) {
   let users = store.getState().users;
@@ -36,6 +36,12 @@ function Layout(props) {
               path="/app/admin"
               exact
               component={withRouter(Admin)}
+            />
+            
+            <Route
+              path="/app/menu"
+              exact
+              component={withRouter(Menu)}
             />
           </Switch>
         </div>

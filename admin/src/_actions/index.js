@@ -7,3 +7,4 @@ export * from './admin.actions';
 export * from "./theme.actions";
 export * from "./user.actions";
 export * from "./client.actions";
+export * from "./menu.actions";
