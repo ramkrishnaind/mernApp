@@ -24,7 +24,6 @@ function logInHelper(Models) {
 
             payload.email = String(payload.email).toLowerCase();
             let userData = await Models.UserDB.findOne({ email: payload.email }).populate('userRole').lean();
-console.log(userData.userRole.rights);
             if (!userData) {
                 throw { status: false, error: true, message: "Email/Password is incorrect", statusCode: 401, dataIncorrect: true };
             }
@@ -44,7 +43,7 @@ console.log(userData.userRole.rights);
             if (!userData.active) {
                 throw { status: false, error: true, message: "Your account has been disabled. Please contact admin", adminDisable: true, statusCode: 401 };
             }
-            let roleName = await Models.MenuModuleDB.find({'_id': {$in:userData.userRole.rights}});            
+            let roleName = await Models.MenuModuleDB.find({ '_id': { $in: userData.userRole.rights } });
             console.log(roleName);
             // create token and add in token collection
             let token = jwt.sign({ date: new Date(), email: userData.email }, process.env.SECRET);
@@ -62,7 +61,7 @@ console.log(userData.userRole.rights);
 
             req.session.user = {
                 _id: userData._id,
-                role:roleName,
+                role: roleName,
                 countryCode: userData.countryCode,
                 phone: userData.phone,
                 verified: userData.verified,
