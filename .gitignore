@@ -5,6 +5,7 @@
 /admin/node_modules
 /client/node_modules
 /admin/package-lock.json
+/admin_v2/package-lock.json
 /.pnp
 .pnp.js
 package-lock.json
@@ -23,6 +24,8 @@ package-lock.json
 .env.development.local
 .env.test.local
 .env.production.local
+.env.development
+.env.production
 
 npm-debug.log*
 yarn-debug.log*
