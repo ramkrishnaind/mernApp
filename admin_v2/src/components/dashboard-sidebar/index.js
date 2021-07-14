@@ -33,6 +33,25 @@ import Logger from '../../utils/Logger';
       icon: BarChartIcon,
       title: 'Dashboard'
     },
+
+    {
+      href: '/menu',
+      icon: UsersIcon,
+      title: 'Menu Management',
+      items: [
+        {
+          href: "/menu/add",
+          icon: ShoppingBagIcon,
+          title: "Add Menu",
+        },
+        {
+          href: "/menu",
+          icon: ShoppingBagIcon,
+          title: "Menu List",
+        }
+      ]
+    },
+
     {
       href: '/property-management',
       icon: UsersIcon,
