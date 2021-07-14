@@ -18,6 +18,8 @@ import {
     User as UserIcon,
     Users as UsersIcon
   } from 'react-feather';
+import {useSelector} from 'react-redux';
+import Logger from '../../utils/Logger';
 
   const user = {
     avatar: '/static/images/avatars/avatar_6.png',
@@ -37,7 +39,7 @@ import {
       title: 'Property Management',
       items: [
         {
-          href: "/add-property ",
+          href: "/add-property",
           icon: ShoppingBagIcon,
           title: "Add New",
         },
@@ -62,6 +64,10 @@ import {
 
   const DashboardSidebar = ({ onMobileClose, openMobile }) => {
     const location = useLocation();
+
+  const sidemenuList = useSelector(state => state.SideMenuList.data);
+
+  Logger.log('SIDEMENU-LIST', sidemenuList);
 
     useEffect(() => {
         if (openMobile && onMobileClose) {
@@ -111,7 +117,7 @@ import {
           <Divider />
           <Box sx={{ p: 2 }}>
             <List>
-              {items.map((item) => (
+              {items?.map((item, index) => (
                 <NavItem2
                   href={item.href}
                   key={item.title}
