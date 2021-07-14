@@ -16,7 +16,7 @@ import { withStyles } from "@material-ui/styles";
 
 import loginImage from "./adminLogin.jpg";
 import {LoginRequestAsync} from "../../redux/actions/LoginAction";
-
+import {Link as RouterLink} from 'react-router-dom';
 
 const styles = (theme) => ({
   container: {
@@ -310,7 +310,7 @@ const Login = (props) => {
           </React.Fragment>
         </div>
         <Typography color="primary" className={classes.createAccount}>
-          Don't have an account? <Link>Create</Link>
+          Don't have an account? <Link component={RouterLink} to ="/register">Create</Link>
         </Typography>
       </div>
 

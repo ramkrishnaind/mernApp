@@ -34,7 +34,7 @@ const MainLayoutRoot = styled('div')(
   
   const MainLayout = () => (
     <MainLayoutRoot>
-      <MainNavbar />
+      {/* <MainNavbar /> */}
       <MainLayoutWrapper>
         <MainLayoutContainer>
           <MainLayoutContent>

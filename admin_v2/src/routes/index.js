@@ -14,10 +14,6 @@ const Routes = props => {
         {
             path: "/",
             element: isAuth ? <DashboardLayout /> : <MainLayout />,
-            // path: "/login",
-            // element: <LoginPage />,
-            // path: "/register",
-            // element: <RegisterPage />,
             children: [
                 {
                     path: "/",
@@ -26,7 +22,6 @@ const Routes = props => {
                 {
                     path: "/login",
                     element: !isAuth ? <LoginPage /> : <Navigate to="/" />
-                    // element: <LoginPage />
                 },
                 {
                     path: "/register",

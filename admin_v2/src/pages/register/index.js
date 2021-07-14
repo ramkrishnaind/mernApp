@@ -12,10 +12,11 @@ import {
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/styles";
 import loginImage from "./adminLogin.jpg";
-import {RegisterRequest} from "../../redux/actions/RegisterAction";
+import * as RegisterAction from "../../redux/actions/RegisterAction";
 
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
+import {Link as RouterLink} from 'react-router-dom';
 
 const styles = (theme) => ({
   container: {
@@ -239,7 +240,7 @@ const Register = (props) => {
     };
 
     console.log("reqData  ", reqData);
-    props.dispatch(RegisterRequest(reqData));
+    props.dispatch(RegisterAction.RegisterRequestAsync(reqData));
 
     // props.dispatch(userActions.login({ fname: email, password }));
   };
@@ -393,7 +394,7 @@ const Register = (props) => {
           </React.Fragment>
         </div>
         <Typography color="primary" className={classes.createAccount}>
-        Already have an Account? <Link>Login</Link>
+        Already have an Account? <Link component={RouterLink} to="/login">Login</Link>
         </Typography>
       </div>
 
