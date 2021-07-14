@@ -26,6 +26,7 @@ const Routes = props => {
                     path: "/home",
                     element: isAuth ? <HomePage /> : <Navigate to="/login" />
                 },
+                // Put new route above this line
                 {
                     path: "404",
                     element: <Error404Page />
