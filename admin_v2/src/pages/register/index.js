@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 
 import {
@@ -10,13 +9,13 @@ import {
   Link,
   Checkbox,
 } from "@material-ui/core";
-
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/styles";
-
 import loginImage from "./adminLogin.jpg";
-import {LoginRequestAsync} from "../../redux/actions/LoginAction";
+import {RegisterRequest} from "../../redux/actions/RegisterAction";
 
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 
 const styles = (theme) => ({
   container: {
@@ -200,30 +199,53 @@ const styles = (theme) => ({
     fontSize: "14px",
     color: "white",
   },
+
+  PhoneInput:{
+    marginTop: theme.spacing(3),
+  }
 });
-const Login = (props) => {
+
+const Register = (props) => {
   const initialState = {
     email: "",
     password: "",
+    fname:"",
+    lname:"",
+    phone:"",
   };
+  
   const [state, setState] = useState(initialState);
-
-  // props.dispatch(LoginAction.logout());
-
+  const [country, setCountry] = useState("+91");
+  
   const inputChange = (e) => {
     let { name, value } = e.target;
 
     setState({ ...state, [name]: value });
   };
-  const loginSubmit = (e) => {
-    const { email, password } = state;
-    console.log(state)
-    props.dispatch(LoginRequestAsync({ email: email, password }));
+
+  
+  const handleSubmit = (e) => {
+    
+    const { email, password,fname,lname,phone } = state;
+
+    let reqData = {
+      firstName: fname,
+      lastName: lname,
+      email: email,
+      password: password,
+      mobile: phone,
+      countryCode: country,
+      userRole: '60e84c1c8494c904475e8270',
+    };
+
+    console.log("reqData  ", reqData);
+    props.dispatch(RegisterRequest(reqData));
+
+    // props.dispatch(userActions.login({ fname: email, password }));
   };
 
   const { classes } = props;
   return (
-    <>
     <Grid container className={classes.container}>
       <div className={classes.formContainer}>
         <div className={classes.form}>
@@ -231,10 +253,38 @@ const Login = (props) => {
             Vishal Properties
           </Typography>
           <Typography className={classes.welcomeHeading}>
-            Welcome back!
+            New here?
           </Typography>
-          <Typography>Happy to see you again!</Typography>
+          <Typography>Join us today! it takes only few steps</Typography>
           <React.Fragment>
+            <TextField
+              id="fname"
+              variant="outlined"
+              name="fname"
+              className={classes.textField}
+              label="First Name"
+              value={state.fname}
+              onChange={inputChange}
+              margin="normal"
+              placeholder="First name"
+              type="text"
+              fullWidth
+            />
+            
+            <TextField
+              id="lname"
+              variant="outlined"
+              name="lname"
+              className={classes.textField}
+              label="Last Name"
+              value={state.lname}
+              onChange={inputChange}
+              margin="normal"
+              placeholder="Last name"
+              type="text"
+              fullWidth
+            />
+
             <TextField
               id="email"
               variant="outlined"
@@ -244,10 +294,11 @@ const Login = (props) => {
               value={state.email}
               onChange={inputChange}
               margin="normal"
-              placeholder="Email Adress"
+              placeholder="Email Address"
               type="email"
               fullWidth
             />
+
             <TextField
               id="password"
               label="Password"
@@ -266,6 +317,38 @@ const Login = (props) => {
               type="password"
               fullWidth
             />
+
+            <Grid container spacing={1}>
+              <Grid item xs={12} sm={2}>
+                <PhoneInput
+                  className={classes.PhoneInput}
+                  international
+                  countryCallingCodeEditable={false}
+                  defaultCountry="IN"
+                  value={country}
+                  onChange={setCountry}/>
+              </Grid>
+              <Grid item xs={12} sm={10}>
+
+              <TextField
+                id="mobile"
+                variant="outlined"
+                name="phone"
+                className={classes.textField}
+                label="Mobile"
+                value={state.phone}
+                onChange={inputChange}
+                margin="normal"
+                placeholder="Mobile number"
+                type="number"
+                fullWidth
+              />
+              </Grid>
+            </Grid>
+            
+{/* Signup k time userRole me Ye Id Send karn hha    60e84c1c8494c904475e827 OKK  */}
+            
+
             <Grid container>
               <Grid item xs>
                 <Grid item xs>
@@ -279,7 +362,7 @@ const Login = (props) => {
                     variant="body2"
                     className={classes.alignCheckboxHeading}
                   >
-                    Keep me signed in
+                    Remember me
                   </Link>
                 </Grid>
               </Grid>
@@ -298,19 +381,19 @@ const Login = (props) => {
                   // disabled={
                   //   state?.email?.length === 0 || state?.password?.length === 0
                   // }
-                  onClick={loginSubmit}
+                  onClick={handleSubmit}
                   variant="contained"
                   color="primary"
                   size="large"
                 >
-                  Login
+                  Register
                 </Button>
               )}
             </div>
           </React.Fragment>
         </div>
         <Typography color="primary" className={classes.createAccount}>
-          Don't have an account? <Link>Create</Link>
+        Already have an Account? <Link>Login</Link>
         </Typography>
       </div>
 
@@ -319,18 +402,17 @@ const Login = (props) => {
       </div>
       
     </Grid>
-    {/* <Register /> */}
-    </>
+    
   );
 };
 
 function mapStateToProps(state) {
-  // console.log("state  ", state);
-  // const { loggingIn } = state.Login.data;
+  console.log("state  ", state);
+  // const { loggingIn } = state.authentication;
   const { users } = state;
   return {
     // loggingIn,
     users,
   };
 }
-export default connect(mapStateToProps)(withStyles(styles)(Login));
+export default connect(mapStateToProps)(withStyles(styles)(Register));
