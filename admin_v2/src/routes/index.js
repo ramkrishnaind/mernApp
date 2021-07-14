@@ -4,6 +4,7 @@ import MainLayout from '../components/main-layout';
 
 //Pages
 import LoginPage from "../pages/login";
+import RegisterPage from "../pages/register";
 import HomePage from "../pages/home";
 import Error404Page from "../pages/404";
 
@@ -21,6 +22,10 @@ const Routes = props => {
                 {
                     path: "/login",
                     element: !isAuth ? <LoginPage /> : <Navigate to="/" />
+                },
+                {
+                    path: "/register",
+                    element: <RegisterPage />,
                 },
                 {
                     path: "/home",

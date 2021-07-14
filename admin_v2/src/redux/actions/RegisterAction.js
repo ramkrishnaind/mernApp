@@ -1,9 +1,17 @@
 import ACTION_KEYS from "../../constants/action-keys";
+import {RegisterService} from '../../services/RegisterService';
 
-export const RegisterRequest = () => {
+const RegisterRequest = () => {
     return {
         type: ACTION_KEYS.REGISTER_REQUEST,
         payload: null,
+    }
+}
+
+export const RegisterRequestAsync = (data) => {
+    return (dispatch) => {
+        dispatch(RegisterRequest());
+        RegisterService(dispatch, data);
     }
 }
 

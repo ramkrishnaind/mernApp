@@ -17,7 +17,7 @@ export const LoginRequestAsync = (data) => {
  * Action Creator to dispatch login action
  * @returns 
  */
-export const LoginRequest = () => {
+const LoginRequest = () => {
     return {
         type: ACTION_KEYS.LOGIN_REQUEST,
         payload: null,
