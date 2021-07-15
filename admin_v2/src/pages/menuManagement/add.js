@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Grid,
@@ -14,12 +14,52 @@ import {
   TextValidator,
   SelectValidator,
 } from "react-material-ui-form-validator";
-import { connect } from "react-redux";
-import { withStyles } from "@material-ui/core/styles";
-import { withRouter } from "react-router";
+
+import * as MenuAction from "../../redux/actions/MenuAction";
 
 
-const MenuList = () => {
+const MenuList = (props) => {
+    const initialState = {
+        topParentID: "",
+        parentID: "",
+        name:"",
+        icon:"",
+        description:"",
+        endPoint:"",
+        status:"",
+      };
+      
+    const [state, setState] = useState(initialState);
+
+    const inputChange = (e) => {
+        let { name, value } = e.target;
+    
+        setState({ ...state, [name]: value });
+      };
+    
+
+    const handleSubmit = (e) => {
+    
+        const { topParentID, parentID,name,icon,description,endPoint,status } = state;
+    
+        let reqData = {
+            name: name,
+            icon: icon,
+            topParentID: topParentID,
+            parentID: parentID,
+            description: description,
+            endPoint: endPoint,
+            status:status,
+            createdBy:"60c8f72a2002b60ac1b6b50a"
+        };
+        
+        console.log("reqData  ", reqData);
+        props.dispatch(MenuAction.MenuAddRequestAsync(reqData));
+    
+        // props.dispatch(userActions.login({ fname: email, password }));
+      };
+
+      
     return (
         <>
         <Grid item xs={12} className="m-5">
@@ -37,7 +77,7 @@ const MenuList = () => {
               >Back</Button> */}
             </div>
                 <div class="card-body">
-                <ValidatorForm>
+                <ValidatorForm onSubmit={handleSubmit}>
                     <Grid container spacing={3}>  
                         <Grid className="form-group-item" item xs={12} sm={6} md={4}>
                             <SelectValidator
@@ -45,10 +85,10 @@ const MenuList = () => {
                                 variant="outlined"
                                 label="Menu/Top Category"
                                 fullWidth
-                                //   onChange={this.handleChangeInput}
-                                name="menuID"
-                                id="menuID"
-                                //   value={formData.menuID}
+                                value={state.topParentID}
+                                onChange={inputChange}
+                                name="topParentID"
+                                id="topParentID"
                                 validators={["required"]}
                                 errorMessages={["this field is required"]}
                             >
@@ -71,10 +111,10 @@ const MenuList = () => {
                                 variant="outlined"
                                 label="parentID"
                                 fullWidth
-                                //   onChange={this.handleChangeInput}
-                                name="menuID"
-                                id="menuID"
-                                //   value={formData.menuID}
+                                value={state.parentID}
+                                onChange={inputChange}
+                                name="parentID"
+                                id="parentID"
                                 validators={["required"]}
                                 errorMessages={["this field is required"]}
                             >
@@ -101,10 +141,10 @@ const MenuList = () => {
                             variant="outlined"
                             label=" name*"
                             fullWidth
-                            // onChange={this.handleChangeInput}
+                            value={state.name}
+                            onChange={inputChange}
                             name="name"
                             id="name"
-                            // value={formData.name}
                             validators={["required"]}
                             errorMessages={["this field is required"]}
                             />
@@ -116,10 +156,10 @@ const MenuList = () => {
                             variant="outlined"
                             label=" icon*"
                             fullWidth
-                            // onChange={this.handleChangeInput}
+                            value={state.icon}
+                            onChange={inputChange}
                             name="icon"
                             id="icon"
-                            // value={formData.icon}
                             validators={["required"]}
                             errorMessages={["this field is required"]}
                             />
@@ -131,10 +171,10 @@ const MenuList = () => {
                             variant="outlined"
                             label=" Description*"
                             fullWidth
-                            // onChange={this.handleChangeInput}
+                            value={state.description}
+                            onChange={inputChange}
                             name="description"
                             id="description"
-                            // value={formData.description}
                             validators={["required"]}
                             errorMessages={["this field is required"]}
                             />
@@ -146,15 +186,47 @@ const MenuList = () => {
                             variant="outlined"
                             label=" endPoint*"
                             fullWidth
-                            // onChange={this.handleChangeInput}
+                            value={state.endPoint}
+                            onChange={inputChange}
                             name="endPoint"
                             id="endPoint"
-                            // value={formData.endPoint}
                             validators={["required"]}
                             errorMessages={["this field is required"]}
                             />
                         </Grid>
-                        
+
+                        <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                            <FormControl
+                            variant="outlined"
+                            style={{ width: "100%" }}
+                            >
+                            <InputLabel
+                                id="demo-simple-select-outlined-label"
+                                htmlFor="age-native-simple"
+                            >
+                                Status
+                            </InputLabel>
+                            <Select
+                                labelId="demo-simple-select-outlined-label"
+                                id="demo-simple-select-outlined-label"
+                                label="Status"
+                                native
+                                name="status"
+                                value={state.status}
+                                onChange={inputChange}
+                                inputProps={{
+                                name: "status",
+                                id: "age-native-simple",
+                                }}
+                            >
+                                <option value={true} selected>Yes</option>
+                                <option value={false} >No</option>
+                            </Select>
+                            </FormControl>
+
+                        </Grid>
+                        </Grid>
+                        <br />
                         <Button
                             // fullWidth
                             variant="contained"
@@ -165,7 +237,7 @@ const MenuList = () => {
                             Save
                         </Button>
                             
-                    </Grid>
+                    {/* </Grid> */}
                 </ValidatorForm>
                 </div>
             </div>
