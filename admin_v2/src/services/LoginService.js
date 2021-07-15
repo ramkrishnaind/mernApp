@@ -12,7 +12,9 @@ export const LoginService = async (dispatch, data) => {
       null,
       false
     );
+    window.localStorage.setItem('user',JSON.stringify(result.user));
     dispatch(LoginSuccess(result));
+    window.location.href = "/home";
   } catch (error) {
     dispatch(LoginError(error));
   }

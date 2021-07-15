@@ -16,9 +16,10 @@ import {
 } from "react-material-ui-form-validator";
 
 import * as MenuAction from "../../redux/actions/MenuAction";
-
+import { useDispatch } from "react-redux";
 
 const MenuList = (props) => {
+    const dispatch = useDispatch();
     const initialState = {
         topParentID: "",
         parentID: "",
@@ -26,7 +27,7 @@ const MenuList = (props) => {
         icon:"",
         description:"",
         endPoint:"",
-        status:"",
+        status:true,
       };
       
     const [state, setState] = useState(initialState);
@@ -54,7 +55,7 @@ const MenuList = (props) => {
         };
         
         console.log("reqData  ", reqData);
-        props.dispatch(MenuAction.MenuAddRequestAsync(reqData));
+        dispatch(MenuAction.MenuAddRequestAsync(reqData));
     
         // props.dispatch(userActions.login({ fname: email, password }));
       };

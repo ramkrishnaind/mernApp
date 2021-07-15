@@ -34,7 +34,8 @@ export default class ApiClient {
 
         headers = this.addCommonHeaders(headers);
         //TODO: get tokens from reducer or localstorage
-        const token = '';
+        let userData = JSON.parse(window.localStorage.getItem('user'));
+        const token = userData?.token;
         if(isAuthTokenRequired) {
             headers["Authorization"] = "Bearer " + token;
         }
