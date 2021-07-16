@@ -19,7 +19,7 @@ function BreadCrumbs(props){
         <Box className={'breadcurmb'}>
             <Typography className={'typo'} variant={"body1"}>
             <HomeIcon className={'icon'} fontSize="small" />
-            <span>Dashboard   </span><span> > </span><span>User Role</span><span>  > </span><span>Add or Edit User Role</span>
+            <span>Dashboard   </span><span> > </span><span>{props.heading1}</span><span>  > </span><span>{props.heading2}</span>
             </Typography>
         </Box>
     )

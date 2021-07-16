@@ -11,7 +11,7 @@ const AddUsers = () => {
     return (
         <div>
             <FormHeader />
-            <BreadCrumbs />
+            <BreadCrumbs heading1={"User Role"} heading2={"User Role List"}/>
             <UserTableData/>
             
         </div>

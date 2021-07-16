@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import FormHeader from '../../../../common/form-header/index'
 import BreadCrumbs from '../../../../common/bread-crumbs/index'
 import '../createUser/create-user.css'
-import { makeStyles,TextField, FormControlLabel, Checkbox, FormControl,NativeSelect } from '@material-ui/core';
+import { makeStyles,TextField, FormControlLabel, Checkbox, FormControl,NativeSelect, Button } from '@material-ui/core';
 import {GetModuleRightsRequestAsync} from "../../../../redux/actions/ModuleRightsAction";
 import {Link as RouterLink} from 'react-router-dom';
 import { connect } from "react-redux";
@@ -63,8 +63,8 @@ function CreateUser(props){
 
     return (
         <div>
-            <FormHeader />
-            <BreadCrumbs />
+            <FormHeader heading1={"User Role Management"} heading2={"create and manage user role here"}/>
+            <BreadCrumbs heading1={"User Role"} heading2={"Create User Role"} />
             <div className="main-wrapper">
                 <div className="panel panel-primary">
                     <div className="panel-heading">Create User Role</div>
@@ -218,11 +218,20 @@ function CreateUser(props){
                                     /> 
                                </div>
 
+                               
+
                             </div>
                             
                         </div>
-
-
+                        <Button
+                            // fullWidth
+                            variant="contained"
+                            color="primary"
+                            type="submit"
+                            // className={classes.submit}
+                            >
+                            Save
+                        </Button>
                     </div>
                 </div>
             </div>
@@ -236,7 +245,7 @@ function mapStateToProps(state) {
     // const { users } = state;
     return {
       // loggingIn,
-      token: state.Login.data.user.token,
+      token: state.Login?.data?.user?.token,
     };
   }
 

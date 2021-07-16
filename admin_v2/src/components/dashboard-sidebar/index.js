@@ -33,6 +33,25 @@ import Logger from '../../utils/Logger';
       icon: BarChartIcon,
       title: 'Dashboard'
     },
+
+    {
+      href: '/menu',
+      icon: UsersIcon,
+      title: 'Menu Management',
+      items: [
+        {
+          href: "/menu/add",
+          icon: ShoppingBagIcon,
+          title: "Add Menu Module",
+        },
+        {
+          href: "/menu",
+          icon: ShoppingBagIcon,
+          title: "Menu Module List",
+        }
+      ]
+    },
+
     {
       href: '/property-management',
       icon: UsersIcon,
@@ -80,7 +99,7 @@ import Logger from '../../utils/Logger';
         {
           href: "/create-user",
           icon: ShoppingBagIcon,
-          title: " Create User",
+          title: "Create User",
         },
         {
           href: "/add-edit-user",
