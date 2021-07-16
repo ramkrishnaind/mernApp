@@ -1,13 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import FormHeader from '../../../../common/form-header/index'
 import BreadCrumbs from '../../../../common/bread-crumbs/index'
 import '../createUser/create-user.css'
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControl from '@material-ui/core/FormControl';
-import NativeSelect from '@material-ui/core/NativeSelect';
+import { makeStyles,TextField, FormControlLabel, Checkbox, FormControl,NativeSelect } from '@material-ui/core';
+import {GetModuleRightsRequestAsync} from "../../../../redux/actions/ModuleRightsAction";
+import {Link as RouterLink} from 'react-router-dom';
+import { connect } from "react-redux";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
-const CreateUser = () => {
+function CreateUser(props){
 
     const [state, setState] = React.useState({
         checkedA: false,
@@ -56,6 +54,13 @@ const CreateUser = () => {
     };
 
     const classes = useStyles();
+
+    useEffect(()=>{
+        console.log("users rights api==")
+        props.GetUsersData();
+    },[])
+
+
     return (
         <div>
             <FormHeader />
@@ -225,4 +230,22 @@ const CreateUser = () => {
     )
 }
 
-export default CreateUser;
+function mapStateToProps(state) {
+    console.log("state===  ", state);
+    // const { loggingIn } = state.Login.data;
+    const { users } = state;
+    return {
+      // loggingIn,
+      users,
+    };
+  }
+
+  const mapDispatchToProps = dispatch =>{
+      return{
+          GetUsersData: () => dispatch(GetModuleRightsRequestAsync())
+      }
+  }
+
+  export default connect(mapStateToProps, mapDispatchToProps)(CreateUser);
+
+// export default CreateUser;
