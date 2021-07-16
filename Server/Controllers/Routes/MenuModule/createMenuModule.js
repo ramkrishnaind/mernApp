@@ -33,7 +33,7 @@ function createMenu(Models) {
             if (bodyData.topParentID && bodyData.parentID) {
                 bodyData.level = 2;
                 bodyData.order = 0;
-            } else if (bodyData.topParentID == null && bodyData.parentID) {
+            } else if (bodyData.topParentID && bodyData.parentID  == null) {
                 bodyData.level = 1;
                 bodyData.order = 0;
             } else {

@@ -6,6 +6,7 @@ module.exports = {
     getAuthTokenFunction: require('./Authentication/getAuthToken'),
     logoutFunction: require('./Authentication/logout'),
     getMenuList: require('./MenuModule/getMenuListModule'),
+    getAllMenuList: require('./MenuModule/getAllMenuList'),
     createMenu: require('./MenuModule/createMenuModule'),
     createUserRoleFunction: require('./RoleModule/createRoleModule'),
     updateStatusUserRoleFunction: require('./RoleModule/updateStatusRole'),
