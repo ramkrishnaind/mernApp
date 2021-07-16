@@ -8,6 +8,8 @@ import RegisterPage from "../pages/register";
 import HomePage from "../pages/home";
 import MenuList from "../pages/menuManagement";
 import AddMenu from "../pages/menuManagement/add";
+import UserList from "../pages/userManagement";
+import AddUser from "../pages/userManagement/add";
 import Error404Page from "../pages/404";
 
 const Routes = props => {
@@ -41,6 +43,14 @@ const Routes = props => {
                 {
                     path: "/menu/add",
                     element: isAuth ? <AddMenu /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/user",
+                    element: isAuth ? <UserList /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/user/add",
+                    element: isAuth ? <AddUser /> : <Navigate to="/login" />
                 },
                 {
                     path: "404",
