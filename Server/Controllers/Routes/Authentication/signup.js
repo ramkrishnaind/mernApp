@@ -14,12 +14,12 @@ const signUpSchema = Joi.object({
     password: Joi.string().trim().required(),
     mobile: Joi.number().required(),
     countryCode: Joi.number(),
-    userRole:Joi.string().required()
+    userRole: Joi.string().required()
 });
 
 async function prepareTemplateSendMail(data) {
     try {
-        let filePath = path.join(__dirname, '/../../../template/userAuthentication.html');
+        let filePath = path.join(__dirname, '/../../../Template/userAuthentication.html');
         let replacements = {
             name: `${_.capitalize(data.firstName)} ${data.lastName}`,
             username: data.email,

@@ -21,8 +21,8 @@ import {Link as RouterLink} from 'react-router-dom';
 const styles = (theme) => ({
   container: {
     height: "100vh",
-    backgroundColor: "black",
-    color: "white",
+    backgroundColor: "#fffff",
+    color: "#000",
     width: "100vw",
     display: "flex",
     justifyContent: "center",
@@ -51,7 +51,7 @@ const styles = (theme) => ({
 
   googleButton: {
     fontWeight: "bolder",
-    color: "white",
+    color: "#000",
     marginRight: 6,
   },
   logotypeImage: {
@@ -61,7 +61,7 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(4),
   },
   logotypeText: {
-    color: "white",
+    color: "#000",
     fontWeight: 500,
     fontSize: 65,
     [theme.breakpoints.down("md")]: {
