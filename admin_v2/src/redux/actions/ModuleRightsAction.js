@@ -8,10 +8,11 @@ export const GetModuleRights = () => {
     }
 }
 
-export const GetModuleRightsRequestAsync = (data) => {
+export const GetModuleRightsRequestAsync = (data, token) => {
+    console.log("my rights data==", data)
     return (dispatch) => {
         dispatch(GetModuleRights());
-        ModuleRightsService(dispatch, data);
+        ModuleRightsService(dispatch, data, token);
     }
 }
 

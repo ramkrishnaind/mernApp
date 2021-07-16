@@ -27,16 +27,18 @@ export default class ApiClient {
      * @param {*} isAuthTokenRequired - if true must pass the token with API request
      * @returns 
      */
-    static async call(method, url, payload, params, apiHeaders, isAuthTokenRequired = true) {
+    static async call(method, url, payload, params, apiHeaders, isAuthTokenRequired = true, token) {
 
         let headers = apiHeaders ? apiHeaders : {};
         let requestParams = params ? params : {};
 
         headers = this.addCommonHeaders(headers);
         //TODO: get tokens from reducer or localstorage
-        const token = '';
+        // const token = '';
         if(isAuthTokenRequired) {
             headers["Authorization"] = "Bearer " + token;
+            headers["Cookie"] = "connect.sid=s%3Ab5CsaQ8AubwFJarKCp2IKl9-y3y-ZFII.e0rcCZy4JLlhhpqWh68UtPh3AQ6wL%2F7j%2Bl9Z15H9sWE";
+
         }
 
         // let axiosInstance = axios.create({baseURL: process.env.REACT_APP_BASE_URL});

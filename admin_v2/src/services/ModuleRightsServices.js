@@ -2,7 +2,7 @@ import { GetModuleRightSuccess, GetModuleRightsError } from "../redux/actions/Mo
 import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
 
-export const ModuleRightsService = async (dispatch, data) => {
+export const ModuleRightsService = async (dispatch, data, token) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
@@ -10,7 +10,8 @@ export const ModuleRightsService = async (dispatch, data) => {
       null,
       null,
       null,
-      false
+      true,
+      token
     );
     dispatch(GetModuleRightSuccess(result));
   } catch (error) {

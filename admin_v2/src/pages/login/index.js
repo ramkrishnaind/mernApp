@@ -325,7 +325,7 @@ const Login = (props) => {
 };
 
 function mapStateToProps(state) {
-  // console.log("state  ", state);
+  console.log("state  ", state);
   // const { loggingIn } = state.Login.data;
   const { users } = state;
   return {

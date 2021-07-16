@@ -57,7 +57,7 @@ function CreateUser(props){
 
     useEffect(()=>{
         console.log("users rights api==")
-        props.GetUsersData();
+        props.GetUsersData(null, props.token);
     },[])
 
 
@@ -231,18 +231,18 @@ function CreateUser(props){
 }
 
 function mapStateToProps(state) {
-    console.log("state===  ", state);
+    console.log("state=== on create user==  ", state);
     // const { loggingIn } = state.Login.data;
-    const { users } = state;
+    // const { users } = state;
     return {
       // loggingIn,
-      users,
+      token: state.Login.data.user.token,
     };
   }
 
   const mapDispatchToProps = dispatch =>{
       return{
-          GetUsersData: () => dispatch(GetModuleRightsRequestAsync())
+          GetUsersData: (data, token) => dispatch(GetModuleRightsRequestAsync(data, token))
       }
   }
 

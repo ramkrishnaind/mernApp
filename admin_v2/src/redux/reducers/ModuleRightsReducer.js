@@ -12,7 +12,9 @@ const ModuleRightsReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+      
     case ACTION_KEYS.MODULE_RIGHTS_REQUEST:
+        console.log("type===", type)
       return {
         ...state,
         isRequesting: true,

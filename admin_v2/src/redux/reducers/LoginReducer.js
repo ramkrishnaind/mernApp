@@ -5,7 +5,7 @@ const initialState = {
   success: false,
   error: null,
   data: null,
-  isAuth: true,
+  isAuth: false,
 };
 
 const LoginReducer = (state = initialState, action) => {
@@ -22,6 +22,7 @@ const LoginReducer = (state = initialState, action) => {
         ...state,
         isRequesting: false,
         data: payload,
+        isAuth: true,
       };
     case ACTION_KEYS.LOGIN_ERROR:
       return {
