@@ -27,7 +27,7 @@ export default class ApiClient {
      * @param {*} isAuthTokenRequired - if true must pass the token with API request
      * @returns 
      */
-    static async call(method, url, payload, params, apiHeaders, isAuthTokenRequired = true, token) {
+    static async call(method, url, payload, params, apiHeaders, isAuthTokenRequired = true) {
 
         let headers = apiHeaders ? apiHeaders : {};
         let requestParams = params ? params : {};
@@ -35,7 +35,7 @@ export default class ApiClient {
         headers = this.addCommonHeaders(headers);
         //TODO: get tokens from reducer or localstorage
         let userData = JSON.parse(window.localStorage.getItem('user'));
-        // const token = userData?.token;
+        const token = userData?.token;
         if(isAuthTokenRequired) {
             headers["Authorization"] = "Bearer " + token;
             headers["Cookie"] = "connect.sid=s%3Ab5CsaQ8AubwFJarKCp2IKl9-y3y-ZFII.e0rcCZy4JLlhhpqWh68UtPh3AQ6wL%2F7j%2Bl9Z15H9sWE";

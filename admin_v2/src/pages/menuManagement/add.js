@@ -23,15 +23,13 @@ import BreadCrumbs from "../../common/bread-crumbs";
 import './menuManagement.css'
 import SubHeading from "../../common/SubHeadingBox";
 
+// import Link from "next/link";
+
 const MenuList = (props) => {
     const dispatch = useDispatch();
     const initialState = {
-        topParentID: "",
-        parentID: "",
         name:"",
-        icon:"",
         description:"",
-        endPoint:"",
         status:true,
       };
       
@@ -46,17 +44,13 @@ const MenuList = (props) => {
 
     const handleSubmit = (e) => {
     
-        const { topParentID, parentID,name,icon,description,endPoint,status } = state;
-    
+        const { name,description,status } = state;
+        let userData = JSON.parse(window.localStorage.getItem('user'));
         let reqData = {
             name: name,
-            icon: icon,
-            topParentID: topParentID,
-            parentID: parentID,
             description: description,
-            endPoint: endPoint,
             status:status,
-            createdBy:"60c8f72a2002b60ac1b6b50a"
+            createdBy:userData._id
         };
         
         console.log("reqData  ", reqData);
@@ -109,7 +103,7 @@ const MenuList = (props) => {
                             variant="outlined"
                             label="Description*"
                             fullWidth
-                            value={state.icon}
+                            value={state.description}
                             onChange={inputChange}
                             name="description"
                             id="description"
@@ -163,11 +157,16 @@ const MenuList = (props) => {
                             // fullWidth
                             variant="contained"
                             color="primary"
-                            type="submit"
+                            // onClick={() => window.history.push("menu")}
+                            type="button"
                             className={"CanceForm"}
                             >
                             Cancel
                         </Button>
+                            {/* <button type="button">
+                                  Click Me!
+                            </button> */}
+                        
                         </Box>
                             
                     {/* </Grid> */}
