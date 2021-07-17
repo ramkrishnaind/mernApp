@@ -5,10 +5,17 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import * as MenuAction from "../../redux/actions/MenuAction";
 import { useDispatch } from "react-redux";
-import TableData from "./list";
+
 import BreadCrumbs from "../../common/bread-crumbs";
 import FormHeader from "../../common/form-header";
 import { connect } from "react-redux";
+import MUIDataTable from "mui-datatables";
+
+import Done from "@material-ui/icons/Done";
+import Tooltip from "@material-ui/core/Tooltip";
+import DeleteIcon from '@material-ui/icons/Delete';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import ClearIcon from "@material-ui/icons/Clear";
 
 const styles = (theme) => ({
     root: {
@@ -32,17 +39,106 @@ const MenuList = (props) => {
     useEffect(() => {
     dispatch(MenuAction.MenuListRequestAsync());
     }, []);
-    
+
+  let options = {
+    filterType: 'checkbox',
+    print: false,
+    download: false,
+  };
+  
+
+  function onDisable(data,status) {
+    let tempdata = {
+      id: data,
+      status:status
+    };
+    dispatch(MenuAction.MenuStatusUpdateRequestAsync(tempdata));
+   
+    if(status==="enable"){
+      // toast.error("Disable")
+
+    }
+  else{
+    // toast.success("Enable")
+
+  }
+  }
+
+  function onDeleteClick(data) {
+
+  }
+  
+  function updatehandleOpenCreateModal(data) {
+
+  }
+
     return (
         <>
         <FormHeader />
         <BreadCrumbs heading1={"MenuManagement"} heading2={"Menu Module List"} />
-
         {menu.list && menu.list.length > 0 ? (
             <>
-              <TableData
-                data={menu.list}
-              />
+          <MUIDataTable
+            title="Menu List"
+            data={menu.list.map(item => {
+                return [
+                    item.name,
+                    item.description,
+                    item.status,
+                    item._id
+                ]
+            })}
+            columns={['name','desc',
+            {
+              name: "Status",
+              options: {
+                customBodyRender: (value, tableMeta, updateValue) => {
+                  if (value === true)
+                    return (
+                      'Active'
+                    );
+                  else
+                    return (
+                      'Inactive'
+                    );
+                }
+              }
+            },
+            {
+              name: "Actions",
+              options: {
+                customBodyRender: (value, tableMeta, updateValue) => {
+                  return (
+                    <>
+                    <OpenInNewIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[3])}/>
+
+                    {tableMeta.rowData[2] ? (
+                      <Tooltip title="Active">
+                        <Done
+                        onClick={() =>onDisable(tableMeta.rowData[3],false)}
+                        style={{ color: "#1e7e34", cursor:"pointer" }}
+                      />
+                      </Tooltip>
+                      
+                    ) : (
+                      <Tooltip title="Inactive">
+                        <ClearIcon 
+                          onClick={() => onDisable(tableMeta.rowData[3],true)}
+                          style={{ color: "#bd2130", cursor:"pointer" }}
+                        />
+                      </Tooltip>
+                    )}
+                    
+                    <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[3])} />
+                    </>
+                  );
+                }
+              }
+            }
+            ]}
+            options={options}
+
+          />
             </>
           ) : (
             <Typography>Data not found.</Typography>

@@ -7,7 +7,7 @@ const API_ENDPOINTS = {
   MODULERIGHTS_ENDPOINT: "/menuModule/getAllMenuList",
   MENULIST_ENDPOINT:"menuModule/getAllMenuList",
   MENUADD_ENDPOINT:"menuModule/createMenu",
-  
+  MENU_STATUS_UPDATE_ENDPOINT:"menuModule/updateMenuStatus",
 };
 
 export default API_ENDPOINTS;

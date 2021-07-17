@@ -1,5 +1,5 @@
 import ACTION_KEYS from "../../constants/action-keys";
-import { MenuListService,MenuAddService } from "../../services/MenuService";
+import { MenuListService,MenuAddService,MenuStatusUpdateService } from "../../services/MenuService";
 
 /**
  * Call by the Component to make Login Request
@@ -87,6 +87,49 @@ export const MenuAddSuccess = (data) => {
 export const MenuAddError = (data) => {
     return {
         type: ACTION_KEYS.MENU_ADD_ERROR,
+        payload: {error: data},
+    }
+}
+
+export const MenuStatusUpdateRequestAsync = (data) => {
+    // console.log('data',data);
+    return (dispatch) => {
+        dispatch(MenuUpdateStatusRequest());
+        MenuStatusUpdateService(dispatch, data);
+    }
+}
+
+/**
+ * Action Creator to dispatch login action
+ * @returns 
+ */
+const MenuUpdateStatusRequest = () => {
+    return {
+        type: ACTION_KEYS.MENU_UPDATE_STATUS_REQUEST,
+        payload: null,
+    }
+}
+
+/**
+ * Action Creator to dispatch Success
+ * @param {*} data 
+ * @returns 
+ */
+export const MenuUpdateStatusSuccess = (data) => {
+    return {
+        type: ACTION_KEYS.MENU_UPDATE_STATUS_SUCCESS,
+        payload: data,
+    }
+}
+
+/**
+ * Action Creator to dispatch error
+ * @param {*} data 
+ * @returns 
+ */
+export const MenuUpdateStatusError = (data) => {
+    return {
+        type: ACTION_KEYS.MENU_UPDATE_STATUS_ERROR,
         payload: {error: data},
     }
 }

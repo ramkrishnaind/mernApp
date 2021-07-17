@@ -53,7 +53,6 @@ const MenuList = (props) => {
             createdBy:userData._id
         };
         
-        console.log("reqData  ", reqData);
         dispatch(MenuAction.MenuAddRequestAsync(reqData));
     
         // props.dispatch(userActions.login({ fname: email, password }));
