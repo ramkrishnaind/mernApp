@@ -5,33 +5,24 @@ const initialState = {
   success: false,
   error: null,
   data: null,
-  isAuth: false,
 };
 
-let userData = window.localStorage.getItem('user');
-if(userData){
-  
-  initialState.isAuth=true;
-  console.log('initialState',initialState);
-}
-
-const LoginReducer = (state = initialState, action) => {
+const PropertyListReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case ACTION_KEYS.LOGIN_REQUEST:
+    case ACTION_KEYS.MENU_LIST_REQUEST:
       return {
         ...state,
         isRequesting: true,
       };
-    case ACTION_KEYS.LOGIN_SUCCESS:
+    case ACTION_KEYS.MENU_LIST_SUCCESS:
       return {
         ...state,
         isRequesting: false,
-        data: payload,
-        isAuth: true,
+        list: payload.data,
       };
-    case ACTION_KEYS.LOGIN_ERROR:
+    case ACTION_KEYS.MENU_LIST_ERROR:
       return {
         ...state,
         isRequesting: false,
@@ -42,4 +33,4 @@ const LoginReducer = (state = initialState, action) => {
   }
 };
 
-export default LoginReducer;
+export default PropertyListReducer;

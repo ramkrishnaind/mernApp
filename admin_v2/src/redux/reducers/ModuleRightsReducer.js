@@ -5,33 +5,27 @@ const initialState = {
   success: false,
   error: null,
   data: null,
-  isAuth: false,
+  isAuth: true,
 };
 
-let userData = window.localStorage.getItem('user');
-if(userData){
-  
-  initialState.isAuth=true;
-  console.log('initialState',initialState);
-}
-
-const LoginReducer = (state = initialState, action) => {
+const ModuleRightsReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case ACTION_KEYS.LOGIN_REQUEST:
+      
+    case ACTION_KEYS.MODULE_RIGHTS_REQUEST:
+        console.log("type===", type)
       return {
         ...state,
         isRequesting: true,
       };
-    case ACTION_KEYS.LOGIN_SUCCESS:
+    case ACTION_KEYS.MODULE_RIGHTS_SUCCESS:
       return {
         ...state,
         isRequesting: false,
         data: payload,
-        isAuth: true,
       };
-    case ACTION_KEYS.LOGIN_ERROR:
+    case ACTION_KEYS.MODULE_RIGHTS_ERROR:
       return {
         ...state,
         isRequesting: false,
@@ -42,4 +36,4 @@ const LoginReducer = (state = initialState, action) => {
   }
 };
 
-export default LoginReducer;
+export default ModuleRightsReducer;

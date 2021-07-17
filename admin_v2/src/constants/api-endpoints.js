@@ -4,6 +4,10 @@
 const API_ENDPOINTS = {
   LOGIN_ENDPOINT: "/users/login",
   REGISTER_ENDPOINT: "/users/signup",
+  MODULERIGHTS_ENDPOINT: "/menuModule/getAllMenuList",
+  MENULIST_ENDPOINT:"menuModule/getAllMenuList",
+  MENUADD_ENDPOINT:"menuModule/createMenu",
+  MENU_STATUS_UPDATE_ENDPOINT:"menuModule/updateMenuStatus",
 };
 
 export default API_ENDPOINTS;

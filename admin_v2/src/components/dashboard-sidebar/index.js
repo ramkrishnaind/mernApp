@@ -33,6 +33,25 @@ import Logger from '../../utils/Logger';
       icon: BarChartIcon,
       title: 'Dashboard'
     },
+
+    {
+      href: '/menu',
+      icon: UsersIcon,
+      title: 'Menu Management',
+      items: [
+        {
+          href: "/menu/add",
+          icon: ShoppingBagIcon,
+          title: "Add Menu Module",
+        },
+        {
+          href: "/menu",
+          icon: ShoppingBagIcon,
+          title: "Menu Module List",
+        }
+      ]
+    },
+
     {
       href: '/property-management',
       icon: UsersIcon,
@@ -56,10 +75,45 @@ import Logger from '../../utils/Logger';
       title: 'User Management'
     },
     {
+      href: '/user-role',
+      icon: UsersIcon,
+      title: 'User Role',
+      items: [
+        {
+          href: "/create-user-role",
+          icon: ShoppingBagIcon,
+          title: " Create User Role",
+        },
+        {
+          href: "/add-edit-user-role",
+          icon: ShoppingBagIcon,
+          title: " Add / Edit User Role",
+        }
+      ]
+    },
+    {
+      href: '/user',
+      icon: UsersIcon,
+      title: 'User',
+      items: [
+        {
+          href: "/create-user",
+          icon: ShoppingBagIcon,
+          title: "Create User",
+        },
+        {
+          href: "/add-edit-user",
+          icon: ShoppingBagIcon,
+          title: " Add / Edit User",
+        }
+      ]
+    },
+    {
       href: '/account',
       icon: UserIcon,
       title: 'Account'
     },
+
   ];
 
   const DashboardSidebar = ({ onMobileClose, openMobile }) => {
