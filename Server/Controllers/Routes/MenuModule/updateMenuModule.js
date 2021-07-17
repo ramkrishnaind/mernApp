@@ -22,11 +22,6 @@ function updateMenu(Models) {
                 throw { status: false, error: validateData, message: CONSTANTSMESSAGE.INVALID_DATA };
             }
 
-            // pick data from req.body
-            let topMenuCount = await Models.MenuModuleDB.countDocuments({ topParentID: null }).lean();
-            let setData = {
-                password: hash
-            }
 
             let bodyData = _.pick(req.body, ['_id', 'name', 'description', 'status', 'updatedBy']);
             
@@ -37,9 +32,9 @@ function updateMenu(Models) {
                 throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateMenuModule: true, statusCode: 401 };
             }
 
-            let updateMenuModule = await new Models.findOneAndUpdate({ _id: bodyData._id }, { $set: bodyData });
+            let updateMenuModule = await Models.MenuModuleDB.findOneAndUpdate({ _id: bodyData._id }, { $set: bodyData });
             console.log('updateMenuModule is', updateMenuModule)
-            res.send({ status: true, message: CONSTANTSMESSAGE.UPDATE_SUCCESS_MESSAGE });
+            res.send({ status: true, message: CONSTANTSMESSAGE.DATA_UPDATE_SUCCESS });
         }
         catch (e) {
             console.log('updateMenuModule err', e);

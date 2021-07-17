@@ -9,6 +9,7 @@ module.exports = {
     getAllMenuList: require('./MenuModule/getAllMenuList'),
     createMenu: require('./MenuModule/createMenuModule'),
     updateMenuStatus: require('./MenuModule/updateMenuStatus'),
+    updateMenu: require('./MenuModule/updateMenuModule'),
     getMenuData: require('./MenuModule/getMenuData'),
     createUserRoleFunction: require('./RoleModule/createRoleModule'),
     updateStatusUserRoleFunction: require('./RoleModule/updateStatusRole'),
@@ -56,4 +57,5 @@ module.exports = {
     createSiteVisitRequest: require('./SiteVisitModule/createSiteVisitModule'),
     getSiteVisitRequest: require('./SiteVisitModule/getSiteVisitListModule'),
     updateSiteVisitStatusRequest: require('./SiteVisitModule/updateSiteVisitStatusModule'),
+    
 }
