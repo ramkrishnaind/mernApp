@@ -6,11 +6,7 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const menuModuleSchema = Joi.object({
     _id: Joi.objectId(),
-    parentID: Joi.objectId().allow(null),
-    topParentID: Joi.objectId().allow(null),
     name: Joi.string().required(),
-    icon: Joi.string().required(),
-    endPoint: Joi.string().trim(),
     status: Joi.boolean().required(),
     description: Joi.string().required(),
     updatedBy: Joi.objectId().required()
@@ -32,19 +28,8 @@ function updateMenu(Models) {
                 password: hash
             }
 
-            let bodyData = _.pick(req.body, ['_id', 'parentID', 'topParentID', 'name', 'icon', 'order', 'endPoint', 'description', 'status', 'updatedBy']);
-            let checkOrderExist = await Models.MenuModuleDB.findOneAndUpdate({ $and: [{ _id: !bodyData._id }, { order: bodyData.order }] }, { $set: { order: topMenuCount + 1 } }).lean;
-            if (bodyData.topParentID && bodyData.parentID) {
-                bodyData.level = 2;
-                bodyData.order = 0;
-            } else if (bodyData.topParentID == null && bodyData.parentID) {
-                bodyData.level = 1;
-                bodyData.order = 0;
-            } else {
-                bodyData.level = 0;
-                bodyData.order = topMenuCount + 1;
-            }
-
+            let bodyData = _.pick(req.body, ['_id', 'name', 'description', 'status', 'updatedBy']);
+            
             // searching email or mobile already exists or not
             let findData = await Models.MenuModuleDB.findOne({ name: bodyData.name });
             if (findData) {

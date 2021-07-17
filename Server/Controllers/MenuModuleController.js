@@ -4,7 +4,7 @@ var router = express.Router();
 const multer = require("multer");
 
 const path = require('path');
-let { createMenu, getMenuList, uploadFileFunction, getAllMenuList } = require('./Routes');
+let { createMenu, getMenuList, uploadFileFunction, getAllMenuList, updateMenuStatus, getMenuData } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 let storage = multer.diskStorage({
@@ -29,6 +29,8 @@ module.exports = function (conn) {
     router.post('/createMenu', userAuthMiddleware, createMenu(allCollection))
     router.post('/getMenuList', userAuthMiddleware, getMenuList(allCollection))
     router.post('/getAllMenuList', userAuthMiddleware, getAllMenuList(allCollection))
+    router.post('/updateMenuStatus', userAuthMiddleware, updateMenuStatus(allCollection))
+    router.post('/getMenuData', userAuthMiddleware, getMenuData(allCollection))
     router.post("/upload_files", upload.array("files"), uploadFileFunction(allCollection));
 
     return router;

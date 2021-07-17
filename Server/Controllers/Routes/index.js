@@ -8,6 +8,8 @@ module.exports = {
     getMenuList: require('./MenuModule/getMenuListModule'),
     getAllMenuList: require('./MenuModule/getAllMenuList'),
     createMenu: require('./MenuModule/createMenuModule'),
+    updateMenuStatus: require('./MenuModule/updateMenuStatus'),
+    getMenuData: require('./MenuModule/getMenuData'),
     createUserRoleFunction: require('./RoleModule/createRoleModule'),
     updateStatusUserRoleFunction: require('./RoleModule/updateStatusRole'),
     userRoleListFunction: require('./RoleModule/userRoleList'),
