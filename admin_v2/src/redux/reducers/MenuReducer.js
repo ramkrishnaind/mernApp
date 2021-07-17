@@ -28,6 +28,24 @@ const PropertyListReducer = (state = initialState, action) => {
         isRequesting: false,
         error: payload.error,
       };
+
+    case ACTION_KEYS.MENU_DATA_REQUEST:
+      return {
+        ...state,
+        isRequesting: true,
+      };
+    case ACTION_KEYS.MENU_DATA_SUCCESS:
+      return {
+        ...state,
+        isRequesting: false,
+        menuData: payload.data,
+      };
+    case ACTION_KEYS.MENU_DATA_ERROR:
+      return {
+        ...state,
+        isRequesting: false,
+        error: payload.error,
+      };
     default:
       return state;
   }

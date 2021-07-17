@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Button,
   Grid,
@@ -8,7 +8,7 @@ import {
   Select,
   InputLabel,
   Box,
- 
+  Link 
 } from "@material-ui/core";
 import {
   ValidatorForm,
@@ -22,18 +22,37 @@ import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
 import './menuManagement.css'
 import SubHeading from "../../common/SubHeadingBox";
+import {
+  BrowserRouter as Router,
+  Link as RouterLink,
+  useLocation
+} from "react-router-dom";
 
+import { connect } from "react-redux";
 // import Link from "next/link";
 
 const MenuList = (props) => {
+  let menuData= props?.menu?.menuData;
+  let query = useQuery();
+  let id = query.get("id");
     const dispatch = useDispatch();
+
     const initialState = {
-        name:"",
-        description:"",
+        name:menuData?.name,
+        description:menuData?.description,
+        id:id,
         status:true,
       };
-      
+      console.log('initialState',initialState);
     const [state, setState] = useState(initialState);
+
+
+    useEffect(() => {
+      let data={
+        _id:id
+      }
+      dispatch(MenuAction.MenuDataRequestAsync(data));
+      }, []);
 
     const inputChange = (e) => {
         let { name, value } = e.target;
@@ -44,32 +63,54 @@ const MenuList = (props) => {
 
     const handleSubmit = (e) => {
     
-        const { name,description,status } = state;
+        const { name,description,status,id } = state;
         let userData = JSON.parse(window.localStorage.getItem('user'));
-        let reqData = {
+        if(id == null){
+          let reqData = {
+              name: name,
+              description: description,
+              status:status,
+              createdBy:userData._id
+          };
+          
+          dispatch(MenuAction.MenuAddRequestAsync(reqData));
+        }
+        else{
+          let reqData = {
             name: name,
             description: description,
             status:status,
-            createdBy:userData._id
-        };
-        
-        console.log("reqData  ", reqData);
-        dispatch(MenuAction.MenuAddRequestAsync(reqData));
-    
-        // props.dispatch(userActions.login({ fname: email, password }));
+            updatedBy:userData._id,
+            _id:id
+          };
+          dispatch(MenuAction.MenuUpdateRequestAsync(reqData));
+        } 
       };
 
-      
+    function useQuery() {
+      return new URLSearchParams(useLocation().search);
+    }
+
     return (
         <Box className="MenuManagement_Data">
-         <FormHeader heading1={"Menu Module Management"} heading2={"Create and Manage Menus Here"} />
-        <BreadCrumbs heading1={"MenuManagement"} heading2={"Add Menu Module"} />
-        <SubHeading heading={"Create Menu Module"}/>
+          <FormHeader heading1={"Menu Module Management"} heading2={"Create and Manage Menus Here"} />
+          {state.id ? (
+            <>
+              <BreadCrumbs heading1={"MenuManagement"} heading2={"Edit Menu Module"} />
+              <SubHeading heading={"Edit Menu Module"}/>
+            </>
+          ):(
+            <>
+              <BreadCrumbs heading1={"MenuManagement"} heading2={"Edit Menu Module"} />
+              <SubHeading heading={"Edit Menu Module"}/>
+            </>
+          )
+          }
         <Grid item xs={12} className="m-5 addUserFormanage">
           <div className="card w-100">
             <div className="card-header d-flex justify-content-between align-items-center">
               <Typography component="h3" variant="h3">
-                Add Menu
+              {state.id ? 'Edit' : 'Add'} Menu
               </Typography>
               {/* <Button
                 onClick={() => this.props.history.push("menu")}
@@ -127,15 +168,15 @@ const MenuList = (props) => {
                                 id="demo-simple-select-outlined-label"
                                 label="Status"
                                 native
-                                name="status"
-                                value={state.status}
+                                name='status'
+                                value={(menuData?.status) ? menuData.status : state.status}
                                 onChange={inputChange}
                                 inputProps={{
                                 name: "status",
                                 id: "age-native-simple",
                                 }}
                             >
-                                <option value={true} selected>Active</option>
+                                <option value={true}>Active</option>
                                 <option value={false} >Inactive</option>
                             </Select>
                             </FormControl>
@@ -153,16 +194,19 @@ const MenuList = (props) => {
                             >
                             Save
                         </Button>
-                        <Button
-                            // fullWidth
-                            variant="contained"
-                            color="primary"
-                            // onClick={() => window.history.push("menu")}
-                            type="button"
-                            className={"CanceForm"}
-                            >
-                            Cancel
-                        </Button>
+
+                        <Link component={RouterLink} to="/menu">
+                          <Button
+                              // fullWidth
+                              variant="contained"
+                              color="primary"
+                              // onClick={() => history.goBack()}
+                              type="button"
+                              className={"CanceForm"}
+                              >
+                              Cancel
+                          </Button>
+                        </Link>
                             {/* <button type="button">
                                   Click Me!
                             </button> */}
@@ -178,4 +222,17 @@ const MenuList = (props) => {
     )
 }
 
-export default MenuList
+
+function mapStateToProps(state) {
+  const { menu } = state;
+  return {
+    menu,
+    
+  };
+}
+export default connect(mapStateToProps)(
+  (MenuList),
+);
+
+
+// export default MenuList
