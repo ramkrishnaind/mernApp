@@ -80,7 +80,7 @@ const MenuList = (props) => {
         <BreadCrumbs heading1={"MenuManagement"} heading2={"Menu Module List"} />
         {menu.list && menu.list.length > 0 ? (
             <>
-          <MUIDataTable
+          <MUIDataTable className="table-header"
             title="Menu List"
             data={menu.list.map((item,index) => {
                 return [
