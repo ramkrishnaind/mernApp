@@ -12,7 +12,6 @@ export const MenuListService = async (dispatch, data) => {
 }
 
 export const MenuAddService = async (dispatch, data) => {
-    console.log('sdsada',data);
     try {
         const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.MENUADD_ENDPOINT, data, null, null, true);
         dispatch(MenuAddSuccess(result));
