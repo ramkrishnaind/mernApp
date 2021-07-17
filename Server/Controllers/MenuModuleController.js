@@ -26,9 +26,9 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.post('/createMenu', requestAuthMiddleware, createMenu(allCollection))
-    router.post('/getMenuList', requestAuthMiddleware, getMenuList(allCollection))
-    router.post('/getAllMenuList', requestAuthMiddleware, getAllMenuList(allCollection))
+    router.post('/createMenu', userAuthMiddleware, createMenu(allCollection))
+    router.post('/getMenuList', userAuthMiddleware, getMenuList(allCollection))
+    router.post('/getAllMenuList', userAuthMiddleware, getAllMenuList(allCollection))
     router.post("/upload_files", upload.array("files"), uploadFileFunction(allCollection));
 
     return router;

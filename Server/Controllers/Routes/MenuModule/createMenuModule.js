@@ -5,11 +5,7 @@ Joi.objectId = require('joi-objectid')(Joi)
 const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const menuModuleSchema = Joi.object({
-    parentID: Joi.objectId().allow(null),
-    topParentID: Joi.objectId().allow(null),
     name: Joi.string().required(),
-    icon: Joi.string().required(),
-    endPoint: Joi.string().trim().allow(null),
     status: Joi.boolean().required(),
     description: Joi.string().required(),
     createdBy: Joi.objectId().required()
@@ -29,17 +25,9 @@ function createMenu(Models) {
             let topMenuCount = await Models.MenuModuleDB.countDocuments({ topParentID: null });
 
 
-            let bodyData = _.pick(req.body, ['parentID', 'topParentID', 'name', 'icon', 'endPoint', 'description', 'status', 'createdBy']);
-            if (bodyData.topParentID && bodyData.parentID) {
-                bodyData.level = 2;
-                bodyData.order = 0;
-            } else if (bodyData.topParentID && bodyData.parentID  == null) {
-                bodyData.level = 1;
-                bodyData.order = 0;
-            } else {
-                bodyData.level = 0;
-                bodyData.order = topMenuCount + 1;
-            }
+            let bodyData = _.pick(req.body, ['name', 'description', 'status', 'createdBy']);
+            
+                bodyData.level = topMenuCount + 1;
             // searching email or mobile already exists or not
             let findData = await Models.MenuModuleDB.findOne({ name: bodyData.name });
             if (findData) {

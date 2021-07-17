@@ -7,7 +7,10 @@ var jwt = require('jsonwebtoken');
 function userAuthMiddleware(Models) {
     async function userAuthMiddlewareFunction(req, res, next) {
         try {
-            let token = req.query.token;
+            let authToken = req.headers.authorization;
+
+            let tokenArr = authToken.split(' ');
+            let token = tokenArr[1];
 
             if (!token) {
                 throw { status: false, error: true, auth: false, message: "Token is required" };
@@ -49,7 +52,7 @@ function requestAuthMiddleware() {
             }
             let tokenArr = authToken.split(' ');
             let token = tokenArr[1];
-
+            console.log('vikram = ',token, process.env.SESSION_SECRET)
             var decoded = jwt.verify(token, process.env.SESSION_SECRET);
 
             if (decoded == process.env.NODE_ENV) {
