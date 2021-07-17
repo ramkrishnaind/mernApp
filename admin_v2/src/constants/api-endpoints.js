@@ -8,6 +8,8 @@ const API_ENDPOINTS = {
   MENULIST_ENDPOINT:"menuModule/getAllMenuList",
   MENUADD_ENDPOINT:"menuModule/createMenu",
   MENU_STATUS_UPDATE_ENDPOINT:"menuModule/updateMenuStatus",
+  MENU_UPDATE_ENDPOINT:"menuModule/updateMenu",  
+  MENU_DATA_ENDPOINT:"menuModule/getMenuData",  
 };
 
 export default API_ENDPOINTS;

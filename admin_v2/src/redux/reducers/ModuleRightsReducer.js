@@ -4,8 +4,7 @@ const initialState = {
   isRequesting: false,
   success: false,
   error: null,
-  data: null,
-  isAuth: true,
+  data: null
 };
 
 const ModuleRightsReducer = (state = initialState, action) => {

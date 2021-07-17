@@ -1,12 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import FormHeader from '../../../../common/form-header/index'
 import BreadCrumbs from '../../../../common/bread-crumbs/index'
 import '../createUser/create-user.css'
-import { makeStyles,TextField, FormControlLabel, Checkbox, FormControl,NativeSelect, Button } from '@material-ui/core';
-import {GetModuleRightsRequestAsync} from "../../../../redux/actions/ModuleRightsAction";
+import { makeStyles,TextField, FormControlLabel, Checkbox, FormControl,NativeSelect, Button, Box, Select, InputLabel} from '@material-ui/core';
+// import {GetModuleRightsRequestAsync} from "../../../../redux/actions/ModuleRightsAction";
 import {Link as RouterLink} from 'react-router-dom';
 import { connect } from "react-redux";
+import * as ModuleRightsAction from "../../../../redux/actions/ModuleRightsAction";
+import Grid from '@material-ui/core/Grid';
 
+import {
+    ValidatorForm,
+    TextValidator,
+    SelectValidator,
+  } from "react-material-ui-form-validator";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CreateUser(props){
+    const [userRightsData, setUserRightsData] = useState([])
 
     const [state, setState] = React.useState({
         checkedA: false,
@@ -56,8 +64,13 @@ function CreateUser(props){
     const classes = useStyles();
 
     useEffect(()=>{
-        console.log("users rights api==")
-        props.GetUsersData(null, props.token);
+        console.log("users update=", props.ModuleRight.data)
+        setUserRightsData(props.ModuleRight?.data)
+    },[props])
+
+    useEffect(()=>{
+        console.log("users rights api==", props.ModuleRight)
+        props.GetUsersData();
     },[])
 
 
@@ -71,64 +84,88 @@ function CreateUser(props){
                     <div className="panel-body">
                         <h2 className="title-heading">User Role Information</h2>
                         <div className="form">
-                            <div className="col-1 w-50">
-                                <form className={classes.root} noValidate autoComplete="off">
-                                    <label>User Role Name</label><TextField id="outlined-basic" placeholder="User Role Name" variant="outlined" />
-                                </form>
-                            </div>
-                            <div className="col-1">
-                                <form className={classes.root} noValidate autoComplete="off">
-                                    <label>Status</label>
-                                    <FormControl className={classes.formControl}>
-                                        <NativeSelect
-                                            value={stateb.name}
-                                            onChange={handleChanges}
-                                            inputProps={{
-                                                name: 'name',
-                                                id: 'name-native-disabled',
-                                            }}
-                                        >
-                                            <option value="hai">Select User Status</option>
-                                            <optgroup label="Select User Status ">
-                                                <option value="olivier">Active</option>
-                                                <option value="kevin">Inactive</option>
-                                            </optgroup>
-                                        </NativeSelect>
-
-                                    </FormControl>
-                                </form>
-                            </div>
+                        <Grid container >
+                                    <ValidatorForm className="formData">
+                                        <Grid item xs={5}>
+                                            <TextValidator
+                                                className="form-control-item"
+                                                variant="outlined"
+                                                label="User Role Name*"
+                                                fullWidth
+                                                name="User Role Name"
+                                                id="User-Role-Name"
+                                                validators={["required"]}
+                                                errorMessages={["User Name field is required"]}
+                                                />
+                                        </Grid>
+                                        <Grid item xs={1}></Grid>
+                                        <Grid item xs={5}>
+                                <FormControl
+                                    variant="outlined"
+                                    style={{ width: "100%" }}
+                                    >
+                                    <InputLabel
+                                        id="demo-simple-select-outlined-label"
+                                        htmlFor="age-native-simple"
+                                    >
+                                        Status
+                                    </InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-outlined-label"
+                                        id="demo-simple-select-outlined-label"
+                                        label="Status"
+                                        native
+                                        name="status"
+                                        inputProps={{
+                                        name: "status",
+                                        id: "age-native-simple",
+                                        }}
+                                    >
+                                        <option value={true} selected>Active</option>
+                                        <option value={false} >Inactive</option>
+                                    </Select>
+                                </FormControl>
+                                </Grid>
+                                </ValidatorForm>
+                                </Grid>
                         </div>
 
 
                         <h2 className="title-heading">Module Rights</h2>
-                        <div className="form">
-                            <div className="col-1 d-flex w-100">
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={state.checkedA}
-                                            onChange={handleChange}
-                                            name="checkedA"
-                                            color="primary"
+                        <div>
+                        <Grid container spacing={3}>
+                            {userRightsData && userRightsData?.data?.map((items,index)=>{
+                                return(
+                                    <Grid item xs={3}>
+                                        <FormControlLabel
+                                            control={
+                                                <Checkbox
+                                                    // checked={state.checkedA}
+                                                    onChange={handleChange}
+                                                    name={items.name}
+                                                    color="primary"
+                                                />
+                                            }
+                                            label={items.name}
                                         />
-                                    }
-                                    label="Dashboard"
-                                />
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={state.checkedB}
-                                            onChange={handleChange}
-                                            name="checkedB"
-                                            color="primary"
-                                        />
-                                    }
-                                    label="User"
-                                />
-                               
-                            </div>
-                            <div className="subcheck">
+                                        {/* <FormControlLabel
+                                            control={
+                                                <Checkbox
+                                                    checked={state.checkedB}
+                                                    onChange={handleChange}
+                                                    name="checkedB"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="User"
+                                        /> */}
+                                    
+                                    </Grid>
+                                )
+                            })}
+                            </Grid>
+                            
+                            {/* <div className="subcheck">
                                <div className="col-1 d-flex w-100">
                                 <FormControlLabel
                                         control={
@@ -139,6 +176,8 @@ function CreateUser(props){
                                                 color="primary"
                                             />
                                         }
+
+
                                         label="Create User Role"
                                     /> 
                                      <FormControlLabel
@@ -154,84 +193,34 @@ function CreateUser(props){
                                     /> 
                                </div>
 
-                               <div className="col-1 d-flex w-100">
-                                <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={state.checkedE}
-                                                onChange={handleChange}
-                                                name="checkedE"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="User Role"
-                                    /> 
-                               </div>
-
-                               <div className="col-1 d-flex w-100">
-                                <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={state.checkedG}
-                                                onChange={handleChange}
-                                                name="checkedG"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="Create User"
-                                    /> 
-                                     <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={state.checkedH}
-                                                onChange={handleChange}
-                                                name="checkedH"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="Add/Edit User Role"
-                                    /> 
-                               </div>
-
-                               <div className="col-1 d-flex w-100">
-                                <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={state.checkedI}
-                                                onChange={handleChange}
-                                                name="checkedI"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="User"
-                                    /> 
-                                     <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={state.checkedJ}
-                                                onChange={handleChange}
-                                                name="checkedJ"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="My Profile"
-                                    /> 
-                               </div>
-
-                               
-
-                            </div>
+                            </div> */}
                             
                         </div>
+                        <Box className="footer">
                         <Button
                             // fullWidth
                             variant="contained"
                             color="primary"
                             type="submit"
-                            // className={classes.submit}
+                            className={"SaveData"}
                             >
                             Save
                         </Button>
+                        <Button
+                            // fullWidth
+                            variant="contained"
+                            color="primary"
+                            // onClick={() => window.history.push("menu")}
+                            type="button"
+                            className={"CanceForm"}
+                            >
+                            Cancel
+                        </Button>
+                            {/* <button type="button">
+                                  Click Me!
+                            </button> */}
+                        
+                        </Box>
                     </div>
                 </div>
             </div>
@@ -245,13 +234,13 @@ function mapStateToProps(state) {
     // const { users } = state;
     return {
       // loggingIn,
-      token: state.Login?.data?.user?.token,
+      ModuleRight : state.ModuleReducer,
     };
   }
 
   const mapDispatchToProps = dispatch =>{
       return{
-          GetUsersData: (data, token) => dispatch(GetModuleRightsRequestAsync(data, token))
+          GetUsersData: () => dispatch(ModuleRightsAction.GetModuleRightsRequestAsync())
       }
   }
 

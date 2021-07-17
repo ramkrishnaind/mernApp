@@ -17,6 +17,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import ClearIcon from "@material-ui/icons/Clear";
 
+import history from "../../components/history";
 const styles = (theme) => ({
     root: {
       width: "100%",
@@ -41,9 +42,9 @@ const MenuList = (props) => {
     }, []);
 
   let options = {
-    filterType: 'checkbox',
+    selectableRows: false,
     print: false,
-    download: false,
+    download: true,
   };
   
 
@@ -58,10 +59,9 @@ const MenuList = (props) => {
       // toast.error("Disable")
 
     }
-  else{
-    // toast.success("Enable")
-
-  }
+    else{
+      // toast.success("Enable")
+    }
   }
 
   function onDeleteClick(data) {
@@ -69,7 +69,9 @@ const MenuList = (props) => {
   }
   
   function updatehandleOpenCreateModal(data) {
-
+    // window.location.href = "/menu/edit?id="+data;
+    history.push('/menu/add?id='+data)
+    window.location.reload();
   }
 
     return (
@@ -80,15 +82,16 @@ const MenuList = (props) => {
             <>
           <MUIDataTable
             title="Menu List"
-            data={menu.list.map(item => {
+            data={menu.list.map((item,index) => {
                 return [
+                    (index +1),
                     item.name,
                     item.description,
                     item.status,
                     item._id
                 ]
             })}
-            columns={['name','desc',
+            columns={['SR No.','Name','Description',
             {
               name: "Status",
               options: {
@@ -110,12 +113,12 @@ const MenuList = (props) => {
                 customBodyRender: (value, tableMeta, updateValue) => {
                   return (
                     <>
-                    <OpenInNewIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[3])}/>
+                    <OpenInNewIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/>
 
-                    {tableMeta.rowData[2] ? (
+                    {tableMeta.rowData[3] ? (
                       <Tooltip title="Active">
                         <Done
-                        onClick={() =>onDisable(tableMeta.rowData[3],false)}
+                        onClick={() =>onDisable(tableMeta.rowData[4],false)}
                         style={{ color: "#1e7e34", cursor:"pointer" }}
                       />
                       </Tooltip>
@@ -123,13 +126,13 @@ const MenuList = (props) => {
                     ) : (
                       <Tooltip title="Inactive">
                         <ClearIcon 
-                          onClick={() => onDisable(tableMeta.rowData[3],true)}
+                          onClick={() => onDisable(tableMeta.rowData[4],true)}
                           style={{ color: "#bd2130", cursor:"pointer" }}
                         />
                       </Tooltip>
                     )}
                     
-                    <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[3])} />
+                    <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[4])} />
                     </>
                   );
                 }
