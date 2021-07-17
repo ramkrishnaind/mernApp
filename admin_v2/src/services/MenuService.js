@@ -29,3 +29,22 @@ export const MenuStatusUpdateService = async (dispatch, data) => {
     }
 }
 
+export const MenuUpdateService = async (dispatch, data) => {
+    try {
+        const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.MENU_UPDATE_ENDPOINT, data, null, null, true);
+        dispatch(MenuAction.MenuUpdateSuccess(result));
+    } catch (error) {
+        dispatch(MenuAction.MenuUpdateError(error));
+    }
+}
+
+export const MenuDataService = async (dispatch, data) => {
+    try {
+        const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.MENU_DATA_ENDPOINT, data, null, null, true);
+        dispatch(MenuAction.MenuDataSuccess(result));
+    } catch (error) {
+        dispatch(MenuAction.MenuDataError(error));
+    }
+}
+
+
