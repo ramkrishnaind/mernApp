@@ -1,31 +1,53 @@
 import ACTION_KEYS from '../../constants/action-keys';
 import { ModuleRightsService } from '../../services/ModuleRightsServices';
 
-export const GetModuleRights = () => {
+/**
+ * Call by the Component to make Login Request
+ * @param {*} data 
+ * @returns 
+ */
+export const GetModuleRightsRequestAsync = (data) => {
+    console.log("data====", data)
+    return (dispatch) => {
+        dispatch(GetModuleRights());
+        ModuleRightsService(dispatch, data);
+    }
+}
+
+/**
+ * Action Creator to dispatch login action
+ * @returns 
+ */
+ export const GetModuleRights = () => {
     return {
         type: ACTION_KEYS.MODULE_RIGHTS_REQUEST,
         payload: null,
     }
 }
 
-export const GetModuleRightsRequestAsync = (data, token) => {
-    console.log("my rights data==", data)
-    return (dispatch) => {
-        dispatch(GetModuleRights());
-        ModuleRightsService(dispatch, data, token);
-    }
-}
-
-export const GetModuleRightSuccess = () => {
+/**
+ * Action Creator to dispatch Success
+ * @param {*} data 
+ * @returns 
+ */
+export const GetModuleRightSuccess = (data) => {
+    console.log("data== sucess", data)
     return {
         type: ACTION_KEYS.MODULE_RIGHTS_SUCCESS,
-        payload: null,
+        payload: data,
     }
 }
 
-export const GetModuleRightsError = () => {
+/**
+ * Action Creator to dispatch error
+ * @param {*} data 
+ * @returns 
+ */
+export const GetModuleRightsError = (data) => {
     return {
         type: ACTION_KEYS.MODULE_RIGHTS_ERROR,
-        payload: null,
+        payload: {error: data},
     }
 }
+
+
