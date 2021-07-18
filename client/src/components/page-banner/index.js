@@ -46,6 +46,7 @@ const PageBanner = (props) => {
         height: 326,
         overflow: "hidden",
         textAlign: "center",
+        backgroundSize: 'cover',
         // backgroundAttachment: "fixed",
         position: "relative",
         backgroundPosition: "center",

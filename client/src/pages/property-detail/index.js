@@ -13,7 +13,6 @@ import {
   Button
 } from "@material-ui/core";
 import "./property-detail.css";
-import Header from "../../components/header";
 import PageBanner from "../../components/page-banner";
 import bannerImage from "../../images/property_header_2.jpeg";
 import InfoCard from "./components/info-card";
