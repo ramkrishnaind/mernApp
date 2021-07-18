@@ -1,7 +1,8 @@
 [
     {
         "id": 1,
-        "title": "Home"
+        "title": "Home",
+        "href": "/"
     },
     {
         "id": 2,
@@ -135,10 +136,12 @@
         "image": "",
         "submenu": [
             {
-                "title": "Property Listing"
+                "title": "Property Listing",
+                "href": "/property-list"
             },
             {
-                "title": "Property Detail"
+                "title": "Property Detail",
+                "href": "/property-detail"
             }
         ]
     },
