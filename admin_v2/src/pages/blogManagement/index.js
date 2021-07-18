@@ -30,7 +30,7 @@ const styles = (theme) => ({
     },
 });
 
-const CareerList = (props) => {
+const BlogList = (props) => {
 
     const dispatch = useDispatch();
     let {
@@ -71,18 +71,18 @@ const CareerList = (props) => {
   
   function updatehandleOpenCreateModal(data) {
     // window.location.href = "/menu/edit?id="+data;
-    history.push('/career/add?id='+data)
+    history.push('/blog/add?id='+data)
     window.location.reload();
   }
 
     return (
         <>
-        <FormHeader heading1={"Career Module Management"} heading2={"List and Manage Career Here"} />
-        <BreadCrumbs heading1={"CareerManagement"} heading2={"Career Module List"} />
+        <FormHeader heading1={"Blog Module Management"} heading2={"List and Manage Blog Here"} />
+        <BreadCrumbs heading1={"BlogManagement"} heading2={"Blog Module List"} />
         {menu.list && menu.list.length > 0 ? (
             <>
           <MUIDataTable className="table-header"
-            title="Career List"
+            title="Blog List"
             data={menu.list.map((item,index) => {
                 return [
                     (index +1),
@@ -161,7 +161,7 @@ function mapStateToProps(state) {
   };
 }
 export default connect(mapStateToProps)(
-  withStyles(styles)(CareerList),
+  withStyles(styles)(BlogList),
 );
 
 

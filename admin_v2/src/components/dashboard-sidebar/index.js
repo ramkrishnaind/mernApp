@@ -126,6 +126,23 @@ import Logger from '../../utils/Logger';
       ]
     },
     {
+      href: '/blog',
+      icon: UsersIcon,
+      title: 'Blog',
+      items: [
+        {
+          href: "/blog/add",
+          icon: ShoppingBagIcon,
+          title: "Add Blog",
+        },
+        {
+          href: "/blog",
+          icon: ShoppingBagIcon,
+          title: "Blog List",
+        }
+      ]
+    },
+    {
       href: '/account',
       icon: UserIcon,
       title: 'Account'
