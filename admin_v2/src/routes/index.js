@@ -12,8 +12,10 @@ import UserList from "../pages/userManagement";
 import AddUser from "../pages/userManagement/add";
 import Error404Page from "../pages/404";
 import CreateUser from "../pages/user-module/role/createUser/index";
-import AddUsers from '../pages/user-module/user/createUser'
+import AddUsers from '../pages/user-module/user/createUser';
 
+import CareerList from "../pages/careerManagement";
+import AddCareer from "../pages/careerManagement/add";
 
 const Routes = props => {
     const {isAuth} = props;
@@ -63,6 +65,14 @@ const Routes = props => {
                 {
                     path: "/user/add",
                     element: isAuth ? <AddUser /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/career",
+                    element: isAuth ? <CareerList /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/career/add",
+                    element: isAuth ? <AddCareer /> : <Navigate to="/login" />
                 },
                 {
                     path: "404",

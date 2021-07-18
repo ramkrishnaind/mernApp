@@ -14,7 +14,7 @@ import MUIDataTable from "mui-datatables";
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from '@material-ui/icons/Delete';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import EditIcon from '@material-ui/icons/Edit';
 import ClearIcon from "@material-ui/icons/Clear";
 
 import history from "../../components/history";
@@ -113,7 +113,7 @@ const MenuList = (props) => {
                 customBodyRender: (value, tableMeta, updateValue) => {
                   return (
                     <>
-                    <OpenInNewIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/>
+                    <EditIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/>
 
                     {tableMeta.rowData[3] ? (
                       <Tooltip title="Active">

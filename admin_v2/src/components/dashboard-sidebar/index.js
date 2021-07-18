@@ -109,6 +109,23 @@ import Logger from '../../utils/Logger';
       ]
     },
     {
+      href: '/career',
+      icon: UsersIcon,
+      title: 'Career',
+      items: [
+        {
+          href: "/career/add",
+          icon: ShoppingBagIcon,
+          title: "Add Career",
+        },
+        {
+          href: "/career",
+          icon: ShoppingBagIcon,
+          title: "Career List",
+        }
+      ]
+    },
+    {
       href: '/account',
       icon: UserIcon,
       title: 'Account'
