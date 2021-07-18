@@ -31,7 +31,7 @@ import {
 import { connect } from "react-redux";
 // import Link from "next/link";
 
-const MenuList = (props) => {
+const MenuCreateUpdate = (props) => {
   let menuData= props?.menu?.menuData;
   let query = useQuery();
   let id = query.get("id");
@@ -49,9 +49,11 @@ const MenuList = (props) => {
 
     useEffect(() => {
       let data={
-        _id:id
-      }
-      dispatch(MenuAction.MenuDataRequestAsync(data));
+          _id:id
+        }
+        if(id !=null){
+          dispatch(MenuAction.MenuDataRequestAsync(data));
+        }
       }, []);
 
     const inputChange = (e) => {
@@ -93,7 +95,7 @@ const MenuList = (props) => {
 
     return (
         <Box className="MenuManagement_Data">
-          <FormHeader heading1={"Menu Module Management"} heading2={"Create and Manage Menus Here"} />
+          <FormHeader heading1={"Menu Module Management"} heading2={"Create and Update Menu Here"} />
           {state.id ? (
             <>
               <BreadCrumbs heading1={"MenuManagement"} heading2={"Edit Menu Module"} />
@@ -129,7 +131,7 @@ const MenuList = (props) => {
                             variant="outlined"
                             label="Name*"
                             fullWidth
-                            value={state.name}
+                            value={(state.name)? state.name : menuData?.name}
                             onChange={inputChange}
                             name="name"
                             id="name"
@@ -144,7 +146,7 @@ const MenuList = (props) => {
                             variant="outlined"
                             label="Description*"
                             fullWidth
-                            value={state.description}
+                            value={(state.description)? state.description : menuData?.description}
                             onChange={inputChange}
                             name="description"
                             id="description"
@@ -231,8 +233,5 @@ function mapStateToProps(state) {
   };
 }
 export default connect(mapStateToProps)(
-  (MenuList),
+  (MenuCreateUpdate),
 );
-
-
-// export default MenuList
