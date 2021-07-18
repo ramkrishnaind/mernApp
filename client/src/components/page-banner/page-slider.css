@@ -1,0 +1,9 @@
+.banner-container {
+    height: 326px;
+    overflow: hidden;
+    text-align: center;
+    background-attachment: fixed;
+    position: relative;
+    background-position: center;
+    /* background: url('../../images/about_us.jpeg') 0 0 no-repeat; */
+}
