@@ -85,7 +85,6 @@ const HomePage = (props) => {
 
   return (
     <div className="main-w3">
-      <Header />
       <OwlCarouselSlider />
       <Box style={{backgroundColor: '#FFFFFF'}}>
       <Container>
@@ -202,13 +201,6 @@ const HomePage = (props) => {
           </Container>
         </div>
         {/* TODO: SECTION - MAP */}
-
-        {/* TODO: SECTION - FOOTER */}
-        <div className="footer-section">
-          <Container style={{paddingTop: 10, paddingBottom: 40}}>
-            <Footer />
-          </Container>
-        </div>
     </div>
   );
 };

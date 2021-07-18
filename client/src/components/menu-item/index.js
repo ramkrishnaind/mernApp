@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CloseIcon from "@material-ui/icons/Close";
+import {useHistory, Link as RouterLink} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   menu: {
@@ -37,10 +38,11 @@ const useStyles = makeStyles((theme) => ({
 const MenuItem = (props) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const history = useHistory();
 
   const classes = useStyles();
   let hasSubmenu = false;
-  const {title, submenu, id} = props.menu || {};
+  const {title, submenu, id, href} = props.menu || {};
   if(submenu) {
     hasSubmenu = true;
   }
@@ -92,7 +94,7 @@ const MenuItem = (props) => {
       return (
           <Grid container spacing={0} style={{width: 400, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
               <Grid item md={8}>
-                  {submenu.map(sm => <DropdownMenu onClick={handleClose}>{sm.title}</DropdownMenu>)}
+                  {submenu.map(sm => <DropdownMenu onClick={() => handleClose(sm)}>{sm.title}</DropdownMenu>)}
               </Grid>
               <Grid item md={4} style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center', paddingRight: 8}}>
                   <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} style={{width: 100, height: 100}} /> 
@@ -128,9 +130,10 @@ const MenuItem = (props) => {
     setIsOpen(!isOpen);
   };
 
-  const handleClose = () => {
+  const handleClose = (menu) => {
     setAnchorEl(null);
     setIsOpen(!isOpen);
+    history.push(menu.href);
   };
 
   return (
@@ -145,7 +148,7 @@ const MenuItem = (props) => {
           justifyContent: "center",
         }}
       >
-        <Typography className={menuStyle}>{title}</Typography>
+        <Typography className={menuStyle} component={RouterLink} to={href}>{title}</Typography>
         {_renderIcon()}
       </Grid>
     </Box>
