@@ -8,6 +8,13 @@ const initialState = {
   isAuth: false,
 };
 
+let userData = window.localStorage.getItem('user');
+if(userData){
+  
+  initialState.isAuth=true;
+  console.log('initialState',initialState);
+}
+
 const LoginReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
@@ -22,6 +29,7 @@ const LoginReducer = (state = initialState, action) => {
         ...state,
         isRequesting: false,
         data: payload,
+        isAuth: true,
       };
     case ACTION_KEYS.LOGIN_ERROR:
       return {

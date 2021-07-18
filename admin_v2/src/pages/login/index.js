@@ -21,8 +21,8 @@ import {Link as RouterLink} from 'react-router-dom';
 const styles = (theme) => ({
   container: {
     height: "100vh",
-    backgroundColor: "black",
-    color: "white",
+    backgroundColor: "white",
+    color: "black",
     width: "100vw",
     display: "flex",
     justifyContent: "center",
@@ -51,7 +51,7 @@ const styles = (theme) => ({
 
   googleButton: {
     fontWeight: "bolder",
-    color: "white",
+    color: "black",
     marginRight: 6,
   },
   logotypeImage: {
@@ -61,7 +61,7 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(4),
   },
   logotypeText: {
-    color: "white",
+    color: "black",
     fontWeight: 500,
     fontSize: 65,
     [theme.breakpoints.down("md")]: {
@@ -198,7 +198,7 @@ const styles = (theme) => ({
     marginTop: theme.spacing(2),
     whiteSpace: "nowrap",
     fontSize: "14px",
-    color: "white",
+    color: "black",
   },
 });
 const Login = (props) => {
@@ -325,7 +325,7 @@ const Login = (props) => {
 };
 
 function mapStateToProps(state) {
-  // console.log("state  ", state);
+  console.log("state  ", state);
   // const { loggingIn } = state.Login.data;
   const { users } = state;
   return {

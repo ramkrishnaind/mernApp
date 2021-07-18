@@ -6,7 +6,11 @@ module.exports = {
     getAuthTokenFunction: require('./Authentication/getAuthToken'),
     logoutFunction: require('./Authentication/logout'),
     getMenuList: require('./MenuModule/getMenuListModule'),
+    getAllMenuList: require('./MenuModule/getAllMenuList'),
     createMenu: require('./MenuModule/createMenuModule'),
+    updateMenuStatus: require('./MenuModule/updateMenuStatus'),
+    updateMenu: require('./MenuModule/updateMenuModule'),
+    getMenuData: require('./MenuModule/getMenuData'),
     createUserRoleFunction: require('./RoleModule/createRoleModule'),
     updateStatusUserRoleFunction: require('./RoleModule/updateStatusRole'),
     userRoleListFunction: require('./RoleModule/userRoleList'),
@@ -53,4 +57,5 @@ module.exports = {
     createSiteVisitRequest: require('./SiteVisitModule/createSiteVisitModule'),
     getSiteVisitRequest: require('./SiteVisitModule/getSiteVisitListModule'),
     updateSiteVisitStatusRequest: require('./SiteVisitModule/updateSiteVisitStatusModule'),
+    
 }

@@ -1,6 +1,4 @@
 import { SideMenuListSuccess, SideMenuListError } from "../redux/actions/SideMenuListAction";
-import ApiClient from "../api-client";
-import API_ENDPOINTS from "../constants/api-endpoints";
 import sidemenuList from '../utils/side-menu.json';
 
 export const SideMenuListService = async (dispatch, data) => {

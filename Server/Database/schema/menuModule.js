@@ -4,37 +4,15 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const menuModuleSchema = new Schema({
-    parentID: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'menuModule',
-        default: null
-    },
-    topParentID: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'menuModule',
-        default: null
-    },
-    name: {
+   name: {
         type: String,
         required: true,
         unique: true,
         trim: true
     },
-    icon: {
-        type: String,
-        required: true
-    },
-    order: {
-        type: Number,
-        required: true
-    },
     level: {
         type: Number,
         required: true
-    },
-    endPoint: {
-        type: String,
-        required: false
     },
     status: {
         type: Boolean,

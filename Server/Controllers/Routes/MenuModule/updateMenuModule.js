@@ -6,11 +6,7 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const menuModuleSchema = Joi.object({
     _id: Joi.objectId(),
-    parentID: Joi.objectId().allow(null),
-    topParentID: Joi.objectId().allow(null),
     name: Joi.string().required(),
-    icon: Joi.string().required(),
-    endPoint: Joi.string().trim(),
     status: Joi.boolean().required(),
     description: Joi.string().required(),
     updatedBy: Joi.objectId().required()
@@ -26,25 +22,9 @@ function updateMenu(Models) {
                 throw { status: false, error: validateData, message: CONSTANTSMESSAGE.INVALID_DATA };
             }
 
-            // pick data from req.body
-            let topMenuCount = await Models.MenuModuleDB.countDocuments({ topParentID: null }).lean();
-            let setData = {
-                password: hash
-            }
 
-            let bodyData = _.pick(req.body, ['_id', 'parentID', 'topParentID', 'name', 'icon', 'order', 'endPoint', 'description', 'status', 'updatedBy']);
-            let checkOrderExist = await Models.MenuModuleDB.findOneAndUpdate({ $and: [{ _id: !bodyData._id }, { order: bodyData.order }] }, { $set: { order: topMenuCount + 1 } }).lean;
-            if (bodyData.topParentID && bodyData.parentID) {
-                bodyData.level = 2;
-                bodyData.order = 0;
-            } else if (bodyData.topParentID == null && bodyData.parentID) {
-                bodyData.level = 1;
-                bodyData.order = 0;
-            } else {
-                bodyData.level = 0;
-                bodyData.order = topMenuCount + 1;
-            }
-
+            let bodyData = _.pick(req.body, ['_id', 'name', 'description', 'status', 'updatedBy']);
+            
             // searching email or mobile already exists or not
             let findData = await Models.MenuModuleDB.findOne({ name: bodyData.name });
             if (findData) {
@@ -52,9 +32,9 @@ function updateMenu(Models) {
                 throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateMenuModule: true, statusCode: 401 };
             }
 
-            let updateMenuModule = await new Models.findOneAndUpdate({ _id: bodyData._id }, { $set: bodyData });
+            let updateMenuModule = await Models.MenuModuleDB.findOneAndUpdate({ _id: bodyData._id }, { $set: bodyData });
             console.log('updateMenuModule is', updateMenuModule)
-            res.send({ status: true, message: CONSTANTSMESSAGE.UPDATE_SUCCESS_MESSAGE });
+            res.send({ status: true, message: CONSTANTSMESSAGE.DATA_UPDATE_SUCCESS });
         }
         catch (e) {
             console.log('updateMenuModule err', e);
