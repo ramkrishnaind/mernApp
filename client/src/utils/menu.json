@@ -155,6 +155,7 @@
     },
     {
         "id": 7,
-        "title": "Contact Us"
+        "title": "Contact Us",
+        "href": "/contact-us"
     }
 ]
