@@ -36,7 +36,8 @@ const MenuCreateUpdate = (props) => {
   let query = useQuery();
   let id = query.get("id");
   let userData= props?.user?.userData;
-  
+  const[refresh,setRefresh] = useState(false);
+
     useEffect(() => {
         let data={
           _id:id 
@@ -46,7 +47,15 @@ const MenuCreateUpdate = (props) => {
         }
         // dispatch(UserAction.RoleListRequestAsync());
         
-      }, [id  ]);
+      }, [id]);
+
+      useEffect(() => {
+        if(props.user.success) 
+        {
+          setRefresh(true) 
+          setState(initialState)
+        }
+      }, [props.user.success]);
 
     const dispatch = useDispatch();
 

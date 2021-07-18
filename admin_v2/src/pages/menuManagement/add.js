@@ -37,15 +37,16 @@ const MenuCreateUpdate = (props) => {
   let id = query.get("id");
     const dispatch = useDispatch();
 
+  const[refresh,setRefresh] = useState(false);
+
     const initialState = {
-        name:menuData?.name,
-        description:menuData?.description,
-        id:id,
-        status:true,
-      };
+      name:menuData?.name,
+      description:menuData?.description,
+      id:id,
+      status:true,
+    };
       console.log('initialState',initialState);
     const [state, setState] = useState(initialState);
-
 
     useEffect(() => {
       let data={
@@ -55,6 +56,14 @@ const MenuCreateUpdate = (props) => {
           dispatch(MenuAction.MenuDataRequestAsync(data));
         }
       }, []);
+
+    useEffect(() => {
+      if(props.menu.success) 
+      {
+        setRefresh(true) 
+        setState(initialState)
+      }
+    }, [props.menu.success]);
 
     const inputChange = (e) => {
         let { name, value } = e.target;
@@ -131,7 +140,7 @@ const MenuCreateUpdate = (props) => {
                             variant="outlined"
                             label="Name*"
                             fullWidth
-                            value={(state.name)? state.name : menuData?.name}
+                            value={state.name}
                             onChange={inputChange}
                             name="name"
                             id="name"
@@ -146,7 +155,7 @@ const MenuCreateUpdate = (props) => {
                             variant="outlined"
                             label="Description*"
                             fullWidth
-                            value={(state.description)? state.description : menuData?.description}
+                            value={state.description}
                             onChange={inputChange}
                             name="description"
                             id="description"

@@ -56,6 +56,7 @@ const PropertyListReducer = (state = initialState, action) => {
       return {
         ...state,
         isRequesting: false,
+        success:true,
         userData: payload.data,
       };
     case ACTION_KEYS.USER_DATA_ERROR:

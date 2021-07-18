@@ -38,6 +38,7 @@ const PropertyListReducer = (state = initialState, action) => {
       return {
         ...state,
         isRequesting: false,
+        success:true,
         menuData: payload.data,
       };
     case ACTION_KEYS.MENU_DATA_ERROR:
