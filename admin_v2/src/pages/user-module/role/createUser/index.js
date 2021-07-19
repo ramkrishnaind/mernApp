@@ -8,6 +8,9 @@ import {Link as RouterLink} from 'react-router-dom';
 import { connect } from "react-redux";
 import * as ModuleRightsAction from "../../../../redux/actions/ModuleRightsAction";
 import Grid from '@material-ui/core/Grid';
+import * as CreateUserRoleAction from "../../../../redux/actions/CreateUserRoleAction";
+import { useDispatch } from "react-redux";
+
 
 import {
     ValidatorForm,
@@ -30,19 +33,21 @@ const useStyles = makeStyles((theme) => ({
 
 function CreateUser(props){
     const [userRightsData, setUserRightsData] = useState([])
+    const [membersRightId, setMembersRightId] = useState([])
+    const dispatch = useDispatch();
 
-    const [state, setState] = React.useState({
-        checkedA: false,
-        checkedB: false,
-        checkedC: false,
-        checkedD: false,
-        checkedE: false,
-        checkedF: false,
-        checkedG: false,
-        checkedH: false,
-        checkedI: false,
-        checkedJ: false,
-    });
+    const insialState ={
+        id: null,
+        name: "",
+        rights: [],
+        status : true,
+        createdBy: "60eadf8ca621715e47c6f678",
+        updatedBy: "60eadf8ca621715e47c6f678"
+    }
+
+    const [state, setState] = useState(insialState);
+
+    
 
     const [stateb, setStateb] = React.useState({
         age: '',
@@ -57,8 +62,16 @@ function CreateUser(props){
     });
   };
 
-    const handleChange = (event) => {
-        setState({ ...state, [event.target.name]: event.target.checked });
+  useEffect(()=>{
+    console.log("updated data==", membersRightId)
+  },[membersRightId])
+
+    const handleChange = (checkboxId, e) => {
+        // setState({ ...state, [event.target.name]: event.target.checked });
+        console.log("current Check Box Value==", checkboxId, "id==")
+        let Array = []
+
+        setMembersRightId(oldArray => [...oldArray, checkboxId])
     };
 
     const classes = useStyles();
@@ -73,6 +86,27 @@ function CreateUser(props){
         props.GetUsersData();
     },[])
 
+    const handleSubmit =()=>{
+        const {id, name, rights, status, createdBy,updatedBy } =state
+        let reqData = {
+            id: null,
+            name: name,
+            rights: membersRightId,
+            updatedBy: updatedBy,
+            status:status,
+            createdBy:createdBy
+        };
+        console.log("heloo===reqData", reqData)
+        dispatch(CreateUserRoleAction.GetCreateUserRoleActionRequestAsync(reqData));
+    }
+
+    const inputChange = (e) => {
+        let { name, value } = e.target;
+
+        // console.log("helo==", e.currenttarget.value)
+    
+        setState({ ...state, [name]: value });
+      };
 
     return (
         <div>
@@ -84,8 +118,9 @@ function CreateUser(props){
                     <div className="panel-body">
                         <h2 className="title-heading">User Role Information</h2>
                         <div className="form">
-                        <Grid container >
-                                    <ValidatorForm className="formData">
+                        
+                                    <ValidatorForm className="formData" onSubmit={handleSubmit}>
+                                    <Grid container className="inputTopFileds">
                                         <Grid item xs={5}>
                                             <TextValidator
                                                 className="form-control-item"
@@ -94,8 +129,9 @@ function CreateUser(props){
                                                 fullWidth
                                                 name="User Role Name"
                                                 id="User-Role-Name"
-                                                validators={["required"]}
-                                                errorMessages={["User Name field is required"]}
+                                                onChange={inputChange}
+                                                // validators={["required"]}
+                                                // errorMessages={["User Name field is required"]}
                                                 />
                                         </Grid>
                                         <Grid item xs={1}></Grid>
@@ -126,13 +162,10 @@ function CreateUser(props){
                                     </Select>
                                 </FormControl>
                                 </Grid>
-                                </ValidatorForm>
                                 </Grid>
-                        </div>
-
 
                         <h2 className="title-heading">Module Rights</h2>
-                        <div>
+                    
                         <Grid container spacing={3}>
                             {userRightsData && userRightsData?.data?.map((items,index)=>{
                                 return(
@@ -141,7 +174,7 @@ function CreateUser(props){
                                             control={
                                                 <Checkbox
                                                     // checked={state.checkedA}
-                                                    onChange={handleChange}
+                                                    onChange={(e) => handleChange(items._id)}
                                                     name={items.name}
                                                     color="primary"
                                                 />
@@ -164,39 +197,7 @@ function CreateUser(props){
                                 )
                             })}
                             </Grid>
-                            
-                            {/* <div className="subcheck">
-                               <div className="col-1 d-flex w-100">
-                                <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={state.checkedC}
-                                                onChange={handleChange}
-                                                name="checkedC"
-                                                color="primary"
-                                            />
-                                        }
-
-
-                                        label="Create User Role"
-                                    /> 
-                                     <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={state.checkedD}
-                                                onChange={handleChange}
-                                                name="checkedD"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="Add/Edit User Role"
-                                    /> 
-                               </div>
-
-                            </div> */}
-                            
-                        </div>
-                        <Box className="footer">
+                            <Box className="footer">
                         <Button
                             // fullWidth
                             variant="contained"
@@ -221,6 +222,13 @@ function CreateUser(props){
                             </button> */}
                         
                         </Box>
+                            </ValidatorForm>
+                                
+                        </div>
+
+                           
+                        
+                        
                     </div>
                 </div>
             </div>

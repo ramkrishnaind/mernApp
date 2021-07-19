@@ -78,12 +78,15 @@ form.makeStyles-root-8 {
    border-radius: 0px;
 }
 
-.formData{
+/* .formData{
    width: 100%;
    display: flex;
    margin-bottom: 1rem;
    margin-top: 1rem;
-}
+} */
 .formData .form-control-item{
    margin-right: 15px;
+}
+.inputTopFileds{
+   margin-bottom: 1rem;
 }

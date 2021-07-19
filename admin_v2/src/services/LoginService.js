@@ -10,7 +10,7 @@ export const LoginService = async (dispatch, data) => {
       data,
       null,
       null,
-      false
+      true
     );
     window.localStorage.setItem('user',JSON.stringify(result.user));
     dispatch(LoginSuccess(result));
