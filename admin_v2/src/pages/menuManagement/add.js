@@ -31,28 +31,39 @@ import {
 import { connect } from "react-redux";
 // import Link from "next/link";
 
-const MenuList = (props) => {
+const MenuCreateUpdate = (props) => {
   let menuData= props?.menu?.menuData;
   let query = useQuery();
   let id = query.get("id");
     const dispatch = useDispatch();
 
+  const[refresh,setRefresh] = useState(false);
+
     const initialState = {
-        name:menuData?.name,
-        description:menuData?.description,
-        id:id,
-        status:true,
-      };
+      name:menuData?.name,
+      description:menuData?.description,
+      id:id,
+      status:true,
+    };
       console.log('initialState',initialState);
     const [state, setState] = useState(initialState);
 
-
     useEffect(() => {
       let data={
-        _id:id
-      }
-      dispatch(MenuAction.MenuDataRequestAsync(data));
+          _id:id
+        }
+        if(id !=null){
+          dispatch(MenuAction.MenuDataRequestAsync(data));
+        }
       }, []);
+
+    useEffect(() => {
+      if(props.menu.success) 
+      {
+        setRefresh(true) 
+        setState(initialState)
+      }
+    }, [props.menu.success]);
 
     const inputChange = (e) => {
         let { name, value } = e.target;
@@ -93,7 +104,7 @@ const MenuList = (props) => {
 
     return (
         <Box className="MenuManagement_Data">
-          <FormHeader heading1={"Menu Module Management"} heading2={"Create and Manage Menus Here"} />
+          <FormHeader heading1={"Menu Module Management"} heading2={"Create and Update Menu Here"} />
           {state.id ? (
             <>
               <BreadCrumbs heading1={"MenuManagement"} heading2={"Edit Menu Module"} />
@@ -231,8 +242,5 @@ function mapStateToProps(state) {
   };
 }
 export default connect(mapStateToProps)(
-  (MenuList),
+  (MenuCreateUpdate),
 );
-
-
-// export default MenuList

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Button,
   Grid,
@@ -7,7 +7,8 @@ import {
   FormControl,
   Select,
   InputLabel,
- 
+  Box,
+  Link 
 } from "@material-ui/core";
 import {
   ValidatorForm,
@@ -15,24 +16,64 @@ import {
   SelectValidator,
 } from "react-material-ui-form-validator";
 
-import * as MenuAction from "../../redux/actions/MenuAction";
+import * as UserAction from "../../redux/actions/UserAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
+import './userManagement.css';
+import SubHeading from "../../common/SubHeadingBox";
+import {
+  BrowserRouter as Router,
+  Link as RouterLink,
+  useLocation
+} from "react-router-dom";
+import PhoneInput from 'react-phone-number-input'
+import { connect } from "react-redux";
+// import Link from "next/link";
 
-const MenuList = (props) => {
+const MenuCreateUpdate = (props) => {
+
+  let query = useQuery();
+  let id = query.get("id");
+  let userData= props?.user?.userData;
+  const[refresh,setRefresh] = useState(false);
+
+    useEffect(() => {
+        let data={
+          _id:id 
+        }
+        if(id !=null){
+          dispatch(UserAction.UserDataRequestAsync(data));
+        }
+        // dispatch(UserAction.RoleListRequestAsync());
+        
+      }, [id]);
+
+      useEffect(() => {
+        if(props.user.success) 
+        {
+          setRefresh(true) 
+          setState(initialState)
+        }
+      }, [props.user.success]);
+
     const dispatch = useDispatch();
+
     const initialState = {
-        role: "",
-        fname:"",
-        lname:"",
-        email:"",
-        password:"",
-        phone:"",
-        status:true,
+        firstName:userData?.firstName,
+        lastName:userData?.lastName,
+        email:userData?.email,
+        country:userData?.countryCode,
+        mobile:userData?.mobile,
+        id:id,
+        userRole:userData?.userRole,
       };
       
     const [state, setState] = useState(initialState);
+    const [country, setCountry] = useState("+91");
+    const [file, setFile] = useState("");
+
+   
 
     const inputChange = (e) => {
         let { name, value } = e.target;
@@ -43,35 +84,67 @@ const MenuList = (props) => {
 
     const handleSubmit = (e) => {
     
-        const { role, fname,lname,email,password,phone,status } = state;
-    
-        let reqData = {
-            fname: fname,
-            lname: lname,
-            email: email,
-            role: role,
-            password: password,
-            phone: phone,
-            status:status,
-            createdBy:"60c8f72a2002b60ac1b6b50a"
-        };
+        const { firstName,lastName,id,email,mobile,userRole } = state;
         
-        console.log("reqData  ", reqData);
-        dispatch(MenuAction.MenuAddRequestAsync(reqData));
-    
-        // props.dispatch(userActions.login({ fname: email, password }));
+        let LoginUserData = JSON.parse(window.localStorage.getItem('user'));
+        if(id == null){
+          let reqData = {
+              firstName: firstName,
+              lastName: lastName,
+              email: email,
+              countryCode: country,
+              mobile: mobile,
+              userRole:'60e84c1c8494c904475e8270',
+              // createdBy:LoginUserData._id
+          };
+          // console.log('reqdsd',reqData);
+          dispatch(UserAction.UserAddRequestAsync(reqData));
+        }
+        else{
+          let reqData = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            countryCode: country,
+            mobile: mobile,
+            userRole:'60e84c1c8494c904475e8270',
+            // updatedBy:LoginUserData._id,
+            _id:id
+          };
+          dispatch(UserAction.UserUpdateRequestAsync(reqData));
+        } 
       };
 
-      
+    function useQuery() {
+      return new URLSearchParams(useLocation().search);
+    }
+
+    const handleChange = (event) => {
+      // this.setState({
+        setFile(URL.createObjectURL(event.target.files[0]))
+        
+      // })
+    }
     return (
-        <>
-        <FormHeader />
-        <BreadCrumbs />
-        <Grid item xs={12} className="m-5">
+        <Box className="MenuManagement_Data">
+          <FormHeader heading1={"User Module Management"} heading2={"Create and Update User Here"} />
+          {state.id ? (
+            <>
+              <BreadCrumbs heading1={"UserManagement"} heading2={"Edit User Module"} />
+              <SubHeading heading={"Edit User Module"}/>
+            </>
+          ):(
+            <>
+              <BreadCrumbs heading1={"UserManagement"} heading2={"Add User Module"} />
+              <SubHeading heading={"Add User Module"}/>
+            </>
+          )
+          }
+        <Grid item xs={12} className="m-5 addUserFormanage">
           <div className="card w-100">
             <div className="card-header d-flex justify-content-between align-items-center">
               <Typography component="h3" variant="h3">
-                Add Menu
+              {state.id ? 'Edit' : 'Add'} User
               </Typography>
               {/* <Button
                 onClick={() => this.props.history.push("menu")}
@@ -83,45 +156,19 @@ const MenuList = (props) => {
             </div>
                 <div class="card-body">
                 <ValidatorForm onSubmit={handleSubmit}>
-                    <Grid container spacing={3}>  
-                        <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                            <SelectValidator
-                                className="form-control-item"
-                                variant="outlined"
-                                label="Role"
-                                fullWidth
-                                value={state.role}
-                                onChange={inputChange}
-                                name="role"
-                                id="role"
-                                validators={["required"]}
-                                errorMessages={["this field is required"]}
-                            >
-                                <MenuItem key="1" value="1">
-                                test
-                                </MenuItem>
-                                <MenuItem key="1" value="1">
-                                test
-                                </MenuItem>
-
-                                <MenuItem key="1" value="1">
-                                test
-                                </MenuItem>
-                            </SelectValidator>
-                        </Grid>
-
+                    <Grid container spacing={3} className="FormFildes">  
                         <Grid className="form-group-item" item xs={12} sm={6} md={4}>
                             <TextValidator
                             className="form-control-item"
                             variant="outlined"
                             label="First Name*"
                             fullWidth
-                            value={state.fname}
+                            value={( state.firstName)?  state.firstName :userData?.firstName }
                             onChange={inputChange}
-                            name="fname"
-                            id="fname"
+                            name="firstName"
+                            id="firstName"
                             validators={["required"]}
-                            errorMessages={["this field is required"]}
+                            errorMessages={["firstName field is required"]}
                             />
                         </Grid>
 
@@ -131,12 +178,12 @@ const MenuList = (props) => {
                             variant="outlined"
                             label="Last Name*"
                             fullWidth
-                            value={state.lname}
+                            value={( state.lastName)?  state.lastName :userData?.lastName }
                             onChange={inputChange}
-                            name="lname"
-                            id="lname"
+                            name="lastName"
+                            id="lastName"
                             validators={["required"]}
-                            errorMessages={["this field is required"]}
+                            errorMessages={["lastName field is required"]}
                             />
                         </Grid>
 
@@ -144,98 +191,151 @@ const MenuList = (props) => {
                             <TextValidator
                             className="form-control-item"
                             variant="outlined"
-                            label="Email *"
+                            label="Email*"
                             fullWidth
-                            value={state.email}
+                            value={( state.email)?  state.email :userData?.email }
                             onChange={inputChange}
                             name="email"
                             id="email"
                             type="email"
                             validators={["required"]}
-                            errorMessages={["this field is required"]}
+                            errorMessages={["email field is required"]}
                             />
                         </Grid>
 
                         <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                            <TextValidator
-                            className="form-control-item"
-                            variant="outlined"
-                            label=" Password*"
-                            fullWidth
-                            value={state.password}
-                            onChange={inputChange}
-                            name="password"
-                            id="password"
-                            type="password"
-                            validators={["required"]}
-                            errorMessages={["this field is required"]}
-                            />
-                        </Grid>
+                          <Grid container spacing={1}>
+                            <Grid item xs={12} sm={2}>
+                              <PhoneInput
+                                className="PhoneInput"
+                                international
+                                countryCallingCodeEditable={false}
+                                defaultCountry="IN"
+                                value={(country)?country:userData?.countryCode}
+                                onChange={setCountry}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={10}>
+                              <TextValidator
+                                className="form-control-item"
+                                variant="outlined"
+                                label="Mobile*"
+                                fullWidth
+                                value={( state.mobile)?  state.mobile :userData?.mobile }
+                                onChange={inputChange}
+                                name="mobile"
+                                id="mobile"
+                                validators={["required"]}
+                                errorMessages={["Mobile field is required"]}
+                                />
+                            </Grid>
+                          </Grid>
 
-                        <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                            <TextValidator
-                            className="form-control-item"
-                            variant="outlined"
-                            label=" Phone No.*"
-                            fullWidth
-                            value={state.phone}
-                            onChange={inputChange}
-                            name="phone"
-                            id="phone"
-                            validators={["required"]}
-                            errorMessages={["this field is required"]}
-                            />
                         </Grid>
 
                         <Grid className="form-group-item" item xs={12} sm={6} md={4}>
                             <FormControl
-                            variant="outlined"
-                            style={{ width: "100%" }}
+                              variant="outlined"
+                              style={{ width: "100%" }}
                             >
-                            <InputLabel
-                                id="demo-simple-select-outlined-label"
-                                htmlFor="age-native-simple"
-                            >
-                                Status
-                            </InputLabel>
-                            <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined-label"
-                                label="Status"
-                                native
-                                name="status"
-                                value={state.status}
-                                onChange={inputChange}
-                                inputProps={{
-                                name: "status",
-                                id: "age-native-simple",
-                                }}
-                            >
-                                <option value={true} selected>Yes</option>
-                                <option value={false} >No</option>
-                            </Select>
+                              <InputLabel
+                                  id="demo-simple-select-outlined-label"
+                                  htmlFor="age-native-simple"
+                              >
+                                Role
+                              </InputLabel>
+                                <Select
+                                  labelId="demo-simple-select-outlined-label"
+                                  id="demo-simple-select-outlined-label"
+                                  label="Role"
+                                  native
+                                  name='userRole'
+                                  value={( state.userRole)?  state.userRole :userData?.userRole }
+                                  onChange={inputChange}
+                                  inputProps={{
+                                  name: "userRole",
+                                  id: "age-native-simple",
+                                  }}
+                                >
+                                  <option value={true}>Active</option>
+                                  <option value={false} >Inactive</option>
+                              </Select>
                             </FormControl>
+                        </Grid>
 
-                        </Grid>
-                        </Grid>
+                        
+
+                      </Grid>
+                      <br/>
+                      <SubHeading heading={"Upload Image"}/>
+                      <Grid className="form-group-item" item xs={12} sm={6} md={4}>        
+                      <label className="uploadbutton" htmlFor="mainImage">
+                        <Button
+                          color="default"
+                          variant="contained"
+                          component="span"
+                        >
+                          Browse
+                        </Button>
+                      </label>
+                      <input
+                        style={{ display: "none" }}
+                        id="mainImage"
+                        name="mainImage"
+                        type="file"
+                        onChange={handleChange}
+                      />
+                      
+                        <img src={file} height="200px" width="200px"/>
+                      </Grid>
+                      
                         <br />
+                        <Box className="footer">
                         <Button
                             // fullWidth
                             variant="contained"
                             color="primary"
                             type="submit"
-                            // className={classes.submit}
+                            className={"SaveData"}
                             >
                             Save
                         </Button>
+
+                        <Link component={RouterLink} to="/menu">
+                          <Button
+                              // fullWidth
+                              variant="contained"
+                              color="primary"
+                              // onClick={() => history.goBack()}
+                              type="button"
+                              className={"CanceForm"}
+                              >
+                              Cancel
+                          </Button>
+                        </Link>
+                            {/* <button type="button">
+                                  Click Me!
+                            </button> */}
+                        
+                        </Box>
                             
                     {/* </Grid> */}
                 </ValidatorForm>
                 </div>
             </div>
         </Grid>
-    </>
+    </Box>
     )
 }
 
-export default MenuList
+
+function mapStateToProps(state) {
+  const { user } = state;
+  return {
+    user,
+    
+  };
+}
+export default connect(mapStateToProps)(
+  (MenuCreateUpdate),
+);

@@ -76,7 +76,7 @@ const MenuList = (props) => {
 
     return (
         <>
-        <FormHeader />
+        <FormHeader heading1={"Menu Module Management"} heading2={"List and Manage Menu Here"} />
         <BreadCrumbs heading1={"MenuManagement"} heading2={"Menu Module List"} />
         {menu.list && menu.list.length > 0 ? (
             <>
@@ -132,7 +132,7 @@ const MenuList = (props) => {
                       </Tooltip>
                     )}
                     
-                    <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[4])} />
+                    {/* <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[4])} /> */}
                     </>
                   );
                 }

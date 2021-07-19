@@ -42,38 +42,38 @@ import Logger from '../../utils/Logger';
         {
           href: "/menu/add",
           icon: ShoppingBagIcon,
-          title: "Add Menu Module",
+          title: "Add Menu",
         },
         {
           href: "/menu",
           icon: ShoppingBagIcon,
-          title: "Menu Module List",
+          title: "Menu List",
         }
       ]
     },
 
-    {
-      href: '/property-management',
-      icon: UsersIcon,
-      title: 'Property Management',
-      items: [
-        {
-          href: "/add-property",
-          icon: ShoppingBagIcon,
-          title: "Add New",
-        },
-        {
-          href: "/property-list",
-          icon: ShoppingBagIcon,
-          title: "Property List",
-        }
-      ]
-    },
-    {
-      href: '/user-management',
-      icon: ShoppingBagIcon,
-      title: 'User Management'
-    },
+    // {
+    //   href: '/property-management',
+    //   icon: UsersIcon,
+    //   title: 'Property Management',
+    //   items: [
+    //     {
+    //       href: "/add-property",
+    //       icon: ShoppingBagIcon,
+    //       title: "Add New",
+    //     },
+    //     {
+    //       href: "/property-list",
+    //       icon: ShoppingBagIcon,
+    //       title: "Property List",
+    //     }
+    //   ]
+    // },
+    // {
+    //   href: '/user-management',
+    //   icon: ShoppingBagIcon,
+    //   title: 'User Management'
+    // },
     {
       href: '/user-role',
       icon: UsersIcon,
@@ -97,14 +97,14 @@ import Logger from '../../utils/Logger';
       title: 'User',
       items: [
         {
-          href: "/create-user",
+          href: "/user/add",
           icon: ShoppingBagIcon,
-          title: "Create User",
+          title: "Add User",
         },
         {
-          href: "/add-edit-user",
+          href: "/user",
           icon: ShoppingBagIcon,
-          title: " Add / Edit User",
+          title: "User List",
         }
       ]
     },
