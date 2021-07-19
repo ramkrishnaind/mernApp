@@ -143,10 +143,21 @@ import Logger from '../../utils/Logger';
       ]
     },
     {
+      href: '/contactus',
+      icon: UserIcon,
+      title: 'Contact Us'
+    },
+    {
+      href: '/site-visit',
+      icon: UserIcon,
+      title: 'Site Visit'
+    },
+    {
       href: '/account',
       icon: UserIcon,
       title: 'Account'
     },
+    
 
   ];
 

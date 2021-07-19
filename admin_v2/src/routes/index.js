@@ -18,6 +18,8 @@ import CareerList from "../pages/careerManagement";
 import AddCareer from "../pages/careerManagement/add";
 import BlogList from "../pages/blogManagement";
 import AddBlog from "../pages/blogManagement/add";
+import ContactusList from "../pages/contactusManagement";
+import SiteVisitList from "../pages/siteVisitManagement";
 
 const Routes = props => {
     const {isAuth} = props;
@@ -83,6 +85,14 @@ const Routes = props => {
                 {
                     path: "/blog/add",
                     element: isAuth ? <AddBlog /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/contactus",
+                    element: isAuth ? <ContactusList /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/site-visit",
+                    element: isAuth ? <SiteVisitList /> : <Navigate to="/login" />
                 },
                 {
                     path: "404",
