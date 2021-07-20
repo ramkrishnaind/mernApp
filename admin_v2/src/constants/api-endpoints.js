@@ -20,6 +20,8 @@ const API_ENDPOINTS = {
   USER_DATA_ENDPOINT:"users/getUser",
   USER_DELETE_ENDPOINT:"users/deleteUser",
   
+  ENQUIRY_LIST_ENDPOINT:"enquiry/getEnquiryRequest",
+  ENQUIRY_STATUS_UPDATE_ENDPOINT:"enquiry/updateEnquiryStatusRequest",
 };
 
 export default API_ENDPOINTS;

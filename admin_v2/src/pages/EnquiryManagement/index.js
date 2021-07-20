@@ -3,7 +3,7 @@ import {
   Typography
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import * as MenuAction from "../../redux/actions/MenuAction";
+import * as MenuAction from "../../redux/actions/EnquiryAction";
 import { useDispatch } from "react-redux";
 
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -14,8 +14,6 @@ import MUIDataTable from "mui-datatables";
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-
 import ClearIcon from "@material-ui/icons/Clear";
 
 import history from "../../components/history";
@@ -30,16 +28,16 @@ const styles = (theme) => ({
     },
 });
 
-const VistList = (props) => {
+const EnquiryList = (props) => {
 
     const dispatch = useDispatch();
     let {
         classes,
-        menu,
+        enquiry,
       } = props;
 
     useEffect(() => {
-    dispatch(MenuAction.MenuListRequestAsync());
+    dispatch(MenuAction.EnquiryListRequestAsync());
     }, []);
 
   let options = {
@@ -54,7 +52,7 @@ const VistList = (props) => {
       id: data,
       status:status
     };
-    dispatch(MenuAction.MenuStatusUpdateRequestAsync(tempdata));
+    dispatch(MenuAction.EnquiryStatusUpdateRequestAsync(tempdata));
    
     if(status==="enable"){
       // toast.error("Disable")
@@ -77,38 +75,39 @@ const VistList = (props) => {
 
     return (
         <>
-        <FormHeader heading1={"Site Visit Module Management"} heading2={"List and Manage Site Visit Here"} />
-        <BreadCrumbs heading1={"SitevisitManagement"} heading2={"Site Visit Module List"} />
-        {menu.list && menu.list.length > 0 ? (
+        <FormHeader heading1={"Enquiry Module Management"} heading2={"List and Manage Enquiry Here"} />
+        <BreadCrumbs heading1={"EnquiryManagement"} heading2={"Enquiry Module List"} />
+        {enquiry.list && enquiry.list.length > 0 ? (
             <>
           <MUIDataTable className="table-header"
-            title="Site Visit List"
-            data={menu.list.map((item,index) => {
+            title="Enquiry List"
+            data={enquiry.list.map((item,index) => {
                 return [
                     (index +1),
                     item.name,
-                    item.name,
-                    item.name,
-                    item.description,
+                    item.email,
+                    item.phone,
+                    item.place,
+                    item.status,
                     item._id
                 ]
             })}
-            columns={['SR No.','Name','Email','Phone','Description',
-            // {
-            //   name: "Status",
-            //   options: {
-            //     customBodyRender: (value, tableMeta, updateValue) => {
-            //       if (value === true)
-            //         return (
-            //           'Active'
-            //         );
-            //       else
-            //         return (
-            //           'Inactive'
-            //         );
-            //     }
-            //   }
-            // },
+            columns={['SR No.','Name','Email','Phone','Place',
+            {
+              name: "Status",
+              options: {
+                customBodyRender: (value, tableMeta, updateValue) => {
+                  if (value === true)
+                    return (
+                      'Open'
+                    );
+                  else
+                    return (
+                      'Close'
+                    );
+                }
+              }
+            },
             {
               name: "Actions",
               options: {
@@ -117,10 +116,10 @@ const VistList = (props) => {
                     <>
                     {/* <EditIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/> */}
 
-                    {tableMeta.rowData[3] ? (
+                    {tableMeta.rowData[4] ? (
                       <Tooltip title="Active">
                         <Done
-                        onClick={() =>onDisable(tableMeta.rowData[4],false)}
+                        onClick={() =>onDisable(tableMeta.rowData[5],false)}
                         style={{ color: "#1e7e34", cursor:"pointer" }}
                       />
                       </Tooltip>
@@ -128,13 +127,13 @@ const VistList = (props) => {
                     ) : (
                       <Tooltip title="Inactive">
                         <ClearIcon 
-                          onClick={() => onDisable(tableMeta.rowData[4],true)}
+                          onClick={() => onDisable(tableMeta.rowData[5],true)}
                           style={{ color: "#bd2130", cursor:"pointer" }}
                         />
                       </Tooltip>
                     )}
                     
-                    <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[4])} />
+                    {/* <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[5])} /> */}
                     </>
                   );
                 }
@@ -155,14 +154,13 @@ const VistList = (props) => {
 
 
 function mapStateToProps(state) {
-  const { menu } = state;
-  return {
-    menu,
-    
+  const { enquiry } = state;
+  return {    
+    enquiry,    
   };
 }
 export default connect(mapStateToProps)(
-  withStyles(styles)(VistList),
+  withStyles(styles)(EnquiryList),
 );
 
 

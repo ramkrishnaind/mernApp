@@ -153,6 +153,11 @@ import Logger from '../../utils/Logger';
       title: 'Site Visit'
     },
     {
+      href: '/enquiry',
+      icon: UserIcon,
+      title: 'Enquirys'
+    },
+    {
       href: '/account',
       icon: UserIcon,
       title: 'Account'
