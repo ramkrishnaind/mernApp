@@ -9,7 +9,7 @@ import { CreateUserRoleService } from '../../services/CreateUserRoleService';
 export const GetCreateUserRoleActionRequestAsync = (data) => {
     console.log("data====", data)
     return (dispatch) => {
-        dispatch(GetUserRole());
+        dispatch(GetUserRoleRequest());
         CreateUserRoleService(dispatch, data);
     }
 }
@@ -18,7 +18,7 @@ export const GetCreateUserRoleActionRequestAsync = (data) => {
  * Action Creator to dispatch login action
  * @returns 
  */
- export const GetUserRole = () => {
+ export const GetUserRoleRequest = () => {
     return {
         type: ACTION_KEYS.USER_ROLE_REQUEST,
         payload: null,

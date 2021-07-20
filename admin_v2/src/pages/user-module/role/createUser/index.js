@@ -38,7 +38,7 @@ function CreateUser(props){
 
     const insialState ={
         id: null,
-        name: "",
+        name: "abcd",
         rights: [],
         status : true,
         createdBy: "60eadf8ca621715e47c6f678",
@@ -239,10 +239,11 @@ function CreateUser(props){
 function mapStateToProps(state) {
     console.log("state=== on create user==  ", state);
     // const { loggingIn } = state.Login.data;
-    // const { users } = state;
+    const { UserRoleReducer } = state;
     return {
       // loggingIn,
       ModuleRight : state.ModuleReducer,
+      UserRoleReducer,
     };
   }
 

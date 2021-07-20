@@ -20,6 +20,7 @@ import ServiceCard from "../../components/service-card";
 import SectionFeedback from "../../components/section-feedback";
 import Footer
  from "../../components/footer";
+import OnlineBooking from "../../components/online-form/online-form";
 const useStyles = makeStyles((theme)=> ({
   text1: {
     fontFamily: '"Open Sans",sans-serif',
@@ -87,6 +88,8 @@ const HomePage = (props) => {
     <div className="main-w3">
       <Header />
       <OwlCarouselSlider />
+      {/* online-booking */}
+      <OnlineBooking/>
       <Box style={{backgroundColor: '#FFFFFF'}}>
       <Container>
         <Grid container style={{paddingTop: 50, paddingBottom: 50}}>
@@ -167,7 +170,7 @@ const HomePage = (props) => {
             <SectionClient />
           </Container>
         </div>
-
+   
         <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
           <Container>
             <SectionHeader title={APP_CONSTANTS.section_services_title} subtitle={APP_CONSTANTS.section_services_subtitle} />
@@ -187,7 +190,7 @@ const HomePage = (props) => {
             </Grid>
           </Container>
         </div>
-
+        
         {/* SECTION - FEEDBACK*/}
         <div className="client-bg">
           <Container style={{paddingTop: 60, paddingBottom: 60}}>
