@@ -10,7 +10,17 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import history from "../history";
+
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
+
+  function handlelogout() {
+
+    window.localStorage.removeItem("user")
+    history.push('/login')
+    window.location.reload();
+  }
+
   return (
     <AppBar elevation={0} {...rest}>
       <Toolbar>
@@ -28,6 +38,10 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
             <MenuIcon />
           </IconButton>
         </Hidden>
+        <ExitToAppIcon 
+          onClick={() => handlelogout()} 
+          className="logoutBtn"        
+        />
       </Toolbar>
     </AppBar>
   );
