@@ -18,8 +18,7 @@ import SectionTabs from "../../components/section-tabs";
 import SectionClient from "../../components/section-client";
 import ServiceCard from "../../components/service-card";
 import SectionFeedback from "../../components/section-feedback";
-import Footer
- from "../../components/footer";
+import Footer from "../../components/footer";
 import OnlineBooking from "../../components/online-form/online-form";
 const useStyles = makeStyles((theme)=> ({
   text1: {
@@ -89,7 +88,7 @@ const HomePage = (props) => {
       <Header />
       <OwlCarouselSlider />
       {/* online-booking */}
-      <OnlineBooking/>
+     
       <Box style={{backgroundColor: '#FFFFFF'}}>
       <Container>
         <Grid container style={{paddingTop: 50, paddingBottom: 50}}>

@@ -1,6 +1,8 @@
 .client-bg{
     width: 100%;
     background: #fff;
+    margin-bottom: 7rem;
+    padding-top: 7rem;
 }
 .onlineFormControl .FormControl{
     background: #fff;
@@ -24,12 +26,13 @@
 }
 .WholeCont{
     background: #00afb8;
-    /* width: 100%; */
     padding:30px;
     margin-top: 30px;
 }
+
 .OutformP .formP{
     color: #fff;
+    line-height: 45px;
 }
 .OutformP .formP input{
     width: 100%;
@@ -41,6 +44,7 @@
     max-width: 14px;
 }
 .OutformP .BookButton{
+    margin-top: 20px;
     background: #ef8822;
     color: #fff;
     padding: 14px 19px;
