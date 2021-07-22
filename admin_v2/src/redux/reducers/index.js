@@ -6,6 +6,8 @@ import menu from './MenuReducer';
 import ModuleReducer from './ModuleRightsReducer';
 import user from './UserReducer';
 import enquiry from'./EnquiryReducer';
+import callback from'./CallbackReducer';
+
 const reducers =  {
     Login: LoginReducer,
     Register: RegisterReducer,
@@ -15,6 +17,7 @@ const reducers =  {
     ModuleReducer : ModuleReducer,
     user : user,
     enquiry:enquiry,
+    callback:callback,
 }
 
 export default reducers;

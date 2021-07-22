@@ -158,6 +158,11 @@ import Logger from '../../utils/Logger';
       title: 'Enquirys'
     },
     {
+      href: '/callback',
+      icon: UserIcon,
+      title: 'Callback'
+    },
+    {
       href: '/account',
       icon: UserIcon,
       title: 'Account'

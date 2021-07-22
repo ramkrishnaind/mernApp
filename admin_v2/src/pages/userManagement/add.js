@@ -45,7 +45,7 @@ const MenuCreateUpdate = (props) => {
         if(id !=null){
           dispatch(UserAction.UserDataRequestAsync(data));
         }
-        // dispatch(UserAction.RoleListRequestAsync());
+        dispatch(UserAction.RoleListRequestAsync());
         
       }, [id]);
 
