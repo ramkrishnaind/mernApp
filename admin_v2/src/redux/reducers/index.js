@@ -7,7 +7,7 @@ import ModuleReducer from './ModuleRightsReducer';
 import user from './UserReducer';
 import enquiry from'./EnquiryReducer';
 import callback from'./CallbackReducer';
-
+import snackbar from'./snackbarReducer';
 const reducers =  {
     Login: LoginReducer,
     Register: RegisterReducer,
@@ -18,6 +18,7 @@ const reducers =  {
     user : user,
     enquiry:enquiry,
     callback:callback,
+    snackbar:snackbar,
 }
 
 export default reducers;

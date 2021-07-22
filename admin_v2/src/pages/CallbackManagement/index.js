@@ -4,6 +4,7 @@ import {
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as CallbackAction from "../../redux/actions/CallbackAction";
+import * as SnackbarAction from "../../redux/actions/snackbarActions";
 import { useDispatch } from "react-redux";
 
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -39,6 +40,7 @@ const CallbackList = (props) => {
 
     useEffect(() => {
     dispatch(CallbackAction.CallbackListRequestAsync());
+    dispatch(SnackbarAction.showSuccessSnackbar("Success!"));
     }, []);
 
   let options = {
@@ -78,12 +80,12 @@ const CallbackList = (props) => {
         <>
         <FormHeader heading1={"Callback Module Management"} heading2={"List and Manage Callback Here"} />
         <BreadCrumbs heading1={"CallbackManagement"} heading2={"Callback Module List"} />
-        {callback.list && callback.list.length > 0 ? (
+        {callback.list?.list && callback.list?.list.length > 0 ? (
             <>
              
           <MUIDataTable className="table-header"
             title="Callback List"
-            data={callback.list.map((item,index) => {
+            data={callback.list?.list.map((item,index) => {
                 return [
                     (index +1),
                     item.name,
@@ -118,10 +120,10 @@ const CallbackList = (props) => {
                     <>
                     {/* <EditIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/> */}
 
-                    {tableMeta.rowData[4] ? (
+                    {tableMeta.rowData[5] ? (
                       <Tooltip title="Active">
                         <Done
-                        onClick={() =>onDisable(tableMeta.rowData[5],false)}
+                        onClick={() =>onDisable(tableMeta.rowData[6],false)}
                         style={{ color: "#1e7e34", cursor:"pointer" }}
                       />
                       </Tooltip>
@@ -129,7 +131,7 @@ const CallbackList = (props) => {
                     ) : (
                       <Tooltip title="Inactive">
                         <ClearIcon 
-                          onClick={() => onDisable(tableMeta.rowData[5],true)}
+                          onClick={() => onDisable(tableMeta.rowData[6],true)}
                           style={{ color: "#bd2130", cursor:"pointer" }}
                         />
                       </Tooltip>

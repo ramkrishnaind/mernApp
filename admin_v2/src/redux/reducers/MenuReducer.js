@@ -46,6 +46,7 @@ const PropertyListReducer = (state = initialState, action) => {
         ...state,
         isRequesting: false,
         error: payload.error,
+        
       };
     default:
       return state;

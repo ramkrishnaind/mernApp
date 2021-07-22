@@ -12,7 +12,7 @@ const API_ENDPOINTS = {
   MENU_UPDATE_ENDPOINT:"menuModule/updateMenu",  
   MENU_DATA_ENDPOINT:"menuModule/getMenuData",  
   // user Module
-  USER_ROLELIST_ENDPOINT:"role/userRoleList",
+  USER_ROLELIST_ENDPOINT:"role/userRoleDataList",
   USER_LIST_ENDPOINT:"users/getAllUser",
   USER_ADD_ENDPOINT:"users/createUser",
   USER_STATUS_UPDATE_ENDPOINT:"users/updateUserStatus",
