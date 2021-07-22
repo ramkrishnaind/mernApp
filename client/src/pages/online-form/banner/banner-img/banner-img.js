@@ -8,6 +8,7 @@ function BannerImage(){
     return(
         <Box className="onlineFormHeader">
             <img src={process.env.PUBLIC_URL + '/banner/bookonline.jpg'} />
+            
             <BannerContent />
         </Box>
     )

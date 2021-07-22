@@ -7,6 +7,7 @@ const APP_CONSTANTS = {
     email: 'info@vishalconstructioncompany.com',
     btnBookOnlineText: 'Book Online',
     btnRegisterASiteVisit: 'Request a site visit',
+    btnBookNowText: 'Book Now',
 
     //Menu
     home: 'Home',

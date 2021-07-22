@@ -1,14 +1,28 @@
 import { Redirect } from "react-router-dom";
 import CartPage from "../pages/cart";
-import ContactUs from "../pages/contact";
 import HomePage from "../pages/home";
 import BookOnline from "../pages/online-form";
 
+import PropertyListPage from "../pages/property-list";
+import PropertyDetailPage from "../pages/property-detail";
+import ContactUsPage from "../pages/contact-us";
 const routes = [
   {
     exact: true,
     path: "/",
     render: (props) => <HomePage {...props} />,
+  },
+  {
+    path: "/property-list",
+    render: (props) => <PropertyListPage {...props} />,
+  },
+  {
+    path: "/property-detail",
+    render: (props) => <PropertyDetailPage {...props} />,
+  },
+  {
+    path: "/contact-us",
+    render: (props) => <ContactUsPage {...props} />,
   },
   {
     path: "/cart",
@@ -25,16 +39,6 @@ const routes = [
     render: (props) => {
         if(props.isAuth){
             return <BookOnline />
-        }
-        return <Redirect to={{pathname: "/"}} />
-    }
-      ,
-  },
-  {
-    path: "/contact-us",
-    render: (props) => {
-        if(props.isAuth){
-            return <ContactUs />
         }
         return <Redirect to={{pathname: "/"}} />
     }

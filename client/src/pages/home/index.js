@@ -20,6 +20,8 @@ import ServiceCard from "../../components/service-card";
 import SectionFeedback from "../../components/section-feedback";
 import Footer from "../../components/footer";
 import OnlineBooking from "../../components/online-form/online-form";
+import EmiCalculater from "../../components/emiCalculater/emiCalculater";
+import EnquryForm from "../../components/enquryForm/enquryForm";
 const useStyles = makeStyles((theme)=> ({
   text1: {
     fontFamily: '"Open Sans",sans-serif',
@@ -85,10 +87,9 @@ const HomePage = (props) => {
 
   return (
     <div className="main-w3">
-      <Header />
       <OwlCarouselSlider />
-      {/* online-booking */}
-     
+      {/* <EmiCalculater />
+      <EnquryForm/> */}
       <Box style={{backgroundColor: '#FFFFFF'}}>
       <Container>
         <Grid container style={{paddingTop: 50, paddingBottom: 50}}>
@@ -204,13 +205,6 @@ const HomePage = (props) => {
           </Container>
         </div>
         {/* TODO: SECTION - MAP */}
-
-        {/* TODO: SECTION - FOOTER */}
-        <div className="footer-section">
-          <Container style={{paddingTop: 10, paddingBottom: 40}}>
-            <Footer />
-          </Container>
-        </div>
     </div>
   );
 };

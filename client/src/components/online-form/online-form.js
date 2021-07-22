@@ -76,12 +76,7 @@ export default function OnlineBooking() {
                             <Grid item xs={3}>
                                 <FormControl className={classes.margin} className="FormControl">
                                     <NativeSelect className="SelectBox"
-                                        id="demo-customized-select-native"
-                                    // value={age}
-                                    // onChange={handleChange}
-                                    // input={<BootstrapInput />}
-                                    >
-                                        {/* <option aria-label="" value="" /> */}
+                                        id="demo-customized-select-native">
                                         <option value={10}>Select Property Name</option>
                                         <option value={20}>Vishal Flats</option>
                                         <option value={30}>Vishal Ultima</option>
