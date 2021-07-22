@@ -75,6 +75,12 @@ POST {{ip}}role/userRoleList HTTP/1.1
 Content-type: application/json
 Authorization: {{token}}
 
+############ userRoleList ########
+
+POST {{ip}}role/userRoleDataList HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
 
 ################# createCallback ################
 

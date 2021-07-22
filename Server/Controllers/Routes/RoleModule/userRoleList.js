@@ -38,5 +38,22 @@ function userRoleList(Models) {
     }
     return updateRole;
 }
+function userRoleDataList(Models) {
+    async function getUserRoles(req, res) {
+        try {
+            let findData = await Models.UserRoleDB.find({}).select({ "name": 1, "_id": 1 }).sort({ created: -1 });            
+            res.send({ status: true, message: "Data Found", data:findData });
+        }
+        catch (e) {
+            console.log('Getting list err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Getting list" });
+        }
+    }
+    return getUserRoles;
+}
 
-module.exports = userRoleList;
+module.exports = {
+    userRoleList,
+    userRoleDataList
+    
+};

@@ -10,9 +10,10 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.post('/createUserRole', requestAuthMiddleware, createUserRoleFunction(allCollection));
-    router.post('/updateStatusUserRole', requestAuthMiddleware, updateStatusUserRoleFunction(allCollection));
-    router.post('/userRoleList', requestAuthMiddleware, userRoleListFunction(allCollection));
+    router.post('/createUserRole', userAuthMiddleware, createUserRoleFunction(allCollection));
+    router.post('/updateStatusUserRole', userAuthMiddleware, updateStatusUserRoleFunction(allCollection));
+    router.post('/userRoleList', userAuthMiddleware, userRoleListFunction.userRoleList(allCollection));
+    router.post('/userRoleDataList', userAuthMiddleware, userRoleListFunction.userRoleDataList(allCollection));
     
     
 
