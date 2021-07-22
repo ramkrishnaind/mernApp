@@ -14,7 +14,7 @@ import MUIDataTable from "mui-datatables";
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from '@material-ui/icons/Delete';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import EditIcon from '@material-ui/icons/Edit';
 import ClearIcon from "@material-ui/icons/Clear";
 
 import history from "../../components/history";
@@ -76,11 +76,11 @@ const MenuList = (props) => {
 
     return (
         <>
-        <FormHeader />
+        <FormHeader heading1={"Menu Module Management"} heading2={"List and Manage Menu Here"} />
         <BreadCrumbs heading1={"MenuManagement"} heading2={"Menu Module List"} />
         {menu.list && menu.list.length > 0 ? (
             <>
-          <MUIDataTable
+          <MUIDataTable className="table-header"
             title="Menu List"
             data={menu.list.map((item,index) => {
                 return [
@@ -113,7 +113,7 @@ const MenuList = (props) => {
                 customBodyRender: (value, tableMeta, updateValue) => {
                   return (
                     <>
-                    <OpenInNewIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/>
+                    <EditIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/>
 
                     {tableMeta.rowData[3] ? (
                       <Tooltip title="Active">
@@ -132,7 +132,7 @@ const MenuList = (props) => {
                       </Tooltip>
                     )}
                     
-                    <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[4])} />
+                    {/* <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[4])} /> */}
                     </>
                   );
                 }

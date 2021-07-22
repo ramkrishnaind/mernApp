@@ -20,7 +20,7 @@ import * as MenuAction from "../../redux/actions/MenuAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
-import './menuManagement.css'
+import './careerManagement.css';
 import SubHeading from "../../common/SubHeadingBox";
 import {
   BrowserRouter as Router,
@@ -104,16 +104,16 @@ const MenuCreateUpdate = (props) => {
 
     return (
         <Box className="MenuManagement_Data">
-          <FormHeader heading1={"Menu Module Management"} heading2={"Create and Update Menu Here"} />
+          <FormHeader heading1={"Career Module Management"} heading2={"Create and Update Career Here"} />
           {state.id ? (
             <>
-              <BreadCrumbs heading1={"MenuManagement"} heading2={"Edit Menu Module"} />
-              <SubHeading heading={"Edit Menu Module"}/>
+              <BreadCrumbs heading1={"CareerManagement"} heading2={"Edit Career Module"} />
+              <SubHeading heading={"Edit Career Module"}/>
             </>
           ):(
             <>
-              <BreadCrumbs heading1={"MenuManagement"} heading2={"Add Menu Module"} />
-              <SubHeading heading={"Add Menu Module"}/>
+              <BreadCrumbs heading1={"CareerManagement"} heading2={"Add Career Module"} />
+              <SubHeading heading={"Add Career Module"}/>
             </>
           )
           }
@@ -121,15 +121,8 @@ const MenuCreateUpdate = (props) => {
           <div className="card w-100">
             <div className="card-header d-flex justify-content-between align-items-center">
               <Typography component="h3" variant="h3">
-              {state.id ? 'Edit' : 'Add'} Menu
+              {state.id ? 'Edit' : 'Add'} Career
               </Typography>
-              {/* <Button
-                onClick={() => this.props.history.push("menu")}
-                variant="contained"
-                color="primary"
-                type="submit"
-                
-              >Back</Button> */}
             </div>
                 <div class="card-body">
                 <ValidatorForm onSubmit={handleSubmit}>
@@ -138,7 +131,7 @@ const MenuCreateUpdate = (props) => {
                             <TextValidator
                             className="form-control-item"
                             variant="outlined"
-                            label="Name*"
+                            label="Job Title*"
                             fullWidth
                             value={state.name}
                             onChange={inputChange}
@@ -153,7 +146,7 @@ const MenuCreateUpdate = (props) => {
                             <TextValidator
                             className="form-control-item"
                             variant="outlined"
-                            label="Description*"
+                            label="Post Name*"
                             fullWidth
                             value={state.description}
                             onChange={inputChange}
@@ -163,6 +156,53 @@ const MenuCreateUpdate = (props) => {
                             errorMessages={["Description field is required"]}
                             />
                         </Grid>
+
+                        <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                            <TextValidator
+                            className="form-control-item"
+                            variant="outlined"
+                            label="No Of Position*"
+                            fullWidth
+                            value={state.description}
+                            onChange={inputChange}
+                            name="description"
+                            id="description"
+                            type="number"
+                            validators={["required"]}
+                            errorMessages={["Description field is required"]}
+                            />
+                        </Grid>
+
+                        <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                            <TextValidator
+                            className="form-control-item"
+                            variant="outlined"
+                            label="Experience*"
+                            fullWidth
+                            value={state.description}
+                            onChange={inputChange}
+                            name="description"
+                            id="description"
+                            validators={["required"]}
+                            errorMessages={["Description field is required"]}
+                            />
+                        </Grid>
+
+                        <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                            <TextValidator
+                            className="form-control-item"
+                            variant="outlined"
+                            label="Location*"
+                            fullWidth
+                            value={state.description}
+                            onChange={inputChange}
+                            name="description"
+                            id="description"
+                            validators={["required"]}
+                            errorMessages={["Description field is required"]}
+                            />
+                        </Grid>
+
                         <Grid className="form-group-item" item xs={12} sm={6} md={4}>
                             <FormControl
                             variant="outlined"

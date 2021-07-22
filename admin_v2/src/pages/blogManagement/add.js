@@ -20,7 +20,7 @@ import * as UserAction from "../../redux/actions/UserAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
-import './userManagement.css';
+import './blogManagement.css';
 import SubHeading from "../../common/SubHeadingBox";
 import {
   BrowserRouter as Router,
@@ -30,6 +30,9 @@ import {
 import PhoneInput from 'react-phone-number-input'
 import { connect } from "react-redux";
 // import Link from "next/link";
+
+import ReactQuill from 'react-quill'; 
+import 'react-quill/dist/quill.snow.css'; 
 
 const MenuCreateUpdate = (props) => {
 
@@ -45,7 +48,7 @@ const MenuCreateUpdate = (props) => {
         if(id !=null){
           dispatch(UserAction.UserDataRequestAsync(data));
         }
-        dispatch(UserAction.RoleListRequestAsync());
+        // dispatch(UserAction.RoleListRequestAsync());
         
       }, [id]);
 
@@ -72,7 +75,8 @@ const MenuCreateUpdate = (props) => {
     const [state, setState] = useState(initialState);
     const [country, setCountry] = useState("+91");
     const [file, setFile] = useState("");
-
+    const [description, setDescription] = useState("");
+    
    
 
     const inputChange = (e) => {
@@ -125,18 +129,24 @@ const MenuCreateUpdate = (props) => {
         
       // })
     }
+
+    const handleChangeTextEditor =(content, editor) =>{
+      
+      setDescription(content);
+    }
+
     return (
         <Box className="MenuManagement_Data">
-          <FormHeader heading1={"User Module Management"} heading2={"Create and Update User Here"} />
+          <FormHeader heading1={"Blog Module Management"} heading2={"Create and Update Blog Here"} />
           {state.id ? (
             <>
-              <BreadCrumbs heading1={"UserManagement"} heading2={"Edit User Module"} />
-              <SubHeading heading={"Edit User Module"}/>
+              <BreadCrumbs heading1={"BlogManagement"} heading2={"Edit Blog Module"} />
+              <SubHeading heading={"Edit Blog Module"}/>
             </>
           ):(
             <>
-              <BreadCrumbs heading1={"UserManagement"} heading2={"Add User Module"} />
-              <SubHeading heading={"Add User Module"}/>
+              <BreadCrumbs heading1={"BlogManagement"} heading2={"Add Blog Module"} />
+              <SubHeading heading={"Add Blog Module"}/>
             </>
           )
           }
@@ -144,7 +154,7 @@ const MenuCreateUpdate = (props) => {
           <div className="card w-100">
             <div className="card-header d-flex justify-content-between align-items-center">
               <Typography component="h3" variant="h3">
-              {state.id ? 'Edit' : 'Add'} User
+              {state.id ? 'Edit' : 'Add'} Blog
               </Typography>
               {/* <Button
                 onClick={() => this.props.history.push("menu")}
@@ -161,14 +171,14 @@ const MenuCreateUpdate = (props) => {
                             <TextValidator
                             className="form-control-item"
                             variant="outlined"
-                            label="First Name*"
+                            label="Title*"
                             fullWidth
                             value={( state.firstName)?  state.firstName :userData?.firstName }
                             onChange={inputChange}
-                            name="firstName"
-                            id="firstName"
+                            name="title"
+                            id="title"
                             validators={["required"]}
-                            errorMessages={["firstName field is required"]}
+                            errorMessages={["title field is required"]}
                             />
                         </Grid>
 
@@ -176,7 +186,7 @@ const MenuCreateUpdate = (props) => {
                             <TextValidator
                             className="form-control-item"
                             variant="outlined"
-                            label="Last Name*"
+                            label="Short Description*"
                             fullWidth
                             value={( state.lastName)?  state.lastName :userData?.lastName }
                             onChange={inputChange}
@@ -188,52 +198,6 @@ const MenuCreateUpdate = (props) => {
                         </Grid>
 
                         <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                            <TextValidator
-                            className="form-control-item"
-                            variant="outlined"
-                            label="Email*"
-                            fullWidth
-                            value={( state.email)?  state.email :userData?.email }
-                            onChange={inputChange}
-                            name="email"
-                            id="email"
-                            type="email"
-                            validators={["required"]}
-                            errorMessages={["email field is required"]}
-                            />
-                        </Grid>
-
-                        <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                          <Grid container spacing={1}>
-                            <Grid item xs={12} sm={2}>
-                              <PhoneInput
-                                className="PhoneInput"
-                                international
-                                countryCallingCodeEditable={false}
-                                defaultCountry="IN"
-                                value={(country)?country:userData?.countryCode}
-                                onChange={setCountry}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={10}>
-                              <TextValidator
-                                className="form-control-item"
-                                variant="outlined"
-                                label="Mobile*"
-                                fullWidth
-                                value={( state.mobile)?  state.mobile :userData?.mobile }
-                                onChange={inputChange}
-                                name="mobile"
-                                id="mobile"
-                                validators={["required"]}
-                                errorMessages={["Mobile field is required"]}
-                                />
-                            </Grid>
-                          </Grid>
-
-                        </Grid>
-
-                        <Grid className="form-group-item" item xs={12} sm={6} md={4}>
                             <FormControl
                               variant="outlined"
                               style={{ width: "100%" }}
@@ -242,7 +206,7 @@ const MenuCreateUpdate = (props) => {
                                   id="demo-simple-select-outlined-label"
                                   htmlFor="age-native-simple"
                               >
-                                Role
+                                Category
                               </InputLabel>
                                 <Select
                                   labelId="demo-simple-select-outlined-label"
@@ -257,12 +221,20 @@ const MenuCreateUpdate = (props) => {
                                   id: "age-native-simple",
                                   }}
                                 >
-                                  <option value={true}>Active</option>
-                                  <option value={false} >Inactive</option>
+                                  <option value={true}>Business Analysis</option>
+                                  <option value={false} >Consultancy</option>
                               </Select>
                             </FormControl>
                         </Grid>
 
+                    <Grid className="form-group-item" item xs={12} sm={12} md={12}>
+                      <ReactQuill 
+                        onChange={handleChangeTextEditor}
+                        // value={updateformData.desc}
+                        placeholder='Enter description'
+                        theme= 'snow'  
+                      />
+                    </Grid>
                         
 
                       </Grid>

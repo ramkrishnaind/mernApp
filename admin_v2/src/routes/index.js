@@ -12,8 +12,16 @@ import UserList from "../pages/userManagement";
 import AddUser from "../pages/userManagement/add";
 import Error404Page from "../pages/404";
 import CreateUser from "../pages/user-module/role/createUser/index";
-import AddUsers from '../pages/user-module/user/createUser'
+import AddUsers from '../pages/user-module/user/createUser';
 
+import CareerList from "../pages/careerManagement";
+import AddCareer from "../pages/careerManagement/add";
+import BlogList from "../pages/blogManagement";
+import AddBlog from "../pages/blogManagement/add";
+import ContactusList from "../pages/contactusManagement";
+import SiteVisitList from "../pages/siteVisitManagement";
+import EnquiryList from "../pages/EnquiryManagement";
+import CallbackList from "../pages/CallbackManagement";
 
 const Routes = props => {
     const {isAuth} = props;
@@ -63,6 +71,38 @@ const Routes = props => {
                 {
                     path: "/user/add",
                     element: isAuth ? <AddUser /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/career",
+                    element: isAuth ? <CareerList /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/career/add",
+                    element: isAuth ? <AddCareer /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/blog",
+                    element: isAuth ? <BlogList /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/blog/add",
+                    element: isAuth ? <AddBlog /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/contactus",
+                    element: isAuth ? <ContactusList /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/site-visit",
+                    element: isAuth ? <SiteVisitList /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/enquiry",
+                    element: isAuth ? <EnquiryList /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/callback",
+                    element: isAuth ? <CallbackList /> : <Navigate to="/login" />
                 },
                 {
                     path: "404",

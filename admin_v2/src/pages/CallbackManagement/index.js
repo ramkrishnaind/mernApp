@@ -1,9 +1,9 @@
-import React,{useEffect} from "react";
+import React,{useEffect,useState} from "react";
 import {
   Typography
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import * as UserAction from "../../redux/actions/UserAction";
+import * as CallbackAction from "../../redux/actions/CallbackAction";
 import { useDispatch } from "react-redux";
 
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -13,11 +13,11 @@ import MUIDataTable from "mui-datatables";
 
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import ClearIcon from "@material-ui/icons/Clear";
 
 import history from "../../components/history";
+
+
 const styles = (theme) => ({
     root: {
       width: "100%",
@@ -29,16 +29,16 @@ const styles = (theme) => ({
     },
 });
 
-const UserList = (props) => {
+const CallbackList = (props) => {
 
     const dispatch = useDispatch();
     let {
         classes,
-        user,
+        callback,
       } = props;
 
     useEffect(() => {
-    dispatch(UserAction.UserListRequestAsync());
+    dispatch(CallbackAction.CallbackListRequestAsync());
     }, []);
 
   let options = {
@@ -50,10 +50,10 @@ const UserList = (props) => {
 
   function onDisable(data,status) {
     let tempdata = {
-      _id: data,
+      id: data,
       status:status
     };
-    dispatch(UserAction.UserStatusUpdateRequestAsync(tempdata));
+    dispatch(CallbackAction.CallbackStatusUpdateRequestAsync(tempdata));
    
     if(status==="enable"){
       // toast.error("Disable")
@@ -64,50 +64,48 @@ const UserList = (props) => {
     }
   }
 
-  function onDeleteClick(id) {
-    let tempdata = {
-      _id: id,
-    };
-    dispatch(UserAction.UserDeleteRequestAsync(tempdata));
-   
+  function onDeleteClick(data) {
+
   }
   
   function updatehandleOpenCreateModal(data) {
     // window.location.href = "/menu/edit?id="+data;
-    history.push('/user/add?id='+data)
+    history.push('/career/add?id='+data)
     window.location.reload();
   }
 
     return (
         <>
-         <FormHeader heading1={"User Module Management"} heading2={"List and Manage User Here"} />
-        <BreadCrumbs heading1={"UserManagement"} heading2={"User Module List"} />
-        {user.list && user.list.length > 0 ? (
+        <FormHeader heading1={"Callback Module Management"} heading2={"List and Manage Callback Here"} />
+        <BreadCrumbs heading1={"CallbackManagement"} heading2={"Callback Module List"} />
+        {callback.list && callback.list.length > 0 ? (
             <>
+             
           <MUIDataTable className="table-header"
-            title="User List"
-            data={user.list.map((item,index) => {
+            title="Callback List"
+            data={callback.list.map((item,index) => {
                 return [
                     (index +1),
-                    item.firstName +' '+ item.lastName,
+                    item.name,
                     item.email,
-                    item.countryCode +' '+ item.mobile,
-                    item.verified,
+                    item.phone,
+                    item.place,
+                    item.status,
                     item._id
                 ]
             })}
-            columns={['SR No.','Full Name','Email','Phone',
+            columns={['SR No.','Name','Email','Phone','Place',
             {
               name: "Status",
               options: {
                 customBodyRender: (value, tableMeta, updateValue) => {
                   if (value === true)
                     return (
-                      'Active'
+                      'Open'
                     );
                   else
                     return (
-                      'Inactive'
+                      'Close'
                     );
                 }
               }
@@ -118,7 +116,7 @@ const UserList = (props) => {
                 customBodyRender: (value, tableMeta, updateValue) => {
                   return (
                     <>
-                    <EditIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[5])}/>
+                    {/* <EditIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/> */}
 
                     {tableMeta.rowData[4] ? (
                       <Tooltip title="Active">
@@ -137,7 +135,7 @@ const UserList = (props) => {
                       </Tooltip>
                     )}
                     
-                    <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[5])} />
+                    {/* <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[5])} /> */}
                     </>
                   );
                 }
@@ -158,14 +156,13 @@ const UserList = (props) => {
 
 
 function mapStateToProps(state) {
-  const { user } = state;
-  return {
-    user,
-    
+  const { callback } = state;
+  return {    
+    callback,    
   };
 }
 export default connect(mapStateToProps)(
-  withStyles(styles)(UserList),
+  withStyles(styles)(CallbackList),
 );
 
 
