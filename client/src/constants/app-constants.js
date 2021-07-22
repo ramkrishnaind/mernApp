@@ -45,6 +45,10 @@ const APP_CONSTANTS = {
     //Section - Feedback
     section_feedback_title: "OUR CLIENT’S SAYS",
     section_feedback_subtitle: "CLIENT'S FEEDBACK",
+    
+    //online form section
+    online_form_title: "THE BEST PLACE TO FIND THE HOUSE YOU WANT",
+    online_form_subtitles: "ONLINE BOOKING",
 }
 
 export default APP_CONSTANTS;

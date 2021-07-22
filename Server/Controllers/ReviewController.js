@@ -15,7 +15,7 @@ module.exports = function (conn) {
 
     router.post('/createReviewRequest', createReviewRequest(allCollection))
     router.post('/getReviewRequest', getReviewRequest(allCollection))
-    router.post('/updateReviewStatusRequest', requestAuthMiddleware, updateReviewStatusRequest(allCollection))
+    router.post('/updateReviewStatusRequest', userAuthMiddleware, updateReviewStatusRequest(allCollection))
     
     return router;
 };

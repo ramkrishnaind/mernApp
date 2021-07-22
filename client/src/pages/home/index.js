@@ -18,8 +18,10 @@ import SectionTabs from "../../components/section-tabs";
 import SectionClient from "../../components/section-client";
 import ServiceCard from "../../components/service-card";
 import SectionFeedback from "../../components/section-feedback";
-import Footer
- from "../../components/footer";
+import Footer from "../../components/footer";
+import OnlineBooking from "../../components/online-form/online-form";
+import EmiCalculater from "../../components/emiCalculater/emiCalculater";
+import EnquryForm from "../../components/enquryForm/enquryForm";
 const useStyles = makeStyles((theme)=> ({
   text1: {
     fontFamily: '"Open Sans",sans-serif',
@@ -86,6 +88,8 @@ const HomePage = (props) => {
   return (
     <div className="main-w3">
       <OwlCarouselSlider />
+      {/* <EmiCalculater />
+      <EnquryForm/> */}
       <Box style={{backgroundColor: '#FFFFFF'}}>
       <Container>
         <Grid container style={{paddingTop: 50, paddingBottom: 50}}>
@@ -166,7 +170,7 @@ const HomePage = (props) => {
             <SectionClient />
           </Container>
         </div>
-
+   
         <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
           <Container>
             <SectionHeader title={APP_CONSTANTS.section_services_title} subtitle={APP_CONSTANTS.section_services_subtitle} />
@@ -186,7 +190,7 @@ const HomePage = (props) => {
             </Grid>
           </Container>
         </div>
-
+        
         {/* SECTION - FEEDBACK*/}
         <div className="client-bg">
           <Container style={{paddingTop: 60, paddingBottom: 60}}>

@@ -1,5 +1,6 @@
 @token= Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDA3MWQ0ZmNmM2E3MDdhODViMDUyNjMiLCJpYXQiOjE2MTEzOTM1MDB9.0JUQuUN5MtLZKucgY4yqA2e89hy4iLpw7P73BPmx9dI
 # @ip = http://192.46.214.45:3333/api/
+@authToken= Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRlIjoiMjAyMS0wNy0yMlQxMDo1NToyNC44MzRaIiwiZW1haWwiOiJ2aWtyYW0uZHpvbmVAZ21haWwuY29tIiwiaWF0IjoxNjI2OTUxMzI0fQ.cFslmLZWKPF9PIW-hMv5VuJJ6YDg-FByMxZPjcKIroE
 @ip = http://localhost:3333/api/
 
 
@@ -79,7 +80,7 @@ Authorization: {{token}}
 
 POST {{ip}}role/userRoleDataList HTTP/1.1
 Content-type: application/json
-Authorization: {{token}}
+Authorization: {{authToken}}
 
 
 ################# createCallback ################
@@ -100,17 +101,17 @@ Content-type: application/json
 
 POST {{ip}}callback/getCallbackRequest HTTP/1.1
 Content-type: application/json
-Authorization: {{token}}
+Authorization: {{authToken}}
 
 
 ################# updateCallbackStatus ################
 
 POST {{ip}}callback/updateCallbackStatusRequest HTTP/1.1
 Content-type: application/json
-Authorization: {{token}}
+Authorization: {{authToken}}
 
 {
-   "id": "60d5df5e1649070c68ba001e",
+   "id": "60f96409a4f9380a98eab954",
    "status": false
 }
 
@@ -162,14 +163,12 @@ Content-type: application/json
 
 POST {{ip}}review/getReviewRequest HTTP/1.1
 Content-type: application/json
-Authorization: {{token}}
-
 
 ################# updateReviewStatus ################
 
 POST {{ip}}review/updateReviewStatusRequest HTTP/1.1
 Content-type: application/json
-Authorization: {{token}}
+Authorization: {{authToken}}
 
 {
    "id": "60d7171f51113a1998714a8c",
