@@ -31,7 +31,7 @@ const ReviewListRequest = () => {
  */
 export const ReviewListSuccess = (data) => {
     
-    dispatch(ReviewListRequestAsync)
+    // dispatch(ReviewListRequestAsync)
     return {        
         type: ACTION_KEYS.REVIEW_LIST_SUCCESS,
         payload: data,

@@ -9,6 +9,8 @@ import enquiry from'./EnquiryReducer';
 import callback from'./CallbackReducer';
 import snackbar from'./snackbarReducer';
 import review from'./reviewReducer';
+import career from'./CareerReducer';
+
 const reducers =  {
     Login: LoginReducer,
     Register: RegisterReducer,
@@ -21,6 +23,7 @@ const reducers =  {
     callback:callback,
     snackbar:snackbar,
     review:review,
+    career:career,
 }
 
 export default reducers;
