@@ -8,6 +8,7 @@ import user from './UserReducer';
 import enquiry from'./EnquiryReducer';
 import callback from'./CallbackReducer';
 import snackbar from'./snackbarReducer';
+import review from'./reviewReducer';
 const reducers =  {
     Login: LoginReducer,
     Register: RegisterReducer,
@@ -19,6 +20,7 @@ const reducers =  {
     enquiry:enquiry,
     callback:callback,
     snackbar:snackbar,
+    review:review,
 }
 
 export default reducers;

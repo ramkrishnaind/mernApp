@@ -24,7 +24,10 @@ const API_ENDPOINTS = {
   ENQUIRY_STATUS_UPDATE_ENDPOINT:"enquiry/updateEnquiryStatusRequest",
 
   CALLBACK_LIST_ENDPOINT:"callback/getCallbackRequest",
-  CALLBACK_STATUS_UPDATE_ENDPOINT:"callback/updateCallbackStatusRequest ",
+  CALLBACK_STATUS_UPDATE_ENDPOINT:"callback/updateCallbackStatusRequest",
+
+  REVIEW_LIST_ENDPOINT:"review/getReviewRequest",
+  REVIEW_STATUS_UPDATE_ENDPOINT:"review/updateReviewStatusRequest",
 };
 
 export default API_ENDPOINTS;
