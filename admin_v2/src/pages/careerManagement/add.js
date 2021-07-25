@@ -132,7 +132,7 @@ const MenuCreateUpdate = (props) => {
                 <div class="card-body">
                 <ValidatorForm onSubmit={handleSubmit}>
                     <Grid container spacing={3} className="FormFildes">  
-                        <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                        <Grid className="form-group-item" item xs={12} sm={6} md={6}>
                             <TextValidator
                             className="form-control-item"
                             variant="outlined"
@@ -147,7 +147,7 @@ const MenuCreateUpdate = (props) => {
                             />
                         </Grid>
 
-                        <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                        <Grid className="form-group-item" item xs={12} sm={6} md={6}>
                             <TextValidator
                             className="form-control-item"
                             variant="outlined"
@@ -162,22 +162,7 @@ const MenuCreateUpdate = (props) => {
                             />
                         </Grid>
 
-                        <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                           
-                            <TextField
-                              variant="outlined"                             
-                              label="Desctiption *"
-                              multiline
-                              rows={4}
-                              fullWidth
-                              defaultValue={state.desctiption}
-                              onChange={inputChange}
-                              name="desctiption"
-                              id="desctiption"
-                              validators={["required"]}
-                              errorMessages={["Desctiption field is required"]}                              
-                            />
-                        </Grid>
+                       
 
                         <Grid className="form-group-item" item xs={12} sm={6} md={4}>
                             <TextValidator
@@ -224,6 +209,22 @@ const MenuCreateUpdate = (props) => {
                             errorMessages={["Vacancy field is required"]}
                             />
                         </Grid>
+                        <Grid className="form-group-item" item xs={12} sm={6} md={12}>
+                           
+                           <TextField
+                             variant="outlined"                             
+                             label="Desctiption *"
+                             multiline
+                             rows={4}
+                             fullWidth
+                             defaultValue={state.desctiption}
+                             onChange={inputChange}
+                             name="desctiption"
+                             id="desctiption"
+                             validators={["required"]}
+                             errorMessages={["Desctiption field is required"]}                              
+                           />
+                       </Grid>
                       </Grid>
                       
                         <br />

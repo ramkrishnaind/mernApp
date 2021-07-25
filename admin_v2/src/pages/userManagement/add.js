@@ -3,7 +3,6 @@ import {
   Button,
   Grid,
   Typography,
-  MenuItem,
   FormControl,
   Select,
   InputLabel,
@@ -13,7 +12,6 @@ import {
 import {
   ValidatorForm,
   TextValidator,
-  SelectValidator,
 } from "react-material-ui-form-validator";
 
 import * as UserAction from "../../redux/actions/UserAction";
@@ -23,7 +21,6 @@ import BreadCrumbs from "../../common/bread-crumbs";
 import './userManagement.css';
 import SubHeading from "../../common/SubHeadingBox";
 import {
-  BrowserRouter as Router,
   Link as RouterLink,
   useLocation
 } from "react-router-dom";
@@ -86,7 +83,6 @@ const MenuCreateUpdate = (props) => {
     
         const { firstName,lastName,id,email,mobile,userRole } = state;
         
-        let LoginUserData = JSON.parse(window.localStorage.getItem('user'));
         if(id == null){
           let reqData = {
               firstName: firstName,

@@ -197,36 +197,6 @@ const MenuCreateUpdate = (props) => {
                             />
                         </Grid>
 
-                        <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                            <FormControl
-                              variant="outlined"
-                              style={{ width: "100%" }}
-                            >
-                              <InputLabel
-                                  id="demo-simple-select-outlined-label"
-                                  htmlFor="age-native-simple"
-                              >
-                                Category
-                              </InputLabel>
-                                <Select
-                                  labelId="demo-simple-select-outlined-label"
-                                  id="demo-simple-select-outlined-label"
-                                  label="Role"
-                                  native
-                                  name='userRole'
-                                  value={( state.userRole)?  state.userRole :userData?.userRole }
-                                  onChange={inputChange}
-                                  inputProps={{
-                                  name: "userRole",
-                                  id: "age-native-simple",
-                                  }}
-                                >
-                                  <option value={true}>Business Analysis</option>
-                                  <option value={false} >Consultancy</option>
-                              </Select>
-                            </FormControl>
-                        </Grid>
-
                     <Grid className="form-group-item" item xs={12} sm={12} md={12}>
                       <ReactQuill 
                         onChange={handleChangeTextEditor}
