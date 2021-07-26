@@ -1,12 +1,13 @@
 import React from 'react';
 import './header.css';
-import {Grid, Container, Typography, Button, makeStyles} from '@material-ui/core';
+import {Grid, Container, Typography, Button, makeStyles, Box} from '@material-ui/core';
 import PhoneIcon from '@material-ui/icons/Phone';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import APP_CONSTANTS from '../../constants/app-constants';
 import MenuItem from '../menu-item';
 import menuItems from '../../utils/menu.json';
 import {Link as RouterLink} from 'react-router-dom';
+import Logo from '../../images/logo.png'
 
 const useStyles = makeStyles((theme)=> ({
     contact: {
@@ -61,7 +62,10 @@ const Header = props => {
     const classes = useStyles();
     return (
         <>
-            <Grid container>
+            <Grid container className="MainMenu">
+                <Box className="logoImage">
+                    <img src={Logo} />
+                </Box>
                 <Grid item xs={12} md={12} className="bg-green">
                     <Container>
                         <Grid container style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingTop: 8, paddingBottom: 8}}>

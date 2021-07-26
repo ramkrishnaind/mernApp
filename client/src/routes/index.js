@@ -6,6 +6,11 @@ import BookOnline from "../pages/online-form";
 import PropertyListPage from "../pages/property-list";
 import PropertyDetailPage from "../pages/property-detail";
 import ContactUsPage from "../pages/contact-us";
+import Creere from "../pages/carrer";
+import Blog from "../pages/blog";
+import BlogDetails from "../components/blog-details/blog-detalis";
+
+
 const routes = [
   {
     exact: true,
@@ -25,14 +30,26 @@ const routes = [
     render: (props) => <ContactUsPage {...props} />,
   },
   {
+    path: "/carrer",
+    render: (props) => <Creere {...props} />,
+  },
+  
+  {
+    path: "/blog-details",
+    render: (props) => <BlogDetails {...props} />,
+  },
+  {
+    path: "/blog",
+    render: (props) => <Blog {...props} />,
+  },
+  {
     path: "/cart",
     render: (props) => {
         if(props.isAuth){
             return <CartPage />
         }
         return <Redirect to={{pathname: "/"}} />
-    }
-      ,
+    },
   },
   {
     path: "/book-online",
@@ -41,8 +58,7 @@ const routes = [
             return <BookOnline />
         }
         return <Redirect to={{pathname: "/"}} />
-    }
-      ,
+    },
   },
 ];
 

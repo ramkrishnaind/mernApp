@@ -11,14 +11,8 @@ import BannerImage from './banner/banner-img/banner-img';
 function BookOnline(){
     return(
         <Box> 
-            {/* <Header /> */}
             <BannerImage />
             <OnlineBooking/>
-            {/* <div className="footer-section">
-            <Container style={{paddingTop: 10, paddingBottom: 40}}>
-                <Footer />
-            </Container>
-            </div> */}
         </Box>
     )
 }

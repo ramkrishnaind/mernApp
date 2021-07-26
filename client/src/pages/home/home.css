@@ -20,7 +20,7 @@
     z-index: -1;
 }
 .client-bg  {
-    background: url('../../images/client_bg.jpeg') no-repeat center;
+    background: url('../../images//clientbg.jpeg') no-repeat center;
     background-size: cover;
     background-attachment: fixed;
     position: relative;
