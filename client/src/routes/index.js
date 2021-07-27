@@ -6,6 +6,8 @@ import BookOnline from "../pages/online-form";
 import PropertyListPage from "../pages/property-list";
 import PropertyDetailPage from "../pages/property-detail";
 import ContactUsPage from "../pages/contact-us";
+import PostPropertyPage from "../pages/post-property";
+
 const routes = [
   {
     exact: true,
@@ -23,6 +25,10 @@ const routes = [
   {
     path: "/contact-us",
     render: (props) => <ContactUsPage {...props} />,
+  },
+  {
+    path: "/post-property",
+    render: (props) => <PostPropertyPage {...props} />,
   },
   {
     path: "/cart",

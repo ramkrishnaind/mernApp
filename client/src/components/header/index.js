@@ -6,7 +6,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import APP_CONSTANTS from '../../constants/app-constants';
 import MenuItem from '../menu-item';
 import menuItems from '../../utils/menu.json';
-import {Link as RouterLink} from 'react-router-dom';
+import { withRouter, Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme)=> ({
     contact: {
@@ -91,7 +91,7 @@ const Header = props => {
                                })}
                            </Grid>
                            <Grid item style={{display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
-                               <Button variant="outlined" className={classes.btn3}>
+                               <Button variant="outlined" className={classes.btn3} component={RouterLink} to="/post-property">
                                     Post Property
                                 </Button>
                                 <Button variant="outlined" className={classes.btn4}>
@@ -106,4 +106,4 @@ const Header = props => {
     );
 }
 
-export default Header;
+export default withRouter(Header);
