@@ -56,6 +56,9 @@ const MenuCreateUpdate = (props) => {
   const initialState = {
     title: userData?.title,
     shortDescription: userData?.shortDescription,
+    metaTitle: "",
+    metaKeywords: "",
+    metaDescription: "",
     id: id,
   };
 
@@ -80,7 +83,7 @@ const MenuCreateUpdate = (props) => {
         title: title,
         shortDescription: shortDescription,
         description: description,
-        image: image,
+        blogImage: file,
       };
 
       dispatch(BlogAction.BlogAddRequestAsync(reqData));
@@ -90,7 +93,7 @@ const MenuCreateUpdate = (props) => {
         title: title,
         shortDescription: shortDescription,
         description: description,
-        image: image,
+        blogImage: file,
         _id: id
       };
       dispatch(BlogAction.BlogUpdateRequestAsync(reqData));
@@ -176,6 +179,51 @@ const MenuCreateUpdate = (props) => {
                   />
                 </Grid>
 
+                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                  <TextValidator
+                    className="form-control-item"
+                    variant="outlined"
+                    label="Meta Title *"
+                    fullWidth
+                    value={(state.metaTitle) ? state.metaTitle : userData?.metaTitle}
+                    onChange={inputChange}
+                    name="metaTitle"
+                    id="metaTitle"
+                    validators={["required"]}
+                    errorMessages={["metaTitle field is required"]}
+                  />
+                </Grid>
+
+                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                  <TextValidator
+                    className="form-control-item"
+                    variant="outlined"
+                    label="Meta Keywords*"
+                    fullWidth
+                    value={(state.metaKeywords) ? state.metaKeywords : userData?.metaKeywords}
+                    onChange={inputChange}
+                    name="metaKeywords"
+                    id="metaKeywords"
+                    validators={["required"]}
+                    errorMessages={["metaKeywords field is required"]}
+                  />
+                </Grid>
+
+                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                  <TextValidator
+                    className="form-control-item"
+                    variant="outlined"
+                    label="Meta Description*"
+                    fullWidth
+                    value={(state.metaDescription) ? state.metaDescription : userData?.metaDescription}
+                    onChange={inputChange}
+                    name="metaDescription"
+                    id="metaDescription"
+                    validators={["required"]}
+                    errorMessages={["metaDescription field is required"]}
+                  />
+                </Grid>
+
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
                   <ReactQuill
                     onChange={handleChangeTextEditor}
@@ -194,10 +242,11 @@ const MenuCreateUpdate = (props) => {
                   <Button
                     color="default"
                     variant="contained"
-                    component="span"
+                    type="button"
+                    className={"SaveData"}
                   >
                     Browse
-                        </Button>
+                  </Button>
                 </label>
                 <input
                   style={{ display: "none" }}
@@ -206,6 +255,15 @@ const MenuCreateUpdate = (props) => {
                   type="file"
                   onChange={handleChange}
                 />
+                <Button
+                  // fullWidth
+                  variant="contained"
+                  color="primary"
+                  type="button"
+                  className={"CanceForm"}
+                >
+                  Cancel
+                </Button>
 
                 <img src={file} height="200px" width="200px" />
               </Grid>
@@ -220,7 +278,7 @@ const MenuCreateUpdate = (props) => {
                   className={"SaveData"}
                 >
                   Save
-                        </Button>
+                </Button>
 
                 <Link component={RouterLink} to="/menu">
                   <Button
