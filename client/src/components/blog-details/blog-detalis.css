@@ -1,0 +1,110 @@
+/*----- main blog page----- */
+.Blog-details-main{
+    background-color: #f5f5f5;
+}
+
+
+
+
+/* -----blog left box----- */
+
+.BlogDetailsLeft{
+    padding: 2rem 0px;
+}
+.BlogDetailsLeft .blogDescription{
+    font-size: 14px;
+    color: #777777;
+    padding: 2rem 0px;
+    line-height: 28px;
+}
+.BlogDetailsLeft .Leftgrid img{
+    width: 100%;
+}
+.detailsheadingData{
+    padding: 0rem 0px 0px;
+    border-bottom: 1px solid #cdcdcd;
+}
+.BlogDetailsLeft .Leftgrid .date{
+    border-right: 1px solid #cdcdcd;
+    text-align: center;
+    padding: 15px;
+}
+.BlogDetailsLeft .Leftgrid .date .dateText{
+    color: #ef8822;
+    font-size: 30px;
+    line-height: 29px;
+}
+.BlogDetailsLeft .Leftgrid .date .dateText .month{
+    font-size: 15px;
+}
+.BlogDetailsLeft .Leftgrid .DetailsHeading{
+    padding: 15px;
+}
+.BlogDetailsLeft .Leftgrid .DetailsHeading .DetailsText{
+    color: #777777;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.BlogDetailsLeft .Leftgrid .DetailsHeading .providedBy{
+    color: #ef8822;
+    font-size: 15px;
+    padding-top: 1rem;
+}
+.BlogDetailsLeft .Leftgrid .DetailsHeading .providedBy span:nth-child(1){
+    margin-right: 2rem;
+}
+.PostAuthor {
+    text-align: center;
+}
+.PostAuthor .authorphoto img{
+    width: 100%;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+.PostAuthor .authorName{
+    color: #ef8822;
+    font-weight: 600;
+    line-height: 40px;
+    letter-spacing: 1px;
+}
+.PostAuthor .SocailMedia{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+.PostAuthor .SocailMedia .social_icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px; 
+    margin-right: 8px;
+    width: 26px;
+    height: 26px;
+    border-radius: 25px;
+    cursor: pointer
+}
+
+/* -----blog right box----- */
+
+
+
+/* --------------commets css--------- */
+.commentAvatrImage{
+    margin-right: 20px;
+}
+.commentsBox .postedDate{
+    color: #ef8822;
+    font-size: 12px;
+    margin-bottom: 1rem;
+}
+.commentsBox .postedName{
+    color: #00afb8;
+    font-size: 18px;
+    font-weight: 600;
+}
+.commentAvatrImage .MuiAvatar-root{
+    width: 100px;
+    height: 100px;
+}

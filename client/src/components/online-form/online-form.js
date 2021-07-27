@@ -28,7 +28,7 @@ export default function OnlineBooking() {
 
 
     return (
-        <div class="client-bg">
+        <div class="client-bgform">
             <div className={classes.root}>
                 <Container>
                 <SectionHeader title={APP_CONSTANTS.online_form_title} subtitle={APP_CONSTANTS.online_form_subtitles} />

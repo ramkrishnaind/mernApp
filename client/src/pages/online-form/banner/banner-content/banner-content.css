@@ -3,7 +3,8 @@
 .bannerContainer{
     position: absolute;
     top: 46%;
-    left: 10%;
+    left: 5%;
+    text-align: center;
 }
 .bannerContainer .bannerh2{
     text-align: center;
@@ -27,6 +28,7 @@
     padding: 0 10px;
     text-transform: uppercase;
     letter-spacing: 2px;
+    width: 100%;
 }
 .bannerContainer .bannerancr{
     text-align: center;

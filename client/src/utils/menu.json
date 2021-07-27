@@ -147,7 +147,8 @@
     },
     {
         "id": 5,
-        "title": "Careers"
+        "title": "Careers",
+        "href": "/carrer"
     },
     {
         "id": 6,
@@ -157,5 +158,10 @@
         "id": 7,
         "title": "Contact Us",
         "href": "/contact-us"
+    },
+    {
+        "id": 5,
+        "title": "Blog",
+        "href": "/blog"
     }
 ]
