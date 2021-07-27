@@ -4,34 +4,27 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const schema = new Schema({
-    degination: {
+    title: {
         type: String,
         required: true,
         trim: true
     },
-    department: {
+    blogImage: {
+        type: Array
+    },
+    sortDescription: {
         type: String,
         required: true,
         trim: true
     },
-    vacancy: {
-        type: Number,
-        required: true,
-        trim: true
-    },
-    experiance: {
+    description: {
         type: String,
         required: true,
         trim: true
     },
-    location: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    desctiption: {
-        type: String,
-        required: true
+    date: {
+        type: Date,
+        default: () => Date.now()
     },
     metaTitle: {
         type: String
@@ -61,7 +54,7 @@ const schema = new Schema({
         virtuals: true
     }
 }, {
-    collection: 'career'
+    collection: 'blog'
 }
 );
 

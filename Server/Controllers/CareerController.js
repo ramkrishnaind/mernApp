@@ -16,6 +16,7 @@ module.exports = function (conn) {
     router.post('/createCareer', userAuthMiddleware, careerFunction.createCareerFunc(db));
     router.post('/updateCareer', userAuthMiddleware, careerFunction.updateCareerFunc(db));
     router.post('/getCareer', userAuthMiddleware, careerFunction.getCareerFunc(db));
+    router.post('/getCareerDetail', userAuthMiddleware, careerFunction.getCareerDetailFunc(db));
     router.post('/getAllCareer', userAuthMiddleware, careerFunction.getAllCareerFunc(db));
     router.post('/getAllActiveCareer', requestAuthMiddleware, careerFunction.getAllCareerFunc(db));
     router.post('/deleteCareer', userAuthMiddleware, careerFunction.deleteCareerFunc(db));

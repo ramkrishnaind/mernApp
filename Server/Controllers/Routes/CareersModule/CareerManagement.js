@@ -14,7 +14,10 @@ const createCareerSchema = Joi.object({
     vacancy: Joi.number().required(),
     experiance: Joi.string().required(),
     location: Joi.string().required(),
-    desctiption: Joi.string().required()
+    desctiption: Joi.string().required(),
+    metaTitle: Joi.string(),
+    metaKeywords: Joi.string(),
+    metaDescription: Joi.string()
 });
 const updateCareerSchema = Joi.object({
     _id: Joi.objectId().trim().required(),
@@ -23,7 +26,10 @@ const updateCareerSchema = Joi.object({
     vacancy: Joi.number().required(),
     experiance: Joi.string().required(),
     location: Joi.string().required(),
-    desctiption: Joi.string().required()
+    desctiption: Joi.string().required(),
+    metaTitle: Joi.string(),
+    metaKeywords: Joi.string(),
+    metaDescription: Joi.string()
 });
 const getCareerSchema = Joi.object({
     _id: Joi.string().trim().required()
@@ -43,7 +49,7 @@ function createCareerHelper(Models) {
             }
 
             // pick data from req.body
-            let careerFormData = _.pick(req.body, ['degination', 'department', 'vacancy', 'experiance', 'location', 'desctiption']);
+            let careerFormData = _.pick(req.body, ['degination', 'department', 'vacancy', 'experiance', 'location', 'desctiption', 'metaTitle', 'metaKeywords', 'metaDescription']);
 
             let saveCareer = await new Models.CareerDB(careerFormData).save();
             saveCareer = saveCareer.toObject();
@@ -69,7 +75,7 @@ function updateCareerHelper(Models) {
 
             // pick data from req.body
          
-            let bodyData = _.pick(req.body, ["_id",'degination', 'department', 'vacancy', 'experiance', 'location', 'desctiption']);
+            let bodyData = _.pick(req.body, ["_id",'degination', 'department', 'vacancy', 'experiance', 'location', 'desctiption', 'metaTitle', 'metaKeywords', 'metaDescription']);
             console.log('bodyData is', bodyData)
             let setData = {
                 degination: bodyData.degination,
@@ -77,7 +83,10 @@ function updateCareerHelper(Models) {
                 vacancy: bodyData.vacancy,
                 experiance: bodyData.experiance,
                 location: bodyData.location,
-                desctiption: bodyData.desctiption
+                desctiption: bodyData.desctiption,
+                metaTitle: bodyData.metaTitle,
+                metaKeywords: bodyData.metaKeywords,
+                metaDescription: bodyData.metaDescription
             }
             
             let updateModule = await Models.CareerDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData});
@@ -195,11 +204,13 @@ function deleteCareerHelper(Models) {
     }
     return deleteCareer;
 }
+
 module.exports = {
     createCareerFunc: createCareerHelper,
     updateCareerFunc: updateCareerHelper,
     getAllCareerFunc: getAllCareerHelper,
     getCareerFunc: getCareerHelper,
     updateCareerStatusFun: updateCareerStatusHelper,
-    deleteCareerFunc: deleteCareerHelper
+    deleteCareerFunc: deleteCareerHelper,
+    getCareerDetailFunc: getCareerHelper
 };

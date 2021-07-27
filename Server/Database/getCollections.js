@@ -21,6 +21,7 @@ module.exports = function (mongoose) {
     const ContactUsDB = mongoose.model('contactus');
     const SiteVisitDB = mongoose.model('siteVisit');
     const CareerDB = mongoose.model('career');
+    const BlogDB = mongoose.model('blog');
     return {
         UserDB,
         AuthTokenDB,
@@ -40,6 +41,7 @@ module.exports = function (mongoose) {
         ServicesDB,
         ContactUsDB,
         SiteVisitDB,
-        CareerDB
+        CareerDB,
+        BlogDB
     }
 }
