@@ -7,50 +7,50 @@ const initialState = {
   data: null,
 };
 
-const PropertyListReducer = (state = initialState, action) => {
+const BlogReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case ACTION_KEYS.MENU_LIST_REQUEST:
+    case ACTION_KEYS.BLOG_LIST_REQUEST:
       return {
         ...state,
         isRequesting: true,
       };
-    case ACTION_KEYS.MENU_LIST_SUCCESS:
+    case ACTION_KEYS.BLOG_LIST_SUCCESS:
       return {
         ...state,
         isRequesting: false,
         list: payload.data,
       };
-    case ACTION_KEYS.MENU_LIST_ERROR:
+    case ACTION_KEYS.BLOG_LIST_ERROR:
       return {
         ...state,
         isRequesting: false,
         error: payload.error,
       };
 
-    case ACTION_KEYS.MENU_DATA_REQUEST:
+    case ACTION_KEYS.BLOG_DATA_REQUEST:
       return {
         ...state,
         isRequesting: true,
       };
-    case ACTION_KEYS.MENU_DATA_SUCCESS:
+    case ACTION_KEYS.BLOG_DATA_SUCCESS:
       return {
         ...state,
         isRequesting: false,
-        success:true,
-        menuData: payload.data,
+        success: true,
+        careerData: payload.data,
       };
-    case ACTION_KEYS.MENU_DATA_ERROR:
+    case ACTION_KEYS.BLOG_DATA_ERROR:
       return {
         ...state,
         isRequesting: false,
         error: payload.error,
-        
+
       };
     default:
       return state;
   }
 };
 
-export default PropertyListReducer;
+export default BlogReducer;

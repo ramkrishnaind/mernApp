@@ -1,9 +1,9 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import {
   Typography
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import * as MenuAction from "../../redux/actions/MenuAction";
+import * as BlogAction from "../../redux/actions/BlogAction";
 import { useDispatch } from "react-redux";
 
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -20,47 +20,47 @@ import ClearIcon from "@material-ui/icons/Clear";
 
 import history from "../../components/history";
 const styles = (theme) => ({
-    root: {
-      width: "100%",
-      marginTop: theme.spacing.unit * 3,
-      overflowX: "auto",
-    },
-    table: {
-      minWidth: 650,
-    },
+  root: {
+    width: "100%",
+    marginTop: theme.spacing.unit * 3,
+    overflowX: "auto",
+  },
+  table: {
+    minWidth: 650,
+  },
 });
 
 const BlogList = (props) => {
 
-    const dispatch = useDispatch();
-    let {
-        classes,
-        menu,
-      } = props;
+  const dispatch = useDispatch();
+  let {
+    classes,
+    blog,
+  } = props;
 
-    useEffect(() => {
-    dispatch(MenuAction.MenuListRequestAsync());
-    }, []);
+  useEffect(() => {
+    dispatch(BlogAction.BlogListRequestAsync());
+  }, []);
 
   let options = {
     selectableRows: false,
     print: false,
     download: true,
   };
-  
 
-  function onDisable(data,status) {
+
+  function onDisable(data, status) {
     let tempdata = {
       id: data,
-      status:status
+      status: status
     };
-    dispatch(MenuAction.MenuStatusUpdateRequestAsync(tempdata));
-   
-    if(status==="enable"){
+    dispatch(BlogAction.BlogStatusUpdateRequestAsync(tempdata));
+
+    if (status === "enable") {
       // toast.error("Disable")
 
     }
-    else{
+    else {
       // toast.success("Enable")
     }
   }
@@ -68,96 +68,96 @@ const BlogList = (props) => {
   function onDeleteClick(data) {
 
   }
-  
+
   function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/menu/edit?id="+data;
-    history.push('/blog/add?id='+data)
+    // window.location.href = "/blog/edit?id="+data;
+    history.push('/blog/add?id=' + data)
     window.location.reload();
   }
 
-    return (
+  return (
+    <>
+      <FormHeader heading1={"Blog Module Management"} heading2={"List and Manage Blog Here"} />
+      <BreadCrumbs heading1={"BlogManagement"} heading2={"Blog Module List"} />
+      {blog.list && blog.list.length > 0 ? (
         <>
-        <FormHeader heading1={"Blog Module Management"} heading2={"List and Manage Blog Here"} />
-        <BreadCrumbs heading1={"BlogManagement"} heading2={"Blog Module List"} />
-        {menu.list && menu.list.length > 0 ? (
-            <>
           <MUIDataTable className="table-header"
             title="Blog List"
-            data={menu.list.map((item,index) => {
-                return [
-                    (index +1),
-                    item.name,
-                    item.description,
-                    item.status,
-                    item._id
-                ]
+            data={blog.list.map((item, index) => {
+              return [
+                (index + 1),
+                item.name,
+                item.description,
+                item.status,
+                item._id
+              ]
             })}
-            columns={['SR No.','Name','Description',
-            {
-              name: "Status",
-              options: {
-                customBodyRender: (value, tableMeta, updateValue) => {
-                  if (value === true)
-                    return (
-                      'Active'
-                    );
-                  else
-                    return (
-                      'Inactive'
-                    );
+            columns={['SR No.', 'Name', 'Description',
+              {
+                name: "Status",
+                options: {
+                  customBodyRender: (value, tableMeta, updateValue) => {
+                    if (value === true)
+                      return (
+                        'Active'
+                      );
+                    else
+                      return (
+                        'Inactive'
+                      );
+                  }
                 }
-              }
-            },
-            {
-              name: "Actions",
-              options: {
-                customBodyRender: (value, tableMeta, updateValue) => {
-                  return (
-                    <>
-                    <EditIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/>
+              },
+              {
+                name: "Actions",
+                options: {
+                  customBodyRender: (value, tableMeta, updateValue) => {
+                    return (
+                      <>
+                        <EditIcon style={{ color: "#0069d9", cursor: "pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])} />
 
-                    {tableMeta.rowData[3] ? (
-                      <Tooltip title="Active">
-                        <Done
-                        onClick={() =>onDisable(tableMeta.rowData[4],false)}
-                        style={{ color: "#1e7e34", cursor:"pointer" }}
-                      />
-                      </Tooltip>
-                      
-                    ) : (
-                      <Tooltip title="Inactive">
-                        <ClearIcon 
-                          onClick={() => onDisable(tableMeta.rowData[4],true)}
-                          style={{ color: "#bd2130", cursor:"pointer" }}
-                        />
-                      </Tooltip>
-                    )}
-                    
-                    <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[4])} />
-                    </>
-                  );
+                        {tableMeta.rowData[3] ? (
+                          <Tooltip title="Active">
+                            <Done
+                              onClick={() => onDisable(tableMeta.rowData[4], false)}
+                              style={{ color: "#1e7e34", cursor: "pointer" }}
+                            />
+                          </Tooltip>
+
+                        ) : (
+                            <Tooltip title="Inactive">
+                              <ClearIcon
+                                onClick={() => onDisable(tableMeta.rowData[4], true)}
+                                style={{ color: "#bd2130", cursor: "pointer" }}
+                              />
+                            </Tooltip>
+                          )}
+
+                        <DeleteIcon style={{ color: "#bd2130", cursor: "pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[4])} />
+                      </>
+                    );
+                  }
                 }
               }
-            }
             ]}
             options={options}
 
           />
-            </>
-          ) : (
-            <Typography>Data not found.</Typography>
-          )}
         </>
-    );
-    
-} 
+      ) : (
+          <Typography>Data not found.</Typography>
+        )}
+    </>
+  );
+
+}
 
 
 function mapStateToProps(state) {
-  const { menu } = state;
+  const { blog } = state;
   return {
-    menu,
-    
+    blog,
+
   };
 }
 export default connect(mapStateToProps)(

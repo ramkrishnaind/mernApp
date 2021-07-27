@@ -3,7 +3,6 @@ import {
   Button,
   Grid,
   Typography,
-  MenuItem,
   FormControl,
   Select,
   InputLabel,
@@ -13,7 +12,6 @@ import {
 import {
   ValidatorForm,
   TextValidator,
-  SelectValidator,
 } from "react-material-ui-form-validator";
 
 import * as UserAction from "../../redux/actions/UserAction";
@@ -23,7 +21,6 @@ import BreadCrumbs from "../../common/bread-crumbs";
 import './userManagement.css';
 import SubHeading from "../../common/SubHeadingBox";
 import {
-  BrowserRouter as Router,
   Link as RouterLink,
   useLocation
 } from "react-router-dom";
@@ -86,7 +83,6 @@ const MenuCreateUpdate = (props) => {
     
         const { firstName,lastName,id,email,mobile,userRole } = state;
         
-        let LoginUserData = JSON.parse(window.localStorage.getItem('user'));
         if(id == null){
           let reqData = {
               firstName: firstName,
@@ -94,7 +90,7 @@ const MenuCreateUpdate = (props) => {
               email: email,
               countryCode: country,
               mobile: mobile,
-              userRole:'60e84c1c8494c904475e8270',
+              userRole:userRole,
               // createdBy:LoginUserData._id
           };
           // console.log('reqdsd',reqData);
@@ -107,7 +103,7 @@ const MenuCreateUpdate = (props) => {
             email: email,
             countryCode: country,
             mobile: mobile,
-            userRole:'60e84c1c8494c904475e8270',
+            userRole:userRole,
             // updatedBy:LoginUserData._id,
             _id:id
           };
@@ -234,6 +230,7 @@ const MenuCreateUpdate = (props) => {
                         </Grid>
 
                         <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+
                             <FormControl
                               variant="outlined"
                               style={{ width: "100%" }}
@@ -257,14 +254,17 @@ const MenuCreateUpdate = (props) => {
                                   id: "age-native-simple",
                                   }}
                                 >
-                                  <option value={true}>Active</option>
-                                  <option value={false} >Inactive</option>
+                                  {props?.user?.roleList?.map((role, index) => (
+                                
+                                    <option value={role?.id}>
+                                      {role?.name}
+                                    </option>
+                                  ))}
+
+
                               </Select>
                             </FormControl>
                         </Grid>
-
-                        
-
                       </Grid>
                       <br/>
                       <SubHeading heading={"Upload Image"}/>

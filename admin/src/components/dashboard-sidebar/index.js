@@ -163,6 +163,11 @@ import Logger from '../../utils/Logger';
       title: 'Callback'
     },
     {
+      href: '/review',
+      icon: UserIcon,
+      title: 'Review'
+    },
+    {
       href: '/account',
       icon: UserIcon,
       title: 'Account'

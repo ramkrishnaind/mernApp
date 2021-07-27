@@ -22,7 +22,7 @@ import ContactusList from "../pages/contactusManagement";
 import SiteVisitList from "../pages/siteVisitManagement";
 import EnquiryList from "../pages/EnquiryManagement";
 import CallbackList from "../pages/CallbackManagement";
-
+import ReviewList from "../pages/reviewManagement";
 const Routes = props => {
     const {isAuth} = props;
     const routes = [
@@ -103,6 +103,10 @@ const Routes = props => {
                 {
                     path: "/callback",
                     element: isAuth ? <CallbackList /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/review",
+                    element: isAuth ? <ReviewList /> : <Navigate to="/login" />
                 },
                 {
                     path: "404",

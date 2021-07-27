@@ -3,8 +3,7 @@ import {
   Typography
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import * as CallbackAction from "../../redux/actions/CallbackAction";
-import * as SnackbarAction from "../../redux/actions/snackbarActions";
+import * as ReviewAction from "../../redux/actions/reviewAction";
 import { useDispatch } from "react-redux";
 
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -30,23 +29,24 @@ const styles = (theme) => ({
     },
 });
 
-const CallbackList = (props) => {
+const ReviewList = (props) => {
 
     const dispatch = useDispatch();
     let {
-        classes,
-        callback,
+        review,
       } = props;
 
+      // console.log('reviewreview',review);
+
     useEffect(() => {
-    dispatch(CallbackAction.CallbackListRequestAsync());
-    dispatch(SnackbarAction.showSuccessSnackbar("Success!"));
+    dispatch(ReviewAction.ReviewListRequestAsync());
     }, []);
 
   let options = {
     selectableRows: false,
     print: false,
     download: true,
+    
   };
   
 
@@ -55,7 +55,7 @@ const CallbackList = (props) => {
       id: data,
       status:status
     };
-    dispatch(CallbackAction.CallbackStatusUpdateRequestAsync(tempdata));
+    dispatch(ReviewAction.ReviewStatusUpdateRequestAsync(tempdata));
    
     if(status==="enable"){
       // toast.error("Disable")
@@ -80,23 +80,23 @@ const CallbackList = (props) => {
         <>
         <FormHeader heading1={"Callback Module Management"} heading2={"List and Manage Callback Here"} />
         <BreadCrumbs heading1={"CallbackManagement"} heading2={"Callback Module List"} />
-        {callback.list?.list && callback.list?.list.length > 0 ? (
+        {review.list?.list && review.list?.list.length > 0 ? (
             <>
              
           <MUIDataTable className="table-header"
             title="Callback List"
-            data={callback.list?.list.map((item,index) => {
+            data={review.list?.list.map((item,index) => {
                 return [
                     (index +1),
                     item.name,
                     item.email,
-                    item.phone,
-                    item.place,
+                    item.rating,
+                    item.comment,
                     item.status,
                     item._id
                 ]
             })}
-            columns={['SR No.','Name','Email','Phone','Place',
+            columns={['SR No.','Name','Email','Rating','Comment',
             {
               name: "Status",
               options: {
@@ -158,13 +158,13 @@ const CallbackList = (props) => {
 
 
 function mapStateToProps(state) {
-  const { callback } = state;
+  const { review } = state;
   return {    
-    callback,    
+    review,    
   };
 }
 export default connect(mapStateToProps)(
-  withStyles(styles)(CallbackList),
+  withStyles(styles)(ReviewList),
 );
 
 

@@ -3,20 +3,15 @@ import {
   Button,
   Grid,
   Typography,
-  MenuItem,
-  FormControl,
-  Select,
-  InputLabel,
   Box,
   Link 
 } from "@material-ui/core";
 import {
   ValidatorForm,
   TextValidator,
-  SelectValidator,
 } from "react-material-ui-form-validator";
-
-import * as MenuAction from "../../redux/actions/MenuAction";
+import TextField from '@material-ui/core/TextField';
+import * as CareerAction from "../../redux/actions/CareerAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -32,7 +27,7 @@ import { connect } from "react-redux";
 // import Link from "next/link";
 
 const MenuCreateUpdate = (props) => {
-  let menuData= props?.menu?.menuData;
+  let careerData= props?.career?.careerData;
   let query = useQuery();
   let id = query.get("id");
     const dispatch = useDispatch();
@@ -40,12 +35,17 @@ const MenuCreateUpdate = (props) => {
   const[refresh,setRefresh] = useState(false);
 
     const initialState = {
-      name:menuData?.name,
-      description:menuData?.description,
+      degination:careerData?.degination,
+      department:careerData?.department,
+      desctiption:careerData?.desctiption,
+      experiance:careerData?.experiance,
+      location:careerData?.location,
+      vacancy:careerData?.vacancy,
+      
       id:id,
-      status:true,
+      
     };
-      console.log('initialState',initialState);
+      // console.log('initialState',initialState);
     const [state, setState] = useState(initialState);
 
     useEffect(() => {
@@ -53,17 +53,17 @@ const MenuCreateUpdate = (props) => {
           _id:id
         }
         if(id !=null){
-          dispatch(MenuAction.MenuDataRequestAsync(data));
+          dispatch(CareerAction.CareerDataRequestAsync(data));
         }
       }, []);
 
     useEffect(() => {
-      if(props.menu.success) 
+      if(props.career.success) 
       {
         setRefresh(true) 
         setState(initialState)
       }
-    }, [props.menu.success]);
+    }, [props.career.success]);
 
     const inputChange = (e) => {
         let { name, value } = e.target;
@@ -74,27 +74,32 @@ const MenuCreateUpdate = (props) => {
 
     const handleSubmit = (e) => {
     
-        const { name,description,status,id } = state;
-        let userData = JSON.parse(window.localStorage.getItem('user'));
+        const { degination,department,desctiption,experiance,location,vacancy,active,id } = state;
         if(id == null){
           let reqData = {
-              name: name,
-              description: description,
-              status:status,
-              createdBy:userData._id
+              degination: degination,
+              department: department,
+              desctiption: desctiption,
+              experiance:experiance,
+              location:location,
+              vacancy:vacancy,
+              
+              
           };
-          
-          dispatch(MenuAction.MenuAddRequestAsync(reqData));
+          dispatch(CareerAction.CareerAddRequestAsync(reqData));
         }
         else{
           let reqData = {
-            name: name,
-            description: description,
-            status:status,
-            updatedBy:userData._id,
+              degination: degination,
+              department: department,
+              desctiption: desctiption,
+              experiance:experiance,
+              location:location,
+              vacancy:vacancy,
+              
             _id:id
           };
-          dispatch(MenuAction.MenuUpdateRequestAsync(reqData));
+          dispatch(CareerAction.CareerUpdateRequestAsync(reqData));
         } 
       };
 
@@ -127,51 +132,37 @@ const MenuCreateUpdate = (props) => {
                 <div class="card-body">
                 <ValidatorForm onSubmit={handleSubmit}>
                     <Grid container spacing={3} className="FormFildes">  
-                        <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                        <Grid className="form-group-item" item xs={12} sm={6} md={6}>
                             <TextValidator
                             className="form-control-item"
                             variant="outlined"
-                            label="Job Title*"
+                            label="Degination*"
                             fullWidth
-                            value={state.name}
+                            value={state.degination}
                             onChange={inputChange}
-                            name="name"
-                            id="name"
+                            name="degination"
+                            id="degination"
                             validators={["required"]}
-                            errorMessages={["Name field is required"]}
+                            errorMessages={["Degination field is required"]}
                             />
                         </Grid>
 
-                        <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                        <Grid className="form-group-item" item xs={12} sm={6} md={6}>
                             <TextValidator
                             className="form-control-item"
                             variant="outlined"
-                            label="Post Name*"
+                            label="Department*"
                             fullWidth
-                            value={state.description}
+                            value={state.department}
                             onChange={inputChange}
-                            name="description"
-                            id="description"
+                            name="department"
+                            id="department"
                             validators={["required"]}
-                            errorMessages={["Description field is required"]}
+                            errorMessages={["Department field is required"]}
                             />
                         </Grid>
 
-                        <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                            <TextValidator
-                            className="form-control-item"
-                            variant="outlined"
-                            label="No Of Position*"
-                            fullWidth
-                            value={state.description}
-                            onChange={inputChange}
-                            name="description"
-                            id="description"
-                            type="number"
-                            validators={["required"]}
-                            errorMessages={["Description field is required"]}
-                            />
-                        </Grid>
+                       
 
                         <Grid className="form-group-item" item xs={12} sm={6} md={4}>
                             <TextValidator
@@ -179,12 +170,12 @@ const MenuCreateUpdate = (props) => {
                             variant="outlined"
                             label="Experience*"
                             fullWidth
-                            value={state.description}
+                            value={state.experiance}
                             onChange={inputChange}
-                            name="description"
-                            id="description"
+                            name="experiance"
+                            id="experiance"
                             validators={["required"]}
-                            errorMessages={["Description field is required"]}
+                            errorMessages={["Experiance field is required"]}
                             />
                         </Grid>
 
@@ -194,46 +185,48 @@ const MenuCreateUpdate = (props) => {
                             variant="outlined"
                             label="Location*"
                             fullWidth
-                            value={state.description}
+                            value={state.location}
                             onChange={inputChange}
-                            name="description"
-                            id="description"
+                            name="location"
+                            id="location"
                             validators={["required"]}
-                            errorMessages={["Description field is required"]}
+                            errorMessages={["Location field is required"]}
                             />
                         </Grid>
 
                         <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                            <FormControl
+                            <TextValidator
+                            className="form-control-item"
                             variant="outlined"
-                            style={{ width: "100%" }}
-                            >
-                            <InputLabel
-                                id="demo-simple-select-outlined-label"
-                                htmlFor="age-native-simple"
-                            >
-                                Status
-                            </InputLabel>
-                            <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined-label"
-                                label="Status"
-                                native
-                                name='status'
-                                value={(menuData?.status) ? menuData.status : state.status}
-                                onChange={inputChange}
-                                inputProps={{
-                                name: "status",
-                                id: "age-native-simple",
-                                }}
-                            >
-                                <option value={true}>Active</option>
-                                <option value={false} >Inactive</option>
-                            </Select>
-                            </FormControl>
-
+                            label="No Of Vacancy*"
+                            fullWidth
+                            value={state.vacancy}
+                            onChange={inputChange}
+                            name="vacancy"
+                            id="vacancy"
+                            type="number"
+                            validators={["required"]}
+                            errorMessages={["Vacancy field is required"]}
+                            />
                         </Grid>
-                        </Grid>
+                        <Grid className="form-group-item" item xs={12} sm={6} md={12}>
+                           
+                           <TextField
+                             variant="outlined"                             
+                             label="Desctiption *"
+                             multiline
+                             rows={4}
+                             fullWidth
+                             defaultValue={state.desctiption}
+                             onChange={inputChange}
+                             name="desctiption"
+                             id="desctiption"
+                             validators={["required"]}
+                             errorMessages={["Desctiption field is required"]}                              
+                           />
+                       </Grid>
+                      </Grid>
+                      
                         <br />
                         <Box className="footer">
                         <Button
@@ -246,7 +239,7 @@ const MenuCreateUpdate = (props) => {
                             Save
                         </Button>
 
-                        <Link component={RouterLink} to="/menu">
+                        <Link component={RouterLink} to="/career">
                           <Button
                               // fullWidth
                               variant="contained"
@@ -275,9 +268,9 @@ const MenuCreateUpdate = (props) => {
 
 
 function mapStateToProps(state) {
-  const { menu } = state;
+  const { career } = state;
   return {
-    menu,
+    career,
     
   };
 }

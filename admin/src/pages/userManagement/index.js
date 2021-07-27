@@ -33,7 +33,6 @@ const UserList = (props) => {
 
     const dispatch = useDispatch();
     let {
-        classes,
         user,
       } = props;
 

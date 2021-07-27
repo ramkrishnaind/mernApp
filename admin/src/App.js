@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import theme from '../src/theme';
 import Routes from './routes';
 import GlobalStyles from './components/global-styles';
+import Snackbar from './components/successSnackbar';
 import * as SideMenuListAction from '../src/redux/actions/SideMenuListAction';
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
+      <Snackbar />
       <Routes isAuth={isAuth} />
     </ThemeProvider>
   );
