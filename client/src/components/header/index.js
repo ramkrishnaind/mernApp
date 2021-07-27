@@ -72,7 +72,7 @@ const Header = props => {
                                 <Typography className={classes.contact}>{APP_CONSTANTS.email}</Typography>
                            </Grid>
                            <Grid item style={{display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'center'}}>
-                               <Button variant="contained" className={`${classes.btn1} btn-book-online`}>
+                               <Button variant="contained" className={`${classes.btn1} btn-book-online`} component={RouterLink} to="/book-online">
                                     {APP_CONSTANTS.btnBookOnlineText}
                                 </Button>
                                <Button variant="contained" className={classes.btn2} >

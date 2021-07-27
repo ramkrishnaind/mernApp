@@ -1,0 +1,43 @@
+*{margin: 0; padding: 0; box-sizing: border-box;}
+
+.bannerContainer{
+    position: absolute;
+    top: 46%;
+    left: 10%;
+}
+.bannerContainer .bannerh2{
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+    font-size: 50px;
+}
+.bannerContainer .bannerh3{
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+    font-size: 34px;
+}
+.bannerancr{
+    position: relative;
+    display: inline-block;
+    color: #fff;
+    font-size: 12px;
+    padding: 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.bannerContainer .bannerancr{
+    text-align: center;
+}
+.bannerContainer .bannerancr a{
+    color: #fff;
+    text-decoration: none;
+}
+.bannerContainer  .bannerancr p{
+    display: inline;
+    padding: 0 10px;
+    color: #fff;
+}
+

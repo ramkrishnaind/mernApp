@@ -52,7 +52,6 @@ function requestAuthMiddleware() {
             }
             let tokenArr = authToken.split(' ');
             let token = tokenArr[1];
-            console.log('vikram = ',token, process.env.SESSION_SECRET)
             var decoded = jwt.verify(token, process.env.SESSION_SECRET);
 
             if (decoded == process.env.NODE_ENV) {
@@ -62,6 +61,7 @@ function requestAuthMiddleware() {
             }
         } catch (error) {
             console.log('Error is', error)
+            res.send({ status: false, error: true, auth: false, message: error.message });
         }
     }
     return requestAuth;

@@ -13,9 +13,9 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.post('/createSiteVisitRequest', createSiteVisitRequest(allCollection))
-    router.post('/getSiteVisitRequest', getSiteVisitRequest(allCollection))
-    router.post('/updateSiteVisitStatusRequest', updateSiteVisitStatusRequest(allCollection))
+    router.post('/createSiteVisitRequest',requestAuthMiddleware, createSiteVisitRequest(allCollection))
+    router.post('/getSiteVisitRequest', userAuthMiddleware, getSiteVisitRequest(allCollection))
+    router.post('/updateSiteVisitStatusRequest',userAuthMiddleware, updateSiteVisitStatusRequest(allCollection))
     
     return router;
 };
