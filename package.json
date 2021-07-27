@@ -8,7 +8,6 @@
     "server": "nodemon Server/index.js",
     "client": "npm start --prefix client",
     "admin": "npm start --prefix admin",
-    "admin2": "npm start --prefix admin_v2",
     "adminDev": "concurrently \" npm run server\" \"npm run admin\" ",
     "clientDev": "concurrently \" npm run server\" \"npm run client\" ",
     "dev": "concurrently \" npm run server\" \"npm run client\" \"npm run admin\" "
