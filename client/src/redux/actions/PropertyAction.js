@@ -1,5 +1,5 @@
 import ACTION_KEYS from "../../constants/action-keys";
-import { PropertyListService, PropertyDetailService } from "../../services/PropertyService";
+import { PropertyListService, PropertyDetailService, PostPropertyService } from "../../services/PropertyService";
 
 /**
  * ****** Actions - Property List
@@ -60,5 +60,42 @@ export const GetPropertyDetailError = (data) => {
     return {
         type: ACTION_KEYS.GET_PROPERTY_DETAIL_ERROR,
         payload: {error: data},
+    }
+}
+
+/**
+ *  ******** Actions - Post Property
+ */
+ const PostPropertyRequestAsync = (data) => {
+    return (dispatch) => {
+        dispatch(PostPropertyRequest());
+        PostPropertyService(dispatch, data);
+    }
+}
+
+const PostPropertyRequest = () => {
+    return {
+        type: ACTION_KEYS.POST_PROPERTY_REQUEST,
+        payload: null
+    }
+}
+
+export const PostPropertySuccess = data => {
+    return {
+        type: ACTION_KEYS.POST_PROPERTY_SUCCESS,
+        payload: data,
+    }
+}
+
+export const PostPropertyError = data => {
+    return {
+        type: ACTION_KEYS.POST_PROPERTY_ERROR,
+        payload: {error: data}
+    }
+}
+
+export const RestPostPropertyResult = () => {
+    return {
+        type: ACTION_KEYS.RESET_POST_PROPERTY_RESULT
     }
 }
