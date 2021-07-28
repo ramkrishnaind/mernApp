@@ -31,7 +31,7 @@ const MenuCreateUpdate = (props) => {
 
   let query = useQuery();
   let id = query.get("id");
-  let userData = props?.user?.userData;
+  let blogData = props?.blog?.blogData;
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
@@ -45,26 +45,27 @@ const MenuCreateUpdate = (props) => {
   }, [id]);
 
   useEffect(() => {
-    if (props.user.success) {
+    if (props.blog.success) {
       setRefresh(true)
       setState(initialState)
     }
-  }, [props.user.success]);
+  }, [props.blog.success]);
 
   const dispatch = useDispatch();
 
   const initialState = {
-    title: userData?.title,
-    shortDescription: userData?.shortDescription,
-    metaTitle: "",
-    metaKeywords: "",
-    metaDescription: "",
+    title: blogData?.title,
+    sortDescription: blogData?.sortDescription,
+    metaTitle: blogData?.metaTitle,
+    metaKeywords: blogData?.metaKeywords,
+    metaDescription: blogData?.metaDescription,
+    image: "",
     id: id,
   };
 
   const [state, setState] = useState(initialState);
   const [file, setFile] = useState("");
-  const [description, setDescription] = useState(userData?.description);
+  const [description, setDescription] = useState(blogData?.description);
 
 
 
@@ -75,28 +76,32 @@ const MenuCreateUpdate = (props) => {
   };
 
   const handleSubmit = (e) => {
-
-    const { title, shortDescription, id } = state;
+    const { title, sortDescription, id, metaTitle, metaKeywords, metaDescription, image } = state;
 
     if (id == null) {
-      let reqData = {
-        title: title,
-        shortDescription: shortDescription,
-        description: description,
-        blogImage: file,
-      };
+      var data = new FormData();
+      data.append('blogImage', image);
+      data.append('title', title);
+      data.append('sortDescription', sortDescription);
+      data.append('description', description);
+      data.append('metaTitle', metaTitle);
+      data.append('metaKeywords', metaKeywords);
+      data.append('metaDescription', metaDescription);
 
-      dispatch(BlogAction.BlogAddRequestAsync(reqData));
+      dispatch(BlogAction.BlogAddRequestAsync(data));
     }
     else {
-      let reqData = {
-        title: title,
-        shortDescription: shortDescription,
-        description: description,
-        blogImage: file,
-        _id: id
-      };
-      dispatch(BlogAction.BlogUpdateRequestAsync(reqData));
+
+      var data = new FormData();
+      data.append('blogImage', image);
+      data.append('title', title);
+      data.append('sortDescription', sortDescription);
+      data.append('description', description);
+      data.append('metaTitle', metaTitle);
+      data.append('metaKeywords', metaKeywords);
+      data.append('metaDescription', metaDescription);
+      data.append('_id', id);
+      dispatch(BlogAction.BlogUpdateRequestAsync(data));
     }
   };
 
@@ -110,6 +115,11 @@ const MenuCreateUpdate = (props) => {
     setFile(URL.createObjectURL(event.target.files[0]))
 
     // })
+  }
+
+  const handleCleanImage = () => {
+    setState({ image: "" })
+    setFile('')
   }
 
   const handleChangeTextEditor = (content, editor) => {
@@ -155,7 +165,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={(state.title) ? state.title : userData?.title}
+                    value={(state.title) ? state.title : blogData?.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -170,12 +180,12 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Short Description*"
                     fullWidth
-                    value={(state.shortDescription) ? state.shortDescription : userData?.shortDescription}
+                    value={(state.sortDescription) ? state.sortDescription : blogData?.sortDescription}
                     onChange={inputChange}
-                    name="shortDescription"
-                    id="shortDescription"
+                    name="sortDescription"
+                    id="sortDescription"
                     validators={["required"]}
-                    errorMessages={["shortDescription field is required"]}
+                    errorMessages={["sortDescription field is required"]}
                   />
                 </Grid>
 
@@ -185,12 +195,12 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={(state.metaTitle) ? state.metaTitle : userData?.metaTitle}
+                    value={(state.metaTitle) ? state.metaTitle : blogData?.metaTitle}
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
-                    validators={["required"]}
-                    errorMessages={["metaTitle field is required"]}
+
+
                   />
                 </Grid>
 
@@ -200,12 +210,12 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={(state.metaKeywords) ? state.metaKeywords : userData?.metaKeywords}
+                    value={(state.metaKeywords) ? state.metaKeywords : blogData?.metaKeywords}
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
-                    validators={["required"]}
-                    errorMessages={["metaKeywords field is required"]}
+
+
                   />
                 </Grid>
 
@@ -215,59 +225,86 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={(state.metaDescription) ? state.metaDescription : userData?.metaDescription}
+                    value={(state.metaDescription) ? state.metaDescription : blogData?.metaDescription}
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"
-                    validators={["required"]}
-                    errorMessages={["metaDescription field is required"]}
+
+
                   />
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-                  <ReactQuill
-                    onChange={handleChangeTextEditor}
-                    // value={updateformData.desc}
-                    placeholder='Enter description'
-                    theme='snow'
-                  />
+                  {(blogData?.description != null) ? (
+                    <>
+                      <ReactQuill
+                        onChange={handleChangeTextEditor}
+                        value={(description) ? description : blogData?.description}
+                        placeholder='Enter description'
+                        theme='snow'
+                      />
+                    </>
+                  )
+
+                    : (
+                      <>
+                        <ReactQuill
+                          onChange={handleChangeTextEditor}
+                          placeholder='Enter description'
+                          theme='snow'
+                        />
+                      </>
+                    )}
                 </Grid>
 
 
               </Grid>
               <br />
               <SubHeading heading={"Upload Image"} />
-              <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                <label className="uploadbutton" htmlFor="mainImage">
-                  <Button
-                    color="default"
-                    variant="contained"
-                    type="button"
-                    className={"SaveData"}
-                  >
-                    Browse
-                  </Button>
-                </label>
-                <input
-                  style={{ display: "none" }}
-                  id="mainImage"
-                  name="mainImage"
-                  type="file"
-                  onChange={handleChange}
-                />
-                <Button
-                  // fullWidth
-                  variant="contained"
-                  color="primary"
-                  type="button"
-                  className={"CanceForm"}
-                >
-                  Cancel
-                </Button>
+              <br />
+              <Grid container spacing={3} className="FormFildes">
+                <Grid className="form-group-item" item xs={12} sm={6} md={5}>
 
-                <img src={file} height="200px" width="200px" />
+                  <img src={file} height="200px" width="200px" />
+                  <Box>
+                    <br />
+
+                    {/* <input type="file" onChange={handleChange} />
+                    <img src={file} /> */}
+
+
+                    <Grid item xs={12} sm={12}>
+
+
+                      <label className="uploadbutton" htmlFor="mainImage">
+                        <Button
+                          color="default"
+                          variant="contained"
+                          component="span"
+                          color="primary"
+                        >
+                          Browse
+                        </Button>
+                      </label>
+                      <input
+                        style={{ display: "none" }}
+                        id="mainImage"
+                        name="mainImage"
+                        type="file"
+                        onChange={handleChange}
+                      />
+                      {/* <Button
+                        style={{ marginLeft: "20px" }}
+                        variant="contained"
+                        component="span"
+                      // onClick={handleCleanImage}
+                      >
+                        Cancle
+                    </Button> */}
+                    </Grid>
+                  </Box>
+                </Grid>
               </Grid>
-
               <br />
               <Box className="footer">
                 <Button
@@ -280,38 +317,30 @@ const MenuCreateUpdate = (props) => {
                   Save
                 </Button>
 
-                <Link component={RouterLink} to="/menu">
+                <Link component={RouterLink} to="/blog">
                   <Button
-                    // fullWidth
                     variant="contained"
                     color="primary"
-                    // onClick={() => history.goBack()}
                     type="button"
                     className={"CanceForm"}
                   >
                     Cancel
-                          </Button>
+                  </Button>
                 </Link>
-                {/* <button type="button">
-                                  Click Me!
-                            </button> */}
-
               </Box>
-
-              {/* </Grid> */}
             </ValidatorForm>
           </div>
         </div>
       </Grid>
-    </Box>
+    </Box >
   )
 }
 
 
 function mapStateToProps(state) {
-  const { user } = state;
+  const { blog } = state;
   return {
-    user,
+    blog,
 
   };
 }

@@ -51,8 +51,8 @@ const BlogList = (props) => {
 
   function onDisable(data, status) {
     let tempdata = {
-      id: data,
-      status: status
+      _id: data,
+      active: status
     };
     dispatch(BlogAction.BlogStatusUpdateRequestAsync(tempdata));
 
@@ -66,7 +66,11 @@ const BlogList = (props) => {
   }
 
   function onDeleteClick(data) {
+    let tempdata = {
+      _id: data,
 
+    };
+    dispatch(BlogAction.BlogDeleteRequestAsync(tempdata));
   }
 
   function updatehandleOpenCreateModal(data) {
@@ -86,13 +90,13 @@ const BlogList = (props) => {
             data={blog.list.map((item, index) => {
               return [
                 (index + 1),
-                item.name,
+                item.title,
                 item.description,
                 item.status,
                 item._id
               ]
             })}
-            columns={['SR No.', 'Name', 'Description',
+            columns={['SR No.', 'Title', 'Description',
               {
                 name: "Status",
                 options: {
