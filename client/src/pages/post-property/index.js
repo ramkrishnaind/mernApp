@@ -113,11 +113,15 @@ const PostPropertyPage = (props) => {
   const [isOwner, setIsOnwer] = React.useState(false);
   const [state, setState] = React.useState({});
   const [propertyFor, setPropertyFor] = React.useState("");
-  const [propertyOptions, setPropertyOptions] = React.useState(propertyTypeOptions[0]);
-  const [proeprtyForCurrentIndex, setPropertyForCurrentIndex] = React.useState(0);
+  const [propertyOptions, setPropertyOptions] = React.useState(
+    propertyTypeOptions[0]
+  );
+  const [proeprtyForCurrentIndex, setPropertyForCurrentIndex] =
+    React.useState(0);
   const [formFields, setFormFields] = React.useState(null);
   const [areaUnit, setAreaUnit] = React.useState("");
-  const [isResidentialHoueBuiltOnCorner, setIsResidentialHoueBuiltOnCorner] = React.useState(false);
+  const [isResidentialHoueBuiltOnCorner, setIsResidentialHoueBuiltOnCorner] =
+    React.useState(false);
   const [propertyFeatures, setSectionFeatures] = React.useState({});
   const [currentAreaField, setCurrentAreaField] = React.useState({});
 
@@ -143,37 +147,43 @@ const PostPropertyPage = (props) => {
   const handleChange = (event) => {
     event.preventDefault();
     const name = event.target.name;
-    console.log('-HandleChange-', event);
+    console.log("-HandleChange-", event);
     setState({
       ...state,
-      [name]: event.target.type === 'checkbox' ? event.target.checked : event.target.value,
+      [name]:
+        event.target.type === "checkbox"
+          ? event.target.checked
+          : event.target.value,
     });
   };
 
   const handleAreaUnitChange = (event) => {
     event.preventDefault();
     const fieldUnit = event.target.value;
-    console.log('--currentAreaField--', currentAreaField);
+    console.log("--currentAreaField--", currentAreaField);
     setState({
       ...state,
-      [currentAreaField.fieldName]: {size: currentAreaField.fieldValue, unit: fieldUnit},
+      [currentAreaField.fieldName]: {
+        size: currentAreaField.fieldValue,
+        unit: fieldUnit,
+      },
     });
   };
 
   const onFeatureSelect = (feature) => {
-    console.log('-FEATURE--', feature);
+    console.log("-FEATURE--", feature);
     setSectionFeatures({
       ...propertyFeatures,
-      [feature.label] : feature.item,
-    })
-  }
+      [feature.label]: feature.item,
+    });
+  };
 
-  const onAreaFieldSelect = e => {
+  const onAreaFieldSelect = (e) => {
     e.preventDefault();
     const fieldName = e.target.name;
     const fieldValue = e.target.value;
-    setCurrentAreaField({fieldName, fieldValue});
-  }
+    setCurrentAreaField({ fieldName, fieldValue });
+  };
 
   const handleCheckboxStateChange = (event) => {
     setIsResidentialHoueBuiltOnCorner(event.target.checked);
@@ -186,17 +196,17 @@ const PostPropertyPage = (props) => {
   const onTransactionOptionSelectListener = (data) => {
     setState({
       ...state,
-      [data.title]:data.value
+      [data.title]: data.value,
     });
-  }
+  };
 
   React.useEffect(() => {
     _getPropertyTypeOptions();
   }, [proeprtyForCurrentIndex]);
 
-  React.useEffect(()=> {
-    console.log('-Form-Data-State-', state);
-    console.log('-Property-Features-', propertyFeatures);
+  React.useEffect(() => {
+    console.log("-Form-Data-State-", state);
+    console.log("-Property-Features-", propertyFeatures);
   }, [state, propertyFeatures]);
 
   const _renderOwnerBlock = () => {
@@ -204,14 +214,19 @@ const PostPropertyPage = (props) => {
       return (
         <Grid container>
           <Grid item xs={12} md={12} className={classes.style1}>
-            <TextField label="Name" style={{ width: "25%" }} name="owner_name" onChange={handleChange}></TextField>
+            <TextField
+              label="Name"
+              style={{ width: "25%" }}
+              name="owner_name"
+              onChange={handleChange}
+            ></TextField>
             <Grid container>
               <Grid item xs={12} md={12} className={classes.style2}>
                 <Select
                   native
                   value={state["country_code"]}
                   onChange={handleChange}
-                  inputProps={{name: "country_code"}}
+                  inputProps={{ name: "country_code" }}
                   style={{ height: 48, marginRight: 5 }}
                 >
                   <option value={10}>IND +91</option>
@@ -448,9 +463,14 @@ const PostPropertyPage = (props) => {
                   item
                   xs={12}
                   md={12}
+                  key={index}
                   style={{ display: "flex", flexDirection: "column" }}
                 >
-                  <Transaction title={label} options={values} onOptionSelectListener={onTransactionOptionSelectListener} />
+                  <Transaction
+                    title={label}
+                    options={values}
+                    onOptionSelectListener={onTransactionOptionSelectListener}
+                  />
                 </Grid>
               );
             } else if (type === "dropdown") {
@@ -509,8 +529,16 @@ const PostPropertyPage = (props) => {
       <FieldsContainer label={sectionName}>
         <Grid container>
           {fields?.map((field, index) => {
-            const { label, type, values, unit, units, placeholder, data, fieldName } =
-              field || {};
+            const {
+              label,
+              type,
+              values,
+              unit,
+              units,
+              placeholder,
+              data,
+              fieldName,
+            } = field || {};
             if (type === "textfield" && data) {
               return data.map((e, i) => {
                 return (
@@ -673,14 +701,6 @@ const PostPropertyPage = (props) => {
     );
   };
 
-  const _renderPhotoSection = section => {
-    return (
-      <FieldsContainer label="Photo">
-
-      </FieldsContainer>
-    );
-  }
-
   return (
     <Container>
       <Grid container>
@@ -748,14 +768,14 @@ const PostPropertyPage = (props) => {
                   style={{ width: "25%" }}
                   onChange={handleChange}
                   name="city"
-                ></TextField>
+                />
                 <TextField
                   label="Locality"
                   placeholder="Enter Locality"
                   style={{ width: "25%" }}
                   onChange={handleChange}
                   name="property_location"
-                ></TextField>
+                />
               </Grid>
             </Grid>
           </FieldsContainer>
@@ -773,9 +793,6 @@ const PostPropertyPage = (props) => {
                 return _renderPriceSection(section);
             }
           })}
-        </Grid>
-        <Grid item xs={12} md={12}>
-        {_renderPhotoSection()}
         </Grid>
       </Grid>
     </Container>

@@ -53,12 +53,17 @@ const items = [
   },
 
   {
-    href: "/property-management",
+    href: "/property",
     icon: UsersIcon,
     title: "Property Management",
     items: [
       {
-        href: "/add-property",
+        href: "/property",
+        icon: ShoppingBagIcon,
+        title: "Property List",
+      },
+      {
+        href: "/property/add",
         icon: ShoppingBagIcon,
         title: "Add New",
       },

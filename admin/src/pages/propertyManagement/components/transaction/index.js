@@ -94,18 +94,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PersonalDetail = (props) => {
-  const { onOptionSelectListener, title, options } = props;
+const Transaction = (props) => {
+  const { onOptionSelectListener, title, options, keyIndex } = props;
   const [value, setValue] = React.useState("female");
 
   const handleChange = (event) => {
+    event.preventDefault();
+    const value = event.target.value;
     setValue(event.target.value);
-    onOptionSelectListener && onOptionSelectListener(event.target.value);
+    onOptionSelectListener && onOptionSelectListener({ value, title });
   };
-  const classes = useStyles();
 
   return (
-    <FormControl component="fieldset">
+    <FormControl component="fieldset" key={keyIndex}>
       <FormLabel component="legend">{title}</FormLabel>
       <RadioGroup
         aria-label="personal-info"
@@ -114,17 +115,12 @@ const PersonalDetail = (props) => {
         onChange={handleChange}
         row
       >
-        {options.map((option, index) => {
-          <FormControlLabel
-            value={option}
-            key={index}
-            control={<Radio />}
-            label={option}
-          />;
-        })}
+        {options.map((option) => (
+          <FormControlLabel value={option} control={<Radio />} label={option} />
+        ))}
       </RadioGroup>
     </FormControl>
   );
 };
 
-export default PersonalDetail;
+export default Transaction;

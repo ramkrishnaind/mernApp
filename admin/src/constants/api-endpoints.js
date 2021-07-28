@@ -6,14 +6,14 @@ const API_ENDPOINTS = {
   REGISTER_ENDPOINT: "/users/signup",
   MODULERIGHTS_ENDPOINT: "/menuModule/getAllMenuList",
   //menu module
-  MENULIST_ENDPOINT:"menuModule/getAllMenuList",
-  MENUADD_ENDPOINT:"menuModule/createMenu",
-  MENU_STATUS_UPDATE_ENDPOINT:"menuModule/updateMenuStatus",
-  MENU_UPDATE_ENDPOINT:"menuModule/updateMenu",  
-  MENU_DATA_ENDPOINT:"menuModule/getMenuData",
-  MENU_DATA_ENDPOINT:"menuModule/getMenuData",  
+  MENULIST_ENDPOINT: "menuModule/getAllMenuList",
+  MENUADD_ENDPOINT: "menuModule/createMenu",
+  MENU_STATUS_UPDATE_ENDPOINT: "menuModule/updateMenuStatus",
+  MENU_UPDATE_ENDPOINT: "menuModule/updateMenu",
+  MENU_DATA_ENDPOINT: "menuModule/getMenuData",
+  MENU_DATA_ENDPOINT: "menuModule/getMenuData",
   // user Module
-  CREATE_USER_ROLE_ENDPOINT:"role/createUserRole",  
+  CREATE_USER_ROLE_ENDPOINT: "role/createUserRole",
   USER_ROLELIST_ENDPOINT: "role/userRoleDataList",
   USER_LIST_ENDPOINT: "users/getAllUser",
   USER_ADD_ENDPOINT: "users/createUser",
@@ -46,6 +46,10 @@ const API_ENDPOINTS = {
   BLOG_UPDATE_ENDPOINT: "blog/updateBlog",
   BLOG_DELETE_ENDPOINT: "blog/deleteBlog",
   BLOG_DATA_ENDPOINT: "blog/getBlogDetail",
+
+  // property module
+  PROPERTY_LIST_ENDPOINT: "",
+  PROPERTY_ADD_ENDPOINT: "",
 };
 
 export default API_ENDPOINTS;

@@ -5,8 +5,8 @@ import { useDispatch } from "react-redux";
 import BreadCrumbs from "../../common/bread-crumbs";
 import FormHeader from "../../common/form-header";
 import { connect } from "react-redux";
-
 import history from "../../components/history";
+import { Typography } from "@material-ui/core";
 // MiUi styles
 const styles = (theme) => ({
   root: {
@@ -38,6 +38,11 @@ const PropertyManagement = (props) => {
         heading1={"PropertyManagement"}
         heading2={"Property Module List"}
       />
+      {/* {props?.property.list && props?.property.list.length > 0 ? (
+        <></>
+      ) : ( */}
+      <Typography>Data not found.</Typography>
+      {/* )} */}
     </>
   );
 };

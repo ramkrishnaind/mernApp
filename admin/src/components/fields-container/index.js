@@ -1,13 +1,5 @@
-import React, { useState } from "react";
-import {
-  Grid,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
-  FormControl,
-  FormLabel,
-  makeStyles,
-} from "@material-ui/core";
+import React from "react";
+import { Container, Grid, Typography, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -16,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 18,
     marginTop: 10,
     marginBottom: 10,
+    fontWeight: "bold",
   },
   text3: {
     fontFamily: '"Open Sans",sans-serif',
@@ -94,37 +87,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PersonalDetail = (props) => {
-  const { onOptionSelectListener, title, options } = props;
-  const [value, setValue] = React.useState("female");
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-    onOptionSelectListener && onOptionSelectListener(event.target.value);
-  };
+const FieldsContainer = (props) => {
   const classes = useStyles();
-
+  const { label, children } = props;
   return (
-    <FormControl component="fieldset">
-      <FormLabel component="legend">{title}</FormLabel>
-      <RadioGroup
-        aria-label="personal-info"
-        name="personal-info"
-        value={value}
-        onChange={handleChange}
-        row
-      >
-        {options.map((option, index) => {
-          <FormControlLabel
-            value={option}
-            key={index}
-            control={<Radio />}
-            label={option}
-          />;
-        })}
-      </RadioGroup>
-    </FormControl>
+    <Grid container style={{ marginTop: 30 }}>
+      <Grid item xs={12} md={12}>
+        <Typography className={classes.text1}>{label}</Typography>
+      </Grid>
+      <Grid item xs={12} md={12}>
+        {children}
+      </Grid>
+    </Grid>
   );
 };
 
-export default PersonalDetail;
+export default FieldsContainer;

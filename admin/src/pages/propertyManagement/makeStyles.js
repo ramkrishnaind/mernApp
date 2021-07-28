@@ -1,19 +1,10 @@
-import React, { useState } from "react";
-import {
-  Grid,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
-  FormControl,
-  FormLabel,
-  makeStyles,
-} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   text1: {
     fontFamily: '"Open Sans"',
     color: "#303030",
-    fontSize: 18,
+    fontSize: 28,
     marginTop: 10,
     marginBottom: 10,
   },
@@ -94,37 +85,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PersonalDetail = (props) => {
-  const { onOptionSelectListener, title, options } = props;
-  const [value, setValue] = React.useState("female");
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-    onOptionSelectListener && onOptionSelectListener(event.target.value);
-  };
-  const classes = useStyles();
-
-  return (
-    <FormControl component="fieldset">
-      <FormLabel component="legend">{title}</FormLabel>
-      <RadioGroup
-        aria-label="personal-info"
-        name="personal-info"
-        value={value}
-        onChange={handleChange}
-        row
-      >
-        {options.map((option, index) => {
-          <FormControlLabel
-            value={option}
-            key={index}
-            control={<Radio />}
-            label={option}
-          />;
-        })}
-      </RadioGroup>
-    </FormControl>
-  );
-};
-
-export default PersonalDetail;
+export default useStyles;
