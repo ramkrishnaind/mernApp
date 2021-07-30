@@ -11,8 +11,8 @@ import AddMenu from "../pages/menuManagement/add";
 import UserList from "../pages/userManagement";
 import AddUser from "../pages/userManagement/add";
 import Error404Page from "../pages/404";
-import CreateUser from "../pages/user-module/role/createUser/index";
-import AddUsers from '../pages/user-module/user/createUser';
+import RoleList from "../pages/roleManagement";
+import AddRole from '../pages/roleManagement/add';
 
 import CareerList from "../pages/careerManagement";
 import AddCareer from "../pages/careerManagement/add";
@@ -24,7 +24,7 @@ import EnquiryList from "../pages/EnquiryManagement";
 import CallbackList from "../pages/CallbackManagement";
 import ReviewList from "../pages/reviewManagement";
 const Routes = props => {
-    const {isAuth} = props;
+    const { isAuth } = props;
     const routes = [
         {
             path: "/",
@@ -47,14 +47,13 @@ const Routes = props => {
                     element: isAuth ? <HomePage /> : <Navigate to="/login" />
                 },
                 {
-                    path: "/create-user-role",
-                    element: isAuth ? <CreateUser /> : <Navigate to="/create-user-role" />
+                    path: "/role",
+                    element: isAuth ? <RoleList /> : <Navigate to="/role" />
                 },
                 {
-                    path: "/add-edit-user-role",
-                    element: isAuth ? <AddUsers /> : <Navigate to="/add-edit-user-role" />
+                    path: "/role/add",
+                    element: isAuth ? <AddRole /> : <Navigate to="/role/add" />
                 },
-               
                 // Put new route above this line
                 {
                     path: "/menu",

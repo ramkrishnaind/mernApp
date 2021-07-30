@@ -13,7 +13,7 @@ const API_ENDPOINTS = {
   MENU_DATA_ENDPOINT: "menuModule/getMenuData",
   MENU_DATA_ENDPOINT: "menuModule/getMenuData",
   // user Module
-  CREATE_USER_ROLE_ENDPOINT: "role/createUserRole",
+
   USER_ROLELIST_ENDPOINT: "role/userRoleDataList",
   USER_LIST_ENDPOINT: "users/getAllUser",
   USER_ADD_ENDPOINT: "users/createUser",
@@ -46,6 +46,14 @@ const API_ENDPOINTS = {
   BLOG_UPDATE_ENDPOINT: "blog/updateBlog",
   BLOG_DELETE_ENDPOINT: "blog/deleteBlog",
   BLOG_DATA_ENDPOINT: "blog/getBlogDetail",
+
+  //Role module
+  ROLE_ADD_ENDPOINT: "role/createUserRole",
+  ROLE_LIST_ENDPOINT: "role/userRoleList",
+  ROLE_STATUS_UPDATE_ENDPOINT: "role/updateStatusUserRole",
+  ROLE_UPDATE_ENDPOINT: "role/createUserRole",
+  ROLE_DELETE_ENDPOINT: "role/userRoleDelete",
+  ROLE_DATA_ENDPOINT: "role/userRoleDetails",
 };
 
 export default API_ENDPOINTS;

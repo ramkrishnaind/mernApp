@@ -11,6 +11,7 @@ import snackbar from './snackbarReducer';
 import review from './reviewReducer';
 import career from './CareerReducer';
 import blog from './blogReducer';
+import role from './RoleReducer';
 const reducers = {
     Login: LoginReducer,
     Register: RegisterReducer,
@@ -25,6 +26,7 @@ const reducers = {
     review: review,
     career: career,
     blog: blog,
+    role: role,
 }
 
 export default reducers;

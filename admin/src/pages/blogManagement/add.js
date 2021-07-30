@@ -77,7 +77,7 @@ const MenuCreateUpdate = (props) => {
 
   const handleSubmit = (e) => {
     const { title, sortDescription, id, metaTitle, metaKeywords, metaDescription, image } = state;
-
+    debugger
     if (id == null) {
       var data = new FormData();
       data.append('blogImage', image);
@@ -88,7 +88,8 @@ const MenuCreateUpdate = (props) => {
       data.append('metaKeywords', metaKeywords);
       data.append('metaDescription', metaDescription);
 
-      dispatch(BlogAction.BlogAddRequestAsync(data));
+      console.log('dsadsd', data);
+      // dispatch(BlogAction.BlogAddRequestAsync(data));
     }
     else {
 
