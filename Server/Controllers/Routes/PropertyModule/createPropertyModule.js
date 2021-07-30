@@ -6,28 +6,25 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
     iAm: Joi.string().required(),
-    name: Joi.string().empty(""),
-    mobileNo: Joi.string().empty(""),
-    email: Joi.string().empty(""),
     for: Joi.string().empty(""),
-    pType:Joi.string().empty(""),
-    postingAs:Joi.string().empty(""),
-    pCity:Joi.string().empty(""),
-    nameOfProject:Joi.string().empty(""),
+    pType: Joi.string().empty(""),
+    postingAs: Joi.string().empty(""),
+    pCity: Joi.string().empty(""),
+    nameOfProject: Joi.string().empty(""),
     bedrooms: Joi.number(),
     balconies: Joi.number(),
     floorNo: Joi.number(),
     totalFloors: Joi.number(),
     furnishedStatus: Joi.string(),
-    bathrooms:Joi.number(),
-    superArea:Joi.number(),
-    builtUpArea:Joi.number(),
-    carpetArea:Joi.number(),
+    bathrooms: Joi.number(),
+    superArea: Joi.number(),
+    builtUpArea: Joi.number(),
+    carpetArea: Joi.number(),
     transactionType: Joi.string(),
-    possessionStatus:Joi.string().empty(""),
-    availableFromMonth:Joi.number(),
-    availableFromYear:Joi.number(),
-    ageOfConstruction:Joi.string().empty("")
+    possessionStatus: Joi.string().empty(""),
+    availableFromMonth: Joi.number(),
+    availableFromYear: Joi.number(),
+    ageOfConstruction: Joi.string().empty("")
 });
 
 
@@ -42,10 +39,10 @@ function createPropertyRequest(Models) {
             }
 
             // pick data from req.body
-            let bodyData = _.pick(req.body, ["iAm", "name","mobileNo","email","for","pType","postingAs","pCity","nameOfProject",
-                                                "bedrooms","balconies","floorNo","totalFloors","furnishedStatus","bathrooms","superArea",
-                                                "builtUpArea","carpetArea","transactionType","possessionStatus","availableFromMonth",
-                                                "availableFromYear","ageOfConstruction"]);
+            let bodyData = _.pick(req.body, ["iAm", "for", "pType", "postingAs", "pCity", "nameOfProject",
+                "bedrooms", "balconies", "floorNo", "totalFloors", "furnishedStatus", "bathrooms", "superArea",
+                "builtUpArea", "carpetArea", "transactionType", "possessionStatus", "availableFromMonth",
+                "availableFromYear", "ageOfConstruction"]);
             // searching email or mobile already exists or not
             // let findData = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
             const moduleFeatureSchema = {
@@ -54,17 +51,17 @@ function createPropertyRequest(Models) {
                 floorNo: bodyData.floorNo,
                 totalFloors: bodyData.totalFloors,
                 furnishedStatus: bodyData.furnishedStatus,
-                bathrooms:bodyData.bathrooms,
-                superArea:bodyData.superArea,
-                builtUpArea:bodyData.builtUpArea,
-                carpetArea:bodyData.carpetArea,
+                bathrooms: bodyData.bathrooms,
+                superArea: bodyData.superArea,
+                builtUpArea: bodyData.builtUpArea,
+                carpetArea: bodyData.carpetArea,
                 transactionType: bodyData.transactionType,
-                possessionStatus:bodyData.possessionStatus,
-                availableFromMonth:bodyData.availableFromMonth,
-                availableFromYear:bodyData.availableFromYear,
-                ageOfConstruction:bodyData.ageOfConstruction
+                possessionStatus: bodyData.possessionStatus,
+                availableFromMonth: bodyData.availableFromMonth,
+                availableFromYear: bodyData.availableFromYear,
+                ageOfConstruction: bodyData.ageOfConstruction
             };
-            
+
             // if (findData) {
             //     // if data found check 
             //     let findDataname = await Models.PFeaturesDB.findOne({ productId:findData._id });
@@ -82,10 +79,10 @@ function createPropertyRequest(Models) {
             //     let findDataname = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
             //     if (findDataname) {
             //         moduleFeatureSchema.productId = findDataname._id;
-                    let saveModule = await new Models.PropertyDB(bodyData).save();
-                    let featureSchemaModule = await new Models.PFeaturesDB(moduleFeatureSchema).save();
-                    console.log('saveModule is', featureSchemaModule)
-                    res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
+            let saveModule = await new Models.PropertyDB(bodyData).save();
+            let featureSchemaModule = await new Models.PFeaturesDB(moduleFeatureSchema).save();
+            console.log('saveModule is', featureSchemaModule)
+            res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
             //     }
             // }
 

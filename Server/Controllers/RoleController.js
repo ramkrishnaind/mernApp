@@ -3,7 +3,7 @@ const express = require('express');
 var router = express.Router();
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
-let {createUserRoleFunction, updateStatusUserRoleFunction, userRoleListFunction} = require('./Routes')
+let { createUserRoleFunction, updateStatusUserRoleFunction, userRoleListFunction } = require('./Routes')
 
 module.exports = function (conn) {
     const allCollection = require('../Database/getCollections')(conn.MongoDBConnection);
@@ -13,9 +13,10 @@ module.exports = function (conn) {
     router.post('/createUserRole', userAuthMiddleware, createUserRoleFunction(allCollection));
     router.post('/updateStatusUserRole', userAuthMiddleware, updateStatusUserRoleFunction(allCollection));
     router.post('/userRoleList', userAuthMiddleware, userRoleListFunction.userRoleList(allCollection));
-    router.post('/userRoleDataList', userAuthMiddleware, userRoleListFunction.userRoleDataList(allCollection));
-    
-    
+    router.post('/userRoleDetails', userAuthMiddleware, userRoleListFunction.userRoleDetails(allCollection));
+    router.post('/userRoleDelete', userAuthMiddleware, userRoleListFunction.userRoleDelete(allCollection));
+
+
 
     return router;
 };
