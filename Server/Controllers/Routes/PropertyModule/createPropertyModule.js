@@ -24,7 +24,18 @@ const moduleSchema = Joi.object({
     possessionStatus: Joi.string().empty(""),
     availableFromMonth: Joi.number(),
     availableFromYear: Joi.number(),
-    ageOfConstruction: Joi.string().empty("")
+    ageOfConstruction: Joi.string().empty(""),
+    expectedPrice: Joi.number(),
+    pricePerSqFt: Joi.number(),
+    isPLCIncluded: Joi.boolen(),
+    isCarParkingIncluded: Joi.boolen(),
+    isClubMemberShipIncluded: Joi.boolen(),
+    otherCharges: Joi.number(),
+    isStumpDutyRCExcluded: Joi.boolen(),
+    bookingAmount: Joi.number(),
+    maintenanceCharge: Joi.number(),
+    maintenanceFor: Joi.boolen(),
+    brokerageCharge: Joi.number(),
 });
 
 
