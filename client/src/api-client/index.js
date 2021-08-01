@@ -3,6 +3,8 @@ import Logger from '../utils/Logger';
 
 export default class ApiClient {
 
+    static BASE_URL = 'http://192.46.214.45:3333/api';
+
     static REQUEST_METHOD = {
         GET: 'GET',
         POST: 'POST',
@@ -33,15 +35,17 @@ export default class ApiClient {
 
         headers = this.addCommonHeaders(headers);
         //TODO: get tokens from reducer or localstorage
-        const token = '';
+        const token = 'eyJhbGciOiJIUzI1NiJ9.ZGV2ZWxvcG1lbnQ.QYWF1clxM159VxxG9jBz7Jjpr8fJKwJIFrHZxhbdVrc';
 
-        if(isAuthTokenRequired) {
+        if (isAuthTokenRequired) {
             headers["Authorization"] = "Bearer " + token;
         }
 
-        let axiosInstance = axios.create({baseURL: process.env.REACT_APP_BASE_URL});
+        // let axiosInstance = axios.create({baseURL: process.env.REACT_APP_BASE_URL});
+        let axiosInstance = axios.create({ baseURL: this.BASE_URL });
 
-        Logger.log('Web Service Url:', `${process.env.REACT_APP_BASE_URL}${url}`);
+        // Logger.log('Web Service Url:', `${process.env.REACT_APP_BASE_URL}${url}`);
+        Logger.log('Web Service Url:', `${this.BASE_URL}${url}`);
         Logger.log('Web Service Method:', method);
         Logger.log('Web Service payload:', payload);
         Logger.log('Web Service headers:', headers);
