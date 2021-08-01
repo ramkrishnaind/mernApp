@@ -3,7 +3,7 @@ import {
   Typography
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import * as SitevisitAction from "../../redux/actions/SitevisitAction";
+import * as BookingAction from "../../redux/actions/BookingAction";
 import { useDispatch } from "react-redux";
 
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -30,16 +30,15 @@ const styles = (theme) => ({
   },
 });
 
-const VistList = (props) => {
+const BookingList = (props) => {
 
   const dispatch = useDispatch();
   let {
-    classes,
-    sitevisit,
+    booking,
   } = props;
 
   useEffect(() => {
-    dispatch(SitevisitAction.SitevisitListRequestAsync());
+    dispatch(BookingAction.BookingListRequestAsync());
   }, []);
 
   let options = {
@@ -54,7 +53,7 @@ const VistList = (props) => {
       id: data,
       status: status
     };
-    dispatch(SitevisitAction.SitevisitStatusUpdateRequestAsync(tempdata));
+    dispatch(BookingAction.BookingStatusUpdateRequestAsync(tempdata));
 
     if (status === "enable") {
       // toast.error("Disable")
@@ -70,46 +69,45 @@ const VistList = (props) => {
   }
 
   function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/sitevisit/edit?id="+data;
+    // window.location.href = "/menu/edit?id="+data;
     history.push('/career/add?id=' + data)
     window.location.reload();
   }
 
   return (
     <>
-      <FormHeader heading1={"Site Visit Module Management"} heading2={"List and Manage Site Visit Here"} />
-      <BreadCrumbs heading1={"SitevisitManagement"} heading2={"Site Visit Module List"} />
-      {sitevisit?.list && sitevisit?.list?.list?.length > 0 ? (
+      <FormHeader heading1={"Booking Module Management"} heading2={"List and Manage Booking Here"} />
+      <BreadCrumbs heading1={"BookingManagement"} heading2={"Booking Module List"} />
+      {booking.list && booking.list.length > 0 ? (
         <>
           <MUIDataTable className="table-header"
-            title="Site Visit List"
-            data={sitevisit?.list?.list?.map((item, index) => {
+            title="Booking List"
+            data={booking.list.map((item, index) => {
               return [
                 (index + 1),
                 item.name,
-                item.email,
-                item.phone,
-                item.time,
-                item.status,
+                item.name,
+                item.name,
+                item.description,
                 item._id
               ]
             })}
-            columns={['SR No.', 'Name', 'Email', 'Phone', 'Time',
-              {
-                name: "Status",
-                options: {
-                  customBodyRender: (value, tableMeta, updateValue) => {
-                    if (value === true)
-                      return (
-                        'Active'
-                      );
-                    else
-                      return (
-                        'Inactive'
-                      );
-                  }
-                }
-              },
+            columns={['SR No.', 'Name', 'Email', 'Phone', 'Description',
+              // {
+              //   name: "Status",
+              //   options: {
+              //     customBodyRender: (value, tableMeta, updateValue) => {
+              //       if (value === true)
+              //         return (
+              //           'Active'
+              //         );
+              //       else
+              //         return (
+              //           'Inactive'
+              //         );
+              //     }
+              //   }
+              // },
               {
                 name: "Actions",
                 options: {
@@ -118,10 +116,10 @@ const VistList = (props) => {
                       <>
                         {/* <EditIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/> */}
 
-                        {tableMeta.rowData[5] ? (
+                        {tableMeta.rowData[3] ? (
                           <Tooltip title="Active">
                             <Done
-                              onClick={() => onDisable(tableMeta.rowData[6], false)}
+                              onClick={() => onDisable(tableMeta.rowData[4], false)}
                               style={{ color: "#1e7e34", cursor: "pointer" }}
                             />
                           </Tooltip>
@@ -129,13 +127,13 @@ const VistList = (props) => {
                         ) : (
                             <Tooltip title="Inactive">
                               <ClearIcon
-                                onClick={() => onDisable(tableMeta.rowData[6], true)}
+                                onClick={() => onDisable(tableMeta.rowData[4], true)}
                                 style={{ color: "#bd2130", cursor: "pointer" }}
                               />
                             </Tooltip>
                           )}
 
-                        {/* <DeleteIcon style={{ color: "#bd2130", cursor: "pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[4])} /> */}
+                        <DeleteIcon style={{ color: "#bd2130", cursor: "pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[4])} />
                       </>
                     );
                   }
@@ -156,14 +154,14 @@ const VistList = (props) => {
 
 
 function mapStateToProps(state) {
-  const { sitevisit } = state;
+  const { booking } = state;
   return {
-    sitevisit,
+    booking,
 
   };
 }
 export default connect(mapStateToProps)(
-  withStyles(styles)(VistList),
+  withStyles(styles)(BookingList),
 );
 
 

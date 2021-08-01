@@ -168,6 +168,11 @@ const items = [
     title: 'Review'
   },
   {
+    href: '/booking',
+    icon: UserIcon,
+    title: 'Bookings'
+  },
+  {
     href: '/account',
     icon: UserIcon,
     title: 'Account'

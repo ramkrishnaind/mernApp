@@ -12,6 +12,10 @@ import review from './reviewReducer';
 import career from './CareerReducer';
 import blog from './blogReducer';
 import role from './RoleReducer';
+import booking from './BookingReducer';
+import contactus from './ContactUsReducer';
+import sitevisit from './SitevisitReducer';
+
 const reducers = {
     Login: LoginReducer,
     Register: RegisterReducer,
@@ -27,6 +31,9 @@ const reducers = {
     career: career,
     blog: blog,
     role: role,
+    booking: booking,
+    contactus: contactus,
+    sitevisit: sitevisit,
 }
 
 export default reducers;

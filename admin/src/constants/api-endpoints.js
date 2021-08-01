@@ -54,6 +54,18 @@ const API_ENDPOINTS = {
   ROLE_UPDATE_ENDPOINT: "role/createUserRole",
   ROLE_DELETE_ENDPOINT: "role/userRoleDelete",
   ROLE_DATA_ENDPOINT: "role/userRoleDetails",
+
+  //BOOKING module
+  BOOKING_LIST_ENDPOINT: "menuModule/getAllMenuList",
+  BOOKING_STATUS_UPDATE_ENDPOINT: "menuModule/updateMenuStatus",
+
+  //Site visit
+  SITEVISIT_LIST_ENDPOINT: "sitevisit/getSiteVisitRequest",
+  SITEVISIT_STATUS_UPDATE_ENDPOINT: "sitevisit/updateSiteVisitStatusRequest",
+
+  //Contact us
+  CONTACTUS_LIST_ENDPOINT: "contactus/getContactUsList",
+  CONTACTUS_STATUS_UPDATE_ENDPOINT: "contactus/updateContactUsStatus",
 };
 
 export default API_ENDPOINTS;

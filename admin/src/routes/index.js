@@ -23,6 +23,8 @@ import SiteVisitList from "../pages/siteVisitManagement";
 import EnquiryList from "../pages/EnquiryManagement";
 import CallbackList from "../pages/CallbackManagement";
 import ReviewList from "../pages/reviewManagement";
+
+import BookingList from "../pages/bookingManagement";
 const Routes = props => {
     const { isAuth } = props;
     const routes = [
@@ -106,6 +108,10 @@ const Routes = props => {
                 {
                     path: "/review",
                     element: isAuth ? <ReviewList /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/booking",
+                    element: isAuth ? <BookingList /> : <Navigate to="/login" />
                 },
                 {
                     path: "404",
