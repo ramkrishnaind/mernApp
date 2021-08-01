@@ -6,7 +6,7 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
     name: Joi.string().required(),
-    email:Joi.string().required(),
+    email: Joi.string().required(),
     phone: Joi.number().required(),
     time: Joi.string().required()
 });
@@ -22,8 +22,8 @@ function createSiteVisitRequest(Models) {
             }
 
             // pick data from req.body
-         
-            let bodyData = _.pick(req.body, ["name","email","phone","time"]);
+
+            let bodyData = _.pick(req.body, ["name", "email", "phone", "time"]);
             // searching email or mobile already exists or not
             // let findData = await Models.SiteVisitDB.findOne({ email: bodyData.email });
             // if (findData) {
@@ -31,7 +31,7 @@ function createSiteVisitRequest(Models) {
             //     throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateModule: true, statusCode: 401 };
             // }
 
-            let saveModule = await new Models.ReqSiteVisitDB(bodyData).save();
+            let saveModule = await new Models.SiteVisitDB(bodyData).save();
             console.log('saveModule is', saveModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
         }
