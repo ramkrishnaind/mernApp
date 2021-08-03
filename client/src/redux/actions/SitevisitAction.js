@@ -43,7 +43,7 @@ export const SitevisitSuccess = (data) => {
  */
 export const SitevisitError = (data) => {
     return {
-        type: ACTION_KEYS.Sitevisit_ERROR,
+        type: ACTION_KEYS.SITEVISIT_ERROR,
         payload: { error: data },
     }
 }

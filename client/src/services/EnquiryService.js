@@ -1,5 +1,6 @@
 import { EnquirySuccess, EnquiryError } from "../redux/actions/EnquiryAction";
 import ApiClient from "../api-client";
+import * as Snackbar from "../redux/actions/SnackbarActions";
 import API_ENDPOINTS from "../constants/api-endpoints";
 
 export const EnquiryService = async (dispatch, data) => {
@@ -13,7 +14,9 @@ export const EnquiryService = async (dispatch, data) => {
       true
     );
     dispatch(EnquirySuccess(result));
+    dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(EnquiryError(error));
+    dispatch(Snackbar.showFailSnackbar('something want wrong'));
   }
 };
