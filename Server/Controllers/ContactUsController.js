@@ -4,7 +4,7 @@ const express = require('express');
 const fs = require('fs')
 var router = express.Router();
 const path = require('path');
-let { createContactUs, getContactUsList, updateContactUsStatus,updateContactUs } = require('./Routes');
+let { createContactUs, getContactUsList, updateContactUsStatus, updateContactUs } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
@@ -13,10 +13,10 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.post('/createContactUs', createContactUs(allCollection))
-    router.post('/getContactUsList', getContactUsList(allCollection))
-    router.post('/updateContactUs', updateContactUs(allCollection))
-    router.post('/updateContactUsStatus', updateContactUsStatus(allCollection))
-    
+    router.post('/createContactUs', requestAuthMiddleware, createContactUs(allCollection))
+    router.post('/getContactUsList', userAuthMiddleware, getContactUsList(allCollection))
+    router.post('/updateContactUs', userAuthMiddleware, updateContactUs(allCollection))
+    router.post('/updateContactUsStatus', userAuthMiddleware, updateContactUsStatus(allCollection))
+
     return router;
 };
