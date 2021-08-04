@@ -15,10 +15,11 @@ import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-
 import ClearIcon from "@material-ui/icons/Clear";
-
 import history from "../../components/history";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -70,7 +71,20 @@ const BlogList = (props) => {
       _id: data,
 
     };
-    dispatch(BlogAction.BlogDeleteRequestAsync(tempdata));
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => dispatch(BlogAction.BlogDeleteRequestAsync(tempdata))
+        },
+        {
+          label: 'No',
+
+        }
+      ]
+    });
   }
 
   function updatehandleOpenCreateModal(data) {

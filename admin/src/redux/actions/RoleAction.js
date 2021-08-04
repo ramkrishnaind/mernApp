@@ -96,6 +96,8 @@ export const RoleStatusUpdateRequestAsync = (data) => {
     return (dispatch) => {
         dispatch(RoleUpdateStatusRequest());
         RoleStatusUpdateService(dispatch, data);
+        dispatch(RoleListRequest());
+        RoleListService(dispatch, "");
     }
 }
 
@@ -222,10 +224,11 @@ export const RoleDataError = (data) => {
 }
 
 export const RoleDeleteRequestAsync = (data) => {
-    // console.log('data',data);
     return (dispatch) => {
         dispatch(RoleDeleteRequest());
         RoleDeleteService(dispatch, data);
+        dispatch(RoleListRequest());
+        RoleListService(dispatch, "");
     }
 }
 

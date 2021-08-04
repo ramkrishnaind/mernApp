@@ -53,11 +53,11 @@ export const RoleListSuccess = (data) => {
 export const RoleListError = (data) => {
     return {
         type: ACTION_KEYS.USER_ROLE_LIST_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
- export const UserListRequestAsync = (data) => {
+export const UserListRequestAsync = (data) => {
     return (dispatch) => {
         dispatch(UserListRequest());
         UserListService(dispatch, data);
@@ -95,7 +95,7 @@ export const UserListSuccess = (data) => {
 export const UserListError = (data) => {
     return {
         type: ACTION_KEYS.USER_LIST_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -138,7 +138,7 @@ export const UserAddSuccess = (data) => {
 export const UserAddError = (data) => {
     return {
         type: ACTION_KEYS.USER_ADD_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -147,6 +147,8 @@ export const UserStatusUpdateRequestAsync = (data) => {
     return (dispatch) => {
         dispatch(UserUpdateStatusRequest());
         UserStatusUpdateService(dispatch, data);
+        dispatch(UserListRequest());
+        UserListService(dispatch, "");
     }
 }
 
@@ -181,7 +183,7 @@ export const UserUpdateStatusSuccess = (data) => {
 export const UserUpdateStatusError = (data) => {
     return {
         type: ACTION_KEYS.USER_UPDATE_STATUS_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -225,7 +227,7 @@ export const UserUpdateSuccess = (data) => {
 export const UserUpdateError = (data) => {
     return {
         type: ACTION_KEYS.USER_UPDATE_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -268,7 +270,7 @@ export const UserDataSuccess = (data) => {
 export const UserDataError = (data) => {
     return {
         type: ACTION_KEYS.USER_DATA_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -278,6 +280,8 @@ export const UserDeleteRequestAsync = (data) => {
     return (dispatch) => {
         dispatch(UserDeleteRequest());
         UserDeleteService(dispatch, data);
+        dispatch(UserListRequest());
+        UserListService(dispatch, "");
     }
 }
 
@@ -312,6 +316,6 @@ export const UserDeleteSuccess = (data) => {
 export const UserDeleteError = (data) => {
     return {
         type: ACTION_KEYS.USER_DATA_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }

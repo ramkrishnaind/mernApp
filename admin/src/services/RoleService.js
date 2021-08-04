@@ -1,68 +1,83 @@
 import * as RoleAction from "../redux/actions/RoleAction";
 import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
+import * as Snackbar from "../redux/actions/snackbarActions";
+import history from "../components/history";
 
 export const RoleListService = async (dispatch, data) => {
-  try {
-    const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.ROLE_LIST_ENDPOINT, data, null, null, true);
+  const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.ROLE_LIST_ENDPOINT, data, null, null, true);
+  if (result.status) {
     dispatch(RoleAction.RoleListSuccess(result));
-
-  } catch (error) {
-    dispatch(RoleAction.RoleListError(error));
+  } else {
+    dispatch(RoleAction.RoleListError(result));
+    dispatch(Snackbar.showFailSnackbar(result.message));
   }
 }
 
 export const RoleAddService = async (dispatch, data) => {
-  try {
-    const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.ROLE_ADD_ENDPOINT, data, null, null, true);
+  const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.ROLE_ADD_ENDPOINT, data, null, null, true);
+  if (result.status) {
     dispatch(RoleAction.RoleAddSuccess(result));
-  } catch (error) {
-    dispatch(RoleAction.RoleAddError(error));
+    dispatch(Snackbar.showSuccessSnackbar(result.message));
+    history.push('/role')
+    window.location.reload();
+  } else {
+    dispatch(RoleAction.RoleAddError(result));
+    dispatch(Snackbar.showFailSnackbar(result.message));
   }
 }
 
 export const RoleStatusUpdateService = async (dispatch, data) => {
-  try {
-    const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.ROLE_STATUS_UPDATE_ENDPOINT, data, null, null, true);
+  const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.ROLE_STATUS_UPDATE_ENDPOINT, data, null, null, true);
+  if (result.status) {
     dispatch(RoleAction.RoleUpdateStatusSuccess(result));
-  } catch (error) {
-    dispatch(RoleAction.RoleUpdateStatusError(error));
+    dispatch(Snackbar.showSuccessSnackbar(result.message));
+  } else {
+    dispatch(RoleAction.RoleUpdateStatusError(result));
+    dispatch(Snackbar.showFailSnackbar(result.message));
   }
 }
 
 export const RoleUpdateService = async (dispatch, data) => {
-  try {
-    const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.ROLE_UPDATE_ENDPOINT, data, null, null, true);
+  const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.ROLE_UPDATE_ENDPOINT, data, null, null, true);
+  if (result.status) {
     dispatch(RoleAction.RoleUpdateSuccess(result));
-  } catch (error) {
-    dispatch(RoleAction.RoleUpdateError(error));
+    dispatch(Snackbar.showSuccessSnackbar(result.message));
+    history.push('/role')
+    window.location.reload();
+  } else {
+    dispatch(RoleAction.RoleUpdateError(result));
+    dispatch(Snackbar.showFailSnackbar(result.message));
   }
 }
 
 export const RoleDeleteService = async (dispatch, data) => {
-  try {
-    const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.ROLE_DELETE_ENDPOINT, data, null, null, true);
+  const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.ROLE_DELETE_ENDPOINT, data, null, null, true);
+  if (result.status) {
     dispatch(RoleAction.RoleDeleteSuccess(result));
-  } catch (error) {
-    dispatch(RoleAction.RoleDeleteError(error));
+    dispatch(Snackbar.showSuccessSnackbar(result.message));
+  } else {
+    dispatch(RoleAction.RoleDeleteError(result));
+    dispatch(Snackbar.showFailSnackbar(result.message));
   }
 }
 
 export const RoleDataService = async (dispatch, data) => {
-  try {
-    const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.ROLE_DATA_ENDPOINT, data, null, null, true);
+  const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.ROLE_DATA_ENDPOINT, data, null, null, true);
+  if (result.status) {
     dispatch(RoleAction.RoleDataSuccess(result));
-  } catch (error) {
-    dispatch(RoleAction.RoleDataError(error));
+  } else {
+    dispatch(RoleAction.RoleDataError(result));
+    dispatch(Snackbar.showFailSnackbar(result.message));
   }
 }
 
 export const RoleMenuListService = async (dispatch, data) => {
-  try {
-    const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.MENULIST_ENDPOINT, data, null, null, true);
+  const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.MENULIST_ENDPOINT, data, null, null, true);
+  if (result.status) {
     dispatch(RoleAction.RoleMenuListSuccess(result));
-
-  } catch (error) {
-    dispatch(RoleAction.RoleMenuListError(error));
+  } else {
+    dispatch(RoleAction.RoleMenuListError(result));
+    dispatch(Snackbar.showFailSnackbar(result.message));
   }
 }

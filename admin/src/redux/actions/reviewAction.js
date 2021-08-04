@@ -1,5 +1,5 @@
 import ACTION_KEYS from "../../constants/action-keys";
-import { ReviewListService,ReviewStatusUpdateService } from "../../services/ReviewService";
+import { ReviewListService, ReviewStatusUpdateService } from "../../services/ReviewService";
 
 /**
  * Call by the Component to make Login Request
@@ -30,9 +30,9 @@ const ReviewListRequest = () => {
  * @returns 
  */
 export const ReviewListSuccess = (data) => {
-    
+
     // dispatch(ReviewListRequestAsync)
-    return {        
+    return {
         type: ACTION_KEYS.REVIEW_LIST_SUCCESS,
         payload: data,
     }
@@ -46,7 +46,7 @@ export const ReviewListSuccess = (data) => {
 export const ReviewListError = (data) => {
     return {
         type: ACTION_KEYS.REVIEW_LIST_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -55,6 +55,8 @@ export const ReviewStatusUpdateRequestAsync = (data) => {
     return (dispatch) => {
         dispatch(ReviewUpdateStatusRequest());
         ReviewStatusUpdateService(dispatch, data);
+        dispatch(ReviewListRequest());
+        ReviewListService(dispatch, "");
     }
 }
 
@@ -89,6 +91,6 @@ export const ReviewUpdateStatusSuccess = (data) => {
 export const ReviewUpdateStatusError = (data) => {
     return {
         type: ACTION_KEYS.REVIEW_UPDATE_STATUS_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }

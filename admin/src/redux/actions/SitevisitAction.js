@@ -53,6 +53,8 @@ export const SitevisitStatusUpdateRequestAsync = (data) => {
     return (dispatch) => {
         dispatch(SitevisitUpdateStatusRequest());
         SitevisitStatusUpdateService(dispatch, data);
+        dispatch(SitevisitListRequest());
+        SitevisitListService(dispatch, "");
     }
 }
 

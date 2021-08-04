@@ -1,22 +1,26 @@
 import * as SitevisitAction from "../redux/actions/SitevisitAction";
 import ApiClient from '../api-client';
 import API_ENDPOINTS from '../constants/api-endpoints';
+import * as Snackbar from "../redux/actions/snackbarActions";
 
 export const SitevisitListService = async (dispatch, data) => {
-    try {
-        const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.SITEVISIT_LIST_ENDPOINT, data, null, null, true);
+    const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.SITEVISIT_LIST_ENDPOINT, data, null, null, true);
+    if (result.status) {
         dispatch(SitevisitAction.SitevisitListSuccess(result));
-    } catch (error) {
-        dispatch(SitevisitAction.SitevisitListError(error));
+    } else {
+        dispatch(SitevisitAction.SitevisitListError(result));
+        dispatch(Snackbar.showFailSnackbar(result.message));
     }
 }
 
 export const SitevisitStatusUpdateService = async (dispatch, data) => {
-    try {
-        const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.SITEVISIT_STATUS_UPDATE_ENDPOINT, data, null, null, true);
+    const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.SITEVISIT_STATUS_UPDATE_ENDPOINT, data, null, null, true);
+    if (result.status) {
         dispatch(SitevisitAction.SitevisitUpdateStatusSuccess(result));
-    } catch (error) {
-        dispatch(SitevisitAction.SitevisitUpdateStatusError(error));
+        dispatch(Snackbar.showSuccessSnackbar(result.message));
+    } else {
+        dispatch(SitevisitAction.SitevisitUpdateStatusError(result));
+        dispatch(Snackbar.showFailSnackbar(result.message));
     }
 }
 
