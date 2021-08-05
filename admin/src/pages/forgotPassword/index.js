@@ -8,14 +8,13 @@ import {
   Button,
   TextField,
   Link,
-  Checkbox,
 } from "@material-ui/core";
 
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/styles";
 
 import loginImage from "./adminLogin.jpg";
-import { LoginRequestAsync } from "../../redux/actions/LoginAction";
+import { ForgotRequestAsync } from "../../redux/actions/ForgotAction";
 import { Link as RouterLink } from 'react-router-dom';
 
 const styles = (theme) => ({
@@ -201,10 +200,9 @@ const styles = (theme) => ({
     color: "black",
   },
 });
-const Login = (props) => {
+const ForgotPassword = (props) => {
   const initialState = {
     email: "",
-    password: "",
   };
   const [state, setState] = useState(initialState);
 
@@ -215,10 +213,11 @@ const Login = (props) => {
 
     setState({ ...state, [name]: value });
   };
-  const loginSubmit = (e) => {
-    const { email, password } = state;
-    console.log(state)
-    props.dispatch(LoginRequestAsync({ email: email, password }));
+  const handleSubmit = (e) => {
+    const { email } = state;
+    // console.log(state)
+
+    props.dispatch(ForgotRequestAsync({ email: email }));
   };
 
   const { classes } = props;
@@ -230,10 +229,10 @@ const Login = (props) => {
             <Typography className={classes.mainHeading}>
               Vishal Properties
           </Typography>
-            <Typography className={classes.welcomeHeading}>
+            {/* <Typography className={classes.welcomeHeading}>
               Welcome back!
-          </Typography>
-            <Typography>Happy to see you again!</Typography>
+          </Typography> */}
+            {/* <Typography>Happy to see you again!</Typography> */}
             <React.Fragment>
               <TextField
                 id="email"
@@ -248,45 +247,7 @@ const Login = (props) => {
                 type="email"
                 fullWidth
               />
-              <TextField
-                id="password"
-                label="Password"
-                variant="outlined"
-                name="password"
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
-                }}
-                value={state.password}
-                onChange={inputChange}
-                margin="normal"
-                placeholder="Password"
-                type="password"
-                fullWidth
-              />
-              <Grid container>
-                <Grid item xs>
-                  <Grid item xs>
-                    <Checkbox
-                      className={classes.checkbox}
-                      value="checkedA"
-                      inputProps={{ "aria-label": "Checkbox A" }}
-                    />
-                    <Link
-                      href="#"
-                      variant="body2"
-                      className={classes.alignCheckboxHeading}
-                    >
-                      Keep me signed in
-                  </Link>
-                  </Grid>
-                </Grid>
-                <Grid item>
-                  <Link component={RouterLink} to="/forgot">Forget password?</Link>
-                </Grid>
-              </Grid>
+
               <div className={classes.formButtons}>
                 {false ? (
                   <CircularProgress size={26} className={classes.loginLoader} />
@@ -294,21 +255,22 @@ const Login = (props) => {
                     <Button
                       fullWidth
                       disabled={
-                        state?.email?.length === 0 || state?.password?.length === 0
+                        state?.email?.length === 0
                       }
-                      onClick={loginSubmit}
+                      onClick={handleSubmit}
                       variant="contained"
                       color="primary"
                       size="large"
                     >
-                      Login
+                      Forgot Password
                     </Button>
                   )}
               </div>
+
             </React.Fragment>
           </div>
           <Typography color="primary" className={classes.createAccount}>
-            Don't have an account? <Link component={RouterLink} to="/register">Create</Link>
+            Back to <Link component={RouterLink} to="/login">Login</Link>
           </Typography>
         </div>
 
@@ -324,11 +286,11 @@ const Login = (props) => {
 
 function mapStateToProps(state) {
   console.log("state  ", state);
-  // const { loggingIn } = state.Login.data;
+  // const { loggingIn } = state.ForgotPassword.data;
   const { users } = state;
   return {
     // loggingIn,
     users,
   };
 }
-export default connect(mapStateToProps)(withStyles(styles)(Login));
+export default connect(mapStateToProps)(withStyles(styles)(ForgotPassword));

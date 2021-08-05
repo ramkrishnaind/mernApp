@@ -25,6 +25,8 @@ import CallbackList from "../pages/CallbackManagement";
 import ReviewList from "../pages/reviewManagement";
 
 import BookingList from "../pages/bookingManagement";
+import ForgotPassword from "../pages/forgotPassword";
+
 const Routes = props => {
     const { isAuth } = props;
     const routes = [
@@ -43,6 +45,10 @@ const Routes = props => {
                 {
                     path: "/register",
                     element: <RegisterPage />,
+                },
+                {
+                    path: "/forgot",
+                    element: <ForgotPassword />,
                 },
                 {
                     path: "/home",
