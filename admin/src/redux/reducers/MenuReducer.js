@@ -7,7 +7,7 @@ const initialState = {
   data: null,
 };
 
-const PropertyListReducer = (state = initialState, action) => {
+const MenuReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -38,7 +38,7 @@ const PropertyListReducer = (state = initialState, action) => {
       return {
         ...state,
         isRequesting: false,
-        success:true,
+        success: true,
         menuData: payload.data,
       };
     case ACTION_KEYS.MENU_DATA_ERROR:
@@ -46,11 +46,10 @@ const PropertyListReducer = (state = initialState, action) => {
         ...state,
         isRequesting: false,
         error: payload.error,
-        
       };
     default:
       return state;
   }
 };
 
-export default PropertyListReducer;
+export default MenuReducer;
