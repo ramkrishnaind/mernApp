@@ -27,7 +27,7 @@ let storage = multer.diskStorage({
 let upload = multer({ storage: storage });
 const path = require('path');
 let { createPropertyRequest, getPropertyRequest, updatePropertyStatusRequest, exteriorImage,
-    getUserIdPropertyList,updatePrice, getSearchPropertyList } = require('./Routes');
+    getUserIdPropertyList, updatePrice, getSearchPropertyList } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
@@ -36,14 +36,14 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.post('/createPropertyRequest', createPropertyRequest(allCollection))
-    router.post('/getPropertyRequest', getPropertyRequest(allCollection))
-    router.post('/updatePropertyStatusRequest', requestAuthMiddleware, updatePropertyStatusRequest(allCollection))
+    router.post('/createPropertyRequest', requestAuthMiddleware, createPropertyRequest(allCollection))
+    router.post('/getPropertyRequest', requestAuthMiddleware, getPropertyRequest(allCollection))
+    router.post('/updatePropertyStatusRequest', userAuthMiddleware, updatePropertyStatusRequest(allCollection))
     router.post('/uploadImage', upload.array("image"), exteriorImage(allCollection))
     router.post('/getUserIdPropertyRequest', getUserIdPropertyList(allCollection))
     router.post('/updatePrice', updatePrice(allCollection))
     router.post('/getSearchPropertyList', getSearchPropertyList(allCollection))
-    
-    
+
+
     return router;
 };
