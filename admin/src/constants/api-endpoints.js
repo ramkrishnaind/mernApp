@@ -5,6 +5,8 @@ const API_ENDPOINTS = {
   LOGIN_ENDPOINT: "/users/login",
   REGISTER_ENDPOINT: "/users/signup",
   FORGOT_ENDPOINT: "/users/forgotPassword",
+  RESET_PASSWORD_ENDPOINT: "/users/setNewPassword",
+
   MODULERIGHTS_ENDPOINT: "/menuModule/getAllMenuList",
   //menu module
   MENULIST_ENDPOINT: "menuModule/getAllMenuList",

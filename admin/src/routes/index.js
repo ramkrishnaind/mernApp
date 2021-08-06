@@ -26,7 +26,7 @@ import ReviewList from "../pages/reviewManagement";
 
 import BookingList from "../pages/bookingManagement";
 import ForgotPassword from "../pages/forgotPassword";
-
+import ResetPassword from "../pages/resetPassword";
 const Routes = props => {
     const { isAuth } = props;
     const routes = [
@@ -49,6 +49,10 @@ const Routes = props => {
                 {
                     path: "/forgot",
                     element: <ForgotPassword />,
+                },
+                {
+                    path: "/reset",
+                    element: <ResetPassword />,
                 },
                 {
                     path: "/home",
