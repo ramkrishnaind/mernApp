@@ -15,10 +15,11 @@ import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-
 import ClearIcon from "@material-ui/icons/Clear";
-
 import history from "../../components/history";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -51,8 +52,8 @@ const BlogList = (props) => {
 
   function onDisable(data, status) {
     let tempdata = {
-      id: data,
-      status: status
+      _id: data,
+      active: status
     };
     dispatch(BlogAction.BlogStatusUpdateRequestAsync(tempdata));
 
@@ -66,7 +67,24 @@ const BlogList = (props) => {
   }
 
   function onDeleteClick(data) {
+    let tempdata = {
+      _id: data,
 
+    };
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => dispatch(BlogAction.BlogDeleteRequestAsync(tempdata))
+        },
+        {
+          label: 'No',
+
+        }
+      ]
+    });
   }
 
   function updatehandleOpenCreateModal(data) {
@@ -86,13 +104,13 @@ const BlogList = (props) => {
             data={blog.list.map((item, index) => {
               return [
                 (index + 1),
-                item.name,
+                item.title,
                 item.description,
                 item.status,
                 item._id
               ]
             })}
-            columns={['SR No.', 'Name', 'Description',
+            columns={['SR No.', 'Title', 'Description',
               {
                 name: "Status",
                 options: {

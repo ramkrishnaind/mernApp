@@ -1,5 +1,5 @@
 import ACTION_KEYS from "../../constants/action-keys";
-import { MenuListService,MenuAddService,MenuStatusUpdateService,MenuUpdateService,MenuDataService } from "../../services/MenuService";
+import { MenuListService, MenuAddService, MenuStatusUpdateService, MenuUpdateService, MenuDataService } from "../../services/MenuService";
 
 /**
  * Call by the Component to make Login Request
@@ -44,7 +44,7 @@ export const MenuListSuccess = (data) => {
 export const MenuListError = (data) => {
     return {
         type: ACTION_KEYS.MENU_LIST_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -87,7 +87,7 @@ export const MenuAddSuccess = (data) => {
 export const MenuAddError = (data) => {
     return {
         type: ACTION_KEYS.MENU_ADD_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -96,6 +96,8 @@ export const MenuStatusUpdateRequestAsync = (data) => {
     return (dispatch) => {
         dispatch(MenuUpdateStatusRequest());
         MenuStatusUpdateService(dispatch, data);
+        MenuListService(dispatch, "");
+        dispatch(MenuListRequest());
     }
 }
 
@@ -130,7 +132,7 @@ export const MenuUpdateStatusSuccess = (data) => {
 export const MenuUpdateStatusError = (data) => {
     return {
         type: ACTION_KEYS.MENU_UPDATE_STATUS_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -174,7 +176,7 @@ export const MenuUpdateSuccess = (data) => {
 export const MenuUpdateError = (data) => {
     return {
         type: ACTION_KEYS.MENU_UPDATE_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -217,6 +219,6 @@ export const MenuDataSuccess = (data) => {
 export const MenuDataError = (data) => {
     return {
         type: ACTION_KEYS.MENU_DATA_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }

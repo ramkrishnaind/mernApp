@@ -1,9 +1,9 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import {
   Typography
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import * as MenuAction from "../../redux/actions/MenuAction";
+import * as ContactusAction from "../../redux/actions/ContactusAction";
 import { useDispatch } from "react-redux";
 
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -20,47 +20,46 @@ import ClearIcon from "@material-ui/icons/Clear";
 
 import history from "../../components/history";
 const styles = (theme) => ({
-    root: {
-      width: "100%",
-      marginTop: theme.spacing.unit * 3,
-      overflowX: "auto",
-    },
-    table: {
-      minWidth: 650,
-    },
+  root: {
+    width: "100%",
+    marginTop: theme.spacing.unit * 3,
+    overflowX: "auto",
+  },
+  table: {
+    minWidth: 650,
+  },
 });
 
-const ContactList = (props) => {
+const ContactUsList = (props) => {
 
-    const dispatch = useDispatch();
-    let {
-        classes,
-        menu,
-      } = props;
+  const dispatch = useDispatch();
+  let {
+    contactus,
+  } = props;
 
-    useEffect(() => {
-    dispatch(MenuAction.MenuListRequestAsync());
-    }, []);
+  useEffect(() => {
+    dispatch(ContactusAction.ContactusListRequestAsync());
+  }, []);
 
   let options = {
     selectableRows: false,
     print: false,
     download: true,
   };
-  
 
-  function onDisable(data,status) {
+
+  function onDisable(data, status) {
     let tempdata = {
       id: data,
-      status:status
+      isDisable: status
     };
-    dispatch(MenuAction.MenuStatusUpdateRequestAsync(tempdata));
-   
-    if(status==="enable"){
+    dispatch(ContactusAction.ContactUsStatusUpdateRequestAsync(tempdata));
+
+    if (status === "enable") {
       // toast.error("Disable")
 
     }
-    else{
+    else {
       // toast.success("Enable")
     }
   }
@@ -68,101 +67,102 @@ const ContactList = (props) => {
   function onDeleteClick(data) {
 
   }
-  
+
   function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/menu/edit?id="+data;
-    history.push('/career/add?id='+data)
+    // window.location.href = "/contactus/edit?id="+data;
+    history.push('/contactus/add?id=' + data)
     window.location.reload();
   }
 
-    return (
+  return (
+    <>
+      <FormHeader heading1={"Contact us Module Management"} heading2={"List and Manage Contact us Here"} />
+      <BreadCrumbs heading1={"ContactusManagement"} heading2={"Contact us Module List"} />
+      {contactus?.list?.list && contactus?.list?.list?.length > 0 ? (
         <>
-        <FormHeader heading1={"Contact us Module Management"} heading2={"List and Manage Contact us Here"} />
-        <BreadCrumbs heading1={"ContactusManagement"} heading2={"Contact us Module List"} />
-        {menu.list && menu.list.length > 0 ? (
-            <>
           <MUIDataTable className="table-header"
             title="Contact us List"
-            data={menu.list.map((item,index) => {
-                return [
-                    (index +1),
-                    item.name,
-                    item.name,
-                    item.name,
-                    item.description,
-                    item._id
-                ]
+            data={contactus?.list?.list?.map((item, index) => {
+              return [
+                (index + 1),
+                item.name,
+                item.email,
+                item.mobile,
+                item.subject,
+                item.message,
+                item.isResolved,
+                item._id
+              ]
             })}
-            columns={['SR No.','Name','Email','Phone','Description',
-            // {
-            //   name: "Status",
-            //   options: {
-            //     customBodyRender: (value, tableMeta, updateValue) => {
-            //       if (value === true)
-            //         return (
-            //           'Active'
-            //         );
-            //       else
-            //         return (
-            //           'Inactive'
-            //         );
-            //     }
-            //   }
-            // },
-            {
-              name: "Actions",
-              options: {
-                customBodyRender: (value, tableMeta, updateValue) => {
-                  return (
-                    <>
-                    {/* <EditIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/> */}
+            columns={['SR No.', 'Name', 'Email', 'Phone', 'Subject', 'message',
+              {
+                name: "Status",
+                options: {
+                  customBodyRender: (value, tableMeta, updateValue) => {
+                    if (value === true)
+                      return (
+                        'Active'
+                      );
+                    else
+                      return (
+                        'Inactive'
+                      );
+                  }
+                }
+              },
+              {
+                name: "Actions",
+                options: {
+                  customBodyRender: (value, tableMeta, updateValue) => {
+                    return (
+                      <>
+                        {/* <EditIcon style={{ color: "#0069d9", cursor: "pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])} /> */}
 
-                    {tableMeta.rowData[3] ? (
-                      <Tooltip title="Active">
-                        <Done
-                        onClick={() =>onDisable(tableMeta.rowData[4],false)}
-                        style={{ color: "#1e7e34", cursor:"pointer" }}
-                      />
-                      </Tooltip>
-                      
-                    ) : (
-                      <Tooltip title="Inactive">
-                        <ClearIcon 
-                          onClick={() => onDisable(tableMeta.rowData[4],true)}
-                          style={{ color: "#bd2130", cursor:"pointer" }}
-                        />
-                      </Tooltip>
-                    )}
-                    
-                    <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[4])} />
-                    </>
-                  );
+                        {tableMeta.rowData[6] ? (
+                          <Tooltip title="Active">
+                            <Done
+                              onClick={() => onDisable(tableMeta.rowData[7], false)}
+                              style={{ color: "#1e7e34", cursor: "pointer" }}
+                            />
+                          </Tooltip>
+
+                        ) : (
+                            <Tooltip title="Inactive">
+                              <ClearIcon
+                                onClick={() => onDisable(tableMeta.rowData[7], true)}
+                                style={{ color: "#bd2130", cursor: "pointer" }}
+                              />
+                            </Tooltip>
+                          )}
+
+                        {/* <DeleteIcon style={{ color: "#bd2130", cursor: "pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[8])} /> */}
+                      </>
+                    );
+                  }
                 }
               }
-            }
             ]}
             options={options}
 
           />
-            </>
-          ) : (
-            <Typography>Data not found.</Typography>
-          )}
         </>
-    );
-    
-} 
+      ) : (
+          <Typography>Data not found.</Typography>
+        )}
+    </>
+  );
+}
 
 
 function mapStateToProps(state) {
-  const { menu } = state;
+  const { contactus } = state;
   return {
-    menu,
-    
+    contactus,
+
   };
 }
 export default connect(mapStateToProps)(
-  withStyles(styles)(ContactList),
+  withStyles(styles)(ContactUsList),
 );
 
 

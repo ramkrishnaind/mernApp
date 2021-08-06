@@ -1,5 +1,5 @@
 import ACTION_KEYS from "../../constants/action-keys";
-import { CallbackListService,CallbackStatusUpdateService } from "../../services/CallbackService";
+import { CallbackListService, CallbackStatusUpdateService } from "../../services/CallbackService";
 
 /**
  * Call by the Component to make Login Request
@@ -44,7 +44,7 @@ export const CallbackListSuccess = (data) => {
 export const CallbackListError = (data) => {
     return {
         type: ACTION_KEYS.CALLBACK_LIST_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -53,6 +53,8 @@ export const CallbackStatusUpdateRequestAsync = (data) => {
     return (dispatch) => {
         dispatch(CallbackUpdateStatusRequest());
         CallbackStatusUpdateService(dispatch, data);
+        CallbackListService(dispatch, "");
+        dispatch(CallbackListRequest());
     }
 }
 
@@ -87,6 +89,6 @@ export const CallbackUpdateStatusSuccess = (data) => {
 export const CallbackUpdateStatusError = (data) => {
     return {
         type: ACTION_KEYS.CALLBACK_UPDATE_STATUS_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }

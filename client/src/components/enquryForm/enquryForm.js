@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,7 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import ChatIcon from '@material-ui/icons/Chat';
 import './enquryForm.css'
 import { Box, NativeSelect, TextField } from '@material-ui/core';
-
+import { useDispatch } from "react-redux";
+import * as EnquiryAction from '../../redux/actions/EnquiryAction';
 
 const styles = (theme) => ({
   root: {
@@ -30,8 +31,11 @@ const styles = (theme) => ({
   }
 });
 
+
 const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
+
+
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
       <Typography variant="h6">{children}</Typography>
@@ -60,8 +64,36 @@ const DialogActions = withStyles((theme) => ({
 // main function
 
 function EnquryForm(props) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const { children, classes, onClose, ...other } = props;
+
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState("");
+  const [country, setCountry] = useState("");
+  const [type, setPropertyType] = useState("");
+  const [propertyname, setPropertyName] = useState("");
+  const dispatch = useDispatch();
+  const handleData = (e) => {
+    const formData = {
+      name: name,
+      email: email,
+      phone: mobile,
+      place: country,
+      // type: type,
+      // propertyname: propertyname,
+    };
+    console.log('formData', formData);
+    dispatch(EnquiryAction.EnquiryRequestAsync(formData));
+    // toast.success('Request Sent successfully', { position: toast.POSITION.TOP_RIGHT, autoClose: 5000 })
+    setName('')
+    setMobile('')
+    setEmail('')
+    setCountry('')
+    setPropertyType('')
+    setPropertyName('')
+    setOpen(false);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -73,95 +105,117 @@ function EnquryForm(props) {
   return (
     <div className="EnquryForm">
       <Button variant="outlined" color="primary" onClick={handleClickOpen} className="enquryButton">
-        <ChatIcon style={{ color: "#FF7601", fontSize: 25, padding: 0, marginRight: 8, color: '#fff' }} />    
-      </Button> 
-      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title"  open={open} className="EnquryFormData">
+        <ChatIcon style={{ color: "#FF7601", fontSize: 25, padding: 0, marginRight: 8, color: '#fff' }} />
+      </Button>
+      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} className="EnquryFormData">
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           ENQUIRY NOW
         </DialogTitle>
         <Box className="emiForm">
-                <TextField
-                    className ="EmiInputs"
-                    style={{marginTop: 15}}
-                    variant="outlined" 
-                    label="Your Name"
-                    InputProps={{
-                        classes: {
-                        notchedOutline: classes.notchedOutline
-                        }
-                    }}
-                    InputLabelProps={{
-                        style: {color: '#FFFFFF'}
-                    }} 
-                    fullWidth >
-                </TextField>
-                <TextField
-                    className ="EmiInputs"
-                    style={{marginTop: 15}}
-                    variant="outlined" 
-                    label="Email Address" 
-                    InputProps={{
-                        classes: {
-                        notchedOutline: classes.notchedOutline
-                        }
-                    }}
-                    InputLabelProps={{
-                        style: {color: '#FFFFFF'}
-                    }} 
-                    fullWidth >
-                </TextField>
-                <TextField
-                    className ="EmiInputs"
-                    style={{marginTop: 15}}
-                    variant="outlined" 
-                    label="Phone Number" 
-                    InputProps={{
-                        classes: {
-                        notchedOutline: classes.notchedOutline
-                        }
-                    }}
-                    InputLabelProps={{
-                        style: {color: '#FFFFFF'}
-                    }} 
-                    fullWidth >
-                </TextField>
-                <TextField
-                    className ="EmiInputs"
-                    style={{marginTop: 15}}
-                    variant="outlined" 
-                    label="Enter Contry" 
-                    InputProps={{
-                        classes: {
-                        notchedOutline: classes.notchedOutline
-                        }
-                    }}
-                    InputLabelProps={{
-                        style: {color: '#FFFFFF'}
-                    }} 
-                    fullWidth >
-                </TextField>
-                <NativeSelect className="EmiInputs selectInput" fullWidth>
-                    <option value={10}>Select Property Type</option>
-                    <option value={20}>Residential</option>
-                    <option value={30}>Commerical</option>
-                </NativeSelect>
-                <NativeSelect className="EmiInputs selectInput" fullWidth>
-                    <option value={10}>Select Property Name</option>
-                    <option value={20}>Villa</option>
-                    <option value={30}>Flats</option>
-                    <option value={30}>Plot</option>
-                </NativeSelect>
-            </Box>
+          <TextField
+            className="EmiInputs"
+            style={{ marginTop: 15 }}
+            variant="outlined"
+            label="Your Name"
+            name="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              style: { color: '#FFFFFF' }
+            }}
+            fullWidth >
+          </TextField>
+          <TextField
+            className="EmiInputs"
+            style={{ marginTop: 15 }}
+            variant="outlined"
+            label="Email Address"
+            type="email"
+            name="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              style: { color: '#FFFFFF' }
+            }}
+            fullWidth >
+          </TextField>
+          <TextField
+            className="EmiInputs"
+            style={{ marginTop: 15 }}
+            variant="outlined"
+            label="Phone Number"
+            name="Phone"
+            type="tel"
+            value={mobile}
+            onChange={(e) => setMobile(e.target.value)}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              style: { color: '#FFFFFF' }
+            }}
+            fullWidth >
+          </TextField>
+          <TextField
+            className="EmiInputs"
+            style={{ marginTop: 15 }}
+            variant="outlined"
+            label="Enter Contry"
+
+            name="Country"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              style: { color: '#FFFFFF' }
+            }}
+            fullWidth >
+          </TextField>
+          <NativeSelect className="EmiInputs selectInput"
+            onChange={(e) => setPropertyType(e.target.value)}
+            fullWidth>
+            <option value={10}>Select Property Type</option>
+            <option value={20}>Residential</option>
+            <option value={30}>Commerical</option>
+          </NativeSelect>
+          <NativeSelect className="EmiInputs selectInput"
+            onChange={(e) => setPropertyName(e.target.value)}
+            fullWidth>
+            <option value={10}>Select Property Name</option>
+            <option value={20}>Villa</option>
+            <option value={30}>Flats</option>
+            <option value={30}>Plot</option>
+          </NativeSelect>
+        </Box>
         <DialogActions>
-            <Box className="ParentButton">
-                <Button onClick={handleClose}>
-                    Save changes
+          <Box className="ParentButton">
+            <Button
+              //  onClick={handleClose}
+              onClick={(e) => handleData(e)}
+            >
+              Save changes
                 </Button>
-            </Box>
+          </Box>
         </DialogActions>
       </Dialog>
     </div>
   );
 }
 
-export default  withStyles(styles)(EnquryForm);
+export default withStyles(styles)(EnquryForm);
