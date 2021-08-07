@@ -1,4 +1,12 @@
 import ACTION_KEYS from "../../constants/action-keys";
+import { RegisterService } from '../../services/RegisterService';
+
+export const RegisterRequestAsync = (data) => {
+    return (dispatch) => {
+        dispatch(RegisterRequest());
+        RegisterService(dispatch, data);
+    }
+}
 
 export const RegisterRequest = () => {
     return {
@@ -17,6 +25,6 @@ export const RegisterSuccess = (data) => {
 export const RegisterError = (data) => {
     return {
         type: ACTION_KEYS.REGISTER_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
