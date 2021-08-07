@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
 notchedOutline: {
     borderWidth: "1px",
     borderColor: "#FFFFFF !important",
-  }
+}
 }));
 
 const ContactUsPage = (props) => {

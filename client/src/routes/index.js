@@ -10,7 +10,8 @@ import PostPropertyPage from "../pages/post-property";
 import Creere from "../pages/carrer";
 import Blog from "../pages/blog";
 import BlogDetails from "../components/blog-details/blog-detalis";
-
+import LoginPage from "../pages/login";
+import RegisterPage from "../pages/register";
 
 const routes = [
   {
@@ -64,6 +65,14 @@ const routes = [
         }
         return <Redirect to={{pathname: "/"}} />
     },
+  },
+  {
+    path: "/signin",
+    render: (props) => <LoginPage {...props} />,
+  },
+  {
+    path: "/register",
+    render: (props) => <RegisterPage {...props} />,
   },
 ];
 
