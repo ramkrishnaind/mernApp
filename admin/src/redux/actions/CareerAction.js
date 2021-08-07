@@ -1,5 +1,5 @@
 import ACTION_KEYS from "../../constants/action-keys";
-import { CareerListService,CareerAddService,CareerStatusUpdateService,CareerUpdateService,CareerDataService,CareerDeleteService } from "../../services/CareerService";
+import { CareerListService, CareerAddService, CareerStatusUpdateService, CareerUpdateService, CareerDataService, CareerDeleteService } from "../../services/CareerService";
 
 /**
  * Call by the Component to make Login Request
@@ -44,7 +44,7 @@ export const CareerListSuccess = (data) => {
 export const CareerListError = (data) => {
     return {
         type: ACTION_KEYS.CAREER_LIST_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -87,7 +87,7 @@ export const CareerAddSuccess = (data) => {
 export const CareerAddError = (data) => {
     return {
         type: ACTION_KEYS.CAREER_ADD_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -96,6 +96,8 @@ export const CareerStatusUpdateRequestAsync = (data) => {
     return (dispatch) => {
         dispatch(CareerUpdateStatusRequest());
         CareerStatusUpdateService(dispatch, data);
+        dispatch(CareerListRequest());
+        CareerListService(dispatch, "");
     }
 }
 
@@ -130,7 +132,7 @@ export const CareerUpdateStatusSuccess = (data) => {
 export const CareerUpdateStatusError = (data) => {
     return {
         type: ACTION_KEYS.CAREER_UPDATE_STATUS_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -174,7 +176,7 @@ export const CareerUpdateSuccess = (data) => {
 export const CareerUpdateError = (data) => {
     return {
         type: ACTION_KEYS.CAREER_UPDATE_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -217,7 +219,7 @@ export const CareerDataSuccess = (data) => {
 export const CareerDataError = (data) => {
     return {
         type: ACTION_KEYS.CAREER_DATA_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -226,6 +228,8 @@ export const CareerDeleteRequestAsync = (data) => {
     return (dispatch) => {
         dispatch(CareerDeleteRequest());
         CareerDeleteService(dispatch, data);
+        dispatch(CareerListRequest());
+        CareerListService(dispatch, "");
     }
 }
 
@@ -260,6 +264,6 @@ export const CareerDeleteSuccess = (data) => {
 export const CareerDeleteError = (data) => {
     return {
         type: ACTION_KEYS.CAREER_DELETE_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }

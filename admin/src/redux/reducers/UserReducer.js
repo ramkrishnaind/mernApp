@@ -7,7 +7,7 @@ const initialState = {
   data: null,
 };
 
-const PropertyListReducer = (state = initialState, action) => {
+const UserReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -56,7 +56,7 @@ const PropertyListReducer = (state = initialState, action) => {
       return {
         ...state,
         isRequesting: false,
-        success:true,
+        success: true,
         userData: payload.data,
       };
     case ACTION_KEYS.USER_DATA_ERROR:
@@ -70,4 +70,4 @@ const PropertyListReducer = (state = initialState, action) => {
   }
 };
 
-export default PropertyListReducer;
+export default UserReducer;

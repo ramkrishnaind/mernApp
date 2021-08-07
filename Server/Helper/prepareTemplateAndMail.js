@@ -30,12 +30,13 @@ async function prepareTemplateSendMail({ filePath, replacements, to, subject, bc
             html: htmlToSend
         }
         // if deployment dont send mail
-        if (process.env && process.env.NODE_ENV !== 'development') {
-            console.log("Dev server, not sending mail")
+        if (process.env && process.env.NODE_ENV === 'development') {
+            console.log("Dev server, not sending mail", process.env.NODE_ENV)
             return;
         }
+        console.log("Sending Mail", process.env.NODE_ENV)
         let info = await sendMailFunc(obj);
-        console.log(info)
+        console.log("Email Function response", info)
         return info;
     }
     catch (e) {

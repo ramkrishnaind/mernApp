@@ -1,4 +1,4 @@
-import { GetPropertyListSuccess, GetPropertyListError } from "../redux/actions/PropertyAction";
+import * as PropertyAction from "../redux/actions/PropertyAction";
 import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
 
@@ -12,8 +12,25 @@ export const PropertyListService = async (dispatch, data) => {
       null,
       false
     );
-    dispatch(GetPropertyListSuccess(result));
+    dispatch(PropertyAction.GetPropertyListSuccess(result));
   } catch (error) {
-    dispatch(GetPropertyListError(error));
+    dispatch(PropertyAction.GetPropertyListError(error));
+  }
+};
+
+export const PropertyAddService = async (dispatch, data) => {
+  try {
+    console.log("data ::", data);
+    // const result = await ApiClient.call(
+    //   ApiClient.REQUEST_METHOD.POST,
+    //   API_ENDPOINTS.PROPERTY_ADD_ENDPOINT,
+    //   data,
+    //   null,
+    //   null,
+    //   true
+    // );
+    // dispatch(PropertyAction.PropertyAddSuccess(result));
+  } catch (error) {
+    dispatch(PropertyAction.PropertyAddError(error));
   }
 };

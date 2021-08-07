@@ -8,7 +8,7 @@ const APP_CONSTANTS = {
     btnBookOnlineText: 'Book Online',
     btnRegisterASiteVisit: 'Request a site visit',
     btnBookNowText: 'Book Now',
-
+    titleSiteVisit: "REQUEST A SITE VISIT",
     //Menu
     home: 'Home',
     aboutUs: 'About Us',
@@ -30,22 +30,22 @@ const APP_CONSTANTS = {
     section3_title: 'FIND YOUR HOUSE IN YOUR CITY',
     section3_subtitle: 'CONSTRUCTION',
 
-     //Section - INTERIOR
-     section4_title: 'FIND YOUR HOUSE IN YOUR CITY',
-     section4_subtitle: 'INTERIOR',
-     
-     //Section - Client
-     section_client_title: "THE BEST PLACE TO FIND THE HOUSE YOU WANT",
-     section_client_subtitle: "WHAT YOU ARE LOOKING FOR?",
+    //Section - INTERIOR
+    section4_title: 'FIND YOUR HOUSE IN YOUR CITY',
+    section4_subtitle: 'INTERIOR',
 
-     //Section - Services
-     section_services_title: "THE BEST PLACE TO FIND THE HOUSE YOU WANT",
-     section_services_subtitle: "VISHAL SERVICES",
+    //Section - Client
+    section_client_title: "THE BEST PLACE TO FIND THE HOUSE YOU WANT",
+    section_client_subtitle: "WHAT YOU ARE LOOKING FOR?",
+
+    //Section - Services
+    section_services_title: "THE BEST PLACE TO FIND THE HOUSE YOU WANT",
+    section_services_subtitle: "VISHAL SERVICES",
 
     //Section - Feedback
     section_feedback_title: "OUR CLIENT’S SAYS",
     section_feedback_subtitle: "CLIENT'S FEEDBACK",
-    
+
     //online form section
     online_form_title: "THE BEST PLACE TO FIND THE HOUSE YOU WANT",
     online_form_subtitles: "ONLINE BOOKING",

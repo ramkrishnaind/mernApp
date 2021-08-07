@@ -1,6 +1,7 @@
 import * as ReviewAction from "../redux/actions/reviewAction";
 import ApiClient from '../api-client';
 import API_ENDPOINTS from '../constants/api-endpoints';
+import * as Snackbar from "../redux/actions/snackbarActions";
 
 export const ReviewListService = async (dispatch, data) => {
     try {
@@ -12,11 +13,13 @@ export const ReviewListService = async (dispatch, data) => {
 }
 
 export const ReviewStatusUpdateService = async (dispatch, data) => {
-    try {
-        const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.REVIEW_STATUS_UPDATE_ENDPOINT, data, null, null, true);
+    const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.REVIEW_STATUS_UPDATE_ENDPOINT, data, null, null, true);
+    if (result.status) {
         dispatch(ReviewAction.ReviewUpdateStatusSuccess(result));
-    } catch (error) {
-        dispatch(ReviewAction.ReviewUpdateStatusError(error));
+        dispatch(Snackbar.showSuccessSnackbar(result.message));
+    } else {
+        dispatch(ReviewAction.ReviewUpdateStatusError(result));
+        dispatch(Snackbar.showFailSnackbar(result.message));
     }
 }
 

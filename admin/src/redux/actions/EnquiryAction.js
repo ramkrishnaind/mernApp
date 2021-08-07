@@ -1,5 +1,5 @@
 import ACTION_KEYS from "../../constants/action-keys";
-import { EnquiryListService,EnquiryStatusUpdateService } from "../../services/EnquiryService";
+import { EnquiryListService, EnquiryStatusUpdateService } from "../../services/EnquiryService";
 
 /**
  * Call by the Component to make Login Request
@@ -44,7 +44,7 @@ export const EnquiryListSuccess = (data) => {
 export const EnquiryListError = (data) => {
     return {
         type: ACTION_KEYS.ENQUIRY_LIST_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 
@@ -53,6 +53,8 @@ export const EnquiryStatusUpdateRequestAsync = (data) => {
     return (dispatch) => {
         dispatch(EnquiryUpdateStatusRequest());
         EnquiryStatusUpdateService(dispatch, data);
+        dispatch(EnquiryListRequest());
+        EnquiryListService(dispatch, "");
     }
 }
 
@@ -87,6 +89,6 @@ export const EnquiryUpdateStatusSuccess = (data) => {
 export const EnquiryUpdateStatusError = (data) => {
     return {
         type: ACTION_KEYS.ENQUIRY_UPDATE_STATUS_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }

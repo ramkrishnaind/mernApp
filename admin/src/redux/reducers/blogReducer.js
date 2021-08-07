@@ -39,7 +39,7 @@ const BlogReducer = (state = initialState, action) => {
         ...state,
         isRequesting: false,
         success: true,
-        careerData: payload.data,
+        blogData: payload.data,
       };
     case ACTION_KEYS.BLOG_DATA_ERROR:
       return {

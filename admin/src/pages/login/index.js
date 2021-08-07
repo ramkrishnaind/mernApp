@@ -15,8 +15,8 @@ import { connect } from "react-redux";
 import { withStyles } from "@material-ui/styles";
 
 import loginImage from "./adminLogin.jpg";
-import {LoginRequestAsync} from "../../redux/actions/LoginAction";
-import {Link as RouterLink} from 'react-router-dom';
+import { LoginRequestAsync } from "../../redux/actions/LoginAction";
+import { Link as RouterLink } from 'react-router-dom';
 
 const styles = (theme) => ({
   container: {
@@ -96,7 +96,7 @@ const styles = (theme) => ({
   tab: {
     fontWeight: 400,
     fontSize: 18,
-  },  
+  },
   checkbox: {
     position: "relative",
     left: -9,
@@ -224,102 +224,100 @@ const Login = (props) => {
   const { classes } = props;
   return (
     <>
-    <Grid container className={classes.container}>
-      <div className={classes.formContainer}>
-        <div className={classes.form}>
-          <Typography className={classes.mainHeading}>
-            Vishal Properties
+      <Grid container className={classes.container}>
+        <div className={classes.formContainer}>
+          <div className={classes.form}>
+            <Typography className={classes.mainHeading}>
+              Vishal Properties
           </Typography>
-          <Typography className={classes.welcomeHeading}>
-            Welcome back!
+            <Typography className={classes.welcomeHeading}>
+              Welcome back!
           </Typography>
-          <Typography>Happy to see you again!</Typography>
-          <React.Fragment>
-            <TextField
-              id="email"
-              variant="outlined"
-              name="email"
-              className={classes.textField}
-              label="Email"
-              value={state.email}
-              onChange={inputChange}
-              margin="normal"
-              placeholder="Email Adress"
-              type="email"
-              fullWidth
-            />
-            <TextField
-              id="password"
-              label="Password"
-              variant="outlined"
-              name="password"
-              InputProps={{
-                classes: {
-                  underline: classes.textFieldUnderline,
-                  input: classes.textField,
-                },
-              }}
-              value={state.password}
-              onChange={inputChange}
-              margin="normal"
-              placeholder="Password"
-              type="password"
-              fullWidth
-            />
-            <Grid container>
-              <Grid item xs>
+            <Typography>Happy to see you again!</Typography>
+            <React.Fragment>
+              <TextField
+                id="email"
+                variant="outlined"
+                name="email"
+                className={classes.textField}
+                label="Email"
+                value={state.email}
+                onChange={inputChange}
+                margin="normal"
+                placeholder="Email Adress"
+                type="email"
+                fullWidth
+              />
+              <TextField
+                id="password"
+                label="Password"
+                variant="outlined"
+                name="password"
+                InputProps={{
+                  classes: {
+                    underline: classes.textFieldUnderline,
+                    input: classes.textField,
+                  },
+                }}
+                value={state.password}
+                onChange={inputChange}
+                margin="normal"
+                placeholder="Password"
+                type="password"
+                fullWidth
+              />
+              <Grid container>
                 <Grid item xs>
-                  <Checkbox
-                    className={classes.checkbox}
-                    value="checkedA"
-                    inputProps={{ "aria-label": "Checkbox A" }}
-                  />
-                  <Link
-                    href="#"
-                    variant="body2"
-                    className={classes.alignCheckboxHeading}
-                  >
-                    Keep me signed in
+                  <Grid item xs>
+                    <Checkbox
+                      className={classes.checkbox}
+                      value="checkedA"
+                      inputProps={{ "aria-label": "Checkbox A" }}
+                    />
+                    <Link
+                      href="#"
+                      variant="body2"
+                      className={classes.alignCheckboxHeading}
+                    >
+                      Keep me signed in
                   </Link>
+                  </Grid>
+                </Grid>
+                <Grid item>
+                  <Link component={RouterLink} to="/forgot">Forget password?</Link>
                 </Grid>
               </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  Forget password?
-                </Link>
-              </Grid>
-            </Grid>
-            <div className={classes.formButtons}>
-              {false ? (
-                <CircularProgress size={26} className={classes.loginLoader} />
-              ) : (
-                <Button
-                  fullWidth
-                  // disabled={
-                  //   state?.email?.length === 0 || state?.password?.length === 0
-                  // }
-                  onClick={loginSubmit}
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                >
-                  Login
-                </Button>
-              )}
-            </div>
-          </React.Fragment>
+              <div className={classes.formButtons}>
+                {false ? (
+                  <CircularProgress size={26} className={classes.loginLoader} />
+                ) : (
+                    <Button
+                      fullWidth
+                      disabled={
+                        state?.email?.length === 0 || state?.password?.length === 0
+                      }
+                      onClick={loginSubmit}
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                    >
+                      Login
+                    </Button>
+                  )}
+              </div>
+            </React.Fragment>
+          </div>
+          <Typography color="primary" className={classes.createAccount}>
+            Don't have an account? <Link component={RouterLink} to="/register">Create</Link>
+          </Typography>
         </div>
-        <Typography color="primary" className={classes.createAccount}>
-          Don't have an account? <Link component={RouterLink} to ="/register">Create</Link>
-        </Typography>
-      </div>
 
-      <div className={classes.logotypeContainer}>
-        {/* <img src={logo} alt="logo" className={classes.logotypeImage} /> */}
-      </div>
-      
-    </Grid>
-    {/* <Register /> */}
+        <div className={classes.logotypeContainer}>
+          {/* <img src={logo} alt="logo" className={classes.logotypeImage} /> */}
+        </div>
+
+      </Grid>
+      {/* <Register /> */}
     </>
   );
 };

@@ -4,16 +4,17 @@
 const API_ENDPOINTS = {
   LOGIN_ENDPOINT: "/users/login",
   REGISTER_ENDPOINT: "/users/signup",
+  FORGOT_ENDPOINT: "/users/forgotPassword",
   MODULERIGHTS_ENDPOINT: "/menuModule/getAllMenuList",
   //menu module
-  MENULIST_ENDPOINT:"menuModule/getAllMenuList",
-  MENUADD_ENDPOINT:"menuModule/createMenu",
-  MENU_STATUS_UPDATE_ENDPOINT:"menuModule/updateMenuStatus",
-  MENU_UPDATE_ENDPOINT:"menuModule/updateMenu",  
-  MENU_DATA_ENDPOINT:"menuModule/getMenuData",
-  MENU_DATA_ENDPOINT:"menuModule/getMenuData",  
+  MENULIST_ENDPOINT: "menuModule/getAllMenuList",
+  MENUADD_ENDPOINT: "menuModule/createMenu",
+  MENU_STATUS_UPDATE_ENDPOINT: "menuModule/updateMenuStatus",
+  MENU_UPDATE_ENDPOINT: "menuModule/updateMenu",
+  MENU_DATA_ENDPOINT: "menuModule/getMenuData",
+  MENU_DATA_ENDPOINT: "menuModule/getMenuData",
   // user Module
-  CREATE_USER_ROLE_ENDPOINT:"role/createUserRole",  
+
   USER_ROLELIST_ENDPOINT: "role/userRoleDataList",
   USER_LIST_ENDPOINT: "users/getAllUser",
   USER_ADD_ENDPOINT: "users/createUser",
@@ -46,6 +47,26 @@ const API_ENDPOINTS = {
   BLOG_UPDATE_ENDPOINT: "blog/updateBlog",
   BLOG_DELETE_ENDPOINT: "blog/deleteBlog",
   BLOG_DATA_ENDPOINT: "blog/getBlogDetail",
+
+  //Role module
+  ROLE_ADD_ENDPOINT: "role/createUserRole",
+  ROLE_LIST_ENDPOINT: "role/userRoleList",
+  ROLE_STATUS_UPDATE_ENDPOINT: "role/updateStatusUserRole",
+  ROLE_UPDATE_ENDPOINT: "role/createUserRole",
+  ROLE_DELETE_ENDPOINT: "role/userRoleDelete",
+  ROLE_DATA_ENDPOINT: "role/userRoleDetails",
+
+  //BOOKING module
+  BOOKING_LIST_ENDPOINT: "menuModule/getAllMenuList",
+  BOOKING_STATUS_UPDATE_ENDPOINT: "menuModule/updateMenuStatus",
+
+  //Site visit
+  SITEVISIT_LIST_ENDPOINT: "sitevisit/getSiteVisitRequest",
+  SITEVISIT_STATUS_UPDATE_ENDPOINT: "sitevisit/updateSiteVisitStatusRequest",
+
+  //Contact us
+  CONTACTUS_LIST_ENDPOINT: "contactus/getContactUsList",
+  CONTACTUS_STATUS_UPDATE_ENDPOINT: "contactus/updateContactUsStatus",
 };
 
 export default API_ENDPOINTS;
