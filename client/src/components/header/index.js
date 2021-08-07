@@ -188,7 +188,7 @@ const Header = props => {
                                 <Button variant="outlined" className={classes.btn3} component={RouterLink} to="/post-property">
                                     Post Property
                                 </Button>
-                                <Button variant="outlined" className={classes.btn4}>
+                                <Button variant="outlined" className={classes.btn4} component={RouterLink} to="/register">
                                     Login / Signup
                                 </Button>
                             </Grid>
