@@ -3,18 +3,14 @@ import './login.css';
 import {
   Grid,
   Typography,
-  Paper, Card,
+  Paper,
   Box, makeStyles,
-  FormControlLabel,
-  Checkbox,
   TextField,
   Button,
   Link
 } from '@material-ui/core';
 import bannerImage from "../../images/banner-2.jpeg";
-import googleIcon from "../../images/icon-google.png";
-import facebookIcon from "../../images/facebook.png";
-import * as LoginAction from "../../redux/actions/LoginAction";
+import * as ForgotAction from "../../redux/actions/ForgotAction";
 import { useDispatch } from "react-redux";
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -105,13 +101,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const LoginPage = props => {
+const ForgotPage = props => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [rememberMe, setRememberMe] = React.useState(false);
   const initialState = {
     email: "",
-    password: "",
   };
   const [state, setState] = useState(initialState);
 
@@ -121,13 +115,12 @@ const LoginPage = props => {
     setState({ ...state, [name]: value });
   };
   const loginSubmit = (e) => {
-    const { email, password } = state;
+    const { email } = state;
     let reqData = {
       email: email,
-      password: password,
     };
     console.log("reqData  ", reqData);
-    dispatch(LoginAction.LoginRequestAsync(reqData));
+    dispatch(ForgotAction.ForgotRequestAsync(reqData));
   };
   const handleChange = e => {
     //
@@ -148,7 +141,7 @@ const LoginPage = props => {
       <Paper className={classes.main}>
         <Grid container>
           <Grid item sm={12} md={12} className={classes.login}>
-            <Typography className={classes.text1}>Login In</Typography>
+            <Typography className={classes.text1}>Forgot Password</Typography>
             <TextField
               className={classes.textField}
               placeholder="Username or Email"
@@ -163,52 +156,19 @@ const LoginPage = props => {
                 }
               }}
             />
+
+          </Grid>
+
+          <Grid item xs={12} md={12}>
             <Box style={{ height: 20 }} />
-            <TextField
-              className={classes.textField}
-              placeholder="Password"
-              variant="outlined"
-              name="password"
-              type="password"
-              value={state.password}
-              onChange={inputChange}
-              fullWidth
-              InputProps={{
-                classes: {
-                  notchedOutline: classes.notchedOutline
-                }
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} md={12} className={classes.gridStyle2}>
-            <FormControlLabel
-              control={<Checkbox checked={rememberMe} onChange={handleChange} name="remember_me" />}
-              label="Remember Me"
-            />
-            <Link component={RouterLink} to="/forgot-password">Forgot Password?</Link>
-          </Grid>
-          <Grid item xs={12} md={12}>
             <Button variant="contained" className={classes.btn2}
-              disabled={
-                state?.email?.length === 0 || state?.password?.length === 0
-              }
+              disabled={state?.email?.length === 0}
               onClick={loginSubmit}
-            >Login</Button>
+            >Submit</Button>
           </Grid>
-          <Grid item xs={12} md={12}>
-            <Typography className={classes.text2}>Or login with</Typography>
-          </Grid>
+
           <Grid item xs={12} md={12} className={classes.gridStyle3}>
-            <Paper className={classes.iconContainer}>
-              <img src={facebookIcon} className={classes.icon} />
-            </Paper>
-            <Box style={{ width: 10 }}></Box>
-            <Paper className={classes.iconContainer}>
-              <img src={googleIcon} className={classes.icon} />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={12} className={classes.gridStyle3}>
-            <Link component={RouterLink} to="/register">Create Account?</Link>
+            <Link component={RouterLink} to="/signin">Back to login</Link>
           </Grid>
         </Grid>
       </Paper>
@@ -216,4 +176,4 @@ const LoginPage = props => {
   );
 }
 
-export default LoginPage;
+export default ForgotPage;

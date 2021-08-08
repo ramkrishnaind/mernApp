@@ -3,20 +3,20 @@ import './login.css';
 import {
   Grid,
   Typography,
-  Paper, Card,
+  Paper,
   Box, makeStyles,
-  FormControlLabel,
-  Checkbox,
   TextField,
   Button,
   Link
 } from '@material-ui/core';
 import bannerImage from "../../images/banner-2.jpeg";
-import googleIcon from "../../images/icon-google.png";
-import facebookIcon from "../../images/facebook.png";
-import * as LoginAction from "../../redux/actions/LoginAction";
+import * as NewPasswordAction from "../../redux/actions/NewPasswordAction";
 import { useDispatch } from "react-redux";
-import { Link as RouterLink } from 'react-router-dom';
+import * as Snackbar from "../../redux/actions/SnackbarActions";
+import {
+  Link as RouterLink,
+  useLocation
+} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   bannerContainer: {
@@ -105,13 +105,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const LoginPage = props => {
+const NewPasswordPage = props => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [rememberMe, setRememberMe] = React.useState(false);
+
+  let query = useQuery();
+  let token = query.get("token");
+
   const initialState = {
-    email: "",
     password: "",
+    cpassword: "",
+    token: token
   };
   const [state, setState] = useState(initialState);
 
@@ -121,16 +125,22 @@ const LoginPage = props => {
     setState({ ...state, [name]: value });
   };
   const loginSubmit = (e) => {
-    const { email, password } = state;
-    let reqData = {
-      email: email,
-      password: password,
-    };
-    console.log("reqData  ", reqData);
-    dispatch(LoginAction.LoginRequestAsync(reqData));
+    const { password, cpassword, token } = state;
+    if (password === cpassword) {
+      let reqData = {
+        newPassword: password,
+        token: token
+
+      };
+      dispatch(NewPasswordAction.NewPasswordRequestAsync(reqData));
+    }
+    else {
+      dispatch(Snackbar.showFailSnackbar('Both password must be same'));
+    }
   };
-  const handleChange = e => {
-    //
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
   }
 
   return (
@@ -148,14 +158,15 @@ const LoginPage = props => {
       <Paper className={classes.main}>
         <Grid container>
           <Grid item sm={12} md={12} className={classes.login}>
-            <Typography className={classes.text1}>Login In</Typography>
+            <Typography className={classes.text1}>Set New Password</Typography>
             <TextField
               className={classes.textField}
-              placeholder="Username or Email"
+              placeholder="New Password"
               variant="outlined"
               fullWidth
-              name="email"
-              value={state.email}
+              name="password"
+              type="password"
+              value={state.password}
               onChange={inputChange}
               InputProps={{
                 classes: {
@@ -166,49 +177,32 @@ const LoginPage = props => {
             <Box style={{ height: 20 }} />
             <TextField
               className={classes.textField}
-              placeholder="Password"
+              placeholder="Confirm Password"
               variant="outlined"
-              name="password"
-              type="password"
-              value={state.password}
-              onChange={inputChange}
               fullWidth
+              name="cpassword"
+              type="password"
+              value={state.cpassword}
+              onChange={inputChange}
               InputProps={{
                 classes: {
                   notchedOutline: classes.notchedOutline
                 }
               }}
             />
+
           </Grid>
-          <Grid item xs={12} md={12} className={classes.gridStyle2}>
-            <FormControlLabel
-              control={<Checkbox checked={rememberMe} onChange={handleChange} name="remember_me" />}
-              label="Remember Me"
-            />
-            <Link component={RouterLink} to="/forgot-password">Forgot Password?</Link>
-          </Grid>
+
           <Grid item xs={12} md={12}>
+            <Box style={{ height: 20 }} />
             <Button variant="contained" className={classes.btn2}
-              disabled={
-                state?.email?.length === 0 || state?.password?.length === 0
-              }
+              disabled={state?.password?.length === 0 || state?.cpassword?.length === 0}
               onClick={loginSubmit}
-            >Login</Button>
+            >Submit</Button>
           </Grid>
-          <Grid item xs={12} md={12}>
-            <Typography className={classes.text2}>Or login with</Typography>
-          </Grid>
+
           <Grid item xs={12} md={12} className={classes.gridStyle3}>
-            <Paper className={classes.iconContainer}>
-              <img src={facebookIcon} className={classes.icon} />
-            </Paper>
-            <Box style={{ width: 10 }}></Box>
-            <Paper className={classes.iconContainer}>
-              <img src={googleIcon} className={classes.icon} />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={12} className={classes.gridStyle3}>
-            <Link component={RouterLink} to="/register">Create Account?</Link>
+            <Link component={RouterLink} to="/signin">Back to login</Link>
           </Grid>
         </Grid>
       </Paper>
@@ -216,4 +210,4 @@ const LoginPage = props => {
   );
 }
 
-export default LoginPage;
+export default NewPasswordPage;

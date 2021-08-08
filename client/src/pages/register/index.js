@@ -19,6 +19,7 @@ import PhoneInput from 'react-phone-number-input'
 import * as RegisterAction from "../../redux/actions/RegisterAction";
 import * as Snackbar from "../../redux/actions/SnackbarActions";
 import { useDispatch } from "react-redux";
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   bannerContainer: {
@@ -292,6 +293,9 @@ const RegisterPage = props => {
           </Grid>
           <Grid item xs={12} md={12}>
             <Button variant="contained" onClick={handleSubmit} className={classes.btn2} >Register</Button>
+          </Grid>
+          <Grid item xs={12} md={12} className={classes.gridStyle3}>
+            <Link component={RouterLink} to="/signin">Already have account?</Link>
           </Grid>
         </Grid>
       </Paper>
