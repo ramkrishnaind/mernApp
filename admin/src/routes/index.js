@@ -29,7 +29,8 @@ import ForgotPassword from "../pages/forgotPassword";
 import ResetPassword from "../pages/resetPassword";
 import NewPassword from "../pages/newPassword";
 import Verification from "../pages/verificationPage";
-
+import PropertyList from "../pages/propertyManagement";
+import AddProperty from "../pages/propertyManagement/add";
 const Routes = props => {
     const { isAuth } = props;
     const routes = [
@@ -133,6 +134,14 @@ const Routes = props => {
                 {
                     path: "/booking",
                     element: isAuth ? <BookingList /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/property/add",
+                    element: isAuth ? <AddProperty /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/property",
+                    element: isAuth ? <PropertyList /> : <Navigate to="/login" />
                 },
                 {
                     path: "404",

@@ -51,7 +51,7 @@ const PropertyCreateUpdate = (props) => {
   const [areaUnit, setAreaUnit] = React.useState("");
 
   // Life cycle hooks
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   useEffect(() => {
     if (state["property-type"]) {
@@ -134,7 +134,7 @@ const PropertyCreateUpdate = (props) => {
       [data.title]: data.value,
     });
   };
-  const handleSubmit = (e) => {};
+  const handleSubmit = (e) => { };
 
   // Render methods
 
@@ -148,7 +148,7 @@ const PropertyCreateUpdate = (props) => {
         <Grid item xs={12} md={12} className={classes.style1}>
           <TextField
             label="Name"
-            style={{ width: "25%" }}
+            // style={{ width: "25%" }}
             name="owner_name"
             onChange={handleChange}
           ></TextField>
@@ -166,7 +166,7 @@ const PropertyCreateUpdate = (props) => {
               </Select>
               <TextField
                 label="Mobile"
-                style={{ width: "17.5%" }}
+                // style={{ width: "17.5%" }}
                 name="mobile_number"
                 onChange={handleChange}
               ></TextField>
@@ -174,7 +174,7 @@ const PropertyCreateUpdate = (props) => {
           </Grid>
           <TextField
             label="Email"
-            style={{ width: "25%" }}
+            // style={{ width: "25%" }}
             onChange={handleChange}
             name="owner_email"
           ></TextField>
@@ -641,14 +641,14 @@ const PropertyCreateUpdate = (props) => {
           <SubHeading heading={"Edit Property Module"} />
         </>
       ) : (
-        <>
-          <BreadCrumbs
-            heading1={"PropertyManagement"}
-            heading2={"Add Property Module"}
-          />
-          <SubHeading heading={"Add Property Module"} />
-        </>
-      )}
+          <>
+            <BreadCrumbs
+              heading1={"PropertyManagement"}
+              heading2={"Add Property Module"}
+            />
+            <SubHeading heading={"Add Property Module"} />
+          </>
+        )}
       <Grid item xs={12} className="m-5 addUserFormanage">
         <div className="card w-100">
           <div className="card-header d-flex justify-content-between align-items-center">

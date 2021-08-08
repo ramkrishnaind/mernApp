@@ -177,8 +177,23 @@ const items = [
     icon: UserIcon,
     title: 'Account'
   },
-
-
+  {
+    href: '/property',
+    icon: UsersIcon,
+    title: 'Property Management',
+    items: [
+      {
+        href: "/property/add",
+        icon: ShoppingBagIcon,
+        title: "Add Property",
+      },
+      {
+        href: "/property",
+        icon: ShoppingBagIcon,
+        title: "Property List",
+      }
+    ]
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
