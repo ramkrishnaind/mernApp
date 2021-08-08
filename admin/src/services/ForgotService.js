@@ -9,6 +9,8 @@ export const ForgotService = async (dispatch, data) => {
   if (result.status) {
     dispatch(ForgotSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
+    let token = result.tempAuthenticationLink.split('=')
+    window.location.href = "/setnewpassword?token=" + token[1];
   } else {
     dispatch(ForgotError(result));
     dispatch(Snackbar.showFailSnackbar(result.message));
