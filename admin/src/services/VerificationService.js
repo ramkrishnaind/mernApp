@@ -11,6 +11,6 @@ export const VerificationService = async (dispatch, data) => {
     // window.location.href = "/login";
   } catch (error) {
     dispatch(VerificationError(error));
-    dispatch(Snackbar.showFailSnackbar('Invalid token'));
+    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
 };

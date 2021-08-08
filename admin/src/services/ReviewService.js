@@ -9,17 +9,18 @@ export const ReviewListService = async (dispatch, data) => {
         dispatch(ReviewAction.ReviewListSuccess(result));
     } catch (error) {
         dispatch(ReviewAction.ReviewListError(error));
+        dispatch(Snackbar.showFailSnackbar(error.response.data.message));
     }
 }
 
 export const ReviewStatusUpdateService = async (dispatch, data) => {
-    const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.REVIEW_STATUS_UPDATE_ENDPOINT, data, null, null, true);
-    if (result.status) {
+    try {
+        const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.REVIEW_STATUS_UPDATE_ENDPOINT, data, null, null, true);
         dispatch(ReviewAction.ReviewUpdateStatusSuccess(result));
         dispatch(Snackbar.showSuccessSnackbar(result.message));
-    } else {
-        dispatch(ReviewAction.ReviewUpdateStatusError(result));
-        dispatch(Snackbar.showFailSnackbar(result.message));
+    } catch (error) {
+        dispatch(ReviewAction.ReviewUpdateStatusError(error));
+        dispatch(Snackbar.showFailSnackbar(error.response.data.message));
     }
 }
 

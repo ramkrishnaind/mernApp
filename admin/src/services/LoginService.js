@@ -12,6 +12,6 @@ export const LoginService = async (dispatch, data) => {
   }
   catch (error) {
     dispatch(LoginError(error));
-    dispatch(Snackbar.showFailSnackbar('Email/Password is incorrect'));
+    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
 };

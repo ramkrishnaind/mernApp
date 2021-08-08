@@ -5,24 +5,23 @@ import * as Snackbar from "../redux/actions/snackbarActions";
 import history from "../components/history";
 
 export const ContactUsListService = async (dispatch, data) => {
-    const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.CONTACTUS_LIST_ENDPOINT, data, null, null, true);
-    if (result.status) {
+    try {
+        const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.CONTACTUS_LIST_ENDPOINT, data, null, null, true);
         dispatch(ContactusAction.ContactUsListSuccess(result));
-    } else {
-        dispatch(ContactusAction.ContactUsListError(result));
-        dispatch(Snackbar.showFailSnackbar(result.message));
+    } catch (error) {
+        dispatch(ContactusAction.ContactUsListError(error));
+        dispatch(Snackbar.showFailSnackbar(error.response.data.message));
     }
 }
 
 export const ContactUsStatusUpdateService = async (dispatch, data) => {
-    const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.CONTACTUS_STATUS_UPDATE_ENDPOINT, data, null, null, true);
-
-    if (result.status) {
+    try {
+        const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.CONTACTUS_STATUS_UPDATE_ENDPOINT, data, null, null, true);
         dispatch(ContactusAction.ContactUsUpdateStatusSuccess(result));
         dispatch(Snackbar.showSuccessSnackbar(result.message));
-    } else {
-        dispatch(ContactusAction.ContactUsUpdateStatusError(result));
-        dispatch(Snackbar.showFailSnackbar(result.message));
+    } catch (error) {
+        dispatch(ContactusAction.ContactUsUpdateStatusError(error));
+        dispatch(Snackbar.showFailSnackbar(error.response.data.message));
     }
 }
 
