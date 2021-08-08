@@ -1,21 +1,20 @@
 
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 
 import {
   Grid,
-  CircularProgress,
   Typography,
-  Button,
-  TextField,
-  Link,
+  Link
 } from "@material-ui/core";
 
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/styles";
 
 import loginImage from "./adminLogin.jpg";
-import { ForgotRequestAsync } from "../../redux/actions/ForgotAction";
-import { Link as RouterLink } from 'react-router-dom';
+import * as VerificationAction from "../../redux/actions/VerificationAction";
+import { useDispatch } from "react-redux";
+
+import { Link as RouterLink, useLocation } from "react-router-dom";
 
 const styles = (theme) => ({
   container: {
@@ -200,25 +199,24 @@ const styles = (theme) => ({
     color: "black",
   },
 });
-const ForgotPassword = (props) => {
-  const initialState = {
-    email: "",
-  };
-  const [state, setState] = useState(initialState);
+const VerificationPage = (props) => {
+  const dispatch = useDispatch();
 
-  // props.dispatch(LoginAction.logout());
+  let query = useQuery();
+  let token = query.get("token");
 
-  const inputChange = (e) => {
-    let { name, value } = e.target;
+  useEffect(() => {
+    let data = {
+      token: token
+    }
+    if (token != null) {
+      dispatch(VerificationAction.VerificationRequestAsync(data));
+    }
+  }, [token]);
 
-    setState({ ...state, [name]: value });
-  };
-  const handleSubmit = (e) => {
-    const { email } = state;
-    // console.log(state)
-
-    props.dispatch(ForgotRequestAsync({ email: email }));
-  };
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
 
   const { classes } = props;
   return (
@@ -228,43 +226,14 @@ const ForgotPassword = (props) => {
           <div className={classes.form}>
             <Typography className={classes.mainHeading}>
               Vishal Properties
-            </Typography>
-            <Typography className={classes.welcomeHeading}>
-              Forgot Password
-            </Typography>
-            <React.Fragment>
-              <TextField
-                id="email"
-                variant="outlined"
-                name="email"
-                className={classes.textField}
-                label="Email"
-                value={state.email}
-                onChange={inputChange}
-                margin="normal"
-                placeholder="Email Adress"
-                type="email"
-                fullWidth
-              />
+          </Typography>
 
-              <div className={classes.formButtons}>
-                {false ? (
-                  <CircularProgress size={26} className={classes.loginLoader} />
-                ) : (
-                    <Button
-                      fullWidth
-                      disabled={
-                        state?.email?.length === 0
-                      }
-                      onClick={handleSubmit}
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                    >
-                      Forgot Password
-                    </Button>
-                  )}
-              </div>
+            <Typography className={classes.welcomeHeading}>
+              {props?.verification?.response?.message}
+            </Typography>
+
+            <React.Fragment>
+
 
             </React.Fragment>
           </div>
@@ -274,22 +243,18 @@ const ForgotPassword = (props) => {
         </div>
 
         <div className={classes.logotypeContainer}>
-          {/* <img src={logo} alt="logo" className={classes.logotypeImage} /> */}
         </div>
 
       </Grid>
-      {/* <Register /> */}
     </>
   );
 };
 
 function mapStateToProps(state) {
-  console.log("state  ", state);
-  // const { loggingIn } = state.ForgotPassword.data;
-  const { users } = state;
+  const { verification } = state;
+  console.log('state', verification);
   return {
-    // loggingIn,
-    users,
+    verification,
   };
 }
-export default connect(mapStateToProps)(withStyles(styles)(ForgotPassword));
+export default connect(mapStateToProps)(withStyles(styles)(VerificationPage));

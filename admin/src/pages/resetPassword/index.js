@@ -7,16 +7,15 @@ import {
   Typography,
   Button,
   TextField,
-  Link,
 } from "@material-ui/core";
 
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/styles";
 
 import loginImage from "./adminLogin.jpg";
-import { ForgotRequestAsync } from "../../redux/actions/ForgotAction";
-import { Link as RouterLink } from 'react-router-dom';
-
+import { ResetPasswordRequestAsync } from "../../redux/actions/ResetPasswordAction";
+import * as Snackbar from "../../redux/actions/snackbarActions";
+import { useDispatch } from "react-redux";
 const styles = (theme) => ({
   container: {
     height: "100vh",
@@ -200,12 +199,13 @@ const styles = (theme) => ({
     color: "black",
   },
 });
-const ForgotPassword = (props) => {
+const ResetPassword = (props) => {
   const initialState = {
     email: "",
+    confEmail: "",
   };
   const [state, setState] = useState(initialState);
-
+  const dispatch = useDispatch();
   // props.dispatch(LoginAction.logout());
 
   const inputChange = (e) => {
@@ -213,11 +213,15 @@ const ForgotPassword = (props) => {
 
     setState({ ...state, [name]: value });
   };
-  const handleSubmit = (e) => {
-    const { email } = state;
-    // console.log(state)
-
-    props.dispatch(ForgotRequestAsync({ email: email }));
+  const loginSubmit = (e) => {
+    const { email, confEmail } = state;
+    console.log(state)
+    if (email == confEmail) {
+      props.dispatch(ResetPasswordRequestAsync({ email: email, confEmail }));
+    }
+    else {
+      dispatch(Snackbar.showFailSnackbar('Both password must be same.'));
+    }
   };
 
   const { classes } = props;
@@ -228,10 +232,11 @@ const ForgotPassword = (props) => {
           <div className={classes.form}>
             <Typography className={classes.mainHeading}>
               Vishal Properties
-            </Typography>
-            <Typography className={classes.welcomeHeading}>
-              Forgot Password
-            </Typography>
+          </Typography>
+            {/* <Typography className={classes.welcomeHeading}>
+              Welcome back!
+          </Typography>
+            <Typography>Happy to see you again!</Typography> */}
             <React.Fragment>
               <TextField
                 id="email"
@@ -242,11 +247,46 @@ const ForgotPassword = (props) => {
                 value={state.email}
                 onChange={inputChange}
                 margin="normal"
-                placeholder="Email Adress"
+                placeholder="New Email Adress"
                 type="email"
                 fullWidth
               />
 
+              <TextField
+                id="emailconf"
+                variant="outlined"
+                name="ConfirmEmail"
+                className={classes.textField}
+                label="Email"
+                value={state.ConfirmEmail}
+                onChange={inputChange}
+                margin="normal"
+                placeholder="Confirm Email Address"
+                type="email"
+                fullWidth
+              />
+
+              {/* <Grid container>
+                <Grid item xs>
+                  <Grid item xs>
+                    <Checkbox
+                      className={classes.checkbox}
+                      value="checkedA"
+                      inputProps={{ "aria-label": "Checkbox A" }}
+                    />
+                    <Link
+                      href="#"
+                      variant="body2"
+                      className={classes.alignCheckboxHeading}
+                    >
+                      Keep me signed in
+                  </Link>
+                  </Grid>
+                </Grid>
+                <Grid item>
+                  <Link component={RouterLink} to="/forgot">Forget confEmail?</Link>
+                </Grid>
+              </Grid> */}
               <div className={classes.formButtons}>
                 {false ? (
                   <CircularProgress size={26} className={classes.loginLoader} />
@@ -254,23 +294,22 @@ const ForgotPassword = (props) => {
                     <Button
                       fullWidth
                       disabled={
-                        state?.email?.length === 0
+                        state?.email?.length === 0 || state?.confEmail?.length === 0
                       }
-                      onClick={handleSubmit}
+                      onClick={loginSubmit}
                       variant="contained"
                       color="primary"
                       size="large"
                     >
-                      Forgot Password
+                      Reset Password
                     </Button>
                   )}
               </div>
-
             </React.Fragment>
           </div>
-          <Typography color="primary" className={classes.createAccount}>
-            Back to <Link component={RouterLink} to="/login">Login</Link>
-          </Typography>
+          {/* <Typography color="primary" className={classes.createAccount}>
+            Don't have an account? <Link component={RouterLink} to="/register">Create</Link>
+          </Typography> */}
         </div>
 
         <div className={classes.logotypeContainer}>
@@ -285,11 +324,11 @@ const ForgotPassword = (props) => {
 
 function mapStateToProps(state) {
   console.log("state  ", state);
-  // const { loggingIn } = state.ForgotPassword.data;
+  // const { loggingIn } = state.ResetPassword.data;
   const { users } = state;
   return {
     // loggingIn,
     users,
   };
 }
-export default connect(mapStateToProps)(withStyles(styles)(ForgotPassword));
+export default connect(mapStateToProps)(withStyles(styles)(ResetPassword));

@@ -7,15 +7,18 @@ import {
   Typography,
   Button,
   TextField,
-  Link,
+  Link
 } from "@material-ui/core";
 
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/styles";
 
 import loginImage from "./adminLogin.jpg";
-import { ForgotRequestAsync } from "../../redux/actions/ForgotAction";
-import { Link as RouterLink } from 'react-router-dom';
+import * as NewPasswordAction from "../../redux/actions/NewPasswordAction";
+import * as Snackbar from "../../redux/actions/snackbarActions";
+import { useDispatch } from "react-redux";
+
+import { Link as RouterLink, useLocation } from "react-router-dom";
 
 const styles = (theme) => ({
   container: {
@@ -200,25 +203,41 @@ const styles = (theme) => ({
     color: "black",
   },
 });
-const ForgotPassword = (props) => {
+const ResetPassword = (props) => {
+
+  let query = useQuery();
+  let token = query.get("token");
+
   const initialState = {
-    email: "",
+    password: "",
+    cpassword: "",
+    token: token
   };
   const [state, setState] = useState(initialState);
-
-  // props.dispatch(LoginAction.logout());
+  const dispatch = useDispatch();
 
   const inputChange = (e) => {
     let { name, value } = e.target;
 
     setState({ ...state, [name]: value });
   };
-  const handleSubmit = (e) => {
-    const { email } = state;
-    // console.log(state)
-
-    props.dispatch(ForgotRequestAsync({ email: email }));
+  const loginSubmit = (e) => {
+    const { password, cpassword, token } = state;
+    if (password == cpassword) {
+      let reqData = {
+        newPassword: password,
+        token: token
+      };
+      dispatch(NewPasswordAction.NewPasswordRequestAsync(reqData));
+    }
+    else {
+      dispatch(Snackbar.showFailSnackbar('Both password must be same.'));
+    }
   };
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
 
   const { classes } = props;
   return (
@@ -228,22 +247,36 @@ const ForgotPassword = (props) => {
           <div className={classes.form}>
             <Typography className={classes.mainHeading}>
               Vishal Properties
-            </Typography>
+          </Typography>
             <Typography className={classes.welcomeHeading}>
-              Forgot Password
-            </Typography>
+              Set New Password
+          </Typography>
             <React.Fragment>
               <TextField
-                id="email"
+                id="password"
                 variant="outlined"
-                name="email"
+                name="password"
                 className={classes.textField}
-                label="Email"
-                value={state.email}
+                label="New Password"
+                value={state.password}
                 onChange={inputChange}
                 margin="normal"
-                placeholder="Email Adress"
-                type="email"
+                placeholder="New Password"
+                type="password"
+                fullWidth
+              />
+
+              <TextField
+                id="cpassword"
+                variant="outlined"
+                name="cpassword"
+                className={classes.textField}
+                label="Confirm Password"
+                value={state.cpassword}
+                onChange={inputChange}
+                margin="normal"
+                placeholder="Confirm Password"
+                type="password"
                 fullWidth
               />
 
@@ -254,18 +287,17 @@ const ForgotPassword = (props) => {
                     <Button
                       fullWidth
                       disabled={
-                        state?.email?.length === 0
+                        state?.password?.length === 0 || state?.cpassword?.length === 0
                       }
-                      onClick={handleSubmit}
+                      onClick={loginSubmit}
                       variant="contained"
                       color="primary"
                       size="large"
                     >
-                      Forgot Password
+                      Submit
                     </Button>
                   )}
               </div>
-
             </React.Fragment>
           </div>
           <Typography color="primary" className={classes.createAccount}>
@@ -285,11 +317,11 @@ const ForgotPassword = (props) => {
 
 function mapStateToProps(state) {
   console.log("state  ", state);
-  // const { loggingIn } = state.ForgotPassword.data;
+  // const { loggingIn } = state.ResetPassword.data;
   const { users } = state;
   return {
     // loggingIn,
     users,
   };
 }
-export default connect(mapStateToProps)(withStyles(styles)(ForgotPassword));
+export default connect(mapStateToProps)(withStyles(styles)(ResetPassword));
