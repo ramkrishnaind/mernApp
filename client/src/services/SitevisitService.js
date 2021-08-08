@@ -16,8 +16,7 @@ export const SitevisitService = async (dispatch, data) => {
     dispatch(SitevisitSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
-    console.log('erorro', error.error);
     dispatch(SitevisitError(error));
-    dispatch(Snackbar.showFailSnackbar('something want wrong'));
+    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
 };

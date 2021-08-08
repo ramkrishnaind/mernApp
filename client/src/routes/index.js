@@ -14,7 +14,7 @@ import LoginPage from "../pages/login";
 import RegisterPage from "../pages/register";
 import ForgotPage from "../pages/forgot-password";
 import NewPasswordPage from "../pages/new-password";
-
+import Verification from "../pages/verificationPage";
 const routes = [
   {
     exact: true,
@@ -80,10 +80,13 @@ const routes = [
     path: "/forgot-password",
     render: (props) => <ForgotPage {...props} />,
   },
-
   {
     path: "/setnewpassword",
     render: (props) => <NewPasswordPage {...props} />,
+  },
+  {
+    path: "/verification",
+    render: (props) => <Verification {...props} />,
   },
 ];
 

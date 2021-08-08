@@ -10,6 +10,7 @@ const API_ENDPOINTS = {
   CONTACTUS_ENDPOINT: "/contactus/createContactUs",
   ENQUIRY_ENDPOINT: "/enquiry/createEnquiryRequest",
   SITEVISIT_ENDPOINT: "sitevisit/createSiteVisitRequest",
+  USER_VERIFICATION_ENDPOINT: "/users/verification",
 };
 
 export default API_ENDPOINTS;

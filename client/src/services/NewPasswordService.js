@@ -4,22 +4,21 @@ import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/SnackbarActions";
 
 export const NewPasswordService = async (dispatch, data) => {
-
-  const result = await ApiClient.call(
-    ApiClient.REQUEST_METHOD.POST,
-    API_ENDPOINTS.NEW_PASSWORD_ENDPOINT,
-    data,
-    null,
-    null,
-    false
-  );
-  if (result.status) {
+  try {
+    const result = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.NEW_PASSWORD_ENDPOINT,
+      data,
+      null,
+      null,
+      false
+    );
     dispatch(NewPasswordSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
     window.location.href = "/signin";
-  } else {
-    dispatch(NewPasswordError(result));
-    dispatch(Snackbar.showFailSnackbar(result.message));
+  } catch (error) {
+    dispatch(NewPasswordError(error));
+    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
 };
 

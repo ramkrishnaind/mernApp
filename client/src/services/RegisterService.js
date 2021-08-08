@@ -4,13 +4,12 @@ import API_ENDPOINTS from '../constants/api-endpoints';
 import * as Snackbar from "../redux/actions/SnackbarActions";
 
 export const RegisterService = async (dispatch, data) => {
-    const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.REGISTER_ENDPOINT, data, null, null, true);
-    if (result.status) {
+    try {
+        const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.REGISTER_ENDPOINT, data, null, null, true);
         dispatch(RegisterSuccess(result));
         dispatch(Snackbar.showSuccessSnackbar(result.message));
-    } else {
-        dispatch(RegisterError(result));
-        dispatch(Snackbar.showFailSnackbar(result.message));
+    } catch (error) {
+        dispatch(RegisterError(error));
+        dispatch(Snackbar.showFailSnackbar(error.response.data.message));
     }
-
 }
