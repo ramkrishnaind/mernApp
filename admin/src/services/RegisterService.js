@@ -7,6 +7,8 @@ export const RegisterService = async (dispatch, data) => {
     if (result.status) {
         dispatch(RegisterSuccess(result));
         dispatch(Snackbar.showSuccessSnackbar(result.message));
+        let token = result.tempAuthenticationLink.split('=')
+        window.location.href = "/verification?token=" + token[1];
     } else {
         dispatch(RegisterError(result));
         dispatch(Snackbar.showFailSnackbar(result.message));

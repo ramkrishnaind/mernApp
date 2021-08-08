@@ -15,7 +15,7 @@ import role from './RoleReducer';
 import booking from './BookingReducer';
 import contactus from './ContactUsReducer';
 import sitevisit from './SitevisitReducer';
-
+import verification from './VerificationReducer';
 const reducers = {
     Login: LoginReducer,
     Register: RegisterReducer,
@@ -34,6 +34,7 @@ const reducers = {
     booking: booking,
     contactus: contactus,
     sitevisit: sitevisit,
+    verification: verification,
 }
 
 export default reducers;

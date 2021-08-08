@@ -28,6 +28,8 @@ import BookingList from "../pages/bookingManagement";
 import ForgotPassword from "../pages/forgotPassword";
 import ResetPassword from "../pages/resetPassword";
 import NewPassword from "../pages/newPassword";
+import Verification from "../pages/verificationPage";
+
 const Routes = props => {
     const { isAuth } = props;
     const routes = [
@@ -58,6 +60,10 @@ const Routes = props => {
                 {
                     path: "/setnewpassword",
                     element: <NewPassword />,
+                },
+                {
+                    path: "/verification",
+                    element: <Verification />,
                 },
                 {
                     path: "/home",
