@@ -148,33 +148,41 @@ const PropertyCreateUpdate = (props) => {
         <Grid item xs={12} md={12} className={classes.style1}>
           <TextField
             label="Name"
-            // style={{ width: "25%" }}
+            variant="outlined"
+            style={{ width: "100%" }}
             name="owner_name"
             onChange={handleChange}
           ></TextField>
+          <Box mt={2} />
           <Grid container>
-            <Grid item xs={12} md={12} className={classes.style2}>
+            <Grid item xs={4} md={4} className={classes.style2}>
               <Select
                 native
+                variant="outlined"
                 value={state["country_code"]}
                 onChange={handleChange}
                 inputProps={{ name: "country_code" }}
-                style={{ height: 48, marginRight: 5 }}
+                style={{ height: 55, marginRight: 5 }}
               >
                 <option value={10}>IND +91</option>
                 <option value={20}>PAK +92</option>
               </Select>
+            </Grid>
+            <Grid item xs={8} md={8} className={classes.style2}>
               <TextField
                 label="Mobile"
+                variant="outlined"
                 // style={{ width: "17.5%" }}
                 name="mobile_number"
                 onChange={handleChange}
               ></TextField>
             </Grid>
           </Grid>
+          <Box mt={2} />
           <TextField
             label="Email"
-            // style={{ width: "25%" }}
+            variant="outlined"
+            style={{ width: "100%" }}
             onChange={handleChange}
             name="owner_email"
           ></TextField>
@@ -232,6 +240,7 @@ const PropertyCreateUpdate = (props) => {
                     <Typography className={classes.text3}>{label}</Typography>
                     <Select
                       native
+                      variant="outlined"
                       value={state["property-type"]}
                       onChange={handleChange}
                       inputProps={{ name: "property-type" }}
@@ -267,8 +276,10 @@ const PropertyCreateUpdate = (props) => {
                   >
                     <TextField
                       label={field?.label}
+                      variant="outlined"
                       placeholder={field.placeholder}
                       fullWidth
+                      style={{ marginTop: 15 }}
                     />
                     <Typography className={classes.text3}>{unit}</Typography>
                   </Grid>
@@ -320,19 +331,21 @@ const PropertyCreateUpdate = (props) => {
                     <TextField
                       label={label}
                       placeholder={placeholder}
-                      style={{ width: 400 }}
+                      style={{ width: 400, marginRight: 15, marginBottom: 15 }}
                       name={label}
+                      variant="outlined"
                       onChange={onAreaFieldSelect}
                     />
                     {units && (
                       <Select
                         native
+                        variant="outlined"
                         value={areaUnit["area-unit"]}
                         onChange={handleAreaUnitChange}
                         inputProps={{
                           name: "area-unit",
                         }}
-                        style={{ height: 48, marginRight: 5, maxHeight: 200 }}
+                        style={{ height: 55, marginTop: -15, maxHeight: 200 }}
                       >
                         {units?.map((item, index) => {
                           return (
@@ -407,6 +420,7 @@ const PropertyCreateUpdate = (props) => {
                           <Select
                             native
                             value={state[d.fieldName]}
+                            variant="outlined"
                             onChange={handleChange}
                             inputProps={{
                               name: d.fieldName,
@@ -466,6 +480,7 @@ const PropertyCreateUpdate = (props) => {
                   <Grid item xs={12} md={3} key={index}>
                     <TextField
                       label={e.label}
+                      variant="outlined"
                       placeholder={e.placeholder}
                       onChange={handleChange}
                       name={e.fieldName}
@@ -478,9 +493,10 @@ const PropertyCreateUpdate = (props) => {
                 <Grid item xs={12} md={12}>
                   <TextField
                     label={label}
+                    variant="outlined"
                     placeholder={placeholder}
                     onChange={handleChange}
-                    style={{ width: 300 }}
+                    style={{ width: 300, marginBottom: 15 }}
                     name={fieldName}
                   />
                 </Grid>
@@ -492,10 +508,11 @@ const PropertyCreateUpdate = (props) => {
                     <Grid item xs={12} md={4} key={i}>
                       <TextField
                         label={e.label}
+                        variant="outlined"
                         name={e.fieldName}
                         onChange={handleChange}
                         placeholder={e.placeholder}
-                        style={{ width: 300 }}
+                        style={{ width: 300, marginBottom: 15 }}
                       />
                     </Grid>
                   );
@@ -504,13 +521,14 @@ const PropertyCreateUpdate = (props) => {
                     <Grid item xs={12} md={4} key={i}>
                       <Select
                         native
+                        variant="outlined"
                         value={state[e.fieldName]}
                         onChange={handleChange}
                         inputProps={{
                           name: e.fieldName,
                         }}
                         style={{
-                          height: 48,
+                          height: 55,
                           marginRight: 5,
                           maxHeight: 200,
                           width: 200,
@@ -538,6 +556,7 @@ const PropertyCreateUpdate = (props) => {
                     value={state[fieldName]}
                     onChange={handleChange}
                     name={fieldName}
+                    variant="outlined"
                     inputProps={{
                       name: fieldName,
                     }}
@@ -627,6 +646,7 @@ const PropertyCreateUpdate = (props) => {
   };
 
   return (
+
     <Box className="PropertyManagement_Data">
       <FormHeader
         heading1={"Property Module Management"}
@@ -692,15 +712,17 @@ const PropertyCreateUpdate = (props) => {
                       <Grid item xs={12} md={12}>
                         <Select
                           native
+                          variant="outlined"
                           value={state["property-type"]}
                           onChange={handleChange}
                           inputProps={{
                             name: "property-type",
                             id: "property-type",
                           }}
-                          style={{ height: 48, marginRight: 5, maxHeight: 200 }}
+                          style={{ height: 48, marginRight: 5, maxHeight: 200, width: "100%" }}
                         >
                           <option value={null}>Select Property Type</option>
+
                           {propertyOptions?.items?.length > 0 &&
                             propertyOptions?.items?.map((item, index) => {
                               return (
@@ -720,16 +742,18 @@ const PropertyCreateUpdate = (props) => {
                       <Grid item xs={12} md={12} className={classes.style1}>
                         <TextField
                           label="City"
+                          variant="outlined"
                           placeholder="Enter City"
-                          style={{ width: "auto" }}
+                          style={{ width: "100%" }}
                           onChange={handleChange}
                           name="city"
                         ></TextField>
-                        <br />
+                        <Box mt={2} />
                         <TextField
                           label="Locality"
+                          variant="outlined"
                           placeholder="Enter Locality"
-                          style={{ width: "auto" }}
+                          style={{ width: "100%" }}
                           onChange={handleChange}
                           name="property_location"
                         ></TextField>
