@@ -228,11 +228,10 @@ const ForgotPassword = (props) => {
           <div className={classes.form}>
             <Typography className={classes.mainHeading}>
               Vishal Properties
-          </Typography>
-            {/* <Typography className={classes.welcomeHeading}>
-              Welcome back!
-          </Typography> */}
-            {/* <Typography>Happy to see you again!</Typography> */}
+            </Typography>
+            <Typography className={classes.welcomeHeading}>
+              Forgot Password
+            </Typography>
             <React.Fragment>
               <TextField
                 id="email"

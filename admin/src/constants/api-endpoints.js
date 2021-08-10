@@ -5,6 +5,10 @@ const API_ENDPOINTS = {
   LOGIN_ENDPOINT: "/users/login",
   REGISTER_ENDPOINT: "/users/signup",
   FORGOT_ENDPOINT: "/users/forgotPassword",
+  NEW_PASSWORD_ENDPOINT: "/users/setNewPassword",
+  RESET_PASSWORD_ENDPOINT: "/users/setResetPassword",
+  USER_VERIFICATION_ENDPOINT: "/users/verification",
+
   MODULERIGHTS_ENDPOINT: "/menuModule/getAllMenuList",
   //menu module
   MENULIST_ENDPOINT: "menuModule/getAllMenuList",
@@ -15,7 +19,7 @@ const API_ENDPOINTS = {
   MENU_DATA_ENDPOINT: "menuModule/getMenuData",
   // user Module
 
-  USER_ROLELIST_ENDPOINT: "role/userRoleDataList",
+  USER_ROLELIST_ENDPOINT: "role/userRoleList",
   USER_LIST_ENDPOINT: "users/getAllUser",
   USER_ADD_ENDPOINT: "users/createUser",
   USER_STATUS_UPDATE_ENDPOINT: "users/updateUserStatus",

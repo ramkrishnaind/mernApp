@@ -17,6 +17,6 @@ export const EnquiryService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(EnquiryError(error));
-    dispatch(Snackbar.showFailSnackbar('something want wrong'));
+    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
 };

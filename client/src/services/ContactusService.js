@@ -17,6 +17,6 @@ export const ContactusService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(ContactusError(error));
-    dispatch(Snackbar.showFailSnackbar('something want wrong'));
+    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
 };

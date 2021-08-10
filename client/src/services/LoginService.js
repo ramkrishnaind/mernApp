@@ -1,8 +1,10 @@
 import { LoginSuccess, LoginError } from "../redux/actions/LoginAction";
 import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
+import * as Snackbar from "../redux/actions/SnackbarActions";
 
 export const LoginService = async (dispatch, data) => {
+
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
@@ -12,8 +14,12 @@ export const LoginService = async (dispatch, data) => {
       null,
       false
     );
+    window.localStorage.setItem('user', JSON.stringify(result.user));
     dispatch(LoginSuccess(result));
+    dispatch(Snackbar.showSuccessSnackbar(result.message));
+    window.location.href = "/";
   } catch (error) {
     dispatch(LoginError(error));
+    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
 };

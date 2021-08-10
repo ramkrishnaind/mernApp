@@ -12,7 +12,9 @@ import Blog from "../pages/blog";
 import BlogDetails from "../components/blog-details/blog-detalis";
 import LoginPage from "../pages/login";
 import RegisterPage from "../pages/register";
-
+import ForgotPage from "../pages/forgot-password";
+import NewPasswordPage from "../pages/new-password";
+import Verification from "../pages/verificationPage";
 const routes = [
   {
     exact: true,
@@ -39,7 +41,7 @@ const routes = [
     path: "/carrer",
     render: (props) => <Creere {...props} />,
   },
-  
+
   {
     path: "/blog-details",
     render: (props) => <BlogDetails {...props} />,
@@ -51,19 +53,19 @@ const routes = [
   {
     path: "/cart",
     render: (props) => {
-        if(props.isAuth){
-            return <CartPage />
-        }
-        return <Redirect to={{pathname: "/"}} />
+      if (props.isAuth) {
+        return <CartPage />
+      }
+      return <Redirect to={{ pathname: "/" }} />
     },
   },
   {
     path: "/book-online",
     render: (props) => {
-        if(props.isAuth){
-            return <BookOnline />
-        }
-        return <Redirect to={{pathname: "/"}} />
+      if (props.isAuth) {
+        return <BookOnline />
+      }
+      return <Redirect to={{ pathname: "/" }} />
     },
   },
   {
@@ -73,6 +75,18 @@ const routes = [
   {
     path: "/register",
     render: (props) => <RegisterPage {...props} />,
+  },
+  {
+    path: "/forgot-password",
+    render: (props) => <ForgotPage {...props} />,
+  },
+  {
+    path: "/setnewpassword",
+    render: (props) => <NewPasswordPage {...props} />,
+  },
+  {
+    path: "/verification",
+    render: (props) => <Verification {...props} />,
   },
 ];
 
