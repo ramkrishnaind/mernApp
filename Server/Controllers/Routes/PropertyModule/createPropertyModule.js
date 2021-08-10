@@ -53,7 +53,9 @@ function createPropertyRequest(Models) {
             let bodyData = _.pick(req.body, ["iAm", "for", "pType", "postingAs", "pCity", "nameOfProject",
                 "bedrooms", "balconies", "floorNo", "totalFloors", "furnishedStatus", "bathrooms", "superArea",
                 "builtUpArea", "carpetArea", "transactionType", "possessionStatus", "availableFromMonth",
-                "availableFromYear", "ageOfConstruction"]);
+                "availableFromYear", "ageOfConstruction", "expectedPrice", "pricePerSqFt", "isPLCIncluded",
+                "isCarParkingIncluded", "isClubMemberShipIncluded", "otherCharges", "isStumpDutyRCExcluded",
+                "bookingAmount", "maintenanceCharge", "maintenanceFor", "brokerageCharge"]);
             // searching email or mobile already exists or not
             // let findData = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
             const moduleFeatureSchema = {
@@ -70,7 +72,18 @@ function createPropertyRequest(Models) {
                 possessionStatus: bodyData.possessionStatus,
                 availableFromMonth: bodyData.availableFromMonth,
                 availableFromYear: bodyData.availableFromYear,
-                ageOfConstruction: bodyData.ageOfConstruction
+                ageOfConstruction: bodyData.ageOfConstruction,
+                expectedPrice: bodyData.expectedPrice,
+                pricePerSqFt: bodyData.pricePerSqFt,
+                isPLCIncluded: bodyData.isPLCIncluded,
+                isCarParkingIncluded: bodyData.isCarParkingIncluded,
+                isClubMemberShipIncluded: bodyData.isClubMemberShipIncluded,
+                otherCharges: bodyData.otherCharges,
+                isStumpDutyRCExcluded: bodyData.isStumpDutyRCExcluded,
+                bookingAmount: bodyData.bookingAmount,
+                maintenanceCharge: bodyData.maintenanceCharge,
+                maintenanceFor: bodyData.maintenanceFor,
+                brokerageCharge: bodyData.brokerageCharge
             };
 
             // if (findData) {

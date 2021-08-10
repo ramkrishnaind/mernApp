@@ -37,6 +37,7 @@ module.exports = function (conn) {
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
     router.post('/createPropertyRequest', requestAuthMiddleware, createPropertyRequest(allCollection))
+    router.post('/createProperty', userAuthMiddleware, createPropertyRequest(allCollection))
     router.post('/getPropertyRequest', requestAuthMiddleware, getPropertyRequest(allCollection))
     router.post('/updatePropertyStatusRequest', userAuthMiddleware, updatePropertyStatusRequest(allCollection))
     router.post('/uploadImage', upload.array("image"), exteriorImage(allCollection))
