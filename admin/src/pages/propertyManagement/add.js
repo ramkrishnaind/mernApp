@@ -54,10 +54,10 @@ const PropertyCreateUpdate = (props) => {
   useEffect(() => { }, []);
 
   useEffect(() => {
-    if (state["property-type"]) {
+    if (state["pType"]) {
       const formData =
         PropertyOptionManager.getFormFieldsBySelectedPropertyType(
-          state["property-type"]
+          state["pType"]
         );
       setFormFields(formData);
     }
@@ -71,7 +71,7 @@ const PropertyCreateUpdate = (props) => {
   // Extra methods
   const handleChange = (event) => {
     event.preventDefault();
-    const name = event.target.name;
+    const name = event.target.name.replace(/[^a-zA-Z]/ig, "_");
     setState({
       ...state,
       [name]:
@@ -89,6 +89,8 @@ const PropertyCreateUpdate = (props) => {
       clonePropertyTypeOptions.splice(0, 1);
     }
     setPropertyOptions(clonePropertyTypeOptions[0]);
+
+    setState({ ...state, ['for']: option });
   };
 
   const onOptionSelectListener = (option) => {
@@ -98,13 +100,15 @@ const PropertyCreateUpdate = (props) => {
     } else {
       setIsOwner(false);
     }
+    setState({ ...state, ['iAm']: option });
   };
 
   const onFeatureSelect = (feature) => {
+    let name = feature.label.replace(/[^a-zA-Z]/ig, "_");
     console.log("-FEATURE--", feature);
     setSectionFeatures({
       ...propertyFeatures,
-      [feature.label]: feature.item,
+      [name]: feature.item,
     });
   };
 
@@ -119,9 +123,10 @@ const PropertyCreateUpdate = (props) => {
     event.preventDefault();
     const fieldUnit = event.target.value;
     const { fieldName, fieldValue } = currentAreaField;
+    let name = fieldName.replace(/[^a-zA-Z]/ig, "_");
     setState({
       ...state,
-      [fieldName]: {
+      [name]: {
         size: fieldValue,
         unit: fieldUnit,
       },
@@ -129,12 +134,59 @@ const PropertyCreateUpdate = (props) => {
   };
 
   const onTransactionOptionSelectListener = (data) => {
+    let name = data.title.replace(/[^a-zA-Z]/ig, "_");
     setState({
       ...state,
-      [data.title]: data.value,
+      [name]: data.value,
     });
   };
-  const handleSubmit = (e) => { };
+  const handleSubmit = (e) => {
+
+    // console.log('lokko', state);
+
+    let reqData = {
+      // name: name,
+      // description: description,
+      // status: status,
+      // createdBy: userData._id
+
+      iAm: state.iAm,
+      for: state.for,
+      pType: state.pType,
+      postingAs: state.postingAs,
+      pCity: state.city,
+      nameOfProject: state.nameOfProject,
+      bedrooms: propertyFeatures.Bedrooms,
+      balconies: propertyFeatures.Balconies,
+      floorNo: propertyFeatures.Floor_No_,
+      totalFloors: propertyFeatures.Total_Floors,
+      furnishedStatus: propertyFeatures.Furnished_Status,
+      bathrooms: propertyFeatures.Bathrooms,
+      superArea: state.Super_Area,
+      builtUpArea: state.Built_up_Area,
+      carpetArea: state.Carpet_Area,
+      transactionType: state.Transaction_Type,
+      possessionStatus: state.Possession_Status,
+      availableFromMonth: state.available_from_month,
+      availableFromYear: state.available_from_year,
+      ageOfConstruction: "",
+      expectedPrice: state.expected_price,
+      pricePerSqFt: state.expected_price_per_sq_ft,
+      isPLCIncluded: state.price_includes_plc,
+      isCarParkingIncluded: state.price_includes_car_parking,
+      isClubMemberShipIncluded: state.price_includes_club_membership,
+      otherCharges: state.other_charges,
+      isStumpDutyRCExcluded: state.stamp_duty_registration_charges_excluded,
+      bookingAmount: state.booking_token_amount,
+      maintenanceCharge: state.maintenance_charges,
+      maintenanceFor: state.maintenance_charges_per,
+      brokerageCharge: state.brokerage,
+    };
+
+    console.log('reqData', reqData);
+    dispatch(PropertyAction.PropertyAddRequestAsync(reqData));
+
+  };
 
   // Render methods
 
@@ -241,9 +293,9 @@ const PropertyCreateUpdate = (props) => {
                     <Select
                       native
                       variant="outlined"
-                      value={state["property-type"]}
+                      value={state["pType"]}
                       onChange={handleChange}
-                      inputProps={{ name: "property-type" }}
+                      inputProps={{ name: "pType" }}
                       style={{
                         height: 48,
                         marginRight: 5,
@@ -713,11 +765,11 @@ const PropertyCreateUpdate = (props) => {
                         <Select
                           native
                           variant="outlined"
-                          value={state["property-type"]}
+                          value={state["pType"]}
                           onChange={handleChange}
                           inputProps={{
-                            name: "property-type",
-                            id: "property-type",
+                            name: "pType",
+                            id: "pType",
                           }}
                           style={{ height: 48, marginRight: 5, maxHeight: 200, width: "100%" }}
                         >
@@ -726,7 +778,7 @@ const PropertyCreateUpdate = (props) => {
                           {propertyOptions?.items?.length > 0 &&
                             propertyOptions?.items?.map((item, index) => {
                               return (
-                                <option key={index} value={item.id}>
+                                <option key={index} value={item.name}>
                                   {item.name}
                                 </option>
                               );
@@ -761,6 +813,38 @@ const PropertyCreateUpdate = (props) => {
                     </Grid>
                   </FieldsContainer>
                 </Grid>
+                <Grid item xs={12} md={12}>
+                  <FieldsContainer label="Project Name">
+                    <Grid>
+                      <Grid item xs={12} md={4}>
+                        <TextField
+                          label="Project Name"
+                          variant="outlined"
+                          placeholder="Enter Project Name"
+                          style={{ width: "100%" }}
+                          onChange={handleChange}
+                          name="nameOfProject"
+                        ></TextField>
+                        <Box mt={2} />
+                      </Grid>
+                    </Grid>
+
+                    <Grid>
+                      <Grid item xs={12} md={4}>
+                        <TextField
+                          label="Posting As"
+                          variant="outlined"
+                          placeholder="Enter Posting As"
+                          style={{ width: "100%" }}
+                          onChange={handleChange}
+                          name="postingAs"
+                        ></TextField>
+                        <Box mt={2} />
+                      </Grid>
+                    </Grid>
+                  </FieldsContainer>
+                </Grid>
+
                 <Grid item xs={12} md={12}>
                   <Grid container>
                     {_.size(formFields) > 0 &&
