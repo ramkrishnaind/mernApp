@@ -36,7 +36,7 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.post('/createPropertyRequest', requestAuthMiddleware, createPropertyRequest(allCollection))
+    router.post('/createPropertyRequest', createPropertyRequest(allCollection))
     router.post('/createProperty', userAuthMiddleware, createPropertyRequest(allCollection))
     router.post('/getPropertyRequest', requestAuthMiddleware, getPropertyRequest(allCollection))
     router.post('/updatePropertyStatusRequest', userAuthMiddleware, updatePropertyStatusRequest(allCollection))
