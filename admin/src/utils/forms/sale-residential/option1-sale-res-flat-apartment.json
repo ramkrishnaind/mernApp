@@ -26,7 +26,7 @@
                 {
                     "type": "option",
                     "label": "Floor No.",
-                    "initial_counts": ["Lower Basement","Upper Basement","Ground",1,2,3,4,5,"5+"],
+                    "initial_counts": [-2,-1,0,1,2,3,4,5,"5+"],
                     "more_counts": [6,7,8,9,10, 11,12],
                     "showMore": true,
                     "fieldName": "floor_no"
@@ -116,6 +116,12 @@
                             "fieldName": "available_from_year"
                         }
                     ]
+                },
+                {
+                    "label": "Age Of Construction",
+                    "type": "textfield",
+                    "placeholder": "Age Of Construction",
+                    "fieldName": "ageOfConstruction"
                 }
             ]
         },
@@ -195,19 +201,8 @@
                 {
                     "type": "dropdown",
                     "label": "Brokerage (Brokers only)",
-                    "values": ["Select Brokerage", "No Brokerage", "0.25%", "0.5%", "0.75%", "1%", "1.5%", "2%", "3%", "4%", "5%"],
+                    "values": ["No Brokerage", "0.25%", "0.5%", "0.75%", "1%", "1.5%", "2%", "3%", "4%", "5%"],
                     "fieldName": "brokerage"
-                },
-                {
-                    "type": "checkbox",
-                    "label": "Response from brokers",
-                    "fields": [
-                        {
-                            "label": "I am not interested in getting response from brokers",
-                            "value": "I am not interested in getting response from brokers",
-                            "fieldName": "response_from_brokers"
-                        }
-                    ]
                 }
             ]
         }

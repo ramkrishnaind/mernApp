@@ -73,7 +73,7 @@ const API_ENDPOINTS = {
   CONTACTUS_STATUS_UPDATE_ENDPOINT: "contactus/updateContactUsStatus",
 
   //property
-  PROPERTY_ADD_ENDPOINT: "property/createPropertyRequest"
+  PROPERTY_ADD_ENDPOINT: "property/createProperty",
 };
 
 export default API_ENDPOINTS;

@@ -162,14 +162,14 @@ const PropertyCreateUpdate = (props) => {
       totalFloors: propertyFeatures.Total_Floors,
       furnishedStatus: propertyFeatures.Furnished_Status,
       bathrooms: propertyFeatures.Bathrooms,
-      superArea: state.Super_Area,
-      builtUpArea: state.Built_up_Area,
-      carpetArea: state.Carpet_Area,
+      superArea: state.Super_Area?.size,
+      builtUpArea: state.Built_up_Area?.size,
+      carpetArea: state.Carpet_Area?.size,
       transactionType: state.Transaction_Type,
       possessionStatus: state.Possession_Status,
       availableFromMonth: state.available_from_month,
       availableFromYear: state.available_from_year,
-      ageOfConstruction: "",
+      ageOfConstruction: state.ageOfConstruction,
       expectedPrice: state.expected_price,
       pricePerSqFt: state.expected_price_per_sq_ft,
       isPLCIncluded: state.price_includes_plc,
@@ -179,8 +179,10 @@ const PropertyCreateUpdate = (props) => {
       isStumpDutyRCExcluded: state.stamp_duty_registration_charges_excluded,
       bookingAmount: state.booking_token_amount,
       maintenanceCharge: state.maintenance_charges,
-      maintenanceFor: state.maintenance_charges_per,
-      brokerageCharge: state.brokerage,
+      // maintenanceFor: state.maintenance_charges_per,
+      maintenanceFor:true,
+      // brokerageCharge: state.brokerage,
+      brokerageCharge:1
     };
 
     console.log('reqData', reqData);
@@ -194,54 +196,54 @@ const PropertyCreateUpdate = (props) => {
    *
    * @param {*} section - OwnerBlock
    */
-  const _renderOwnerBlock = () => {
-    return (
-      <Grid container>
-        <Grid item xs={12} md={12} className={classes.style1}>
-          <TextField
-            label="Name"
-            variant="outlined"
-            style={{ width: "100%" }}
-            name="owner_name"
-            onChange={handleChange}
-          ></TextField>
-          <Box mt={2} />
-          <Grid container>
-            <Grid item xs={4} md={4} className={classes.style2}>
-              <Select
-                native
-                variant="outlined"
-                value={state["country_code"]}
-                onChange={handleChange}
-                inputProps={{ name: "country_code" }}
-                style={{ height: 55, marginRight: 5 }}
-              >
-                <option value={10}>IND +91</option>
-                <option value={20}>PAK +92</option>
-              </Select>
-            </Grid>
-            <Grid item xs={8} md={8} className={classes.style2}>
-              <TextField
-                label="Mobile"
-                variant="outlined"
-                // style={{ width: "17.5%" }}
-                name="mobile_number"
-                onChange={handleChange}
-              ></TextField>
-            </Grid>
-          </Grid>
-          <Box mt={2} />
-          <TextField
-            label="Email"
-            variant="outlined"
-            style={{ width: "100%" }}
-            onChange={handleChange}
-            name="owner_email"
-          ></TextField>
-        </Grid>
-      </Grid>
-    );
-  };
+  // const _renderOwnerBlock = () => {
+  //   return (
+  //     <Grid container>
+  //       <Grid item xs={12} md={12} className={classes.style1}>
+  //         <TextField
+  //           label="Name"
+  //           variant="outlined"
+  //           style={{ width: "100%" }}
+  //           name="owner_name"
+  //           onChange={handleChange}
+  //         ></TextField>
+  //         <Box mt={2} />
+  //         <Grid container>
+  //           <Grid item xs={4} md={4} className={classes.style2}>
+  //             <Select
+  //               native
+  //               variant="outlined"
+  //               value={state["country_code"]}
+  //               onChange={handleChange}
+  //               inputProps={{ name: "country_code" }}
+  //               style={{ height: 55, marginRight: 5 }}
+  //             >
+  //               <option value={10}>IND +91</option>
+  //               <option value={20}>PAK +92</option>
+  //             </Select>
+  //           </Grid>
+  //           <Grid item xs={8} md={8} className={classes.style2}>
+  //             <TextField
+  //               label="Mobile"
+  //               variant="outlined"
+  //               // style={{ width: "17.5%" }}
+  //               name="mobile_number"
+  //               onChange={handleChange}
+  //             ></TextField>
+  //           </Grid>
+  //         </Grid>
+  //         <Box mt={2} />
+  //         <TextField
+  //           label="Email"
+  //           variant="outlined"
+  //           style={{ width: "100%" }}
+  //           onChange={handleChange}
+  //           name="owner_email"
+  //         ></TextField>
+  //       </Grid>
+  //     </Grid>
+  //   );
+  // };
 
   /**
    *
@@ -441,7 +443,7 @@ const PropertyCreateUpdate = (props) => {
       <FieldsContainer label={sectionName}>
         <Grid container>
           {fields?.map((field, index) => {
-            const { label, type, values, unit, units, placeholder, data } =
+            const { label, type, values,fieldName, unit, units, placeholder, data } =
               field || {};
             if (type === "radio") {
               return (
@@ -483,12 +485,18 @@ const PropertyCreateUpdate = (props) => {
                               maxHeight: 200,
                               width: 200,
                             }}
-                          >
+                          >                            
                             {d.values.map((item, index) => {
                               return (
+                              (d.fieldName === 'available_from_month')?(
+                                <option key={index} value={index+1}>
+                                  {item}
+                                </option>                              
+                                ):(
                                 <option key={index} value={item}>
                                   {item}
                                 </option>
+                                )
                               );
                             })}
                           </Select>
@@ -497,6 +505,22 @@ const PropertyCreateUpdate = (props) => {
                     })}
                   </Grid>
                 </Grid>
+              );
+            }
+            else if (type === "textfield") {
+              return (
+                <Grid item xs={12} md={12}>
+                <Box mt={2} />
+                  <TextField
+                    label={label}
+                    variant="outlined"
+                    placeholder={placeholder}
+                    onChange={handleChange}
+                    style={{ width: 300, marginBottom: 15 }}
+                    name={fieldName}
+                  />
+                </Grid>
+               
               );
             }
           })}
@@ -741,11 +765,11 @@ const PropertyCreateUpdate = (props) => {
                           onOptionSelectListener={onOptionSelectListener}
                         />
                       </Grid>
-                      {isOwner && (
+                      {/* {isOwner && (
                         <Grid item xs={12} md={12}>
                           {_renderOwnerBlock()}
                         </Grid>
-                      )}
+                      )} */}
                     </Grid>
                   </FieldsContainer>
                 </Grid>
