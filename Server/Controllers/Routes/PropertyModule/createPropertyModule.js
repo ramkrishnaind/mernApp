@@ -34,7 +34,7 @@ const moduleSchema = Joi.object({
     isStumpDutyRCExcluded: Joi.boolean(),
     bookingAmount: Joi.number(),
     maintenanceCharge: Joi.number(),
-    maintenanceFor: Joi.boolean(),
+    maintenanceFor: Joi.string(),
     brokerageCharge: Joi.number(),
 });
 
