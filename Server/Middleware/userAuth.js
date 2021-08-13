@@ -53,9 +53,7 @@ function requestAuthMiddleware() {
             let tokenArr = authToken.split(' ');
             let token = tokenArr[1];
             var decoded = jwt.verify(token, process.env.SESSION_SECRET);
-            console.log('  decoded is ', decoded)
-            console.log('  process.env.NODE_ENV is ', process.env.NODE_ENV)
-            if (decoded == process.env.NODE_ENV) {
+            if (decoded == process.env.SECRET) {
                 next();
             } else {
                 console.log('token is ', token)
