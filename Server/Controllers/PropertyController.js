@@ -44,7 +44,7 @@ module.exports = function (conn) {
     router.post('/getUserIdPropertyRequest', getUserIdPropertyList(allCollection))
     router.post('/updatePrice', updatePrice(allCollection))
     router.post('/getSearchPropertyList', getSearchPropertyList(allCollection))
-
+    //test
 
     return router;
 };
