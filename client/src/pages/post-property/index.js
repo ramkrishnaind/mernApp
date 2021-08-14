@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import {
   Container,
   Grid,
@@ -9,6 +10,9 @@ import {
   Checkbox,
   FormControlLabel,
   FormGroup,
+  Button,
+  Radio,
+  RadioGroup
 } from "@material-ui/core";
 import "./post-property.css";
 import FieldsContainer from "./components/fields-container";
@@ -18,6 +22,8 @@ import Option from "./components/option";
 import PropertyOptionManager from "./utils/PropertyOptionManager";
 import Transaction from "./components/transaction";
 import APP_CONSTANTS from "../../utils/constants";
+import {useDispatch} from 'react-redux';
+import * as PropertyAction from "../../redux/actions/PropertyAction";
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -109,9 +115,12 @@ const property_details_options = ["Sale", "Rent/Lease"];
 
 const PostPropertyPage = (props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const [isOwner, setIsOnwer] = React.useState(false);
+  const [step, setStep] = React.useState(true);
   const [state, setState] = React.useState({});
+  const [file, setFile] = React.useState({});
   const [propertyFor, setPropertyFor] = React.useState("");
   const [propertyOptions, setPropertyOptions] = React.useState(
     propertyTypeOptions[0]
@@ -156,6 +165,15 @@ const PostPropertyPage = (props) => {
           : event.target.value,
     });
   };
+
+  const handleimage = (event) => {
+    event.preventDefault();
+    console.log("-HandleChange-", event);
+    if (event.target.files && event.target.files[0]) {
+      let img = event.target.files[0];
+      setFile({'exteriorView':URL.createObjectURL(img),'productId':1});
+    }
+  }
 
   const handleAreaUnitChange = (event) => {
     event.preventDefault();
@@ -209,6 +227,21 @@ const PostPropertyPage = (props) => {
     console.log("-Property-Features-", propertyFeatures);
   }, [state, propertyFeatures]);
 
+  const submitData = () => {
+    //PostPropertyRequestAsync(state);
+    dispatch(PropertyAction.AddPropertyRequestAsync(state));
+    setStep(false);
+  }
+
+  const submitFile = () => {
+    const formData = new FormData();
+    formData.append(file);
+    axios.post("api/uploadImage", formData);
+  }
+
+  const fileUpload = (event) =>{
+    setFile({'exteriorView':event.target.files[0],'productId':1});
+  }
   const _renderOwnerBlock = () => {
     if (isOwner) {
       return (
@@ -254,10 +287,10 @@ const PostPropertyPage = (props) => {
   };
 
   React.useEffect(() => {
-    if (state["property-type"]) {
+    if (state["pType"]) {
       const formData =
         PropertyOptionManager.getFormFieldsBySelectedPropertyType(
-          state["property-type"]
+          state["pType"]
         );
       setFormFields(formData);
     }
@@ -312,9 +345,9 @@ const PostPropertyPage = (props) => {
                   <Typography className={classes.text3}>{label}</Typography>
                   <Select
                     native
-                    value={state["property-type"]}
+                    value={state["pType"]}
                     onChange={handleChange}
-                    inputProps={{ name: "property-type" }}
+                    inputProps={{ name: "pType" }}
                     style={{
                       height: 48,
                       marginRight: 5,
@@ -703,6 +736,8 @@ const PostPropertyPage = (props) => {
 
   return (
     <Container>
+      {
+        step?
       <Grid container>
         <Grid item xs={12} md={12}>
           <Typography className={classes.text1}>
@@ -720,7 +755,24 @@ const PostPropertyPage = (props) => {
                 />
               </Grid>
               <Grid item xs={12} md={12}>
-                {_renderOwnerBlock()}
+                <Select
+                  native
+                  value={state["iAm"]}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "iAm",
+                    id: "iAm",
+                  }}
+                  style={{ height: 48, marginRight: 5, maxHeight: 200 }}
+                >
+                  {personal_details_options.map((item, index) => {
+                    return (
+                      <option key={index} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
+                </Select>
               </Grid>
             </Grid>
           </FieldsContainer>
@@ -738,11 +790,11 @@ const PostPropertyPage = (props) => {
               <Grid item xs={12} md={12}>
                 <Select
                   native
-                  value={state["property-type"]}
+                  value={state["pType"]}
                   onChange={handleChange}
                   inputProps={{
-                    name: "property-type",
-                    id: "property-type",
+                    name: "pType",
+                    id: "pType",
                   }}
                   style={{ height: 48, marginRight: 5, maxHeight: 200 }}
                 >
@@ -767,7 +819,7 @@ const PostPropertyPage = (props) => {
                   placeholder="Enter City"
                   style={{ width: "25%" }}
                   onChange={handleChange}
-                  name="city"
+                  name="pCity"
                 />
                 <TextField
                   label="Locality"
@@ -794,7 +846,39 @@ const PostPropertyPage = (props) => {
             }
           })}
         </Grid>
+        <Button variant="contained" onClick={submitData} color="primary">Save</Button>
       </Grid>
+      
+       :
+       <Grid container>
+        <Grid item xs={12} md={12}>
+          <FieldsContainer label="Images">
+            <Grid container>
+              <Grid item xs={6} md={6}>
+                <p>Upload Images</p>
+              </Grid>
+              <Grid item xs={6} md={6}>
+                <input type="file" onChange={handleimage} />
+              </Grid>
+            </Grid>
+          </FieldsContainer>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <FieldsContainer label="Videos">
+            <Grid container>
+              <Grid item xs={6} md={6}>
+                <p>Upload Videos</p>
+              </Grid>
+              <Grid item xs={6} md={6}>
+                <input type="file" onChange={fileUpload} />
+              </Grid>
+            </Grid>
+          </FieldsContainer>
+        </Grid>
+        <Button variant="contained" onClick={submitFile} color="primary">Save</Button>
+      </Grid> 
+      }
+      
     </Container>
   );
 };

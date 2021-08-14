@@ -3,7 +3,7 @@ import Logger from '../utils/Logger';
 
 export default class ApiClient {
 
-    static BASE_URL = 'http://192.46.214.45:3333/api';
+    static BASE_URL = 'http://localhost:3334/api';
 
     static REQUEST_METHOD = {
         GET: 'GET',
