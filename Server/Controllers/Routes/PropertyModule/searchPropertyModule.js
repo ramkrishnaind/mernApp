@@ -41,7 +41,7 @@ function getSearchPropertyList(Models) {
                     {
                         from: 'pfeatures',
                         localField: '_id',
-                        foreignField: 'productId',
+                        foreignField: 'propertyId',
                         as: 'features'
                     }
                 },
@@ -50,7 +50,7 @@ function getSearchPropertyList(Models) {
                     {
                         from: 'pimages',
                         localField: '_id',
-                        foreignField: 'productId',
+                        foreignField: 'propertyId',
                         as: 'images'
                     }
                 }

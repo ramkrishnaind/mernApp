@@ -4,37 +4,37 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const schema = new Schema({
-    productId: {
+    propertyId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'property',
         default: null
     },
-    exteriorView:{
-        type:Array
+    exteriorView: {
+        type: Array
     },
-    livingRoom:{
-        type:Array
+    livingRoom: {
+        type: Array
     },
-    badrooms:{
-        type:Array
+    badrooms: {
+        type: Array
     },
-    bathrooms:{
-        type:Array
+    bathrooms: {
+        type: Array
     },
-    kitchen:{
-        type:Array
+    kitchen: {
+        type: Array
     },
-    floorPlan:{
-        type:Array
+    floorPlan: {
+        type: Array
     },
-    masterPlan:{
-        type:Array
+    masterPlan: {
+        type: Array
     },
-    locationMap:{
-        type:Array
+    locationMap: {
+        type: Array
     },
-    other:{
-        type:Array
+    other: {
+        type: Array
     }
 }, {
     timestamps: {

@@ -10,7 +10,7 @@ function exteriorImage(Models) {
         try {
 
             const bodyData = {
-                'productId': req.body.productId
+                'propertyId': req.body.propertyId
             }
 
             switch (req.body.imagetype) {
@@ -42,10 +42,10 @@ function exteriorImage(Models) {
                     bodyData['other'] = req.files;
                     break;
             }
-            let findDataname = await Models.PImageDB.findOne({ productId: req.body.productId });
+            let findDataname = await Models.PImageDB.findOne({ propertyId: req.body.propertyId });
             if (findDataname) {
                 // if data found check 
-                let updateModule = await Models.PImageDB.findOneAndUpdate({ productId: bodyData.productId }, { $set: bodyData });
+                let updateModule = await Models.PImageDB.findOneAndUpdate({ propertyId: bodyData.propertyId }, { $set: bodyData });
                 console.log('updateModule is', updateModule)
                 res.send({ status: true, message: CONSTANTSMESSAGE.DATA_UPDATE_SUCCESS });
             }

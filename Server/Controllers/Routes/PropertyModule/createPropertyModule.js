@@ -88,12 +88,12 @@ function createPropertyRequest(Models) {
 
             // if (findData) {
             //     // if data found check 
-            //     let findDataname = await Models.PFeaturesDB.findOne({ productId:findData._id });
+            //     let findDataname = await Models.PFeaturesDB.findOne({ propertyId:findData._id });
             //     if (findDataname) {
             //         // if data found check 
             //         throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateModule: true, statusCode: 401 };
             //     }
-            //     moduleFeatureSchema.productId = findData._id;
+            //     moduleFeatureSchema.propertyId = findData._id;
             //     let saveModule = await new Models.PFeaturesDB(moduleFeatureSchema).save();
             //     console.log('saveModule is', saveModule)
             //     res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
@@ -102,7 +102,7 @@ function createPropertyRequest(Models) {
             // {
             //     let findDataname = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
             //     if (findDataname) {
-            //         moduleFeatureSchema.productId = findDataname._id;
+            //         moduleFeatureSchema.propertyId = findDataname._id;
             let saveModule = await new Models.PropertyDB(bodyData).save();
             let featureSchemaModule = await new Models.PFeaturesDB(moduleFeatureSchema).save();
             console.log('saveModule is', featureSchemaModule)

@@ -11,27 +11,26 @@ const moduleSchema = Joi.object({
     size: Joi.number().integer().min(1),
 });
 
-function getCallbackList(Models)
-{
+function getCallbackList(Models) {
     async function callbackList(req, res) {
         try {
             let validateData = moduleSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: CONSTANTSMESSAGE.INVALID_DATA };
             }
-            let bodyData = _.pick(req.body, ["keyWord","pageNo","size"]);
+            let bodyData = _.pick(req.body, ["keyWord", "pageNo", "size"]);
             let query = {};
             if (bodyData.keyWord && bodyData.keyWord !== '') {
                 query = { 'name': { '$regex': bodyData.keyWord, '$options': 'i' } };
             }
             let findData = await Models.ReqCallbackDB.find(query).skip(bodyData.size * (bodyData.pageNo - 1))
-            .limit(bodyData.size).sort({ updated: -1 }).populate("productId")            
+                .limit(bodyData.size).sort({ updated: -1 }).populate("propertyId")
             let obj = {
                 total: findData.length,
-                list:findData
+                list: findData
             }
 
-            res.send({ status: true, message: "", data:obj });
+            res.send({ status: true, message: "", data: obj });
         }
         catch (e) {
             console.log('Getting list err', e);

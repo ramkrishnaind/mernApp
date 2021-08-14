@@ -16,7 +16,7 @@ const schema = new Schema({
         type: Number,
         required: true
     },
-    productId: {
+    propertyId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'property',
         default: null
