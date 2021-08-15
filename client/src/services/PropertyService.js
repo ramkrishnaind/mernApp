@@ -14,20 +14,22 @@ import propertyList from '../utils/property-list.json';
  * ****** Service to fetch Property List
  */
 export const PropertyListService = async (dispatch, data) => {
-  try {
-    // const result = await ApiClient.call(
-    //   ApiClient.REQUEST_METHOD.GET,
-    //   API_ENDPOINTS.LOGIN_ENDPOINT,
-    //   null,
-    //   null,
-    //   null,
-    //   false
-    // );
-    const result2 = propertyList;
-    dispatch(GetPropertyListSuccess(result2));
-  } catch (error) {
-    dispatch(GetPropertyListError(error));
-  }
+  const result2 = propertyList;
+  dispatch(GetPropertyListSuccess(result2));
+  // try {
+  //   const result = await ApiClient.call(
+  //     ApiClient.REQUEST_METHOD.GET,
+  //     API_ENDPOINTS.PROPERTY_LIST_ENDPOINT,
+  //     null,
+  //     null,
+  //     null,
+  //     true
+  //   );
+  //   const result2 = propertyList;
+  //   dispatch(GetPropertyListSuccess(result2));
+  // } catch (error) {
+  //   dispatch(GetPropertyListError(error));
+  // }
 };
 
 /**

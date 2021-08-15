@@ -1,6 +1,6 @@
 import LoginReducer from './LoginReducer';
 import RegisterReducer from './RegisterReducer';
-import PropertyListReducer from './PropertyListReducer';
+import PropertyReducer from './PropertyReducer';
 import SideMenuListReducer from './SideMenuListReducer';
 import menu from './MenuReducer';
 import ModuleReducer from './ModuleRightsReducer';
@@ -19,7 +19,7 @@ import verification from './VerificationReducer';
 const reducers = {
     Login: LoginReducer,
     Register: RegisterReducer,
-    PropertyList: PropertyListReducer,
+    property: PropertyReducer,
     SideMenuList: SideMenuListReducer,
     menu: menu,
     ModuleReducer: ModuleReducer,

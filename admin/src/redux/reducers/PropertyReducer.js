@@ -20,31 +20,32 @@ const PropertyReducer = (state = initialState, action) => {
       return {
         ...state,
         isRequesting: false,
-        data: payload,
+        list: payload.data,
       };
     case ACTION_KEYS.PROPERTY_LIST_ERROR:
       return {
         ...state,
         isRequesting: false,
-        error: payload?.error || "error",
+        error: payload.error,
       };
-    // Add property
-    case ACTION_KEYS.PROPERTY_ADD_REQUEST:
+
+    case ACTION_KEYS.PROPERTY_DATA_REQUEST:
       return {
         ...state,
         isRequesting: true,
       };
-    case ACTION_KEYS.PROPERTY_ADD_SUCCESS:
+    case ACTION_KEYS.PROPERTY_DATA_SUCCESS:
       return {
         ...state,
         isRequesting: false,
-        data: payload,
+        success: true,
+        propertyData: payload.data,
       };
-    case ACTION_KEYS.PROPERTY_ADD_ERROR:
+    case ACTION_KEYS.PROPERTY_DATA_ERROR:
       return {
         ...state,
         isRequesting: false,
-        error: payload?.error || "error",
+        error: payload.error,
       };
     default:
       return state;

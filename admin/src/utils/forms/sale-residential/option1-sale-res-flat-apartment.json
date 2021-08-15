@@ -200,8 +200,8 @@
                 },
                 {
                     "type": "dropdown",
-                    "label": "Brokerage (Brokers only)",
-                    "values": ["No Brokerage", "0.25%", "0.5%", "0.75%", "1%", "1.5%", "2%", "3%", "4%", "5%"],
+                    "label": "Brokerage in Percentage(Brokers only)",
+                    "values": ["0", "0.25", "0.5", "0.75", "1", "1.5", "2", "3", "4", "5"],
                     "fieldName": "brokerage"
                 }
             ]

@@ -23,6 +23,7 @@ import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
 import "./propertyManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
+import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
   Link as RouterLink,
@@ -42,7 +43,6 @@ const PropertyCreateUpdate = (props) => {
   const dispatch = useDispatch();
   //   state
   const [refresh, setRefresh] = useState(false);
-  const [state, setState] = useState({});
   const [isOwner, setIsOwner] = React.useState(false);
   const [propertyOptions, setPropertyOptions] = React.useState([]);
   const [formFields, setFormFields] = React.useState(null);
@@ -50,8 +50,37 @@ const PropertyCreateUpdate = (props) => {
   const [currentAreaField, setCurrentAreaField] = React.useState({});
   const [areaUnit, setAreaUnit] = React.useState("");
 
+    let propertyData= props?.property?.propertyData;
+    let query = useQuery();
+    let id = query.get("id");
+
+    const initialState = {
+      name:propertyData?.name,
+      description:propertyData?.description,
+      id:id,
+      status:true,
+    };
+      console.log('initialState',initialState);
+    const [state, setState] = useState(initialState);
+
+
   // Life cycle hooks
-  useEffect(() => { }, []);
+  useEffect(() => {
+    let data={
+      _id:id
+    }
+    if(id !=null){
+      dispatch(PropertyAction.PropertyDataRequestAsync(data));
+    }
+   }, []);
+
+   useEffect(() => {
+    if(props.property.success) 
+    {
+      setRefresh(true) 
+      setState(initialState)
+    }
+  }, [props.property.success]);
 
   useEffect(() => {
     if (state["pType"]) {
@@ -145,16 +174,13 @@ const PropertyCreateUpdate = (props) => {
     // console.log('lokko', state);
 
     let reqData = {
-      // name: name,
-      // description: description,
-      // status: status,
-      // createdBy: userData._id
-
+   
       iAm: state.iAm,
       for: state.for,
       pType: state.pType,
       postingAs: state.postingAs,
-      pCity: state.city,
+      pCity: state.pCity,
+      location:state.location,
       nameOfProject: state.nameOfProject,
       bedrooms: propertyFeatures.Bedrooms,
       balconies: propertyFeatures.Balconies,
@@ -179,10 +205,9 @@ const PropertyCreateUpdate = (props) => {
       isStumpDutyRCExcluded: state.stamp_duty_registration_charges_excluded,
       bookingAmount: state.booking_token_amount,
       maintenanceCharge: state.maintenance_charges,
-      // maintenanceFor: state.maintenance_charges_per,
-      maintenanceFor:true,
-      // brokerageCharge: state.brokerage,
-      brokerageCharge:1
+      // maintenanceFor:true,
+      maintenanceFor: state.maintenance_charges_per,
+      brokerageCharge: state.brokerage,
     };
 
     console.log('reqData', reqData);
@@ -595,6 +620,7 @@ const PropertyCreateUpdate = (props) => {
                 } else if (e.type === "dropdown") {
                   return (
                     <Grid item xs={12} md={4} key={i}>
+                       <Typography className={classes.text3}>{e.label}</Typography>
                       <Select
                         native
                         variant="outlined"
@@ -627,6 +653,7 @@ const PropertyCreateUpdate = (props) => {
             } else if (type === "dropdown") {
               return (
                 <Grid item xs={12} md={12}>
+                   <Typography className={classes.text3}>{label}</Typography>
                   <Select
                     native
                     value={state[fieldName]}
@@ -721,6 +748,9 @@ const PropertyCreateUpdate = (props) => {
     );
   };
 
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
   return (
 
     <Box className="PropertyManagement_Data">
@@ -822,7 +852,7 @@ const PropertyCreateUpdate = (props) => {
                           placeholder="Enter City"
                           style={{ width: "100%" }}
                           onChange={handleChange}
-                          name="city"
+                          name="pCity"
                         ></TextField>
                         <Box mt={2} />
                         <TextField
@@ -831,7 +861,7 @@ const PropertyCreateUpdate = (props) => {
                           placeholder="Enter Locality"
                           style={{ width: "100%" }}
                           onChange={handleChange}
-                          name="property_location"
+                          name="location"
                         ></TextField>
                       </Grid>
                     </Grid>
@@ -922,4 +952,15 @@ const PropertyCreateUpdate = (props) => {
   );
 };
 
-export default PropertyCreateUpdate;
+
+function mapStateToProps(state) {
+  const { property } = state;
+  return {
+    property,
+    
+  };
+}
+export default connect(mapStateToProps)(
+  (PropertyCreateUpdate),
+);
+
