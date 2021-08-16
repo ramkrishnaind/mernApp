@@ -107,34 +107,93 @@ function propertyDetail(Models) {
             // pick data from req.body
 
             let bodyData = _.pick(req.body, ["propertyId"]);
-            let findData = await Models.PropertyDB.aggregate([
-                {
-                    $match: {
-                        propertyId: bodyData.propertyId
-                    }
-                },
-                {
-                    $lookup:
-                    {
-                        from: 'pfeatures',
-                        localField: '_id',
-                        foreignField: 'propertyId',
-                        as: 'features'
-                    }
-                },
-                {
-                    $lookup:
-                    {
-                        from: 'pimages',
-                        localField: '_id',
-                        foreignField: 'propertyId',
-                        as: 'images'
-                    }
-                }
-            ]);
+            let _id = bodyData.propertyId;
+            let result = {};
+            // let findData = await Models.PropertyDB.aggregate([
+            //     {
+            //         $match: {
+            //             _id
+            //         }
+            //     },
+            //     {
+            //         $lookup:
+            //         {
+            //             from: 'pfeatures',
+            //             localField: '_id',
+            //             foreignField: 'propertyId',
+            //             as: 'features'
+            //         }
+            //     },
+            //     {
+            //         $lookup:
+            //         {
+            //             from: 'pimages',
+            //             localField: '_id',
+            //             foreignField: 'propertyId',
+            //             as: 'images'
+            //         }
+            //     }
+            // ]);
+            let findData = await Models.PropertyDB.findOne({ _id }).lean();
+            let propertyFeatures = await Models.PFeaturesDB.findOne({ propertyId: findData._id }).lean();
+            //let propertyAmenities = await Models.PFeaturesDB.findOne({ propertyId: findData._id }).lean();
+
+            result._id = findData._id;
+            result.iAm = findData.iAm;
+            result.userName = '';
+            result.for = findData.for;
+            result.pType = findData.pType;
+            result.pCity = findData.pCity;
+            result.nameOfProject = findData.nameOfProject;
+            result.projectDescription = '';
+            result.postingAs = findData.postingAs;
+            result.created = findData.created;
+            result.bedrooms = propertyFeatures.bedrooms;
+            result.floorNo = propertyFeatures.floorNo;
+            result.totalFloors = propertyFeatures.totalFloors;
+            result.furnishedStatus = propertyFeatures.furnishedStatus;
+            result.superArea = propertyFeatures.superArea;
+            result.builtUpArea = propertyFeatures.builtUpArea;
+            result.carpetArea = propertyFeatures.carpetArea;
+            result.transactionType = propertyFeatures.transactionType;
+            result.possessionStatus = propertyFeatures.possessionStatus;
+            result.availableFromMonth = propertyFeatures.availableFromMonth;
+            result.availableFromYear = propertyFeatures.availableFromYear;
+            result.ageOfConstruction = propertyFeatures.ageOfConstruction;
+            result.amenities = {
+                basketballcourt: true,
+                airConditioned: true,
+                swimmingPool: true,
+                noSmokingZone: true,
+                gym: true,
+                petFriendly: true,
+                freeParkingOnPremises: true,
+                wheelchairFriendly: true,
+                homeTheater: true,
+            }
+            result.images = {
+                main: [],
+                bedroom: [],
+            }
+            result.rating = 4.5;
+            result.review = [];
+            result.address = {
+                latitude: '',
+                longitude: '',
+                address: '',
+                city: '',
+                State: '',
+                pinCode: '',
+            }
 
 
-            res.send({ status: true, message: "Property Details", data: findData });
+            console.log('_id is', _id);
+            console.log('findData is', result);
+            console.log('propertyFeatures is', propertyFeatures);
+
+
+
+            res.send({ status: true, message: "Property Details", data: result });
         }
         catch (e) {
             console.log('Getting Property Details err', e);
