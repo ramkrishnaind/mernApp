@@ -94,7 +94,7 @@ const HomePage = (props) => {
       <Container>
         <Grid container style={{paddingTop: 50, paddingBottom: 50}}>
           <Grid item xs={12} md={6}>
-            <img src={process.env.PUBLIC_URL + '/images/about_img.png'} style={{width: 350, height: 350}} />
+            <img src={process.env.PUBLIC_URL + '/images/about_img.png'} />
           </Grid>
           <Grid item xs={12} md={6} style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}} className="animate__animated animate__backInRight">
             <Typography className={classes.text1}>ABOUT VISHAL CONSTRUCTION COMPANY</Typography>
