@@ -175,29 +175,23 @@ const PropertyDetailPage = (props) => {
           <Grid item xs={12} md={8} style={{display: 'flex', flexDirection: 'column'}}>
               <InfoCard item={{title: 'Facts and Features'}}>
                   <Grid container>
-                      <Grid item xs={12} md={3}>
-                        <FactAndFeature icon={familyIcon} title="TYPE" value="Single Family" />
+                      <Grid item xs={12} md={4}>
+                        <FactAndFeature icon={familyIcon} title="TYPE" value={property?.propertyData?.propertyType} />
                       </Grid>
-                      <Grid item xs={12} md={3}>
-                        <FactAndFeature icon={yearIcon} title="YEAR BUILT" value="2021" />
+                      <Grid item xs={12} md={4}>
+                        <FactAndFeature icon={yearIcon} title="YEAR BUILT" value={property?.propertyData?.buildYear} />
                       </Grid>
-                      <Grid item xs={12} md={3}>
-                        <FactAndFeature icon={familyIcon} title="HEATING" value="Radiant" />
+                      <Grid item xs={12} md={4}>
+                        <FactAndFeature icon={yearIcon} title="SQFT" value={property?.propertyData?.builtUpArea} />
                       </Grid>
-                      <Grid item xs={12} md={3}>
-                        <FactAndFeature icon={yearIcon} title="SQFT" value="979.0" />
+                      <Grid item xs={12} md={4}>
+                        <FactAndFeature icon={familyIcon} title="BEDROOMS" value={property?.propertyData?.bedrooms} />
                       </Grid>
-                      <Grid item xs={12} md={3}>
-                        <FactAndFeature icon={familyIcon} title="BEDROOMS" value="3" />
+                      <Grid item xs={12} md={4}>
+                        <FactAndFeature icon={yearIcon} title="BATHROOMS" value={property?.propertyData?.bathrooms} />
                       </Grid>
-                      <Grid item xs={12} md={3}>
-                        <FactAndFeature icon={yearIcon} title="BATHROOMS" value="2" />
-                      </Grid>
-                      <Grid item xs={12} md={3}>
-                        <FactAndFeature icon={familyIcon} title="GARAGE" value="1" />
-                      </Grid>
-                      <Grid item xs={12} md={3}>
-                        <FactAndFeature icon={yearIcon} title="STATUS" value="Active" />
+                      <Grid item xs={12} md={4}>
+                        <FactAndFeature icon={yearIcon} title="STATUS" value={property?.propertyData?.status} />
                       </Grid>
                   </Grid>
               </InfoCard>
