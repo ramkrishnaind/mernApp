@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './header.css';
 import { Grid, Container, Typography, Button, makeStyles, Box, TextField, NativeSelect } from '@material-ui/core';
 import PhoneIcon from '@material-ui/icons/Phone';
@@ -121,7 +121,18 @@ const Header = props => {
     const [time, setTime] = useState("");
 
     const [open, setOpen] = useState(false);
+    const [userdata, setUserdata] = useState(false);
     const dispatch = useDispatch();
+
+    useEffect(()=> {
+        let userdata = localStorage.getItem("user");
+        if(userdata){
+            setUserdata(true);
+        }else{
+            setUserdata(false);
+        }
+        
+    });
 
     const handleData = (e) => {
         const formData = {
@@ -142,12 +153,18 @@ const Header = props => {
         setOpen(false);
     };
 
-
     const handleClickOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const logoutHandler = () => {
+        if (typeof window !== "undefined") {
+            localStorage.removeItem("user");
+            window.location.href = "/";
+        }
     };
     return (
         <>
@@ -188,9 +205,15 @@ const Header = props => {
                                 <Button variant="outlined" className={classes.btn3} component={RouterLink} to="/post-property">
                                     Post Property
                                 </Button>
-                                <Button variant="outlined" className={classes.btn4} component={RouterLink} to="/signin">
-                                    Login / Signup
-                                </Button>
+                                {(userdata)?(
+                                    <Button variant="outlined" className={classes.btn4} onClick={logoutHandler}>
+                                        Logout
+                                    </Button>
+                                ):(
+                                    <Button variant="outlined" className={classes.btn4} component={RouterLink} to="/signin">
+                                        Login / Signup
+                                    </Button>
+                                )}
                             </Grid>
                         </Grid>
                     </Container>

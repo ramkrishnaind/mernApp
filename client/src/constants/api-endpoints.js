@@ -13,6 +13,7 @@ const API_ENDPOINTS = {
   USER_VERIFICATION_ENDPOINT: "/users/verification",
 
   PROPERTY_LIST_ENDPOINT: "property/getPropertyRequest",
+  PROPERTY_DETAIL_ENDPOINT: "property/propertyDetail",
   UPDATE_PROPERTY_STATUS_ENDPOINT: "property/updatePropertyStatusRequest",
   USER_PROPERTY_LIST_ENDPOINT: "property/getUserIdPropertyRequest"
 };

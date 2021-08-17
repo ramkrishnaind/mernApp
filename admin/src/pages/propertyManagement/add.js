@@ -135,8 +135,8 @@ const PropertyCreateUpdate = (props) => {
   const onFeatureSelect = (feature) => {
     let name = feature.label.replace(/[^a-zA-Z]/ig, "_");
     console.log("-FEATURE--", feature);
-    setSectionFeatures({
-      ...propertyFeatures,
+    setState({
+      ...state,
       [name]: feature.item,
     });
   };
@@ -182,12 +182,12 @@ const PropertyCreateUpdate = (props) => {
       pCity: state.pCity,
       location:state.location,
       nameOfProject: state.nameOfProject,
-      bedrooms: propertyFeatures.Bedrooms,
-      balconies: propertyFeatures.Balconies,
-      floorNo: propertyFeatures.Floor_No_,
-      totalFloors: propertyFeatures.Total_Floors,
-      furnishedStatus: propertyFeatures.Furnished_Status,
-      bathrooms: propertyFeatures.Bathrooms,
+      bedrooms: state.Bedrooms,
+      balconies: state.Balconies,
+      floorNo: state.Floor_No_,
+      totalFloors: state.Total_Floors,
+      furnishedStatus: state.Furnished_Status,
+      bathrooms: state.Bathrooms,
       superArea: state.Super_Area?.size,
       builtUpArea: state.Built_up_Area?.size,
       carpetArea: state.Carpet_Area?.size,
@@ -208,6 +208,22 @@ const PropertyCreateUpdate = (props) => {
       // maintenanceFor:true,
       maintenanceFor: state.maintenance_charges_per,
       brokerageCharge: state.brokerage,
+      propertyType:state.Property_Type,
+      heating:state.Heating,
+      garage:state.garage,
+      buildYear:state.build_year,
+
+      basketballCourt: state.basketball_court,
+      airConditioned: state.air_conditioned,
+      swimmingPool:state.swimming_pool,
+      noSmokingZone:state.no_smoking_zone,
+      gym:state.gym,
+      petFriendly:state.pet_friendly,
+      
+      freeParkingonPremises:state.free_parking_on_premises,
+      wheelchairFriendly:state.wheelchair_friendly,
+      homeTheater:state.home_theater,
+
     };
 
     console.log('reqData', reqData);
@@ -365,6 +381,27 @@ const PropertyCreateUpdate = (props) => {
                 );
               }
             })}
+            <Grid
+              item
+              xs={12}
+              md={4}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "flex-start",
+              }}
+            >
+              <TextField
+                label="Garage"
+                name="garage"
+                variant="outlined"
+                placeholder="Garage"
+                fullWidth
+                style={{ marginTop: 15 }}
+                onChange={handleChange}
+              />
+              </Grid>
         </Grid>
       </FieldsContainer>
     );

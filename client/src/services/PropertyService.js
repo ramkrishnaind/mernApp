@@ -16,20 +16,20 @@ import propertyList from '../utils/property-list.json';
 export const PropertyListService = async (dispatch, data) => {
   const result2 = propertyList;
   dispatch(GetPropertyListSuccess(result2));
-  // try {
-  //   const result = await ApiClient.call(
-  //     ApiClient.REQUEST_METHOD.GET,
-  //     API_ENDPOINTS.PROPERTY_LIST_ENDPOINT,
-  //     null,
-  //     null,
-  //     null,
-  //     true
-  //   );
-  //   const result2 = propertyList;
-  //   dispatch(GetPropertyListSuccess(result2));
-  // } catch (error) {
-  //   dispatch(GetPropertyListError(error));
-  // }
+  try {
+    const result = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.PROPERTY_LIST_ENDPOINT,
+      null,
+      null,
+      null,
+      true
+    );
+    const result2 = propertyList;
+    dispatch(GetPropertyListSuccess(result2));
+  } catch (error) {
+    dispatch(GetPropertyListError(error));
+  }
 };
 
 /**
@@ -37,7 +37,7 @@ export const PropertyListService = async (dispatch, data) => {
  */
 export const PropertyDetailService = async (dispatch, data) => {
     try {
-      const result = await ApiClient.call(ApiClient.REQUEST_METHOD.GET, API_ENDPOINTS.LOGIN_ENDPOINT, null, null, null, false);
+      const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.PROPERTY_DETAIL_ENDPOINT, data, null, null, true);
       dispatch(GetPropertyDetailSuccess(result));
     } catch (error) {
       dispatch(GetPropertyDetailError(error));

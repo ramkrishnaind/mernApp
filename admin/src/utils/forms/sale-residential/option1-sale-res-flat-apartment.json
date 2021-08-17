@@ -53,7 +53,21 @@
                     "more_counts": [4,5,6,7,8,9,10, ">10"],
                     "showMore": true,
                     "fieldName": "bathrooms"
-                }
+                },
+                {
+                    "type": "option",
+                    "label": "Property Type",
+                    "initial_counts": ["Single Family","Full Family","Multiple Family"],
+                    "showMore": false,
+                    "fieldName": "property_type"
+                },
+                {
+                    "type": "option",
+                    "label": "Heating",
+                    "initial_counts": ["Radiant","Medium","Low"],
+                    "showMore": false,
+                    "fieldName": "heating"
+                }                
             ]
         },
         {
@@ -118,6 +132,17 @@
                     ]
                 },
                 {
+                    "type": "dropdown",
+                    "label": "Build Year",
+                    "fieldName": "build_year",
+                    "data": [
+                        {
+                            "values": ["2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031"],
+                            "fieldName": "build_year"
+                        }
+                    ]
+                },
+                {
                     "label": "Age Of Construction",
                     "type": "textfield",
                     "placeholder": "Age Of Construction",
@@ -163,6 +188,58 @@
                             "label": "Club Membership",
                             "value": "club membership",
                             "fieldName": "price_includes_club_membership"
+                        }
+                    ]
+                },
+                {
+                    "type": "checkbox",
+                    "label": "Amenities",
+                    "fieldName": "amenities",
+                    "fields": [
+                        {
+                            "label": "Basketball Court",
+                            "value": "Basketball Court",
+                            "fieldName": "basketball_court"
+                        },
+                        {
+                            "label": "Air Conditioned",
+                            "value": "Air Conditioned",
+                            "fieldName": "air_conditioned"
+                        },
+                        {
+                            "label": "Swimming Pool",
+                            "value": "Swimming Pool",
+                            "fieldName": "swimming_pool"
+                        },
+                        {
+                            "label": "No Smoking Zone",
+                            "value": "No Smoking Zone",
+                            "fieldName": "no_smoking_zone"
+                        },
+                        {
+                            "label": "Gym",
+                            "value": "Gym",
+                            "fieldName": "gym"
+                        },
+                        {
+                            "label": "Pet Friendly",
+                            "value": "Pet Friendly",
+                            "fieldName": "pet_friendly"
+                        },
+                        {
+                            "label": "Free Parking on premises",
+                            "value": "Free Parking on premises",
+                            "fieldName": "free_parking_on_premises"
+                        },
+                        {
+                            "label": "Wheelchair Friendly",
+                            "value": "Wheelchair Friendly",
+                            "fieldName": "wheelchair_friendly"
+                        },
+                        {
+                            "label": "Home Theater",
+                            "value": "Home Theater",
+                            "fieldName": "home_theater"
                         }
                     ]
                 },

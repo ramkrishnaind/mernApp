@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Grid,
@@ -23,7 +23,11 @@ import Aminities from "./components/amenities";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import StarIcon from "@material-ui/icons/Star";
 import APP_CONSTANTS from "../../constants/app-constants";
+import * as PropertyActions from '../../redux/actions/PropertyAction';
 
+import {useLocation} from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   text1: {
     fontFamily: '"Open Sans",sans-serif',
@@ -111,8 +115,23 @@ box1: {
 
 const PropertyDetailPage = (props) => {
   const classes = useStyles();
-  const { item } = props;
+  const { item,property } = props;
+  const dispatch = useDispatch();
+  let query = useQuery();
+  let id = query.get("id");
 
+  useEffect(() => {
+    let data = {
+      propertyId: '611a296df7df552ad49faa65'
+    }
+    if (id != null) {
+      dispatch(PropertyActions.GetPropertyDetailRequestAsync(data));
+    }
+  }, [id]);
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
   return (
     <div style={{background: '#F7F7F7'}}>
       <PageBanner
@@ -124,19 +143,19 @@ const PropertyDetailPage = (props) => {
         <Paper elevation={1} style={{ padding: 20, marginTop: 20 }}>
           <Grid container>
             <Grid item xs={12} md={8} className={classes.style2} >
-              <Typography className={classes.text7}>Semi Detached 5 Bedroom house for sale</Typography>
-              <Typography>FOR SALE</Typography>
+              <Typography className={classes.text7}>{property?.propertyData?.nameOfProject} </Typography>
+              <Typography>FOR {property?.propertyData?.for} </Typography>
             </Grid>
             <Grid item xs={12} md={4} className={classes.style3}>
               <Typography className={classes.text3}>Starts From</Typography>
               <Box className={classes.box1} >/</Box>
-              <Typography className={classes.text5}>Rs. 3250000</Typography>
+              <Typography className={classes.text5}>Rs. 3250000 {property?.propertyData?.expectedPrice}</Typography>
             </Grid>
           </Grid>
           <Grid container style={{marginTop: 10}}>
             <Grid item xs={12} md={8} className={classes.style2} >
                 <LocationOnIcon style={{ color: "#FF7601", fontSize: 20, padding: 0, marginRight: 8, }} />
-                <Typography className={classes.text3}>310,311 Pinkcity Enclave, Jagatpura</Typography>
+                <Typography className={classes.text3}>310,311 Pinkcity Enclave, Jagatpura {property?.propertyData?.address?.address}</Typography>
             </Grid>
             <Grid item xs={12} md={4} className={classes.style3}>
                 <StarIcon className={classes.icon} />
@@ -185,50 +204,76 @@ const PropertyDetailPage = (props) => {
               <InfoCard item={{title: 'Property Details'}}>
                   <Grid container>
                       <Grid item xs={12} md={4} style={{display: 'flex', flexDirection: 'column'}}>
-                        <Typography className={classes.text1}>Property ID : ZOAC25</Typography>
-                        <Typography className={classes.text1}>Property Price : $5300/month</Typography>
-                        <Typography className={classes.text1}>Property Type : Apartment</Typography>
+                        <Typography className={classes.text1}>Property ID : {property?.propertyData?._id} </Typography>
+                        <Typography className={classes.text1}>Property Price : $5300/month {property?.propertyData?.expectedPrice}</Typography>
+                        <Typography className={classes.text1}>Property Type : {property?.propertyData?.pType}</Typography>
                       </Grid>
                       <Grid item xs={12} md={4} style={{display: 'flex', flexDirection: 'column'}}>
-                        <Typography className={classes.text1}>Bath: 3</Typography>
-                        <Typography className={classes.text1}>Rooms : 6</Typography>
-                        <Typography className={classes.text1}>Garages: 1</Typography>
+                        <Typography className={classes.text1}>Bath: {property?.propertyData?.bathrooms}</Typography>
+                        <Typography className={classes.text1}>Rooms : {property?.propertyData?.bedrooms}</Typography>
+                        <Typography className={classes.text1}>Garages: {property?.propertyData?.garage}</Typography>
                       </Grid>
                       <Grid item xs={12} md={4} style={{display: 'flex', flexDirection: 'column'}}>
-                        <Typography className={classes.text1}>Property status : For rent</Typography>
-                        <Typography className={classes.text1}>Bedrooms: 4</Typography>
+                        <Typography className={classes.text1}>Property status : For {property?.propertyData?.for}</Typography>
+                        <Typography className={classes.text1}>Bedrooms: {property?.propertyData?.bedrooms}</Typography>
                       </Grid>
                   </Grid>
               </InfoCard>
               <InfoCard item={{title: 'Amenities'}}>
                 <Grid container>
+                  {(property?.propertyData?.amenities?.basketballcourt)?(
+                    <Grid item xs={12} md={4}>
+                      <Aminities icon={familyIcon} title="Basketball Court" />
+                    </Grid>
+                  ):("")}
+
+                  {(property?.propertyData?.amenities?.airConditioned)?(
+                    <Grid item xs={12} md={4}>
+                      <Aminities icon={yearIcon} title="Air Conditioned" />
+                    </Grid>
+                  ):("")}
+
+                  {(property?.propertyData?.amenities?.swimmingPool)?(
+                    <Grid item xs={12} md={4}>
+                      <Aminities icon={familyIcon} title="Swimming Pool" />
+                    </Grid>
+                  ):("")}
+
+                  {(property?.propertyData?.amenities?.noSmokingZone)?(
+                    <Grid item xs={12} md={4}>
+                      <Aminities icon={yearIcon} title="No Smoking Zone" />
+                   </Grid>
+                  ):("")}
+
+                  {(property?.propertyData?.amenities?.gym)?(
+                    <Grid item xs={12} md={4}>
+                      <Aminities icon={familyIcon} title="Gym" />
+                    </Grid>
+                  ):("")}
+
+                  {(property?.propertyData?.amenities?.petFriendly)?(
                       <Grid item xs={12} md={4}>
-                        <Aminities icon={familyIcon} title="Basketball Court" />
-                      </Grid>
-                      <Grid item xs={12} md={4}>
-                        <Aminities icon={yearIcon} title="Air Conditioned" />
-                      </Grid>
-                      <Grid item xs={12} md={4}>
-                        <Aminities icon={familyIcon} title="Swimming Pool" />
-                      </Grid>
-                      <Grid item xs={12} md={4}>
-                        <Aminities icon={yearIcon} title="No Smoking Zone" />
-                      </Grid>
-                      <Grid item xs={12} md={4}>
-                        <Aminities icon={familyIcon} title="Gym" />
-                      </Grid>
-                      <Grid item xs={12} md={4}>
-                        <Aminities icon={yearIcon} title="Pet Friendly" />
-                      </Grid>
-                      <Grid item xs={12} md={4}>
-                        <Aminities icon={familyIcon} title="Free Parking on premises" />
-                      </Grid>
+                         <Aminities icon={yearIcon} title="Pet Friendly" />
+                     </Grid>
+                  ):("")}
+
+                  {(property?.propertyData?.amenities?.freeParkingOnPremises)?(
+                    <Grid item xs={12} md={4}>
+                      <Aminities icon={familyIcon} title="Free Parking on premises" />
+                    </Grid>
+                  ):("")}
+
+                  {(property?.propertyData?.amenities?.wheelchairFriendly)?(
                       <Grid item xs={12} md={4}>
                         <Aminities icon={yearIcon} title="Wheelchair Friendly" />
                       </Grid>
-                      <Grid item xs={12} md={4}>
+                  ):("")}
+
+                  {(property?.propertyData?.amenities?.homeTheater)?(
+                    <Grid item xs={12} md={4}>
                         <Aminities icon={yearIcon} title="Home Theater" />
-                      </Grid>
+                    </Grid>
+                  ):("")}
                   </Grid>
               </InfoCard>
               <InfoCard item={{title: 'Reviews'}} reviewCount={2}>
@@ -303,4 +348,16 @@ const PropertyDetailPage = (props) => {
   );
 };
 
-export default PropertyDetailPage;
+
+function mapStateToProps(state) {
+  const { property } = state;
+  console.log('property',property);
+  return {
+    property,
+    
+  };
+}
+export default connect(mapStateToProps)(
+  (PropertyDetailPage),
+);
+
