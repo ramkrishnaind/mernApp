@@ -252,7 +252,12 @@ const PropertyListCard = (props) => {
                         justifyContent: "center",
                       }}
                     >
-                      <Button variant="contained" className={classes.btn1}  component={RouterLink} to="/property-details">
+                      <Button variant="contained" className={classes.btn1}  component={RouterLink} to={
+                      {
+                        pathname: '/property-detail',
+                        state:item?._id
+                      }}
+                      >
                         View Detail
                       </Button>
                       <Box style={{ width: 10 }}></Box>
