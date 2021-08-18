@@ -149,6 +149,8 @@ function propertyDetail(Models) {
             result.postingAs = findData.postingAs;
             result.created = findData.created;
             result.bedrooms = propertyFeatures.bedrooms;
+            result.bathrooms = propertyFeatures.bathrooms;
+            result.gaurdRoom = true;
             result.floorNo = propertyFeatures.floorNo;
             result.totalFloors = propertyFeatures.totalFloors;
             result.furnishedStatus = propertyFeatures.furnishedStatus;
@@ -172,7 +174,7 @@ function propertyDetail(Models) {
                 homeTheater: true,
             }
             result.images = {
-                main: [],
+                main: {},
                 bedroom: [],
             }
             result.rating = 4.5;
@@ -184,6 +186,14 @@ function propertyDetail(Models) {
                 city: '',
                 State: '',
                 pinCode: '',
+            }
+            result.price = {
+                priceFor: 'Sell',
+                price: 3000000,
+                bookingAmount: '',
+                maintenanceCharge: '',
+                brokerageCharge: '',
+                maintenanceFor: '',
             }
 
 
