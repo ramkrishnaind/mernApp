@@ -36,6 +36,13 @@ const moduleSchema = Joi.object({
     maintenanceCharge: Joi.number(),
     maintenanceFor: Joi.string(),
     brokerageCharge: Joi.number(),
+    amenities: Joi.array(),
+    latitude: Joi.string(),
+    longitude: Joi.string(),
+    address: Joi.string(),
+    city: Joi.string(),
+    State: Joi.string(),
+    pinCode: Joi.string(),
 });
 
 
@@ -55,9 +62,11 @@ function createPropertyRequest(Models) {
                 "builtUpArea", "carpetArea", "transactionType", "possessionStatus", "availableFromMonth",
                 "availableFromYear", "ageOfConstruction", "expectedPrice", "pricePerSqFt", "isPLCIncluded",
                 "isCarParkingIncluded", "isClubMemberShipIncluded", "otherCharges", "isStumpDutyRCExcluded",
-                "bookingAmount", "maintenanceCharge", "maintenanceFor", "brokerageCharge"]);
+                "bookingAmount", "maintenanceCharge", "maintenanceFor", "brokerageCharge", "amenities", "latitude",
+                "longitude", "address", "city", "State", "pinCode"]);
             // searching email or mobile already exists or not
             // let findData = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
+            let propertyCode = "VP001";
             const moduleFeatureSchema = {
                 bedrooms: bodyData.bathrooms,
                 balconies: bodyData.balconies,
@@ -83,7 +92,17 @@ function createPropertyRequest(Models) {
                 bookingAmount: bodyData.bookingAmount,
                 maintenanceCharge: bodyData.maintenanceCharge,
                 maintenanceFor: bodyData.maintenanceFor,
-                brokerageCharge: bodyData.brokerageCharge
+                brokerageCharge: bodyData.brokerageCharge,
+                amenities: bodyData.amenities,
+                address: {
+                    latitude: bodyData.latitude,
+                    longitude: bodyData.longitude,
+                    address: bodyData.address,
+                    city: bodyData.city,
+                    State: bodyData.State,
+                    pinCode: bodyData.pinCode,
+                    propertyCode: bodyData.propertyCode
+                }
             };
 
             // if (findData) {

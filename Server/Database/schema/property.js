@@ -4,48 +4,52 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const schema = new Schema({
-    iAm:{
+    iAm: {
         type: String,
         required: true,
     },
-    userId:{
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
         default: null
     },
-    name:{
+    name: {
         type: String,
         trim: true
     },
-    mobileNo:{
-        type:Number
+    propertyCode: {
+        type: String,
+        trim: true
     },
-    email:{
-        type:String
+    mobileNo: {
+        type: Number
     },
-    for:{
-        type:String
+    email: {
+        type: String
     },
-    pType:{
-        type:String
+    for: {
+        type: String
     },
-    postingAs:{
-        type:String
+    pType: {
+        type: String
     },
-    pCity:{
-        type:String
+    postingAs: {
+        type: String
     },
-    nameOfProject:{
-        type:String
+    pCity: {
+        type: String
     },
-    locality:{
-        type:String
+    nameOfProject: {
+        type: String
     },
-    landZone:{
-        type:String
+    locality: {
+        type: String
     },
-    idealForBusinesses:{
-        type:String
+    landZone: {
+        type: String
+    },
+    idealForBusinesses: {
+        type: String
     },
     status: {
         type: Boolean,

@@ -96,6 +96,12 @@ const schema = new Schema({
     },
     ageOfConstruction: {
         type: String
+    },
+    amenities: {
+        type: Array
+    },
+    address: {
+        type: Object
     }
 }, {
     timestamps: {
