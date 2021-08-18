@@ -235,8 +235,10 @@ const PostPropertyPage = (props) => {
 
   const submitFile = () => {
     const formData = new FormData();
-    formData.append(file);
-    axios.post("api/uploadImage", formData);
+    formData.append('image',file);
+    formData.append('imagetype','livingRoom');
+    formData.append('propertyId','61155a4f37c57504a11628ce');
+    dispatch(PropertyAction.UploadPropertyImageRequestAsync(formData));
   }
 
   const fileUpload = (event) =>{

@@ -79,6 +79,7 @@ btn2: {
 
 const PropertyListCard = (props) => {
   const {item} = props;
+  console.log(item);
   
   const classes = useStyles();
 
@@ -121,7 +122,7 @@ const PropertyListCard = (props) => {
               }}
             >
               <Typography className={classes.text2}>
-                {item?.title}
+                {item?.nameOfProject}
               </Typography>
               <Grid>
                 <Grid
@@ -143,26 +144,26 @@ const PropertyListCard = (props) => {
                     }}
                   />
                   <Typography className={classes.text3}>
-                    {item?.location}
+                    {item?.pCity}
                   </Typography>
                 </Grid>
               </Grid>
               <Grid container>
                 <Grid item xs={6} md={6} className={classes.features}>
                   <ZoomOutMapIcon className={classes.icon} />
-                  <Typography className={classes.text4}>356 Sq-Ft</Typography>
+                  <Typography className={classes.text4}>{item?.features[0]?.builtUpArea} Sq-Ft</Typography>
                 </Grid>
                 <Grid item xs={6} md={6} className={classes.features}>
                   <LocalHotelIcon className={classes.icon} />
-                  <Typography className={classes.text4}>4 Bedrooms</Typography>
+                  <Typography className={classes.text4}>{item?.features[0]?.bedrooms} Bedrooms</Typography>
                 </Grid>
                 <Grid item xs={6} md={6} className={classes.features}>
                   <DriveEtaIcon className={classes.icon} />
-                  <Typography className={classes.text4}>3 Garage</Typography>
+                  <Typography className={classes.text4}>{item?.features[0]?.totalFloors} TotalFloors</Typography>
                 </Grid>
                 <Grid item xs={6} md={6} className={classes.features}>
                   <BathtubIcon className={classes.icon} />
-                  <Typography className={classes.text4}>3 Bathroom</Typography>
+                  <Typography className={classes.text4}>{item?.features[0]?.bathrooms} Bathroom</Typography>
                 </Grid>
                 <Grid item xs={12} md={12}>
                   <Divider style={{ marginTop: 20, marginBottom: 20 }} />
@@ -251,7 +252,7 @@ const PropertyListCard = (props) => {
                         justifyContent: "center",
                       }}
                     >
-                      <Button variant="contained" className={classes.btn1}>
+                      <Button variant="contained" className={classes.btn1}  component={RouterLink} to="/property-details">
                         View Detail
                       </Button>
                       <Box style={{ width: 10 }}></Box>

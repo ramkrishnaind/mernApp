@@ -3,7 +3,7 @@ import Logger from '../utils/Logger';
 
 export default class ApiClient {
 
-    static BASE_URL = 'http://localhost:3334/api';
+    static BASE_URL = 'http://192.46.214.45:3333/api';
 
     static REQUEST_METHOD = {
         GET: 'GET',
@@ -35,7 +35,7 @@ export default class ApiClient {
 
         headers = this.addCommonHeaders(headers);
         //TODO: get tokens from reducer or localstorage
-        const token = 'eyJhbGciOiJIUzI1NiJ9.ZGV2ZWxvcG1lbnQ.QYWF1clxM159VxxG9jBz7Jjpr8fJKwJIFrHZxhbdVrc';
+        const token = 'eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs';
 
         if (isAuthTokenRequired) {
             headers["Authorization"] = "Bearer " + token;
