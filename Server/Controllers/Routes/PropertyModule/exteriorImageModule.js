@@ -10,9 +10,9 @@ function exteriorImage(Models) {
         try {
 
             const bodyData = {
-                'propertyId': req.body.propertyId
+                propertyId: req.body.propertyId,
             }
-
+            console.log('req.body.imagetype is', req.body.imagetype)
             switch (req.body.imagetype) {
                 case 'exteriorView':
                     bodyData['exteriorView'] = req.files;
@@ -42,6 +42,7 @@ function exteriorImage(Models) {
                     bodyData['other'] = req.files;
                     break;
             }
+            console.log('bodyData is', bodyData)
             let findDataname = await Models.PImageDB.findOne({ propertyId: req.body.propertyId });
             if (findDataname) {
                 // if data found check 
