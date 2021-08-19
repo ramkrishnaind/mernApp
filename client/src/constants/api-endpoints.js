@@ -11,7 +11,10 @@ const API_ENDPOINTS = {
   ENQUIRY_ENDPOINT: "/enquiry/createEnquiryRequest",
   SITEVISIT_ENDPOINT: "sitevisit/createSiteVisitRequest",
   USER_VERIFICATION_ENDPOINT: "/users/verification",
-  ADD_PROPERTY: "property/createPropertyRequest",
+  ADD_PROPERTY: "/property/createPropertyRequest",
+  UPLOAD_IMAGE: "/property/uploadImage",
+  PROPERTY_LIST_CLIENT: "/property/getAllPropertyForClient",
+  PROPERTY_DETAIL: "/property/propertyDetail",
 };
 
 export default API_ENDPOINTS;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Grid,
@@ -12,6 +12,7 @@ import {
   Radio,
   Button
 } from "@material-ui/core";
+import { useParams } from 'react-router';
 import "./property-detail.css";
 import PageBanner from "../../components/page-banner";
 import bannerImage from "../../images/property_header_2.jpeg";
@@ -23,6 +24,9 @@ import Aminities from "./components/amenities";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import StarIcon from "@material-ui/icons/Star";
 import APP_CONSTANTS from "../../constants/app-constants";
+import {useDispatch, useSelector} from 'react-redux';
+import * as PropertyAction from "../../redux/actions/PropertyAction";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -111,21 +115,46 @@ box1: {
 
 const PropertyDetailPage = (props) => {
   const classes = useStyles();
+  const location = useLocation();
   const { item } = props;
+  const dispatch = useDispatch();
+  let query = useQuery();
+  const [viewDetails, setViewDetails] = React.useState(false);
+  let token = query.get("token");
+  const [PropertyDetail,setPropertyDetail] = React.useState({});
+  const propertyListItem = useSelector(state => state.PropertyDetail.data);
+  if(propertyListItem){
+    if(viewDetails === false){
+      console.log(propertyListItem);
+      setViewDetails(true);
+      setPropertyDetail(propertyListItem.data);
+    }
+  }
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
 
+  React.useEffect (() => {
+    let reqData = {
+      propertyId: location?.state
+    };
+    dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
+  },[])
+  
   return (
     <div style={{background: '#F7F7F7'}}>
-      <PageBanner
-        bgImage={bannerImage}
-        title="Property"
-        currentPage="PROPERTY DETAIL"
-      />
-      <Container>
+        <PageBanner
+          bgImage={bannerImage}
+          title="Property"
+          currentPage="PROPERTY DETAIL"
+        />
+        {viewDetails?
+        <Container>
         <Paper elevation={1} style={{ padding: 20, marginTop: 20 }}>
           <Grid container>
             <Grid item xs={12} md={8} className={classes.style2} >
-              <Typography className={classes.text7}>Semi Detached 5 Bedroom house for sale</Typography>
-              <Typography>FOR SALE</Typography>
+              <Typography className={classes.text7}>{PropertyDetail.nameOfProject}</Typography>
+              <Typography>FOR {PropertyDetail?.for}</Typography>
             </Grid>
             <Grid item xs={12} md={4} className={classes.style3}>
               <Typography className={classes.text3}>Starts From</Typography>
@@ -136,7 +165,7 @@ const PropertyDetailPage = (props) => {
           <Grid container style={{marginTop: 10}}>
             <Grid item xs={12} md={8} className={classes.style2} >
                 <LocationOnIcon style={{ color: "#FF7601", fontSize: 20, padding: 0, marginRight: 8, }} />
-                <Typography className={classes.text3}>310,311 Pinkcity Enclave, Jagatpura</Typography>
+                <Typography className={classes.text3}>{PropertyDetail?.pCity}</Typography>
             </Grid>
             <Grid item xs={12} md={4} className={classes.style3}>
                 <StarIcon className={classes.icon} />
@@ -157,19 +186,19 @@ const PropertyDetailPage = (props) => {
               <InfoCard item={{title: 'Facts and Features'}}>
                   <Grid container>
                       <Grid item xs={12} md={3}>
-                        <FactAndFeature icon={familyIcon} title="TYPE" value="Single Family" />
+                        <FactAndFeature icon={familyIcon} title="TYPE" value={ PropertyDetail?.pType } />
                       </Grid>
                       <Grid item xs={12} md={3}>
-                        <FactAndFeature icon={yearIcon} title="YEAR BUILT" value="2021" />
+                        <FactAndFeature icon={yearIcon} title="YEAR BUILT" value={ PropertyDetail?.availableFromYear } />
                       </Grid>
                       <Grid item xs={12} md={3}>
                         <FactAndFeature icon={familyIcon} title="HEATING" value="Radiant" />
                       </Grid>
                       <Grid item xs={12} md={3}>
-                        <FactAndFeature icon={yearIcon} title="SQFT" value="979.0" />
+                        <FactAndFeature icon={yearIcon} title="SQFT" value={ PropertyDetail?.builtUpArea } />
                       </Grid>
                       <Grid item xs={12} md={3}>
-                        <FactAndFeature icon={familyIcon} title="BEDROOMS" value="3" />
+                        <FactAndFeature icon={familyIcon} title="BEDROOMS" value={ PropertyDetail?.bedrooms } />
                       </Grid>
                       <Grid item xs={12} md={3}>
                         <FactAndFeature icon={yearIcon} title="BATHROOMS" value="2" />
@@ -185,53 +214,89 @@ const PropertyDetailPage = (props) => {
               <InfoCard item={{title: 'Property Details'}}>
                   <Grid container>
                       <Grid item xs={12} md={4} style={{display: 'flex', flexDirection: 'column'}}>
-                        <Typography className={classes.text1}>Property ID : ZOAC25</Typography>
+                        <Typography className={classes.text1}>Property ID : { PropertyDetail?._id }</Typography>
                         <Typography className={classes.text1}>Property Price : $5300/month</Typography>
-                        <Typography className={classes.text1}>Property Type : Apartment</Typography>
+                        <Typography className={classes.text1}>Property Type : { PropertyDetail?.pType }</Typography>
                       </Grid>
                       <Grid item xs={12} md={4} style={{display: 'flex', flexDirection: 'column'}}>
                         <Typography className={classes.text1}>Bath: 3</Typography>
-                        <Typography className={classes.text1}>Rooms : 6</Typography>
+                        <Typography className={classes.text1}>Rooms : { PropertyDetail?.bedrooms } </Typography>
                         <Typography className={classes.text1}>Garages: 1</Typography>
                       </Grid>
                       <Grid item xs={12} md={4} style={{display: 'flex', flexDirection: 'column'}}>
-                        <Typography className={classes.text1}>Property status : For rent</Typography>
-                        <Typography className={classes.text1}>Bedrooms: 4</Typography>
+                        <Typography className={classes.text1}>Property status : For { PropertyDetail?.for }</Typography>
+                        <Typography className={classes.text1}>Bedrooms: { PropertyDetail?.bedrooms }</Typography>
                       </Grid>
                   </Grid>
               </InfoCard>
               <InfoCard item={{title: 'Amenities'}}>
                 <Grid container>
-                      <Grid item xs={12} md={4}>
-                        <Aminities icon={familyIcon} title="Basketball Court" />
-                      </Grid>
-                      <Grid item xs={12} md={4}>
-                        <Aminities icon={yearIcon} title="Air Conditioned" />
-                      </Grid>
-                      <Grid item xs={12} md={4}>
-                        <Aminities icon={familyIcon} title="Swimming Pool" />
-                      </Grid>
-                      <Grid item xs={12} md={4}>
-                        <Aminities icon={yearIcon} title="No Smoking Zone" />
-                      </Grid>
-                      <Grid item xs={12} md={4}>
-                        <Aminities icon={familyIcon} title="Gym" />
-                      </Grid>
-                      <Grid item xs={12} md={4}>
-                        <Aminities icon={yearIcon} title="Pet Friendly" />
-                      </Grid>
-                      <Grid item xs={12} md={4}>
-                        <Aminities icon={familyIcon} title="Free Parking on premises" />
-                      </Grid>
-                      <Grid item xs={12} md={4}>
-                        <Aminities icon={yearIcon} title="Wheelchair Friendly" />
-                      </Grid>
-                      <Grid item xs={12} md={4}>
-                        <Aminities icon={yearIcon} title="Home Theater" />
-                      </Grid>
+                      {
+                        PropertyDetail?.amenities?.basketballcourt ? 
+                        <Grid item xs={12} md={4}>
+                          <Aminities icon={familyIcon} title="Basketball Court" />
+                        </Grid>
+                        : null
+                      }
+                      {
+                        PropertyDetail?.amenities?.airConditioned ? 
+                        <Grid item xs={12} md={4}>
+                          <Aminities icon={yearIcon} title="Air Conditioned" />
+                        </Grid>
+                        : null
+                      }
+                      {
+                        PropertyDetail?.amenities?.swimmingPool ? 
+                        <Grid item xs={12} md={4}>
+                          <Aminities icon={familyIcon} title="Swimming Pool" />
+                        </Grid>
+                        : null
+                      }
+                      {
+                        PropertyDetail?.amenities?.noSmokingZone ? 
+                        <Grid item xs={12} md={4}>
+                          <Aminities icon={yearIcon} title="No Smoking Zone" />
+                        </Grid>
+                        : null
+                      }
+                      {
+                        PropertyDetail?.amenities?.gym ? 
+                        <Grid item xs={12} md={4}>
+                          <Aminities icon={familyIcon} title="Gym" />
+                        </Grid>
+                        : null
+                      }
+                      {
+                        PropertyDetail?.amenities?.petFriendly ? 
+                        <Grid item xs={12} md={4}>
+                          <Aminities icon={yearIcon} title="Pet Friendly" />
+                        </Grid>
+                        : null
+                      }
+                      {
+                        PropertyDetail?.amenities?.freeParkingOnPremises ? 
+                        <Grid item xs={12} md={4}>
+                          <Aminities icon={familyIcon} title="Free Parking on premises" />
+                        </Grid>
+                        : null
+                      }
+                      {
+                        PropertyDetail?.amenities?.wheelchairFriendly ? 
+                        <Grid item xs={12} md={4}>
+                          <Aminities icon={yearIcon} title="Wheelchair Friendly" />
+                        </Grid>
+                        : null
+                      }
+                      {
+                        PropertyDetail?.amenities?.homeTheater ? 
+                        <Grid item xs={12} md={4}>
+                          <Aminities icon={yearIcon} title="Home Theater" />
+                        </Grid>
+                        : null
+                      }
                   </Grid>
               </InfoCard>
-              <InfoCard item={{title: 'Reviews'}} reviewCount={2}>
+              <InfoCard item={{title: 'Reviews'}} reviewCount={ PropertyDetail?.review.length != 0 ? PropertyDetail?.review.length : '0' }>
                   Reviews goes here
               </InfoCard>
           </Grid>
@@ -243,24 +308,13 @@ const PropertyDetailPage = (props) => {
                             <Grid item xs={12} md={12} className={classes.style1}>
                                 <Typography className={classes.text4}>Property Brief</Typography>
                                 <Typography className={classes.text6}>
-                                    Vishal Construction Company is a Jaipur based construction
-                                    company which today is a renowned name in providing best in
-                                    class real estate services to its clients located all over
-                                    India. Vishal Construction Company specializes in its area
-                                    of work wherein they are expert in the real estate services,
-                                    construction process of housing, commercial and other types
-                                    of properties. They majorly serve clientele of Rajasthan,
-                                    Hyderabad, Kolkata and other metro cities of India. Vishal
-                                    Construction Company has a long-standing reputation wherein
-                                    they deliver excellence catering to services and
-                                    workmanship. They believe in providing quality projects with
-                                    timely delivery.
+                                    { PropertyDetail?.projectDescription }
                                 </Typography>
                             </Grid>
                         </Grid>
                     </Paper>
                 </Grid>
-                <Grid item item xs={12} md={12} style={{marginTop: 20}}>
+                {/* <Grid item item xs={12} md={12} style={{marginTop: 20}}>
                     <Paper style={{padding: 20}}>
                         <Grid container>
                             <Grid item xs={12} md={12} className={classes.style1}>
@@ -273,7 +327,7 @@ const PropertyDetailPage = (props) => {
                             </Grid>
                         </Grid>
                     </Paper>
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12} md={12} style={{marginTop: 20, marginBottom: 20}}>
                     <Paper style={{padding: 20}}>
                         <Grid container>
@@ -299,7 +353,10 @@ const PropertyDetailPage = (props) => {
           </Grid>
         </Grid>
       </Container>
+      :null
+      }
     </div>
+      
   );
 };
 

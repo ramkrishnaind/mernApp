@@ -1,5 +1,5 @@
 import ACTION_KEYS from "../../constants/action-keys";
-import { PropertyListService, PropertyDetailService, PostPropertyService, AddPropertyService } from "../../services/PropertyService";
+import { PropertyListService, PropertyDetailService, PostPropertyService, AddPropertyService,UploadPropertyImageService } from "../../services/PropertyService";
 
 /**
  * ****** Actions - Property List
@@ -39,6 +39,7 @@ export const GetPropertyListError = (data) => {
     return (dispatch) => {
         dispatch(GetPropertyDetailRequest());
         PropertyDetailService(dispatch, data);
+        return data;
     }
 }
 
@@ -78,6 +79,13 @@ export const AddPropertyRequestAsync = (data) => {
     return (dispatch) => {
         dispatch(PostPropertyRequest());
         AddPropertyService(dispatch, data);
+    }
+}
+
+export const UploadPropertyImageRequestAsync = (data) => {
+    return (dispatch) => {
+        dispatch(PostPropertyRequest());
+        UploadPropertyImageService(dispatch, data);
     }
 }
 
