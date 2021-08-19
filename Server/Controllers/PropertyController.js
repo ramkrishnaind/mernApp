@@ -44,6 +44,7 @@ module.exports = function (conn) {
     router.post('/propertyDetail', requestAuthMiddleware, propertyCommonHelper.propertyDetail(allCollection))
     router.post('/getAllProperty', userAuthMiddleware, propertyCommonHelper.getAllProperty(allCollection))
     router.post('/getAllPropertyForClient', requestAuthMiddleware, propertyCommonHelper.getAllProperty(allCollection))
+    router.post('/getAllPropertyForHome', requestAuthMiddleware, propertyCommonHelper.getHomeAllProperty(allCollection))
     router.post('/getPropertyRequest', requestAuthMiddleware, getPropertyRequest(allCollection))
     router.post('/updatePropertyStatusRequest', userAuthMiddleware, updatePropertyStatusRequest(allCollection))
     router.post('/uploadImage', upload.array("image"), exteriorImage(allCollection))

@@ -96,6 +96,57 @@ function getAllProperty(Models) {
     }
     return PropertyList;
 }
+function getHomeAllProperty(Models) {
+    async function PropertyList(req, res) {
+        try {
+            let findData = await Models.PropertyDB.find({ status: 1 }).lean();
+            let rentData = findData.filter(function (item) {
+                return item.for === "Rent";
+            });
+            let totalForRent = rentData.length;
+
+            let sellData = findData.filter(function (item) {
+                return item.for === "Sell";
+            });
+            let totalForSell = sellData.length;
+
+            let constructionData = findData.filter(function (item) {
+                return item.for === "Construction";
+            });
+            let totalForConstruction = constructionData.length;
+
+            let interiorData = findData.filter(function (item) {
+                return item.for === "Interior";
+            });
+            let totalForInterior = interiorData.length;
+            let obj = {
+                sell: {
+                    total: totalForSell,
+                    data: sellData
+                },
+                rent: {
+                    total: totalForRent,
+                    data: rentData
+                },
+                construction: {
+                    total: totalForConstruction,
+                    data: constructionData
+                },
+                interior: {
+                    total: totalForInterior,
+                    data: interiorData
+                }
+            }
+
+            res.send({ status: true, message: "", data: obj });
+        }
+        catch (e) {
+            console.log('Getting list err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Getting list" });
+        }
+    }
+    return PropertyList;
+}
 function propertyDetail(Models) {
     async function PropertyList(req, res) {
         try {
@@ -213,50 +264,6 @@ function propertyDetail(Models) {
     return PropertyList;
 }
 function deleteProperty(Models) {
-    async function PropertyList(req, res) {
-        try {
-            let validateData = singlePropertyModuleSchema.validate(req.body);
-            if (validateData.error) {
-                throw { status: false, error: validateData, message: CONSTANTSMESSAGE.INVALID_DATA };
-            }
-
-            // pick data from req.body
-
-            let bodyData = _.pick(req.body, ["propertyId"]);
-            let findData = await Models.PropertyDB.aggregate([
-                {
-                    $match: {
-                        propertyId: bodyData.propertyId
-                    }
-                },
-                {
-                    $lookup:
-                    {
-                        from: 'pfeatures',
-                        localField: '_id',
-                        foreignField: 'propertyId',
-                        as: 'features'
-                    }
-                },
-                {
-                    $lookup:
-                    {
-                        from: 'pimages',
-                        localField: '_id',
-                        foreignField: 'propertyId',
-                        as: 'images'
-                    }
-                }
-            ]);
-
-
-            res.send({ status: true, message: "Property Details", data: findData });
-        }
-        catch (e) {
-            console.log('Getting Property Details err', e);
-            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Getting Property Details" });
-        }
-    }
     return function deleteProperty(Models) {
         async function deletePropertyFun(req, res) {
             try {
@@ -294,6 +301,7 @@ module.exports = {
     getAllProperty,
     propertyDetail,
     deleteProperty,
+    getHomeAllProperty
 
     // createUserFunc: createUserHelper,
     // getAllUserFunc: getAllUserHelper,

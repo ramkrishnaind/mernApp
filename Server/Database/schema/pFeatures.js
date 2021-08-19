@@ -73,6 +73,9 @@ const schema = new Schema({
     IsCornerPlot: {
         type: Boolean
     },
+    totalArea: {
+        type: Number
+    },
     superArea: {
         type: Number
     },

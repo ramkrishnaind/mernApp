@@ -9,7 +9,6 @@ const moduleSchema = Joi.object({
     for: Joi.string().empty(""),
     pType: Joi.string().empty(""),
     postingAs: Joi.string().empty(""),
-    pCity: Joi.string().empty(""),
     nameOfProject: Joi.string().empty(""),
     bedrooms: Joi.number(),
     balconies: Joi.number(),
@@ -20,16 +19,12 @@ const moduleSchema = Joi.object({
     superArea: Joi.number(),
     builtUpArea: Joi.number(),
     carpetArea: Joi.number(),
-    transactionType: Joi.string(),
     possessionStatus: Joi.string().empty(""),
     availableFromMonth: Joi.number(),
     availableFromYear: Joi.number(),
     ageOfConstruction: Joi.string().empty(""),
     expectedPrice: Joi.number(),
     pricePerSqFt: Joi.number(),
-    isPLCIncluded: Joi.boolean(),
-    isCarParkingIncluded: Joi.boolean(),
-    isClubMemberShipIncluded: Joi.boolean(),
     otherCharges: Joi.number(),
     isStumpDutyRCExcluded: Joi.boolean(),
     bookingAmount: Joi.number(),
@@ -43,6 +38,11 @@ const moduleSchema = Joi.object({
     city: Joi.string(),
     State: Joi.string(),
     pinCode: Joi.string(),
+    propertTag: Joi.string(),
+    propertyDetails: Joi.array(),
+    isPostedByAdmin: Joi.boolean(),
+    userId: Joi.objectId(),
+    totalArea: Joi.number()
 });
 
 
@@ -63,10 +63,15 @@ function createPropertyRequest(Models) {
                 "availableFromYear", "ageOfConstruction", "expectedPrice", "pricePerSqFt", "isPLCIncluded",
                 "isCarParkingIncluded", "isClubMemberShipIncluded", "otherCharges", "isStumpDutyRCExcluded",
                 "bookingAmount", "maintenanceCharge", "maintenanceFor", "brokerageCharge", "amenities", "latitude",
-                "longitude", "address", "city", "State", "pinCode"]);
+                "longitude", "address", "city", "State", "pinCode", "propertTag", "isPostedByAdmin", "propertyDetails", "userId", "totalArea"]);
             // searching email or mobile already exists or not
             // let findData = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
             let propertyCode = "VP001";
+            if (bodyData.isPostedByAdmin) {
+                bodyData.status = 1;
+            } else {
+                bodyData.status = 2;
+            }
             const moduleFeatureSchema = {
                 bedrooms: bodyData.bathrooms,
                 balconies: bodyData.balconies,
@@ -74,6 +79,7 @@ function createPropertyRequest(Models) {
                 totalFloors: bodyData.totalFloors,
                 furnishedStatus: bodyData.furnishedStatus,
                 bathrooms: bodyData.bathrooms,
+                totalArea: bodyData.totalArea,
                 superArea: bodyData.superArea,
                 builtUpArea: bodyData.builtUpArea,
                 carpetArea: bodyData.carpetArea,
@@ -84,9 +90,6 @@ function createPropertyRequest(Models) {
                 ageOfConstruction: bodyData.ageOfConstruction,
                 expectedPrice: bodyData.expectedPrice,
                 pricePerSqFt: bodyData.pricePerSqFt,
-                isPLCIncluded: bodyData.isPLCIncluded,
-                isCarParkingIncluded: bodyData.isCarParkingIncluded,
-                isClubMemberShipIncluded: bodyData.isClubMemberShipIncluded,
                 otherCharges: bodyData.otherCharges,
                 isStumpDutyRCExcluded: bodyData.isStumpDutyRCExcluded,
                 bookingAmount: bodyData.bookingAmount,
@@ -94,41 +97,29 @@ function createPropertyRequest(Models) {
                 maintenanceFor: bodyData.maintenanceFor,
                 brokerageCharge: bodyData.brokerageCharge,
                 amenities: bodyData.amenities,
+                propertTag: bodyData.propertTag,
                 address: {
                     latitude: bodyData.latitude,
                     longitude: bodyData.longitude,
                     address: bodyData.address,
                     city: bodyData.city,
                     State: bodyData.State,
-                    pinCode: bodyData.pinCode,
-                    propertyCode: bodyData.propertyCode
-                }
+                    pinCode: bodyData.pinCode
+                },
+                pCity: bodyData.city,
+                locality: bodyData.locality,
+                pCity: bodyData.city,
+                locality: bodyData.locality,
+                status: bodyData.status,
+                propertyCode: propertyCode,
+                propertyDetails: bodyData.propertyDetails,
+                userId: bodyData.userId
             };
 
-            // if (findData) {
-            //     // if data found check 
-            //     let findDataname = await Models.PFeaturesDB.findOne({ propertyId:findData._id });
-            //     if (findDataname) {
-            //         // if data found check 
-            //         throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateModule: true, statusCode: 401 };
-            //     }
-            //     moduleFeatureSchema.propertyId = findData._id;
-            //     let saveModule = await new Models.PFeaturesDB(moduleFeatureSchema).save();
-            //     console.log('saveModule is', saveModule)
-            //     res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
-            // }
-            // else
-            // {
-            //     let findDataname = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
-            //     if (findDataname) {
-            //         moduleFeatureSchema.propertyId = findDataname._id;
             let saveModule = await new Models.PropertyDB(bodyData).save();
             let featureSchemaModule = await new Models.PFeaturesDB(moduleFeatureSchema).save();
             console.log('saveModule is', featureSchemaModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
-            //     }
-            // }
-
         }
         catch (e) {
             console.log('saveModule err', e);

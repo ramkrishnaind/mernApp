@@ -21,10 +21,7 @@ const schema = new Schema({
         type: String,
         trim: true
     },
-    mobileNo: {
-        type: Number
-    },
-    email: {
+    propertTag: {
         type: String
     },
     for: {
@@ -45,6 +42,9 @@ const schema = new Schema({
     locality: {
         type: String
     },
+    propertyDetails: {
+        type: Array
+    },
     landZone: {
         type: String
     },
@@ -52,7 +52,7 @@ const schema = new Schema({
         type: String
     },
     status: {
-        type: Boolean,
+        type: Number,
         default: false
     }
 }, {
