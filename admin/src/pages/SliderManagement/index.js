@@ -6,15 +6,11 @@ const SliderList = () => {
 
     return (
         <div>
-            This is slider
+            This is slider list
         </div>
     )
 }
 
  export default SliderList;
-
-
-
-
 
 
