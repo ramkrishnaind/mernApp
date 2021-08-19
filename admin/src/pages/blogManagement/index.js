@@ -33,6 +33,8 @@ const styles = (theme) => ({
 
 const BlogList = (props) => {
 
+  console.log("test prop", props.blog);
+
   const dispatch = useDispatch();
   let {
     classes,
@@ -173,6 +175,10 @@ const BlogList = (props) => {
 
 function mapStateToProps(state) {
   const { blog } = state;
+
+
+
+  console.log("testingg",blog);
   return {
     blog,
 

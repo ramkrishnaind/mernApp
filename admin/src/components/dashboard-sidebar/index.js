@@ -143,6 +143,23 @@ const items = [
     ]
   },
   {
+    href: '/slider',
+    icon: UsersIcon,
+    title: 'Slider',
+    items: [
+      {
+        href: "/slider/add",
+        icon: ShoppingBagIcon,
+        title: "Add Slider",
+      },
+      {
+        href: "/slider",
+        icon: ShoppingBagIcon,
+        title: "Slider List",
+      }
+    ]
+  },
+  {
     href: '/contactus',
     icon: UserIcon,
     title: 'Contact Us'
