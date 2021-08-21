@@ -75,6 +75,8 @@ const API_ENDPOINTS = {
   //property
   PROPERTY_LIST_ENDPOINT:"property/propertyList",
   PROPERTY_ADD_ENDPOINT: "property/createProperty",
+  PROPERTY_IMAGE_ENDPOINT: "property/uploadImage",
+  
   PROPERTY_UPDATE_ENDPOINT:"property/updateProperty",
   PROPERTY_DATA_ENDPOINT:"property/propertyDetail",
   PROPERTY_DELETE_ENDPOINT:"property/deleteProperty",

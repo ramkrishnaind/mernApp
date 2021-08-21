@@ -50,11 +50,11 @@ export const PropertyListError = (data) => {
   }
 }
 
-export const PropertyAddRequestAsync = (data) => {
+export const PropertyAddRequestAsync = (data,image) => {
   // console.log('data',data);
   return (dispatch) => {
     dispatch(PropertyAddRequest());
-    PropertyAddService(dispatch, data);
+    PropertyAddService(dispatch, data,image);
   };
 };
 

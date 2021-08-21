@@ -21,13 +21,16 @@ export const PropertyListService = async (dispatch, data) => {
   }
 };
 
-export const PropertyAddService = async (dispatch, data) => {
+export const PropertyAddService = async (dispatch, data,image) => {
   try {
     const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.PROPERTY_ADD_ENDPOINT, data, null, null, true);
+    
+    const result1 = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT, image, null, null, true);
+   
     dispatch(PropertyAction.PropertyAddSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
-    history.push('/property')
-    window.location.reload();
+    // history.push('/property')
+    // window.location.reload();
   } catch (error) {
     dispatch(PropertyAction.PropertyAddError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
