@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import { Typography, Grid, Container, makeStyles, Button, Box } from "@material-ui/core";
+import React, {useEffect, useState} from "react";
+import {Typography, Grid, Container, makeStyles, Button, Box} from "@material-ui/core";
 import {useDispatch} from 'react-redux';
 import * as LoginAction from '../../redux/actions/LoginAction';
 import {withRouter} from 'react-router-dom';
@@ -22,7 +22,9 @@ import Footer from "../../components/footer";
 import OnlineBooking from "../../components/online-form/online-form";
 import EmiCalculater from "../../components/emiCalculater/emiCalculater";
 import EnquryForm from "../../components/enquryForm/enquryForm";
-const useStyles = makeStyles((theme)=> ({
+import CountUp from 'react-countup';
+
+const useStyles = makeStyles((theme) => ({
   text1: {
     fontFamily: '"Open Sans",sans-serif',
     color: '#06AEB8',
@@ -59,29 +61,48 @@ const useStyles = makeStyles((theme)=> ({
     marginTop: 20,
     paddingTop: 20,
     paddingBottom: 20,
-    borderRadius: 10, 
+    borderRadius: 10,
     width: 150,
     borderColor: '#EF8821',
-    color: '#EF8821', 
-    textTransform: 'none', 
+    color: '#EF8821',
+    textTransform: 'none',
     fontFamily: 'Open Sans,sans-serif'
   },
   box: {
-    width: 70, 
-    height: 70, 
-    backgroundColor: '#06AEB8', 
-    borderRadius: 35, 
-    display: 'flex', 
-    alignItems: 'center', 
+    width: 70,
+    height: 70,
+    backgroundColor: '#06AEB8',
+    borderRadius: 35,
+    display: 'flex',
+    alignItems: 'center',
     justifyContent: 'center'
+  },
+  blob: {
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    height: "260px", width: "260px",
+    borderRadius: '50%',
+    position: "relative",
+    textAlign: "center",
+    padding: "40px"
   }
 }));
+
+const Counter = (upto) => (
+  <CountUp start={0} end={upto} duration={4}>
+  </CountUp>
+);
 
 const HomePage = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const initialState = {
+    years: 20,
+    projects: 40,
+    happyClients: 1000
+  };
+  const [state, setstate] = useState(initialState);
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(LoginAction.LoginRequestAsync({}));
   });
 
@@ -91,121 +112,124 @@ const HomePage = (props) => {
       {/* <EmiCalculater />
       <EnquryForm/> */}
       <Box style={{backgroundColor: '#FFFFFF'}}>
-      <Container>
-        <Grid container style={{paddingTop: 50, paddingBottom: 50}}>
-          <Grid item xs={12} md={6}>
-            <img src={process.env.PUBLIC_URL + '/images/about_img.png'} style={{width: 350, height: 350}} />
-          </Grid>
-          <Grid item xs={12} md={6} style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}} className="animate__animated animate__backInRight">
-            <Typography className={classes.text1}>ABOUT VISHAL CONSTRUCTION COMPANY</Typography>
-            <Typography className={classes.text2}>WE'VE BEEN CREATING <br/>AWESOME SINCE 1994</Typography>
-            <Typography className={classes.text3}>
-              At Vishal Construction Company, we always think ahead but our focus remains unerringly on delighting our 
-              customers and stakeholders. Functioning through an array of best-of-class practices and utilizing leading 
-              technologies, we at Vishal Construction Company believe either in staying ahead of the wave or riding it.
-            </Typography>
-            <Typography className={classes.text3}>
-              If you are looking at blank cassettes on the web lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-              sed do eiusmod tempor incididunt.
-            </Typography>
-            <Button variant="outlined" className={`${classes.btnReadMore} btn-readmore`}>
-              READ MORE
-            </Button>
-          </Grid>
-        </Grid>
-      </Container>
-      </Box>
-        <Container style={{paddingTop: 50, paddingBottom: 50}}>
-          <Grid container>
-            <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-              <Box className={classes.box}>
-                <DescriptionIcon style={{color: '#FFFFFF', fontSize: 40}}/>
-              </Box>
-              <Typography className={classes.text4}>20 YEARS</Typography>
-              <Typography className={classes.text5}>OF REDEFINING</Typography>
-          </Grid>
-          <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-            <Box className={classes.box}>
-              <DescriptionIcon style={{color: '#FFFFFF', fontSize: 40}}/>
-            </Box>
-            <Typography className={classes.text4}>43</Typography>
-              <Typography className={classes.text5}>PROJECTS</Typography>
-          </Grid>
-          <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-            <Box className={classes.box}>
-              <ApartmentIcon style={{color: '#FFFFFF', fontSize: 40}}/>
-            </Box>
-            <Typography className={classes.text4}>21 CITIES</Typography>
-              <Typography className={classes.text5}>PRESENCE IN</Typography>
-          </Grid>
-          <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-           
-            <Typography className={classes.text4}>20</Typography>
-            <Typography className={classes.text5}>OF REDEFINING</Typography>
-          </Grid>
+        <Container>
+          <Grid container style={{paddingTop: 50, paddingBottom: 50}}>
+            <Grid item xs={12} md={6}>
+              <img src={process.env.PUBLIC_URL + '/images/about_img.png'} style={{width: 350, height: 350}} />
+            </Grid>
+            <Grid item xs={12} md={6} style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}} className="animate__animated animate__backInRight">
+              <Typography className={classes.text1}>ABOUT VISHAL CONSTRUCTION COMPANY</Typography>
+              <Typography className={classes.text2}>WE'VE BEEN CREATING <br />AWESOME SINCE 1994</Typography>
+              <Typography className={classes.text3}>
+                At Vishal Construction Company, we always think ahead but our focus remains unerringly on delighting our
+                customers and stakeholders. Functioning through an array of best-of-class practices and utilizing leading
+                technologies, we at Vishal Construction Company believe either in staying ahead of the wave or riding it.
+              </Typography>
+              <Typography className={classes.text3}>
+                If you are looking at blank cassettes on the web lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                sed do eiusmod tempor incididunt.
+              </Typography>
+              <Button variant="outlined" className={`${classes.btnReadMore} btn-readmore`}>
+                READ MORE
+              </Button>
+            </Grid>
           </Grid>
         </Container>
+      </Box>
+      <Container style={{paddingTop: 50, paddingBottom: 50}}>
+        <Grid container>
+          <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+            <Box className={classes.box}>
+              <DescriptionIcon style={{color: '#FFFFFF', fontSize: 40}} />
+            </Box>
+            <Typography className={classes.text4}>{Counter(state.years)}+ YEARS</Typography>
+            <Typography className={classes.text5}>OF REDEFINING</Typography>
 
-        <Box style={{backgroundColor: '#FFFFFF', paddingTop: 50}}>
-          <Container>
-            {/******* SECTION - SELL  **********/}
-            <SectionHeader title={APP_CONSTANTS.section2_title} subtitle={APP_CONSTANTS.section2_subtitle} />
-            <SectionTabs tabItems={propertieslist} />
-            {/******* SECTION - RENT  ***********/}
-            <SectionHeader title={APP_CONSTANTS.section1_title} subtitle={APP_CONSTANTS.section1_subtitle} />
-            <SectionTabs tabItems={propertieslist} />
-            {/******* SECTION - CONSTRUCTION  **********/}
-            <SectionHeader title={APP_CONSTANTS.section3_title} subtitle={APP_CONSTANTS.section3_subtitle} />
-            <SectionTabs tabItems={propertieslist} />
-            {/******* SECTION - INTERIOR  **********/}
-            <SectionHeader title={APP_CONSTANTS.section4_title} subtitle={APP_CONSTANTS.section4_subtitle} />
-            <SectionTabs tabItems={propertieslist} />
+          </Grid>
+          <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+            <Box className={classes.box}>
+              <DescriptionIcon style={{color: '#FFFFFF', fontSize: 40}} />
+            </Box>
+            <Typography className={classes.text4}>{Counter(state.projects)}+</Typography>
+            <Typography className={classes.text5}>PROJECTS</Typography>
 
-          </Container>
-        </Box>
+          </Grid>
+          <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+            <Box className={classes.box}>
+              <ApartmentIcon style={{color: '#FFFFFF', fontSize: 40}} />
+            </Box>
+            <Typography className={classes.text4}>{Counter(state.happyClients)}+ </Typography>
+            <Typography className={classes.text5}>Happy Clients</Typography>
 
-        {/* SECTION - CLIENT*/}
-        <div className="client-bg">
-          <Container style={{paddingTop: 40, paddingBottom: 40}}>
-            <SectionClient />
-          </Container>
-        </div>
-   
-        <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
-          <Container>
-            <SectionHeader title={APP_CONSTANTS.section_services_title} subtitle={APP_CONSTANTS.section_services_subtitle} />
-            <Grid container spacing={3} style={{marginTop: 30}}>
-              <Grid item xs={12} md={3}>
-                <ServiceCard />
-              </Grid>
-              <Grid item xs={12} md={3}>
-                <ServiceCard />
-              </Grid>
-              <Grid item xs={12} md={3}>
-                <ServiceCard />
-              </Grid>
-              <Grid item xs={12} md={3}>
-                <ServiceCard />
-              </Grid>
+          </Grid>
+          <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
+            <Box className={[classes.box, classes.blob]} >
+              <Typography className={classes.text5}>RAJASTHAN <b>LARGEST</b> <br /> <b>&amp;MOST AWARDED</b> REAL STATE COMPANY</Typography>
+            </Box>
+          </Grid>
+        </Grid>
+      </Container >
+
+      <Box style={{backgroundColor: '#FFFFFF', paddingTop: 50}}>
+        <Container>
+          {/******* SECTION - SELL  **********/}
+          <SectionHeader title={APP_CONSTANTS.section2_title} subtitle={APP_CONSTANTS.section2_subtitle} />
+          <SectionTabs tabItems={propertieslist} />
+          {/******* SECTION - RENT  ***********/}
+          <SectionHeader title={APP_CONSTANTS.section1_title} subtitle={APP_CONSTANTS.section1_subtitle} />
+          <SectionTabs tabItems={propertieslist} />
+          {/******* SECTION - CONSTRUCTION  **********/}
+          <SectionHeader title={APP_CONSTANTS.section3_title} subtitle={APP_CONSTANTS.section3_subtitle} />
+          <SectionTabs tabItems={propertieslist} />
+          {/******* SECTION - INTERIOR  **********/}
+          <SectionHeader title={APP_CONSTANTS.section4_title} subtitle={APP_CONSTANTS.section4_subtitle} />
+          <SectionTabs tabItems={propertieslist} />
+
+        </Container>
+      </Box>;
+
+      {/* SECTION - CLIENT*/}
+      <div className="client-bg">
+        <Container style={{paddingTop: 40, paddingBottom: 40}}>
+          <SectionClient />
+        </Container>
+      </div>
+
+      <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
+        <Container>
+          <SectionHeader title={APP_CONSTANTS.section_services_title} subtitle={APP_CONSTANTS.section_services_subtitle} />
+          <Grid container spacing={3} style={{marginTop: 30}}>
+            <Grid item xs={12} md={3}>
+              <ServiceCard />
             </Grid>
-          </Container>
-        </div>
-        
-        {/* SECTION - FEEDBACK*/}
-        <div className="client-bg">
-          <Container style={{paddingTop: 60, paddingBottom: 60}}>
-            <SectionFeedback items={feedbacks} />
-          </Container>
-        </div>
+            <Grid item xs={12} md={3}>
+              <ServiceCard />
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <ServiceCard />
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <ServiceCard />
+            </Grid>
+          </Grid>
+        </Container>
+      </div>;
 
-        {/* TODO: SECTION - BUILDING MATERIAL*/}
-        <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
-          <Container>
-            <SectionHeader title={APP_CONSTANTS.section_services_title} subtitle={APP_CONSTANTS.section_services_subtitle} />
-          </Container>
-        </div>
-        {/* TODO: SECTION - MAP */}
-    </div>
+      {/* SECTION - FEEDBACK*/}
+      <div className="client-bg">
+        <Container style={{paddingTop: 60, paddingBottom: 60}}>
+          <SectionFeedback items={feedbacks} />
+        </Container>
+      </div>;
+
+      {/* TODO: SECTION - BUILDING MATERIAL*/}
+      <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
+        <Container>
+          <SectionHeader title={APP_CONSTANTS.section_services_title} subtitle={APP_CONSTANTS.section_services_subtitle} />
+        </Container>
+      </div>;
+      {/* TODO: SECTION - MAP */}
+    </div >
   );
 };
 
