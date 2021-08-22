@@ -10,7 +10,8 @@ import * as PropertyActions from '../../redux/actions/PropertyAction';
 
 const PropertyListPage = props => {
     const dispatch = useDispatch();
-    const propertyListItems = useSelector(state => state.PropertyList.data);
+    const propertyListItems = useSelector(state => state.PropertyList);
+    console.log('propertyListItems',propertyListItems);
     React.useEffect(()=> {
         dispatch(PropertyActions.GetPropertyListRequestAsync({}));
     },[]);

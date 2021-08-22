@@ -28,6 +28,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import * as PropertyAction from "../../redux/actions/PropertyAction";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 
+import { connect } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   text1: {
     fontFamily: '"Open Sans",sans-serif',
@@ -159,7 +160,7 @@ const PropertyDetailPage = (props) => {
             <Grid item xs={12} md={4} className={classes.style3}>
               <Typography className={classes.text3}>Starts From</Typography>
               <Box className={classes.box1} >/</Box>
-              <Typography className={classes.text5}>Rs. 3250000</Typography>
+              <Typography className={classes.text5}>Rs. 3250000 {PropertyDetail.expectedPrice}</Typography>
             </Grid>
           </Grid>
           <Grid container style={{marginTop: 10}}>
@@ -200,14 +201,14 @@ const PropertyDetailPage = (props) => {
                       <Grid item xs={12} md={3}>
                         <FactAndFeature icon={familyIcon} title="BEDROOMS" value={ PropertyDetail?.bedrooms } />
                       </Grid>
-                      <Grid item xs={12} md={3}>
-                        <FactAndFeature icon={yearIcon} title="BATHROOMS" value="2" />
+                      <Grid item xs={12} md={4}>
+                        <FactAndFeature icon={familyIcon} title="BEDROOMS" value={PropertyDetail?.bedrooms} />
                       </Grid>
-                      <Grid item xs={12} md={3}>
-                        <FactAndFeature icon={familyIcon} title="GARAGE" value="1" />
+                      <Grid item xs={12} md={4}>
+                        <FactAndFeature icon={yearIcon} title="BATHROOMS" value={PropertyDetail?.bathrooms} />
                       </Grid>
-                      <Grid item xs={12} md={3}>
-                        <FactAndFeature icon={yearIcon} title="STATUS" value="Active" />
+                      <Grid item xs={12} md={4}>
+                        <FactAndFeature icon={yearIcon} title="STATUS" value={PropertyDetail?.status} />
                       </Grid>
                   </Grid>
               </InfoCard>
@@ -360,4 +361,16 @@ const PropertyDetailPage = (props) => {
   );
 };
 
-export default PropertyDetailPage;
+
+function mapStateToProps(state) {
+  const { property } = state;
+  console.log('property',property);
+  return {
+    property,
+    
+  };
+}
+export default connect(mapStateToProps)(
+  (PropertyDetailPage),
+);
+

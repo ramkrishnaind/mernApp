@@ -14,6 +14,8 @@ import propertyList from '../utils/property-list.json';
  * ****** Service to fetch Property List
  */
 export const PropertyListService = async (dispatch, data) => {
+  // const result2 = propertyList;
+  // dispatch(GetPropertyListSuccess(result2));
   try {
     const result1 = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,

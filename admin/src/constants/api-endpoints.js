@@ -71,6 +71,30 @@ const API_ENDPOINTS = {
   //Contact us
   CONTACTUS_LIST_ENDPOINT: "contactus/getContactUsList",
   CONTACTUS_STATUS_UPDATE_ENDPOINT: "contactus/updateContactUsStatus",
+
+  //property
+  PROPERTY_LIST_ENDPOINT:"property/propertyList",
+  PROPERTY_ADD_ENDPOINT: "property/createProperty",
+  PROPERTY_IMAGE_ENDPOINT: "property/uploadImage",
+  
+  PROPERTY_UPDATE_ENDPOINT:"property/updateProperty",
+  PROPERTY_DATA_ENDPOINT:"property/propertyDetail",
+  PROPERTY_DELETE_ENDPOINT:"property/deleteProperty",
+  PROPERTY_STATUS_UPDATE_ENDPOINT:"property/updatePropertyStatus",
+  
+  //ABOUT module
+  ABOUTUS_LIST_ENDPOINT: "home/getHomeAbout",
+  ABOUTUS_UPDATE_ENDPOINT: "blog/updateBlog",
+  ABOUTUS_DATA_ENDPOINT: "home/getHomeAbout",
+
+  //slider module
+  SLIDER_LIST_ENDPOINT: "blog/getAllBlog",
+  SLIDER_ADD_ENDPOINT: "blog/createBlog",
+  SLIDER_STATUS_UPDATE_ENDPOINT: "blog/updateBlogStatus",
+  SLIDER_UPDATE_ENDPOINT: "blog/updateBlog",
+  SLIDER_DELETE_ENDPOINT: "blog/deleteBlog",
+  SLIDER_DATA_ENDPOINT: "blog/getBlogDetail",
+
 };
 
 export default API_ENDPOINTS;
