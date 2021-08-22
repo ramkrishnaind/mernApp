@@ -7,6 +7,7 @@ import Header from '../../components/header';
 import SectionHeader from "../../components/section-header";
 import PropertyViewCard from "../../components/property-view-card";
 import OwlCarouselSlider from "../../components/carousel-slider";
+import AboutUsOwlCarouselSlider from "../../components/about/index";
 import DescriptionIcon from '@material-ui/icons/Description';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import './home.css';
@@ -23,6 +24,7 @@ import OnlineBooking from "../../components/online-form/online-form";
 import EmiCalculater from "../../components/emiCalculater/emiCalculater";
 import EnquryForm from "../../components/enquryForm/enquryForm";
 import CountUp from 'react-countup';
+import {statsInfo, aboutSectionInfo, servicesInfo, clientLookingforInfo, bannersInfo} from './intial-content';
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -35,13 +37,14 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: '"Open Sans",sans-serif',
     color: '#FF7601',
     fontWeight: 400,
-    fontSize: 36
+    fontSize: 36,
+    marginBottom: 30
   },
   text3: {
     fontFamily: '"Open Sans",sans-serif',
     color: '#666666',
     fontSize: 14,
-    marginTop: 20
+    marginBottom: 20,
   },
   text4: {
     fontFamily: '"Open Sans",sans-serif',
@@ -95,39 +98,34 @@ const Counter = (upto) => (
 const HomePage = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const initialState = {
-    years: 20,
-    projects: 40,
-    happyClients: 1000
-  };
-  const [state, setstate] = useState(initialState);
-
+  const [stats] = useState(statsInfo);
+  const [aboutSection] = useState(aboutSectionInfo);
+  const [services] = useState(servicesInfo);
+  const [banners] = useState(bannersInfo);
   useEffect(() => {
     dispatch(LoginAction.LoginRequestAsync({}));
   });
 
   return (
     <div className="main-w3">
-      <OwlCarouselSlider />
+      <OwlCarouselSlider images={banners} style={{width: '100%'}} />
       {/* <EmiCalculater />
       <EnquryForm/> */}
       <Box style={{backgroundColor: '#FFFFFF'}}>
         <Container>
-          <Grid container style={{paddingTop: 50, paddingBottom: 50}}>
+          <Grid container style={{paddingTop: 60, paddingBottom: 60}}>
             <Grid item xs={12} md={6}>
-              <img src={process.env.PUBLIC_URL + '/images/about_img.png'} style={{width: 350, height: 350}} />
+              {/* <img src={aboutSection.images[0].imageUrl} alt="" style={{height: 490}} /> */}
+              <OwlCarouselSlider images={aboutSection.images} style={{height: 490, width: 'auto'}} />
             </Grid>
-            <Grid item xs={12} md={6} style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}} className="animate__animated animate__backInRight">
-              <Typography className={classes.text1}>ABOUT VISHAL CONSTRUCTION COMPANY</Typography>
-              <Typography className={classes.text2}>WE'VE BEEN CREATING <br />AWESOME SINCE 1994</Typography>
+            <Grid item xs={12} md={6} style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', paddingLeft: 20, paddingRight: 40}} className="animate__animated animate__backInRight">
+              <Typography className={classes.text1}><b>ABOUT VISHAL CONSTRUCTION COMPANY</b></Typography>
+              <Typography className={classes.text2}>{aboutSection.title}</Typography>
               <Typography className={classes.text3}>
-                At Vishal Construction Company, we always think ahead but our focus remains unerringly on delighting our
-                customers and stakeholders. Functioning through an array of best-of-class practices and utilizing leading
-                technologies, we at Vishal Construction Company believe either in staying ahead of the wave or riding it.
+                {aboutSection.length > 0 || aboutSection.description[0]}
               </Typography>
               <Typography className={classes.text3}>
-                If you are looking at blank cassettes on the web lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                sed do eiusmod tempor incididunt.
+                {aboutSection.length > 1 || aboutSection.description[1]}
               </Typography>
               <Button variant="outlined" className={`${classes.btnReadMore} btn-readmore`}>
                 READ MORE
@@ -142,7 +140,7 @@ const HomePage = (props) => {
             <Box className={classes.box}>
               <DescriptionIcon style={{color: '#FFFFFF', fontSize: 40}} />
             </Box>
-            <Typography className={classes.text4}>{Counter(state.years)}+ YEARS</Typography>
+            <Typography className={classes.text4}>{Counter(stats.years)}+ YEARS</Typography>
             <Typography className={classes.text5}>OF REDEFINING</Typography>
 
           </Grid>
@@ -150,7 +148,7 @@ const HomePage = (props) => {
             <Box className={classes.box}>
               <DescriptionIcon style={{color: '#FFFFFF', fontSize: 40}} />
             </Box>
-            <Typography className={classes.text4}>{Counter(state.projects)}+</Typography>
+            <Typography className={classes.text4}>{Counter(stats.projects)}+</Typography>
             <Typography className={classes.text5}>PROJECTS</Typography>
 
           </Grid>
@@ -158,7 +156,7 @@ const HomePage = (props) => {
             <Box className={classes.box}>
               <ApartmentIcon style={{color: '#FFFFFF', fontSize: 40}} />
             </Box>
-            <Typography className={classes.text4}>{Counter(state.happyClients)}+ </Typography>
+            <Typography className={classes.text4}>{Counter(stats.happyClients)}+ </Typography>
             <Typography className={classes.text5}>Happy Clients</Typography>
 
           </Grid>
@@ -191,7 +189,7 @@ const HomePage = (props) => {
       {/* SECTION - CLIENT*/}
       <div className="client-bg">
         <Container style={{paddingTop: 40, paddingBottom: 40}}>
-          <SectionClient />
+          <SectionClient clientLookingforInfo={clientLookingforInfo} />
         </Container>
       </div>
 
@@ -199,18 +197,13 @@ const HomePage = (props) => {
         <Container>
           <SectionHeader title={APP_CONSTANTS.section_services_title} subtitle={APP_CONSTANTS.section_services_subtitle} />
           <Grid container spacing={3} style={{marginTop: 30}}>
-            <Grid item xs={12} md={3}>
-              <ServiceCard />
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <ServiceCard />
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <ServiceCard />
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <ServiceCard />
-            </Grid>
+            {
+              (services || []).map((service) => {
+                return <Grid item xs={12} md={3}>
+                  <ServiceCard service={service} />
+                </Grid>;
+              })
+            }
           </Grid>
         </Container>
       </div>;

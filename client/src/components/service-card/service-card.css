@@ -50,7 +50,7 @@ figure {
     opacity: 1;
 }
 .portfolio-item .mask h2 {
-    transform: translateY(-100px);
+    transform: translateY(0px);
     opacity: 0;
     transition: all 0.2s ease-in-out;
     text-transform: uppercase;
@@ -61,7 +61,7 @@ figure {
     font-size: 21px;
     padding: 10px;
     background: rgb(255 64 118);
-    margin: 20px 0 0 0;
+    margin: 10px 0 0 0;
 }
 .portfolio-item p {
     color: #fff;
@@ -75,7 +75,9 @@ figure {
 }
 .portfolio-item .mask p {
     opacity: 1;
-    transform: translateY(10px);
+    transform: translateY(0px);
+    height: 48%;
+    overflow-y: scroll;
 }
 .portfolio-item a.info {
     display: inline-block;

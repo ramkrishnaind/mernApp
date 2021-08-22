@@ -8,21 +8,15 @@ import {Grid} from "@material-ui/core";
 
 const OwlCarouselSlider = (props) => {
 
-  const banners = [
-    {imageUrl: '/slider/slider1.jpeg', desc: ""},
-    {imageUrl: '/slider/slider2.jpeg', desc: ""},
-    {imageUrl: '/slider/slider3.jpeg', desc: ""}
-  ];
-
-  const [imageBanners] = useState(banners);
+  const images = props.images;
 
   return (
     <Grid container style={{backgroundColor: '#FFFFFF'}}>
       <Grid item xs={12} md={12}>
         <OwlCarousel items={1} className="owl-theme" loop nav={false} margin={8} autoplay={false}>
-          {imageBanners.map((banner) => {
+          {(images || []).map((image) => {
             return < div >
-              <img className="img" src={process.env.PUBLIC_URL + banner.imageUrl} alt="" />
+              <img className="img" src={image.imageUrl} style={props.style} alt="" />
             </div>;
           })}
         </OwlCarousel>
@@ -31,4 +25,4 @@ const OwlCarouselSlider = (props) => {
   );
 };
 
-export default OwlCarouselSlider;;
+export default OwlCarouselSlider;
