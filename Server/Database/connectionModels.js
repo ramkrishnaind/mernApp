@@ -20,4 +20,6 @@ module.exports = function (mongoose) {
     mongoose.model('siteVisit', require('./schema/siteVisit'));
     mongoose.model('career', require('./schema/career'));
     mongoose.model('blog', require('./schema/blog'));
+    mongoose.model('homeAbout', require('./schema/homeAbout'));
+    mongoose.model('homeMovingBanner', require('./schema/homeMovingBanner'));
 }
