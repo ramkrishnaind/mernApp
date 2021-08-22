@@ -31,6 +31,11 @@ import NewPassword from "../pages/newPassword";
 import Verification from "../pages/verificationPage";
 import PropertyList from "../pages/propertyManagement";
 import AddProperty from "../pages/propertyManagement/add";
+
+import AboutUsList from "../pages/aboutUsManagement";
+import AddAboutUs from "../pages/aboutUsManagement/add";
+import SliderList from "../pages/homeSliderManagement";
+import AddSlider from "../pages/homeSliderManagement/add";
 const Routes = props => {
     const { isAuth } = props;
     const routes = [
@@ -143,6 +148,22 @@ const Routes = props => {
                     path: "/property",
                     element: isAuth ? <PropertyList /> : <Navigate to="/login" />
                 },
+                {
+                    path: "/aboutus/add",
+                    element: isAuth ? <AddAboutUs /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/aboutus",
+                    element: isAuth ? <AboutUsList /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/slider/add",
+                    element: isAuth ? <AddSlider /> : <Navigate to="/login" />
+                },
+                {
+                    path: "/slider",
+                    element: isAuth ? <SliderList /> : <Navigate to="/login" />
+                },                
                 {
                     path: "404",
                     element: <Error404Page />

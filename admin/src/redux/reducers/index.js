@@ -16,6 +16,8 @@ import booking from './BookingReducer';
 import contactus from './ContactUsReducer';
 import sitevisit from './SitevisitReducer';
 import verification from './VerificationReducer';
+import Aboutus from './aboutUsReducer';
+import Slider from './homeSliderReducer';
 const reducers = {
     Login: LoginReducer,
     Register: RegisterReducer,
@@ -35,6 +37,8 @@ const reducers = {
     contactus: contactus,
     sitevisit: sitevisit,
     verification: verification,
+    aboutus:Aboutus,
+    slider:Slider,
 }
 
 export default reducers;

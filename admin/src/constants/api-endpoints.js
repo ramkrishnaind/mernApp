@@ -81,6 +81,19 @@ const API_ENDPOINTS = {
   PROPERTY_DATA_ENDPOINT:"property/propertyDetail",
   PROPERTY_DELETE_ENDPOINT:"property/deleteProperty",
   PROPERTY_STATUS_UPDATE_ENDPOINT:"property/updatePropertyStatus",
+  
+  //ABOUT module
+  ABOUTUS_LIST_ENDPOINT: "home/getHomeAbout",
+  ABOUTUS_UPDATE_ENDPOINT: "blog/updateBlog",
+  ABOUTUS_DATA_ENDPOINT: "home/getHomeAbout",
+
+  //slider module
+  SLIDER_LIST_ENDPOINT: "blog/getAllBlog",
+  SLIDER_ADD_ENDPOINT: "blog/createBlog",
+  SLIDER_STATUS_UPDATE_ENDPOINT: "blog/updateBlogStatus",
+  SLIDER_UPDATE_ENDPOINT: "blog/updateBlog",
+  SLIDER_DELETE_ENDPOINT: "blog/deleteBlog",
+  SLIDER_DATA_ENDPOINT: "blog/getBlogDetail",
 
 };
 
