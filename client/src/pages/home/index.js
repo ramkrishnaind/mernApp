@@ -13,7 +13,6 @@ import ApartmentIcon from '@material-ui/icons/Apartment';
 import './home.css';
 import APP_CONSTANTS from "../../constants/app-constants";
 import OuterCarouselSlider from "../../components/outer-carousel-slider";
-import propertieslist from '../../utils/properties-list.json';
 import feedbacks from '../../utils/feedbacks.json';
 import SectionTabs from "../../components/section-tabs";
 import SectionClient from "../../components/section-client";
@@ -25,6 +24,7 @@ import EmiCalculater from "../../components/emiCalculater/emiCalculater";
 import EnquryForm from "../../components/enquryForm/enquryForm";
 import CountUp from 'react-countup';
 import {statsInfo, aboutSectionInfo, servicesInfo, clientLookingforInfo, bannersInfo} from './intial-content';
+import ApiClient from '../../api-client/index'
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -102,9 +102,33 @@ const HomePage = (props) => {
   const [aboutSection] = useState(aboutSectionInfo);
   const [services] = useState(servicesInfo);
   const [banners] = useState(bannersInfo);
+  const [propertyData,setPropertyData] = useState({});
   useEffect(() => {
     dispatch(LoginAction.LoginRequestAsync({}));
   });
+
+  useEffect(()=>{
+    const cookie = 'connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI'
+    const authorization = 'Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs'
+    console.log("hello Hi")
+    const getData = async ()=>{
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST,'/property/getAllPropertyForHome',{},{},{Cookie:cookie,Authorization:authorization},false)
+      setPropertyData(response.data)
+      console.log("response data",response.data)
+    }
+    getData()
+
+     
+  },[])
+
+  const showPropertyData = ()=> {
+    if(propertyData!=={}){
+      console.log("propertyData!={}",propertyData)
+     return <SectionTabs propertyData={propertyData} />
+   }else{
+     return null
+   }
+ }
 
   return (
     <div className="main-w3">
@@ -170,18 +194,11 @@ const HomePage = (props) => {
 
       <Box style={{backgroundColor: '#FFFFFF', paddingTop: 50}}>
         <Container>
-          {/******* SECTION - SELL  **********/}
-          <SectionHeader title={APP_CONSTANTS.section2_title} subtitle={APP_CONSTANTS.section2_subtitle} />
-          <SectionTabs tabItems={propertieslist} />
-          {/******* SECTION - RENT  ***********/}
-          <SectionHeader title={APP_CONSTANTS.section1_title} subtitle={APP_CONSTANTS.section1_subtitle} />
-          <SectionTabs tabItems={propertieslist} />
-          {/******* SECTION - CONSTRUCTION  **********/}
-          <SectionHeader title={APP_CONSTANTS.section3_title} subtitle={APP_CONSTANTS.section3_subtitle} />
-          <SectionTabs tabItems={propertieslist} />
-          {/******* SECTION - INTERIOR  **********/}
-          <SectionHeader title={APP_CONSTANTS.section4_title} subtitle={APP_CONSTANTS.section4_subtitle} />
-          <SectionTabs tabItems={propertieslist} />
+          {/* ****** SECTION - SELL  ********* */}
+          <SectionHeader title={APP_CONSTANTS.section2_title} subtitle={''} />
+          {
+           showPropertyData()
+          }
 
         </Container>
       </Box>;

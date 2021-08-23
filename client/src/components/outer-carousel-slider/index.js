@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
@@ -78,25 +78,33 @@ const useStyles = makeStyles((theme)=> ({
   }));
 
 const OuterCarouselSlider = (props) => {
-    const {items} = props;
+    console.log("property props",props)
+    let total = 0
+    let data = []
+    if(props && props.items){
+        total = props.items.total
+        data = props.items.data
+    }
     const classes = useStyles();
+    
   return (
     <div>
-        <OwlCarousel items={3} className="owl-theme" loop nav={false} margin={8} autoplay ={true} dots={false}>
-          {items.map(item => {
-              const {title, subtitle, location, features} = item;
+        <OwlCarousel items={Math.min(3,total)} className="owl-theme"  loop nav={false} margin={8} autoplay ={true}  dots={false}>
+          {data.map(item => {
+              const {_id,userId,propertyDetails,status,iAm,pType,postingAs,nameOfProject,propertTag,created,updated,__v} = item;
+              const propertyFor = item.for;
               return (
                 <Box style={{marginTop: 50, width: 350}}>
                 <Grid contaienr >
                     <Grid item xs={12} md={12} style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                         {/* <InnerCarouselSlider /> */}
                         <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} style={{width: 350, height: 300}} />
-                        <Typography className={classes.text1}>{title}</Typography>
-                        <Typography className={classes.text2}>{subtitle}</Typography>
+                        <Typography className={classes.text1}>{pType}</Typography>
+                        <Typography className={classes.text2}>{nameOfProject}</Typography>
                         <Grid contaienr>
                             <Grid item style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginTop: 10}}>
                                 <LocationOnIcon style={{color: '#FF7601', fontSize: 20, padding: 0, marginRight: 8}} />
-                                <Typography className={classes.text3}>{location}</Typography>
+                                <Typography className={classes.text3}>{iAm}</Typography>
                             </Grid>
                         </Grid>
                     </Grid>
