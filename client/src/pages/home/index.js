@@ -7,7 +7,7 @@ import Header from '../../components/header';
 import SectionHeader from "../../components/section-header";
 import PropertyViewCard from "../../components/property-view-card";
 import OwlCarouselSlider from "../../components/carousel-slider";
-import AboutUsOwlCarouselSlider from "../../components/about/index";
+// import AboutUsOwlCarouselSlider from "../../components/about/index";
 import DescriptionIcon from '@material-ui/icons/Description';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import './home.css';

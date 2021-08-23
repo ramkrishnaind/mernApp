@@ -4,6 +4,7 @@ const Joi = require('joi');
 const path = require('path');
 const createTokenFunction = require('../../../Helper/createUniqueToken');
 const prepareTemplateAndMailHelper = require('../../../Helper/prepareTemplateAndMail');
+const smsHelper = require('../../../Helper/sendSms');
 const errorResponseHelper = require('../../../Helper/errorResponse');
 
 const forgotPasswordSchema = Joi.object({

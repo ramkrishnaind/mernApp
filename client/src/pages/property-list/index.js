@@ -11,10 +11,9 @@ import * as PropertyActions from '../../redux/actions/PropertyAction';
 const PropertyListPage = props => {
     const dispatch = useDispatch();
     const propertyListItems = useSelector(state => state.PropertyList.data);
-
     React.useEffect(()=> {
         dispatch(PropertyActions.GetPropertyListRequestAsync({}));
-    });
+    },[]);
 
     return (
         <div>

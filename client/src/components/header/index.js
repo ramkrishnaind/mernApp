@@ -151,51 +151,54 @@ const Header = props => {
     };
     return (
         <>
-            <Grid container className="MainMenu">
-                <Box className="logoImage">
-                    <img src={Logo} />
-                </Box>
-                <Grid item xs={12} md={12} className="bg-green">
-                    <Container>
-                        <Grid container style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingTop: 8, paddingBottom: 8 }}>
-                            <Grid item style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                <PhoneIcon className={classes.icon} />
-                                <Typography className={classes.contact}>{APP_CONSTANTS.phoneNumber}</Typography>
-                                <MailOutlineIcon className={classes.icon} />
-                                <Typography className={classes.contact}>{APP_CONSTANTS.email}</Typography>
+            <Grid container className="MainMenu">                  
+                    <Grid item xs={12} md={12} className="bg-green">
+                        <Container  className="auto-container">
+                            <Grid container style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingTop: 8, paddingBottom: 8 }}>
+                                <Grid item style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                    <PhoneIcon className={classes.icon} />
+                                    <Typography className={classes.contact}>{APP_CONSTANTS.phoneNumber}</Typography>
+                                    <MailOutlineIcon className={classes.icon} />
+                                    <Typography className={classes.contact}>{APP_CONSTANTS.email}</Typography>
+                                </Grid>
+                                <Grid item style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'center' }}>
+                                    <Button variant="contained" className={`${classes.btn1} btn-book-online`} component={RouterLink} to="/book-online">
+                                        {APP_CONSTANTS.btnBookOnlineText}
+                                    </Button>
+                                    <Button variant="contained" className={classes.btn2} onClick={handleClickOpen}
+                                    >
+                                        {APP_CONSTANTS.btnRegisterASiteVisit}
+                                    </Button>
+                                </Grid>
                             </Grid>
-                            <Grid item style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'center' }}>
-                                <Button variant="contained" className={`${classes.btn1} btn-book-online`} component={RouterLink} to="/book-online">
-                                    {APP_CONSTANTS.btnBookOnlineText}
-                                </Button>
-                                <Button variant="contained" className={classes.btn2} onClick={handleClickOpen}
-                                >
-                                    {APP_CONSTANTS.btnRegisterASiteVisit}
-                                </Button>
+                        </Container>
+                    </Grid>
+                    <Grid item xs={12} md={12} className="bg-white">
+                        <Container  className="auto-container">
+                      
+                            <Grid container style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingTop: 8, paddingBottom: 8 }}>
+                            <Box className="logoImage">
+                        <div className="logo"><img src={Logo} /></div>
+                    </Box>
+                                <Grid item style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                    {menuItems.map(menu => {
+                                        return <MenuItem menu={menu} />
+                                    })}
+                                </Grid>
+                                <Grid item style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'center' }}>
+                                    <Button variant="outlined" className={classes.btn3} component={RouterLink} to="/post-property">
+                                        Post Property
+                                    </Button>
+                                    <Button variant="outlined" className={classes.btn4} component={RouterLink} to="/signin">
+                                        Login / Signup
+                                    </Button>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </Container>
+                        </Container>
+                    </Grid>
+                    
                 </Grid>
-                <Grid item xs={12} md={12} className="bg-white">
-                    <Container>
-                        <Grid container style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingTop: 8, paddingBottom: 8 }}>
-                            <Grid item style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                {menuItems.map(menu => {
-                                    return <MenuItem menu={menu} />
-                                })}
-                            </Grid>
-                            <Grid item style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'center' }}>
-                                <Button variant="outlined" className={classes.btn3} component={RouterLink} to="/post-property">
-                                    Post Property
-                                </Button>
-                                <Button variant="outlined" className={classes.btn4} component={RouterLink} to="/signin">
-                                    Login / Signup
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </Container>
-                </Grid>
-            </Grid>
+           
 
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} className="EnquryFormData">
                 <DialogTitle id="customized-dialog-title" onClose={handleClose}>
