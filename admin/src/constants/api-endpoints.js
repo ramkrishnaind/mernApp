@@ -83,10 +83,9 @@ const API_ENDPOINTS = {
   PROPERTY_STATUS_UPDATE_ENDPOINT:"property/updatePropertyStatus",
   
   //ABOUT module
-  ABOUTUS_LIST_ENDPOINT: "home/getHomeAbout",
-  ABOUTUS_UPDATE_ENDPOINT: "blog/updateBlog",
-  ABOUTUS_DATA_ENDPOINT: "home/getHomeAbout",
-
+  ABOUTUS_LIST_ENDPOINT: "home/homeAbout",
+  ABOUTUS_UPDATE_ENDPOINT: "home/updateAboutSection",
+  
   //slider module
   SLIDER_LIST_ENDPOINT: "blog/getAllBlog",
   SLIDER_ADD_ENDPOINT: "blog/createBlog",

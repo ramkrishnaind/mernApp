@@ -21,12 +21,7 @@ const MenuCreateUpdate = (props) => {
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    let data = {
-      _id: id,
-    };
-    if (id != null) {
-      dispatch(AboutUsAction.AboutUsDataRequestAsync(data));
-    }
+         dispatch(AboutUsAction.AboutUsDataRequestAsync());
   }, [id]);
 
   useEffect(() => {
@@ -46,7 +41,7 @@ const MenuCreateUpdate = (props) => {
     metaKeywords: aboutusData?.metaKeywords,
     metaDescription: aboutusData?.metaDescription,
     image: [],
-    id: id,
+    id: aboutusData?._id,
   };
 
   const [state, setState] = useState(initialState);
