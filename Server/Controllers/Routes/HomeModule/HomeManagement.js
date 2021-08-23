@@ -63,8 +63,8 @@ function createAboutSection(Models) {
             // pick data from req.body
             let homeFormData = _.pick(req.body, ['title', 'header', 'description', 'metaTitle', 'metaKeywords', 'metaDescription']);
 
-            // if (req.files.length > 0)
-            //     homeFormData.aboutImages = req.files;
+            if (req.files.length > 0)
+                homeFormData.aboutImages = req.files;
             let isAboutHomeExist = await Models.HomeAboutDB.find();
             console.log('about Section', isAboutHomeExist)
             if (isAboutHomeExist.length) {
@@ -103,14 +103,16 @@ function updateAboutSection(Models) {
                 metaKeywords: bodyData.metaKeywords,
                 metaDescription: bodyData.metaDescription
             }
-            // if (req.files.length > 0) {
-            //     bodyData.backgroundImage = req.files;
-            //     setData['backgroundImage'] = bodyData.backgroundImage
-            // }
-
+            if (req.files.length > 0) {
+                bodyData.aboutImages = req.files;
+                setData['aboutImages'] = bodyData.aboutImages
+            }
+            console.log('aboutImages', setData)
             let updateModule = await Models.HomeAboutDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
-            res.send({ status: true, message: 'Home About Data updated successfully.' });
+            if (updateModule) {
+                res.send({ status: true, message: 'Home About Data updated successfully.' });
+            }
         }
         catch (e) {
             console.log('createHomeHelper err', e);
@@ -190,14 +192,16 @@ function updateMovingBanner(Models) {
                 projects: bodyData.projects,
                 shortDescription: bodyData.shortDescription
             }
-            // if (req.files.length > 0) {
-            //     bodyData.backgroundImage = req.files;
-            //     setData['backgroundImage'] = bodyData.backgroundImage
-            // }
+            if (req.files.length > 0) {
+                bodyData.backgroundImage = req.files;
+                setData['backgroundImage'] = bodyData.backgroundImage
+            }
 
             let updateModule = await Models.HomeMovingBannerDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
-            res.send({ status: true, message: 'Moving Banner updated successfully' });
+            if (updateModule) {
+                res.send({ status: true, message: 'Moving Banner updated successfully' });
+            }
         }
         catch (e) {
             console.log('createHomeHelper err', e);

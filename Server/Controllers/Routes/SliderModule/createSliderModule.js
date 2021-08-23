@@ -6,8 +6,10 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
     name: Joi.string().required(),
-    desc: Joi.string().required(),
-    URL: Joi.string()
+    description: Joi.string(),
+    metaTitle: Joi.string(),
+    metaDescription: Joi.string(),
+    metaKeywords: Joi.string(),
 });
 
 function createSlider(Models) {
@@ -20,15 +22,16 @@ function createSlider(Models) {
             }
 
             // pick data from req.body
-            let bodyData = _.pick(req.body, ["name","desc","URL"]);
+            let bodyData = _.pick(req.body, ["name", "description", "metaTitle", "metaKeywords", "metaDescription"]);
+
             let findData = await Models.SliderDB.findOne({ name: bodyData.name });
-          
+
             if (findData) {
                 // if data found check 
                 throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateModule: true, statusCode: 401 };
             }
 
-            if(req.files.length > 0)
+            if (req.files.length > 0)
                 bodyData.image = req.files;
 
             let saveModule = await new Models.SliderDB(bodyData).save();

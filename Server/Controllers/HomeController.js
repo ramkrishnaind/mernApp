@@ -7,7 +7,7 @@ const path = require('path');
 const multer = require("multer");
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        let fpathId = 'uploads/home/about';
+        let fpathId = 'uploads/home';
         try {
             if (!fs.existsSync(fpathId)) {
                 fs.mkdirSync(fpathId, { recursive: true }, (err) => {
