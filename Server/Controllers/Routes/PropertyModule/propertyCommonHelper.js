@@ -188,7 +188,7 @@ function propertyDetail(Models) {
             let findData = await Models.PropertyDB.findOne({ _id }).lean();
             let propertyFeatures = await Models.PFeaturesDB.findOne({ propertyId: findData._id }).lean();
             //let propertyAmenities = await Models.PFeaturesDB.findOne({ propertyId: findData._id }).lean();
-
+            console.log('propertyFeatures is', propertyFeatures)
             result._id = findData._id;
             result.iAm = findData.iAm;
             result.userName = '';
