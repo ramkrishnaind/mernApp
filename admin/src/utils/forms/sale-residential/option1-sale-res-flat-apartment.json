@@ -26,7 +26,7 @@
                 {
                     "type": "option",
                     "label": "Floor No.",
-                    "initial_counts": ["Lower Basement","Upper Basement","Ground",1,2,3,4,5,"5+"],
+                    "initial_counts": [-2,-1,0,1,2,3,4,5,"5+"],
                     "more_counts": [6,7,8,9,10, 11,12],
                     "showMore": true,
                     "fieldName": "floor_no"
@@ -53,7 +53,21 @@
                     "more_counts": [4,5,6,7,8,9,10, ">10"],
                     "showMore": true,
                     "fieldName": "bathrooms"
-                }
+                },
+                {
+                    "type": "option",
+                    "label": "Property Type",
+                    "initial_counts": ["Single Family","Full Family","Multiple Family"],
+                    "showMore": false,
+                    "fieldName": "property_type"
+                },
+                {
+                    "type": "option",
+                    "label": "Heating",
+                    "initial_counts": ["Radiant","Medium","Low"],
+                    "showMore": false,
+                    "fieldName": "heating"
+                }                
             ]
         },
         {
@@ -116,6 +130,23 @@
                             "fieldName": "available_from_year"
                         }
                     ]
+                },
+                {
+                    "type": "dropdown",
+                    "label": "Build Year",
+                    "fieldName": "build_year",
+                    "data": [
+                        {
+                            "values": ["2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031"],
+                            "fieldName": "build_year"
+                        }
+                    ]
+                },
+                {
+                    "label": "Age Of Construction",
+                    "type": "textfield",
+                    "placeholder": "Age Of Construction",
+                    "fieldName": "ageOfConstruction"
                 }
             ]
         },
@@ -161,6 +192,58 @@
                     ]
                 },
                 {
+                    "type": "checkbox",
+                    "label": "Amenities",
+                    "fieldName": "amenities",
+                    "fields": [
+                        {
+                            "label": "Basketball Court",
+                            "value": "Basketball Court",
+                            "fieldName": "basketball_court"
+                        },
+                        {
+                            "label": "Air Conditioned",
+                            "value": "Air Conditioned",
+                            "fieldName": "air_conditioned"
+                        },
+                        {
+                            "label": "Swimming Pool",
+                            "value": "Swimming Pool",
+                            "fieldName": "swimming_pool"
+                        },
+                        {
+                            "label": "No Smoking Zone",
+                            "value": "No Smoking Zone",
+                            "fieldName": "no_smoking_zone"
+                        },
+                        {
+                            "label": "Gym",
+                            "value": "Gym",
+                            "fieldName": "gym"
+                        },
+                        {
+                            "label": "Pet Friendly",
+                            "value": "Pet Friendly",
+                            "fieldName": "pet_friendly"
+                        },
+                        {
+                            "label": "Free Parking on premises",
+                            "value": "Free Parking on premises",
+                            "fieldName": "free_parking_on_premises"
+                        },
+                        {
+                            "label": "Wheelchair Friendly",
+                            "value": "Wheelchair Friendly",
+                            "fieldName": "wheelchair_friendly"
+                        },
+                        {
+                            "label": "Home Theater",
+                            "value": "Home Theater",
+                            "fieldName": "home_theater"
+                        }
+                    ]
+                },
+                {
                     "type": "textfield",
                     "label": "Other Charges",
                     "fieldName": "other_charges"
@@ -194,20 +277,9 @@
                 },
                 {
                     "type": "dropdown",
-                    "label": "Brokerage (Brokers only)",
-                    "values": ["Select Brokerage", "No Brokerage", "0.25%", "0.5%", "0.75%", "1%", "1.5%", "2%", "3%", "4%", "5%"],
+                    "label": "Brokerage in Percentage(Brokers only)",
+                    "values": ["0", "0.25", "0.5", "0.75", "1", "1.5", "2", "3", "4", "5"],
                     "fieldName": "brokerage"
-                },
-                {
-                    "type": "checkbox",
-                    "label": "Response from brokers",
-                    "fields": [
-                        {
-                            "label": "I am not interested in getting response from brokers",
-                            "value": "I am not interested in getting response from brokers",
-                            "fieldName": "response_from_brokers"
-                        }
-                    ]
                 }
             ]
         }

@@ -3,7 +3,7 @@ import {
   Typography
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import * as PropertyAction from "../../redux/actions/PropertyAction";
+import * as HomeSliderAction from "../../redux/actions/HomeSliderAction";
 import { useDispatch } from "react-redux";
 
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -16,8 +16,10 @@ import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import ClearIcon from "@material-ui/icons/Clear";
-
 import history from "../../components/history";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -29,16 +31,16 @@ const styles = (theme) => ({
   },
 });
 
-const PropertyList = (props) => {
+const HomeSliderList = (props) => {
 
   const dispatch = useDispatch();
   let {
     classes,
-    property,
+    slider,
   } = props;
 
   useEffect(() => {
-    dispatch(PropertyAction.PropertyListRequestAsync());
+    dispatch(HomeSliderAction.SliderListRequestAsync());
   }, []);
 
   let options = {
@@ -50,10 +52,10 @@ const PropertyList = (props) => {
 
   function onDisable(data, status) {
     let tempdata = {
-      id: data,
-      status: status
+      _id: data,
+      active: status
     };
-    dispatch(PropertyAction.PropertyStatusUpdateRequestAsync(tempdata));
+    dispatch(HomeSliderAction.SliderStatusUpdateRequestAsync(tempdata));
 
     if (status === "enable") {
       // toast.error("Disable")
@@ -65,37 +67,49 @@ const PropertyList = (props) => {
   }
 
   function onDeleteClick(data) {
+    let tempdata = {
+      _id: data,
 
+    };
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => dispatch(HomeSliderAction.SliderDeleteRequestAsync(tempdata))
+        },
+        {
+          label: 'No',
+
+        }
+      ]
+    });
   }
 
   function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/property/edit?id="+data;
-    history.push('/property/add?id=' + data)
+    history.push('/slider/add?id=' + data)
     window.location.reload();
   }
 
   return (
     <>
-      <FormHeader heading1={"Property Module Management"} heading2={"List and Manage Property Here"} />
-      <BreadCrumbs heading1={"PropertyManagement"} heading2={"Property Module List"} />
-      {property.list && property.list.length > 0 ? (
+      <FormHeader heading1={"Slider Module Management"} heading2={"List and Manage Slider Here"} />
+      <BreadCrumbs heading1={"SliderManagement"} heading2={"Slider Module List"} />
+      {slider.list && slider.list.length > 0 ? (
         <>
           <MUIDataTable className="table-header"
-            title="Property List"
-            data={property.list.map((item, index) => {
+            title="Slider List"
+            data={slider.list.map((item, index) => {
               return [
                 (index + 1),
-                item.name,
-                item.description,
-                item.name,
-                item.description,
-                item.name,
+                item.title,
                 item.description,
                 item.status,
                 item._id
               ]
             })}
-            columns={['SR No.','name', 'property Type', 'City','for','postingAs',
+            columns={['SR No.', 'Title', 'Description',
               {
                 name: "Status",
                 options: {
@@ -136,7 +150,7 @@ const PropertyList = (props) => {
                             </Tooltip>
                           )}
 
-                        <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[4])} />
+                        <DeleteIcon style={{ color: "#bd2130", cursor: "pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[4])} />
                       </>
                     );
                   }
@@ -157,14 +171,14 @@ const PropertyList = (props) => {
 
 
 function mapStateToProps(state) {
-  const { property } = state;
+  const { slider } = state;
   return {
-    property,
+    slider,
 
   };
 }
 export default connect(mapStateToProps)(
-  withStyles(styles)(PropertyList),
+  withStyles(styles)(HomeSliderList),
 );
 
 

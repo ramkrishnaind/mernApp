@@ -3,52 +3,54 @@ import ACTION_KEYS from "../../constants/action-keys";
 const initialState = {
   isRequesting: false,
   success: false,
-  error: null || "error",
+  error: null,
   data: null,
 };
 
-const PropertyReducer = (state = initialState, action) => {
+const HomeSliderReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case ACTION_KEYS.PROPERTY_LIST_REQUEST:
+    case ACTION_KEYS.SLIDER_LIST_REQUEST:
       return {
         ...state,
         isRequesting: true,
       };
-    case ACTION_KEYS.PROPERTY_LIST_SUCCESS:
+    case ACTION_KEYS.SLIDER_LIST_SUCCESS:
       return {
         ...state,
         isRequesting: false,
-        data: payload,
+        list: payload.data,
       };
-    case ACTION_KEYS.PROPERTY_LIST_ERROR:
+    case ACTION_KEYS.SLIDER_LIST_ERROR:
       return {
         ...state,
         isRequesting: false,
-        error: payload?.error || "error",
+        error: payload.error,
       };
-    // Add property
-    case ACTION_KEYS.PROPERTY_ADD_REQUEST:
+
+    case ACTION_KEYS.SLIDER_DATA_REQUEST:
       return {
         ...state,
         isRequesting: true,
       };
-    case ACTION_KEYS.PROPERTY_ADD_SUCCESS:
+    case ACTION_KEYS.SLIDER_DATA_SUCCESS:
       return {
         ...state,
         isRequesting: false,
-        data: payload,
+        success: true,
+        sliderData: payload.data,
       };
-    case ACTION_KEYS.PROPERTY_ADD_ERROR:
+    case ACTION_KEYS.SLIDER_DATA_ERROR:
       return {
         ...state,
         isRequesting: false,
-        error: payload?.error || "error",
+        error: payload.error,
+
       };
     default:
       return state;
   }
 };
 
-export default PropertyReducer;
+export default HomeSliderReducer;

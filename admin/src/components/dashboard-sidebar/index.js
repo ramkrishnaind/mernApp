@@ -211,6 +211,35 @@ const items = [
       }
     ]
   },
+  {
+    href: '/aboutus',
+    icon: UsersIcon,
+    title: 'About Us Management',
+    items: [
+      {
+        href: "/aboutus",
+        icon: ShoppingBagIcon,
+        title: "About Us List",
+      }
+    ]
+  },
+  {
+    href: '/slider',
+    icon: UsersIcon,
+    title: 'Slider Management',
+    items: [
+      {
+        href: "/slider/add",
+        icon: ShoppingBagIcon,
+        title: "Add Slider",
+      },
+      {
+        href: "/slider",
+        icon: ShoppingBagIcon,
+        title: "Slider List",
+      }
+    ]
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {

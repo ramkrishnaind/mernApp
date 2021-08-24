@@ -5,11 +5,6 @@
     "items": [
       {
         "id": 0,
-        "name": "Select Property Type",
-        "value": ""
-      },
-      {
-        "id": 0,
         "name": "ALL RESIDENTIAL",
         "value": ""
       },

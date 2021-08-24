@@ -19,7 +19,8 @@ export const LoginService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
     window.location.href = "/";
   } catch (error) {
+    console.log('error',error);
     dispatch(LoginError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    // dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
 };

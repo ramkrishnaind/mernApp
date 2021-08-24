@@ -11,11 +11,11 @@ import {
   TextValidator,
 } from "react-material-ui-form-validator";
 
-import * as BlogAction from "../../redux/actions/BlogAction";
+import * as HomeSliderAction from "../../redux/actions/HomeSliderAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
-import './blogManagement.css';
+import './sliderManagement.css';
 import SubHeading from "../../common/SubHeadingBox";
 import {
   Link as RouterLink,
@@ -31,7 +31,7 @@ const MenuCreateUpdate = (props) => {
 
   let query = useQuery();
   let id = query.get("id");
-  let blogData = props?.blog?.blogData;
+  let sliderData = props?.slider?.sliderData;
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
@@ -39,33 +39,33 @@ const MenuCreateUpdate = (props) => {
       _id: id
     }
     if (id != null) {
-      dispatch(BlogAction.BlogDataRequestAsync(data));
+      dispatch(HomeSliderAction.SliderDataRequestAsync(data));
     }
 
   }, [id]);
 
   useEffect(() => {
-    if (props.blog.success) {
+    if (props.slider.success) {
       setRefresh(true)
       setState(initialState)
     }
-  }, [props.blog.success]);
+  }, [props.slider.success]);
 
   const dispatch = useDispatch();
 
   const initialState = {
-    title: blogData?.title,
-    sortDescription: blogData?.sortDescription,
-    metaTitle: blogData?.metaTitle,
-    metaKeywords: blogData?.metaKeywords,
-    metaDescription: blogData?.metaDescription,
+    title: sliderData?.title,
+    sortDescription: sliderData?.sortDescription,
+    metaTitle: sliderData?.metaTitle,
+    metaKeywords: sliderData?.metaKeywords,
+    metaDescription: sliderData?.metaDescription,
     image: "",
     id: id,
   };
 
   const [state, setState] = useState(initialState);
   const [file, setFile] = useState("");
-  const [description, setDescription] = useState(blogData?.description);
+  const [description, setDescription] = useState(sliderData?.description);
 
 
 
@@ -88,10 +88,9 @@ const MenuCreateUpdate = (props) => {
       data.append('metaDescription', metaDescription);
 
       console.log('dsadsd', data);
-      dispatch(BlogAction.BlogAddRequestAsync(data));
+      dispatch(HomeSliderAction.SliderAddRequestAsync(data));
     }
     else {
-
       var data = new FormData();
       data.append('blogImage', image);
       data.append('title', title);
@@ -101,7 +100,7 @@ const MenuCreateUpdate = (props) => {
       data.append('metaKeywords', metaKeywords);
       data.append('metaDescription', metaDescription);
       data.append('_id', id);
-      dispatch(BlogAction.BlogUpdateRequestAsync(data));
+      dispatch(HomeSliderAction.SliderUpdateRequestAsync(data));
     }
   };
 
@@ -117,28 +116,22 @@ const MenuCreateUpdate = (props) => {
     // })
   }
 
-  const handleCleanImage = () => {
-    setState({ image: "" })
-    setFile('')
-  }
-
   const handleChangeTextEditor = (content, editor) => {
-
     setDescription(content);
   }
 
   return (
     <Box className="MenuManagement_Data">
-      <FormHeader heading1={"Blog Module Management"} heading2={"Create and Update Blog Here"} />
+      <FormHeader heading1={"Slider Module Management"} heading2={"Create and Update Slider Here"} />
       {state.id ? (
         <>
-          <BreadCrumbs heading1={"BlogManagement"} heading2={"Edit Blog Module"} />
-          <SubHeading heading={"Edit Blog Module"} />
+          <BreadCrumbs heading1={"SliderManagement"} heading2={"Edit Slider Module"} />
+          <SubHeading heading={"Edit Slider Module"} />
         </>
       ) : (
           <>
-            <BreadCrumbs heading1={"BlogManagement"} heading2={"Add Blog Module"} />
-            <SubHeading heading={"Add Blog Module"} />
+            <BreadCrumbs heading1={"HomeSliderManagement"} heading2={"Add Slider Module"} />
+            <SubHeading heading={"Add Slider Module"} />
           </>
         )
       }
@@ -146,7 +139,7 @@ const MenuCreateUpdate = (props) => {
         <div className="card w-100">
           <div className="card-header d-flex justify-content-between align-items-center">
             <Typography component="h3" variant="h3">
-              {state.id ? 'Edit' : 'Add'} Blog
+              {state.id ? 'Edit' : 'Add'} Home Slider
               </Typography>
             {/* <Button
                 onClick={() => this.props.history.push("menu")}
@@ -165,7 +158,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={(state.title) ? state.title : blogData?.title}
+                    value={(state.title) ? state.title : sliderData?.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -180,7 +173,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Short Description*"
                     fullWidth
-                    value={(state.sortDescription) ? state.sortDescription : blogData?.sortDescription}
+                    value={(state.sortDescription) ? state.sortDescription : sliderData?.sortDescription}
                     onChange={inputChange}
                     name="sortDescription"
                     id="sortDescription"
@@ -195,7 +188,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={(state.metaTitle) ? state.metaTitle : blogData?.metaTitle}
+                    value={(state.metaTitle) ? state.metaTitle : sliderData?.metaTitle}
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
@@ -210,7 +203,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={(state.metaKeywords) ? state.metaKeywords : blogData?.metaKeywords}
+                    value={(state.metaKeywords) ? state.metaKeywords : sliderData?.metaKeywords}
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
@@ -225,7 +218,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={(state.metaDescription) ? state.metaDescription : blogData?.metaDescription}
+                    value={(state.metaDescription) ? state.metaDescription : sliderData?.metaDescription}
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"
@@ -235,11 +228,11 @@ const MenuCreateUpdate = (props) => {
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-                  {(blogData?.description != null) ? (
+                  {(sliderData?.description != null) ? (
                     <>
                       <ReactQuill
                         onChange={handleChangeTextEditor}
-                        value={(description) ? description : blogData?.description}
+                        value={(description) ? description : sliderData?.description}
                         placeholder='Enter description'
                         theme='snow'
                       />
@@ -315,7 +308,7 @@ const MenuCreateUpdate = (props) => {
                   Save
                 </Button>
 
-                <Link component={RouterLink} to="/blog">
+                <Link component={RouterLink} to="/slider">
                   <Button
                     variant="contained"
                     color="primary"
@@ -336,9 +329,9 @@ const MenuCreateUpdate = (props) => {
 
 
 function mapStateToProps(state) {
-  const { blog } = state;
+  const { slider } = state;
   return {
-    blog,
+    slider,
 
   };
 }

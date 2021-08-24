@@ -1,6 +1,6 @@
 import LoginReducer from './LoginReducer';
 import RegisterReducer from './RegisterReducer';
-import PropertyListReducer from './PropertyListReducer';
+import PropertyReducer from './PropertyReducer';
 import SideMenuListReducer from './SideMenuListReducer';
 import menu from './MenuReducer';
 import ModuleReducer from './ModuleRightsReducer';
@@ -16,10 +16,12 @@ import booking from './BookingReducer';
 import contactus from './ContactUsReducer';
 import sitevisit from './SitevisitReducer';
 import verification from './VerificationReducer';
+import Aboutus from './aboutUsReducer';
+import Slider from './homeSliderReducer';
 const reducers = {
     Login: LoginReducer,
     Register: RegisterReducer,
-    PropertyList: PropertyListReducer,
+    property: PropertyReducer,
     SideMenuList: SideMenuListReducer,
     menu: menu,
     ModuleReducer: ModuleReducer,
@@ -35,6 +37,8 @@ const reducers = {
     contactus: contactus,
     sitevisit: sitevisit,
     verification: verification,
+    aboutus:Aboutus,
+    slider:Slider,
 }
 
 export default reducers;
