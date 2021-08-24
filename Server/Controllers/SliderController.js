@@ -26,7 +26,7 @@ let storage = multer.diskStorage({
 });
 let upload = multer({ storage: storage });
 const path = require('path');
-let { createSlider, getSliderList, updateSliderStatus, updateSlider, deleteSlider } = require('./Routes');
+let { createSlider, getSliderList, updateSliderStatus, updateSlider, deleteSlider, getSliderDetail } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
@@ -40,6 +40,7 @@ module.exports = function (conn) {
     router.post('/updateSlider', userAuthMiddleware, upload.array("image"), updateSlider(allCollection))
     router.post('/updateSliderStatus', userAuthMiddleware, updateSliderStatus(allCollection))
     router.post('/deleteSlider', userAuthMiddleware, deleteSlider(allCollection))
+    router.post('/getSliderDetail', userAuthMiddleware, getSliderDetail(allCollection))
     router.post('/getHomeSlider', requestAuthMiddleware, getSliderList(allCollection))
 
     return router;
