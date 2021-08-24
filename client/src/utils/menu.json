@@ -132,35 +132,20 @@
     },
     {
         "id": 4,
-        "title": "Property",
-        "image": "",
-        "submenu": [
-            {
-                "title": "Property Listing",
-                "href": "/property-list"
-            },
-            {
-                "title": "Property Detail",
-                "href": "/property-detail"
-            }
-        ]
-    },
-    {
-        "id": 5,
         "title": "Careers",
         "href": "/carrer"
     },
     {
-        "id": 6,
+        "id": 5,
         "title": "Finance"
     },
     {
-        "id": 7,
+        "id": 6,
         "title": "Contact Us",
         "href": "/contact-us"
     },
     {
-        "id": 5,
+        "id": 7,
         "title": "Blog",
         "href": "/blog"
     }
