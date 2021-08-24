@@ -87,12 +87,12 @@ const API_ENDPOINTS = {
   ABOUTUS_UPDATE_ENDPOINT: "home/updateAboutSection",
   
   //slider module
-  SLIDER_LIST_ENDPOINT: "blog/getAllBlog",
-  SLIDER_ADD_ENDPOINT: "blog/createBlog",
-  SLIDER_STATUS_UPDATE_ENDPOINT: "blog/updateBlogStatus",
-  SLIDER_UPDATE_ENDPOINT: "blog/updateBlog",
-  SLIDER_DELETE_ENDPOINT: "blog/deleteBlog",
-  SLIDER_DATA_ENDPOINT: "blog/getBlogDetail",
+  SLIDER_LIST_ENDPOINT: "slider/getSliderList",
+  SLIDER_ADD_ENDPOINT: "slider/createSlider",
+  SLIDER_STATUS_UPDATE_ENDPOINT: "slider/updateSliderStatus",
+  SLIDER_UPDATE_ENDPOINT: "slider/updateSlider",
+  SLIDER_DELETE_ENDPOINT: "slider/deleteSlider",
+  SLIDER_DATA_ENDPOINT: "slider/getSliderDetail",
 
 };
 

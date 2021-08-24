@@ -23,9 +23,6 @@ import SiteVisitList from "../pages/siteVisitManagement";
 import EnquiryList from "../pages/EnquiryManagement";
 import CallbackList from "../pages/CallbackManagement";
 import ReviewList from "../pages/reviewManagement";
-import SliderList from "../pages/SliderManagement";
-import SliderAdd from "../pages/SliderManagement/add";
-
 
 import BookingList from "../pages/bookingManagement";
 import ForgotPassword from "../pages/forgotPassword";
@@ -118,14 +115,6 @@ const Routes = props => {
                 {
                     path: "/blog/add",
                     element: isAuth ? <AddBlog /> : <Navigate to="/login" />
-                },
-                {
-                    path: "/slider",
-                    element: isAuth ? <SliderList /> : <Navigate to="/login" />
-                },
-                {
-                    path: "/slider/add",
-                    element: isAuth ? <SliderAdd /> : <Navigate to="/login" />
                 },
                 {
                     path: "/contactus",

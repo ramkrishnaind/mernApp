@@ -71,10 +71,8 @@ const MenuCreateUpdate = (props) => {
     data.append("metaDescription", metaDescription);
     data.append("_id", id);
     state?.image.map((item, index) => {
-      console.log('dfdf',item);
       data.append("aboutImages",item);
     });
-    console.log('data',data);
     dispatch(AboutUsAction.AboutUsUpdateRequestAsync(data));
   };
 
