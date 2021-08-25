@@ -24,7 +24,6 @@ import Footer from "../../components/footer";
 import OnlineBooking from "../../components/online-form/online-form";
 import EmiCalculater from "../../components/emiCalculater/emiCalculater";
 import EnquryForm from "../../components/enquryForm/enquryForm";
-import CountUp from 'react-countup';
 import { statsInfo, aboutSectionInfo, servicesInfo, clientLookingforInfo, bannersInfo } from './intial-content';
 import ApiClient from '../../api-client/index'
 

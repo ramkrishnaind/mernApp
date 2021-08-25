@@ -153,18 +153,6 @@ const PropertyDetailPage = (props) => {
       />
       {viewDetails ?
         <Container>
-<<<<<<< HEAD
-        <Paper elevation={1} style={{ padding: 20, marginTop: 20 }}>
-          <Grid container>
-            <Grid item xs={12} md={8} className={classes.style2} >
-              <Typography className={classes.text7}>{PropertyDetail.nameOfProject}</Typography>
-              <Typography>FOR {PropertyDetail?.for}</Typography>
-            </Grid>
-            <Grid item xs={12} md={4} className={classes.style3}>
-              <Typography className={classes.text3}>Starts From</Typography>
-              <Box className={classes.box1} >/</Box>
-              <Typography className={classes.text5}>Rs. {PropertyDetail?.price?.price}</Typography>
-=======
           <Paper elevation={1} style={{ padding: 20, marginTop: 20 }}>
             <Grid container>
               <Grid item xs={12} md={8} className={classes.style2} >
@@ -176,7 +164,6 @@ const PropertyDetailPage = (props) => {
                 <Box className={classes.box1} >/</Box>
                 <Typography className={classes.text5}>Rs. 3250000 {property?.propertyData?.expectedPrice}</Typography>
               </Grid>
->>>>>>> 01f5a8faa5a63ba4635c3e55a46df620b55f473b
             </Grid>
             <Grid container style={{ marginTop: 10 }}>
               <Grid item xs={12} md={8} className={classes.style2} >
