@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import SectionTabPanel from "../section-tab-panel";
 import OuterCarouselSlider from "../outer-carousel-slider";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -12,14 +11,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SectionTabs = (props) => {
-    const {tabItems} = props;
-    console.log(tabItems)
+  const { propertyData } = props;
+  console.log("propertyData", props, propertyData)
+  const { sell, rent, construction, interior } = propertyData
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
+    console.log("val", newValue)
     setValue(newValue);
   };
+
+  const tabs = () => {
+    return Object.keys(propertyData).map((data) => {
+      return <Tab label={data} />
+    })
+  }
 
   return (
     <div className={classes.root}>
@@ -28,22 +35,22 @@ const SectionTabs = (props) => {
         onChange={handleChange}
         aria-label="simple tabs example"
       >
-        <Tab label="RENT" />
-        <Tab label="SELL" />
-        <Tab label="CONSTRUCTION" />
-        <Tab label="INTERIOR" />
+        {
+          tabs()
+        }
+        {console.log("val", value)}
       </Tabs>
       <SectionTabPanel value={value} index={0}>
-        <OuterCarouselSlider items={tabItems} />
+        <OuterCarouselSlider items={sell} />
       </SectionTabPanel>
       <SectionTabPanel value={value} index={1}>
-        <OuterCarouselSlider items={tabItems} />
+        <OuterCarouselSlider items={rent} />
       </SectionTabPanel>
       <SectionTabPanel value={value} index={2}>
-        <OuterCarouselSlider items={tabItems} />
+        <OuterCarouselSlider items={construction} />
       </SectionTabPanel>
       <SectionTabPanel value={value} index={3}>
-        <OuterCarouselSlider items={tabItems} />
+        <OuterCarouselSlider items={interior} />
       </SectionTabPanel>
     </div>
   );

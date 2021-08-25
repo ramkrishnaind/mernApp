@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const schema = new Schema({
-    productId: {
+    propertyId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'property',
         default: null

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './header.css';
 import { Grid, Container, Typography, Button, makeStyles, Box, TextField, NativeSelect } from '@material-ui/core';
 import PhoneIcon from '@material-ui/icons/Phone';
@@ -121,7 +121,18 @@ const Header = props => {
     const [time, setTime] = useState("");
 
     const [open, setOpen] = useState(false);
+    const [userdata, setUserdata] = useState(false);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        let userdata = localStorage.getItem("user");
+        if (userdata) {
+            setUserdata(true);
+        } else {
+            setUserdata(false);
+        }
+
+    });
 
     const handleData = (e) => {
         const formData = {
@@ -142,21 +153,24 @@ const Header = props => {
         setOpen(false);
     };
 
-
     const handleClickOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
     };
+
+    const logoutHandler = () => {
+        if (typeof window !== "undefined") {
+            localStorage.removeItem("user");
+            window.location.href = "/";
+        }
+    };
     return (
         <>
             <Grid container className="MainMenu">
-                <Box className="logoImage">
-                    <img src={Logo} />
-                </Box>
                 <Grid item xs={12} md={12} className="bg-green">
-                    <Container>
+                    <Container className="auto-container">
                         <Grid container style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingTop: 8, paddingBottom: 8 }}>
                             <Grid item style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                 <PhoneIcon className={classes.icon} />
@@ -177,8 +191,12 @@ const Header = props => {
                     </Container>
                 </Grid>
                 <Grid item xs={12} md={12} className="bg-white">
-                    <Container>
+                    <Container className="auto-container">
+
                         <Grid container style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingTop: 8, paddingBottom: 8 }}>
+                            <Box className="logoImage">
+                                <div className="logo"><img src={Logo} /></div>
+                            </Box>
                             <Grid item style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                 {menuItems.map(menu => {
                                     return <MenuItem menu={menu} />
@@ -195,7 +213,9 @@ const Header = props => {
                         </Grid>
                     </Container>
                 </Grid>
+
             </Grid>
+
 
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} className="EnquryFormData">
                 <DialogTitle id="customized-dialog-title" onClose={handleClose}>

@@ -7,7 +7,7 @@ import { ModuleRightsService } from '../../services/ModuleRightsServices';
  * @returns 
  */
 export const GetModuleRightsRequestAsync = (data) => {
-    console.log("data====", data)
+    console.log("data is", data)
     return (dispatch) => {
         dispatch(GetModuleRights());
         ModuleRightsService(dispatch, data);
@@ -18,7 +18,7 @@ export const GetModuleRightsRequestAsync = (data) => {
  * Action Creator to dispatch login action
  * @returns 
  */
- export const GetModuleRights = () => {
+export const GetModuleRights = () => {
     return {
         type: ACTION_KEYS.MODULE_RIGHTS_REQUEST,
         payload: null,
@@ -46,7 +46,7 @@ export const GetModuleRightSuccess = (data) => {
 export const GetModuleRightsError = (data) => {
     return {
         type: ACTION_KEYS.MODULE_RIGHTS_ERROR,
-        payload: {error: data},
+        payload: { error: data },
     }
 }
 

@@ -10,49 +10,47 @@ function exteriorImage(Models) {
         try {
 
             const bodyData = {
-                'productId':req.body.productId
+                propertyId: req.body.propertyId,
             }
-
-            switch(req.body.imagetype)
-            {
-                case 'exterior':
+            console.log('req.body.imagetype is', req.body.imagetype)
+            switch (req.body.imagetype) {
+                case 'exteriorView':
                     bodyData['exteriorView'] = req.files;
-                break;
+                    break;
                 case 'livingRoom':
                     bodyData['livingRoom'] = req.files;
-                break;
+                    break;
                 case 'badrooms':
                     bodyData['badrooms'] = req.files;
-                break;
+                    break;
                 case 'bathrooms':
                     bodyData['bathrooms'] = req.files;
-                break;
+                    break;
                 case 'kitchen':
                     bodyData['kitchen'] = req.files;
-                break;
+                    break;
                 case 'floorPlan':
                     bodyData['floorPlan'] = req.files;
-                break;
+                    break;
                 case 'masterPlan':
                     bodyData['masterPlan'] = req.files;
-                break;
+                    break;
                 case 'locationMap':
                     bodyData['locationMap'] = req.files;
-                break;
+                    break;
                 case 'other':
                     bodyData['other'] = req.files;
-                break;
+                    break;
             }
-            
-            let findDataname = await Models.PImageDB.findOne({ productId:req.body.productId });
+            console.log('bodyData is', bodyData)
+            let findDataname = await Models.PImageDB.findOne({ propertyId: req.body.propertyId });
             if (findDataname) {
                 // if data found check 
-                let updateModule = await Models.PImageDB.findOneAndUpdate({ productId:bodyData.productId }, { $set: bodyData});
+                let updateModule = await Models.PImageDB.findOneAndUpdate({ propertyId: bodyData.propertyId }, { $set: bodyData });
                 console.log('updateModule is', updateModule)
                 res.send({ status: true, message: CONSTANTSMESSAGE.DATA_UPDATE_SUCCESS });
             }
-            else
-            {
+            else {
                 let saveModule = await new Models.PImageDB(bodyData).save();
                 console.log('saveModule is', saveModule)
                 res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });

@@ -274,8 +274,6 @@ const MenuCreateUpdate = (props) => {
 
 
                     <Grid item xs={12} sm={12}>
-
-
                       <label className="uploadbutton" htmlFor="mainImage">
                         <Button
                           color="default"

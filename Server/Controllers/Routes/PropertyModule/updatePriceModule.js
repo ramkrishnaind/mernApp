@@ -5,24 +5,24 @@ Joi.objectId = require('joi-objectid')(Joi)
 const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
-    productId: Joi.string().required(),
+    propertyId: Joi.string().required(),
     expectedPrice: Joi.number(),
     tokenAmount: Joi.number(),
     pricePerSqft: Joi.number(),
     priceIncludes: Joi.array(),
-    otherCharges:Joi.number(),
-    wishToEnter:Joi.string().empty(""),
-    basicPrice:Joi.number(),
-    floorPLC:Joi.number(),
+    otherCharges: Joi.number(),
+    wishToEnter: Joi.string().empty(""),
+    basicPrice: Joi.number(),
+    floorPLC: Joi.number(),
     facingPLC: Joi.number(),
     openCarParking: Joi.number(),
     openCarParkingFree: Joi.boolean(),
     coveredCarParking: Joi.number(),
     coveredCarParkingFree: Joi.boolean(),
-    newComponent:Joi.string().empty(""),
-    taxRegistration:Joi.boolean(),
-    maintenanceCharges:Joi.number(),
-    per:Joi.string().empty(""),
+    newComponent: Joi.string().empty(""),
+    taxRegistration: Joi.boolean(),
+    maintenanceCharges: Joi.number(),
+    per: Joi.string().empty(""),
     brokerage: Joi.number()
 });
 
@@ -38,42 +38,41 @@ function updatePrice(Models) {
             }
 
             // pick data from req.body
-            let bodyData = _.pick(req.body, ["productId","expectedPrice","tokenAmount","pricePerSqft","priceIncludes",
-                "otherCharges","wishToEnter","basicPrice","floorPLC","facingPLC","openCarParking","openCarParkingFree",
-                "coveredCarParking","coveredCarParkingFree","newComponent","taxRegistration","maintenanceCharges",
-                "per","brokerage"]);
+            let bodyData = _.pick(req.body, ["propertyId", "expectedPrice", "tokenAmount", "pricePerSqft", "priceIncludes",
+                "otherCharges", "wishToEnter", "basicPrice", "floorPLC", "facingPLC", "openCarParking", "openCarParkingFree",
+                "coveredCarParking", "coveredCarParkingFree", "newComponent", "taxRegistration", "maintenanceCharges",
+                "per", "brokerage"]);
 
-            let findData = await Models.PPriceDB.findOne({ productId: bodyData.productId });
-            
+            let findData = await Models.PPriceDB.findOne({ propertyId: bodyData.propertyId });
+
             if (findData) {
 
                 let setData = {
-                    productId: bodyData.productId,
+                    propertyId: bodyData.propertyId,
                     expectedPrice: bodyData.expectedPrice,
                     tokenAmount: bodyData.tokenAmount,
                     pricePerSqft: bodyData.pricePerSqft,
                     priceIncludes: bodyData.priceIncludes,
-                    otherCharges:bodyData.otherCharges,
-                    wishToEnter:bodyData.wishToEnter,
-                    basicPrice:bodyData.basicPrice,
-                    floorPLC:bodyData.floorPLC,
+                    otherCharges: bodyData.otherCharges,
+                    wishToEnter: bodyData.wishToEnter,
+                    basicPrice: bodyData.basicPrice,
+                    floorPLC: bodyData.floorPLC,
                     facingPLC: bodyData.facingPLC,
                     openCarParking: bodyData.openCarParking,
                     openCarParkingFree: bodyData.openCarParkingFree,
                     coveredCarParking: bodyData.coveredCarParking,
                     coveredCarParkingFree: bodyData.coveredCarParkingFree,
-                    newComponent:bodyData.newComponent,
+                    newComponent: bodyData.newComponent,
                     taxRegistration: bodyData.taxRegistration,
-                    maintenanceCharges:bodyData.maintenanceCharges,
-                    per:bodyData.per,
+                    maintenanceCharges: bodyData.maintenanceCharges,
+                    per: bodyData.per,
                     brokerage: bodyData.brokerage
                 };
-                let saveModule = await Models.PropertyDB.findOneAndUpdate({ _id: bodyData.productId }, { $set: setData});
+                let saveModule = await Models.PropertyDB.findOneAndUpdate({ _id: bodyData.propertyId }, { $set: setData });
                 console.log('saveModule is', saveModule)
                 res.send({ status: true, message: CONSTANTSMESSAGE.DATA_UPDATE_SUCCESS });
             }
-            else
-            {
+            else {
                 let saveModule = await new Models.PPriceDB(moduleFeatureSchema).save();
                 console.log('saveModule is', saveModule)
                 res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });

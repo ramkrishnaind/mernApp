@@ -14,18 +14,22 @@ import {useHistory, Link as RouterLink} from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   menu: {
     padding: 0,
-    color: "#000000",
-    marginRight: 15,
+    color: "#252525",
+    marginRight: 20,
     fontFamily: '"Open Sans",sans-serif',
-    fontWeight: 400,
+    fontWeight: 600,
     cursor: "pointer",
+    textDecoration: "none",
+    fontSize: "14px",
   },
   menuWithSubmenu: {
     padding: 0,
-    color: "#000000",
+    color: "#252525",
     fontFamily: '"Open Sans",sans-serif',
-    fontWeight: 400,
+    fontWeight: 600,
     cursor: "pointer",
+    textDecoration: "none",
+    fontSize: "14px",
   },
   icon: {
     marginRight: 10,

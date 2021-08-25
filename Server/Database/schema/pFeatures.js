@@ -5,97 +5,106 @@ const { nanoid } = require('nanoid');
 var Schema = mongoose.Schema;
 
 const schema = new Schema({
-    productId: {
+    propertyId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'property',
         default: null
     },
-    bedrooms:{
-        type:Number
+    bedrooms: {
+        type: Number
     },
-    balconies:{
-        type:Number
+    balconies: {
+        type: Number
     },
-    floorNo:{
-        type:Number
+    floorNo: {
+        type: Number
     },
-    totalFloors:{
-        type:Number
+    totalFloors: {
+        type: Number
     },
-    furnishedStatus:{
-        type:String
+    furnishedStatus: {
+        type: String
     },
-    washrooms:{
-        type:Number
+    washrooms: {
+        type: Number
     },
-    noOfSeats:{
-        type:Number
+    noOfSeats: {
+        type: Number
     },
-    meetingRooms:{
-        type:Number
+    meetingRooms: {
+        type: Number
     },
-    personalWashroom:{
-        type:Boolean
+    personalWashroom: {
+        type: Boolean
     },
-    Pantry:{
-        type:String
+    Pantry: {
+        type: String
     },
-    bathrooms:{
-        type:Number
+    bathrooms: {
+        type: Number
     },
-    FloorsAllowedforconstruction:{
-        type:Number
+    FloorsAllowedforconstruction: {
+        type: Number
     },
-    Noofopensides:{
-        type:Number
+    Noofopensides: {
+        type: Number
     },
-    Widthofroad:{
-        type:Number
+    Widthofroad: {
+        type: Number
     },
-    AnyConstructiondone:{
-        type:Boolean
+    AnyConstructiondone: {
+        type: Boolean
     },
-    BoundaryWallMade:{
-        type:Boolean
+    BoundaryWallMade: {
+        type: Boolean
     },
-    Isinagatedcolony:{
-        type:Boolean
-    }, 
-    PlotArea:{
-        type:Number
+    Isinagatedcolony: {
+        type: Boolean
     },
-    PlotLength:{
-        type:Number
+    PlotArea: {
+        type: Number
     },
-    PlotBreadth:{
-        type:Number
+    PlotLength: {
+        type: Number
     },
-    IsCornerPlot:{
-        type:Boolean
+    PlotBreadth: {
+        type: Number
     },
-    superArea:{
-        type:Number
+    IsCornerPlot: {
+        type: Boolean
     },
-    builtUpArea:{
-        type:Number
+    totalArea: {
+        type: Number
     },
-    carpetArea:{
-        type:Number
+    superArea: {
+        type: Number
     },
-    transactionType:{
-        type:String
+    builtUpArea: {
+        type: Number
     },
-    possessionStatus:{
-        type:String
+    carpetArea: {
+        type: Number
     },
-    availableFromMonth:{
-        type:Number
+    transactionType: {
+        type: String
     },
-    availableFromYear:{
-        type:Number
+    possessionStatus: {
+        type: String
     },
-    ageOfConstruction:{
-        type:String
+    availableFromMonth: {
+        type: Number
+    },
+    availableFromYear: {
+        type: Number
+    },
+    ageOfConstruction: {
+        type: String
+    },
+    amenities: {
+        type: Array
+    },
+    address: {
+        type: Object
     }
 }, {
     timestamps: {

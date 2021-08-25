@@ -6,10 +6,10 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
     name: Joi.string().required(),
-    email:Joi.string().required(),
+    email: Joi.string().required(),
     rating: Joi.number().required(),
     comment: Joi.string().required(),
-    productId: Joi.string().required()
+    propertyId: Joi.string().required()
 });
 
 function createReviewRequest(Models) {
@@ -22,9 +22,9 @@ function createReviewRequest(Models) {
             }
 
             // pick data from req.body
-            let bodyData = _.pick(req.body, ["name","email","rating","comment", "productId"]);
+            let bodyData = _.pick(req.body, ["name", "email", "rating", "comment", "propertyId"]);
             // searching email or mobile already exists or not
-            let findData = await Models.ReviewDB.findOne({$and: [{ email: bodyData.email },{ productId: bodyData.productId }]});
+            let findData = await Models.ReviewDB.findOne({ $and: [{ email: bodyData.email }, { propertyId: bodyData.propertyId }] });
             if (findData) {
                 // if data found check 
                 throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateModule: true, statusCode: 401 };

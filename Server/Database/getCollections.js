@@ -22,6 +22,8 @@ module.exports = function (mongoose) {
     const SiteVisitDB = mongoose.model('siteVisit');
     const CareerDB = mongoose.model('career');
     const BlogDB = mongoose.model('blog');
+    const HomeAboutDB = mongoose.model('homeAbout');
+    const HomeMovingBannerDB = mongoose.model('homeMovingBanner');
     return {
         UserDB,
         AuthTokenDB,
@@ -42,6 +44,8 @@ module.exports = function (mongoose) {
         ContactUsDB,
         SiteVisitDB,
         CareerDB,
-        BlogDB
+        BlogDB,
+        HomeAboutDB,
+        HomeMovingBannerDB
     }
 }

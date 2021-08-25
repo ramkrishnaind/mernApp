@@ -5,9 +5,9 @@ Joi.objectId = require('joi-objectid')(Joi)
 const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
-    productId: Joi.string().required(),
+    propertyId: Joi.string().required(),
     name: Joi.string().required(),
-    email:Joi.string().required(),
+    email: Joi.string().required(),
     phone: Joi.number().required(),
     message: Joi.string().required(),
     isVisit: Joi.boolean().required()
@@ -24,8 +24,8 @@ function createCallbackRequest(Models) {
             }
 
             // pick data from req.body
-         
-            let bodyData = _.pick(req.body, ["productId","name","email","phone","message","isVisit"]);
+
+            let bodyData = _.pick(req.body, ["propertyId", "name", "email", "phone", "message", "isVisit"]);
             // searching email or mobile already exists or not
             let findData = await Models.ReqCallbackDB.findOne({ email: bodyData.email });
             if (findData) {

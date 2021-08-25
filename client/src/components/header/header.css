@@ -1,41 +1,64 @@
 .bg-green {
     background-color: #06AEB8;
-    padding-left: 18rem;
+    /* padding-left: 18rem; */
 }
 .MainMenu{
     position: relative;
 }
-.logoImage{
-    position: absolute;
-    left:9%;
-    z-index: 3;
-    height: 100%;
+.MainMenu .auto-container {
+	max-width: 1200px;
+	margin: 0 auto;
+	position: relative;
+	padding: 0 15px;
 }
-.logoImage::before{
-    position: absolute;
-    right: 0;
-    width: 1000%;
-    height: 100%;
-    background-color: #2b2825;
-    content: "";
-    z-index: -1;
+.auto-container > .MuiGrid-root.MuiGrid-container {
+	padding-left: 210px;
+	position: relative;
 }
-.logoImage img{
-    width: 100px;
+.logoImage {
+	position: absolute;
+	left: 0;
+	z-index: 3;
+	/* height: 100%; */
+	top: -50px;
 }
-.logoImage img::before{
+.logoImage::before {
+	position: absolute;
+	right: 0;
+	width: 1000%;
+	height: 100%;
+	background-color: #2b2825;
+	content: "";
+	z-index: 1;
+}
+.logo {
+	position: relative;
+	padding: 6px 15px 6px 0;
+	z-index: 2;
+}
+.logo::before {
     position: absolute;
     right: -50px;
     top: 0;
-    border-top: 51px solid transparent;
-    border-bottom: 51px solid transparent;
+    border-top: 50px solid transparent;
+    border-bottom: 50px solid transparent;
+    border-left: 50px solid #2b2825;
+    content: "";
+    z-index: 99;
+}
+.logo::after {
+    position: absolute;
+    right: -50px;
+    top: 0;
+    border-top: 50px solid transparent;
+    border-bottom: 50px solid transparent;
     border-left: 50px solid #2b2825;
     content: "";
     z-index: 99;
 }
 .bg-white {
     background-color: #FFFFFF;
-    padding-left: 18rem;
+    /* padding-left: 18rem; */
 }
 .btn-book-online {
     background-image: linear-gradient(90deg, #da3287, #ffde5e);
@@ -56,4 +79,8 @@
 }
 .services-submenu-bg-active {
     color: #FFFFFF;
+}
+
+.MainMenu .MuiButtonBase-root.MuiButton-root {
+	line-height: 22px;
 }

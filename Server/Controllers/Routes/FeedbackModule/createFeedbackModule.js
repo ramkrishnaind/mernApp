@@ -7,8 +7,8 @@ const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
     name: Joi.string().required(),
     rating: Joi.number().required(),
-    productId:Joi.string().required(),
-    message:Joi.string().required()
+    propertyId: Joi.string().required(),
+    message: Joi.string().required()
 });
 
 function createFeedbackRequest(Models) {
@@ -22,8 +22,8 @@ function createFeedbackRequest(Models) {
             }
 
             // pick data from req.body
-         
-            let bodyData = _.pick(req.body, ["name","rating","productId","message"]);
+
+            let bodyData = _.pick(req.body, ["name", "rating", "propertyId", "message"]);
             // searching email or mobile already exists or not
             // let findData = await Models.FeedbackDB.findOne({ email: bodyData.email });
             // if (findData) {

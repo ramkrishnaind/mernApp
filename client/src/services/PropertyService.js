@@ -14,6 +14,8 @@ import propertyList from '../utils/property-list.json';
  * ****** Service to fetch Property List
  */
 export const PropertyListService = async (dispatch, data) => {
+  const result2 = propertyList;
+  dispatch(GetPropertyListSuccess(result2));
   try {
     const result1 = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
@@ -34,17 +36,17 @@ export const PropertyListService = async (dispatch, data) => {
  * Service to fetch Property detail
  */
 export const PropertyDetailService = async (dispatch, data) => {
-    try {
-      const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.PROPERTY_DETAIL, data, null, null, true);
-      dispatch(GetPropertyDetailSuccess(result));
-    } catch (error) {
-      dispatch(GetPropertyDetailError(error));
-    }
-  };
+  try {
+    const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.PROPERTY_DETAIL, data, null, null, true);
+    dispatch(GetPropertyDetailSuccess(result));
+  } catch (error) {
+    dispatch(GetPropertyDetailError(error));
+  }
+};
 
-  /**
-   * Service to post new property
-   */
+/**
+ * Service to post new property
+ */
 export const PostPropertyService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(

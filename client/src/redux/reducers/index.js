@@ -1,6 +1,6 @@
 import LoginReducer from './LoginReducer';
 import RegisterReducer from './RegisterReducer';
-import PropertyListReducer from './PropertyListReducer';
+import PropertyReducer from './PropertyReducer';
 import PropertyDetailReducer from './PropertyDetailReducer';
 import PostPropertyReducer from './PostPropertyReducer';
 import contactus from './ContactusReducer';
@@ -10,7 +10,7 @@ import verification from './VerificationReducer';
 const reducers = {
     Login: LoginReducer,
     Register: RegisterReducer,
-    PropertyList: PropertyListReducer,
+    property: PropertyReducer,
     PropertyDetail: PropertyDetailReducer,
     PostProperty: PostPropertyReducer,
     contactus: contactus,
