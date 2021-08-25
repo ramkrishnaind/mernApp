@@ -159,7 +159,7 @@ const PropertyDetailPage = (props) => {
               <Grid item xs={12} md={4} className={classes.style3}>
                 <Typography className={classes.text3}>Starts From</Typography>
                 <Box className={classes.box1} >/</Box>
-                <Typography className={classes.text5}>Rs. 3250000 {property?.propertyData?.expectedPrice}</Typography>
+                <Typography className={classes.text5}>Rs. 3250000 {classes?.propertyData?.expectedPrice}</Typography>
               </Grid>
             </Grid>
             <Grid container style={{ marginTop: 10 }}>
@@ -201,13 +201,13 @@ const PropertyDetailPage = (props) => {
                     <FactAndFeature icon={familyIcon} title="BEDROOMS" value={PropertyDetail?.bedrooms} />
                   </Grid>
                   <Grid item xs={12} md={4}>
-                    <FactAndFeature icon={familyIcon} title="BEDROOMS" value={property?.propertyData?.bedrooms} />
+                    {/* <FactAndFeature icon={familyIcon} title="BEDROOMS" value={property?.propertyData?.bedrooms} /> */}
                   </Grid>
                   <Grid item xs={12} md={4}>
-                    <FactAndFeature icon={yearIcon} title="BATHROOMS" value={property?.propertyData?.bathrooms} />
+                    {/* <FactAndFeature icon={yearIcon} title="BATHROOMS" value={property?.propertyData?.bathrooms} /> */}
                   </Grid>
                   <Grid item xs={12} md={4}>
-                    <FactAndFeature icon={yearIcon} title="STATUS" value={property?.propertyData?.status} />
+                    {/* <FactAndFeature icon={yearIcon} title="STATUS" value={property?.propertyData?.status} /> */}
                   </Grid>
                 </Grid>
               </InfoCard>
