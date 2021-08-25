@@ -15,7 +15,7 @@ let storage = multer.diskStorage({
                 });
             }
         } catch (err) {
-            console.error(err)
+            console.error('axios Error ', err)
         }
         cb(null, fpathId)
     },
