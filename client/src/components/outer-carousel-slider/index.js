@@ -7,6 +7,7 @@ import PropertyViewCard from "../property-view-card";
 import { Typography, Grid, Container, makeStyles, Button, Box } from "@material-ui/core";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import LocalHotelIcon from '@material-ui/icons/LocalHotel';
+import { Link as RouterLink } from "react-router-dom";
 import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
 import BathtubIcon from '@material-ui/icons/Bathtub';
 import DriveEtaIcon from '@material-ui/icons/DriveEta';
@@ -84,43 +85,46 @@ const OuterCarouselSlider = (props) => {
     <div>
         <OwlCarousel items={3} className="owl-theme" loop nav={false} margin={8} autoplay ={true} dots={false}>
           {items.map(item => {
-              const {title, subtitle, location, features} = item;
               return (
                 <Box style={{marginTop: 50, width: 350}}>
                 <Grid contaienr >
                     <Grid item xs={12} md={12} style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                         {/* <InnerCarouselSlider /> */}
                         <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} style={{width: 350, height: 300}} />
-                        <Typography className={classes.text1}>{title}</Typography>
-                        <Typography className={classes.text2}>{subtitle}</Typography>
+                        <Typography className={classes.text1}>{item?.for}</Typography>
+                        <Typography className={classes.text2}>{item?.nameOfProject}</Typography>
                         <Grid contaienr>
                             <Grid item style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginTop: 10}}>
                                 <LocationOnIcon style={{color: '#FF7601', fontSize: 20, padding: 0, marginRight: 8}} />
-                                <Typography className={classes.text3}>{location}</Typography>
+                                <Typography className={classes.text3}>{item?.pCity}</Typography>
                             </Grid>
                         </Grid>
                     </Grid>
                     <Grid container>
                         <Grid item xs={6} md={6} className={classes.features}>
                             <ZoomOutMapIcon className={classes.icon} />
-                            <Typography className={classes.text4}>356 Sq-Ft</Typography>
+                            <Typography className={classes.text4}>{item?.features[0]?.builtUpArea} Sq-Ft</Typography>
                         </Grid>
                         <Grid item xs={6} md={6} className={classes.features}>
                             <LocalHotelIcon className={classes.icon} />
-                            <Typography className={classes.text4}>4 Bedrooms</Typography>
+                            <Typography className={classes.text4}>{item?.features[0]?.bedrooms} Bedrooms</Typography>
                         </Grid>
                         <Grid item xs={6} md={6} className={classes.features}>
-                            <DriveEtaIcon className={classes.icon} />
-                            <Typography className={classes.text4}>3 Garage</Typography>
+                            <LocalHotelIcon className={classes.icon} />
+                            <Typography className={classes.text4}>{item?.features[0]?.balconies} Balconies</Typography>
                         </Grid>
                         <Grid item xs={6} md={6} className={classes.features}>
                             <BathtubIcon className={classes.icon} />
-                            <Typography className={classes.text4}>3 Bathroom</Typography>
+                            <Typography className={classes.text4}>{item?.features[0]?.bathrooms} Bathroom</Typography>
                         </Grid>
                      </Grid>
                      <Grid container style={{marginTop: 20}}>
                          <Grid item xs={6} md={6}>
-                             <Box className={`${classes.btnBox1} btn-more-detail`}>
+                             <Box className={`${classes.btnBox1} btn-more-detail`} component={RouterLink} to={
+                                {
+                                    pathname: '/property-detail',
+                                    state:item?._id
+                                }}>
                                 MORE DETAIL
                              </Box>
                          </Grid>

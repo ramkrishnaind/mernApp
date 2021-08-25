@@ -1,10 +1,12 @@
 import React, {useEffect} from "react";
 import { Typography, Grid, Container, makeStyles, Button, Box } from "@material-ui/core";
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import * as LoginAction from '../../redux/actions/LoginAction';
 import {withRouter} from 'react-router-dom';
+import CountUp from 'react-countup';
 import Header from '../../components/header';
 import SectionHeader from "../../components/section-header";
+import SectionMap from "../../components/section-map";
 import PropertyViewCard from "../../components/property-view-card";
 import OwlCarouselSlider from "../../components/carousel-slider";
 import DescriptionIcon from '@material-ui/icons/Description';
@@ -22,6 +24,8 @@ import Footer from "../../components/footer";
 import OnlineBooking from "../../components/online-form/online-form";
 import EmiCalculater from "../../components/emiCalculater/emiCalculater";
 import EnquryForm from "../../components/enquryForm/enquryForm";
+import * as PropertyActions from '../../redux/actions/PropertyAction';
+
 const useStyles = makeStyles((theme)=> ({
   text1: {
     fontFamily: '"Open Sans",sans-serif',
@@ -80,10 +84,21 @@ const useStyles = makeStyles((theme)=> ({
 const HomePage = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const [viewDetails, setViewDetails] = React.useState(false);
+  const [PropertyDetail,setPropertyDetail] = React.useState({});
+  const propertyListItems = useSelector(state => state.PropertyList.data);
+  React.useEffect(()=> {
+    dispatch(LoginAction.LoginRequestAsync({}));  
+    dispatch(PropertyActions.GetPropertyListRequestAsync({}));
+  },[]);
 
-  useEffect(()=> {
-    dispatch(LoginAction.LoginRequestAsync({}));
-  });
+  if(propertyListItems){
+    if(viewDetails === false){
+      console.log(propertyListItems);
+      setViewDetails(true);
+      setPropertyDetail(propertyListItems);
+    }
+  }
 
   return (
     <div className="main-w3">
@@ -121,7 +136,7 @@ const HomePage = (props) => {
               <Box className={classes.box}>
                 <DescriptionIcon style={{color: '#FFFFFF', fontSize: 40}}/>
               </Box>
-              <Typography className={classes.text4}>20 YEARS</Typography>
+              <Typography className={classes.text4}><CountUp start={0} end={20} /> YEARS</Typography>
               <Typography className={classes.text5}>OF REDEFINING</Typography>
           </Grid>
           <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
@@ -150,17 +165,12 @@ const HomePage = (props) => {
           <Container>
             {/******* SECTION - SELL  **********/}
             <SectionHeader title={APP_CONSTANTS.section2_title} subtitle={APP_CONSTANTS.section2_subtitle} />
-            <SectionTabs tabItems={propertieslist} />
+            {viewDetails?
+              <SectionTabs tabItems={propertyListItems} />  
+              : null
+            }
+            
             {/******* SECTION - RENT  ***********/}
-            <SectionHeader title={APP_CONSTANTS.section1_title} subtitle={APP_CONSTANTS.section1_subtitle} />
-            <SectionTabs tabItems={propertieslist} />
-            {/******* SECTION - CONSTRUCTION  **********/}
-            <SectionHeader title={APP_CONSTANTS.section3_title} subtitle={APP_CONSTANTS.section3_subtitle} />
-            <SectionTabs tabItems={propertieslist} />
-            {/******* SECTION - INTERIOR  **********/}
-            <SectionHeader title={APP_CONSTANTS.section4_title} subtitle={APP_CONSTANTS.section4_subtitle} />
-            <SectionTabs tabItems={propertieslist} />
-
           </Container>
         </Box>
 
@@ -202,6 +212,9 @@ const HomePage = (props) => {
         <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
           <Container>
             <SectionHeader title={APP_CONSTANTS.section_services_title} subtitle={APP_CONSTANTS.section_services_subtitle} />
+          </Container>
+          <Container>
+            <SectionMap title={APP_CONSTANTS.section_services_title} subtitle={APP_CONSTANTS.section_services_subtitle} />
           </Container>
         </div>
         {/* TODO: SECTION - MAP */}

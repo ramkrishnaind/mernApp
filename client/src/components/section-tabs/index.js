@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SectionTabs = (props) => {
     const {tabItems} = props;
+    console.log(tabItems)
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -27,10 +28,10 @@ const SectionTabs = (props) => {
         onChange={handleChange}
         aria-label="simple tabs example"
       >
-        <Tab label="House" />
-        <Tab label="Flats" />
-        <Tab label="Apartments" />
-        <Tab label="Villas" />
+        <Tab label="RENT" />
+        <Tab label="SELL" />
+        <Tab label="CONSTRUCTION" />
+        <Tab label="INTERIOR" />
       </Tabs>
       <SectionTabPanel value={value} index={0}>
         <OuterCarouselSlider items={tabItems} />

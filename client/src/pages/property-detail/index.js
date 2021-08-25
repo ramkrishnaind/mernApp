@@ -159,7 +159,7 @@ const PropertyDetailPage = (props) => {
             <Grid item xs={12} md={4} className={classes.style3}>
               <Typography className={classes.text3}>Starts From</Typography>
               <Box className={classes.box1} >/</Box>
-              <Typography className={classes.text5}>Rs. 3250000</Typography>
+              <Typography className={classes.text5}>Rs. {PropertyDetail?.price?.price}</Typography>
             </Grid>
           </Grid>
           <Grid container style={{marginTop: 10}}>
