@@ -53,7 +53,7 @@ const HomeSliderList = (props) => {
   function onDisable(data, status) {
     let tempdata = {
       _id: data,
-      active: status
+      isDisable: status
     };
     dispatch(HomeSliderAction.SliderStatusUpdateRequestAsync(tempdata));
 
@@ -96,31 +96,31 @@ const HomeSliderList = (props) => {
     <>
       <FormHeader heading1={"Slider Module Management"} heading2={"List and Manage Slider Here"} />
       <BreadCrumbs heading1={"SliderManagement"} heading2={"Slider Module List"} />
-      {slider.list && slider.list.length > 0 ? (
+      {slider.list?.list && slider.list?.list.length > 0 ? (
         <>
           <MUIDataTable className="table-header"
             title="Slider List"
-            data={slider.list.map((item, index) => {
+            data={slider.list?.list?.map((item, index) => {
               return [
                 (index + 1),
-                item.title,
+                item.name,
                 item.description,
-                item.status,
+                item.isDisable,
                 item._id
               ]
             })}
-            columns={['SR No.', 'Title', 'Description',
+            columns={['SR No.', 'Name', 'Description',
               {
-                name: "Status",
+                name: "Is Disable",
                 options: {
                   customBodyRender: (value, tableMeta, updateValue) => {
-                    if (value === true)
+                    if (value == true)
                       return (
-                        'Active'
+                        'Yes'
                       );
                     else
                       return (
-                        'Inactive'
+                        'No'
                       );
                   }
                 }
@@ -172,6 +172,7 @@ const HomeSliderList = (props) => {
 
 function mapStateToProps(state) {
   const { slider } = state;
+  console.log('slider',slider);
   return {
     slider,
 

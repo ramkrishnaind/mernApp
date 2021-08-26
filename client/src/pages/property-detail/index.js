@@ -27,6 +27,7 @@ import APP_CONSTANTS from "../../constants/app-constants";
 import { useDispatch, useSelector } from 'react-redux';
 import * as PropertyAction from "../../redux/actions/PropertyAction";
 import { Link as RouterLink, useLocation } from "react-router-dom";
+
 import { connect } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   text1: {

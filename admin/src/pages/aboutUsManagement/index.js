@@ -10,14 +10,9 @@ import BreadCrumbs from "../../common/bread-crumbs";
 import FormHeader from "../../common/form-header";
 import { connect } from "react-redux";
 import MUIDataTable from "mui-datatables";
-
-import Done from "@material-ui/icons/Done";
-import Tooltip from "@material-ui/core/Tooltip";
-import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import ClearIcon from "@material-ui/icons/Clear";
+
 import history from "../../components/history";
-import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const styles = (theme) => ({
@@ -51,7 +46,7 @@ const AboutUsList = (props) => {
 
   function updatehandleOpenCreateModal(data) {
     // window.location.href = "/aboutus/edit?id="+data;
-    history.push('/aboutus/add?id=' + data)
+    history.push('/aboutus/add')
     window.location.reload();
   }
 
@@ -72,7 +67,7 @@ const AboutUsList = (props) => {
                 item._id
               ]
             })}
-            columns={['SR No.', 'Title', 'Description',
+            columns={['SR No.','Header', 'Title', 'Description',
               {
                 name: "Actions",
                 options: {

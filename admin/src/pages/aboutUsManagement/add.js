@@ -21,12 +21,7 @@ const MenuCreateUpdate = (props) => {
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    let data = {
-      _id: id,
-    };
-    if (id != null) {
-      dispatch(AboutUsAction.AboutUsDataRequestAsync(data));
-    }
+         dispatch(AboutUsAction.AboutUsDataRequestAsync());
   }, [id]);
 
   useEffect(() => {
@@ -46,7 +41,7 @@ const MenuCreateUpdate = (props) => {
     metaKeywords: aboutusData?.metaKeywords,
     metaDescription: aboutusData?.metaDescription,
     image: [],
-    id: id,
+    id: aboutusData?._id,
   };
 
   const [state, setState] = useState(initialState);
@@ -76,10 +71,8 @@ const MenuCreateUpdate = (props) => {
     data.append("metaDescription", metaDescription);
     data.append("_id", id);
     state?.image.map((item, index) => {
-      console.log('dfdf',item);
       data.append("aboutImages",item);
     });
-    console.log('data',data);
     dispatch(AboutUsAction.AboutUsUpdateRequestAsync(data));
   };
 
