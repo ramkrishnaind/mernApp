@@ -78,7 +78,10 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
+
 const OuterCarouselSlider = (props) => {
+
     console.log("property props", props)
     let total = 0
     let data = []

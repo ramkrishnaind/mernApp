@@ -3,7 +3,6 @@ import { Typography, Grid, Container, makeStyles, Button, Box } from "@material-
 import { useDispatch } from 'react-redux';
 import * as LoginAction from '../../redux/actions/LoginAction';
 import { withRouter } from 'react-router-dom';
-import CountUp from 'react-countup';
 import Header from '../../components/header';
 import SectionHeader from "../../components/section-header";
 import SectionMap from "../../components/section-map";
@@ -24,8 +23,10 @@ import Footer from "../../components/footer";
 import OnlineBooking from "../../components/online-form/online-form";
 import EmiCalculater from "../../components/emiCalculater/emiCalculater";
 import EnquryForm from "../../components/enquryForm/enquryForm";
+import CountUp, { useCountUp } from 'react-countup';
 import { statsInfo, aboutSectionInfo, servicesInfo, clientLookingforInfo, bannersInfo } from './intial-content';
 import ApiClient from '../../api-client/index'
+import VisibilitySensor from "react-visibility-sensor";
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -91,11 +92,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Counter = (upto) => (
-  <CountUp start={0} end={upto} duration={4}>
-  </CountUp>
-);
-
 const HomePage = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -130,6 +126,17 @@ const HomePage = (props) => {
       return null
     }
   }
+
+  const Counter = (upto) => (
+    <VisibilitySensor >
+      {({ isVisible }) => {
+        if (isVisible) {
+          return <CountUp start={0} end={upto} startOnMount={false} duration={4}></CountUp>
+        }
+        else return <span>{upto}</span>
+      }}
+    </VisibilitySensor>
+  );
 
   return (
     <div className="main-w3">
