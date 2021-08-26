@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import { Typography, Grid, Container, makeStyles, Button, Box } from "@material-ui/core";
+import GoogleMapReact from 'google-map-react';
 
 const useStyles = makeStyles((theme)=> ({
     text1: {

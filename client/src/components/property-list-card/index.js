@@ -8,7 +8,7 @@ import {
   Divider,
   Button,
   Card,
-  Container, TextField, NativeSelect 
+  Container, TextField, NativeSelect
 
 } from "@material-ui/core";
 import PropTypes from "prop-types";
@@ -21,7 +21,7 @@ import DriveEtaIcon from "@material-ui/icons/DriveEta";
 import StarIcon from "@material-ui/icons/Star";
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import '../header/header.css';
 import APP_CONSTANTS from '../../constants/app-constants';
 import Dialog from '@material-ui/core/Dialog';
@@ -76,37 +76,37 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 10,
   },
   btn1: {
-    borderRadius: 12, 
-    color: '#FFFFFF', 
-    textTransform: 'none', 
+    borderRadius: 12,
+    color: '#FFFFFF',
+    textTransform: 'none',
     fontFamily: '"Open Sans",sans-serif',
     backgroundColor: '#FF7601'
-},
-btn2: {
-    borderRadius: 12, 
-    color: '#666666', 
-    textTransform: 'none', 
+  },
+  btn2: {
+    borderRadius: 12,
+    color: '#666666',
+    textTransform: 'none',
     fontFamily: '"Open Sans",sans-serif',
     backgroundColor: '#ECECEC'
-}
+  }
 }));
 
 
 
 const stylessd = (theme) => ({
   root: {
-      margin: 0,
-      padding: theme.spacing(2),
+    margin: 0,
+    padding: theme.spacing(2),
   },
   closeButton: {
-      position: 'absolute',
-      right: theme.spacing(1),
-      top: theme.spacing(1),
-      color: theme.palette.grey[500],
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
   },
   notchedOutline: {
-      borderWidth: "1px",
-      borderColor: "#FFFFFF !important",
+    borderWidth: "1px",
+    borderColor: "#FFFFFF !important",
   },
 
 
@@ -115,48 +115,48 @@ const stylessd = (theme) => ({
     color: '#FFFFFF',
     marginRight: 10,
     fontFamily: '"Open Sans",sans-serif'
-},
-icon: {
+  },
+  icon: {
     padding: 0,
     color: '#FFFFFF',
     marginRight: 10
-},
-menu: {
+  },
+  menu: {
     padding: 0,
     color: '#000000',
     marginRight: 10,
     fontFamily: '"Open Sans",sans-serif',
     fontWeight: 400,
     cursor: 'pointer'
-},
-btn1: {
+  },
+  btn1: {
     borderRadius: 15,
     color: '#FFFFFF',
     textTransform: 'none',
     marginRight: 10,
     fontFamily: '"Open Sans",sans-serif'
-},
-btn2: {
+  },
+  btn2: {
     borderRadius: 15,
     background: '#FF7601',
     color: '#FFFFFF',
     textTransform: 'none',
     fontFamily: 'Open Sans,sans-serif'
-},
-btn3: {
+  },
+  btn3: {
     borderRadius: 15,
     background: '#ECECEC',
     marginRight: 10,
     color: '#000000',
     textTransform: 'none',
     fontFamily: '"Open Sans",sans-serif'
-},
-btn4: {
+  },
+  btn4: {
     borderRadius: 15,
     color: '#000000',
     textTransform: 'none',
     fontFamily: '"Open Sans",sans-serif'
-}
+  }
 });
 
 const DialogTitle = withStyles(stylessd)((props) => {
@@ -164,29 +164,29 @@ const DialogTitle = withStyles(stylessd)((props) => {
 
 
   return (
-      <MuiDialogTitle disableTypography className={classes.root} {...other}>
-          <Typography variant="h6">{children}</Typography>
-          {onClose ? (
-              <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-                  <CloseIcon />
-              </IconButton>
-          ) : null}
-      </MuiDialogTitle>
+    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
   );
 });
 
 const DialogActions = withStyles((theme) => ({
   root: {
-      margin: 0,
-      padding: theme.spacing(1),
+    margin: 0,
+    padding: theme.spacing(1),
   },
 }))(MuiDialogActions);
 
 
 const PropertyListCard = (props) => {
-  const {item} = props;
+  const { item } = props;
   console.log(item);
-  
+
   const classes = useStyles();
 
   const [name, setName] = useState("");
@@ -198,215 +198,216 @@ const PropertyListCard = (props) => {
   const dispatch = useDispatch();
 
   const handleData = (e) => {
-      const formData = {
-          name: name,
-          email: email,
-          phone: mobile,
-          time: time,
-          // type: type,
-          // propertyname: propertyname,
-      };
-      console.log('formData', formData);
-      dispatch(SitevisitAction.SitevisitRequestAsync(formData));
-      // toast.success('Request Sent successfully', { position: toast.POSITION.TOP_RIGHT, autoClose: 5000 })
-      setName('')
-      setMobile('')
-      setEmail('')
-      setTime('')
-      setOpen(false);
+    const formData = {
+      name: name,
+      email: email,
+      phone: mobile,
+      time: time,
+      // type: type,
+      // propertyname: propertyname,
+    };
+    console.log('formData', formData);
+    dispatch(SitevisitAction.SitevisitRequestAsync(formData));
+    // toast.success('Request Sent successfully', { position: toast.POSITION.TOP_RIGHT, autoClose: 5000 })
+    setName('')
+    setMobile('')
+    setEmail('')
+    setTime('')
+    setOpen(false);
   };
 
 
   const handleClickOpen = () => {
-      setOpen(true);
+    setOpen(true);
   };
   const handleClose = () => {
-      setOpen(false);
+    setOpen(false);
   };
 
 
   return (
     <>
-    <Paper style={{ borderRadius: 0, padding: 0, marginTop: 30 }}>
-      <Grid container spacing={0}>
-        <Grid
-          item
-          xs={12}
-          md={4}
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-          }}
-        >
-          <img
-          className="image"
-            src={process.env.PUBLIC_URL + "/property_img3.jpeg"}
+      <Paper style={{ borderRadius: 0, padding: 0, marginTop: 30 }}>
+        <Grid container spacing={0}>
+          <Grid
+            item
+            xs={12}
+            md={4}
             style={{
-              width: "100%",
-              height: 300,
-              objectFit: "cover",
-              backgroundColor: "red",
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "flex-start",
             }}
-          />
-          {/* <span className="featured">FEATURED</span> */}
-        </Grid>
-        <Grid item xs={12} md={8} style={{ padding: 30 }}>
-          <Grid container contaienr spacing={1}>
-            <Grid
-              item
-              xs={12}
-              md={8}
+          >
+            <img
+              className="image"
+              src={process.env.PUBLIC_URL + "/property_img3.jpeg"}
               style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-                justifyContent: "flex-start",
+                width: "100%",
+                height: 300,
+                objectFit: "cover",
+                backgroundColor: "red",
               }}
-            >
-              <Typography className={classes.text2}>
-                {item?.nameOfProject}
-              </Typography>
-              <Grid>
-                <Grid
-                  item
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "flex-start",
-                    marginTop: 10,
-                  }}
-                >
-                  <LocationOnIcon
+            />
+            {/* <span className="featured">FEATURED</span> */}
+          </Grid>
+          <Grid item xs={12} md={8} style={{ padding: 30 }}>
+            <Grid container contaienr spacing={1}>
+              <Grid
+                item
+                xs={12}
+                md={8}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Typography className={classes.text2}>
+                  {item?.nameOfProject}
+                </Typography>
+                <Grid>
+                  <Grid
+                    item
                     style={{
-                      color: "#FF7601",
-                      fontSize: 20,
-                      padding: 0,
-                      marginRight: 8,
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "flex-start",
+                      marginTop: 10,
                     }}
-                  />
-                  <Typography className={classes.text3}>
-                    {item?.pCity}
-                  </Typography>
+                  >
+                    <LocationOnIcon
+                      style={{
+                        color: "#FF7601",
+                        fontSize: 20,
+                        padding: 0,
+                        marginRight: 8,
+                      }}
+                    />
+                    <Typography className={classes.text3}>
+                      {item?.pCity}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid container>
+                  <Grid item xs={6} md={6} className={classes.features}>
+                    <ZoomOutMapIcon className={classes.icon} />
+                    <Typography className={classes.text4}>{item?.features[0]?.builtUpArea} Sq-Ft</Typography>
+                  </Grid>
+                  <Grid item xs={6} md={6} className={classes.features}>
+                    <LocalHotelIcon className={classes.icon} />
+                    <Typography className={classes.text4}>{item?.features[0]?.bedrooms} Bedrooms</Typography>
+                  </Grid>
+                  <Grid item xs={6} md={6} className={classes.features}>
+                    <DriveEtaIcon className={classes.icon} />
+                    <Typography className={classes.text4}>{item?.features[0]?.totalFloors} TotalFloors</Typography>
+                  </Grid>
+                  <Grid item xs={6} md={6} className={classes.features}>
+                    <BathtubIcon className={classes.icon} />
+                    <Typography className={classes.text4}>{item?.features[0]?.bathrooms} Bathroom</Typography>
+                  </Grid>
+                  <Grid item xs={12} md={12}>
+                    <Divider style={{ marginTop: 20, marginBottom: 20 }} />
+                  </Grid>
                 </Grid>
               </Grid>
-              <Grid container>
-                <Grid item xs={6} md={6} className={classes.features}>
-                  <ZoomOutMapIcon className={classes.icon} />
-                  <Typography className={classes.text4}>{item?.features[0]?.builtUpArea} Sq-Ft</Typography>
-                </Grid>
-                <Grid item xs={6} md={6} className={classes.features}>
-                  <LocalHotelIcon className={classes.icon} />
-                  <Typography className={classes.text4}>{item?.features[0]?.bedrooms} Bedrooms</Typography>
-                </Grid>
-                <Grid item xs={6} md={6} className={classes.features}>
-                  <DriveEtaIcon className={classes.icon} />
-                  <Typography className={classes.text4}>{item?.features[0]?.totalFloors} TotalFloors</Typography>
-                </Grid>
-                <Grid item xs={6} md={6} className={classes.features}>
-                  <BathtubIcon className={classes.icon} />
-                  <Typography className={classes.text4}>{item?.features[0]?.bathrooms} Bathroom</Typography>
-                </Grid>
-                <Grid item xs={12} md={12}>
-                  <Divider style={{ marginTop: 20, marginBottom: 20 }} />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              md={4}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Grid contaienr>
-                <Grid
-                  item
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Typography className={classes.text3}>Starts From</Typography>
-                  <Box style={{ width: 10, paddingRight: 5, paddingLeft: 5, color: '#333333' }}>/</Box>
-                  <Typography className={classes.text5}>Rs. 3250000</Typography>
+              <Grid
+                item
+                xs={12}
+                md={4}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Grid contaienr>
+                  <Grid
+                    item
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Typography className={classes.text3}>Starts From</Typography>
+                    <Box style={{ width: 10, paddingRight: 5, paddingLeft: 5, color: '#333333' }}>/</Box>
+                    <Typography className={classes.text5}>Rs. 3250000</Typography>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-            <Grid item xs={12}>
-              <Grid container>
-                <Grid item xs={12} md={8}>
-                  <Grid container>
-                    <Grid xs={12} md={6}>
-                      <Grid contaienr>
-                        <Grid
-                          item
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "flex-start",
-                          }}
-                        >
-                          <EventAvailableIcon className={classes.icon} />
-                          <Box style={{ width: 10 }}></Box>
-                          <Typography className={classes.text3}>
-                            1 day ago
-                          </Typography>
+              <Grid item xs={12}>
+                <Grid container>
+                  <Grid item xs={12} md={8}>
+                    <Grid container>
+                      <Grid xs={12} md={6}>
+                        <Grid contaienr>
+                          <Grid
+                            item
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              justifyContent: "flex-start",
+                            }}
+                          >
+                            <EventAvailableIcon className={classes.icon} />
+                            <Box style={{ width: 10 }}></Box>
+                            <Typography className={classes.text3}>
+                              1 day ago
+                            </Typography>
+                          </Grid>
                         </Grid>
                       </Grid>
-                    </Grid>
-                    <Grid xs={12} md={6}>
-                      <Grid contaienr>
-                        <Grid
-                          item
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "flex-end",
-                          }}
-                        >
-                          <StarIcon className={classes.icon} />
-                          <StarIcon className={classes.icon} />
-                          <StarIcon className={classes.icon} />
-                          <StarIcon className={classes.icon} />
-                          <StarIcon className={classes.icon} />
+                      <Grid xs={12} md={6}>
+                        <Grid contaienr>
+                          <Grid
+                            item
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              justifyContent: "flex-end",
+                            }}
+                          >
+                            <StarIcon className={classes.icon} />
+                            <StarIcon className={classes.icon} />
+                            <StarIcon className={classes.icon} />
+                            <StarIcon className={classes.icon} />
+                            <StarIcon className={classes.icon} />
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-                <Grid item xs={12} md={4}>
-                  <Grid contaienr>
-                    <Grid
-                      item
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Button variant="contained" className={classes.btn1}  component={RouterLink} to={
-                      {
-                        pathname: '/property-detail',
-                        state:item?._id
-                      }}
+                  <Grid item xs={12} md={4}>
+                    <Grid contaienr>
+                      <Grid
+                        item
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
                       >
-                        View Detail
-                      </Button>
-                      <Box style={{ width: 10 }}></Box>
-                      <Button variant="contained" className={classes.btn2} onClick={handleClickOpen}>
-                        Take a tour
-                      </Button>
+                        <Button variant="contained" className={classes.btn1} component={RouterLink} to={
+                          {
+                            pathname: '/property-detail',
+                            state: item?._id
+                          }}
+                        >
+                          View Detail
+                        </Button>
+                        <Box style={{ width: 10 }}></Box>
+                        <Button variant="contained" className={classes.btn2} onClick={handleClickOpen}>
+                          Take a tour
+                        </Button>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -414,98 +415,97 @@ const PropertyListCard = (props) => {
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
 
-    
-<Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} className="EnquryFormData">
-<DialogTitle id="customized-dialog-title" onClose={handleClose}>
-    {APP_CONSTANTS.titleSiteVisit}
-</DialogTitle>
-<Box className="emiForm">
-    <TextField
-        className="EmiInputs"
-        style={{ marginTop: 15 }}
-        variant="outlined"
-        label="Your Name"
-        name="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        InputProps={{
-            classes: {
+
+      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} className="EnquryFormData">
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+          {APP_CONSTANTS.titleSiteVisit}
+        </DialogTitle>
+        <Box className="emiForm">
+          <TextField
+            className="EmiInputs"
+            style={{ marginTop: 15 }}
+            variant="outlined"
+            label="Your Name"
+            name="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            InputProps={{
+              classes: {
                 notchedOutline: classes.notchedOutline
-            }
-        }}
-        InputLabelProps={{
-            style: { color: '#FFFFFF' }
-        }}
-        fullWidth >
-    </TextField>
-    <TextField
-        className="EmiInputs"
-        style={{ marginTop: 15 }}
-        variant="outlined"
-        label="Email Address"
-        type="email"
-        name="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        InputProps={{
-            classes: {
+              }
+            }}
+            InputLabelProps={{
+              style: { color: '#FFFFFF' }
+            }}
+            fullWidth >
+          </TextField>
+          <TextField
+            className="EmiInputs"
+            style={{ marginTop: 15 }}
+            variant="outlined"
+            label="Email Address"
+            type="email"
+            name="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            InputProps={{
+              classes: {
                 notchedOutline: classes.notchedOutline
-            }
-        }}
-        InputLabelProps={{
-            style: { color: '#FFFFFF' }
-        }}
-        fullWidth >
-    </TextField>
-    <TextField
-        className="EmiInputs"
-        style={{ marginTop: 15 }}
-        variant="outlined"
-        label="Phone Number"
-        name="Phone"
-        type="tel"
-        value={mobile}
-        onChange={(e) => setMobile(e.target.value)}
-        InputProps={{
-            classes: {
+              }
+            }}
+            InputLabelProps={{
+              style: { color: '#FFFFFF' }
+            }}
+            fullWidth >
+          </TextField>
+          <TextField
+            className="EmiInputs"
+            style={{ marginTop: 15 }}
+            variant="outlined"
+            label="Phone Number"
+            name="Phone"
+            type="tel"
+            value={mobile}
+            onChange={(e) => setMobile(e.target.value)}
+            InputProps={{
+              classes: {
                 notchedOutline: classes.notchedOutline
-            }
-        }}
-        InputLabelProps={{
-            style: { color: '#FFFFFF' }
-        }}
-        fullWidth >
-    </TextField>
-    <NativeSelect className="EmiInputs selectInput"
-        onChange={(e) => setTime(e.target.value)}
-        fullWidth>
-        <option value="">Choose Time</option>
-        <option value="8:00 AM">8:00 AM</option>
-        <option value="9:00 AM">9:00 AM</option>
-        <option value="10:00 AM">10:00 AM</option>
-        <option value="11:00 AM">11:00 AM</option>
-        <option value="12:00 AM">12:00 AM</option>
-        <option value="1:00 PM">1:00 PM</option>
-        <option value="2:00 PM">2:00 PM</option>
-        <option value="3:00 PM">3:00 PM</option>
-        <option value="4:00 PM">4:00 PM</option>
-        <option value="5:00 PM">5:00 PM</option>
-        <option value="6:00 PM">6:00 PM</option>
-        <option value="7:00 PM">7:00 PM</option>
-    </NativeSelect>
-</Box>
-<DialogActions>
-    <Box className="ParentButton">
-        <Button onClick={(e) => handleData(e)}>
-            Submit
-        </Button>
-    </Box>
-</DialogActions>
-</Dialog>
-</>
+              }
+            }}
+            InputLabelProps={{
+              style: { color: '#FFFFFF' }
+            }}
+            fullWidth >
+          </TextField>
+          <NativeSelect className="EmiInputs selectInput"
+            onChange={(e) => setTime(e.target.value)}
+            fullWidth>
+            <option value="">Choose Time</option>
+            <option value="8:00 AM">8:00 AM</option>
+            <option value="9:00 AM">9:00 AM</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+            <option value="12:00 AM">12:00 AM</option>
+            <option value="1:00 PM">1:00 PM</option>
+            <option value="2:00 PM">2:00 PM</option>
+            <option value="3:00 PM">3:00 PM</option>
+            <option value="4:00 PM">4:00 PM</option>
+            <option value="5:00 PM">5:00 PM</option>
+            <option value="6:00 PM">6:00 PM</option>
+            <option value="7:00 PM">7:00 PM</option>
+          </NativeSelect>
+        </Box>
+        <DialogActions>
+          <Box className="ParentButton">
+            <Button onClick={(e) => handleData(e)}>
+              Submit
+            </Button>
+          </Box>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 

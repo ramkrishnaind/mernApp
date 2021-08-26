@@ -99,7 +99,15 @@ function getAllProperty(Models) {
 function getHomeAllProperty(Models) {
     async function PropertyList(req, res) {
         try {
-            let findData = await Models.PropertyDB.find({ status: 1 }).lean();
+            let findData = await Models.PropertyDB.aggregate([{
+                $lookup: {
+                    from: "pfeatures",
+                    localField: "_id",
+                    foreignField: "propertyId",
+                    as: "features"
+                }
+            }])
+
             let rentData = findData.filter(function (item) {
                 return item.for === "Rent";
             });
@@ -138,7 +146,7 @@ function getHomeAllProperty(Models) {
                 }
             }
 
-            res.send({ status: true, message: "", data: obj });
+            res.send({ status: true, message: "Properties Data for Home Page", data: obj });
         }
         catch (e) {
             console.log('Getting list err', e);
@@ -188,7 +196,7 @@ function propertyDetail(Models) {
             let findData = await Models.PropertyDB.findOne({ _id }).lean();
             let propertyFeatures = await Models.PFeaturesDB.findOne({ propertyId: findData._id }).lean();
             //let propertyAmenities = await Models.PFeaturesDB.findOne({ propertyId: findData._id }).lean();
-
+            console.log('propertyFeatures is', propertyFeatures)
             result._id = findData._id;
             result.iAm = findData.iAm;
             result.userName = '';

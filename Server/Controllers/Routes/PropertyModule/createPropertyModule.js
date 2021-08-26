@@ -117,9 +117,10 @@ function createPropertyRequest(Models) {
             };
 
             let saveModule = await new Models.PropertyDB(bodyData).save();
+            moduleFeatureSchema.propertyId = saveModule._id;
             let featureSchemaModule = await new Models.PFeaturesDB(moduleFeatureSchema).save();
             console.log('saveModule is', featureSchemaModule)
-            res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
+            res.send({ status: true, propertyId: saveModule._id, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
         }
         catch (e) {
             console.log('saveModule err', e);

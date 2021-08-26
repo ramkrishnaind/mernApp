@@ -225,84 +225,110 @@ const Header = (props) => {
                 >
                   {APP_CONSTANTS.btnBookOnlineText}
                 </Button>
-
                 <Button
-                  variant="outlined"
+                  variant="contained"
                   className={classes.btn2}
-                  component={RouterLink}
-                  to="/post-property"
+                  onClick={handleClickOpen}
                 >
-                  Post Property
+                  {APP_CONSTANTS.btnRegisterASiteVisit}
                 </Button>
               </Grid>
             </Grid>
           </Container>
         </Grid>
-      </Grid>
-      <Grid item xs={12} md={12} className="bg-white">
-        <Container>
-          <Grid
-            container
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingTop: 8,
-              paddingBottom: 8,
-            }}
-          >
+        <Grid item xs={12} md={12} className="bg-white">
+          <Container className="auto-container">
             <Grid
-              item
+              container
               style={{
                 display: "flex",
                 flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "space-between",
+                paddingTop: 8,
+                paddingBottom: 8,
               }}
             >
-              {menuItems.map((menu) => {
-                return <MenuItem menu={menu} />;
-              })}
-            </Grid>
-            <Grid
-              item
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignContent: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Button
-                variant="contained"
-                className={classes.btn3}
-                onClick={handleClickOpen}
+              <Box className="logoImage">
+                <div className="logo">
+                  <img src={Logo} />
+                </div>
+              </Box>
+              <Grid
+                item
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
-                {APP_CONSTANTS.btnRegisterASiteVisit}
-              </Button>
-
-              {userdata ? (
+                {menuItems.map((menu) => {
+                  return <MenuItem menu={menu} />;
+                })}
+              </Grid>
+              <Grid
+                item
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignContent: "center",
+                  justifyContent: "center",
+                }}
+              >
                 <Button
                   variant="outlined"
-                  className={classes.btn4}
-                  onClick={logoutHandler}
-                >
-                  Logout
-                </Button>
-              ) : (
-                <Button
-                  variant="outlined"
-                  className={classes.btn4}
+                  className={classes.btn3}
                   component={RouterLink}
-                  to="/signin"
+                  to="/post-property"
                 >
-                  Login / Signup
+                  Post Property
                 </Button>
-              )}
+                {userdata ? (
+                  <Button
+                    variant="outlined"
+                    className={classes.btn4}
+                    onClick={logoutHandler}
+                  >
+                    Logout
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outlined"
+                    className={classes.btn4}
+                    component={RouterLink}
+                    to="/signin"
+                  >
+                    Login / Signup
+                  </Button>
+                )}
+              </Grid>
             </Grid>
+          </Container>
+        </Grid>
+      </Grid>
+
+      {userdata ? (
+        <Button
+          variant="outlined"
+          className={classes.btn4}
+          onClick={logoutHandler}
+        >
+          Logout
+        </Button>
+      ) : (
+        <Button
+          variant="outlined"
+          className={classes.btn4}
+          component={RouterLink}
+          to="/signin"
+        >
+          Login / Signup
+        </Button>
+      )}
+      {/* </Grid>
           </Grid>
         </Container>
-      </Grid>
+      </Grid> */}
 
       <Dialog
         onClose={handleClose}

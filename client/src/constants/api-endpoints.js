@@ -15,7 +15,6 @@ const API_ENDPOINTS = {
   UPLOAD_IMAGE: "/property/uploadImage",
   PROPERTY_LIST_CLIENT: "/property/getAllPropertyForClient",
   PROPERTY_DETAIL: "/property/propertyDetail",
-
   PROPERTY_LIST_ENDPOINT: "property/getPropertyRequest",
   PROPERTY_DETAIL_ENDPOINT: "property/propertyDetail",
   UPDATE_PROPERTY_STATUS_ENDPOINT: "property/updatePropertyStatusRequest",

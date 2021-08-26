@@ -6,11 +6,17 @@ let schema = new Schema({
         type: String,
         default: ""
     },
-    desc: {
+    description: {
         type: String,
         default: ""
     },
-    URL: {
+    metaTitle: {
+        type: String
+    },
+    metaKeywords: {
+        type: String
+    },
+    metaDescription: {
         type: String
     },
     image: {
