@@ -73,19 +73,19 @@ const API_ENDPOINTS = {
   CONTACTUS_STATUS_UPDATE_ENDPOINT: "contactus/updateContactUsStatus",
 
   //property
-  PROPERTY_LIST_ENDPOINT:"property/propertyList",
-  PROPERTY_ADD_ENDPOINT: "property/createProperty",
+  PROPERTY_LIST_ENDPOINT: "property/getAllProperty",
+  PROPERTY_ADD_ENDPOINT: "property/createPropertyRequest",
   PROPERTY_IMAGE_ENDPOINT: "property/uploadImage",
-  
-  PROPERTY_UPDATE_ENDPOINT:"property/updateProperty",
-  PROPERTY_DATA_ENDPOINT:"property/propertyDetail",
-  PROPERTY_DELETE_ENDPOINT:"property/deleteProperty",
-  PROPERTY_STATUS_UPDATE_ENDPOINT:"property/updatePropertyStatus",
-  
+
+  PROPERTY_UPDATE_ENDPOINT: "property/updateProperty",
+  PROPERTY_DATA_ENDPOINT: "property/propertyDetail",
+  PROPERTY_DELETE_ENDPOINT: "property/deleteProperty",
+  PROPERTY_STATUS_UPDATE_ENDPOINT: "property/updatePropertyStatus",
+
   //ABOUT module
   ABOUTUS_LIST_ENDPOINT: "home/homeAbout",
   ABOUTUS_UPDATE_ENDPOINT: "home/updateAboutSection",
-  
+
   //slider module
   SLIDER_LIST_ENDPOINT: "slider/getSliderList",
   SLIDER_ADD_ENDPOINT: "slider/createSlider",
@@ -93,7 +93,6 @@ const API_ENDPOINTS = {
   SLIDER_UPDATE_ENDPOINT: "slider/updateSlider",
   SLIDER_DELETE_ENDPOINT: "slider/deleteSlider",
   SLIDER_DATA_ENDPOINT: "slider/getSliderDetail",
-
 };
 
 export default API_ENDPOINTS;

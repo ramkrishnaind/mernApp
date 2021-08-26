@@ -96,7 +96,7 @@ const HomeSliderList = (props) => {
     <>
       <FormHeader heading1={"Slider Module Management"} heading2={"List and Manage Slider Here"} />
       <BreadCrumbs heading1={"SliderManagement"} heading2={"Slider Module List"} />
-      {slider.list?.list && slider.list?.list.length > 0 ? (
+      {slider?.list?.list && slider.list?.list.length > 0 ? (
         <>
           <MUIDataTable className="table-header"
             title="Slider List"
