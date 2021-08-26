@@ -14,6 +14,9 @@ function exteriorImage(Models) {
             }
             console.log('req.body.imagetype is', req.body.imagetype)
             switch (req.body.imagetype) {
+                case 'mainImage':
+                    bodyData['bathrooms'] = req.files;
+                    break;
                 case 'exteriorView':
                     bodyData['exteriorView'] = req.files;
                     break;
