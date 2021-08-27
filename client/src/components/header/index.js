@@ -245,14 +245,6 @@ const Header = (props) => {
                 </Button>
 
                 {userdata ? (
-                  <Button
-                    variant="outlined"
-                    className={classes.btn4}
-                    onClick={logoutHandler}
-                  >
-                    Logout
-                  </Button>
-                ) : (
                   <>
                     <Button
                       className={classes.btn3}
@@ -272,6 +264,8 @@ const Header = (props) => {
                       <MenuItem onClick={logoutHandler}>Logout</MenuItem>
                     </Menu>
                   </>
+                ) : (
+                  ""
                 )}
               </Grid>
             </Grid>
