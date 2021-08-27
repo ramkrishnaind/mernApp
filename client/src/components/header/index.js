@@ -236,12 +236,14 @@ const Header = (props) => {
                 >
                   {APP_CONSTANTS.btnBookOnlineText}
                 </Button>
+
                 <Button
                   variant="contained"
                   className={classes.btn2}
-                  onClick={handleClickOpen}
+                  component={RouterLink}
+                  to="/post-property"
                 >
-                  {APP_CONSTANTS.btnRegisterASiteVisit}
+                  Post Property
                 </Button>
 
                 {userdata ? (
@@ -313,10 +315,9 @@ const Header = (props) => {
                 <Button
                   variant="outlined"
                   className={classes.btn3}
-                  component={RouterLink}
-                  to="/post-property"
+                  onClick={handleClickOpen}
                 >
-                  Post Property
+                  {APP_CONSTANTS.btnRegisterASiteVisit}
                 </Button>
                 {userdata ? (
                   ""
