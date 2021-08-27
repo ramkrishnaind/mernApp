@@ -1,7 +1,7 @@
 import React from "react";
-import { Grid, Typography, Box, makeStyles } from "@material-ui/core";
+import {Grid, Typography, Box, makeStyles, Paper} from "@material-ui/core";
 import PropTypes from "prop-types";
-import { Link as RouterLink } from "react-router-dom";
+import {Link as RouterLink} from "react-router-dom";
 import "./page-slider.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -12,14 +12,15 @@ const useStyles = makeStyles((theme) => ({
   },
   text1: {
     fontFamily: '"Open Sans",sans-serif',
-    color: "#FFFFFF",
+    color: "#000",
     fontSize: 40,
   },
   text2: {
     fontFamily: '"Open Sans",sans-serif',
-    color: "#FFFFFF",
+    color: "#000",
     fontSize: 14,
     marginTop: 10,
+    fontWeight: 'bold',
   },
   text3: {
     fontFamily: '"Open Sans",sans-serif',
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PageBanner = (props) => {
   const classes = useStyles();
-  const { showSearch = false, bgImage, title, currentPage } = props;
+  const {showSearch = false, bgImage, title, currentPage} = props;
 
   return (
     <div
@@ -46,7 +47,7 @@ const PageBanner = (props) => {
         height: 326,
         overflow: "hidden",
         textAlign: "center",
-        backgroundSize: 'cover',
+        backgroundSize: 'auto',
         position: "relative",
         backgroundPosition: "center",
       }}
@@ -61,6 +62,7 @@ const PageBanner = (props) => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
+
           }}
         >
           <Typography className={classes.text1}>{title}</Typography>
@@ -68,14 +70,18 @@ const PageBanner = (props) => {
             <Grid
               item
               xs={12}
-              md={12}
+              md={4}
               style={{
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "center",
+                margin: 'auto',
+                backgroundColor: 'rgb(255, 255, 255, 0.8)',
+                padding: 20
               }}
             >
+
               <Typography
                 className={classes.text2}
                 component={RouterLink}
@@ -83,15 +89,17 @@ const PageBanner = (props) => {
               >
                 HOME
               </Typography>
-              <Box style={{ width: 10 }}></Box>
+              <Box style={{width: 10}}></Box>
               <Typography className={classes.text2}>/</Typography>
-              <Box style={{ width: 10 }}></Box>
+              <Box style={{width: 10}}></Box>
               <Typography className={classes.text2}>{currentPage}</Typography>
+
+
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-    </div>
+    </div >
   );
 };
 

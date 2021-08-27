@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import "./outer-carousel-slider.css";
 import PropertyViewCard from "../property-view-card";
-import { Typography, Grid, Container, makeStyles, Button, Box } from "@material-ui/core";
+import {Typography, Grid, Container, makeStyles, Button, Box} from "@material-ui/core";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import LocalHotelIcon from '@material-ui/icons/LocalHotel';
-import { Link as RouterLink } from "react-router-dom";
+import {Link as RouterLink} from "react-router-dom";
 import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
 import BathtubIcon from '@material-ui/icons/Bathtub';
 import DriveEtaIcon from '@material-ui/icons/DriveEta';
@@ -82,12 +82,12 @@ const useStyles = makeStyles((theme) => ({
 
 const OuterCarouselSlider = (props) => {
 
-    console.log("property props", props)
-    let total = 0
-    let data = []
+    console.log("property props", props);
+    let total = 0;
+    let data = [];
     if (props && props.items) {
-        total = props.items.total
-        data = props.items.data
+        total = props.items.total;
+        data = props.items.data;
     }
     const classes = useStyles();
 
@@ -95,19 +95,19 @@ const OuterCarouselSlider = (props) => {
         <div>
             <OwlCarousel items={Math.min(3, total)} className="owl-theme" loop nav={false} margin={8} autoplay={true} dots={false}>
                 {data.map(item => {
-                    const { _id, userId, propertyDetails, status, iAm, pType, postingAs, nameOfProject, propertTag, created, updated, __v } = item;
+                    const {_id, userId, propertyDetails, status, iAm, pType, postingAs, nameOfProject, propertTag, created, updated, __v} = item;
                     const propertyFor = item.for;
                     return (
-                        <Box style={{ marginTop: 50, width: 350 }}>
+                        <Box style={{marginTop: 50, width: 350}}>
                             <Grid contaienr >
-                                <Grid item xs={12} md={12} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+                                <Grid item xs={12} md={12} style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                                     {/* <InnerCarouselSlider /> */}
-                                    <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} style={{ width: 350, height: 300 }} />
+                                    <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} style={{width: 350, height: 300}} />
                                     <Typography className={classes.text1}>{pType}</Typography>
                                     <Typography className={classes.text2}>{nameOfProject}</Typography>
                                     <Grid contaienr>
-                                        <Grid item style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginTop: 10 }}>
-                                            <LocationOnIcon style={{ color: '#FF7601', fontSize: 20, padding: 0, marginRight: 8 }} />
+                                        <Grid item style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginTop: 10}}>
+                                            <LocationOnIcon style={{color: '#FF7601', fontSize: 20, padding: 0, marginRight: 8}} />
                                             <Typography className={classes.text3}>{iAm}</Typography>
                                         </Grid>
                                     </Grid>
@@ -130,11 +130,11 @@ const OuterCarouselSlider = (props) => {
                                         <Typography className={classes.text4}>{item?.features[0]?.bathrooms} Bathroom</Typography>
                                     </Grid>
                                 </Grid>
-                                <Grid container style={{ marginTop: 20 }}>
+                                <Grid container style={{marginTop: 20}}>
                                     <Grid item xs={6} md={6}>
                                         <Box className={`${classes.btnBox1} btn-more-detail`} component={RouterLink} to={
                                             {
-                                                pathname: '/property-detail',
+                                                pathname: '/home-detail',
                                                 state: item?._id
                                             }}>
                                             MORE DETAIL

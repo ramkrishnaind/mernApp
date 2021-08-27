@@ -1,4 +1,4 @@
-import { Redirect } from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import CartPage from "../pages/cart";
 import HomePage from "../pages/home";
 import BookOnline from "../pages/online-form";
@@ -15,6 +15,8 @@ import RegisterPage from "../pages/register";
 import ForgotPage from "../pages/forgot-password";
 import NewPasswordPage from "../pages/new-password";
 import Verification from "../pages/verificationPage";
+import HouseDetailPage from "../pages/house-details/index";
+
 const routes = [
   {
     exact: true,
@@ -54,18 +56,18 @@ const routes = [
     path: "/cart",
     render: (props) => {
       if (props.isAuth) {
-        return <CartPage />
+        return <CartPage />;
       }
-      return <Redirect to={{ pathname: "/" }} />
+      return <Redirect to={{pathname: "/"}} />;
     },
   },
   {
     path: "/book-online",
     render: (props) => {
       if (props.isAuth) {
-        return <BookOnline />
+        return <BookOnline />;
       }
-      return <Redirect to={{ pathname: "/" }} />
+      return <Redirect to={{pathname: "/"}} />;
     },
   },
   {
@@ -88,6 +90,10 @@ const routes = [
     path: "/verification",
     render: (props) => <Verification {...props} />,
   },
+  {
+    path: "/home-detail",
+    render: (props) => <HouseDetailPage {...props} />,
+  }
 ];
 
 export default routes;
