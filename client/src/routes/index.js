@@ -15,6 +15,7 @@ import RegisterPage from "../pages/register";
 import ForgotPage from "../pages/forgot-password";
 import NewPasswordPage from "../pages/new-password";
 import Verification from "../pages/verificationPage";
+import Profile from "../pages/profile";
 const routes = [
   {
     exact: true,
@@ -54,18 +55,18 @@ const routes = [
     path: "/cart",
     render: (props) => {
       if (props.isAuth) {
-        return <CartPage />
+        return <CartPage />;
       }
-      return <Redirect to={{ pathname: "/" }} />
+      return <Redirect to={{ pathname: "/" }} />;
     },
   },
   {
     path: "/book-online",
     render: (props) => {
       if (props.isAuth) {
-        return <BookOnline />
+        return <BookOnline />;
       }
-      return <Redirect to={{ pathname: "/" }} />
+      return <Redirect to={{ pathname: "/" }} />;
     },
   },
   {
@@ -87,6 +88,10 @@ const routes = [
   {
     path: "/verification",
     render: (props) => <Verification {...props} />,
+  },
+  {
+    path: "/profile",
+    render: (props) => <Profile {...props} />,
   },
 ];
 

@@ -13,7 +13,7 @@ import {
 import PhoneIcon from "@material-ui/icons/Phone";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import APP_CONSTANTS from "../../constants/app-constants";
-import MenuItem from "../menu-item";
+import MenuItemList from "../menu-item";
 import menuItems from "../../utils/menu.json";
 import { withRouter, Link as RouterLink } from "react-router-dom";
 import Logo from "../../images/logo.png";
@@ -25,8 +25,10 @@ import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-
+import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import "../enquryForm/enquryForm.css";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 import { useDispatch } from "react-redux";
 import * as SitevisitAction from "../../redux/actions/SitevisitAction";
@@ -110,7 +112,6 @@ const useStyles = makeStyles((theme) => ({
   },
   btn3: {
     borderRadius: 15,
-    background: "#ECECEC",
     marginRight: 10,
     color: "#000000",
     textTransform: "none",
@@ -133,7 +134,7 @@ const Header = (props) => {
   const [open, setOpen] = useState(false);
   const [userdata, setUserdata] = useState(false);
   const dispatch = useDispatch();
-
+  const [anchorEl, setAnchorEl] = React.useState(null);
   useEffect(() => {
     let userdata = localStorage.getItem("user");
     if (userdata) {
@@ -170,10 +171,20 @@ const Header = (props) => {
   };
 
   const logoutHandler = () => {
+    setAnchorEl(null);
     if (typeof window !== "undefined") {
       localStorage.removeItem("user");
       window.location.href = "/";
     }
+  };
+
+  const handleClickUserMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const gotoProfileHandler = () => {
+    setAnchorEl(null);
+    window.location.href = "/profile";
   };
   return (
     <>
@@ -232,6 +243,36 @@ const Header = (props) => {
                 >
                   {APP_CONSTANTS.btnRegisterASiteVisit}
                 </Button>
+
+                {userdata ? (
+                  <Button
+                    variant="outlined"
+                    className={classes.btn4}
+                    onClick={logoutHandler}
+                  >
+                    Logout
+                  </Button>
+                ) : (
+                  <>
+                    <Button
+                      className={classes.btn3}
+                      onClick={handleClickUserMenu}
+                    >
+                      <PermIdentityIcon />
+                    </Button>
+
+                    <Menu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                    >
+                      <MenuItem onClick={gotoProfileHandler}>Profile</MenuItem>
+                      <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+                    </Menu>
+                  </>
+                )}
               </Grid>
             </Grid>
           </Container>
@@ -263,7 +304,7 @@ const Header = (props) => {
                 }}
               >
                 {menuItems.map((menu) => {
-                  return <MenuItem menu={menu} />;
+                  return <MenuItemList menu={menu} />;
                 })}
               </Grid>
               <Grid
@@ -284,13 +325,7 @@ const Header = (props) => {
                   Post Property
                 </Button>
                 {userdata ? (
-                  <Button
-                    variant="outlined"
-                    className={classes.btn4}
-                    onClick={logoutHandler}
-                  >
-                    Logout
-                  </Button>
+                  ""
                 ) : (
                   <Button
                     variant="outlined"
@@ -307,24 +342,6 @@ const Header = (props) => {
         </Grid>
       </Grid>
 
-      {userdata ? (
-        <Button
-          variant="outlined"
-          className={classes.btn4}
-          onClick={logoutHandler}
-        >
-          Logout
-        </Button>
-      ) : (
-        <Button
-          variant="outlined"
-          className={classes.btn4}
-          component={RouterLink}
-          to="/signin"
-        >
-          Login / Signup
-        </Button>
-      )}
       {/* </Grid>
           </Grid>
         </Container>
