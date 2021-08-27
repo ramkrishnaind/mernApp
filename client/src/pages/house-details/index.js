@@ -201,12 +201,12 @@ const HouseDetailPage = (props) => {
           <Paper elevation={1} style={{padding: 20, marginTop: 20}}>
 
             <Grid container>
-              <Grid item xs={12} md={8} className={classes.style2} style={{padding: 20, backgroundColor: "#03b2cb", marginTop: 20}}>
-
+              <Grid item xs={12} md={6} className={classes.style2} style={{backgroundImage: "#03b2cb", padding: 40}}>
+                <img src="property_img3.jpeg" height={"100%"} width={'100%'} />
               </Grid>
-              <Grid item xs={12} md={4} style={{padding: 20, backgroundColor: "pink", marginTop: 20}}>
+              <Grid item xs={12} md={6} style={{padding: 20, marginTop: 20}}>
                 <Typography className={classes.text7} style={{padding: 20}}> Property Brief</Typography>
-                <Typography className={classes.text3} style={{padding: 20}} >
+                <Typography className={classes.text3} style={{padding: 20, lineHeight: "2.3em"}} >
                   Vishal Construction Company is a Jaipur based construction company which today is a renowned name in providing best in class real estate services to its clients located all over India. Vishal Construction Company specializes in its area of work wherein they are expert in the real estate services, construction process of housing, commercial and other types of properties. They majorly serve clientele of Rajasthan, Hyderabad, Kolkata and other metro cities of India. Vishal Construction Company has a long-standing reputation wherein they deliver excellence catering to services and workmanship. They believe in providing quality projects with timely delivery.
                 </Typography>
               </Grid>
@@ -217,7 +217,7 @@ const HouseDetailPage = (props) => {
               item
               xs={12}
               md={8}
-              style={{display: 'flex', flexDirection: 'column'}}
+              style={{display: 'flex', flexDirection: 'column', marginBottom: 20}}
             >
               <InfoCard item={{title: 'Facts and Features'}}>
                 <Grid container>
@@ -379,6 +379,7 @@ const HouseDetailPage = (props) => {
                 </Grid>
               </InfoCard>
               <InfoCard
+                style={{marginBottom: 20}}
                 item={{title: 'Reviews'}}
                 reviewCount={
                   PropertyDetail?.review?.length != 0
@@ -386,7 +387,7 @@ const HouseDetailPage = (props) => {
                     : '0'
                 }
               >
-                Reviews goes here
+                Reviews
               </InfoCard>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -394,12 +395,55 @@ const HouseDetailPage = (props) => {
                 <Grid item item xs={12} md={12} style={{marginTop: 20}}>
                   <Paper style={{padding: 20}}>
                     <Grid container>
-                      <Grid item xs={12} md={12} className={classes.style1}>
+                      <Grid item xs={12} md={6} className={classes.style1}>
                         <Typography className={classes.text4}>
-                          Property Brief
+                          Location
                         </Typography>
-                        <Typography className={classes.text6}>
-                          {PropertyDetail?.projectDescription}
+                        <Typography className={classes.text1}>
+                          Address :
+                        </Typography>
+                        <Typography className={classes.text1}>
+                          State/county
+                        </Typography>
+                        <Typography className={classes.text1}>
+                          Neighborhood
+                        </Typography>
+                        <Typography className={classes.text1}>
+                          Zip/Postal Code
+                        </Typography>
+                        <Typography className={classes.text1}>
+                          Country
+                        </Typography>
+                        <Typography className={classes.text1}>
+                          City
+                        </Typography>
+
+                      </Grid>
+
+                      <Grid item xs={12} md={6} className={classes.style1}>
+                        <Typography className={classes.text4}>
+                          <Button variant="contained" className={classes.btn1}>
+                            <a target="_blank" style={{color: "#fff", textDecoration: 'none'}} href="https://goo.gl/maps/i9cYX1hYVQiAYhCL6" class="location-map">View Map <i class="far fa-map-marker-alt"></i></a>
+                          </Button>
+
+                        </Typography>
+                        <Typography className={classes.text1}>
+                          42 Albemarle st.
+                        </Typography>
+                        <Typography className={classes.text1}>
+                          New York
+                        </Typography>
+                        <Typography className={classes.text1}>
+                          Andersonville
+                        </Typography>
+                        <Typography className={classes.text1}>
+                          4203
+                        </Typography>
+                        <Typography className={classes.text1}>
+                          United States
+                        </Typography>
+                        <Typography className={classes.text1}>
+                          Chicago
                         </Typography>
                       </Grid>
                     </Grid>
