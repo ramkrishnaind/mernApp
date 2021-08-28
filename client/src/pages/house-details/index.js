@@ -12,6 +12,7 @@ import {
   Radio,
   Button,
 } from '@material-ui/core';
+import Rating from '@material-ui/lab/Rating';
 import {useParams} from 'react-router';
 import './property-detail.css';
 import PageBanner from '../../components/page-banner';
@@ -27,6 +28,7 @@ import APP_CONSTANTS from '../../constants/app-constants';
 import {useDispatch, useSelector} from 'react-redux';
 import * as PropertyAction from '../../redux/actions/PropertyAction';
 import {Link as RouterLink, useLocation} from 'react-router-dom';
+import propertyDetail from '../property-detail';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -120,10 +122,11 @@ const HouseDetailPage = (props) => {
   const {item} = props;
   const dispatch = useDispatch();
   let query = useQuery();
-  const [viewDetails, setViewDetails] = React.useState(true);
+  const [viewDetails, setViewDetails] = React.useState(false);
   let token = query.get('token');
   const [PropertyDetail, setPropertyDetail] = React.useState({});
   const propertyListItem = useSelector((state) => state.PropertyDetail.data);
+  console.log("propertyListItem", propertyListItem);
   if (propertyListItem) {
     if (viewDetails === false) {
       console.log(propertyListItem);
@@ -138,11 +141,13 @@ const HouseDetailPage = (props) => {
   React.useEffect(() => {
     let reqData = {
       propertyId: location?.state,
+      // propertyId: "6125373540f10f2712e43db5"
     };
     console.log('GetPropertyDetailRequestAsync');
     dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
   }, []);
 
+  console.log("property details *** ", PropertyDetail);
   return (
     <div style={{background: '#F7F7F7'}}>
       <PageBanner
@@ -159,7 +164,9 @@ const HouseDetailPage = (props) => {
                 <Typography className={classes.text7}>
                   {PropertyDetail.nameOfProject}
                 </Typography>
-                <Typography>FOR {PropertyDetail?.for}</Typography>
+                <Typography style={{
+                  textTransform: 'capitalize', backgroundColor: "#00afb8", padding: "3px 7px", borderRadius: 5, fontSize: 10, color: "#fff"
+                }}>FOR {PropertyDetail?.for}</Typography>
               </Grid>
               <Grid item xs={12} md={4} className={classes.style3}>
                 <Typography className={classes.text3}>Starts From</Typography>
@@ -178,15 +185,12 @@ const HouseDetailPage = (props) => {
                   }}
                 />
                 <Typography className={classes.text3}>
-                  {PropertyDetail?.pCity}
+                  {PropertyDetail?.address.latitude} {PropertyDetail?.address.longitude}  {PropertyDetail?.address.address} {PropertyDetail?.address.city} {PropertyDetail?.address.State} {PropertyDetail?.address.pinCode}
                 </Typography>
               </Grid>
               <Grid item xs={12} md={4} className={classes.style3}>
-                <StarIcon className={classes.icon} />
-                <StarIcon className={classes.icon} />
-                <StarIcon className={classes.icon} />
-                <StarIcon className={classes.icon} />
-                <StarIcon className={classes.icon} />
+                {console.log(typeof PropertyDetail.rating)}
+                <Rating name="half-rating-read" defaultValue={PropertyDetail?.rating} precision={0.5} value={propertyDetail?.rating} readOnly />
               </Grid>
               <Grid item xs={12} md={12} style={{marginTop: 20}}>
                 <Button
@@ -207,7 +211,8 @@ const HouseDetailPage = (props) => {
               <Grid item xs={12} md={6} style={{padding: 20, marginTop: 20}}>
                 <Typography className={classes.text7} style={{padding: 20}}> Property Brief</Typography>
                 <Typography className={classes.text3} style={{padding: 20, lineHeight: "2.3em"}} >
-                  Vishal Construction Company is a Jaipur based construction company which today is a renowned name in providing best in class real estate services to its clients located all over India. Vishal Construction Company specializes in its area of work wherein they are expert in the real estate services, construction process of housing, commercial and other types of properties. They majorly serve clientele of Rajasthan, Hyderabad, Kolkata and other metro cities of India. Vishal Construction Company has a long-standing reputation wherein they deliver excellence catering to services and workmanship. They believe in providing quality projects with timely delivery.
+                  {/* Vishal Construction Company is a Jaipur based construction company which today is a renowned name in providing best in class real estate services to its clients located all over India. Vishal Construction Company specializes in its area of work wherein they are expert in the real estate services, construction process of housing, commercial and other types of properties. They majorly serve clientele of Rajasthan, Hyderabad, Kolkata and other metro cities of India. Vishal Construction Company has a long-standing reputation wherein they deliver excellence catering to services and workmanship. They believe in providing quality projects with timely delivery. */}
+                  {PropertyDetail?.projectDescription}
                 </Typography>
               </Grid>
             </Grid>
@@ -260,7 +265,7 @@ const HouseDetailPage = (props) => {
                     <FactAndFeature
                       icon={yearIcon}
                       title="BATHROOMS"
-                      value="2"
+                      value={PropertyDetail?.bathrooms}
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>

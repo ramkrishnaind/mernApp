@@ -38,6 +38,7 @@ export const PropertyListService = async (dispatch, data) => {
 export const PropertyDetailService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, API_ENDPOINTS.PROPERTY_DETAIL, data, null, null, true);
+    console.log("result of property detail api", result);
     dispatch(GetPropertyDetailSuccess(result));
   } catch (error) {
     dispatch(GetPropertyDetailError(error));
@@ -55,7 +56,7 @@ export const PostPropertyService = async (dispatch, data) => {
   } catch (error) {
     dispatch(PostPropertyError(error));
   }
-}
+};
 
 export const AddPropertyService = async (dispatch, data) => {
   try {
@@ -65,7 +66,7 @@ export const AddPropertyService = async (dispatch, data) => {
   } catch (error) {
     dispatch(PostPropertyError(error));
   }
-}
+};
 
 export const UploadPropertyImageService = async (dispatch, data) => {
   try {
@@ -75,6 +76,6 @@ export const UploadPropertyImageService = async (dispatch, data) => {
   } catch (error) {
     dispatch(PostPropertyError(error));
   }
-}
+};
 
 

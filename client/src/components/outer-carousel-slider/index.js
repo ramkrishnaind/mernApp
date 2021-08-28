@@ -95,7 +95,7 @@ const OuterCarouselSlider = (props) => {
         <div>
             <OwlCarousel items={Math.min(3, total)} className="owl-theme" loop nav={false} margin={8} autoplay={true} dots={false}>
                 {data.map(item => {
-                    const {_id, userId, propertyDetails, status, iAm, pType, postingAs, nameOfProject, propertTag, created, updated, __v} = item;
+                    const {_id, userId, propertyDetails, status, iAm, pType, postingAs, nameOfProject, propertTag, created, updated, __v, features} = item;
                     const propertyFor = item.for;
                     return (
                         <Box style={{marginTop: 50, width: 350}}>
@@ -105,29 +105,29 @@ const OuterCarouselSlider = (props) => {
                                     <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} style={{width: 350, height: 300}} />
                                     <Typography className={classes.text1}>{pType}</Typography>
                                     <Typography className={classes.text2}>{nameOfProject}</Typography>
-                                    <Grid contaienr>
+                                    {/* <Grid contaienr>
                                         <Grid item style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginTop: 10}}>
                                             <LocationOnIcon style={{color: '#FF7601', fontSize: 20, padding: 0, marginRight: 8}} />
                                             <Typography className={classes.text3}>{iAm}</Typography>
                                         </Grid>
-                                    </Grid>
+                                    </Grid> */}
                                 </Grid>
                                 <Grid container>
                                     <Grid item xs={6} md={6} className={classes.features}>
                                         <ZoomOutMapIcon className={classes.icon} />
-                                        <Typography className={classes.text4}>{item?.features[0]?.builtUpArea} Sq-Ft</Typography>
+                                        <Typography className={classes.text4}>{features[0]?.builtUpArea} Sq-Ft</Typography>
                                     </Grid>
                                     <Grid item xs={6} md={6} className={classes.features}>
                                         <LocalHotelIcon className={classes.icon} />
-                                        <Typography className={classes.text4}>{item?.features[0]?.bedrooms} Bedrooms</Typography>
+                                        <Typography className={classes.text4}>{features[0]?.bedrooms} Bedrooms</Typography>
                                     </Grid>
                                     <Grid item xs={6} md={6} className={classes.features}>
                                         <LocalHotelIcon className={classes.icon} />
-                                        <Typography className={classes.text4}>{item?.features[0]?.balconies} Balconies</Typography>
+                                        <Typography className={classes.text4}>{features[0]?.balconies} Balconies</Typography>
                                     </Grid>
                                     <Grid item xs={6} md={6} className={classes.features}>
                                         <BathtubIcon className={classes.icon} />
-                                        <Typography className={classes.text4}>{item?.features[0]?.bathrooms} Bathroom</Typography>
+                                        <Typography className={classes.text4}>{features[0]?.bathrooms} Bathroom</Typography>
                                     </Grid>
                                 </Grid>
                                 <Grid container style={{marginTop: 20}}>
@@ -135,7 +135,7 @@ const OuterCarouselSlider = (props) => {
                                         <Box className={`${classes.btnBox1} btn-more-detail`} component={RouterLink} to={
                                             {
                                                 pathname: '/home-detail',
-                                                state: item?._id
+                                                state: _id
                                             }}>
                                             MORE DETAIL
                                         </Box>
