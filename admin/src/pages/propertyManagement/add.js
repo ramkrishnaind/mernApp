@@ -246,17 +246,18 @@ const PropertyCreateUpdate = (props) => {
       propertyDetails: propertyDetail,
     };
 
-    var data = new FormData();
-    data.append('image', image);
-    data.append('mainImage',state.mainImage);
-    data.append('propertyId', '611a296df7df552ad49faa65');
-
-    // let imageData = {
-    //   image: image,
-    //   mainImage: state.mainImage,
-    //   propertyId:'611a296df7df552ad49faa65',
-    // };
-
+    let data = {
+      mainImage: state.mainImage,
+      badrooms: image.badrooms,
+      bathrooms: image.bathrooms,
+      exteriorView: image.exteriorView,
+      floorPlan: image.floorPlan,
+      kitchen: image.kitchen,
+      livingRoom: image.livingRoom,
+      locationMap: image.locationMap,
+      masterPlan: image.masterPlan,
+      other: image.other,
+    };
     dispatch(PropertyAction.PropertyAddRequestAsync(reqData, data));
   };
 
@@ -1262,7 +1263,7 @@ const PropertyCreateUpdate = (props) => {
                                   className={"SaveData"}
                                   onClick={handleAddAminitiesClick}
                                 >
-                                  Add
+                                  Add more
                                 </Button>
                               )}
                             </div>
@@ -1316,7 +1317,7 @@ const PropertyCreateUpdate = (props) => {
                   <Grid container>
                     <Grid item xs={12} sm={6} md={6}>
                       <Typography variant="subtitle1" gutterBottom>
-                      Living Room
+                        Living Room
                       </Typography>
                       <Dropzone
                         onChangeStatus={handleImageLivingRoom}
@@ -1326,7 +1327,7 @@ const PropertyCreateUpdate = (props) => {
 
                     <Grid item xs={12} sm={6} md={6}>
                       <Typography variant="subtitle1" gutterBottom>
-                      Badrooms
+                        Badrooms
                       </Typography>
                       <Dropzone
                         onChangeStatus={handleImageBadrooms}
@@ -1360,12 +1361,11 @@ const PropertyCreateUpdate = (props) => {
                   </Grid>
                 </Grid>
 
-
                 <Grid item xs={12} sm={12}>
                   <Grid container>
                     <Grid item xs={12} sm={6} md={6}>
                       <Typography variant="subtitle1" gutterBottom>
-                      Floor Plan
+                        Floor Plan
                       </Typography>
                       <Dropzone
                         onChangeStatus={handleImageFloorPlan}
@@ -1375,41 +1375,39 @@ const PropertyCreateUpdate = (props) => {
 
                     <Grid item xs={12} sm={6} md={6}>
                       <Typography variant="subtitle1" gutterBottom>
-                        Exterior View
+                        Master Plan
                       </Typography>
                       <Dropzone
-                        onChangeStatus={handleImageExteriorView}
+                        onChangeStatus={handleImageMasterPlan}
                         accept="image/*,audio/*,video/*"
                       />
                     </Grid>
                   </Grid>
                 </Grid>
-
 
                 <Grid item xs={12} sm={12}>
                   <Grid container>
                     <Grid item xs={12} sm={6} md={6}>
                       <Typography variant="subtitle1" gutterBottom>
-                        Exterior View
+                        Location Map
                       </Typography>
                       <Dropzone
-                        onChangeStatus={handleImageExteriorView}
+                        onChangeStatus={handleImageLocationMap}
                         accept="image/*,audio/*,video/*"
                       />
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={6}>
                       <Typography variant="subtitle1" gutterBottom>
-                        Exterior View
+                        Other
                       </Typography>
                       <Dropzone
-                        onChangeStatus={handleImageExteriorView}
+                        onChangeStatus={handleImageOther}
                         accept="image/*,audio/*,video/*"
                       />
                     </Grid>
                   </Grid>
                 </Grid>
-
 
                 <Grid item xs={12} md={12}>
                   <Grid container>
