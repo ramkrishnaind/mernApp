@@ -9,6 +9,9 @@ const schema = new Schema({
         ref: 'property',
         default: null
     },
+    mainImage: {
+        type: Array
+    },
     exteriorView: {
         type: Array
     },

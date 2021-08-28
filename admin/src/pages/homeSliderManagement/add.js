@@ -27,6 +27,9 @@ import { connect } from "react-redux";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
+import Dropzone from "react-dropzone-uploader";
+import "react-dropzone-uploader/dist/styles.css";
+
 const MenuCreateUpdate = (props) => {
 
   let query = useQuery();
@@ -54,21 +57,17 @@ const MenuCreateUpdate = (props) => {
   const dispatch = useDispatch();
 
   const initialState = {
-    title: sliderData?.title,
+    name: sliderData?.name,
     sortDescription: sliderData?.sortDescription,
     metaTitle: sliderData?.metaTitle,
     metaKeywords: sliderData?.metaKeywords,
     metaDescription: sliderData?.metaDescription,
-    image: "",
+    description:sliderData?.description,
+    image: [],
     id: id,
   };
 
   const [state, setState] = useState(initialState);
-  const [file, setFile] = useState("");
-  const [description, setDescription] = useState(sliderData?.description);
-
-
-
   const inputChange = (e) => {
     let { name, value } = e.target;
 
@@ -76,25 +75,24 @@ const MenuCreateUpdate = (props) => {
   };
 
   const handleSubmit = (e) => {
-    const { title, sortDescription, id, metaTitle, metaKeywords, metaDescription, image } = state;
+    const { name, id, metaTitle, metaKeywords, metaDescription,description, image } = state;
+    var data = new FormData();
+    state?.image.map((item, index) => {
+      data.append("image",item);
+    });
+
     if (id == null) {
-      var data = new FormData();
-      data.append('blogImage', image);
-      data.append('title', title);
-      data.append('sortDescription', sortDescription);
+     
+      data.append('name', name);
       data.append('description', description);
       data.append('metaTitle', metaTitle);
       data.append('metaKeywords', metaKeywords);
       data.append('metaDescription', metaDescription);
 
-      console.log('dsadsd', data);
       dispatch(HomeSliderAction.SliderAddRequestAsync(data));
     }
     else {
-      var data = new FormData();
-      data.append('blogImage', image);
-      data.append('title', title);
-      data.append('sortDescription', sortDescription);
+      data.append('name', name);
       data.append('description', description);
       data.append('metaTitle', metaTitle);
       data.append('metaKeywords', metaKeywords);
@@ -108,17 +106,19 @@ const MenuCreateUpdate = (props) => {
     return new URLSearchParams(useLocation().search);
   }
 
-  const handleChange = (event) => {
-    // this.setState({
-    setState({ image: event.target.files[0] });
-    setFile(URL.createObjectURL(event.target.files[0]))
-
-    // })
-  }
-
-  const handleChangeTextEditor = (content, editor) => {
-    setDescription(content);
-  }
+  const handleImageExteriorView = (file, status) => {
+    let list = state;
+    let data = [];
+    if (status == "done") {
+      if (list.image && list.image.length) {
+        data = list.image;
+        data[list.image.length] = file.file;
+      } else {
+        data["0"] = file.file;
+      }
+      setState({ ...state, ["image"]: data });
+    }
+  };
 
   return (
     <Box className="MenuManagement_Data">
@@ -156,14 +156,14 @@ const MenuCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="Title*"
+                    label="Name*"
                     fullWidth
-                    value={(state.title) ? state.title : sliderData?.title}
+                    value={(state.name) ? state.name : sliderData?.name}
                     onChange={inputChange}
-                    name="title"
-                    id="title"
+                    name="name"
+                    id="name"
                     validators={["required"]}
-                    errorMessages={["title field is required"]}
+                    errorMessages={["name field is required"]}
                   />
                 </Grid>
 
@@ -171,14 +171,14 @@ const MenuCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="Short Description*"
+                    label="Description*"
                     fullWidth
-                    value={(state.sortDescription) ? state.sortDescription : sliderData?.sortDescription}
+                    value={(state.description) ? state.description : sliderData?.description}
                     onChange={inputChange}
-                    name="sortDescription"
-                    id="sortDescription"
+                    name="description"
+                    id="description"
                     validators={["required"]}
-                    errorMessages={["sortDescription field is required"]}
+                    errorMessages={["description field is required"]}
                   />
                 </Grid>
 
@@ -192,8 +192,6 @@ const MenuCreateUpdate = (props) => {
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
-
-
                   />
                 </Grid>
 
@@ -207,8 +205,6 @@ const MenuCreateUpdate = (props) => {
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
-
-
                   />
                 </Grid>
 
@@ -222,78 +218,18 @@ const MenuCreateUpdate = (props) => {
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"
-
-
                   />
                 </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-                  {(sliderData?.description != null) ? (
-                    <>
-                      <ReactQuill
-                        onChange={handleChangeTextEditor}
-                        value={(description) ? description : sliderData?.description}
-                        placeholder='Enter description'
-                        theme='snow'
-                      />
-                    </>
-                  )
-
-                    : (
-                      <>
-                        <ReactQuill
-                          onChange={handleChangeTextEditor}
-                          placeholder='Enter description'
-                          theme='snow'
-                        />
-                      </>
-                    )}
-                </Grid>
-
-
               </Grid>
               <br />
               <SubHeading heading={"Upload Image"} />
               <br />
               <Grid container spacing={3} className="FormFildes">
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
-
-                  <img src={file} height="200px" width="200px" />
-                  <Box>
-                    <br />
-
-                    {/* <input type="file" onChange={handleChange} />
-                    <img src={file} /> */}
-
-
-                    <Grid item xs={12} sm={12}>
-                      <label className="uploadbutton" htmlFor="mainImage">
-                        <Button
-                          color="default"
-                          variant="contained"
-                          component="span"
-                          color="primary"
-                        >
-                          Browse
-                        </Button>
-                      </label>
-                      <input
-                        style={{ display: "none" }}
-                        id="mainImage"
-                        name="mainImage"
-                        type="file"
-                        onChange={handleChange}
-                      />
-                      {/* <Button
-                        style={{ marginLeft: "20px" }}
-                        variant="contained"
-                        component="span"
-                      // onClick={handleCleanImage}
-                      >
-                        Cancle
-                    </Button> */}
-                    </Grid>
-                  </Box>
+                  <Dropzone
+                    onChangeStatus={handleImageExteriorView}
+                    accept="image/*,audio/*,video/*"
+                  />
                 </Grid>
               </Grid>
               <br />

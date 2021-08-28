@@ -96,6 +96,8 @@ export const SliderStatusUpdateRequestAsync = (data) => {
     return (dispatch) => {
         dispatch(SliderUpdateStatusRequest());
         SliderStatusUpdateService(dispatch, data);
+        dispatch(SliderListRequest());
+        SliderListService(dispatch, "");
     }
 }
 
@@ -226,6 +228,8 @@ export const SliderDeleteRequestAsync = (data) => {
     return (dispatch) => {
         dispatch(SliderDeleteRequest());
         SliderDeleteService(dispatch, data);
+        dispatch(SliderListRequest());
+        SliderListService(dispatch, "");
     }
 }
 

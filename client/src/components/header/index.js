@@ -206,9 +206,15 @@ const Header = props => {
                                 <Button variant="outlined" className={classes.btn3} component={RouterLink} to="/post-property">
                                     Post Property
                                 </Button>
-                                <Button variant="outlined" className={classes.btn4} component={RouterLink} to="/signin">
-                                    Login / Signup
-                                </Button>
+                                {(userdata) ? (
+                                    <Button variant="outlined" className={classes.btn4} onClick={logoutHandler}>
+                                        Logout
+                                    </Button>
+                                ) : (
+                                    <Button variant="outlined" className={classes.btn4} component={RouterLink} to="/signin">
+                                        Login / Signup
+                                    </Button>
+                                )}
                             </Grid>
                         </Grid>
                     </Container>
