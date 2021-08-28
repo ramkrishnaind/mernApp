@@ -16,6 +16,8 @@ import ForgotPage from "../pages/forgot-password";
 import NewPasswordPage from "../pages/new-password";
 import Verification from "../pages/verificationPage";
 import Profile from "../pages/profile";
+import HouseDetailPage from "../pages/house-details/index";
+
 const routes = [
   {
     exact: true,
@@ -93,6 +95,10 @@ const routes = [
     path: "/profile",
     render: (props) => <Profile {...props} />,
   },
+  {
+    path: "/home-detail",
+    render: (props) => <HouseDetailPage {...props} />,
+  }
 ];
 
 export default routes;
