@@ -36,8 +36,9 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-const dir = path.join(__dirname, '/uploads');
-app.use("/uploads", express.static(dir));
+//const dir = path.join(__dirname, '/uploads');
+//app.use("/uploads", express.static(dir));
+app.use("/uploads", express.static('uploads'));
 app.set('trust proxy', 1);
 
 
