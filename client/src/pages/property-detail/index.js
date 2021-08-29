@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
   Container,
   Grid,
@@ -12,7 +12,7 @@ import {
   Radio,
   Button
 } from "@material-ui/core";
-import { useParams } from 'react-router';
+import {useParams} from 'react-router';
 import "./property-detail.css";
 import PageBanner from "../../components/page-banner";
 import bannerImage from "../../images/property_header_2.jpeg";
@@ -24,11 +24,11 @@ import Aminities from "./components/amenities";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import StarIcon from "@material-ui/icons/Star";
 import APP_CONSTANTS from "../../constants/app-constants";
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import * as PropertyAction from "../../redux/actions/PropertyAction";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import {Link as RouterLink, useLocation} from "react-router-dom";
 
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 const useStyles = makeStyles((theme) => ({
   text1: {
     fontFamily: '"Open Sans",sans-serif',
@@ -117,13 +117,14 @@ const useStyles = makeStyles((theme) => ({
 const PropertyDetailPage = (props) => {
   const classes = useStyles();
   const location = useLocation();
-  const { item } = props;
+  const {item} = props;
   const dispatch = useDispatch();
   let query = useQuery();
   const [viewDetails, setViewDetails] = React.useState(false);
   let token = query.get("token");
   const [PropertyDetail, setPropertyDetail] = React.useState({});
   const propertyListItem = useSelector(state => state.PropertyDetail.data);
+  console.log("propertyListItem", propertyListItem);
   if (propertyListItem) {
     if (viewDetails === false) {
       console.log(propertyListItem);
@@ -140,10 +141,10 @@ const PropertyDetailPage = (props) => {
       propertyId: location?.state
     };
     dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
-  }, [])
+  }, []);
 
   return (
-    <div style={{ background: '#F7F7F7' }}>
+    <div style={{background: '#F7F7F7'}}>
       <PageBanner
         bgImage={bannerImage}
         title="Property"
@@ -151,7 +152,7 @@ const PropertyDetailPage = (props) => {
       />
       {viewDetails ?
         <Container>
-          <Paper elevation={1} style={{ padding: 20, marginTop: 20 }}>
+          <Paper elevation={1} style={{padding: 20, marginTop: 20}}>
             <Grid container>
               <Grid item xs={12} md={8} className={classes.style2} >
                 <Typography className={classes.text7}>{PropertyDetail.nameOfProject}</Typography>
@@ -163,9 +164,9 @@ const PropertyDetailPage = (props) => {
                 <Typography className={classes.text5}>Rs. 3250000 {classes?.propertyData?.expectedPrice}</Typography>
               </Grid>
             </Grid>
-            <Grid container style={{ marginTop: 10 }}>
+            <Grid container style={{marginTop: 10}}>
               <Grid item xs={12} md={8} className={classes.style2} >
-                <LocationOnIcon style={{ color: "#FF7601", fontSize: 20, padding: 0, marginRight: 8, }} />
+                <LocationOnIcon style={{color: "#FF7601", fontSize: 20, padding: 0, marginRight: 8, }} />
                 <Typography className={classes.text3}>{PropertyDetail?.pCity}</Typography>
               </Grid>
               <Grid item xs={12} md={4} className={classes.style3}>
@@ -175,7 +176,7 @@ const PropertyDetailPage = (props) => {
                 <StarIcon className={classes.icon} />
                 <StarIcon className={classes.icon} />
               </Grid>
-              <Grid item xs={12} md={12} style={{ marginTop: 20 }}>
+              <Grid item xs={12} md={12} style={{marginTop: 20}}>
                 <Button variant="contained" className={`${classes.btn2} btn-book-online`}>
                   {APP_CONSTANTS.btnBookNowText}
                 </Button>
@@ -183,8 +184,8 @@ const PropertyDetailPage = (props) => {
             </Grid>
           </Paper>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column' }}>
-              <InfoCard item={{ title: 'Facts and Features' }}>
+            <Grid item xs={12} md={8} style={{display: 'flex', flexDirection: 'column'}}>
+              <InfoCard item={{title: 'Facts and Features'}}>
                 <Grid container>
                   <Grid item xs={12} md={3}>
                     <FactAndFeature icon={familyIcon} title="TYPE" value={PropertyDetail?.pType} />
@@ -212,25 +213,25 @@ const PropertyDetailPage = (props) => {
                   </Grid>
                 </Grid>
               </InfoCard>
-              <InfoCard item={{ title: 'Property Details' }}>
+              <InfoCard item={{title: 'Property Details'}}>
                 <Grid container>
-                  <Grid item xs={12} md={4} style={{ display: 'flex', flexDirection: 'column' }}>
+                  <Grid item xs={12} md={4} style={{display: 'flex', flexDirection: 'column'}}>
                     <Typography className={classes.text1}>Property ID : {PropertyDetail?._id}</Typography>
                     <Typography className={classes.text1}>Property Price : $5300/month</Typography>
                     <Typography className={classes.text1}>Property Type : {PropertyDetail?.pType}</Typography>
                   </Grid>
-                  <Grid item xs={12} md={4} style={{ display: 'flex', flexDirection: 'column' }}>
+                  <Grid item xs={12} md={4} style={{display: 'flex', flexDirection: 'column'}}>
                     <Typography className={classes.text1}>Bath: 3</Typography>
                     <Typography className={classes.text1}>Rooms : {PropertyDetail?.bedrooms} </Typography>
                     <Typography className={classes.text1}>Garages: 1</Typography>
                   </Grid>
-                  <Grid item xs={12} md={4} style={{ display: 'flex', flexDirection: 'column' }}>
+                  <Grid item xs={12} md={4} style={{display: 'flex', flexDirection: 'column'}}>
                     <Typography className={classes.text1}>Property status : For {PropertyDetail?.for}</Typography>
                     <Typography className={classes.text1}>Bedrooms: {PropertyDetail?.bedrooms}</Typography>
                   </Grid>
                 </Grid>
               </InfoCard>
-              <InfoCard item={{ title: 'Amenities' }}>
+              <InfoCard item={{title: 'Amenities'}}>
                 <Grid container>
                   {
                     PropertyDetail?.amenities?.basketballcourt ?
@@ -297,14 +298,14 @@ const PropertyDetailPage = (props) => {
                   }
                 </Grid>
               </InfoCard>
-              <InfoCard item={{ title: 'Reviews' }} reviewCount={PropertyDetail?.review.length != 0 ? PropertyDetail?.review.length : '0'}>
+              <InfoCard item={{title: 'Reviews'}} reviewCount={PropertyDetail?.review.length != 0 ? PropertyDetail?.review.length : '0'}>
                 Reviews goes here
               </InfoCard>
             </Grid>
             <Grid item xs={12} md={4}>
               <Grid container>
-                <Grid item item xs={12} md={12} style={{ marginTop: 20 }}>
-                  <Paper style={{ padding: 20 }}>
+                <Grid item item xs={12} md={12} style={{marginTop: 20}}>
+                  <Paper style={{padding: 20}}>
                     <Grid container>
                       <Grid item xs={12} md={12} className={classes.style1}>
                         <Typography className={classes.text4}>Property Brief</Typography>
@@ -329,15 +330,15 @@ const PropertyDetailPage = (props) => {
                         </Grid>
                     </Paper>
                 </Grid> */}
-                <Grid item xs={12} md={12} style={{ marginTop: 20, marginBottom: 20 }}>
-                  <Paper style={{ padding: 20 }}>
+                <Grid item xs={12} md={12} style={{marginTop: 20, marginBottom: 20}}>
+                  <Paper style={{padding: 20}}>
                     <Grid container>
                       <Grid item xs={12} md={12} className={classes.style1}>
                         <Typography className={classes.text4}>Request A Call Back</Typography>
-                        <TextField label="Your Name" fullWidth variant="outlined" style={{ marginBottom: 15 }}></TextField>
-                        <TextField label="Email" fullWidth variant="outlined" style={{ marginBottom: 15 }}></TextField>
-                        <TextField label="Phone" fullWidth variant="outlined" style={{ marginBottom: 15 }}></TextField>
-                        <TextField label="Message" multiline fullWidth variant="outlined" style={{ marginBottom: 15 }}></TextField>
+                        <TextField label="Your Name" fullWidth variant="outlined" style={{marginBottom: 15}}></TextField>
+                        <TextField label="Email" fullWidth variant="outlined" style={{marginBottom: 15}}></TextField>
+                        <TextField label="Phone" fullWidth variant="outlined" style={{marginBottom: 15}}></TextField>
+                        <TextField label="Message" multiline fullWidth variant="outlined" style={{marginBottom: 15}}></TextField>
                         <Typography className={classes.text1}>Request a Site Visit</Typography>
                         <RadioGroup aria-label="gender" name="gender1" row value="yes" onChange={() => { }}>
                           <FormControlLabel value="yes" control={<Radio />} label="Yes" />
@@ -363,7 +364,7 @@ const PropertyDetailPage = (props) => {
 
 
 function mapStateToProps(state) {
-  const { property } = state;
+  const {property} = state;
   console.log('property', property);
   return {
     property,
