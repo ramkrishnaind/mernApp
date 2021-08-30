@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Typography, Grid, Container, makeStyles, Button, Box } from "@material-ui/core";
-import { useDispatch } from 'react-redux';
+import React, {useEffect, useState} from "react";
+import {Typography, Grid, Container, makeStyles, Button, Box} from "@material-ui/core";
+import {useDispatch} from 'react-redux';
 import * as LoginAction from '../../redux/actions/LoginAction';
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import Header from '../../components/header';
 import SectionHeader from "../../components/section-header";
 import SectionMap from "../../components/section-map";
@@ -23,9 +23,9 @@ import Footer from "../../components/footer";
 import OnlineBooking from "../../components/online-form/online-form";
 import EmiCalculater from "../../components/emiCalculater/emiCalculater";
 import EnquryForm from "../../components/enquryForm/enquryForm";
-import CountUp, { useCountUp } from 'react-countup';
-import { statsInfo, aboutSectionInfo, servicesInfo, clientLookingforInfo, bannersInfo } from './intial-content';
-import ApiClient from '../../api-client/index'
+import CountUp, {useCountUp} from 'react-countup';
+import {statsInfo, aboutSectionInfo, servicesInfo, clientLookingforInfo, bannersInfo} from './intial-content';
+import ApiClient from '../../api-client/index';
 import VisibilitySensor from "react-visibility-sensor";
 
 const useStyles = makeStyles((theme) => ({
@@ -105,52 +105,52 @@ const HomePage = (props) => {
   });
 
   useEffect(() => {
-    const cookie = 'connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI'
-    const authorization = 'Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs'
-    console.log("hello Hi")
+    const cookie = 'connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI';
+    const authorization = 'Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs';
+    console.log("hello Hi");
     const getData = async () => {
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/property/getAllPropertyForHome', {}, {}, { Cookie: cookie, Authorization: authorization }, false)
-      setPropertyData(response.data)
-      console.log("response data", response.data)
-    }
-    getData()
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/property/getAllPropertyForHome', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
+      setPropertyData(response.data);
+      console.log("response data", response.data);
+    };
+    getData();
 
 
-  }, [])
+  }, []);
 
   const showPropertyData = () => {
     if (propertyData !== {}) {
-      console.log("propertyData!={}", propertyData)
-      return <SectionTabs propertyData={propertyData} />
+      console.log("propertyData!={}", propertyData);
+      return <SectionTabs propertyData={propertyData} />;
     } else {
-      return null
+      return null;
     }
-  }
+  };
 
   const Counter = (upto) => (
     <VisibilitySensor >
-      {({ isVisible }) => {
+      {({isVisible}) => {
         if (isVisible) {
-          return <CountUp start={0} end={upto} startOnMount={false} duration={4}></CountUp>
+          return <CountUp start={0} end={upto} startOnMount={false} duration={4}></CountUp>;
         }
-        else return <span>{upto}</span>
+        else return <span>{upto}</span>;
       }}
     </VisibilitySensor>
   );
 
   return (
     <div className="main-w3">
-      <OwlCarouselSlider images={banners} style={{ width: '100%' }} />
+      <OwlCarouselSlider images={banners} style={{width: '100%'}} autoplay={false} />
       {/* <EmiCalculater />
       <EnquryForm/> */}
-      <Box style={{ backgroundColor: '#FFFFFF' }}>
+      <Box style={{backgroundColor: '#FFFFFF'}}>
         <Container>
-          <Grid container style={{ paddingTop: 60, paddingBottom: 60 }}>
+          <Grid container style={{paddingTop: 60, paddingBottom: 60}}>
             <Grid item xs={12} md={6}>
               {/* <img src={aboutSection.images[0].imageUrl} alt="" style={{height: 490}} /> */}
-              <OwlCarouselSlider images={aboutSection.images} style={{ height: 490, width: 'auto' }} />
+              <OwlCarouselSlider images={aboutSection.images} autoplay={true} style={{height: 490, width: 'auto'}} />
             </Grid>
-            <Grid item xs={12} md={6} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', paddingLeft: 20, paddingRight: 40 }} className="animate__animated animate__backInRight">
+            <Grid item xs={12} md={6} style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', paddingLeft: 20, paddingRight: 40}} className="animate__animated animate__backInRight">
               <Typography className={classes.text1}><b>ABOUT VISHAL CONSTRUCTION COMPANY</b></Typography>
               <Typography className={classes.text2}>{aboutSection.title}</Typography>
               <Typography className={classes.text3}>
@@ -166,33 +166,33 @@ const HomePage = (props) => {
           </Grid>
         </Container>
       </Box>
-      <Container style={{ paddingTop: 50, paddingBottom: 50 }}>
+      <Container style={{paddingTop: 50, paddingBottom: 50}}>
         <Grid container>
-          <Grid item xs={12} md={3} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
             <Box className={classes.box}>
-              <DescriptionIcon style={{ color: '#FFFFFF', fontSize: 40 }} />
+              <DescriptionIcon style={{color: '#FFFFFF', fontSize: 40}} />
             </Box>
             <Typography className={classes.text4}>{Counter(stats.years)}+ YEARS</Typography>
             <Typography className={classes.text5}>OF REDEFINING</Typography>
 
           </Grid>
-          <Grid item xs={12} md={3} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
             <Box className={classes.box}>
-              <DescriptionIcon style={{ color: '#FFFFFF', fontSize: 40 }} />
+              <DescriptionIcon style={{color: '#FFFFFF', fontSize: 40}} />
             </Box>
             <Typography className={classes.text4}>{Counter(stats.projects)}+</Typography>
             <Typography className={classes.text5}>PROJECTS</Typography>
 
           </Grid>
-          <Grid item xs={12} md={3} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
             <Box className={classes.box}>
-              <ApartmentIcon style={{ color: '#FFFFFF', fontSize: 40 }} />
+              <ApartmentIcon style={{color: '#FFFFFF', fontSize: 40}} />
             </Box>
             <Typography className={classes.text4}>{Counter(stats.happyClients)}+ </Typography>
             <Typography className={classes.text5}>Happy Clients</Typography>
 
           </Grid>
-          <Grid item xs={12} md={3} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: 10 }}>
+          <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
             <Box className={[classes.box, classes.blob]} >
               <Typography className={classes.text5}>RAJASTHAN <b>LARGEST</b> <br /> <b>&amp;MOST AWARDED</b> REAL STATE COMPANY</Typography>
             </Box>
@@ -200,7 +200,7 @@ const HomePage = (props) => {
         </Grid>
       </Container >
 
-      <Box style={{ backgroundColor: '#FFFFFF', paddingTop: 50 }}>
+      <Box style={{backgroundColor: '#FFFFFF', paddingTop: 50}}>
         <Container>
           {/* ****** SECTION - SELL  ********* */}
           <SectionHeader title={APP_CONSTANTS.section2_title} subtitle={''} />
@@ -213,15 +213,15 @@ const HomePage = (props) => {
 
       {/* SECTION - CLIENT*/}
       <div className="client-bg">
-        <Container style={{ paddingTop: 40, paddingBottom: 40 }}>
+        <Container style={{paddingTop: 40, paddingBottom: 40}}>
           <SectionClient clientLookingforInfo={clientLookingforInfo} />
         </Container>
       </div>
 
-      <div style={{ backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60 }}>
+      <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
         <Container>
           <SectionHeader title={APP_CONSTANTS.section_services_title} subtitle={APP_CONSTANTS.section_services_subtitle} />
-          <Grid container spacing={3} style={{ marginTop: 30 }}>
+          <Grid container spacing={3} style={{marginTop: 30}}>
             {
               (services || []).map((service) => {
                 return <Grid item xs={12} md={3}>
@@ -235,13 +235,13 @@ const HomePage = (props) => {
 
       {/* SECTION - FEEDBACK*/}
       <div className="client-bg">
-        <Container style={{ paddingTop: 60, paddingBottom: 60 }}>
+        <Container style={{paddingTop: 60, paddingBottom: 60}}>
           <SectionFeedback items={feedbacks} />
         </Container>
       </div>;
 
       {/* TODO: SECTION - BUILDING MATERIAL*/}
-      <div style={{ backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60 }}>
+      <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
         <Container>
           <SectionHeader title={APP_CONSTANTS.section_services_title} subtitle={APP_CONSTANTS.section_services_subtitle} />
         </Container>

@@ -9,7 +9,8 @@
         "title": "About Us",
         "submenu": [
             {
-                "title": "About The Company"
+                "title": "About The Company",
+                "href":"/about-us"
             },
             {
                 "title": "About The Directors"

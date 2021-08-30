@@ -1,4 +1,4 @@
-import { Redirect } from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import CartPage from "../pages/cart";
 import HomePage from "../pages/home";
 import BookOnline from "../pages/online-form";
@@ -17,6 +17,7 @@ import NewPasswordPage from "../pages/new-password";
 import Verification from "../pages/verificationPage";
 import Profile from "../pages/profile";
 import HouseDetailPage from "../pages/house-details/index";
+import AboutUsPage from "../pages/about-us/index";
 
 const routes = [
   {
@@ -59,7 +60,7 @@ const routes = [
       if (props.isAuth) {
         return <CartPage />;
       }
-      return <Redirect to={{ pathname: "/" }} />;
+      return <Redirect to={{pathname: "/"}} />;
     },
   },
   {
@@ -68,7 +69,7 @@ const routes = [
       if (props.isAuth) {
         return <BookOnline />;
       }
-      return <Redirect to={{ pathname: "/" }} />;
+      return <Redirect to={{pathname: "/"}} />;
     },
   },
   {
@@ -98,6 +99,10 @@ const routes = [
   {
     path: "/home-detail",
     render: (props) => <HouseDetailPage {...props} />,
+  },
+  {
+    path: "/about-us",
+    render: (props) => <AboutUsPage {...props} />,
   }
 ];
 

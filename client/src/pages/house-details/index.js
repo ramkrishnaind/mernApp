@@ -13,7 +13,6 @@ import {
   Button,
 } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
-import {useParams} from 'react-router';
 import './property-detail.css';
 import PageBanner from '../../components/page-banner';
 import bannerImage from '../../images/property_header_2.jpeg';
@@ -146,7 +145,6 @@ const HouseDetailPage = (props) => {
     console.log('GetPropertyDetailRequestAsync');
     dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
   }, []);
-
   console.log("property details *** ", PropertyDetail);
   return (
     <div style={{background: '#F7F7F7'}}>
@@ -185,7 +183,7 @@ const HouseDetailPage = (props) => {
                   }}
                 />
                 <Typography className={classes.text3}>
-                  {PropertyDetail?.address.latitude} {PropertyDetail?.address.longitude}  {PropertyDetail?.address.address} {PropertyDetail?.address.city} {PropertyDetail?.address.State} {PropertyDetail?.address.pinCode}
+                  {PropertyDetail?.address?.latitude} {PropertyDetail?.address?.longitude}  {PropertyDetail?.address?.address} {PropertyDetail?.address?.city} {PropertyDetail?.address?.State} {PropertyDetail?.address?.pinCode}
                 </Typography>
               </Grid>
               <Grid item xs={12} md={4} className={classes.style3}>

@@ -13,7 +13,7 @@ const OwlCarouselSlider = (props) => {
   return (
     <Grid container style={{backgroundColor: '#FFFFFF'}}>
       <Grid item xs={12} md={12}>
-        <OwlCarousel items={1} className="owl-theme" loop nav={false} margin={8} autoplay={false}>
+        <OwlCarousel items={1} className="owl-theme" loop nav={false} margin={8} autoplay={props.autoplay}>
           {(images || []).map((image) => {
             return < div >
               <img className="img" src={image.imageUrl} style={props.style} alt="" />
