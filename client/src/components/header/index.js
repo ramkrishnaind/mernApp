@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import "./header.css";
 import {
   Grid,
@@ -15,12 +15,12 @@ import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import APP_CONSTANTS from "../../constants/app-constants";
 import MenuItemList from "../menu-item";
 import menuItems from "../../utils/menu.json";
-import { withRouter, Link as RouterLink } from "react-router-dom";
+import {withRouter, Link as RouterLink} from "react-router-dom";
 import Logo from "../../images/logo.png";
 
 import Dialog from "@material-ui/core/Dialog";
 
-import { withStyles } from "@material-ui/core/styles";
+import {withStyles} from "@material-ui/core/styles";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
@@ -29,8 +29,9 @@ import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import "../enquryForm/enquryForm.css";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import BookNowModal from '../book-now/book-now';
 
-import { useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
 import * as SitevisitAction from "../../redux/actions/SitevisitAction";
 
 const stylessd = (theme) => ({
@@ -51,7 +52,7 @@ const stylessd = (theme) => ({
 });
 
 const DialogTitle = withStyles(stylessd)((props) => {
-  const { children, classes, onClose, ...other } = props;
+  const {children, classes, onClose, ...other} = props;
 
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
@@ -134,7 +135,8 @@ const Header = (props) => {
   const [open, setOpen] = useState(false);
   const [userdata, setUserdata] = useState(false);
   const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [bookNow, setBookNow] = useState(false);
   useEffect(() => {
     let userdata = localStorage.getItem("user");
     if (userdata) {
@@ -168,6 +170,10 @@ const Header = (props) => {
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const closeBookNow = () => {
+    setBookNow(false);
   };
 
   const logoutHandler = () => {
@@ -231,8 +237,10 @@ const Header = (props) => {
                 <Button
                   variant="contained"
                   className={`${classes.btn1} btn-book-online`}
-                  component={RouterLink}
-                  to="/book-online"
+                  onClick={() => {
+                    setBookNow(true);
+                    console.log('book now clicked');
+                  }}
                 >
                   {APP_CONSTANTS.btnBookOnlineText}
                 </Button>
@@ -354,7 +362,7 @@ const Header = (props) => {
         <Box className="emiForm">
           <TextField
             className="EmiInputs"
-            style={{ marginTop: 15 }}
+            style={{marginTop: 15}}
             variant="outlined"
             label="Your Name"
             name="Name"
@@ -366,13 +374,13 @@ const Header = (props) => {
               },
             }}
             InputLabelProps={{
-              style: { color: "#FFFFFF" },
+              style: {color: "#FFFFFF"},
             }}
             fullWidth
           ></TextField>
           <TextField
             className="EmiInputs"
-            style={{ marginTop: 15 }}
+            style={{marginTop: 15}}
             variant="outlined"
             label="Email Address"
             type="email"
@@ -385,13 +393,13 @@ const Header = (props) => {
               },
             }}
             InputLabelProps={{
-              style: { color: "#FFFFFF" },
+              style: {color: "#FFFFFF"},
             }}
             fullWidth
           ></TextField>
           <TextField
             className="EmiInputs"
-            style={{ marginTop: 15 }}
+            style={{marginTop: 15}}
             variant="outlined"
             label="Phone Number"
             name="Phone"
@@ -404,7 +412,7 @@ const Header = (props) => {
               },
             }}
             InputLabelProps={{
-              style: { color: "#FFFFFF" },
+              style: {color: "#FFFFFF"},
             }}
             fullWidth
           ></TextField>
@@ -434,6 +442,7 @@ const Header = (props) => {
           </Box>
         </DialogActions>
       </Dialog>
+      <BookNowModal open={bookNow} closeBookNow={closeBookNow} />
     </>
   );
 };

@@ -18,6 +18,7 @@ import Verification from "../pages/verificationPage";
 import Profile from "../pages/profile";
 import HouseDetailPage from "../pages/house-details/index";
 import AboutUsPage from "../pages/about-us/index";
+import ServiceDetailPage from '../pages/service-details/index';
 
 const routes = [
   {
@@ -103,6 +104,10 @@ const routes = [
   {
     path: "/about-us",
     render: (props) => <AboutUsPage {...props} />,
+  },
+  {
+    path: "/service-details",
+    render: (props) => <ServiceDetailPage {...props} />,
   }
 ];
 
