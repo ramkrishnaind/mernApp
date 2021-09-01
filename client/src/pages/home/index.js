@@ -247,6 +247,10 @@ const HomePage = (props) => {
         </Container>
       </div>;
       {/* TODO: SECTION - MAP */}
+      <Container>
+        <SectionMap />
+      </Container>
+
     </div >
   );
 };
