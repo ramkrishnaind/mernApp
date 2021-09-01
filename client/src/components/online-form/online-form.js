@@ -4,8 +4,7 @@ import "./online-form.css";
 import TextField from '@material-ui/core/TextField';
 import SectionHeader from '../section-header';
 import APP_CONSTANTS from '../../constants/app-constants';
-
-
+import {useEffect, useState} from 'react';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,8 +19,31 @@ const useStyles = makeStyles((theme) => ({
 
 export default function OnlineBooking() {
     const classes = useStyles();
+    const [state, setState] = useState({
+        name: '',
+        email: '',
+        phoneno: '',
+        pan: '',
+        country: '',
+        city: '',
+        pin: '',
+        bankingAmount: ''
+    });
 
+    useEffect(() => {
 
+        let userDetails = localStorage.getItem('user');
+        console.log('userData', userDetails);
+        if (userDetails) {
+            userDetails = JSON.parse(userDetails);
+            setState({
+                ...state,
+                email: userDetails.email,
+                name: userDetails.firstName + userDetails.lastName
+            });
+            console.log("form state", state);
+        }
+    }, []);
     return (
         <div class="client-bgform" style={{padding: 20, borderRadius: 20}}>
             <div className={classes.root}>
@@ -32,22 +54,22 @@ export default function OnlineBooking() {
                     <Grid container spacing={3}>
                         <Grid item xs={3} className="TextfildGrid">
                             <form className={classes.root} className="OutForm" noValidate autoComplete="off">
-                                <TextField id="outlined-basic" className="InnerForm" label="Name" variant="outlined" />
+                                <TextField id="" className="InnerForm" label="Name" variant="outlined" value={state.name} />
                             </form>
                         </Grid>
                         <Grid item xs={3} className="TextfildGrid">
                             <form className={classes.root} className="OutForm" noValidate autoComplete="off">
-                                <TextField id="outlined-basic" className="InnerForm" label="Email" variant="outlined" />
+                                <TextField id="" className="InnerForm" label="Email" variant="outlined" value={state.email} />
                             </form>
                         </Grid>
                         <Grid item xs={3} className="TextfildGrid">
                             <form className={classes.root} className="OutForm" noValidate autoComplete="off">
-                                <TextField id="outlined-basic" className="InnerForm" label="Phone Number" variant="outlined" />
+                                <TextField id="" className="InnerForm" label="Phone Number" variant="outlined" />
                             </form>
                         </Grid>
                         <Grid item xs={3} className="TextfildGrid">
                             <form className={classes.root} className="OutForm" noValidate autoComplete="off">
-                                <TextField id="outlined-basic" className="InnerForm" label="Pan Number" variant="outlined" />
+                                <TextField id="" className="InnerForm" label="Pan Number" variant="outlined" />
                             </form>
                         </Grid>
                     </Grid>
@@ -55,22 +77,22 @@ export default function OnlineBooking() {
                     <Grid container spacing={3}>
                         <Grid item xs={3} className="TextfildGrid">
                             <form className={classes.root} className="OutForm" noValidate autoComplete="off">
-                                <TextField id="outlined-basic" className="InnerForm" label="Country Name" variant="outlined" />
+                                <TextField id="" className="InnerForm" label="Country Name" variant="outlined" />
                             </form>
                         </Grid>
                         <Grid item xs={3} className="TextfildGrid">
                             <form className={classes.root} className="OutForm" noValidate autoComplete="off">
-                                <TextField id="outlined-basic" className="InnerForm" label="City" variant="outlined" />
+                                <TextField id="" className="InnerForm" label="City" variant="outlined" />
                             </form>
                         </Grid>
                         <Grid item xs={3} className="TextfildGrid">
                             <form className={classes.root} className="OutForm" noValidate autoComplete="off">
-                                <TextField id="outlined-basic" className="InnerForm" label="Pin Code" variant="outlined" />
+                                <TextField id="" className="InnerForm" label="Pin Code" variant="outlined" />
                             </form>
                         </Grid>
                         <Grid item xs={3} className="TextfildGrid">
                             <form className={classes.root} className="OutForm" noValidate autoComplete="off">
-                                <TextField id="outlined-basic" className="InnerForm" label="banking Amount" variant="outlined" />
+                                <TextField id="" className="InnerForm" label="banking Amount" variant="outlined" />
                             </form>
                         </Grid>
                     </Grid>
