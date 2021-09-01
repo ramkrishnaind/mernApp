@@ -241,11 +241,11 @@ const HomePage = (props) => {
       </div>;
 
       {/* TODO: SECTION - BUILDING MATERIAL*/}
-      <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
+      {/* <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
         <Container>
           <SectionHeader title={APP_CONSTANTS.section_services_title} subtitle={APP_CONSTANTS.section_services_subtitle} />
         </Container>
-      </div>;
+      </div>; */}
       {/* TODO: SECTION - MAP */}
       <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
         <Container >
