@@ -247,9 +247,12 @@ const HomePage = (props) => {
         </Container>
       </div>;
       {/* TODO: SECTION - MAP */}
-      <Container>
-        <SectionMap />
-      </Container>
+      <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
+        <Container >
+          <SectionHeader style={{backgroundColor: '#fff'}} title={APP_CONSTANTS.map_section_title} subtitle={APP_CONSTANTS.map_subsection_title} />
+          <SectionMap />
+        </Container>
+      </div>
 
     </div >
   );

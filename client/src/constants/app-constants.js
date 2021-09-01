@@ -49,6 +49,9 @@ const APP_CONSTANTS = {
     //online form section
     online_form_title: "THE BEST PLACE TO FIND THE HOUSE YOU WANT",
     online_form_subtitles: "ONLINE BOOKING",
-}
+
+    map_section_title: "THE BEST PLACE TO FIND THE HOUSE YOU WANT",
+    map_subsection_title: "JAIPUR TOP LOCALITIES TO INVEST"
+};
 
 export default APP_CONSTANTS;

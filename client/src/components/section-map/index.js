@@ -23,7 +23,7 @@ const SectionMap = props => {
     const {title, subtitle} = props;
     const classes = useStyles();
     return (
-        <Grid container >
+        <Grid container style={{paddingTop: 60, paddingBottom: 60}} >
             <Grid item xs={8} md={8} style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', overflow: 'hidden'}}>
 
                 <MapContainer />

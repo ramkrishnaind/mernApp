@@ -3,6 +3,7 @@ import {makeStyles} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
+import './section-header.css';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -76,7 +77,7 @@ const MapForm = () => {
     ];
 
     return (
-        <form className={classes.root} onSubmit={handleSubmit} style={{backgroundColor: '#fff'}}>
+        <form className={classes.root} onSubmit={handleSubmit} style={{backgroundColor: '#00afb8e8', padding: 20}}>
             <TextField
                 label="Search"
                 variant="filled"
