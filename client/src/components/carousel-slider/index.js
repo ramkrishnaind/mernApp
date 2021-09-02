@@ -9,11 +9,12 @@ import {Grid} from "@material-ui/core";
 const OwlCarouselSlider = (props) => {
 
   const images = props.images;
+  const items = props.items || 1;
 
   return (
     <Grid container style={{backgroundColor: '#FFFFFF'}}>
       <Grid item xs={12} md={12}>
-        <OwlCarousel items={1} className="owl-theme" loop nav={false} margin={8} autoplay={props.autoplay}>
+        <OwlCarousel items={items} className="owl-theme" loop nav={false} margin={8} autoplay={props.autoplay}>
           {(images || []).map((image) => {
             return < div >
               <img className="img" src={image.imageUrl} style={props.style} alt="" />

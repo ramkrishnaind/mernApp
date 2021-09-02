@@ -24,7 +24,7 @@ import OnlineBooking from "../../components/online-form/online-form";
 import EmiCalculater from "../../components/emiCalculater/emiCalculater";
 import EnquryForm from "../../components/enquryForm/enquryForm";
 import CountUp, {useCountUp} from 'react-countup';
-import {statsInfo, aboutSectionInfo, servicesInfo, clientLookingforInfo, bannersInfo} from './intial-content';
+import {statsInfo, aboutSectionInfo, servicesInfo, clientLookingforInfo, bannersInfo, building_materials} from './intial-content';
 import ApiClient from '../../api-client/index';
 import VisibilitySensor from "react-visibility-sensor";
 
@@ -203,7 +203,7 @@ const HomePage = (props) => {
       <Box style={{backgroundColor: '#FFFFFF', paddingTop: 50}}>
         <Container>
           {/* ****** SECTION - SELL  ********* */}
-          <SectionHeader title={APP_CONSTANTS.section2_title} subtitle={''} />
+          <SectionHeader title={APP_CONSTANTS.section2_title} subtitle={APP_CONSTANTS.section2_subtitle} style={{marginBottom: 40}} />
           {
             showPropertyData()
           }
@@ -240,12 +240,14 @@ const HomePage = (props) => {
         </Container>
       </div>;
 
-      {/* TODO: SECTION - BUILDING MATERIAL*/}
-      {/* <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
+      {/* TODO: SECTION - BUILDING MATERIAL */}
+      <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
         <Container>
-          <SectionHeader title={APP_CONSTANTS.section_services_title} subtitle={APP_CONSTANTS.section_services_subtitle} />
+          <SectionHeader title={APP_CONSTANTS.building_material_title} subtitle={APP_CONSTANTS.building_material_subtitle} />
+          <OwlCarouselSlider images={building_materials} style={{width: '100%', marginTop: 60, border: "4px double #03b2cb", height: '200px', padding: 20}} items={4} autoplay={true} />
         </Container>
-      </div>; */}
+
+      </div>;
       {/* TODO: SECTION - MAP */}
       <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
         <Container >

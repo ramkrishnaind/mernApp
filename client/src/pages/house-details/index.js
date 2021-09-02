@@ -28,6 +28,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import * as PropertyAction from '../../redux/actions/PropertyAction';
 import {Link as RouterLink, useLocation} from 'react-router-dom';
 import propertyDetail from '../property-detail';
+import MapContainer from '../../components/section-map/MapContainer';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -534,9 +535,35 @@ const HouseDetailPage = (props) => {
               </Grid>
             </Grid>
           </Grid>
-        </Container>
+
+          <Grid container style={{paddingTop: 60, paddingBottom: 60}} >
+            <Grid item xs={8} md={8} >
+              <Paper elevation={1} style={{padding: 20, marginTop: 20}}>
+                <Grid item xs={12} md={8} className={classes.style2}>
+                  <LocationOnIcon
+                    style={{
+                      color: '#FF7601',
+                      fontSize: 20,
+                      padding: 0,
+                      marginRight: 8,
+                    }}
+                  />
+                  <Typography className={classes.text3}>
+                    {PropertyDetail?.address?.latitude} {PropertyDetail?.address?.longitude}  {PropertyDetail?.address?.address} {PropertyDetail?.address?.city} {PropertyDetail?.address?.State} {PropertyDetail?.address?.pinCode}
+                  </Typography>
+                </Grid>
+              </Paper >
+            </Grid>
+
+            <Grid item xs={8} md={8} style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', overflow: 'hidden'}}>
+
+              <MapContainer />
+
+            </Grid>
+          </Grid>
+        </Container >
       ) : null}
-    </div>
+    </div >
   );
 };
 
