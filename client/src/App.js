@@ -8,6 +8,7 @@ import Footer from "../src/components/footer";
 import EmiCalculater from "./components/emiCalculater/emiCalculater";
 import EnquryForm from "./components/enquryForm/enquryForm";
 import Snackbar from "./components/snackbar/Snackbar";
+
 const App = () => {
   const isAuth = useSelector((state) => state.Login.isAuth);
 
