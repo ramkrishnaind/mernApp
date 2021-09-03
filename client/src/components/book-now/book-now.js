@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import OnlineBooking from '../online-form/online-form';
+import BookNowForm from '../book-now/book-now-form';
 import {
     Grid,
 } from "@material-ui/core";
@@ -34,7 +34,7 @@ export default function BookNowModal(props) {
 
     const body = (
         <Grid item xs={12} md={6} style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-            <OnlineBooking />
+            <BookNowForm />
         </Grid>
     );
 

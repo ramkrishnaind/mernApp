@@ -1,4 +1,4 @@
-import { LoginSuccess, LoginError } from "../redux/actions/LoginAction";
+import {LoginSuccess, LoginError} from "../redux/actions/LoginAction";
 import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/SnackbarActions";
@@ -17,9 +17,15 @@ export const LoginService = async (dispatch, data) => {
     window.localStorage.setItem('user', JSON.stringify(result.user));
     dispatch(LoginSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
-    window.location.href = "/";
+    if (localStorage.getItem('bookNow') == 'true') {
+      window.location.href = "/home-detail";
+    }
+    else {
+      window.location.href = "/";
+    }
+
   } catch (error) {
-    console.log('error',error);
+    console.log('error', error);
     dispatch(LoginError(error));
     // dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }

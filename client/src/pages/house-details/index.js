@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {withRouter} from 'react-router';
 import {
   Container,
   Grid,
@@ -29,6 +30,7 @@ import * as PropertyAction from '../../redux/actions/PropertyAction';
 import {Link as RouterLink, useLocation} from 'react-router-dom';
 import propertyDetail from '../property-detail';
 import MapContainer from '../../components/section-map/MapContainer';
+import BookNowModal from '../../components/book-now/book-now';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -126,6 +128,7 @@ const HouseDetailPage = (props) => {
   let token = query.get('token');
   const [PropertyDetail, setPropertyDetail] = React.useState({});
   const propertyListItem = useSelector((state) => state.PropertyDetail.data);
+  const [bookNow, setBookNow] = useState(false);
   console.log("propertyListItem", propertyListItem);
   if (propertyListItem) {
     if (viewDetails === false) {
@@ -138,14 +141,31 @@ const HouseDetailPage = (props) => {
     return new URLSearchParams(useLocation().search);
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
+    const isbookNowActive = localStorage.getItem("bookNow");
+    console.log("isBookNow", typeof isbookNowActive, isbookNowActive);
+    let userDetails = localStorage.getItem("user");
+    if (isbookNowActive === "true" && userDetails) {
+      setBookNow(true);
+      console.log('setBookNow(true);', bookNow);
+      localStorage.setItem("bookNow", false);
+    }
+  }, []);
+
+  useEffect(() => {
     let reqData = {
-      propertyId: location?.state,
+      propertyId: location?.state || localStorage.getItem('pid'),
       // propertyId: "6125373540f10f2712e43db5"
     };
     console.log('GetPropertyDetailRequestAsync');
     dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
   }, []);
+
+
+  const closeBookNow = () => {
+    setBookNow(false);
+  };
+
   console.log("property details *** ", PropertyDetail);
   return (
     <div style={{background: '#F7F7F7'}}>
@@ -195,6 +215,15 @@ const HouseDetailPage = (props) => {
                 <Button
                   variant="contained"
                   className={`${classes.btn2} btn-book-online`}
+                  onClick={() => {
+                    if (!localStorage.getItem('user')) {
+                      localStorage.setItem('bookNow', true);
+                      localStorage.setItem('pid', location?.state);
+                      return props.history.push('/signin');
+                    }
+                    setBookNow(true);
+                    console.log('book now clicked');
+                  }}
                 >
                   {APP_CONSTANTS.btnBookNowText}
                 </Button>
@@ -563,9 +592,10 @@ const HouseDetailPage = (props) => {
           </Grid>
         </Container >
       ) : null}
+      <BookNowModal open={bookNow} closeBookNow={closeBookNow} />
     </div >
   );
 };
 
-export default HouseDetailPage;
+export default withRouter(HouseDetailPage);
 

@@ -1,6 +1,6 @@
 import Grid from '@material-ui/core/Grid';
 import {makeStyles, Button, Box} from '@material-ui/core';
-import "./online-form.css";
+import "./book-now-form.css";
 import TextField from '@material-ui/core/TextField';
 import SectionHeader from '../section-header';
 import APP_CONSTANTS from '../../constants/app-constants';
