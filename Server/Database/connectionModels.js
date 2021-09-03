@@ -22,4 +22,8 @@ module.exports = function (mongoose) {
     mongoose.model('blog', require('./schema/blog'));
     mongoose.model('homeAbout', require('./schema/homeAbout'));
     mongoose.model('homeMovingBanner', require('./schema/homeMovingBanner'));
+    mongoose.model('dealingInItem', require('./schema/dealingInItem'));
+    mongoose.model('dealingIn', require('./schema/dealingIn'));
+    mongoose.model('service', require('./schema/service'));
+    mongoose.model('serviceItem', require('./schema/serviceItem'));
 }

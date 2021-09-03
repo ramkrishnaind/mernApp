@@ -24,6 +24,10 @@ module.exports = function (mongoose) {
     const BlogDB = mongoose.model('blog');
     const HomeAboutDB = mongoose.model('homeAbout');
     const HomeMovingBannerDB = mongoose.model('homeMovingBanner');
+    const DealingInDB = mongoose.model('dealingIn');
+    const DealingInItemDB = mongoose.model('dealingInItem');
+    const ServiceDB = mongoose.model('serviceItem');
+    const ServiceItemDB = mongoose.model('serviceItem');
     return {
         UserDB,
         AuthTokenDB,
@@ -46,6 +50,10 @@ module.exports = function (mongoose) {
         CareerDB,
         BlogDB,
         HomeAboutDB,
-        HomeMovingBannerDB
+        HomeMovingBannerDB,
+        DealingInDB,
+        DealingInItemDB,
+        ServiceDB,
+        ServiceItemDB
     }
 }
