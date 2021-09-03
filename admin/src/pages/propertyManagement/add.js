@@ -39,7 +39,7 @@ const PropertyCreateUpdate = (props) => {
   // store data
   const dispatch = useDispatch();
   //   state
-  const [, setRefresh] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const [, setIsOwner] = React.useState(false);
   const [propertyOptions, setPropertyOptions] = React.useState([]);
   const [formFields, setFormFields] = React.useState(null);
@@ -50,10 +50,48 @@ const PropertyCreateUpdate = (props) => {
   let propertyData = props?.property?.propertyData;
   let query = useQuery();
   let id = query.get("id");
+  // superArea: state.Super_Area?.size,
+  // builtUpArea: state.Built_up_Area?.size,
+  // carpetArea: state.Carpet_Area?.size,
+
+  // possessionStatus: state.Possession_Status,
+  // availableFromMonth: state.available_from_month,
+  // availableFromYear: state.available_from_year,
+
+  // expectedPrice: state.expected_price,
+  // pricePerSqFt: state.expected_price_per_sq_ft,
 
   const initialState = {
-    name: propertyData?.name,
-    description: propertyData?.description,
+    iAm: propertyData?.iAm,
+    for: propertyData?.for,
+    pType: propertyData?.pType,
+    postingAs: propertyData?.postingAs,
+    nameOfProject: propertyData?.nameOfProject,
+    Bedrooms: propertyData?.bedrooms,
+    Balconies: propertyData?.balconies,
+    Floor_No_: propertyData?.floorNo,
+    Total_Floors: propertyData?.totalFloors,
+    Furnished_Status: propertyData?.furnishedStatus,
+    Bathrooms: propertyData?.bathrooms,
+    Possession_Status: propertyData?.possessionStatus,
+    longitude: propertyData?.address?.longitude,
+    latitude: propertyData?.address?.latitude,
+    address: propertyData?.address?.address,
+    city: propertyData?.address?.city,
+    state: propertyData?.address?.State,
+    pinCode: propertyData?.address?.pinCode,
+    Super_Area: {
+      size: propertyData?.superArea,
+    },
+    Carpet_Area: {
+      size: propertyData?.superArea,
+    },
+    Built_up_Area: {
+      size: propertyData?.superArea,
+    },
+    available_from_month: propertyData?.availableFromMonth,
+    available_from_year: propertyData?.availableFromYear,
+
     id: id,
     status: true,
   };
@@ -81,7 +119,7 @@ const PropertyCreateUpdate = (props) => {
   // Life cycle hooks
   useEffect(() => {
     let data = {
-      _id: id,
+      propertyId: id,
     };
     if (id != null) {
       dispatch(PropertyAction.PropertyDataRequestAsync(data));
@@ -96,6 +134,13 @@ const PropertyCreateUpdate = (props) => {
   }, [props.property.success]);
 
   useEffect(() => {
+    if (props.property.success) {
+      setRefresh(true);
+      setState(initialState);
+    }
+  }, [refresh]);
+
+  useEffect(() => {
     if (state["pType"]) {
       const formData = PropertyOptionManager.getFormFieldsBySelectedPropertyType(
         state["pType"]
@@ -105,12 +150,26 @@ const PropertyCreateUpdate = (props) => {
   }, [state]);
 
   useEffect(() => {
-    console.log("-Form-Data-State-", image);
+    // console.log("-Form-Data-image-", image);
     // console.log("-Form-Data-State-", state);
 
     // console.log("-Form-amenities-State-", amenities);
     // console.log("-Property-Features-", propertyDetail);
-  }, [state, propertyFeatures]);
+    let option = state.for;
+    const clonePropertyTypeOptions = _.cloneDeep(propertyTypeOptions);
+    if (option === "Sale") {
+      clonePropertyTypeOptions.splice(1, 1);
+    } else if (option === "Rent/Lease") {
+      clonePropertyTypeOptions.splice(0, 1);
+    }
+    setPropertyOptions(clonePropertyTypeOptions[0]);
+
+    if (propertyData && propertyData?.amenities != "") {
+      const result = Object.keys(propertyData?.amenities);
+      setAmenities(result);
+    }
+    // amenities
+  }, [state]);
 
   // Extra methods
   const handleChange = (event) => {
@@ -138,7 +197,6 @@ const PropertyCreateUpdate = (props) => {
   };
 
   const onOptionSelectListener = (option) => {
-    console.log("-Personal-Info- Option-", option);
     if (option === "Owner") {
       setIsOwner(true);
     } else {
@@ -149,7 +207,7 @@ const PropertyCreateUpdate = (props) => {
 
   const onFeatureSelect = (feature) => {
     let name = feature.label.replace(/[^a-zA-Z]/gi, "_");
-    console.log("-FEATURE--", feature);
+    // console.log("-FEATURE--", feature);
     setState({
       ...state,
       [name]: feature.item,
@@ -185,80 +243,110 @@ const PropertyCreateUpdate = (props) => {
     });
   };
   const handleSubmit = () => {
-    let reqData = {
-      iAm: state.iAm,
-      for: state.for,
-      pType: state.pType,
-      postingAs: state.postingAs,
-      nameOfProject: state.nameOfProject,
-      bedrooms: state.Bedrooms,
-      balconies: state.Balconies,
-      floorNo: state.Floor_No_,
-      totalFloors: state.Total_Floors,
-      furnishedStatus: state.Furnished_Status,
-      bathrooms: state.Bathrooms,
-      superArea: state.Super_Area?.size,
-      builtUpArea: state.Built_up_Area?.size,
-      carpetArea: state.Carpet_Area?.size,
+    if (state.id == null) {
+      let reqData = {
+        iAm: state.iAm,
+        for: state.for,
+        pType: state.pType,
+        postingAs: state.postingAs,
+        nameOfProject: state.nameOfProject,
+        bedrooms: state.Bedrooms,
+        balconies: state.Balconies,
+        floorNo: state.Floor_No_,
+        totalFloors: state.Total_Floors,
+        furnishedStatus: state.Furnished_Status,
+        bathrooms: state.Bathrooms,
+        superArea: state.Super_Area?.size,
+        builtUpArea: state.Built_up_Area?.size,
+        carpetArea: state.Carpet_Area?.size,
+        possessionStatus: state.Possession_Status,
+        availableFromMonth: state.available_from_month,
+        availableFromYear: state.available_from_year,
+        expectedPrice: state.expected_price,
+        pricePerSqFt: state.expected_price_per_sq_ft,
+        otherCharges: state.other_charges,
+        isStumpDutyRCExcluded: state.stamp_duty_registration_charges_excluded,
+        bookingAmount: state.booking_token_amount,
+        maintenanceCharge: state.maintenance_charges,
+        maintenanceFor: state.maintenance_charges_per,
+        brokerageCharge: state.brokerage,
+        amenities: amenities,
+        longitude: state.longitude,
+        latitude: state.latitude,
+        address: state.address,
+        city: state.city,
+        State: state.State,
+        pinCode: state.pinCode,
+        propertTag: state.Transaction_Type,
+        propertyDetails: propertyDetail,
+      };
 
-      possessionStatus: state.Possession_Status,
-      availableFromMonth: state.available_from_month,
-      availableFromYear: state.available_from_year,
+      let data = {
+        mainImage: state.mainImage,
+        badrooms: image.badrooms,
+        bathrooms: image.bathrooms,
+        exteriorView: image.exteriorView,
+        floorPlan: image.floorPlan,
+        kitchen: image.kitchen,
+        livingRoom: image.livingRoom,
+        locationMap: image.locationMap,
+        masterPlan: image.masterPlan,
+        other: image.other,
+      };
+      dispatch(PropertyAction.PropertyAddRequestAsync(reqData, data));
+    } else {
+      let reqData = {
+        iAm: state.iAm,
+        for: state.for,
+        pType: state.pType,
+        postingAs: state.postingAs,
+        nameOfProject: state.nameOfProject,
+        bedrooms: state.Bedrooms,
+        balconies: state.Balconies,
+        floorNo: state.Floor_No_,
+        totalFloors: state.Total_Floors,
+        furnishedStatus: state.Furnished_Status,
+        bathrooms: state.Bathrooms,
+        superArea: state.Super_Area?.size,
+        builtUpArea: state.Built_up_Area?.size,
+        carpetArea: state.Carpet_Area?.size,
+        possessionStatus: state.Possession_Status,
+        availableFromMonth: state.available_from_month,
+        availableFromYear: state.available_from_year,
+        expectedPrice: state.expected_price,
+        pricePerSqFt: state.expected_price_per_sq_ft,
+        otherCharges: state.other_charges,
+        isStumpDutyRCExcluded: state.stamp_duty_registration_charges_excluded,
+        bookingAmount: state.booking_token_amount,
+        maintenanceCharge: state.maintenance_charges,
+        maintenanceFor: state.maintenance_charges_per,
+        brokerageCharge: state.brokerage,
+        amenities: amenities,
+        longitude: state.longitude,
+        latitude: state.latitude,
+        address: state.address,
+        city: state.city,
+        State: state.State,
+        pinCode: state.pinCode,
+        propertTag: state.Transaction_Type,
+        propertyDetails: propertyDetail,
+        propertyId: state.id,
+      };
 
-      expectedPrice: state.expected_price,
-      pricePerSqFt: state.expected_price_per_sq_ft,
-
-      // isPLCIncluded: state.price_includes_plc,
-      // isCarParkingIncluded: state.price_includes_car_parking,
-      // isClubMemberShipIncluded: state.price_includes_club_membership,
-      otherCharges: state.other_charges,
-      isStumpDutyRCExcluded: state.stamp_duty_registration_charges_excluded,
-      bookingAmount: state.booking_token_amount,
-      maintenanceCharge: state.maintenance_charges,
-      maintenanceFor: state.maintenance_charges_per,
-      brokerageCharge: state.brokerage,
-
-      // propertyType:state.Property_Type,
-      // heating:state.Heating,
-      // garage:state.garage,
-      // buildYear:state.build_year,
-
-      // basketballCourt: state.basketball_court,
-      // airConditioned: state.air_conditioned,
-      // swimmingPool:state.swimming_pool,
-      // noSmokingZone:state.no_smoking_zone,
-      // gym:state.gym,
-      // petFriendly:state.pet_friendly,
-
-      // freeParkingonPremises:state.free_parking_on_premises,
-      // wheelchairFriendly:state.wheelchair_friendly,
-      // homeTheater:state.home_theater,
-      // pCity: state.pCity,
-      // location:state.location,
-      amenities: amenities,
-      longitude: state.longitude,
-      latitude: state.latitude,
-      address: state.address,
-      city: state.city,
-      State: state.State,
-      pinCode: state.pinCode,
-      propertTag: state.Transaction_Type,
-      propertyDetails: propertyDetail,
-    };
-
-    let data = {
-      mainImage: state.mainImage,
-      badrooms: image.badrooms,
-      bathrooms: image.bathrooms,
-      exteriorView: image.exteriorView,
-      floorPlan: image.floorPlan,
-      kitchen: image.kitchen,
-      livingRoom: image.livingRoom,
-      locationMap: image.locationMap,
-      masterPlan: image.masterPlan,
-      other: image.other,
-    };
-    dispatch(PropertyAction.PropertyAddRequestAsync(reqData, data));
+      let data = {
+        mainImage: state.mainImage,
+        badrooms: image.badrooms,
+        bathrooms: image.bathrooms,
+        exteriorView: image.exteriorView,
+        floorPlan: image.floorPlan,
+        kitchen: image.kitchen,
+        livingRoom: image.livingRoom,
+        locationMap: image.locationMap,
+        masterPlan: image.masterPlan,
+        other: image.other,
+      };
+      dispatch(PropertyAction.PropertyUpdateRequestAsync(reqData, data));
+    }
   };
 
   // Render methods
@@ -334,6 +422,7 @@ const PropertyCreateUpdate = (props) => {
                 showMore,
                 type,
                 values,
+                fieldName,
                 unit,
               } = field || {};
               if (type === "option") {
@@ -345,6 +434,8 @@ const PropertyCreateUpdate = (props) => {
                       moreOptions={more_counts}
                       showMore={showMore}
                       onSelect={onFeatureSelect}
+                      value={state}
+                      fieldName={fieldName}
                     ></Option>
                   </Grid>
                 );
@@ -421,17 +512,7 @@ const PropertyCreateUpdate = (props) => {
               alignItems: "center",
               justifyContent: "flex-start",
             }}
-          >
-            <TextField
-              label="Garage"
-              name="garage"
-              variant="outlined"
-              placeholder="Garage"
-              fullWidth
-              style={{ marginTop: 15 }}
-              onChange={handleChange}
-            />
-          </Grid>
+          ></Grid>
         </Grid>
       </FieldsContainer>
     );
@@ -442,7 +523,6 @@ const PropertyCreateUpdate = (props) => {
    * @param {*} section - AreaSection
    */
   const _renderAreaSection = (section) => {
-    // console.log('--SECTION AREA--', section);
     const { fields, section: sectionName } = section || {};
     return (
       <FieldsContainer label={sectionName}>
@@ -471,6 +551,7 @@ const PropertyCreateUpdate = (props) => {
                       name={label}
                       variant="outlined"
                       onChange={onAreaFieldSelect}
+                      value={state[field?.fieldName]["size"]}
                     />
                     {units && (
                       <Select
@@ -519,7 +600,6 @@ const PropertyCreateUpdate = (props) => {
    * @param {*} section - TransactionSection
    */
   const _renderTransactionSection = (section) => {
-    // console.log("--SECTION TRANSACTION--", section);
     const { fields, section: sectionName } = section || {};
     return (
       <FieldsContainer label={sectionName}>
@@ -539,6 +619,7 @@ const PropertyCreateUpdate = (props) => {
                   <Transaction
                     title={label}
                     options={values}
+                    values={state[fieldName]}
                     onOptionSelectListener={onTransactionOptionSelectListener}
                   />
                 </Grid>
@@ -612,7 +693,6 @@ const PropertyCreateUpdate = (props) => {
    * @param {*} section - PriceSection
    */
   const _renderPriceSection = (section) => {
-    // console.log("SECTION PRICE--", section);
     const { fields, section: sectionName } = section || {};
     return (
       <FieldsContainer label={sectionName}>
@@ -828,12 +908,7 @@ const PropertyCreateUpdate = (props) => {
     // }
 
     const list = [...propertyDetail];
-    // if(name=='key'){
-    //   console.log('key',keydata);
-    //   list[index][name] = keydata;
-    // }else{
     list[index][name] = value;
-    // }
     setPropertyDetail(list);
   };
 
@@ -1024,6 +1099,7 @@ const PropertyCreateUpdate = (props) => {
                           title="I am"
                           options={personal_details_options}
                           onOptionSelectListener={onOptionSelectListener}
+                          values={state.iAm}
                         />
                       </Grid>
                       {/* {isOwner && (
@@ -1041,6 +1117,7 @@ const PropertyCreateUpdate = (props) => {
                         <Detail
                           title="For"
                           options={property_details_options}
+                          values={state.for}
                           onOptionSelectListener={
                             onOptionPropertyForSelectListener
                           }
@@ -1145,6 +1222,7 @@ const PropertyCreateUpdate = (props) => {
                           style={{ width: "100%" }}
                           onChange={handleChange}
                           name="longitude"
+                          value={state.longitude}
                         ></TextField>
 
                         <Box mt={2} />
@@ -1155,6 +1233,7 @@ const PropertyCreateUpdate = (props) => {
                           style={{ width: "100%" }}
                           onChange={handleChange}
                           name="latitude"
+                          value={state.latitude}
                         ></TextField>
 
                         <Box mt={2} />
@@ -1165,6 +1244,7 @@ const PropertyCreateUpdate = (props) => {
                           style={{ width: "100%" }}
                           onChange={handleChange}
                           name="address"
+                          value={state.address}
                         ></TextField>
                         <Box mt={2} />
                         <TextField
@@ -1174,6 +1254,7 @@ const PropertyCreateUpdate = (props) => {
                           style={{ width: "100%" }}
                           onChange={handleChange}
                           name="city"
+                          value={state.city}
                         ></TextField>
 
                         <Box mt={2} />
@@ -1184,6 +1265,7 @@ const PropertyCreateUpdate = (props) => {
                           style={{ width: "100%" }}
                           onChange={handleChange}
                           name="State"
+                          value={state.State}
                         ></TextField>
 
                         <Box mt={2} />
@@ -1194,6 +1276,7 @@ const PropertyCreateUpdate = (props) => {
                           style={{ width: "100%" }}
                           onChange={handleChange}
                           name="pinCode"
+                          value={state.pinCode}
                         ></TextField>
                       </Grid>
                     </Grid>
@@ -1211,6 +1294,7 @@ const PropertyCreateUpdate = (props) => {
                           style={{ width: "100%" }}
                           onChange={handleChange}
                           name="nameOfProject"
+                          value={state.nameOfProject}
                         ></TextField>
                         <Box mt={2} />
                       </Grid>
@@ -1225,6 +1309,7 @@ const PropertyCreateUpdate = (props) => {
                           style={{ width: "100%" }}
                           onChange={handleChange}
                           name="postingAs"
+                          value={state.postingAs}
                         ></TextField>
                         <Box mt={2} />
                       </Grid>
@@ -1241,7 +1326,7 @@ const PropertyCreateUpdate = (props) => {
                               style={{ width: "100%" }}
                               onChange={(e) => handleAminitiesInputChange(e, i)}
                               name="amenities"
-                              value={x.lastName}
+                              value={x}
                             ></TextField>
                             <div className="RemoveBtn">
                               {amenities.length !== 1 && (
