@@ -84,3 +84,35 @@
 .MainMenu .MuiButtonBase-root.MuiButton-root {
 	line-height: 22px;
 }
+.desktopViewforNone{display:none !important;}
+.fullWidthheader{width:100%; }
+.headerLeft_part{ width: 20%; }
+.headerRight_part{ width: 100%; text-align: center; padding: 10px; }
+.btn_Bookonline{background-image: linear-gradient(
+    90deg
+    , #da3287, #ffde5e); color: #fff; border-radius: 15px !important;}
+    .btn_Bookonline>span{ color: #fff !important;}
+    .btn_Postonline{background-color: #FF7601 !important; color: #fff; border-radius: 15px !important; }
+    .btn_Postonline>span{ color: #fff !important;}
+    .headerRight_part>.MuiButton-text {
+        padding: 2px 8px;
+    }
+    .completeRow{ width: 100%;     background: #fff;  }
+    .blackRowheader{background-color: #2b2825; width: 100%; position: relative;}
+    .PL{ padding-left: 15px;padding-right: 15px; padding-top: 5px;padding-bottom: 5px;}
+    .humbergIcon{ position: absolute; right: 0px; top: 21px;}
+    .mobilelogoWidth{width: 80px;}
+    .humbergIcon>.MuiButton-root{color: #fff;}
+    .Headerfixed {
+        position: fixed;
+        top:0; left:0;
+        width: 100%; z-index: 99999; }
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .desktopViewforNone{display:block !important;}
+   .forMobilehide{ display: none !important;}
+   .auto-container > .MuiGrid-root.MuiGrid-container{padding-left: 0px;}
+   
+   .logo img{width: 100%;}
+  }

@@ -17,6 +17,7 @@ import MenuItemList from "../menu-item";
 import menuItems from "../../utils/menu.json";
 import { withRouter, Link as RouterLink } from "react-router-dom";
 import Logo from "../../images/logo.png";
+import Mobilemenu from "./mobilemenu";
 
 import Dialog from "@material-ui/core/Dialog";
 
@@ -32,6 +33,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 import { useDispatch } from "react-redux";
 import * as SitevisitAction from "../../redux/actions/SitevisitAction";
+
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
 
 const stylessd = (theme) => ({
   root: {
@@ -182,13 +186,26 @@ const Header = (props) => {
     setAnchorEl(event.currentTarget);
   };
 
+
   const gotoProfileHandler = () => {
     setAnchorEl(null);
     window.location.href = "/profile";
   };
+  // Window Scroll Function Start
+  $(window).scroll(function () {
+    var sticky = $('#HeaderonScroll'),
+      scroll = $(window).scrollTop();
+
+    if (scroll >= 100) sticky.addClass('Headerfixed');
+    else sticky.removeClass('Headerfixed');
+  });
+  // Window Scroll Function End
+
+
+
   return (
     <>
-      <Grid container className="MainMenu">
+      <Grid container className="MainMenu forMobilehide">
         <Grid item xs={12} md={12} className="bg-green">
           <Container className="auto-container">
             <Grid
@@ -336,7 +353,11 @@ const Header = (props) => {
           </Container>
         </Grid>
       </Grid>
-
+      {/* Mobile Menu Start */}
+      <Grid container className="desktopViewforNone" id="HeaderonScroll">
+        <Mobilemenu />
+      </Grid>
+      {/* Mobile Menu End */}
       {/* </Grid>
           </Grid>
         </Container>

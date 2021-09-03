@@ -22,3 +22,9 @@
     animation: flip;
     animation-duration: 2s;
 }
+.footerSplit{ display: none !important;}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .footerSplit{ display: block !important;}
+  }
