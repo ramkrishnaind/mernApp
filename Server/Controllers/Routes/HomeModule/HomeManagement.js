@@ -44,7 +44,14 @@ const createDealingInItemSchema = Joi.object({
 const getDealingInItemSchema = Joi.object({
     _id: Joi.string().trim().required()
 });
-
+const createServiceItemSchema = Joi.object({
+    title: Joi.string().required(),
+    shortDescription: Joi.string().required(),
+    description: Joi.string().required(),
+    metaTitle: Joi.string(),
+    metaKeywords: Joi.string(),
+    metaDescription: Joi.string()
+});
 /////////// Update Schema ////////////////
 
 const updateHomeAboutSchema = Joi.object({
@@ -358,8 +365,7 @@ function createDealingInItem(Models) {
             // pick data from req.body
             let DealingInItemFormData = _.pick(req.body, ['title', 'shortDescription', 'description', 'icon', 'metaTitle', 'metaKeywords', 'metaDescription']);
             console.log('DealingInItemFormData is', DealingInItemFormData);
-            if (req.files.length > 0)
-                console.log('req.files.length iz', req.files.length)
+            console.log('req.files is', req.files);
             DealingInItemFormData.media = req.files;
             let isDealingInItemExist = await Models.DealingInItemDB.find({ title: DealingInItemFormData.title });
             if (isDealingInItemExist.length) {
@@ -441,8 +447,8 @@ function getDealingInItemDetails(Models) {
 function createService(Models) {
     async function create(req, res) {
         try {
-
-            let validateData = createDealingInItemSchema.validate(req.body);
+            console.log('req.body is', req.body)
+            let validateData = createDealingInSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
@@ -450,9 +456,8 @@ function createService(Models) {
             // pick data from req.body
             let createServiceFormData = _.pick(req.body, ['header', 'title', 'description', 'metaTitle', 'metaKeywords', 'metaDescription']);
             console.log('createServiceFormData is', createServiceFormData);
-            if (req.files.length > 0)
-                createServiceFormData.media = req.files;
             let isServiceExist = await Models.ServiceDB.find({ title: createServiceFormData.title });
+            console.log('isServiceExist is', isServiceExist);
             if (isServiceExist.length) {
                 res.send({ status: false, message: CONSTANTSMESSAGE.ALREADY_EXIST_MESSAGE });
             } else {
@@ -473,16 +478,14 @@ function createServiceItem(Models) {
     async function create(req, res) {
         try {
 
-            let validateData = createDealingInItemSchema.validate(req.body);
+            let validateData = createServiceItemSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
             // pick data from req.body
             let createServiceFormData = _.pick(req.body, ['title', 'shortDescription', 'description', 'metaTitle', 'metaKeywords', 'metaDescription']);
-            console.log('createServiceFormData is', createServiceFormData);
-            if (req.files.length > 0)
-                createServiceFormData.media = req.files;
+            createServiceFormData.media = req.files;
             let isServiceExist = await Models.ServiceItemDB.find({ title: createServiceFormData.title });
             if (isServiceExist.length) {
                 res.send({ status: false, message: CONSTANTSMESSAGE.ALREADY_EXIST_MESSAGE });
@@ -504,23 +507,23 @@ function getServiceForHome(Models) {
     async function DealingIn(req, res) {
         try {
             // Getting Home from Database
-            let findData = await Models.DealingInDB.findOne({ isDisable: false }).lean();
+            let findData = await Models.ServiceDB.findOne({ isDisable: false }).lean();
             console.log('findData is', findData)
-            let itemsFindData = await Models.DealingInItemDB.find({ isDisable: false }).lean();
+            let itemsFindData = await Models.ServiceItemDB.find({ isDisable: false }).lean();
             console.log('itemsFindData is', itemsFindData)
             if (findData && itemsFindData) {
                 // if data found check verified or not
                 findData.items = itemsFindData;
-                res.send({ status: true, message: "Home DealingIn Data", data: findData });
+                res.send({ status: true, message: "Service Data", data: findData });
             } else {
-                res.send({ status: true, message: "Home DealingIn Data not found" });
+                res.send({ status: false, message: "Service Data not found" });
             }
 
 
         }
         catch (e) {
-            console.log('getDealingIn err', e);
-            await errorResponseHelper({ res, error: e, defaultMessage: "Error in getDealingIn" });
+            console.log('Service err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Service" });
         }
     }
     return DealingIn;

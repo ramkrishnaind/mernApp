@@ -17,7 +17,6 @@ module.exports = function (mongoose) {
     const CMSDB = mongoose.model('cms');
     const SliderDB = mongoose.model('slider');
     const BuildingDB = mongoose.model('buildingMaterials');
-    const ServicesDB = mongoose.model('services');
     const ContactUsDB = mongoose.model('contactus');
     const SiteVisitDB = mongoose.model('siteVisit');
     const CareerDB = mongoose.model('career');
@@ -26,7 +25,7 @@ module.exports = function (mongoose) {
     const HomeMovingBannerDB = mongoose.model('homeMovingBanner');
     const DealingInDB = mongoose.model('dealingIn');
     const DealingInItemDB = mongoose.model('dealingInItem');
-    const ServiceDB = mongoose.model('serviceItem');
+    const ServiceDB = mongoose.model('service');
     const ServiceItemDB = mongoose.model('serviceItem');
     return {
         UserDB,
@@ -44,7 +43,6 @@ module.exports = function (mongoose) {
         CMSDB,
         SliderDB,
         BuildingDB,
-        ServicesDB,
         ContactUsDB,
         SiteVisitDB,
         CareerDB,

@@ -23,9 +23,6 @@ let schema = new Schema({
     metaDescription: {
         type: String
     },
-    banner: {
-        type: Array
-    },
     media: {
         type: Array
     },
