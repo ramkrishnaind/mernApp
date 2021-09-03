@@ -13,6 +13,7 @@ import BathtubIcon from '@material-ui/icons/Bathtub';
 import DriveEtaIcon from '@material-ui/icons/DriveEta';
 // import './property-view-card.css';
 import InnerCarouselSlider from "../inner-carousel-slider";
+import './featured.css';
 
 const useStyles = makeStyles((theme) => ({
     text1: {
@@ -102,7 +103,11 @@ const OuterCarouselSlider = (props) => {
                             <Grid contaienr >
                                 <Grid item xs={12} md={12} style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                                     {/* <InnerCarouselSlider /> */}
-                                    <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} style={{width: 350, height: 300}} />
+                                    <div class="property-box">
+                                        <span class="featured">FEATURED</span>
+                                        <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} style={{width: 350, height: 300}} />
+                                    </div>
+
                                     <Typography className={classes.text1}>{pType}</Typography>
                                     <Typography className={classes.text2}>{nameOfProject}</Typography>
                                     {/* <Grid contaienr>

@@ -24,7 +24,7 @@ const APP_CONSTANTS = {
 
     //Section - SELL
     section2_title: 'FIND YOUR HOUSE IN YOUR CITY',
-    section2_subtitle: 'SELL',
+    section2_subtitle: 'RECENT PROPERTIES FOR INTERIOR IN JAIPUR',
 
     //Section - CONSTRUCTION
     section3_title: 'FIND YOUR HOUSE IN YOUR CITY',
@@ -49,6 +49,12 @@ const APP_CONSTANTS = {
     //online form section
     online_form_title: "THE BEST PLACE TO FIND THE HOUSE YOU WANT",
     online_form_subtitles: "ONLINE BOOKING",
-}
+
+    map_section_title: "THE BEST PLACE TO FIND THE HOUSE YOU WANT",
+    map_subsection_title: "JAIPUR TOP LOCALITIES TO INVEST",
+
+    building_material_title: "THE BEST PLACE TO FIND THE HOUSE YOU WANT",
+    building_material_subtitle: "BUILDING MATERIALS"
+};
 
 export default APP_CONSTANTS;
