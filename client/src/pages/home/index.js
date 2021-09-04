@@ -101,6 +101,7 @@ const HomePage = (props) => {
   const [banners, setBanners] = useState([]);
   const [propertyData, setPropertyData] = useState({});
   const [dealingInData, setDealingInData] = useState({});
+  const [feedbackData, setFeedbackData] = useState({list: []});
   useEffect(() => {
     dispatch(LoginAction.LoginRequestAsync({}));
   });
@@ -121,13 +122,14 @@ const HomePage = (props) => {
     populateStatsInfo(cookie, authorization);
 
     populatedDealingInfo(cookie, authorization);
+
   }, []);
 
   const populatedDealingInfo = (cookie, authorization) => {
     const getData = async () => {
       const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getDealingIn', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
 
-      console.log("dealing in data ", response);
+      // console.log("dealing in data ", response);
       setDealingInData(response.data);
     };
     getData();
@@ -186,7 +188,7 @@ const HomePage = (props) => {
       });
       aboutUsInfo.images = images;
       setAboutUsSection(aboutUsInfo);
-      console.log('About us details', aboutUsInfo, aboutSection);
+      // console.log('About us details', aboutUsInfo, aboutSection);
     };
     getData();
   };
@@ -194,7 +196,7 @@ const HomePage = (props) => {
 
   const showPropertyData = () => {
     if (propertyData !== {}) {
-      console.log("propertyData!={}", propertyData);
+      // console.log("propertyData!={}", propertyData);
       return <SectionTabs propertyData={propertyData} />;
     } else {
       return null;
@@ -214,7 +216,7 @@ const HomePage = (props) => {
 
   return (
     <div className="main-w3">
-      <OwlCarouselSlider images={banners} style={{width: '100%', maxHeight: 530}} autoplay={false} />
+      <OwlCarouselSlider images={banners} style={{width: '100%', maxHeight: 530}} autoPlay={false} />
       {/* <EmiCalculater />
       <EnquryForm/> */}
       <Box style={{backgroundColor: '#FFFFFF'}}>
@@ -307,7 +309,7 @@ const HomePage = (props) => {
       {/* SECTION - FEEDBACK*/}
       <div className="client-bg">
         <Container style={{paddingTop: 60, paddingBottom: 60}}>
-          <SectionFeedback items={feedbacks} />
+          <SectionFeedback />
         </Container>
       </div>;
 

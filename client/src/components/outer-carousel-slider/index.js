@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
 
 const OuterCarouselSlider = (props) => {
 
-    console.log("property props", props);
+    // console.log("property props", props);
     let total = 0;
     let data = [];
     if (props && props.items) {
@@ -94,17 +94,17 @@ const OuterCarouselSlider = (props) => {
 
     return (
         <div>
-            <OwlCarousel items={Math.min(3, total)} className="owl-theme" loop nav={false} margin={8} autoplay={true} dots={false}>
-                {data.map(item => {
+            <OwlCarousel items={Math.min(3, total)} className="owl-theme" loop nav={false} margin={8} autoPlay={true} dots={false}>
+                {data.map((item, i) => {
                     const {_id, userId, propertyDetails, status, iAm, pType, postingAs, nameOfProject, propertTag, created, updated, __v, features} = item;
                     const propertyFor = item.for;
                     return (
-                        <Box style={{marginTop: 50, width: 350}}>
+                        <Box key={i} style={{marginTop: 50, width: 350}}>
                             <Grid contaienr >
                                 <Grid item xs={12} md={12} style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                                     {/* <InnerCarouselSlider /> */}
                                     <div class="property-box">
-                                        <span class="featured">FEATURED</span>
+                                        <span class="featured">{propertTag}</span>
                                         <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} style={{width: 350, height: 300}} />
                                     </div>
 

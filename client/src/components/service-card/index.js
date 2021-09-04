@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const ServiceCard = props => {
-    console.log("segrvice", props);
+    // console.log("segrvice", props);
     const classes = useStyles();
     const {title, description, img} = props.service;
     return (

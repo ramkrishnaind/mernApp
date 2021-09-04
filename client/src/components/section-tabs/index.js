@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SectionTabs = (props) => {
   const {propertyData} = props;
-  console.log("propertyData", props, propertyData);
+  // console.log("propertyData", props, propertyData);
   const {sell, rent, construction, interior} = propertyData;
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -24,8 +24,8 @@ const SectionTabs = (props) => {
   };
 
   const tabs = () => {
-    return Object.keys(propertyData).map((data) => {
-      return <Tab label={data} />;
+    return Object.keys(propertyData).map((data, i) => {
+      return <Tab key={i} label={data} />;
     });
   };
 
@@ -39,7 +39,6 @@ const SectionTabs = (props) => {
         {
           tabs()
         }
-        {console.log("val", value)}
       </Tabs>
       <SectionTabPanel value={value} index={0}>
         <OuterCarouselSlider items={sell} />
