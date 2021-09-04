@@ -40,6 +40,8 @@ import DealingList from "../pages/dealingManagement";
 import AddDealing from "../pages/dealingManagement/add";
 import DealingItemList from "../pages/dealingItemManagement";
 import AddDealingItem from "../pages/dealingItemManagement/add";
+import Myacc from "../pages/MyAccountManagement";
+
 const Routes = (props) => {
   const { isAuth } = props;
   const routes = [
@@ -183,6 +185,10 @@ const Routes = (props) => {
         {
           path: "/dealingItem",
           element: isAuth ? <DealingItemList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/myaccount",
+          element: isAuth ? <Myacc /> : <Navigate to="/login" />,
         },
         {
           path: "404",

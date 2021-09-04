@@ -190,7 +190,7 @@ const items = [
     title: "Bookings",
   },
   {
-    href: "/account",
+    href: "/myaccount",
     icon: UserIcon,
     title: "Account",
   },
