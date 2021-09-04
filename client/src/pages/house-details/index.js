@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
-=======
-import React, {useEffect, useState} from 'react';
-import {withRouter} from 'react-router';
->>>>>>> 4abfebc0fa57195f8aa7b7bca2a065556812dafd
+import { withRouter } from 'react-router';
 import {
   Container,
   Grid,
