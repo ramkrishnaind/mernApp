@@ -24,7 +24,7 @@ import OnlineBooking from "../../components/online-form/online-form";
 import EmiCalculater from "../../components/emiCalculater/emiCalculater";
 import EnquryForm from "../../components/enquryForm/enquryForm";
 import CountUp, {useCountUp} from 'react-countup';
-import {statsInfo, aboutSectionInfo, servicesInfo, clientLookingforInfo, bannersInfo, building_materials} from './intial-content';
+import {statsInfo, aboutSectionInfo, servicesInfo, bannersInfo, building_materials} from './intial-content';
 import ApiClient from '../../api-client/index';
 import VisibilitySensor from "react-visibility-sensor";
 
@@ -95,11 +95,12 @@ const useStyles = makeStyles((theme) => ({
 const HomePage = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [stats] = useState(statsInfo);
-  const [aboutSection] = useState(aboutSectionInfo);
+  const [stats, setStats] = useState(statsInfo);
+  const [aboutSection, setAboutUsSection] = useState({});
   const [services] = useState(servicesInfo);
-  const [banners] = useState(bannersInfo);
+  const [banners, setBanners] = useState([]);
   const [propertyData, setPropertyData] = useState({});
+  const [dealingInData, setDealingInData] = useState({});
   useEffect(() => {
     dispatch(LoginAction.LoginRequestAsync({}));
   });
@@ -107,16 +108,89 @@ const HomePage = (props) => {
   useEffect(() => {
     const cookie = 'connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI';
     const authorization = 'Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs';
-    console.log("hello Hi");
     const getData = async () => {
       const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/property/getAllPropertyForHome', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
       setPropertyData(response.data);
-      console.log("response data", response.data);
     };
     getData();
 
+    populateBanners(cookie, authorization);
 
+    populateAboutUsDetails(cookie, authorization);
+    // {imageUrl: '/slider/slider1.jpeg', desc: ""},
+    populateStatsInfo(cookie, authorization);
+
+    populatedDealingInfo(cookie, authorization);
   }, []);
+
+  const populatedDealingInfo = (cookie, authorization) => {
+    const getData = async () => {
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getDealingIn', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
+
+      console.log("dealing in data ", response);
+      setDealingInData(response.data);
+    };
+    getData();
+  };
+
+  const populateStatsInfo = (cookie, authorization) => {
+    const getData = async () => {
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getMovingBanner', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
+
+      const statsData = {
+        "years": response.data.years,
+        "clients": response.data.clients,
+        "projects": response.data.projects,
+        "shortDescription": response.data.shortDescription
+      };
+
+      setStats(statsData);
+    };
+    getData();
+  };
+  const populateBanners = (cookie, authorization) => {
+    const getBannerData = async () => {
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/slider/getHomeSlider', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
+
+      const list = response?.data?.list || [];
+      const bannersImages = [];
+      list.forEach(element => {
+        const desc = element.description;
+        const baseUrl = ApiClient.SERVER_ADDRESS;
+        element.image.forEach(imageInfo => {
+
+          let imageUrl = baseUrl + "/" + imageInfo.path;
+          const imageData = {imageUrl: imageUrl, desc: desc};
+
+          bannersImages.push(imageData);
+        });
+      });
+      setBanners(bannersImages);
+    };
+    getBannerData();
+  };
+  const populateAboutUsDetails = (cookie, authorization) => {
+    const getData = async () => {
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getHomeAbout', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
+      // setPropertyData(response.data);
+      const aboutUsInfo = {};
+      aboutUsInfo.Header = response?.data?.header;
+      aboutUsInfo.title = response?.data?.title;
+      aboutUsInfo.description = response?.data?.description;
+      let images = [];
+      const baseUrl = ApiClient.SERVER_ADDRESS;
+      response?.data?.aboutImages?.forEach((imageInfo) => {
+        let imageUrl = baseUrl + "/" + imageInfo.path;
+        const imageData = {imageUrl: imageUrl, desc: ""};
+        images.push(imageData);
+      });
+      aboutUsInfo.images = images;
+      setAboutUsSection(aboutUsInfo);
+      console.log('About us details', aboutUsInfo, aboutSection);
+    };
+    getData();
+  };
+
 
   const showPropertyData = () => {
     if (propertyData !== {}) {
@@ -140,7 +214,7 @@ const HomePage = (props) => {
 
   return (
     <div className="main-w3">
-      <OwlCarouselSlider images={banners} style={{width: '100%'}} autoplay={false} />
+      <OwlCarouselSlider images={banners} style={{width: '100%', maxHeight: 530}} autoplay={false} />
       {/* <EmiCalculater />
       <EnquryForm/> */}
       <Box style={{backgroundColor: '#FFFFFF'}}>
@@ -148,16 +222,13 @@ const HomePage = (props) => {
           <Grid container style={{paddingTop: 60, paddingBottom: 60}}>
             <Grid item xs={12} md={6}>
               {/* <img src={aboutSection.images[0].imageUrl} alt="" style={{height: 490}} /> */}
-              <OwlCarouselSlider images={aboutSection.images} autoplay={true} style={{height: 490, width: 'auto'}} />
+              <OwlCarouselSlider images={aboutSection.images || aboutSectionInfo.images} autoplay={true} style={{height: 490, width: 'auto', maxWidth: "90%"}} />
             </Grid>
             <Grid item xs={12} md={6} style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', paddingLeft: 20, paddingRight: 40}} className="animate__animated animate__backInRight">
               <Typography className={classes.text1}><b>ABOUT VISHAL CONSTRUCTION COMPANY</b></Typography>
               <Typography className={classes.text2}>{aboutSection.title}</Typography>
               <Typography className={classes.text3}>
-                {aboutSection.length > 0 || aboutSection.description[0]}
-              </Typography>
-              <Typography className={classes.text3}>
-                {aboutSection.length > 1 || aboutSection.description[1]}
+                {aboutSection.description}
               </Typography>
               <Button variant="outlined" className={`${classes.btnReadMore} btn-readmore`}>
                 READ MORE
@@ -188,13 +259,13 @@ const HomePage = (props) => {
             <Box className={classes.box}>
               <ApartmentIcon style={{color: '#FFFFFF', fontSize: 40}} />
             </Box>
-            <Typography className={classes.text4}>{Counter(stats.happyClients)}+ </Typography>
+            <Typography className={classes.text4}>{Counter(stats.clients)}+ </Typography>
             <Typography className={classes.text5}>Happy Clients</Typography>
 
           </Grid>
           <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
             <Box className={[classes.box, classes.blob]} >
-              <Typography className={classes.text5}>RAJASTHAN <b>LARGEST</b> <br /> <b>&amp;MOST AWARDED</b> REAL STATE COMPANY</Typography>
+              <Typography className={classes.text5} style={{textTransform: 'capitalize'}}><b>{stats.shortDescription}</b></Typography>
             </Box>
           </Grid>
         </Grid>
@@ -213,8 +284,8 @@ const HomePage = (props) => {
 
       {/* SECTION - CLIENT*/}
       <div className="client-bg">
-        <Container style={{paddingTop: 40, paddingBottom: 40}}>
-          <SectionClient clientLookingforInfo={clientLookingforInfo} />
+        <Container style={{paddingTop: 60, paddingBottom: 60}}>
+          <SectionClient dealingInData={dealingInData} />
         </Container>
       </div>
 
