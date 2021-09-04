@@ -99,12 +99,12 @@ const PropertyList = (props) => {
           <MUIDataTable
             className="table-header"
             title="Property List"
-            data={property.list?.list?.map((item, index) => {
+            data={property?.list?.list?.map((item, index) => {
               return [
                 index + 1,
                 item.nameOfProject,
                 item.pType,
-                item.features[0].address.city,
+                item.features[0]?.address?.city,
                 item.for,
                 item.postingAs,
                 item.status,
@@ -113,11 +113,11 @@ const PropertyList = (props) => {
             })}
             columns={[
               "SR No.",
-              "name",
-              "property Type",
+              "Name",
+              "Property Type",
               "City",
-              "for",
-              "postingAs",
+              "For",
+              "PostingAs",
               {
                 name: "Status",
                 options: {
@@ -182,7 +182,7 @@ const PropertyList = (props) => {
 
 function mapStateToProps(state) {
   const { property } = state;
-  console.log("property", property);
+
   return {
     property,
   };

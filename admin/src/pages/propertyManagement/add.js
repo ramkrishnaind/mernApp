@@ -15,7 +15,7 @@ import _ from "lodash";
 import classes from "./makeStyles";
 import FieldsContainer from "./components/fields-container";
 import Detail from "./components/details";
-import { ValidatorForm } from "react-material-ui-form-validator";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import * as PropertyAction from "../../redux/actions/PropertyAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
@@ -108,7 +108,7 @@ const PropertyCreateUpdate = (props) => {
     other: [],
   };
   const [state, setState] = useState(initialState);
-  const [amenities, setAmenities] = useState([{ amenities: "" }]);
+  const [amenities, setAmenities] = useState([{ 0: "" }]);
   const [propertyDetail, setPropertyDetail] = useState([
     { key: "", Value: "" },
   ]);
@@ -1215,7 +1215,7 @@ const PropertyCreateUpdate = (props) => {
                   <FieldsContainer label="Property Location">
                     <Grid container>
                       <Grid item xs={12} md={12} className={classes.style1}>
-                        <TextField
+                        <TextValidator
                           label="Longitude"
                           variant="outlined"
                           placeholder="Enter Longitude"
@@ -1223,10 +1223,11 @@ const PropertyCreateUpdate = (props) => {
                           onChange={handleChange}
                           name="longitude"
                           value={state.longitude}
-                        ></TextField>
-
+                          validators={["required"]}
+                          errorMessages={["longitude field is required"]}
+                        />
                         <Box mt={2} />
-                        <TextField
+                        <TextValidator
                           label="Latitude"
                           variant="outlined"
                           placeholder="Enter Latitude"
@@ -1234,10 +1235,11 @@ const PropertyCreateUpdate = (props) => {
                           onChange={handleChange}
                           name="latitude"
                           value={state.latitude}
-                        ></TextField>
-
+                          validators={["required"]}
+                          errorMessages={["latitude field is required"]}
+                        />
                         <Box mt={2} />
-                        <TextField
+                        <TextValidator
                           label="Address"
                           variant="outlined"
                           placeholder="Enter Address"
@@ -1245,9 +1247,11 @@ const PropertyCreateUpdate = (props) => {
                           onChange={handleChange}
                           name="address"
                           value={state.address}
-                        ></TextField>
+                          validators={["required"]}
+                          errorMessages={["address field is required"]}
+                        />
                         <Box mt={2} />
-                        <TextField
+                        <TextValidator
                           label="City"
                           variant="outlined"
                           placeholder="Enter City"
@@ -1255,10 +1259,11 @@ const PropertyCreateUpdate = (props) => {
                           onChange={handleChange}
                           name="city"
                           value={state.city}
-                        ></TextField>
-
+                          validators={["required"]}
+                          errorMessages={["city field is required"]}
+                        />
                         <Box mt={2} />
-                        <TextField
+                        <TextValidator
                           label="State"
                           variant="outlined"
                           placeholder="Enter State"
@@ -1266,10 +1271,11 @@ const PropertyCreateUpdate = (props) => {
                           onChange={handleChange}
                           name="State"
                           value={state.State}
-                        ></TextField>
-
+                          validators={["required"]}
+                          errorMessages={["State field is required"]}
+                        />
                         <Box mt={2} />
-                        <TextField
+                        <TextValidator
                           label="PinCode"
                           variant="outlined"
                           placeholder="Enter PinCode"
@@ -1277,7 +1283,9 @@ const PropertyCreateUpdate = (props) => {
                           onChange={handleChange}
                           name="pinCode"
                           value={state.pinCode}
-                        ></TextField>
+                          validators={["required"]}
+                          errorMessages={["pinCode field is required"]}
+                        />
                       </Grid>
                     </Grid>
                   </FieldsContainer>
@@ -1287,7 +1295,7 @@ const PropertyCreateUpdate = (props) => {
                   <FieldsContainer label="Project Name">
                     <Grid>
                       <Grid item xs={12} md={4}>
-                        <TextField
+                        <TextValidator
                           label="Project Name"
                           variant="outlined"
                           placeholder="Enter Project Name"
@@ -1295,14 +1303,16 @@ const PropertyCreateUpdate = (props) => {
                           onChange={handleChange}
                           name="nameOfProject"
                           value={state.nameOfProject}
-                        ></TextField>
+                          validators={["required"]}
+                          errorMessages={["nameOfProject field is required"]}
+                        />
                         <Box mt={2} />
                       </Grid>
                     </Grid>
 
                     <Grid>
                       <Grid item xs={12} md={4}>
-                        <TextField
+                        <TextValidator
                           label="Posting As"
                           variant="outlined"
                           placeholder="Enter Posting As"
@@ -1310,50 +1320,102 @@ const PropertyCreateUpdate = (props) => {
                           onChange={handleChange}
                           name="postingAs"
                           value={state.postingAs}
-                        ></TextField>
+                          validators={["required"]}
+                          errorMessages={["postingAs field is required"]}
+                        />
                         <Box mt={2} />
                       </Grid>
                     </Grid>
 
                     <FieldsContainer label="Property Amenities">
                       {amenities.map((x, i) => {
-                        return (
-                          <Grid item xs={12} md={4}>
-                            <TextField
-                              label="Amenities"
-                              variant="outlined"
-                              placeholder="Enter Amenities"
-                              style={{ width: "100%" }}
-                              onChange={(e) => handleAminitiesInputChange(e, i)}
-                              name="amenities"
-                              value={x}
-                            ></TextField>
-                            <div className="RemoveBtn">
-                              {amenities.length !== 1 && (
-                                <Button
-                                  variant="contained"
-                                  type="button"
-                                  color="primary"
-                                  className={"CanceForm"}
-                                  onClick={() => handleRemoveAmenitiesClick(i)}
-                                >
-                                  Remove
-                                </Button>
-                              )}
-                              {amenities.length - 1 === i && (
-                                <Button
-                                  variant="contained"
-                                  type="button"
-                                  color="primary"
-                                  className={"SaveData"}
-                                  onClick={handleAddAminitiesClick}
-                                >
-                                  Add more
-                                </Button>
-                              )}
-                            </div>
-                          </Grid>
-                        );
+                        if (state.id == null) {
+                          return (
+                            <Grid item xs={12} md={4}>
+                              <TextField
+                                label="Amenities"
+                                variant="outlined"
+                                placeholder="Enter Amenities"
+                                style={{ width: "100%" }}
+                                onChange={(e) =>
+                                  handleAminitiesInputChange(e, i)
+                                }
+                                name="amenities"
+                                // value={x}
+                              ></TextField>
+
+                              <div className="RemoveBtn">
+                                {amenities.length !== 1 && (
+                                  <Button
+                                    variant="contained"
+                                    type="button"
+                                    color="primary"
+                                    className={"CanceForm"}
+                                    onClick={() =>
+                                      handleRemoveAmenitiesClick(i)
+                                    }
+                                  >
+                                    Remove
+                                  </Button>
+                                )}
+                                {amenities.length - 1 === i && (
+                                  <Button
+                                    variant="contained"
+                                    type="button"
+                                    color="primary"
+                                    className={"SaveData"}
+                                    onClick={handleAddAminitiesClick}
+                                  >
+                                    Add more
+                                  </Button>
+                                )}
+                              </div>
+                            </Grid>
+                          );
+                        } else {
+                          return (
+                            <Grid item xs={12} md={4}>
+                              <TextField
+                                label="Amenities"
+                                variant="outlined"
+                                placeholder="Enter Amenities"
+                                style={{ width: "100%" }}
+                                onChange={(e) =>
+                                  handleAminitiesInputChange(e, i)
+                                }
+                                name="amenities"
+                                value={x}
+                              ></TextField>
+
+                              <div className="RemoveBtn">
+                                {amenities.length !== 1 && (
+                                  <Button
+                                    variant="contained"
+                                    type="button"
+                                    color="primary"
+                                    className={"CanceForm"}
+                                    onClick={() =>
+                                      handleRemoveAmenitiesClick(i)
+                                    }
+                                  >
+                                    Remove
+                                  </Button>
+                                )}
+                                {amenities.length - 1 === i && (
+                                  <Button
+                                    variant="contained"
+                                    type="button"
+                                    color="primary"
+                                    className={"SaveData"}
+                                    onClick={handleAddAminitiesClick}
+                                  >
+                                    Add more
+                                  </Button>
+                                )}
+                              </div>
+                            </Grid>
+                          );
+                        }
                       })}
                     </FieldsContainer>
                   </FieldsContainer>
