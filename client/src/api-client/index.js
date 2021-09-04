@@ -2,6 +2,7 @@ import axios from 'axios';
 import Logger from '../utils/Logger';
 
 export default class ApiClient {
+    static SERVER_ADDRESS = 'http://192.46.214.45:3333';
 
     static BASE_URL = 'http://192.46.214.45:3333/api';
 
@@ -10,7 +11,7 @@ export default class ApiClient {
         POST: 'POST',
         PUT: 'PUT',
         DELETE: 'DELETE',
-    }
+    };
 
     static addCommonHeaders(headers) {
         headers["Content-Type"] = "application/json";
@@ -42,7 +43,7 @@ export default class ApiClient {
         }
 
         // let axiosInstance = axios.create({baseURL: process.env.REACT_APP_BASE_URL});
-        let axiosInstance = axios.create({ baseURL: this.BASE_URL });
+        let axiosInstance = axios.create({baseURL: this.BASE_URL});
 
         // Logger.log('Web Service Url:', `${process.env.REACT_APP_BASE_URL}${url}`);
         Logger.log('Web Service Url:', `${this.BASE_URL}${url}`);

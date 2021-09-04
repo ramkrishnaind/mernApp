@@ -10,11 +10,11 @@ const OwlCarouselSlider = (props) => {
 
   const images = props.images;
   const items = props.items || 1;
-
+  console.log("images check", images, props, (images || []));
   return (
     <Grid container style={{backgroundColor: '#FFFFFF'}}>
       <Grid item xs={12} md={12}>
-        <OwlCarousel items={items} className="owl-theme" loop nav={false} margin={8} autoplay={props.autoplay}>
+        <OwlCarousel items={items} className="owl-theme" loop nav={false} margin={8} autoplay={props.autoplay} dots={true}>
           {(images || []).map((image) => {
             return < div >
               <img className="img" src={image.imageUrl} style={props.style} alt="" />

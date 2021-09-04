@@ -5,16 +5,18 @@ export const bannersInfo = [
 ];
 
 export const statsInfo = {
-    years: 20,
-    projects: 40,
-    happyClients: 1000
+    "years": 21,
+    "clients": 1300,
+    "projects": 50,
+    "shortDescription": "Rajasthan Largest and most awarded real estate Company"
 };
+
 export const aboutSectionInfo = {
+    header: "ABOUT VISHAL CONSTRUCTION COMPANY",
     title: <>WE'VE BEEN CREATING <br />AWESOME SINCE 1994</>,
-    description: [
-        'At Vishal Construction Company, we always think ahead but our focus remains unerringly on delighting our customers and stakeholders. Functioning through an array of best-of-class practices and utilizing leading technologies, we at Vishal Construction Company believe either in staying ahead of the wave or riding it.',
-        'If you are looking at blank cassettes on the web lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor incididunt.'
-    ],
+    description:
+        'At Vishal Construction Company, we always think ahead but our focus remains unerringly on delighting our customers and stakeholders. Functioning through an array of best-of-class practices and utilizing leading technologies, we at Vishal Construction Company believe either in staying ahead of the wave or riding it. If you are looking at blank cassettes on the web lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor incididunt.'
+    ,
     images: [
         {imageUrl: '/images/about_img.png', desc: ""},
         {imageUrl: '/images/about_img.png', desc: ""},

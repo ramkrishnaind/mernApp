@@ -150,22 +150,6 @@ const Header = (props) => {
     }
   });
 
-  useEffect(() => {
-    const isbookNowActive = localStorage.getItem("bookNow");
-    console.log("isBookNow", typeof isbookNowActive, isbookNowActive);
-    console.log("userData", userdata);
-    let userDetails = localStorage.getItem("user");
-    if (userDetails) {
-      setUserdata(true);
-    } else {
-      setUserdata(false);
-    }
-    if (isbookNowActive === "true" && userDetails) {
-      setBookNow(true);
-      console.log('setBookNow(true);', bookNow);
-      localStorage.setItem("bookNow", false);
-    }
-  }, []);
 
   const handleData = (e) => {
     const formData = {
@@ -191,10 +175,6 @@ const Header = (props) => {
   };
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const closeBookNow = () => {
-    setBookNow(false);
   };
 
   const logoutHandler = () => {
@@ -268,18 +248,7 @@ const Header = (props) => {
                   justifyContent: "center",
                 }}
               >
-                <Button
-                  variant="contained"
-                  className={`${classes.btn1} btn-book-online`}
-                  onClick={() => {
-                    if (!localStorage.getItem('user')) {
-                      localStorage.setItem('bookNow', true);
-                      return props.history.push('/signin');
-                    }
-                    setBookNow(true);
-                    console.log('book now clicked');
-                  }}
-                >
+                <Button variant="contained" className={`${classes.btn1} btn-book-online`} component={RouterLink} to="/book-online">
                   {APP_CONSTANTS.btnBookOnlineText}
                 </Button>
 
@@ -484,7 +453,6 @@ const Header = (props) => {
           </Box>
         </DialogActions>
       </Dialog>
-      <BookNowModal open={bookNow} closeBookNow={closeBookNow} />
     </>
   );
 };
