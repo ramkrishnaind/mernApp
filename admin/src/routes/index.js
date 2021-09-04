@@ -38,6 +38,8 @@ import SliderList from "../pages/homeSliderManagement";
 import AddSlider from "../pages/homeSliderManagement/add";
 import DealingList from "../pages/dealingManagement";
 import AddDealing from "../pages/dealingManagement/add";
+import DealingItemList from "../pages/dealingItemManagement";
+import AddDealingItem from "../pages/dealingItemManagement/add";
 const Routes = (props) => {
   const { isAuth } = props;
   const routes = [
@@ -173,6 +175,14 @@ const Routes = (props) => {
         {
           path: "/dealing",
           element: isAuth ? <DealingList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/dealingItem/add",
+          element: isAuth ? <AddDealingItem /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/dealingItem",
+          element: isAuth ? <DealingItemList /> : <Navigate to="/login" />,
         },
         {
           path: "404",

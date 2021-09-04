@@ -19,6 +19,8 @@ import verification from "./VerificationReducer";
 import Aboutus from "./aboutUsReducer";
 import Slider from "./homeSliderReducer";
 import Dealing from "./dealingReducer";
+import DealingItem from "./dealingItemReducer";
+
 const reducers = {
   Login: LoginReducer,
   Register: RegisterReducer,
@@ -41,6 +43,7 @@ const reducers = {
   aboutus: Aboutus,
   slider: Slider,
   dealing: Dealing,
+  dealingItem: DealingItem,
 };
 
 export default reducers;

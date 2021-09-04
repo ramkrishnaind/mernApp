@@ -7,41 +7,41 @@ const initialState = {
   data: null,
 };
 
-const DealingReducer = (state = initialState, action) => {
+const DealingItemReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case ACTION_KEYS.DEALING_LIST_REQUEST:
+    case ACTION_KEYS.DEALING_ITEM_LIST_REQUEST:
       return {
         ...state,
         isRequesting: true,
       };
-    case ACTION_KEYS.DEALING_LIST_SUCCESS:
+    case ACTION_KEYS.DEALING_ITEM_LIST_SUCCESS:
       return {
         ...state,
         isRequesting: false,
         list: payload.data,
       };
-    case ACTION_KEYS.DEALING_LIST_ERROR:
+    case ACTION_KEYS.DEALING_ITEM_LIST_ERROR:
       return {
         ...state,
         isRequesting: false,
         error: payload.error,
       };
 
-    case ACTION_KEYS.DEALING_DATA_REQUEST:
+    case ACTION_KEYS.DEALING_ITEM_DATA_REQUEST:
       return {
         ...state,
         isRequesting: true,
       };
-    case ACTION_KEYS.DEALING_DATA_SUCCESS:
+    case ACTION_KEYS.DEALING_ITEM_DATA_SUCCESS:
       return {
         ...state,
         isRequesting: false,
         success: true,
-        dealingData: payload.data,
+        dealingItemData: payload.data,
       };
-    case ACTION_KEYS.DEALING_DATA_ERROR:
+    case ACTION_KEYS.DEALING_ITEM_DATA_ERROR:
       return {
         ...state,
         isRequesting: false,
@@ -52,4 +52,4 @@ const DealingReducer = (state = initialState, action) => {
   }
 };
 
-export default DealingReducer;
+export default DealingItemReducer;

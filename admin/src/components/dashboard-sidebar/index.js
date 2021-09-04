@@ -238,6 +238,16 @@ const items = [
         icon: ShoppingBagIcon,
         title: "Dealing List",
       },
+      {
+        href: "/dealingItem/add",
+        icon: ShoppingBagIcon,
+        title: "Add Dealing Item",
+      },
+      {
+        href: "/dealingItem",
+        icon: ShoppingBagIcon,
+        title: "Dealing Item List",
+      },
     ],
   },
 ];

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
-import * as DealingAction from "../../redux/actions/DealingAction";
+import * as DealingItemAction from "../../redux/actions/DealingItemAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -21,7 +21,7 @@ import "react-dropzone-uploader/dist/styles.css";
 const MenuCreateUpdate = (props) => {
   let query = useQuery();
   let id = query.get("id");
-  let dealingData = props?.dealing?.dealingData;
+  let dealingItemData = props?.dealingItem?.dealingItemData;
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
@@ -29,31 +29,34 @@ const MenuCreateUpdate = (props) => {
       _id: id,
     };
     if (id != null) {
-      dispatch(DealingAction.DealingDataRequestAsync(data));
+      dispatch(DealingItemAction.DealingItemDataRequestAsync(data));
     }
   }, [id]);
 
   useEffect(() => {
-    if (props.dealing.success) {
+    if (props.dealingItem.success) {
       setRefresh(true);
       setState(initialState);
     }
-  }, [props.dealing.success]);
+  }, [props.dealingItem.success]);
 
   const dispatch = useDispatch();
 
   const initialState = {
-    title: dealingData?.title,
-    header: dealingData?.header,
-    metaTitle: dealingData?.metaTitle,
-    metaKeywords: dealingData?.metaKeywords,
-    metaDescription: dealingData?.metaDescription,
+    title: dealingItemData?.title,
+    metaTitle: dealingItemData?.metaTitle,
+    metaKeywords: dealingItemData?.metaKeywords,
+    metaDescription: dealingItemData?.metaDescription,
+    shortDescription: dealingItemData?.shortDescription,
+    icon: dealingItemData?.icon,
+    banner: dealingItemData?.banner,
+    video: dealingItemData?.video,
     image: [],
     id: id,
   };
 
   const [state, setState] = useState(initialState);
-  const [description, setDescription] = useState(dealingData?.description);
+  const [description, setDescription] = useState(dealingItemData?.description);
   const inputChange = (e) => {
     let { name, value } = e.target;
 
@@ -63,38 +66,47 @@ const MenuCreateUpdate = (props) => {
   const handleSubmit = (e) => {
     const {
       title,
-      header,
       id,
       metaTitle,
       metaKeywords,
       metaDescription,
+      shortDescription,
+      icon,
+      banner,
+      video,
     } = state;
+
     if (id == null) {
       var data = new FormData();
       state?.image.map((item, index) => {
-        data.append("media", item);
+        data.append("image", item);
       });
       data.append("title", title);
-      data.append("header", header);
       data.append("description", description);
       data.append("metaTitle", metaTitle);
       data.append("metaKeywords", metaKeywords);
       data.append("metaDescription", metaDescription);
-
-      dispatch(DealingAction.DealingAddRequestAsync(data));
+      data.append("shortDescription", shortDescription);
+      data.append("icon", icon);
+      data.append("banner", banner);
+      data.append("video", video);
+      dispatch(DealingItemAction.DealingItemAddRequestAsync(data));
     } else {
       var data = new FormData();
       state?.image.map((item, index) => {
-        data.append("media", item);
+        data.append("image", item);
       });
       data.append("title", title);
-      data.append("header", header);
       data.append("description", description);
       data.append("metaTitle", metaTitle);
       data.append("metaKeywords", metaKeywords);
       data.append("metaDescription", metaDescription);
+      data.append("shortDescription", shortDescription);
+      data.append("icon", icon);
+      data.append("banner", banner);
+      data.append("video", video);
       data.append("_id", id);
-      dispatch(DealingAction.DealingUpdateRequestAsync(data));
+      dispatch(DealingItemAction.DealingItemUpdateRequestAsync(data));
     }
   };
 
@@ -119,34 +131,49 @@ const MenuCreateUpdate = (props) => {
       setState({ ...state, ["image"]: data });
     }
   };
+
+  const handleVideouplaod = (file, status) => {
+    let list = state;
+    if (status == "done") {
+      setState({ ...state, ["video"]: file.file });
+    }
+  };
+
+  const handleBannerUpload = (file, status) => {
+    let list = state;
+    if (status == "done") {
+      setState({ ...state, ["banner"]: file.file });
+    }
+  };
+
   return (
     <Box className="MenuManagement_Data">
       <FormHeader
-        heading1={"Dealing Module Management"}
-        heading2={"Create and Update Dealing Here"}
+        heading1={"Dealing Item Module Management"}
+        heading2={"Create and Update Dealing Item Here"}
       />
       {state.id ? (
         <>
           <BreadCrumbs
-            heading1={"DealingManagement"}
-            heading2={"Edit Dealing Module"}
+            heading1={"DealingItemManagement"}
+            heading2={"Edit Dealing Item Module"}
           />
-          <SubHeading heading={"Edit Dealing Module"} />
+          <SubHeading heading={"Edit Dealing Item Module"} />
         </>
       ) : (
         <>
           <BreadCrumbs
-            heading1={"DealingManagement"}
-            heading2={"Add Dealing Module"}
+            heading1={"DealingItemManagement"}
+            heading2={"Add Dealing Item Module"}
           />
-          <SubHeading heading={"Add Dealing Module"} />
+          <SubHeading heading={"Add Dealing Item Module"} />
         </>
       )}
       <Grid item xs={12} className="m-5 addUserFormanage">
         <div className="card w-100">
           <div className="card-header d-flex justify-content-between align-items-center">
             <Typography component="h3" variant="h3">
-              {state.id ? "Edit" : "Add"} Dealing
+              {state.id ? "Edit" : "Add"} Dealing Item
             </Typography>
           </div>
           <div class="card-body">
@@ -156,14 +183,32 @@ const MenuCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="Header*"
+                    label="Title*"
                     fullWidth
-                    value={state.header ? state.header : dealingData?.header}
+                    value={state.title ? state.title : dealingItemData?.title}
                     onChange={inputChange}
-                    name="header"
-                    id="header"
+                    name="title"
+                    id="title"
                     validators={["required"]}
-                    errorMessages={["header field is required"]}
+                    errorMessages={["title field is required"]}
+                  />
+                </Grid>
+                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                  <TextValidator
+                    className="form-control-item"
+                    variant="outlined"
+                    label="Short Description*"
+                    fullWidth
+                    value={
+                      state.shortDescription
+                        ? state.shortDescription
+                        : dealingItemData?.shortDescription
+                    }
+                    onChange={inputChange}
+                    name="shortDescription"
+                    id="shortDescription"
+                    validators={["required"]}
+                    errorMessages={["shortDescription field is required"]}
                   />
                 </Grid>
 
@@ -171,14 +216,12 @@ const MenuCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="Title*"
+                    label="icon*"
                     fullWidth
-                    value={state.title ? state.title : dealingData?.title}
+                    value={state.icon ? state.icon : dealingItemData?.icon}
                     onChange={inputChange}
-                    name="title"
-                    id="title"
-                    validators={["required"]}
-                    errorMessages={["title field is required"]}
+                    name="icon"
+                    id="icon"
                   />
                 </Grid>
 
@@ -189,7 +232,9 @@ const MenuCreateUpdate = (props) => {
                     label="Meta Title *"
                     fullWidth
                     value={
-                      state.metaTitle ? state.metaTitle : dealingData?.metaTitle
+                      state.metaTitle
+                        ? state.metaTitle
+                        : dealingItemData?.metaTitle
                     }
                     onChange={inputChange}
                     name="metaTitle"
@@ -206,7 +251,7 @@ const MenuCreateUpdate = (props) => {
                     value={
                       state.metaKeywords
                         ? state.metaKeywords
-                        : dealingData?.metaKeywords
+                        : dealingItemData?.metaKeywords
                     }
                     onChange={inputChange}
                     name="metaKeywords"
@@ -223,7 +268,7 @@ const MenuCreateUpdate = (props) => {
                     value={
                       state.metaDescription
                         ? state.metaDescription
-                        : dealingData?.metaDescription
+                        : dealingItemData?.metaDescription
                     }
                     onChange={inputChange}
                     name="metaDescription"
@@ -232,12 +277,14 @@ const MenuCreateUpdate = (props) => {
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-                  {dealingData?.description != null ? (
+                  {dealingItemData?.description != null ? (
                     <>
                       <ReactQuill
                         onChange={handleChangeTextEditor}
                         value={
-                          description ? description : dealingData?.description
+                          description
+                            ? description
+                            : dealingItemData?.description
                         }
                         placeholder="Enter description"
                         theme="snow"
@@ -259,9 +306,28 @@ const MenuCreateUpdate = (props) => {
               <br />
               <Grid container spacing={3} className="FormFildes">
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
+                  <Typography>Image </Typography>
                   <Dropzone
                     onChangeStatus={handleImageExteriorView}
                     accept="image/*,audio/*,video/*"
+                  />
+                </Grid>
+
+                <Grid className="form-group-item" item xs={12} sm={6} md={3}>
+                  <Typography>Banner </Typography>
+                  <Dropzone
+                    maxFiles="1"
+                    onChangeStatus={handleBannerUpload}
+                    accept="image/*"
+                  />
+                </Grid>
+
+                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                  <Typography>Video </Typography>
+                  <Dropzone
+                    maxFiles="1"
+                    onChangeStatus={handleVideouplaod}
+                    accept="video/*"
                   />
                 </Grid>
               </Grid>
@@ -277,7 +343,7 @@ const MenuCreateUpdate = (props) => {
                   Save
                 </Button>
 
-                <Link component={RouterLink} to="/dealing">
+                <Link component={RouterLink} to="/dealingItem">
                   <Button
                     variant="contained"
                     color="primary"
@@ -297,9 +363,9 @@ const MenuCreateUpdate = (props) => {
 };
 
 function mapStateToProps(state) {
-  const { dealing } = state;
+  const { dealingItem } = state;
   return {
-    dealing,
+    dealingItem,
   };
 }
 export default connect(mapStateToProps)(MenuCreateUpdate);
