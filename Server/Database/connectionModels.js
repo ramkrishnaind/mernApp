@@ -14,7 +14,6 @@ module.exports = function (mongoose) {
     mongoose.model('cms', require('./schema/cms'));
     mongoose.model('slider', require('./schema/slider'));
     mongoose.model('buildingMaterials', require('./schema/buildingMaterials'));
-    mongoose.model('services', require('./schema/services'));
     mongoose.model('contactus', require('./schema/contactus'));
     mongoose.model('feedback', require('./schema/feedback'));
     mongoose.model('siteVisit', require('./schema/siteVisit'));
@@ -22,4 +21,8 @@ module.exports = function (mongoose) {
     mongoose.model('blog', require('./schema/blog'));
     mongoose.model('homeAbout', require('./schema/homeAbout'));
     mongoose.model('homeMovingBanner', require('./schema/homeMovingBanner'));
+    mongoose.model('dealingInItem', require('./schema/dealingInItem'));
+    mongoose.model('dealingIn', require('./schema/dealingIn'));
+    mongoose.model('service', require('./schema/service'));
+    mongoose.model('serviceItem', require('./schema/serviceItem'));
 }

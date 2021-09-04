@@ -90,19 +90,23 @@ const FactAndFeature = (props) => {
   const { icon, title, value } = props;
 
   return (
-    <Grid container style={{marginTop: 20, marginBottom: 20}}>
+    <Grid container style={{ marginTop: 20, marginBottom: 20 }}>
       <Grid item xs={12} md={12} className={classes.style2}>
-        <Paper style={{marginRight: 10, padding: 5}}>
+        <Paper style={{ marginRight: 10, padding: 5 }}>
           <img src={icon} style={{ width: 30, height: 30 }} />
         </Paper>
         <Grid container>
           <Grid item xs={8} md={8} className={classes.style1}>
+
             <Typography className={classes.text1}>{title}</Typography>
             <Typography className={classes.text2}>{value}</Typography>
           </Grid>
         </Grid>
+
       </Grid>
+
     </Grid>
+
   );
 };
 

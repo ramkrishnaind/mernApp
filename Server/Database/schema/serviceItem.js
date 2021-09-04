@@ -2,16 +2,28 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 let schema = new Schema({
-    name: {
+    title: {
+        type: String,
+        default: ""
+    },
+    shortDescription: {
+        type: String,
+        default: ""
+    },
+    description: {
+        type: String,
+        default: ""
+    },
+    metaTitle: {
         type: String
     },
-    shortDesc: {
+    metaKeywords: {
         type: String
     },
-    desc: {
+    metaDescription: {
         type: String
     },
-    image: {
+    media: {
         type: Array
     },
     isDisable: {
@@ -33,7 +45,7 @@ let schema = new Schema({
         virtuals: true
     }
 }, {
-    collection: 'services'
+    collection: 'serviceItem'
 });
 
 module.exports = schema;

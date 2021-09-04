@@ -194,75 +194,71 @@ function propertyDetail(Models) {
             //     }
             // ]);
             let findData = await Models.PropertyDB.findOne({ _id }).lean();
-            let propertyFeatures = await Models.PFeaturesDB.findOne({ propertyId: findData._id }).lean();
-            //let propertyAmenities = await Models.PFeaturesDB.findOne({ propertyId: findData._id }).lean();
-            console.log('propertyFeatures is', propertyFeatures)
-            result._id = findData._id;
-            result.iAm = findData.iAm;
-            result.userName = '';
-            result.for = findData.for;
-            result.pType = findData.pType;
-            result.pCity = findData.pCity;
-            result.nameOfProject = findData.nameOfProject;
-            result.projectDescription = '';
-            result.postingAs = findData.postingAs;
-            result.created = findData.created;
-            result.bedrooms = propertyFeatures.bedrooms;
-            result.bathrooms = propertyFeatures.bathrooms;
-            result.gaurdRoom = true;
-            result.floorNo = propertyFeatures.floorNo;
-            result.totalFloors = propertyFeatures.totalFloors;
-            result.furnishedStatus = propertyFeatures.furnishedStatus;
-            result.superArea = propertyFeatures.superArea;
-            result.builtUpArea = propertyFeatures.builtUpArea;
-            result.carpetArea = propertyFeatures.carpetArea;
-            result.transactionType = propertyFeatures.transactionType;
-            result.possessionStatus = propertyFeatures.possessionStatus;
-            result.availableFromMonth = propertyFeatures.availableFromMonth;
-            result.availableFromYear = propertyFeatures.availableFromYear;
-            result.ageOfConstruction = propertyFeatures.ageOfConstruction;
-            result.amenities = {
-                basketballcourt: true,
-                airConditioned: true,
-                swimmingPool: true,
-                noSmokingZone: true,
-                gym: true,
-                petFriendly: true,
-                freeParkingOnPremises: true,
-                wheelchairFriendly: true,
-                homeTheater: true,
+            if (findData) {
+                let propertyFeatures = await Models.PFeaturesDB.findOne({ propertyId: findData._id }).lean();
+                //let propertyAmenities = await Models.PFeaturesDB.findOne({ propertyId: findData._id }).lean();
+
+                result._id = findData._id;
+                result.iAm = findData.iAm;
+                result.userName = '';
+                result.for = findData.for;
+                result.pType = findData.pType;
+                result.pCity = findData.pCity;
+                result.nameOfProject = findData.nameOfProject;
+                result.projectDescription = '';
+                result.postingAs = findData.postingAs;
+                result.created = findData.created;
+                result.bedrooms = propertyFeatures.bedrooms;
+                result.bathrooms = propertyFeatures.bathrooms;
+                result.gaurdRoom = true;
+                result.floorNo = propertyFeatures.floorNo;
+                result.totalFloors = propertyFeatures.totalFloors;
+                result.furnishedStatus = propertyFeatures.furnishedStatus;
+                result.superArea = propertyFeatures.superArea;
+                result.builtUpArea = propertyFeatures.builtUpArea;
+                result.carpetArea = propertyFeatures.carpetArea;
+                result.transactionType = propertyFeatures.transactionType;
+                result.possessionStatus = propertyFeatures.possessionStatus;
+                result.availableFromMonth = propertyFeatures.availableFromMonth;
+                result.availableFromYear = propertyFeatures.availableFromYear;
+                result.ageOfConstruction = propertyFeatures.ageOfConstruction;
+                result.amenities = {
+                    basketballcourt: true,
+                    airConditioned: true,
+                    swimmingPool: true,
+                    noSmokingZone: true,
+                    gym: true,
+                    petFriendly: true,
+                    freeParkingOnPremises: true,
+                    wheelchairFriendly: true,
+                    homeTheater: true,
+                }
+                result.images = {
+                    main: {},
+                    bedroom: [],
+                }
+                result.rating = 4.5;
+                result.review = [];
+                result.address = {
+                    latitude: '',
+                    longitude: '',
+                    address: '',
+                    city: '',
+                    State: '',
+                    pinCode: '',
+                }
+                result.price = {
+                    priceFor: 'Sell',
+                    price: 3000000,
+                    bookingAmount: '',
+                    maintenanceCharge: '',
+                    brokerageCharge: '',
+                    maintenanceFor: '',
+                }
+                res.send({ status: true, message: "Property Details", data: result });
             }
-            result.images = {
-                main: {},
-                bedroom: [],
-            }
-            result.rating = 4.5;
-            result.review = [];
-            result.address = {
-                latitude: '',
-                longitude: '',
-                address: '',
-                city: '',
-                State: '',
-                pinCode: '',
-            }
-            result.price = {
-                priceFor: 'Sell',
-                price: 3000000,
-                bookingAmount: '',
-                maintenanceCharge: '',
-                brokerageCharge: '',
-                maintenanceFor: '',
-            }
+            res.send({ status: true, message: "Property Note available.", data: result });
 
-
-            console.log('_id is', _id);
-            console.log('findData is', result);
-            console.log('propertyFeatures is', propertyFeatures);
-
-
-
-            res.send({ status: true, message: "Property Details", data: result });
         }
         catch (e) {
             console.log('Getting Property Details err', e);

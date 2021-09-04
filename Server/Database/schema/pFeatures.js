@@ -10,6 +10,9 @@ const schema = new Schema({
         ref: 'property',
         default: null
     },
+    tag: {
+        type: String
+    },
     bedrooms: {
         type: Number
     },

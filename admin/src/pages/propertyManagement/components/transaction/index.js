@@ -95,8 +95,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Transaction = (props) => {
-  const { onOptionSelectListener, title, options, keyIndex } = props;
-  const [value, setValue] = React.useState("female");
+  const { onOptionSelectListener, title, options, values, keyIndex } = props;
+  const [value, setValue] = React.useState(values);
 
   const handleChange = (event) => {
     event.preventDefault();

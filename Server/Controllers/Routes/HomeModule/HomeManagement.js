@@ -24,7 +24,34 @@ const createHomeMovingBannerSchema = Joi.object({
     clients: Joi.number().required(),
     shortDescription: Joi.string()
 });
-
+const createDealingInSchema = Joi.object({
+    header: Joi.string().required(),
+    title: Joi.string().required(),
+    description: Joi.string().required(),
+    metaTitle: Joi.string(),
+    metaKeywords: Joi.string(),
+    metaDescription: Joi.string()
+});
+const createDealingInItemSchema = Joi.object({
+    title: Joi.string().required(),
+    icon: Joi.string().required(),
+    shortDescription: Joi.string().required(),
+    description: Joi.string().required(),
+    metaTitle: Joi.string(),
+    metaKeywords: Joi.string(),
+    metaDescription: Joi.string()
+});
+const getDealingInItemSchema = Joi.object({
+    _id: Joi.string().trim().required()
+});
+const createServiceItemSchema = Joi.object({
+    title: Joi.string().required(),
+    shortDescription: Joi.string().required(),
+    description: Joi.string().required(),
+    metaTitle: Joi.string(),
+    metaKeywords: Joi.string(),
+    metaDescription: Joi.string()
+});
 /////////// Update Schema ////////////////
 
 const updateHomeAboutSchema = Joi.object({
@@ -287,6 +314,250 @@ function deleteHomeHelper(Models) {
     return deleteHome;
 }
 
+/********************************************/
+//// Dealing In Section Functions Starts /////
+/********************************************/
+
+function createDealingIn(Models) {
+    async function create(req, res) {
+        try {
+
+            let validateData = createDealingInSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+            // pick data from req.body
+            let DealingInFormData = _.pick(req.body, ['header', 'title', 'description', 'metaTitle', 'metaKeywords', 'metaDescription']);
+            console.log('DealingInFormData is', DealingInFormData);
+            if (req.files.length > 0)
+                DealingInFormData.media = req.files;
+            let isDealingInExist = await Models.DealingInDB.find();
+            if (isDealingInExist.length) {
+                res.send({ status: false, message: CONSTANTSMESSAGE.ALREADY_EXIST_MESSAGE });
+            } else {
+                let saveDealingIn = await new Models.DealingInDB(DealingInFormData).save();
+                console.log('saveDealingIn is ', saveDealingIn)
+
+                res.send({ status: true, message: "New DealingIn created successfully" });
+            }
+        }
+        catch (e) {
+            console.log('Home Management Function createDealingIn err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Creating DealingIn" });
+        }
+    }
+    return create;
+}
+/***************************************************/
+//// DealingInItem In Section Functions Starts /////
+/**************************************************/
+
+function createDealingInItem(Models) {
+    async function create(req, res) {
+        try {
+
+            let validateData = createDealingInItemSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+            // pick data from req.body
+            let DealingInItemFormData = _.pick(req.body, ['title', 'shortDescription', 'description', 'icon', 'metaTitle', 'metaKeywords', 'metaDescription']);
+            console.log('DealingInItemFormData is', DealingInItemFormData);
+            console.log('req.files is', req.files);
+            DealingInItemFormData.media = req.files;
+            let isDealingInItemExist = await Models.DealingInItemDB.find({ title: DealingInItemFormData.title });
+            if (isDealingInItemExist.length) {
+                res.send({ status: false, message: CONSTANTSMESSAGE.ALREADY_EXIST_MESSAGE });
+            } else {
+                let saveDealingInItem = await new Models.DealingInItemDB(DealingInItemFormData).save();
+                console.log('saveDealingInItem is ', saveDealingInItem)
+
+                res.send({ status: true, message: "New DealingInItem created successfully" });
+            }
+        }
+        catch (e) {
+            console.log('Home Management Function createDealingInItem err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Creating DealingInItem" });
+        }
+    }
+    return create;
+}
+
+
+function getDealingInForHome(Models) {
+    async function DealingIn(req, res) {
+        try {
+            // Getting Home from Database
+            let findData = await Models.DealingInDB.findOne({ isDisable: false }).lean();
+            console.log('findData is', findData)
+            let itemsFindData = await Models.DealingInItemDB.find({ isDisable: false }).lean();
+            console.log('itemsFindData is', itemsFindData)
+            if (findData && itemsFindData) {
+                // if data found check verified or not
+                findData.items = itemsFindData;
+                res.send({ status: true, message: "Home DealingIn Data", data: findData });
+            } else {
+                res.send({ status: true, message: "Home DealingIn Data not found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('getDealingIn err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in getDealingIn" });
+        }
+    }
+    return DealingIn;
+}
+function getDealingInItemDetails(Models) {
+    async function DealingInItem(req, res) {
+        try {
+            let validateData = getDealingInItemSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+            // pick data from req.body
+            let _id = _.pick(req.body, ['_id']);
+
+            // Getting Home from Database
+            let itemFindData = await Models.DealingInItemDB.findOne({ _id }).lean();
+            console.log('itemFindData is', itemFindData)
+            if (itemFindData) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Home DealingIn Item Details", data: itemFindData });
+            } else {
+                res.send({ status: true, message: "Home DealingIn Item Data not found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('getDealingIn Item err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in getDealingIn Item" });
+        }
+    }
+    return DealingInItem;
+}
+/***************************************************/
+//// Services In Section Functions Starts /////
+/**************************************************/
+function createService(Models) {
+    async function create(req, res) {
+        try {
+            console.log('req.body is', req.body)
+            let validateData = createDealingInSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+            // pick data from req.body
+            let createServiceFormData = _.pick(req.body, ['header', 'title', 'description', 'metaTitle', 'metaKeywords', 'metaDescription']);
+            console.log('createServiceFormData is', createServiceFormData);
+            let isServiceExist = await Models.ServiceDB.find({ title: createServiceFormData.title });
+            console.log('isServiceExist is', isServiceExist);
+            if (isServiceExist.length) {
+                res.send({ status: false, message: CONSTANTSMESSAGE.ALREADY_EXIST_MESSAGE });
+            } else {
+                let saveService = await new Models.ServiceDB(createServiceFormData).save();
+                console.log('saveService is ', saveService)
+
+                res.send({ status: true, message: "New Service created successfully" });
+            }
+        }
+        catch (e) {
+            console.log('Home Management Function createcreateService err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Creating createService" });
+        }
+    }
+    return create;
+}
+function createServiceItem(Models) {
+    async function create(req, res) {
+        try {
+
+            let validateData = createServiceItemSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+            // pick data from req.body
+            let createServiceFormData = _.pick(req.body, ['title', 'shortDescription', 'description', 'metaTitle', 'metaKeywords', 'metaDescription']);
+            createServiceFormData.media = req.files;
+            let isServiceExist = await Models.ServiceItemDB.find({ title: createServiceFormData.title });
+            if (isServiceExist.length) {
+                res.send({ status: false, message: CONSTANTSMESSAGE.ALREADY_EXIST_MESSAGE });
+            } else {
+                let saveService = await new Models.ServiceItemDB(createServiceFormData).save();
+                console.log('saveService is ', saveService)
+
+                res.send({ status: true, message: "New Service Item created successfully" });
+            }
+        }
+        catch (e) {
+            console.log('Home Management Function createcreateService err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Creating createService" });
+        }
+    }
+    return create;
+}
+function getServiceForHome(Models) {
+    async function DealingIn(req, res) {
+        try {
+            // Getting Home from Database
+            let findData = await Models.ServiceDB.findOne({ isDisable: false }).lean();
+            console.log('findData is', findData)
+            let itemsFindData = await Models.ServiceItemDB.find({ isDisable: false }).lean();
+            console.log('itemsFindData is', itemsFindData)
+            if (findData && itemsFindData) {
+                // if data found check verified or not
+                findData.items = itemsFindData;
+                res.send({ status: true, message: "Service Data", data: findData });
+            } else {
+                res.send({ status: false, message: "Service Data not found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('Service err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Service" });
+        }
+    }
+    return DealingIn;
+}
+function getServiceItemDetails(Models) {
+    async function DealingInItem(req, res) {
+        try {
+            let validateData = getDealingInItemSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+            // pick data from req.body
+            let _id = _.pick(req.body, ['_id']);
+
+            // Getting Home from Database
+            let itemFindData = await Models.ServiceItemDB.findOne({ _id }).lean();
+            console.log('itemFindData is', itemFindData)
+            if (itemFindData) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Home Service Item Details", data: itemFindData });
+            } else {
+                res.send({ status: true, message: "Home Service Item Data not found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('getDealingIn Item err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in getDealingIn Item" });
+        }
+    }
+    return DealingInItem;
+}
 module.exports = {
     createAboutSection,
     updateAboutSection,
@@ -296,5 +567,13 @@ module.exports = {
     deleteHomeFunc: deleteHomeHelper,
     //getHomeDetailFunc: getHomeHelper,
     createMovingBanner,
-    updateMovingBanner
+    updateMovingBanner,
+    createDealingIn,
+    createDealingInItem,
+    getDealingInForHome,
+    getDealingInItemDetails,
+    createService,
+    createServiceItem,
+    getServiceForHome,
+    getServiceItemDetails
 };

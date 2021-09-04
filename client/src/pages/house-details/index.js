@@ -14,11 +14,13 @@ import {
   Button,
 } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
+import {useParams} from 'react-router';
 import './property-detail.css';
 import PageBanner from '../../components/page-banner';
 import bannerImage from '../../images/property_header_2.jpeg';
 import InfoCard from './components/info-card';
 import FactAndFeature from './components/fact-and-feature';
+import CarouselSlider from './components/property-carousel-slider';
 import familyIcon from '../../images/icon-family.svg';
 import yearIcon from '../../images/icon-year.svg';
 import Aminities from './components/amenities';
@@ -252,6 +254,7 @@ const HouseDetailPage = (props) => {
               md={8}
               style={{display: 'flex', flexDirection: 'column', marginBottom: 20}}
             >
+              <CarouselSlider />
               <InfoCard item={{title: 'Facts and Features'}}>
                 <Grid container>
                   <Grid item xs={12} md={3}>
@@ -359,6 +362,7 @@ const HouseDetailPage = (props) => {
                   </Grid>
                 </Grid>
               </InfoCard>
+
               <InfoCard item={{title: 'Amenities'}}>
                 <Grid container>
                   {PropertyDetail?.amenities?.basketballcourt ? (
@@ -422,7 +426,15 @@ const HouseDetailPage = (props) => {
               >
                 Reviews
               </InfoCard>
+
+
+
+
+
+
             </Grid>
+
+
             <Grid item xs={12} md={4}>
               <Grid container>
                 <Grid item item xs={12} md={12} style={{marginTop: 20}}>
