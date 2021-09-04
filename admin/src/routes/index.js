@@ -36,6 +36,12 @@ import AboutUsList from "../pages/aboutUsManagement";
 import AddAboutUs from "../pages/aboutUsManagement/add";
 import SliderList from "../pages/homeSliderManagement";
 import AddSlider from "../pages/homeSliderManagement/add";
+import DealingList from "../pages/dealingManagement";
+import AddDealing from "../pages/dealingManagement/add";
+import DealingItemList from "../pages/dealingItemManagement";
+import AddDealingItem from "../pages/dealingItemManagement/add";
+import Myacc from "../pages/MyAccountManagement";
+
 const Routes = (props) => {
   const { isAuth } = props;
   const routes = [
@@ -163,6 +169,26 @@ const Routes = (props) => {
         {
           path: "/slider",
           element: isAuth ? <SliderList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/dealing/add",
+          element: isAuth ? <AddDealing /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/dealing",
+          element: isAuth ? <DealingList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/dealingItem/add",
+          element: isAuth ? <AddDealingItem /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/dealingItem",
+          element: isAuth ? <DealingItemList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/myaccount",
+          element: isAuth ? <Myacc /> : <Navigate to="/login" />,
         },
         {
           path: "404",

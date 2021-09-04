@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import * as PropertyAction from "../../redux/actions/PropertyAction";
+import * as DealingItemAction from "../../redux/actions/DealingItemAction";
 import { useDispatch } from "react-redux";
 
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -14,10 +14,10 @@ import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
+import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-import history from "../../components/history";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -29,12 +29,12 @@ const styles = (theme) => ({
   },
 });
 
-const PropertyList = (props) => {
+const DealingItemList = (props) => {
   const dispatch = useDispatch();
-  let { classes, property } = props;
+  let { classes, dealingItem } = props;
 
   useEffect(() => {
-    dispatch(PropertyAction.PropertyListRequestAsync());
+    dispatch(DealingItemAction.DealingItemListRequestAsync());
   }, []);
 
   let options = {
@@ -45,10 +45,10 @@ const PropertyList = (props) => {
 
   function onDisable(data, status) {
     let tempdata = {
-      id: data,
-      status: status,
+      _id: data,
+      active: status,
     };
-    dispatch(PropertyAction.PropertyStatusUpdateRequestAsync(tempdata));
+    dispatch(DealingItemAction.DealingItemStatusUpdateRequestAsync(tempdata));
 
     if (status === "enable") {
       // toast.error("Disable")
@@ -61,7 +61,6 @@ const PropertyList = (props) => {
     let tempdata = {
       _id: data,
     };
-
     confirmAlert({
       title: "Confirm to submit",
       message: "Are you sure to do this.",
@@ -69,7 +68,7 @@ const PropertyList = (props) => {
         {
           label: "Yes",
           onClick: () =>
-            dispatch(PropertyAction.PropertyDeleteRequestAsync(tempdata)),
+            dispatch(DealingItemAction.DealingItemDeleteRequestAsync(tempdata)),
         },
         {
           label: "No",
@@ -79,45 +78,39 @@ const PropertyList = (props) => {
   }
 
   function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/property/edit?id="+data;
-    history.push("/property/add?id=" + data);
+    // window.location.href = "/dealingItem/edit?id="+data;
+    history.push("/dealingItem/add?id=" + data);
     window.location.reload();
   }
 
   return (
     <>
       <FormHeader
-        heading1={"Property Module Management"}
-        heading2={"List and Manage Property Here"}
+        heading1={"Dealing Item Module Management"}
+        heading2={"List and Manage Dealing Item Here"}
       />
       <BreadCrumbs
-        heading1={"PropertyManagement"}
-        heading2={"Property Module List"}
+        heading1={"DealingItemManagement"}
+        heading2={"Dealing Item Module List"}
       />
-      {property.list?.list && property.list?.list?.length > 0 ? (
+      {dealingItem.list && dealingItem.list.length > 0 ? (
         <>
           <MUIDataTable
             className="table-header"
-            title="Property List"
-            data={property?.list?.list?.map((item, index) => {
+            title="Dealing Item List"
+            data={dealingItem.list.map((item, index) => {
               return [
                 index + 1,
-                item.nameOfProject,
-                item.pType,
-                item.features[0]?.address?.city,
-                item.for,
-                item.postingAs,
+                item.title,
+                item.description,
                 item.status,
                 item._id,
               ];
             })}
             columns={[
               "SR No.",
-              "Name",
-              "Property Type",
-              "City",
-              "For",
-              "PostingAs",
+              "Title",
+              "Description",
               {
                 name: "Status",
                 options: {
@@ -136,7 +129,7 @@ const PropertyList = (props) => {
                         <EditIcon
                           style={{ color: "#0069d9", cursor: "pointer" }}
                           onClick={() =>
-                            updatehandleOpenCreateModal(tableMeta.rowData[7])
+                            updatehandleOpenCreateModal(tableMeta.rowData[4])
                           }
                         />
 
@@ -144,7 +137,7 @@ const PropertyList = (props) => {
                           <Tooltip title="Active">
                             <Done
                               onClick={() =>
-                                onDisable(tableMeta.rowData[7], false)
+                                onDisable(tableMeta.rowData[4], false)
                               }
                               style={{ color: "#1e7e34", cursor: "pointer" }}
                             />
@@ -153,7 +146,7 @@ const PropertyList = (props) => {
                           <Tooltip title="Inactive">
                             <ClearIcon
                               onClick={() =>
-                                onDisable(tableMeta.rowData[7], true)
+                                onDisable(tableMeta.rowData[4], true)
                               }
                               style={{ color: "#bd2130", cursor: "pointer" }}
                             />
@@ -162,7 +155,7 @@ const PropertyList = (props) => {
 
                         <DeleteIcon
                           style={{ color: "#bd2130", cursor: "pointer" }}
-                          onClick={() => onDeleteClick(tableMeta.rowData[7])}
+                          onClick={() => onDeleteClick(tableMeta.rowData[4])}
                         />
                       </>
                     );
@@ -181,10 +174,10 @@ const PropertyList = (props) => {
 };
 
 function mapStateToProps(state) {
-  const { property } = state;
-
+  const { dealingItem } = state;
+  console.log("dealingItem", dealingItem);
   return {
-    property,
+    dealingItem,
   };
 }
-export default connect(mapStateToProps)(withStyles(styles)(PropertyList));
+export default connect(mapStateToProps)(withStyles(styles)(DealingItemList));

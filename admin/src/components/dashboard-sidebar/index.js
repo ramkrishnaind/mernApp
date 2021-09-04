@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import NavItem2 from '../nav-item2';
+import { useEffect } from "react";
+import { Link as RouterLink, useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
+import NavItem2 from "../nav-item2";
 
 import {
   Avatar,
@@ -10,34 +10,34 @@ import {
   Drawer,
   Hidden,
   List,
-  Typography
-} from '@material-ui/core';
+  Typography,
+} from "@material-ui/core";
 import {
   BarChart as BarChartIcon,
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
-  Users as UsersIcon
-} from 'react-feather';
-import { useSelector } from 'react-redux';
-import Logger from '../../utils/Logger';
+  Users as UsersIcon,
+} from "react-feather";
+import { useSelector } from "react-redux";
+import Logger from "../../utils/Logger";
 
 const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Vishal Properties',
-  name: 'Admin'
+  avatar: "/static/images/avatars/avatar_6.png",
+  jobTitle: "Vishal Properties",
+  name: "Admin",
 };
 
 const items = [
   {
-    href: '/home',
+    href: "/home",
     icon: BarChartIcon,
-    title: 'Dashboard'
+    title: "Dashboard",
   },
 
   {
-    href: '/menu',
+    href: "/menu",
     icon: UsersIcon,
-    title: 'Menu Management',
+    title: "Menu Management",
     items: [
       {
         href: "/menu/add",
@@ -48,8 +48,8 @@ const items = [
         href: "/menu",
         icon: ShoppingBagIcon,
         title: "Menu List",
-      }
-    ]
+      },
+    ],
   },
 
   // {
@@ -75,9 +75,9 @@ const items = [
   //   title: 'User Management'
   // },
   {
-    href: '/role',
+    href: "/role",
     icon: UsersIcon,
-    title: 'User Role',
+    title: "User Role",
     items: [
       {
         href: "/role/add",
@@ -88,13 +88,13 @@ const items = [
         href: "/role",
         icon: ShoppingBagIcon,
         title: "Role List",
-      }
-    ]
+      },
+    ],
   },
   {
-    href: '/user',
+    href: "/user",
     icon: UsersIcon,
-    title: 'User',
+    title: "User",
     items: [
       {
         href: "/user/add",
@@ -105,13 +105,13 @@ const items = [
         href: "/user",
         icon: ShoppingBagIcon,
         title: "User List",
-      }
-    ]
+      },
+    ],
   },
   {
-    href: '/career',
+    href: "/career",
     icon: UsersIcon,
-    title: 'Career',
+    title: "Career",
     items: [
       {
         href: "/career/add",
@@ -122,13 +122,13 @@ const items = [
         href: "/career",
         icon: ShoppingBagIcon,
         title: "Career List",
-      }
-    ]
+      },
+    ],
   },
   {
-    href: '/blog',
+    href: "/blog",
     icon: UsersIcon,
-    title: 'Blog',
+    title: "Blog",
     items: [
       {
         href: "/blog/add",
@@ -139,13 +139,13 @@ const items = [
         href: "/blog",
         icon: ShoppingBagIcon,
         title: "Blog List",
-      }
-    ]
+      },
+    ],
   },
   {
-    href: '/slider',
+    href: "/slider",
     icon: UsersIcon,
-    title: 'Slider',
+    title: "Slider",
     items: [
       {
         href: "/slider/add",
@@ -156,48 +156,48 @@ const items = [
         href: "/slider",
         icon: ShoppingBagIcon,
         title: "Slider List",
-      }
-    ]
+      },
+    ],
   },
   {
-    href: '/contactus',
+    href: "/contactus",
     icon: UserIcon,
-    title: 'Contact Us'
+    title: "Contact Us",
   },
   {
-    href: '/site-visit',
+    href: "/site-visit",
     icon: UserIcon,
-    title: 'Site Visit'
+    title: "Site Visit",
   },
   {
-    href: '/enquiry',
+    href: "/enquiry",
     icon: UserIcon,
-    title: 'Enquirys'
+    title: "Enquirys",
   },
   {
-    href: '/callback',
+    href: "/callback",
     icon: UserIcon,
-    title: 'Callback'
+    title: "Callback",
   },
   {
-    href: '/review',
+    href: "/review",
     icon: UserIcon,
-    title: 'Review'
+    title: "Review",
   },
   {
-    href: '/booking',
+    href: "/booking",
     icon: UserIcon,
-    title: 'Bookings'
+    title: "Bookings",
   },
   {
-    href: '/account',
+    href: "/myaccount",
     icon: UserIcon,
-    title: 'Account'
+    title: "Account",
   },
   {
-    href: '/property',
+    href: "/property",
     icon: UsersIcon,
-    title: 'Property Management',
+    title: "Property Management",
     items: [
       {
         href: "/property/add",
@@ -208,46 +208,56 @@ const items = [
         href: "/property",
         icon: ShoppingBagIcon,
         title: "Property List",
-      }
-    ]
+      },
+    ],
   },
   {
-    href: '/aboutus',
+    href: "/aboutus",
     icon: UsersIcon,
-    title: 'About Us Management',
+    title: "About Us Management",
     items: [
       {
         href: "/aboutus",
         icon: ShoppingBagIcon,
         title: "About Us List",
-      }
-    ]
+      },
+    ],
   },
   {
-    href: '/slider',
+    href: "/dealing",
     icon: UsersIcon,
-    title: 'Slider Management',
+    title: "Dealing Management",
     items: [
       {
-        href: "/slider/add",
+        href: "/dealing/add",
         icon: ShoppingBagIcon,
-        title: "Add Slider",
+        title: "Add Dealing",
       },
       {
-        href: "/slider",
+        href: "/dealing",
         icon: ShoppingBagIcon,
-        title: "Slider List",
-      }
-    ]
+        title: "Dealing List",
+      },
+      {
+        href: "/dealingItem/add",
+        icon: ShoppingBagIcon,
+        title: "Add Dealing Item",
+      },
+      {
+        href: "/dealingItem",
+        icon: ShoppingBagIcon,
+        title: "Dealing Item List",
+      },
+    ],
   },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
 
-  const sidemenuList = useSelector(state => state.SideMenuList.data);
+  const sidemenuList = useSelector((state) => state.SideMenuList.data);
 
-  Logger.log('SIDEMENU-LIST', sidemenuList);
+  Logger.log("SIDEMENU-LIST", sidemenuList);
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -258,39 +268,33 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const content = (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%'
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
       }}
     >
       <Box
         sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          p: 2
+          alignItems: "center",
+          display: "flex",
+          flexDirection: "column",
+          p: 2,
         }}
       >
         <Avatar
           component={RouterLink}
           src={user.avatar}
           sx={{
-            cursor: 'pointer',
+            cursor: "pointer",
             width: 64,
-            height: 64
+            height: 64,
           }}
           to="/home"
         />
-        <Typography
-          color="textPrimary"
-          variant="h5"
-        >
+        <Typography color="textPrimary" variant="h5">
           {user.name}
         </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
+        <Typography color="textSecondary" variant="body2">
           {user.jobTitle}
         </Typography>
       </Box>
@@ -322,8 +326,8 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           variant="temporary"
           PaperProps={{
             sx: {
-              width: 256
-            }
+              width: 256,
+            },
           }}
         >
           {content}
@@ -338,8 +342,8 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
             sx: {
               width: 256,
               top: 64,
-              height: 'calc(100% - 64px)'
-            }
+              height: "calc(100% - 64px)",
+            },
           }}
         >
           {content}
@@ -347,16 +351,16 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
       </Hidden>
     </>
   );
-}
+};
 
 DashboardSidebar.propTypes = {
   onMobileClose: PropTypes.func,
-  openMobile: PropTypes.bool
+  openMobile: PropTypes.bool,
 };
 
 DashboardSidebar.defaultProps = {
-  onMobileClose: () => { },
-  openMobile: false
+  onMobileClose: () => {},
+  openMobile: false,
 };
 
 export default DashboardSidebar;
