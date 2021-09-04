@@ -1,34 +1,23 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Grid,
-  Typography,
-  Box,
-  Link
-} from "@material-ui/core";
-import {
-  ValidatorForm,
-  TextValidator,
-} from "react-material-ui-form-validator";
+import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 import * as BlogAction from "../../redux/actions/BlogAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
-import './blogManagement.css';
+import "./blogManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
-import {
-  Link as RouterLink,
-  useLocation
-} from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 // import Link from "next/link";
 
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import Dropzone from "react-dropzone-uploader";
+import "react-dropzone-uploader/dist/styles.css";
 
 const MenuCreateUpdate = (props) => {
-
   let query = useQuery();
   let id = query.get("id");
   let blogData = props?.blog?.blogData;
@@ -36,18 +25,17 @@ const MenuCreateUpdate = (props) => {
 
   useEffect(() => {
     let data = {
-      _id: id
-    }
+      _id: id,
+    };
     if (id != null) {
       dispatch(BlogAction.BlogDataRequestAsync(data));
     }
-
   }, [id]);
 
   useEffect(() => {
     if (props.blog.success) {
-      setRefresh(true)
-      setState(initialState)
+      setRefresh(true);
+      setState(initialState);
     }
   }, [props.blog.success]);
 
@@ -67,8 +55,6 @@ const MenuCreateUpdate = (props) => {
   const [file, setFile] = useState("");
   const [description, setDescription] = useState(blogData?.description);
 
-
-
   const inputChange = (e) => {
     let { name, value } = e.target;
 
@@ -76,31 +62,37 @@ const MenuCreateUpdate = (props) => {
   };
 
   const handleSubmit = (e) => {
-    const { title, sortDescription, id, metaTitle, metaKeywords, metaDescription, image } = state;
+    const {
+      title,
+      sortDescription,
+      id,
+      metaTitle,
+      metaKeywords,
+      metaDescription,
+      image,
+    } = state;
     if (id == null) {
       var data = new FormData();
-      data.append('blogImage', image);
-      data.append('title', title);
-      data.append('sortDescription', sortDescription);
-      data.append('description', description);
-      data.append('metaTitle', metaTitle);
-      data.append('metaKeywords', metaKeywords);
-      data.append('metaDescription', metaDescription);
+      data.append("blogImage", image);
+      data.append("title", title);
+      data.append("sortDescription", sortDescription);
+      data.append("description", description);
+      data.append("metaTitle", metaTitle);
+      data.append("metaKeywords", metaKeywords);
+      data.append("metaDescription", metaDescription);
 
-      console.log('dsadsd', data);
+      console.log("dsadsd", data);
       dispatch(BlogAction.BlogAddRequestAsync(data));
-    }
-    else {
-
+    } else {
       var data = new FormData();
-      data.append('blogImage', image);
-      data.append('title', title);
-      data.append('sortDescription', sortDescription);
-      data.append('description', description);
-      data.append('metaTitle', metaTitle);
-      data.append('metaKeywords', metaKeywords);
-      data.append('metaDescription', metaDescription);
-      data.append('_id', id);
+      data.append("blogImage", image);
+      data.append("title", title);
+      data.append("sortDescription", sortDescription);
+      data.append("description", description);
+      data.append("metaTitle", metaTitle);
+      data.append("metaKeywords", metaKeywords);
+      data.append("metaDescription", metaDescription);
+      data.append("_id", id);
       dispatch(BlogAction.BlogUpdateRequestAsync(data));
     }
   };
@@ -109,45 +101,46 @@ const MenuCreateUpdate = (props) => {
     return new URLSearchParams(useLocation().search);
   }
 
-  const handleChange = (event) => {
-    // this.setState({
-    setState({ image: event.target.files[0] });
-    setFile(URL.createObjectURL(event.target.files[0]))
-
-    // })
-  }
-
-  const handleCleanImage = () => {
-    setState({ image: "" })
-    setFile('')
-  }
-
   const handleChangeTextEditor = (content, editor) => {
-
     setDescription(content);
-  }
+  };
+
+  const handleBannerUpload = (file, status) => {
+    let list = state;
+    if (status == "done") {
+      setState({ ...state, ["image"]: file.file });
+    }
+  };
 
   return (
     <Box className="MenuManagement_Data">
-      <FormHeader heading1={"Blog Module Management"} heading2={"Create and Update Blog Here"} />
+      <FormHeader
+        heading1={"Blog Module Management"}
+        heading2={"Create and Update Blog Here"}
+      />
       {state.id ? (
         <>
-          <BreadCrumbs heading1={"BlogManagement"} heading2={"Edit Blog Module"} />
+          <BreadCrumbs
+            heading1={"BlogManagement"}
+            heading2={"Edit Blog Module"}
+          />
           <SubHeading heading={"Edit Blog Module"} />
         </>
       ) : (
-          <>
-            <BreadCrumbs heading1={"BlogManagement"} heading2={"Add Blog Module"} />
-            <SubHeading heading={"Add Blog Module"} />
-          </>
-        )
-      }
+        <>
+          <BreadCrumbs
+            heading1={"BlogManagement"}
+            heading2={"Add Blog Module"}
+          />
+          <SubHeading heading={"Add Blog Module"} />
+        </>
+      )}
       <Grid item xs={12} className="m-5 addUserFormanage">
         <div className="card w-100">
           <div className="card-header d-flex justify-content-between align-items-center">
             <Typography component="h3" variant="h3">
-              {state.id ? 'Edit' : 'Add'} Blog
-              </Typography>
+              {state.id ? "Edit" : "Add"} Blog
+            </Typography>
             {/* <Button
                 onClick={() => this.props.history.push("menu")}
                 variant="contained"
@@ -165,7 +158,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={(state.title) ? state.title : blogData?.title}
+                    value={state.title ? state.title : blogData?.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -180,7 +173,11 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Short Description*"
                     fullWidth
-                    value={(state.sortDescription) ? state.sortDescription : blogData?.sortDescription}
+                    value={
+                      state.sortDescription
+                        ? state.sortDescription
+                        : blogData?.sortDescription
+                    }
                     onChange={inputChange}
                     name="sortDescription"
                     id="sortDescription"
@@ -195,12 +192,12 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={(state.metaTitle) ? state.metaTitle : blogData?.metaTitle}
+                    value={
+                      state.metaTitle ? state.metaTitle : blogData?.metaTitle
+                    }
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
-
-
                   />
                 </Grid>
 
@@ -210,12 +207,14 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={(state.metaKeywords) ? state.metaKeywords : blogData?.metaKeywords}
+                    value={
+                      state.metaKeywords
+                        ? state.metaKeywords
+                        : blogData?.metaKeywords
+                    }
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
-
-
                   />
                 </Grid>
 
@@ -225,82 +224,51 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={(state.metaDescription) ? state.metaDescription : blogData?.metaDescription}
+                    value={
+                      state.metaDescription
+                        ? state.metaDescription
+                        : blogData?.metaDescription
+                    }
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"
-
-
                   />
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-                  {(blogData?.description != null) ? (
+                  {blogData?.description != null ? (
                     <>
                       <ReactQuill
                         onChange={handleChangeTextEditor}
-                        value={(description) ? description : blogData?.description}
-                        placeholder='Enter description'
-                        theme='snow'
+                        value={
+                          description ? description : blogData?.description
+                        }
+                        placeholder="Enter description"
+                        theme="snow"
                       />
                     </>
-                  )
-
-                    : (
-                      <>
-                        <ReactQuill
-                          onChange={handleChangeTextEditor}
-                          placeholder='Enter description'
-                          theme='snow'
-                        />
-                      </>
-                    )}
+                  ) : (
+                    <>
+                      <ReactQuill
+                        onChange={handleChangeTextEditor}
+                        placeholder="Enter description"
+                        theme="snow"
+                      />
+                    </>
+                  )}
                 </Grid>
-
-
               </Grid>
               <br />
               <SubHeading heading={"Upload Image"} />
               <br />
               <Grid container spacing={3} className="FormFildes">
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
-
-                  <img src={file} height="200px" width="200px" />
-                  <Box>
-                    <br />
-
-                    {/* <input type="file" onChange={handleChange} />
-                    <img src={file} /> */}
-
-
-                    <Grid item xs={12} sm={12}>
-                      <label className="uploadbutton" htmlFor="mainImage">
-                        <Button
-                          color="default"
-                          variant="contained"
-                          component="span"
-                          color="primary"
-                        >
-                          Browse
-                        </Button>
-                      </label>
-                      <input
-                        style={{ display: "none" }}
-                        id="mainImage"
-                        name="mainImage"
-                        type="file"
-                        onChange={handleChange}
-                      />
-                      {/* <Button
-                        style={{ marginLeft: "20px" }}
-                        variant="contained"
-                        component="span"
-                      // onClick={handleCleanImage}
-                      >
-                        Cancle
-                    </Button> */}
-                    </Grid>
-                  </Box>
+                  <Typography>Image </Typography>
+                  <Dropzone
+                    maxFiles="1"
+                    onChangeStatus={handleBannerUpload}
+                    accept="image/*"
+                  />
                 </Grid>
               </Grid>
               <br />
@@ -330,18 +298,14 @@ const MenuCreateUpdate = (props) => {
           </div>
         </div>
       </Grid>
-    </Box >
-  )
-}
-
+    </Box>
+  );
+};
 
 function mapStateToProps(state) {
   const { blog } = state;
   return {
     blog,
-
   };
 }
-export default connect(mapStateToProps)(
-  (MenuCreateUpdate),
-);
+export default connect(mapStateToProps)(MenuCreateUpdate);
