@@ -30,7 +30,7 @@ function createFeedbackRequest(Models) {
             //     // if data found check 
             //     throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateModule: true, statusCode: 401 };
             // }
-
+            bodyData.image = req.files;
             let saveModule = await new Models.FeedbackDB(bodyData).save();
             console.log('saveModule is', saveModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
