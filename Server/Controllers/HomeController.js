@@ -45,6 +45,11 @@ module.exports = function (conn) {
     }, {
         name: 'video', maxCount: 1
     }];
+    const imageVideo = [{
+        name: 'image', maxCount: 2
+    }, {
+        name: 'video', maxCount: 1
+    }];
     router.post('/createAboutSection', userAuthMiddleware, upload.array("aboutImages"), homeFunction.createAboutSection(db));
     router.post('/updateAboutSection', userAuthMiddleware, upload.array("aboutImages"), homeFunction.updateAboutSection(db));
     router.post('/homeAbout', userAuthMiddleware, homeFunction.getHomeAboutHelper(db));
@@ -53,8 +58,8 @@ module.exports = function (conn) {
     router.post('/updateMovingBanner', userAuthMiddleware, upload.array("backgroundImage"), homeFunction.updateMovingBanner(db));
     router.post('/movingBanner', userAuthMiddleware, homeFunction.getMovingBanner(db));
 
-    router.post('/createDealingIn', userAuthMiddleware, upload.array("media"), homeFunction.createDealingIn(db));
-    router.post('/updateDealingIn', userAuthMiddleware, upload.array("media"), homeFunction.updateMovingBanner(db));
+    router.post('/createDealingIn', userAuthMiddleware, upload.fields(imageVideo), homeFunction.createDealingIn(db));
+    router.post('/updateDealingIn', userAuthMiddleware, upload.fields(imageVideo), homeFunction.updateMovingBanner(db));
     router.post('/getDealingInList', userAuthMiddleware, homeFunction.getMovingBanner(db));
     router.post('/getDealingInDetails', userAuthMiddleware, homeFunction.getMovingBanner(db));
     router.post('/deleteDealingIn', userAuthMiddleware, homeFunction.getMovingBanner(db));
@@ -62,11 +67,27 @@ module.exports = function (conn) {
 
     //
     router.post('/createDealingInItem', userAuthMiddleware, upload.fields(pageMedia), homeFunction.createDealingInItem(db));
+    router.post('/getDealingList', userAuthMiddleware, homeFunction.getDealingList(db));
+    router.post('/deleteDealingIn', userAuthMiddleware, homeFunction.deleteDealingIn(db));
+    router.post('/updateDealingInStatusHelper', userAuthMiddleware, homeFunction.updateDealingInStatusHelper(db));
+
+    router.post('/getDealingItemList', userAuthMiddleware, homeFunction.getDealingItemList(db));
+    router.post('/deleteDealingItem', userAuthMiddleware, homeFunction.deleteDealingItem(db));
+    router.post('/updateDealingInItemStatusHelper', userAuthMiddleware, homeFunction.createDealingInItem(db));
+
 
 
     // 
     router.post('/createService', userAuthMiddleware, homeFunction.createService(db));
+    router.post('/getServiceList', userAuthMiddleware, homeFunction.getServiceList(db));
+    router.post('/deleteService', userAuthMiddleware, homeFunction.deleteService(db));
+    router.post('/updateServiceStatusHelper', userAuthMiddleware, homeFunction.updateServiceStatusHelper(db));
+    //
     router.post('/createServiceItem', userAuthMiddleware, upload.fields(pageMedia), homeFunction.createServiceItem(db));
+    router.post('/getServiceItemList', userAuthMiddleware, homeFunction.getServiceItemList(db));
+    router.post('/deleteServiceItem', userAuthMiddleware, homeFunction.deleteServiceItem(db));
+    router.post('/updateServiceItemStatus', userAuthMiddleware, homeFunction.updateServiceItemStatusHelper(db));
+
 
 
     //Api For Client Side

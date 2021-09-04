@@ -83,6 +83,8 @@ function createUserHelper(Models) {
             userData.verificationToken = hash;
             let passwordText = nanoid(8);
             userData.password = bcrypt.hashSync(passwordText, 10);
+            if (req.files.length > 0)
+                userData.image = req.files;
 
             let saveUser = await new Models.UserDB(userData).save();
             saveUser = saveUser.toObject();
@@ -107,11 +109,11 @@ function getAllUserHelper(Models) {
             if (findData.length) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Users List", data: findData });
-            }else{
-                res.send({ status: true, message: "No Data found for Users"});
+            } else {
+                res.send({ status: true, message: "No Data found for Users" });
             }
 
-            
+
         }
         catch (e) {
             console.log('createUserHelper err', e);
@@ -128,18 +130,18 @@ function getUserHelper(Models) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
-            
+
             // Getting User from Database
-            let findData = await Models.UserDB.findOne({_id:req.body._id});
-            console.log('findData is',findData)
+            let findData = await Models.UserDB.findOne({ _id: req.body._id });
+            console.log('findData is', findData)
             if (findData) {
                 // if data found check verified or not
                 res.send({ status: true, message: "User Data", data: findData });
-            }else{
-                res.send({ status: true, message: "User Data not found"});
+            } else {
+                res.send({ status: true, message: "User Data not found" });
             }
 
-            
+
         }
         catch (e) {
             console.log('createUserHelper err', e);
@@ -156,16 +158,16 @@ function updateUserStatusHelper(Models) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
-            
-            let bodyData = _.pick(req.body, ["status","_id"]);
+
+            let bodyData = _.pick(req.body, ["status", "_id"]);
             let setData = {
                 status: bodyData.status,
             }
-            let updateModule = await Models.UserDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData});
+            let updateModule = await Models.UserDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
 
-            
+
         }
         catch (e) {
             console.log('createUserHelper err', e);
@@ -182,18 +184,18 @@ function deleteUserHelper(Models) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
-            
+
             // Getting User from Database
-            let deleteData = await Models.UserDB.remove({_id:req.body._id});
-            console.log('deleteData is',deleteData)
+            let deleteData = await Models.UserDB.remove({ _id: req.body._id });
+            console.log('deleteData is', deleteData)
             if (deleteData) {
                 // if data found check verified or not
-                res.send({ status: true, message: "User Deleted Successfully"});
-            }else{
-                res.send({ status: true, message: "User not found"});
+                res.send({ status: true, message: "User Deleted Successfully" });
+            } else {
+                res.send({ status: true, message: "User not found" });
             }
 
-            
+
         }
         catch (e) {
             console.log('createUserHelper err', e);

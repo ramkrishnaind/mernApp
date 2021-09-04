@@ -8,6 +8,10 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 const singlePropertyModuleSchema = Joi.object({
     propertyId: Joi.string().required()
 });
+const propertyLatLongSchema = Joi.object({
+    city: Joi.string().required(),
+    state: Joi.string().required()
+});
 
 function getUserIdPropertyList(Models) {
     async function PropertyList(req, res) {
@@ -300,13 +304,55 @@ function deleteProperty(Models) {
         return deletePropertyFun;
     };
 }
+function getPropertyLatLong(Models) {
+    async function PropertyList(req, res) {
+        try {
+            let validateData = propertyLatLongSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: CONSTANTSMESSAGE.INVALID_DATA };
+            }
+
+            // pick data from req.body
+
+            let bodyData = _.pick(req.body, ["city", "state"]);
+            let queryCity = bodyData.city.toLowerCase();
+            let queryState = bodyData.state.toLowerCase();
+            //let query = { "address.city": queryCity, "address.state": queryState };
+            let query = {
+                $or: [
+                    { "address.city": queryCity },
+                    { "address.state": queryState }
+                ]
+            };
+            let data = await Models.PFeaturesDB.find(query).lean();
+            console.log('data is', data)
+            let resultData = [];
+            if (data.length) {
+                for (let x = 0; x < data.length; x++) {
+                    let obj = {
+                        latitude: data[x].address.latitude,
+                        longitude: data[x].address.longitude
+                    }
+                    resultData.push(obj)
+                }
+            }
+            let resultObj = { length: resultData.length, data: resultData }
+            res.send({ status: true, message: "Properties Data for Home Page", data: resultObj });
+        }
+        catch (e) {
+            console.log('Getting list err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Getting list" });
+        }
+    }
+    return PropertyList;
+}
 
 module.exports = {
     getAllProperty,
     propertyDetail,
     deleteProperty,
-    getHomeAllProperty
-
+    getHomeAllProperty,
+    getPropertyLatLong
     // createUserFunc: createUserHelper,
     // getAllUserFunc: getAllUserHelper,
     // getUserFunc: getUserHelper,

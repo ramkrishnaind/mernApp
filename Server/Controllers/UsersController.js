@@ -3,12 +3,37 @@ const express = require('express');
 
 var router = express.Router();
 
+const path = require('path');
+const fs = require('fs');
+const multer = require("multer");
+let storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        let fpathId = 'uploads/user';
+        try {
+            if (!fs.existsSync(fpathId)) {
+                fs.mkdirSync(fpathId, { recursive: true }, (err) => {
+                    if (err) {
+                        throw err;
+                    }
+                });
+            }
+        } catch (err) {
+            console.error(err)
+        }
+        cb(null, fpathId)
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+});
+let upload = multer({ storage: storage });
+
 const signupFunction = require('./Routes/Authentication/signup');
 const userFunction = require('./Routes/UsersModule/UserManagement');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
-let {forgotPasswordFunction, loginFunction, verificationFunction, setNewPasswordFunction,
-    getAuthTokenFunction, logoutFunction} = require('./Routes')
+let { forgotPasswordFunction, loginFunction, verificationFunction, setNewPasswordFunction,
+    getAuthTokenFunction, logoutFunction } = require('./Routes')
 
 module.exports = function (conn) {
     // console.log(conn)
@@ -24,8 +49,8 @@ module.exports = function (conn) {
     router.get('/getAuthToken', getAuthTokenFunction(db));
     router.get('/logout', logoutFunction(db));
 
-    router.post('/createUser', userAuthMiddleware, userFunction.createUserFunc(db));
-    router.post('/updateUser', userAuthMiddleware, userFunction.createUserFunc(db));
+    router.post('/createUser', userAuthMiddleware, upload.array('image'), userFunction.createUserFunc(db));
+    router.post('/updateUser', userAuthMiddleware, upload.array('image'), userFunction.createUserFunc(db));
     router.post('/getUser', userAuthMiddleware, userFunction.getUserFunc(db));
     router.post('/getAllUser', userAuthMiddleware, userFunction.getAllUserFunc(db));
     router.post('/deleteUser', userAuthMiddleware, userFunction.deleteUserFunc(db));

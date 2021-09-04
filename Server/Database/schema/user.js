@@ -45,6 +45,9 @@ const userSchema = new Schema({
         ref: 'userRole',
         default: null
     },
+    image: {
+        type: Array
+    },
     verified: {
         type: Boolean,
         default: false

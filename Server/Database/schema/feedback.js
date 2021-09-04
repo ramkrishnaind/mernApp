@@ -21,6 +21,9 @@ const schema = new Schema({
         ref: 'property',
         default: null
     },
+    image: {
+        type: Array
+    },
     status: {
         type: Boolean,
         default: false

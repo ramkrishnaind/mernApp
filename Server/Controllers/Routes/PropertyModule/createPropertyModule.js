@@ -103,9 +103,9 @@ function createPropertyRequest(Models) {
                 address: {
                     latitude: bodyData.latitude,
                     longitude: bodyData.longitude,
-                    address: bodyData.address,
-                    city: bodyData.city,
-                    State: bodyData.State,
+                    address: bodyData.address.toLowerCase(),
+                    city: bodyData.city.toLowerCase(),
+                    State: bodyData.State.toLowerCase(),
                     pinCode: bodyData.pinCode
                 },
                 pCity: bodyData.city,

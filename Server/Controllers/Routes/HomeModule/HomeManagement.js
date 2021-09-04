@@ -330,8 +330,7 @@ function createDealingIn(Models) {
             // pick data from req.body
             let DealingInFormData = _.pick(req.body, ['header', 'title', 'description', 'metaTitle', 'metaKeywords', 'metaDescription']);
             console.log('DealingInFormData is', DealingInFormData);
-            if (req.files.length > 0)
-                DealingInFormData.media = req.files;
+            DealingInFormData.media = req.files;
             let isDealingInExist = await Models.DealingInDB.find();
             if (isDealingInExist.length) {
                 res.send({ status: false, message: CONSTANTSMESSAGE.ALREADY_EXIST_MESSAGE });
@@ -411,6 +410,83 @@ function getDealingInForHome(Models) {
     }
     return DealingIn;
 }
+function getDealingList(Models) {
+    async function DealingIn(req, res) {
+        try {
+            // Getting Home from Database
+            let findData = await Models.DealingInDB.findOne().lean();
+            console.log('findData is', findData)
+            if (findData.length) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Home DealingIn Data", data: findData });
+            } else {
+                res.send({ status: true, message: "Home DealingIn Data not found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('getDealingIn err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in getDealingIn" });
+        }
+    }
+    return DealingIn;
+}
+function deleteDealingIn(Models) {
+    async function deleteHome(req, res) {
+        try {
+            let validateData = getHomeSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            // Getting Home from Database
+            let deleteData = await Models.DealingInDB.remove({ _id: req.body._id });
+            console.log('deleteData is', deleteData)
+            if (deleteData) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Home DealingIn Deleted Successfully" });
+            } else {
+                res.send({ status: true, message: "Home DealingIn not found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('createHomeHelper err DealingIn', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in DealingIn" });
+        }
+    }
+    return deleteHome;
+}
+function updateDealingInStatusHelper(Models) {
+    async function updateHomeStatus(req, res) {
+        try {
+            let validateData = updateHomeStatusSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            let bodyData = _.pick(req.body, ["active", "_id"]);
+            let setData = {
+                active: bodyData.active,
+            }
+            let updateModule = await Models.DealingInDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
+            console.log('updateModule is', updateModule)
+            res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
+
+
+        }
+        catch (e) {
+            console.log('DealingIn err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in DealingIn" });
+        }
+    }
+    return updateHomeStatus;
+}
+
 function getDealingInItemDetails(Models) {
     async function DealingInItem(req, res) {
         try {
@@ -440,6 +516,82 @@ function getDealingInItemDetails(Models) {
         }
     }
     return DealingInItem;
+}
+function getDealingItemList(Models) {
+    async function DealingIn(req, res) {
+        try {
+            // Getting Home from Database
+            let findData = await Models.DealingInItemDB.findOne().lean();
+            console.log('findData is', findData)
+            if (findData.length) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Home DealingIn Items Data", data: findData });
+            } else {
+                res.send({ status: true, message: "Home DealingIn Data not Items found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('getDealingIn err Items', e);
+            await errorResponseHelper({ res, error: e, message: "Error in getDealingIn Items" });
+        }
+    }
+    return DealingIn;
+}
+function deleteDealingItem(Models) {
+    async function deleteHome(req, res) {
+        try {
+            let validateData = getHomeSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            // Getting Home from Database
+            let deleteData = await Models.DealingInItemDB.remove({ _id: req.body._id });
+            console.log('deleteData is', deleteData)
+            if (deleteData) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Home DealingIn Deleted Successfully" });
+            } else {
+                res.send({ status: true, message: "Home DealingIn not found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('createHomeHelper err DealingIn', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in DealingIn" });
+        }
+    }
+    return deleteHome;
+}
+function updateDealingInItemStatusHelper(Models) {
+    async function updateHomeStatus(req, res) {
+        try {
+            let validateData = updateHomeStatusSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            let bodyData = _.pick(req.body, ["active", "_id"]);
+            let setData = {
+                active: bodyData.active,
+            }
+            let updateModule = await Models.DealingInItemDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
+            console.log('updateModule is', updateModule)
+            res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
+
+
+        }
+        catch (e) {
+            console.log('DealingIn err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in DealingIn" });
+        }
+    }
+    return updateHomeStatus;
 }
 /***************************************************/
 //// Services In Section Functions Starts /////
@@ -474,6 +626,82 @@ function createService(Models) {
     }
     return create;
 }
+function getServiceList(Models) {
+    async function DealingIn(req, res) {
+        try {
+            // Getting Home from Database
+            let findData = await Models.ServiceDB.findOne().lean();
+            console.log('findData is', findData)
+            if (findData.length) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Service Data", data: findData });
+            } else {
+                res.send({ status: true, message: "Service Item Data not Items found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('getDealingIn err Items', e);
+            await errorResponseHelper({ res, error: e, message: "Error in ServiceItem Items" });
+        }
+    }
+    return DealingIn;
+}
+function deleteService(Models) {
+    async function deleteHome(req, res) {
+        try {
+            let validateData = getHomeSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            // Getting Home from Database
+            let deleteData = await Models.ServiceDB.remove({ _id: req.body._id });
+            console.log('deleteData is', deleteData)
+            if (deleteData) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Service Deleted Successfully" });
+            } else {
+                res.send({ status: true, message: "Service not found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('createHomeHelper err DealingIn', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in DealingIn" });
+        }
+    }
+    return deleteHome;
+}
+function updateServiceStatusHelper(Models) {
+    async function updateHomeStatus(req, res) {
+        try {
+            let validateData = updateHomeStatusSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            let bodyData = _.pick(req.body, ["active", "_id"]);
+            let setData = {
+                active: bodyData.active,
+            }
+            let updateModule = await Models.ServiceDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
+            console.log('updateModule is', updateModule)
+            res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
+
+
+        }
+        catch (e) {
+            console.log('ServiceItemDB err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in ServiceItemDB" });
+        }
+    }
+    return updateHomeStatus;
+}
 function createServiceItem(Models) {
     async function create(req, res) {
         try {
@@ -502,6 +730,82 @@ function createServiceItem(Models) {
         }
     }
     return create;
+}
+function getServiceItemList(Models) {
+    async function DealingIn(req, res) {
+        try {
+            // Getting Home from Database
+            let findData = await Models.ServiceItemDB.findOne().lean();
+            console.log('findData is', findData)
+            if (findData.length) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Service Item Items Data", data: findData });
+            } else {
+                res.send({ status: true, message: "Service Item Data not Items found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('getDealingIn err Items', e);
+            await errorResponseHelper({ res, error: e, message: "Error in ServiceItem Items" });
+        }
+    }
+    return DealingIn;
+}
+function deleteServiceItem(Models) {
+    async function deleteHome(req, res) {
+        try {
+            let validateData = getHomeSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            // Getting Home from Database
+            let deleteData = await Models.ServiceItemDB.remove({ _id: req.body._id });
+            console.log('deleteData is', deleteData)
+            if (deleteData) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Service Item Deleted Successfully" });
+            } else {
+                res.send({ status: true, message: "Service Item not found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('createHomeHelper err DealingIn', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in DealingIn" });
+        }
+    }
+    return deleteHome;
+}
+function updateServiceItemStatusHelper(Models) {
+    async function updateHomeStatus(req, res) {
+        try {
+            let validateData = updateHomeStatusSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            let bodyData = _.pick(req.body, ["active", "_id"]);
+            let setData = {
+                active: bodyData.active,
+            }
+            let updateModule = await Models.ServiceItemDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
+            console.log('updateModule is', updateModule)
+            res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
+
+
+        }
+        catch (e) {
+            console.log('ServiceItemDB err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in ServiceItemDB" });
+        }
+    }
+    return updateHomeStatus;
 }
 function getServiceForHome(Models) {
     async function DealingIn(req, res) {
@@ -575,5 +879,17 @@ module.exports = {
     createService,
     createServiceItem,
     getServiceForHome,
-    getServiceItemDetails
+    getServiceItemDetails,
+    getDealingList,
+    deleteDealingIn,
+    updateDealingInStatusHelper,
+    getDealingItemList,
+    deleteDealingItem,
+    updateDealingInItemStatusHelper,
+    getServiceList,
+    deleteService,
+    updateServiceStatusHelper,
+    getServiceItemList,
+    deleteServiceItem,
+    updateServiceItemStatusHelper
 };
