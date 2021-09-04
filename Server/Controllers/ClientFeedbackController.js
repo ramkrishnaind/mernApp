@@ -2,7 +2,7 @@
 const express = require('express');
 var router = express.Router();
 const multer = require("multer");
-
+const fs = require("fs");
 const path = require('path');
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -25,7 +25,7 @@ let storage = multer.diskStorage({
     }
 });
 let upload = multer({ storage: storage });
-let { createFeedbackRequest, getFeedbackRequest, updateFeedbackStatusRequest } = require('./Routes');
+let { createFeedbackRequest, getFeedbackRequest, getFeedbackForHome, updateFeedbackStatusRequest } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
@@ -34,8 +34,9 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.post('/createFeedbackRequest', userAuthMiddleware, upload.array("media"), createFeedbackRequest(allCollection))
+    router.post('/createFeedbackRequest', userAuthMiddleware, upload.array("image"), createFeedbackRequest(allCollection))
     router.post('/getFeedbackRequest', requestAuthMiddleware, getFeedbackRequest(allCollection))
+    router.post('/getFeedbackForHome', requestAuthMiddleware, getFeedbackForHome(allCollection))
     router.post('/updateFeedbackStatusRequest', userAuthMiddleware, updateFeedbackStatusRequest(allCollection))
 
     return router;
