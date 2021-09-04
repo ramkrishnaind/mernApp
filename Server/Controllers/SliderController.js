@@ -1,6 +1,6 @@
 
 const express = require('express');
-
+const path = require('path');
 const fs = require('fs')
 var router = express.Router();
 const multer = require("multer");
@@ -25,7 +25,7 @@ let storage = multer.diskStorage({
     }
 });
 let upload = multer({ storage: storage });
-const path = require('path');
+
 let { createSlider, getSliderList, updateSliderStatus, updateSlider, deleteSlider, getSliderDetail } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 

@@ -51,7 +51,8 @@ module.exports = function (conn) {
     router.post('/uploadImage', upload.array("image"), exteriorImage(allCollection))
     router.post('/getUserIdPropertyRequest', getUserIdPropertyList(allCollection))
     router.post('/updatePrice', updatePrice(allCollection))
-    router.post('/getSearchPropertyList', getSearchPropertyList(allCollection))
+    router.post('/getSearchPropertyList', requestAuthMiddleware, getSearchPropertyList(allCollection))
+    router.post('/getPropertyLatLong', requestAuthMiddleware, propertyCommonHelper.getPropertyLatLong(allCollection))
 
 
     return router;
