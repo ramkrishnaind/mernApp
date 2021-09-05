@@ -48,6 +48,7 @@ module.exports = {
     getSliderDetail: require('./SliderModule/getSliderDetailModule'),
     createBuilding: require('./BuildingMaterialsModule/createBuildingModule'),
     getBuildingList: require('./BuildingMaterialsModule/getBuildingListModule'),
+    getBuildingMaterials: require('./BuildingMaterialsModule/getBuildingMaterialsModule'),
     updateBuilding: require('./BuildingMaterialsModule/updateBuildingModule'),
     updateBuildingStatus: require('./BuildingMaterialsModule/updateBuildingStatusModule'),
     createServices: require('./ServicesModule/createServicesModule'),
