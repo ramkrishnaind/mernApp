@@ -24,7 +24,7 @@ import OnlineBooking from "../../components/online-form/online-form";
 import EmiCalculater from "../../components/emiCalculater/emiCalculater";
 import EnquryForm from "../../components/enquryForm/enquryForm";
 import CountUp, {useCountUp} from 'react-countup';
-import {statsInfo, aboutSectionInfo, servicesInfo, bannersInfo, building_materials} from './intial-content';
+import {statsInfo, aboutSectionInfo, servicesInfo, bannersInfo} from './intial-content';
 import ApiClient from '../../api-client/index';
 import VisibilitySensor from "react-visibility-sensor";
 
@@ -99,6 +99,13 @@ function reducer(state, newState) {
   };
 }
 
+function reducer2(state, newState) {
+  return [
+    ...state,
+    ...newState
+  ];
+}
+
 const HomePage = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -108,6 +115,8 @@ const HomePage = (props) => {
   const [banners, setBanners] = useState([]);
   const [propertyData, setPropertyData] = useState({});
   const [dealingInData, setDealingInData] = useState({});
+  const [building_materials, setBuildingMaterials] = useReducer(reducer2, []);
+
   useEffect(() => {
     dispatch(LoginAction.LoginRequestAsync({}));
   });
@@ -130,13 +139,38 @@ const HomePage = (props) => {
 
     populateServiceInfo(cookie, authorization);
 
+    populateBuildingMaterialInfo(cookie, authorization);
+
   }, []);
+
+  const populateBuildingMaterialInfo = (cookie, authorization) => {
+    const getData = async () => {
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/builder/getBuildingMaterials', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
+
+      // console.log("/builder/getBuildingMaterials ", response);
+
+      const buildingMaterialImgInfo = [];
+      const baseUrl = ApiClient.SERVER_ADDRESS;
+      response.data.forEach((imageInfo) => {
+        const imgDetails = {imageUrl: '', desc: '', name: ''};
+
+        imgDetails.imageUrl = baseUrl + "/" + imageInfo.image[0].path;
+        imgDetails.desc = "";
+        imgDetails.name = imageInfo.name;
+        buildingMaterialImgInfo.push(imgDetails);
+      });
+      // console.log("buildingMaterialImgInfo", buildingMaterialImgInfo);
+      setBuildingMaterials(buildingMaterialImgInfo);
+      setTimeout(() => setBuildingMaterials(buildingMaterialImgInfo), 100);
+    };
+    getData();
+  };
 
   const populateServiceInfo = (cookie, authorization) => {
     const getData = async () => {
       const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getService', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
 
-      console.log("ServiceInfo ", response);
+      // console.log("ServiceInfo ", response);
       setServices(response.data);
     };
     getData();
@@ -162,7 +196,7 @@ const HomePage = (props) => {
         "projects": response.data.projects,
         "shortDescription": response.data.shortDescription
       };
-      console.log("statsData", statsData);
+      // console.log("statsData", statsData);
       setStats(statsData);
     };
     getData();
@@ -184,7 +218,7 @@ const HomePage = (props) => {
           bannersImages.push(imageData);
         });
       });
-      console.log("banner data", bannersImages);
+      // console.log("banner data", bannersImages);
       setBanners(bannersImages);
     };
     getBannerData();

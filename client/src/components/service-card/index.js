@@ -28,12 +28,12 @@ const ServiceCard = props => {
     const classes = useStyles();
     const {title, shortDescription, media, _id} = props.service;
 
-    console.log("Service card", props.service);
-    console.log("{title, shortDescription}", title, shortDescription, media);
+    // console.log("Service card", props.service);
+    // console.log("{title, shortDescription}", title, shortDescription, media);
     let img1 = '/property_img3.jpeg';
     if (media !== [] && media.length > 0 && media[0].image && media[0].image.length > 0) {
         img1 = ApiClient.SERVER_ADDRESS + "/" + media[0].image[0].path;
-        console.log("newe imag", img1);
+        // console.log("newe imag", img1);
 
     }
 
