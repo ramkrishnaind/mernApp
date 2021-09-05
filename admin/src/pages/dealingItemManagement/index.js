@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as DealingItemAction from "../../redux/actions/DealingItemAction";
 import { useDispatch } from "react-redux";
@@ -18,6 +18,7 @@ import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
+import "./dealingManagement.css";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -46,7 +47,7 @@ const DealingItemList = (props) => {
   function onDisable(data, status) {
     let tempdata = {
       _id: data,
-      title: status,
+      isDisable: status,
     };
     dispatch(DealingItemAction.DealingItemStatusUpdateRequestAsync(tempdata));
   }
@@ -79,83 +80,85 @@ const DealingItemList = (props) => {
 
   return (
     <>
-      <FormHeader
-        heading1={"Dealing Item Module Management"}
-        heading2={"List and Manage Dealing Item Here"}
-      />
-      <BreadCrumbs
-        heading1={"DealingItemManagement"}
-        heading2={"Dealing Item Module List"}
-      />
-      {dealingItem.list && dealingItem.list.length > 0 ? (
-        <>
-          <MUIDataTable
-            className="table-header"
-            title="Dealing Item List"
-            data={dealingItem.list.map((item, index) => {
-              return [
-                index + 1,
-                item.title,
-                item.description,
-                item.isDisable,
-                item._id,
-              ];
-            })}
-            columns={[
-              "SR No.",
-              "Title",
-              "Description",
-              {
-                name: "Status",
-                options: {
-                  customBodyRender: (value, tableMeta, updateValue) => {
-                    if (value === true) return "Active";
-                    else return "Inactive";
+      <Box className="MenuManagement_Data">
+        <FormHeader
+          heading1={"Dealing Item Module Management"}
+          heading2={"List and Manage Dealing Item Here"}
+        />
+        <BreadCrumbs
+          heading1={"DealingItemManagement"}
+          heading2={"Dealing Item Module List"}
+        />
+        {dealingItem.list && dealingItem.list.length > 0 ? (
+          <>
+            <MUIDataTable
+              className="table-header"
+              title="Dealing Item List"
+              data={dealingItem.list.map((item, index) => {
+                return [
+                  index + 1,
+                  item.title,
+                  item.description,
+                  item.isDisable,
+                  item._id,
+                ];
+              })}
+              columns={[
+                "SR No.",
+                "Title",
+                "Description",
+                {
+                  name: "Status",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      if (value === true) return "Active";
+                      else return "Inactive";
+                    },
                   },
                 },
-              },
-              {
-                name: "Actions",
-                options: {
-                  customBodyRender: (value, tableMeta, updateValue) => {
-                    return (
-                      <>
-                        {tableMeta.rowData[3] ? (
-                          <Tooltip title="Active">
-                            <Done
-                              onClick={() =>
-                                onDisable(tableMeta.rowData[4], false)
-                              }
-                              style={{ color: "#1e7e34", cursor: "pointer" }}
-                            />
-                          </Tooltip>
-                        ) : (
-                          <Tooltip title="Inactive">
-                            <ClearIcon
-                              onClick={() =>
-                                onDisable(tableMeta.rowData[4], true)
-                              }
-                              style={{ color: "#bd2130", cursor: "pointer" }}
-                            />
-                          </Tooltip>
-                        )}
+                {
+                  name: "Actions",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      return (
+                        <>
+                          {tableMeta.rowData[3] ? (
+                            <Tooltip title="Active">
+                              <Done
+                                onClick={() =>
+                                  onDisable(tableMeta.rowData[4], false)
+                                }
+                                style={{ color: "#1e7e34", cursor: "pointer" }}
+                              />
+                            </Tooltip>
+                          ) : (
+                            <Tooltip title="Inactive">
+                              <ClearIcon
+                                onClick={() =>
+                                  onDisable(tableMeta.rowData[4], true)
+                                }
+                                style={{ color: "#bd2130", cursor: "pointer" }}
+                              />
+                            </Tooltip>
+                          )}
 
-                        <DeleteIcon
-                          style={{ color: "#bd2130", cursor: "pointer" }}
-                          onClick={() => onDeleteClick(tableMeta.rowData[4])}
-                        />
-                      </>
-                    );
+                          <DeleteIcon
+                            style={{ color: "#bd2130", cursor: "pointer" }}
+                            onClick={() => onDeleteClick(tableMeta.rowData[4])}
+                          />
+                        </>
+                      );
+                    },
                   },
                 },
-              },
-            ]}
-            options={options}
-          />
-        </>
-      ) : (
-        <Typography>Data not found.</Typography>
-      )}
+              ]}
+              options={options}
+            />
+          </>
+        ) : (
+          <Typography>Data not found.</Typography>
+        )}
+      </Box>
     </>
   );
 };

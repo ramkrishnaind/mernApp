@@ -277,6 +277,23 @@ const items = [
       },
     ],
   },
+  {
+    href: "/building",
+    icon: UsersIcon,
+    title: "Building Management",
+    items: [
+      {
+        href: "/building/add",
+        icon: ShoppingBagIcon,
+        title: "Add Building",
+      },
+      {
+        href: "/building",
+        icon: ShoppingBagIcon,
+        title: "Building List",
+      },
+    ],
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {

@@ -22,6 +22,8 @@ import Dealing from "./dealingReducer";
 import DealingItem from "./dealingItemReducer";
 import Service from "./serviceReducer";
 import ServiceItem from "./serviceItemReducer";
+import Building from "./buildingReducer";
+
 const reducers = {
   Login: LoginReducer,
   Register: RegisterReducer,
@@ -47,6 +49,7 @@ const reducers = {
   dealingItem: DealingItem,
   service: Service,
   serviceItem: ServiceItem,
+  building: Building,
 };
 
 export default reducers;

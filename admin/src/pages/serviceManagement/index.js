@@ -44,7 +44,7 @@ const ServiceList = (props) => {
   function onDisable(data, status) {
     let tempdata = {
       _id: data,
-      active: status,
+      isDisable: status,
     };
     dispatch(ServiceAction.ServiceStatusUpdateRequestAsync(tempdata));
 
@@ -162,6 +162,7 @@ const ServiceList = (props) => {
 
 function mapStateToProps(state) {
   const { service } = state;
+  console.log("serve", service);
   return {
     service,
   };

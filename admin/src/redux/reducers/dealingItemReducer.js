@@ -17,12 +17,10 @@ const DealingItemReducer = (state = initialState, action) => {
         isRequesting: true,
       };
     case ACTION_KEYS.DEALING_ITEM_LIST_SUCCESS:
-      let data = [];
-      data[0] = payload.data;
       return {
         ...state,
         isRequesting: false,
-        list: data,
+        list: payload.data,
       };
     case ACTION_KEYS.DEALING_ITEM_LIST_ERROR:
       return {

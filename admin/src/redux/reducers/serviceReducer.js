@@ -17,8 +17,6 @@ const ServiceReducer = (state = initialState, action) => {
         isRequesting: true,
       };
     case ACTION_KEYS.SERVICE_LIST_SUCCESS:
-      // let data = [];
-      // data[0] = payload?.data;
       return {
         ...state,
         isRequesting: false,

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Typography, Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import * as ServiceItemAction from "../../redux/actions/ServiceItemAction";
+import * as BuildingAction from "../../redux/actions/BuildingAction";
 import { useDispatch } from "react-redux";
 
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -12,11 +12,12 @@ import MUIDataTable from "mui-datatables";
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
 import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import "./serviceManagement.css";
+import "./blogManagement.css";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -28,12 +29,14 @@ const styles = (theme) => ({
   },
 });
 
-const ServiceItemList = (props) => {
+const BuildingList = (props) => {
+  console.log("test prop", props.Building);
+
   const dispatch = useDispatch();
-  let { classes, serviceItem } = props;
+  let { classes, building } = props;
 
   useEffect(() => {
-    dispatch(ServiceItemAction.ServiceItemListRequestAsync());
+    dispatch(BuildingAction.BuildingListRequestAsync());
   }, []);
 
   let options = {
@@ -44,10 +47,16 @@ const ServiceItemList = (props) => {
 
   function onDisable(data, status) {
     let tempdata = {
-      _id: data,
+      id: data,
       isDisable: status,
     };
-    dispatch(ServiceItemAction.ServiceItemStatusUpdateRequestAsync(tempdata));
+    dispatch(BuildingAction.BuildingStatusUpdateRequestAsync(tempdata));
+
+    if (status === "enable") {
+      // toast.error("Disable")
+    } else {
+      // toast.success("Enable")
+    }
   }
 
   function onDeleteClick(data) {
@@ -61,7 +70,7 @@ const ServiceItemList = (props) => {
         {
           label: "Yes",
           onClick: () =>
-            dispatch(ServiceItemAction.ServiceItemDeleteRequestAsync(tempdata)),
+            dispatch(BuildingAction.BuildingDeleteRequestAsync(tempdata)),
         },
         {
           label: "No",
@@ -69,35 +78,35 @@ const ServiceItemList = (props) => {
       ],
     });
   }
+
+  function updatehandleOpenCreateModal(data) {
+    // window.location.href = "/Building/edit?id="+data;
+    history.push("/building/add?id=" + data);
+    window.location.reload();
+  }
+
   return (
     <>
       <Box className="MenuManagement_Data">
         <FormHeader
-          heading1={"Service Item Module Management"}
-          heading2={"List and Manage Service Item Here"}
+          heading1={"Building Module Management"}
+          heading2={"List and Manage Building Here"}
         />
         <BreadCrumbs
-          heading1={"ServiceItemManagement"}
-          heading2={"Service Item Module List"}
+          heading1={"BuildingManagement"}
+          heading2={"Building Module List"}
         />
-        {serviceItem?.list && serviceItem?.list?.length > 0 ? (
+        {building?.list?.list && building?.list?.list.length > 0 ? (
           <>
             <MUIDataTable
               className="table-header"
-              title="Service Item List"
-              data={serviceItem?.list?.map((item, index) => {
-                return [
-                  index + 1,
-                  item.title,
-                  item.description,
-                  item.isDisable,
-                  item._id,
-                ];
+              title="Building List"
+              data={building?.list?.list.map((item, index) => {
+                return [index + 1, item.name, item.isDisable, item._id];
               })}
               columns={[
                 "SR No.",
                 "Title",
-                "Description",
                 {
                   name: "Status",
                   options: {
@@ -113,11 +122,17 @@ const ServiceItemList = (props) => {
                     customBodyRender: (value, tableMeta, updateValue) => {
                       return (
                         <>
-                          {tableMeta.rowData[3] ? (
+                          <EditIcon
+                            style={{ color: "#0069d9", cursor: "pointer" }}
+                            onClick={() =>
+                              updatehandleOpenCreateModal(tableMeta.rowData[3])
+                            }
+                          />
+                          {tableMeta.rowData[2] ? (
                             <Tooltip title="Active">
                               <Done
                                 onClick={() =>
-                                  onDisable(tableMeta.rowData[4], false)
+                                  onDisable(tableMeta.rowData[3], false)
                                 }
                                 style={{ color: "#1e7e34", cursor: "pointer" }}
                               />
@@ -126,7 +141,7 @@ const ServiceItemList = (props) => {
                             <Tooltip title="Inactive">
                               <ClearIcon
                                 onClick={() =>
-                                  onDisable(tableMeta.rowData[4], true)
+                                  onDisable(tableMeta.rowData[3], true)
                                 }
                                 style={{ color: "#bd2130", cursor: "pointer" }}
                               />
@@ -135,7 +150,7 @@ const ServiceItemList = (props) => {
 
                           <DeleteIcon
                             style={{ color: "#bd2130", cursor: "pointer" }}
-                            onClick={() => onDeleteClick(tableMeta.rowData[4])}
+                            onClick={() => onDeleteClick(tableMeta.rowData[3])}
                           />
                         </>
                       );
@@ -155,9 +170,11 @@ const ServiceItemList = (props) => {
 };
 
 function mapStateToProps(state) {
-  const { serviceItem } = state;
+  const { building } = state;
+
+  console.log("testingg", building);
   return {
-    serviceItem,
+    building,
   };
 }
-export default connect(mapStateToProps)(withStyles(styles)(ServiceItemList));
+export default connect(mapStateToProps)(withStyles(styles)(BuildingList));

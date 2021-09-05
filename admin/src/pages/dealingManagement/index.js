@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as DealingAction from "../../redux/actions/DealingAction";
 import { useDispatch } from "react-redux";
@@ -46,7 +46,7 @@ const DealingList = (props) => {
   function onDisable(data, status) {
     let tempdata = {
       _id: data,
-      active: status,
+      isDisable: status,
     };
     dispatch(DealingAction.DealingStatusUpdateRequestAsync(tempdata));
 
@@ -79,83 +79,85 @@ const DealingList = (props) => {
 
   return (
     <>
-      <FormHeader
-        heading1={"Dealing Module Management"}
-        heading2={"List and Manage Dealing Here"}
-      />
-      <BreadCrumbs
-        heading1={"DealingManagement"}
-        heading2={"Dealing Module List"}
-      />
-      {dealing.list && dealing.list.length > 0 ? (
-        <>
-          <MUIDataTable
-            className="table-header"
-            title="Dealing List"
-            data={dealing.list.map((item, index) => {
-              return [
-                index + 1,
-                item.title,
-                item.description,
-                item.isDisable,
-                item._id,
-              ];
-            })}
-            columns={[
-              "SR No.",
-              "Title",
-              "Description",
-              {
-                name: "Status",
-                options: {
-                  customBodyRender: (value, tableMeta, updateValue) => {
-                    if (value === true) return "Active";
-                    else return "Inactive";
+      <Box className="MenuManagement_Data">
+        <FormHeader
+          heading1={"Dealing Module Management"}
+          heading2={"List and Manage Dealing Here"}
+        />
+        <BreadCrumbs
+          heading1={"DealingManagement"}
+          heading2={"Dealing Module List"}
+        />
+        {dealing.list && dealing.list.length > 0 ? (
+          <>
+            <MUIDataTable
+              className="table-header"
+              title="Dealing List"
+              data={dealing.list.map((item, index) => {
+                return [
+                  index + 1,
+                  item.title,
+                  item.description,
+                  item.isDisable,
+                  item._id,
+                ];
+              })}
+              columns={[
+                "SR No.",
+                "Title",
+                "Description",
+                {
+                  name: "Status",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      if (value === true) return "Active";
+                      else return "Inactive";
+                    },
                   },
                 },
-              },
-              {
-                name: "Actions",
-                options: {
-                  customBodyRender: (value, tableMeta, updateValue) => {
-                    return (
-                      <>
-                        {tableMeta.rowData[3] ? (
-                          <Tooltip title="Active">
-                            <Done
-                              onClick={() =>
-                                onDisable(tableMeta.rowData[4], false)
-                              }
-                              style={{ color: "#1e7e34", cursor: "pointer" }}
-                            />
-                          </Tooltip>
-                        ) : (
-                          <Tooltip title="Inactive">
-                            <ClearIcon
-                              onClick={() =>
-                                onDisable(tableMeta.rowData[4], true)
-                              }
-                              style={{ color: "#bd2130", cursor: "pointer" }}
-                            />
-                          </Tooltip>
-                        )}
+                {
+                  name: "Actions",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      return (
+                        <>
+                          {tableMeta.rowData[3] ? (
+                            <Tooltip title="Active">
+                              <Done
+                                onClick={() =>
+                                  onDisable(tableMeta.rowData[4], false)
+                                }
+                                style={{ color: "#1e7e34", cursor: "pointer" }}
+                              />
+                            </Tooltip>
+                          ) : (
+                            <Tooltip title="Inactive">
+                              <ClearIcon
+                                onClick={() =>
+                                  onDisable(tableMeta.rowData[4], true)
+                                }
+                                style={{ color: "#bd2130", cursor: "pointer" }}
+                              />
+                            </Tooltip>
+                          )}
 
-                        <DeleteIcon
-                          style={{ color: "#bd2130", cursor: "pointer" }}
-                          onClick={() => onDeleteClick(tableMeta.rowData[4])}
-                        />
-                      </>
-                    );
+                          <DeleteIcon
+                            style={{ color: "#bd2130", cursor: "pointer" }}
+                            onClick={() => onDeleteClick(tableMeta.rowData[4])}
+                          />
+                        </>
+                      );
+                    },
                   },
                 },
-              },
-            ]}
-            options={options}
-          />
-        </>
-      ) : (
-        <Typography>Data not found.</Typography>
-      )}
+              ]}
+              options={options}
+            />
+          </>
+        ) : (
+          <Typography>Data not found.</Typography>
+        )}
+      </Box>
     </>
   );
 };
