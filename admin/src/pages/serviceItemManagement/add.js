@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
-import * as DealingItemAction from "../../redux/actions/DealingItemAction";
+import * as ServiceItemAction from "../../redux/actions/ServiceItemAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
-import "./dealingManagement.css";
+import "./serviceManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
@@ -27,7 +27,7 @@ const MenuCreateUpdate = (props) => {
     metaKeywords: "",
     metaDescription: "",
     shortDescription: "",
-    icon: "",
+
     banner: "",
     video: "",
     image: [],
@@ -44,12 +44,11 @@ const MenuCreateUpdate = (props) => {
   const handleSubmit = (e) => {
     const {
       title,
-
       metaTitle,
       metaKeywords,
       metaDescription,
       shortDescription,
-      icon,
+
       banner,
       video,
     } = state;
@@ -64,11 +63,15 @@ const MenuCreateUpdate = (props) => {
     data.append("metaKeywords", metaKeywords);
     data.append("metaDescription", metaDescription);
     data.append("shortDescription", shortDescription);
-    data.append("icon", icon);
+
     data.append("banner", banner);
     data.append("video", video);
-    dispatch(DealingItemAction.DealingItemAddRequestAsync(data));
+    dispatch(ServiceItemAction.ServiceItemAddRequestAsync(data));
   };
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
 
   const handleChangeTextEditor = (content, editor) => {
     setDescription(content);
@@ -105,31 +108,31 @@ const MenuCreateUpdate = (props) => {
   return (
     <Box className="MenuManagement_Data">
       <FormHeader
-        heading1={"Dealing Item Module Management"}
-        heading2={"Create and Update Dealing Item Here"}
+        heading1={"Service Item Module Management"}
+        heading2={"Create and Update Service Item Here"}
       />
       {state.id ? (
         <>
           <BreadCrumbs
-            heading1={"DealingItemManagement"}
-            heading2={"Edit Dealing Item Module"}
+            heading1={"ServiceItemManagement"}
+            heading2={"Edit Service Item Module"}
           />
-          <SubHeading heading={"Edit Dealing Item Module"} />
+          <SubHeading heading={"Edit Service Item Module"} />
         </>
       ) : (
         <>
           <BreadCrumbs
-            heading1={"DealingItemManagement"}
-            heading2={"Add Dealing Item Module"}
+            heading1={"ServiceItemManagement"}
+            heading2={"Add Service Item Module"}
           />
-          <SubHeading heading={"Add Dealing Item Module"} />
+          <SubHeading heading={"Add Service Item Module"} />
         </>
       )}
       <Grid item xs={12} className="m-5 addUserFormanage">
         <div className="card w-100">
           <div className="card-header d-flex justify-content-between align-items-center">
             <Typography component="h3" variant="h3">
-              {state.id ? "Edit" : "Add"} Dealing Item
+              {state.id ? "Edit" : "Add"} Service Item
             </Typography>
           </div>
           <div class="card-body">
@@ -161,19 +164,6 @@ const MenuCreateUpdate = (props) => {
                     id="shortDescription"
                     validators={["required"]}
                     errorMessages={["shortDescription field is required"]}
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="icon*"
-                    fullWidth
-                    value={state.icon}
-                    onChange={inputChange}
-                    name="icon"
-                    id="icon"
                   />
                 </Grid>
 
@@ -267,7 +257,7 @@ const MenuCreateUpdate = (props) => {
                   Save
                 </Button>
 
-                <Link component={RouterLink} to="/dealingItem">
+                <Link component={RouterLink} to="/ServiceItem">
                   <Button
                     variant="contained"
                     color="primary"
@@ -287,9 +277,9 @@ const MenuCreateUpdate = (props) => {
 };
 
 function mapStateToProps(state) {
-  const { dealingItem } = state;
+  const { serviceItem } = state;
   return {
-    dealingItem,
+    serviceItem,
   };
 }
 export default connect(mapStateToProps)(MenuCreateUpdate);

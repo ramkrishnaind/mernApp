@@ -101,11 +101,23 @@ const API_ENDPOINTS = {
   DEALING_DELETE_ENDPOINT: "home/deleteDealingIn",
   DEALING_DATA_ENDPOINT: "home/getDealingInDetails",
 
-  //slider module
+  //dealing item module
   DEALING_ITEM_LIST_ENDPOINT: "home/getDealingItemList",
   DEALING_ITEM_ADD_ENDPOINT: "home/createDealingInItem",
   DEALING_ITEM_STATUS_UPDATE_ENDPOINT: "home/updateDealingInItemStatusHelper",
   DEALING_ITEM_DELETE_ENDPOINT: "home/deleteDealingItem",
+
+  //dealing module
+  SERVICE_LIST_ENDPOINT: "home/getServiceList",
+  SERVICE_ADD_ENDPOINT: "home/createService",
+  SERVICE_STATUS_UPDATE_ENDPOINT: "home/updateServiceStatusHelper",
+  SERVICE_DELETE_ENDPOINT: "home/deleteService",
+
+  //dealing item module
+  SERVICE_ITEM_LIST_ENDPOINT: "home/getServiceItemList",
+  SERVICE_ITEM_ADD_ENDPOINT: "home/createServiceItem",
+  SERVICE_ITEM_STATUS_UPDATE_ENDPOINT: "home/updateServiceItemStatus",
+  SERVICE_ITEM_DELETE_ENDPOINT: "home/deleteServiceItem",
 };
 
 export default API_ENDPOINTS;

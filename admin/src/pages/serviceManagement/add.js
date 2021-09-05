@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
-import * as DealingItemAction from "../../redux/actions/DealingItemAction";
+import * as ServiceAction from "../../redux/actions/ServiceAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
-import "./dealingManagement.css";
+import "./serviceManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
@@ -15,22 +15,14 @@ import { connect } from "react-redux";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-import Dropzone from "react-dropzone-uploader";
-import "react-dropzone-uploader/dist/styles.css";
-
 const MenuCreateUpdate = (props) => {
   const dispatch = useDispatch();
-
   const initialState = {
     title: "",
+    header: "",
     metaTitle: "",
     metaKeywords: "",
     metaDescription: "",
-    shortDescription: "",
-    icon: "",
-    banner: "",
-    video: "",
-    image: [],
   };
 
   const [state, setState] = useState(initialState);
@@ -42,99 +34,72 @@ const MenuCreateUpdate = (props) => {
   };
 
   const handleSubmit = (e) => {
-    const {
-      title,
+    const { title, header, metaTitle, metaKeywords, metaDescription } = state;
 
-      metaTitle,
-      metaKeywords,
-      metaDescription,
-      shortDescription,
-      icon,
-      banner,
-      video,
-    } = state;
-
-    var data = new FormData();
-    state?.image.map((item, index) => {
-      data.append("image", item);
-    });
-    data.append("title", title);
-    data.append("description", description);
-    data.append("metaTitle", metaTitle);
-    data.append("metaKeywords", metaKeywords);
-    data.append("metaDescription", metaDescription);
-    data.append("shortDescription", shortDescription);
-    data.append("icon", icon);
-    data.append("banner", banner);
-    data.append("video", video);
-    dispatch(DealingItemAction.DealingItemAddRequestAsync(data));
+    let reqData = {
+      title: title,
+      header: header,
+      description: description,
+      metaTitle: metaTitle,
+      metaKeywords: metaKeywords,
+      metaDescription: metaDescription,
+    };
+    // console.log("res", reqData);
+    dispatch(ServiceAction.ServiceAddRequestAsync(reqData));
   };
 
   const handleChangeTextEditor = (content, editor) => {
     setDescription(content);
   };
 
-  const handleImageExteriorView = (file, status) => {
-    let list = state;
-    let data = [];
-    if (status == "done") {
-      if (list.image && list.image.length) {
-        data = list.image;
-        data[list.image.length] = file.file;
-      } else {
-        data["0"] = file.file;
-      }
-      setState({ ...state, ["image"]: data });
-    }
-  };
-
-  const handleVideouplaod = (file, status) => {
-    let list = state;
-    if (status == "done") {
-      setState({ ...state, ["video"]: file.file });
-    }
-  };
-
-  const handleBannerUpload = (file, status) => {
-    let list = state;
-    if (status == "done") {
-      setState({ ...state, ["banner"]: file.file });
-    }
-  };
-
   return (
     <Box className="MenuManagement_Data">
       <FormHeader
-        heading1={"Dealing Item Module Management"}
-        heading2={"Create and Update Dealing Item Here"}
+        heading1={"Service Module Management"}
+        heading2={"Create and Update Service Here"}
       />
       {state.id ? (
         <>
           <BreadCrumbs
-            heading1={"DealingItemManagement"}
-            heading2={"Edit Dealing Item Module"}
+            heading1={"ServiceManagement"}
+            heading2={"Edit Service Module"}
           />
-          <SubHeading heading={"Edit Dealing Item Module"} />
+          <SubHeading heading={"Edit Service Module"} />
         </>
       ) : (
         <>
           <BreadCrumbs
-            heading1={"DealingItemManagement"}
-            heading2={"Add Dealing Item Module"}
+            heading1={"ServiceManagement"}
+            heading2={"Add Service Module"}
           />
-          <SubHeading heading={"Add Dealing Item Module"} />
+          <SubHeading heading={"Add Service Module"} />
         </>
       )}
       <Grid item xs={12} className="m-5 addUserFormanage">
         <div className="card w-100">
           <div className="card-header d-flex justify-content-between align-items-center">
             <Typography component="h3" variant="h3">
-              {state.id ? "Edit" : "Add"} Dealing Item
+              {state.id ? "Edit" : "Add"} Service
             </Typography>
           </div>
           <div class="card-body">
             <ValidatorForm onSubmit={handleSubmit}>
               <Grid container spacing={3} className="FormFildes">
+                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                  <TextValidator
+                    className="form-control-item"
+                    variant="outlined"
+                    label="Header*"
+                    fullWidth
+                    value={state.header}
+                    onChange={inputChange}
+                    name="header"
+                    id="header"
+                    validators={["required"]}
+                    errorMessages={["header field is required"]}
+                  />
+                </Grid>
+
                 <Grid className="form-group-item" item xs={12} sm={6} md={4}>
                   <TextValidator
                     className="form-control-item"
@@ -147,33 +112,6 @@ const MenuCreateUpdate = (props) => {
                     id="title"
                     validators={["required"]}
                     errorMessages={["title field is required"]}
-                  />
-                </Grid>
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Short Description*"
-                    fullWidth
-                    value={state.shortDescription}
-                    onChange={inputChange}
-                    name="shortDescription"
-                    id="shortDescription"
-                    validators={["required"]}
-                    errorMessages={["shortDescription field is required"]}
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="icon*"
-                    fullWidth
-                    value={state.icon}
-                    onChange={inputChange}
-                    name="icon"
-                    id="icon"
                   />
                 </Grid>
 
@@ -219,42 +157,13 @@ const MenuCreateUpdate = (props) => {
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
                   <ReactQuill
                     onChange={handleChangeTextEditor}
-                    value={description}
                     placeholder="Enter description"
                     theme="snow"
+                    value={description}
                   />
                 </Grid>
               </Grid>
-              <br />
-              <SubHeading heading={"Upload Image"} />
-              <br />
-              <Grid container spacing={3} className="FormFildes">
-                <Grid className="form-group-item" item xs={12} sm={6} md={5}>
-                  <Typography>Image </Typography>
-                  <Dropzone
-                    onChangeStatus={handleImageExteriorView}
-                    accept="image/*,audio/*,video/*"
-                  />
-                </Grid>
 
-                <Grid className="form-group-item" item xs={12} sm={6} md={3}>
-                  <Typography>Banner </Typography>
-                  <Dropzone
-                    maxFiles="1"
-                    onChangeStatus={handleBannerUpload}
-                    accept="image/*"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <Typography>Video </Typography>
-                  <Dropzone
-                    maxFiles="1"
-                    onChangeStatus={handleVideouplaod}
-                    accept="video/*"
-                  />
-                </Grid>
-              </Grid>
               <br />
               <Box className="footer">
                 <Button
@@ -267,7 +176,7 @@ const MenuCreateUpdate = (props) => {
                   Save
                 </Button>
 
-                <Link component={RouterLink} to="/dealingItem">
+                <Link component={RouterLink} to="/service">
                   <Button
                     variant="contained"
                     color="primary"
@@ -287,9 +196,9 @@ const MenuCreateUpdate = (props) => {
 };
 
 function mapStateToProps(state) {
-  const { dealingItem } = state;
+  const { service } = state;
   return {
-    dealingItem,
+    service,
   };
 }
 export default connect(mapStateToProps)(MenuCreateUpdate);

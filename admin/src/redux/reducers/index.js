@@ -20,7 +20,8 @@ import Aboutus from "./aboutUsReducer";
 import Slider from "./homeSliderReducer";
 import Dealing from "./dealingReducer";
 import DealingItem from "./dealingItemReducer";
-
+import Service from "./serviceReducer";
+import ServiceItem from "./serviceItemReducer";
 const reducers = {
   Login: LoginReducer,
   Register: RegisterReducer,
@@ -44,6 +45,8 @@ const reducers = {
   slider: Slider,
   dealing: Dealing,
   dealingItem: DealingItem,
+  service: Service,
+  serviceItem: ServiceItem,
 };
 
 export default reducers;

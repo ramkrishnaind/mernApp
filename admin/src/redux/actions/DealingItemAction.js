@@ -3,8 +3,6 @@ import {
   DealingItemListService,
   DealingItemAddService,
   DealingItemStatusUpdateService,
-  DealingItemUpdateService,
-  DealingItemDataService,
   DealingItemDeleteService,
 } from "../../services/DealingItemService";
 
@@ -139,92 +137,6 @@ export const DealingItemUpdateStatusSuccess = (data) => {
 export const DealingItemUpdateStatusError = (data) => {
   return {
     type: ACTION_KEYS.DEALING_ITEM_UPDATE_STATUS_ERROR,
-    payload: { error: data },
-  };
-};
-
-export const DealingItemUpdateRequestAsync = (data) => {
-  // console.log('data',data);
-  return (dispatch) => {
-    dispatch(DealingItemUpdateRequest());
-    DealingItemUpdateService(dispatch, data);
-  };
-};
-
-/**
- * Action Creator to dispatch login action
- * @returns
- */
-const DealingItemUpdateRequest = () => {
-  return {
-    type: ACTION_KEYS.DEALING_ITEM_UPDATE_REQUEST,
-    payload: null,
-  };
-};
-
-/**
- * Action Creator to dispatch Success
- * @param {*} data
- * @returns
- */
-export const DealingItemUpdateSuccess = (data) => {
-  return {
-    type: ACTION_KEYS.DEALING_ITEM_UPDATE_SUCCESS,
-    payload: data,
-  };
-};
-
-/**
- * Action Creator to dispatch error
- * @param {*} data
- * @returns
- */
-export const DealingItemUpdateError = (data) => {
-  return {
-    type: ACTION_KEYS.DEALING_ITEM_UPDATE_ERROR,
-    payload: { error: data },
-  };
-};
-
-export const DealingItemDataRequestAsync = (data) => {
-  // console.log('data',data);
-  return (dispatch) => {
-    dispatch(DealingItemDataRequest());
-    DealingItemDataService(dispatch, data);
-  };
-};
-
-/**
- * Action Creator to dispatch login action
- * @returns
- */
-const DealingItemDataRequest = () => {
-  return {
-    type: ACTION_KEYS.DEALING_ITEM_DATA_REQUEST,
-    payload: null,
-  };
-};
-
-/**
- * Action Creator to dispatch Success
- * @param {*} data
- * @returns
- */
-export const DealingItemDataSuccess = (data) => {
-  return {
-    type: ACTION_KEYS.DEALING_ITEM_DATA_SUCCESS,
-    payload: data,
-  };
-};
-
-/**
- * Action Creator to dispatch error
- * @param {*} data
- * @returns
- */
-export const DealingItemDataError = (data) => {
-  return {
-    type: ACTION_KEYS.DEALING_ITEM_DATA_ERROR,
     payload: { error: data },
   };
 };

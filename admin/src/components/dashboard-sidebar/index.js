@@ -250,6 +250,33 @@ const items = [
       },
     ],
   },
+  {
+    href: "/service",
+    icon: UsersIcon,
+    title: "Service Management",
+    items: [
+      {
+        href: "/service/add",
+        icon: ShoppingBagIcon,
+        title: "Add Service",
+      },
+      {
+        href: "/service",
+        icon: ShoppingBagIcon,
+        title: "Service List",
+      },
+      {
+        href: "/serviceItem/add",
+        icon: ShoppingBagIcon,
+        title: "Add Service Item",
+      },
+      {
+        href: "/serviceItem",
+        icon: ShoppingBagIcon,
+        title: "Service Item List",
+      },
+    ],
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {

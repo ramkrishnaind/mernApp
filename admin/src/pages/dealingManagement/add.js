@@ -19,42 +19,20 @@ import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
 
 const MenuCreateUpdate = (props) => {
-  let query = useQuery();
-  let id = query.get("id");
-  let dealingData = props?.dealing?.dealingData;
-  const [refresh, setRefresh] = useState(false);
-
-  useEffect(() => {
-    let data = {
-      _id: id,
-    };
-    if (id != null) {
-      dispatch(DealingAction.DealingDataRequestAsync(data));
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if (props.dealing.success) {
-      setRefresh(true);
-      setState(initialState);
-    }
-  }, [props.dealing.success]);
-
   const dispatch = useDispatch();
 
   const initialState = {
-    title: dealingData?.title,
-    header: dealingData?.header,
-    metaTitle: dealingData?.metaTitle,
-    metaKeywords: dealingData?.metaKeywords,
-    metaDescription: dealingData?.metaDescription,
+    title: "",
+    header: "",
+    metaTitle: "",
+    metaKeywords: "",
+    metaDescription: "",
     image: [],
-    video: dealingData?.video,
-    id: id,
+    video: "",
   };
 
   const [state, setState] = useState(initialState);
-  const [description, setDescription] = useState(dealingData?.description);
+  const [description, setDescription] = useState("");
   const inputChange = (e) => {
     let { name, value } = e.target;
 
@@ -71,40 +49,21 @@ const MenuCreateUpdate = (props) => {
       metaDescription,
       video,
     } = state;
-    if (id == null) {
-      var data = new FormData();
-      state?.image.map((item, index) => {
-        data.append("image", item);
-      });
-      data.append("video", video);
-      data.append("title", title);
-      data.append("header", header);
-      data.append("description", description);
-      data.append("metaTitle", metaTitle);
-      data.append("metaKeywords", metaKeywords);
-      data.append("metaDescription", metaDescription);
 
-      dispatch(DealingAction.DealingAddRequestAsync(data));
-    } else {
-      var data = new FormData();
-      state?.image.map((item, index) => {
-        data.append("image", item);
-      });
-      data.append("video", video);
-      data.append("title", title);
-      data.append("header", header);
-      data.append("description", description);
-      data.append("metaTitle", metaTitle);
-      data.append("metaKeywords", metaKeywords);
-      data.append("metaDescription", metaDescription);
-      data.append("_id", id);
-      dispatch(DealingAction.DealingUpdateRequestAsync(data));
-    }
+    var data = new FormData();
+    state?.image.map((item, index) => {
+      data.append("image", item);
+    });
+    data.append("video", video);
+    data.append("title", title);
+    data.append("header", header);
+    data.append("description", description);
+    data.append("metaTitle", metaTitle);
+    data.append("metaKeywords", metaKeywords);
+    data.append("metaDescription", metaDescription);
+
+    dispatch(DealingAction.DealingAddRequestAsync(data));
   };
-
-  function useQuery() {
-    return new URLSearchParams(useLocation().search);
-  }
 
   const handleChangeTextEditor = (content, editor) => {
     setDescription(content);
@@ -169,7 +128,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Header*"
                     fullWidth
-                    value={state.header ? state.header : dealingData?.header}
+                    value={state.header}
                     onChange={inputChange}
                     name="header"
                     id="header"
@@ -184,7 +143,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.title ? state.title : dealingData?.title}
+                    value={state.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -199,9 +158,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={
-                      state.metaTitle ? state.metaTitle : dealingData?.metaTitle
-                    }
+                    value={state.metaTitle}
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
@@ -214,11 +171,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={
-                      state.metaKeywords
-                        ? state.metaKeywords
-                        : dealingData?.metaKeywords
-                    }
+                    value={state.metaKeywords}
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
@@ -231,11 +184,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={
-                      state.metaDescription
-                        ? state.metaDescription
-                        : dealingData?.metaDescription
-                    }
+                    value={state.metaDescription}
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"
@@ -243,26 +192,12 @@ const MenuCreateUpdate = (props) => {
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-                  {dealingData?.description != null ? (
-                    <>
-                      <ReactQuill
-                        onChange={handleChangeTextEditor}
-                        value={
-                          description ? description : dealingData?.description
-                        }
-                        placeholder="Enter description"
-                        theme="snow"
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <ReactQuill
-                        onChange={handleChangeTextEditor}
-                        placeholder="Enter description"
-                        theme="snow"
-                      />
-                    </>
-                  )}
+                  <ReactQuill
+                    onChange={handleChangeTextEditor}
+                    value={description}
+                    placeholder="Enter description"
+                    theme="snow"
+                  />
                 </Grid>
               </Grid>
               <br />

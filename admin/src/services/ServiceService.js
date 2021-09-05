@@ -1,78 +1,78 @@
-import * as DealingAction from "../redux/actions/DealingAction";
+import * as ServiceAction from "../redux/actions/ServiceAction";
 import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/snackbarActions";
 import history from "../components/history";
 
-export const DealingListService = async (dispatch, data) => {
+export const ServiceListService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.DEALING_LIST_ENDPOINT,
+      API_ENDPOINTS.SERVICE_LIST_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(DealingAction.DealingListSuccess(result));
+    dispatch(ServiceAction.ServiceListSuccess(result));
   } catch (error) {
-    dispatch(DealingAction.DealingListError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(ServiceAction.ServiceListError(error));
+    dispatch(Snackbar.showFailSnackbar(error.response?.data?.message));
   }
 };
 
-export const DealingAddService = async (dispatch, data) => {
+export const ServiceAddService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.DEALING_ADD_ENDPOINT,
+      API_ENDPOINTS.SERVICE_ADD_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(DealingAction.DealingAddSuccess(result));
+    dispatch(ServiceAction.ServiceAddSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
-    history.push("/Dealing");
+    history.push("/service");
     window.location.reload();
   } catch (error) {
-    dispatch(DealingAction.DealingAddError(error));
+    dispatch(ServiceAction.ServiceAddError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
 };
 
-export const DealingStatusUpdateService = async (dispatch, data) => {
+export const ServiceStatusUpdateService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.DEALING_STATUS_UPDATE_ENDPOINT,
+      API_ENDPOINTS.SERVICE_STATUS_UPDATE_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(DealingAction.DealingUpdateStatusSuccess(result));
+    dispatch(ServiceAction.ServiceUpdateStatusSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
-    dispatch(DealingAction.DealingUpdateStatusError(error));
+    dispatch(ServiceAction.ServiceUpdateStatusError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
 };
 
-export const DealingDeleteService = async (dispatch, data) => {
+export const ServiceDeleteService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.DEALING_DELETE_ENDPOINT,
+      API_ENDPOINTS.SERVICE_DELETE_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(DealingAction.DealingDeleteSuccess(result));
+    dispatch(ServiceAction.ServiceDeleteSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
-    dispatch(DealingAction.DealingDeleteError(error));
+    dispatch(ServiceAction.ServiceDeleteError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
 };
