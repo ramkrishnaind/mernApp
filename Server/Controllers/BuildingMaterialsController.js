@@ -35,10 +35,10 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.post('/createBuilding', userAuthMiddleware, upload.array("builder"), createBuilding(allCollection))
+    router.post('/createBuilding', userAuthMiddleware, upload.array("image"), createBuilding(allCollection))
     router.post('/getBuildingList', userAuthMiddleware, getBuildingList(allCollection))
     router.post('/getBuildingMaterials', requestAuthMiddleware, getBuildingList(allCollection))
-    router.post('/updateBuilding', userAuthMiddleware, upload.array("builder"), updateBuilding(allCollection))
+    router.post('/updateBuilding', userAuthMiddleware, upload.array("image"), updateBuilding(allCollection))
     router.post('/updateBuildingStatus', userAuthMiddleware, updateBuildingStatus(allCollection))
 
     return router;
