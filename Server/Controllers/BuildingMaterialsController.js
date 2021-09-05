@@ -26,7 +26,7 @@ let storage = multer.diskStorage({
 });
 let upload = multer({ storage: storage });
 const path = require('path');
-let { createBuilding, getBuildingList, getBuildingMaterials, updateBuildingStatus, updateBuilding } = require('./Routes');
+let { createBuilding, getBuildingList, getBuildingMaterials, updateBuildingStatus, updateBuilding, getBuildingItem, deleteBuildingItem } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
@@ -40,6 +40,8 @@ module.exports = function (conn) {
     router.post('/getBuildingMaterials', requestAuthMiddleware, getBuildingMaterials(allCollection))
     router.post('/updateBuilding', userAuthMiddleware, upload.array("image"), updateBuilding(allCollection))
     router.post('/updateBuildingStatus', userAuthMiddleware, updateBuildingStatus(allCollection))
+    router.post('/getBuildingItem', userAuthMiddleware, getBuildingItem(allCollection))
+    router.post('/deleteBuildingItem', userAuthMiddleware, deleteBuildingItem(allCollection))
 
     return router;
 };
