@@ -8,7 +8,7 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 function getBuildingMaterials(Models) {
     async function List(req, res) {
         try {
-            let findData = await Models.BuildingDB.find({ status: true }).sort({ updated: -1 });
+            let findData = await Models.BuildingDB.find({ isDisable: false }).sort({ updated: -1 });
 
             res.send({ status: true, message: "", data: findData });
         }
