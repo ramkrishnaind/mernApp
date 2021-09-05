@@ -116,6 +116,7 @@ const HomePage = (props) => {
   const [propertyData, setPropertyData] = useState({});
   const [dealingInData, setDealingInData] = useState({});
   const [building_materials, setBuildingMaterials] = useReducer(reducer2, []);
+  const [showDealingInDetails, setShowDealingInDetaisl] = useState(false);
 
   useEffect(() => {
     dispatch(LoginAction.LoginRequestAsync({}));
@@ -182,6 +183,7 @@ const HomePage = (props) => {
 
       // console.log("dealing in data ", response);
       setDealingInData(response.data);
+      setShowDealingInDetaisl(response.message !== 'Home DealingIn Data not found');
     };
     getData();
   };
@@ -339,7 +341,7 @@ const HomePage = (props) => {
       {/* SECTION - CLIENT*/}
       <div className="client-bg">
         <Container style={{paddingTop: 60, paddingBottom: 60}}>
-          <SectionClient dealingInData={dealingInData} />
+          {showDealingInDetails ? <SectionClient dealingInData={dealingInData} /> : null}
         </Container>
       </div>
 

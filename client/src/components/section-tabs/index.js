@@ -29,6 +29,14 @@ const SectionTabs = (props) => {
     });
   };
 
+  useEffect(() => {
+    console.log(document.querySelector('#tab'));
+    setTimeout(() => {
+      setValue(1);
+      setValue(0);
+    }, 1);
+  }, [propertyData]);
+
   return (
     <div className={classes.root}>
       <Tabs
@@ -40,6 +48,7 @@ const SectionTabs = (props) => {
           tabs()
         }
       </Tabs>
+
       <SectionTabPanel value={value} index={0}>
         <OuterCarouselSlider items={sell} />
       </SectionTabPanel>
