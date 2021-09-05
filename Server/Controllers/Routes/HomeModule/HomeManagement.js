@@ -660,7 +660,7 @@ function getServiceList(Models) {
             // Getting Home from Database
             let findData = await Models.ServiceDB.findOne().lean();
             console.log('findData is', findData)
-            if (findData.length) {
+            if (findData) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Service Data", data: findData });
             } else {
@@ -765,7 +765,7 @@ function getServiceItemList(Models) {
             // Getting Home from Database
             let findData = await Models.ServiceItemDB.findOne().lean();
             console.log('findData is', findData)
-            if (findData.length) {
+            if (findData) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Service Item Items Data", data: findData });
             } else {
