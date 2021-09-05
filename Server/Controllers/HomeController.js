@@ -60,14 +60,12 @@ module.exports = function (conn) {
 
     router.post('/createDealingIn', userAuthMiddleware, upload.fields(imageVideo), homeFunction.createDealingIn(db));
     router.post('/updateDealingIn', userAuthMiddleware, upload.fields(imageVideo), homeFunction.updateMovingBanner(db));
-    router.post('/getDealingInList', userAuthMiddleware, homeFunction.getMovingBanner(db));
-    router.post('/getDealingInDetails', userAuthMiddleware, homeFunction.getMovingBanner(db));
-    router.post('/deleteDealingIn', userAuthMiddleware, homeFunction.getMovingBanner(db));
-    router.post('/updateDealingInStatus', userAuthMiddleware, homeFunction.getMovingBanner(db));
+
 
     //
     router.post('/createDealingInItem', userAuthMiddleware, upload.fields(pageMedia), homeFunction.createDealingInItem(db));
     router.post('/getDealingList', userAuthMiddleware, homeFunction.getDealingList(db));
+    router.post('/getDealingInDetails', userAuthMiddleware, homeFunction.getDealingInDetails(db));
     router.post('/deleteDealingIn', userAuthMiddleware, homeFunction.deleteDealingIn(db));
     router.post('/updateDealingInStatusHelper', userAuthMiddleware, homeFunction.updateDealingInStatusHelper(db));
 

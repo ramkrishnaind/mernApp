@@ -416,7 +416,7 @@ function getDealingList(Models) {
             // Getting Home from Database
             let findData = await Models.DealingInDB.findOne().lean();
             console.log('findData is', findData)
-            if (findData.length) {
+            if (findData) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Home DealingIn Data", data: findData });
             } else {
@@ -459,6 +459,34 @@ function deleteDealingIn(Models) {
         }
     }
     return deleteHome;
+}
+function getDealingInDetails(Models) {
+    async function details(req, res) {
+        try {
+            let validateData = getHomeSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            // Getting Home from Database
+            let findData = await Models.DealingInDB.find({ _id: req.body._id });
+            console.log('findData is', findData)
+            if (deleteData) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Home DealingIn Data" });
+            } else {
+                res.send({ status: true, message: "Home DealingIn not found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('findData err DealingIn', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in findData" });
+        }
+    }
+    return details;
 }
 function updateDealingInStatusHelper(Models) {
     async function updateHomeStatus(req, res) {
@@ -523,7 +551,7 @@ function getDealingItemList(Models) {
             // Getting Home from Database
             let findData = await Models.DealingInItemDB.findOne().lean();
             console.log('findData is', findData)
-            if (findData.length) {
+            if (findData) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Home DealingIn Items Data", data: findData });
             } else {
@@ -891,5 +919,6 @@ module.exports = {
     updateServiceStatusHelper,
     getServiceItemList,
     deleteServiceItem,
-    updateServiceItemStatusHelper
+    updateServiceItemStatusHelper,
+    getDealingInDetails
 };
