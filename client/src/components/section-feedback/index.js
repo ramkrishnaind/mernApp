@@ -38,7 +38,7 @@ const getFeedbackUi = (feedbackData) => {
             <FeedbackCard key={i + 5000} name={name} img1Path={image.length >= 2 && image[0].path ? image[0].path : null} img2Path={image.length >= 2 && image[1].path ? image[1].path : null} message={message} rating={rating} />
         </div>;
     });
-    console.log("feedbakc list", newList, feedbackData);
+    // console.log("feedbakc list", newList, feedbackData);
     return newList.slice();
 };
 

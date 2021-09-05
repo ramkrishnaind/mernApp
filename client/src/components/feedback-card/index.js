@@ -41,8 +41,8 @@ const FeedbackCard = props => {
     const classes = useStyles();
     const {name, message, ratings, img1Path, img2Path} = props;
 
-    let img1 = process.env.PUBLIC_URL + '/property_img3.jpeg';
-    let img2 = process.env.PUBLIC_URL + '/property_img3.jpeg';
+    let img1 = '/property_img3.jpeg';
+    let img2 = '/property_img3.jpeg';
 
     if (img1Path) {
         img1 = ApiClient.SERVER_ADDRESS + "/" + img1Path;

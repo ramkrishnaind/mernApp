@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useReducer} from "react";
 import {Typography, Grid, Container, makeStyles, Button, Box} from "@material-ui/core";
 import {useDispatch} from 'react-redux';
 import * as LoginAction from '../../redux/actions/LoginAction';
@@ -92,16 +92,22 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+function reducer(state, newState) {
+  return {
+    ...state,
+    ...newState
+  };
+}
+
 const HomePage = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [stats, setStats] = useState(statsInfo);
   const [aboutSection, setAboutUsSection] = useState({});
-  const [services] = useState(servicesInfo);
+  const [services, setServices] = useReducer(reducer, {});
   const [banners, setBanners] = useState([]);
   const [propertyData, setPropertyData] = useState({});
   const [dealingInData, setDealingInData] = useState({});
-  const [feedbackData, setFeedbackData] = useState({list: []});
   useEffect(() => {
     dispatch(LoginAction.LoginRequestAsync({}));
   });
@@ -118,12 +124,23 @@ const HomePage = (props) => {
     populateBanners(cookie, authorization);
 
     populateAboutUsDetails(cookie, authorization);
-    // {imageUrl: '/slider/slider1.jpeg', desc: ""},
     populateStatsInfo(cookie, authorization);
 
     populatedDealingInfo(cookie, authorization);
 
+    populateServiceInfo(cookie, authorization);
+
   }, []);
+
+  const populateServiceInfo = (cookie, authorization) => {
+    const getData = async () => {
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getService', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
+
+      console.log("ServiceInfo ", response);
+      setServices(response.data);
+    };
+    getData();
+  };
 
   const populatedDealingInfo = (cookie, authorization) => {
     const getData = async () => {
@@ -145,7 +162,7 @@ const HomePage = (props) => {
         "projects": response.data.projects,
         "shortDescription": response.data.shortDescription
       };
-
+      console.log("statsData", statsData);
       setStats(statsData);
     };
     getData();
@@ -167,6 +184,7 @@ const HomePage = (props) => {
           bannersImages.push(imageData);
         });
       });
+      console.log("banner data", bannersImages);
       setBanners(bannersImages);
     };
     getBannerData();
@@ -293,10 +311,11 @@ const HomePage = (props) => {
 
       <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
         <Container>
-          <SectionHeader title={APP_CONSTANTS.section_services_title} subtitle={APP_CONSTANTS.section_services_subtitle} />
+          <SectionHeader title={services.header} subtitle={services.title} />
           <Grid container spacing={3} style={{marginTop: 30}}>
             {
-              (services || []).map((service) => {
+              (services.items || []).map((service) => {
+                console.log("service", service);
                 return <Grid item xs={12} md={3}>
                   <ServiceCard service={service} />
                 </Grid>;

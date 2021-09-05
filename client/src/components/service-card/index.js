@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import "./service-card.css";
 import {makeStyles, Box} from "@material-ui/core";
 import {Link as RouterLink} from "react-router-dom";
+import ApiClient from "../../api-client";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -25,18 +26,28 @@ const useStyles = makeStyles((theme) => ({
 const ServiceCard = props => {
     // console.log("segrvice", props);
     const classes = useStyles();
-    const {title, description, img} = props.service;
+    const {title, shortDescription, media, _id} = props.service;
+
+    console.log("Service card", props.service);
+    console.log("{title, shortDescription}", title, shortDescription, media);
+    let img1 = '/property_img3.jpeg';
+    if (media !== [] && media.length > 0 && media[0].image && media[0].image.length > 0) {
+        img1 = ApiClient.SERVER_ADDRESS + "/" + media[0].image[0].path;
+        console.log("newe imag", img1);
+
+    }
+
     return (
         <div className="portfolio-item" >
             <figure>
-                <img className="img pulse" src={img} alt="" style={{width: '100%', height: 240}} />
+                <img className="img pulse" src={img1} alt="" style={{width: '100%', height: 240}} />
                 <div className="mask">
                     <h2>{title}</h2>
-                    <p>{description}</p>
+                    <p>{shortDescription}</p>
                     <Box className={'info'} style={{marginTop: 10}} component={RouterLink} to={
                         {
                             pathname: '/service-details',
-                            state: ''
+                            state: _id
                         }}>
                         MORE DETAIL
                     </Box>

@@ -1,10 +1,11 @@
 import React from "react";
-import {Typography, Grid, makeStyles, } from "@material-ui/core";
+import {Typography, Grid, makeStyles, Box} from "@material-ui/core";
 import './section-client.css';
 import SectionHeader from "../section-header";
 import APP_CONSTANTS from "../../constants/app-constants";
 import LocalHotelIcon from '@material-ui/icons/LocalHotel';
 import ApiClient from '../../api-client/index';
+import {Link as RouterLink} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     text1: {
@@ -39,17 +40,18 @@ const SectionClient = props => {
                 </Typography>
                 <Grid container style={{marginTop: 30}}>
                     {(items || []).map((item, i) => {
-                        const {title, shortDescription, icon} = item;
+                        const {title, shortDescription, icon, _id} = item;
                         // console.log("title,shortDescription,icon", title, shortDescription, icon, item);
-                        return <Grid key={i} item xs={12} md={6} style={{display: 'flex', flexDirection: 'row', paddingTop: 5, paddingBottom: 20}}>
+                        return (<Grid key={i} item xs={12} md={6} style={{display: 'flex', flexDirection: 'row', paddingTop: 5, paddingBottom: 20}}>
                             <LocalHotelIcon style={{color: '#FF7601', fontSize: 40, padding: 0, marginRight: 8}} />
                             <Grid container>
-                                <Grid style={{display: 'flex', flexDirection: 'column'}}>
+                                <Grid component={RouterLink} to={{pathname: '/dealingInItem-details', state: _id}} style={{display: 'flex', flexDirection: 'column', textDecoration: 'none', cursor: 'pointer'}}>
                                     <Typography className={classes.text2} style={{textTransform: 'uppercase'}}>{title}</Typography>
                                     <Typography className={classes.text3} >{shortDescription}</Typography>
                                 </Grid>
                             </Grid>
-                        </Grid>;
+                        </Grid>);
+
                     })}
                 </Grid>
             </Grid>
