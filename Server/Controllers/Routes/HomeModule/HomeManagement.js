@@ -418,7 +418,7 @@ function getDealingList(Models) {
     async function DealingIn(req, res) {
         try {
             // Getting Home from Database
-            let findData = await Models.DealingInDB.findOne().lean();
+            let findData = await Models.DealingInDB.find().lean();
             console.log('findData is', findData)
             if (findData) {
                 // if data found check verified or not
@@ -505,6 +505,12 @@ function updateDealingInStatusHelper(Models) {
             let setData = {
                 isDisable: bodyData.isDisable,
             }
+            if (bodyData.isDisable == false) {
+                let setAllDisable = {
+                    isDisable: true,
+                }
+                let updateAllModule = await Models.DealingInDB.updateMany({ $set: setAllDisable });
+            }
             let updateModule = await Models.DealingInDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
@@ -553,7 +559,7 @@ function getDealingItemList(Models) {
     async function DealingIn(req, res) {
         try {
             // Getting Home from Database
-            let findData = await Models.DealingInItemDB.findOne().lean();
+            let findData = await Models.DealingInItemDB.find().lean();
             console.log('findData is', findData)
             if (findData) {
                 // if data found check verified or not
@@ -662,7 +668,7 @@ function getServiceList(Models) {
     async function DealingIn(req, res) {
         try {
             // Getting Home from Database
-            let findData = await Models.ServiceDB.findOne().lean();
+            let findData = await Models.ServiceDB.find().lean();
             console.log('findData is', findData)
             if (findData) {
                 // if data found check verified or not
@@ -721,6 +727,12 @@ function updateServiceStatusHelper(Models) {
             let setData = {
                 isDisable: bodyData.isDisable,
             }
+            if (bodyData.isDisable == false) {
+                let setAllDisable = {
+                    isDisable: true,
+                }
+                let updateAllModule = await Models.ServiceDB.updateMany({ $set: setAllDisable });
+            }
             let updateModule = await Models.ServiceDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
@@ -767,7 +779,7 @@ function getServiceItemList(Models) {
     async function DealingIn(req, res) {
         try {
             // Getting Home from Database
-            let findData = await Models.ServiceItemDB.findOne().lean();
+            let findData = await Models.ServiceItemDB.find().lean();
             console.log('findData is', findData)
             if (findData) {
                 // if data found check verified or not
