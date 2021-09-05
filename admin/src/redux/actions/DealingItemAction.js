@@ -103,6 +103,8 @@ export const DealingItemStatusUpdateRequestAsync = (data) => {
   return (dispatch) => {
     dispatch(DealingItemUpdateStatusRequest());
     DealingItemStatusUpdateService(dispatch, data);
+    dispatch(DealingItemListRequest());
+    DealingItemListService(dispatch, "");
   };
 };
 
@@ -232,6 +234,8 @@ export const DealingItemDeleteRequestAsync = (data) => {
   return (dispatch) => {
     dispatch(DealingItemDeleteRequest());
     DealingItemDeleteService(dispatch, data);
+    dispatch(DealingItemListRequest());
+    DealingItemListService(dispatch, "");
   };
 };
 

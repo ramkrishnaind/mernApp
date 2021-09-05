@@ -46,15 +46,9 @@ const DealingItemList = (props) => {
   function onDisable(data, status) {
     let tempdata = {
       _id: data,
-      active: status,
+      title: status,
     };
     dispatch(DealingItemAction.DealingItemStatusUpdateRequestAsync(tempdata));
-
-    if (status === "enable") {
-      // toast.error("Disable")
-    } else {
-      // toast.success("Enable")
-    }
   }
 
   function onDeleteClick(data) {
@@ -103,7 +97,7 @@ const DealingItemList = (props) => {
                 index + 1,
                 item.title,
                 item.description,
-                item.status,
+                item.isDisable,
                 item._id,
               ];
             })}
@@ -126,13 +120,6 @@ const DealingItemList = (props) => {
                   customBodyRender: (value, tableMeta, updateValue) => {
                     return (
                       <>
-                        <EditIcon
-                          style={{ color: "#0069d9", cursor: "pointer" }}
-                          onClick={() =>
-                            updatehandleOpenCreateModal(tableMeta.rowData[4])
-                          }
-                        />
-
                         {tableMeta.rowData[3] ? (
                           <Tooltip title="Active">
                             <Done

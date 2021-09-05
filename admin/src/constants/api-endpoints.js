@@ -95,20 +95,17 @@ const API_ENDPOINTS = {
   SLIDER_DATA_ENDPOINT: "slider/getSliderDetail",
 
   //DEALING module
-  DEALING_LIST_ENDPOINT: "home/getAllDealingIn",
+  DEALING_LIST_ENDPOINT: "home/getDealingList",
   DEALING_ADD_ENDPOINT: "home/createDealingIn",
-  DEALING_STATUS_UPDATE_ENDPOINT: "home/updateDealingInStatus",
-  DEALING_UPDATE_ENDPOINT: "home/updateDealingIn",
+  DEALING_STATUS_UPDATE_ENDPOINT: "home/updateDealingInStatusHelper",
   DEALING_DELETE_ENDPOINT: "home/deleteDealingIn",
-  DEALING_DATA_ENDPOINT: "home/getDealingInDetail",
+  DEALING_DATA_ENDPOINT: "home/getDealingInDetails",
 
   //slider module
-  DEALING_ITEM_LIST_ENDPOINT: "slider/getSliderList",
+  DEALING_ITEM_LIST_ENDPOINT: "home/getDealingItemList",
   DEALING_ITEM_ADD_ENDPOINT: "home/createDealingInItem",
-  DEALING_ITEM_STATUS_UPDATE_ENDPOINT: "slider/updateSliderStatus",
-  DEALING_ITEM_UPDATE_ENDPOINT: "slider/updateSlider",
-  DEALING_ITEM_DELETE_ENDPOINT: "slider/deleteSlider",
-  DEALING_ITEM_DATA_ENDPOINT: "slider/getSliderDetail",
+  DEALING_ITEM_STATUS_UPDATE_ENDPOINT: "home/updateDealingInItemStatusHelper",
+  DEALING_ITEM_DELETE_ENDPOINT: "home/deleteDealingItem",
 };
 
 export default API_ENDPOINTS;

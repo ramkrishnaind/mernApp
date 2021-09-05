@@ -49,6 +49,7 @@ const MenuCreateUpdate = (props) => {
     metaKeywords: dealingData?.metaKeywords,
     metaDescription: dealingData?.metaDescription,
     image: [],
+    video: dealingData?.video,
     id: id,
   };
 
@@ -68,12 +69,14 @@ const MenuCreateUpdate = (props) => {
       metaTitle,
       metaKeywords,
       metaDescription,
+      video,
     } = state;
     if (id == null) {
       var data = new FormData();
       state?.image.map((item, index) => {
-        data.append("media", item);
+        data.append("image", item);
       });
+      data.append("video", video);
       data.append("title", title);
       data.append("header", header);
       data.append("description", description);
@@ -85,8 +88,9 @@ const MenuCreateUpdate = (props) => {
     } else {
       var data = new FormData();
       state?.image.map((item, index) => {
-        data.append("media", item);
+        data.append("image", item);
       });
+      data.append("video", video);
       data.append("title", title);
       data.append("header", header);
       data.append("description", description);
@@ -117,6 +121,13 @@ const MenuCreateUpdate = (props) => {
         data["0"] = file.file;
       }
       setState({ ...state, ["image"]: data });
+    }
+  };
+
+  const handleVideouplaod = (file, status) => {
+    let list = state;
+    if (status == "done") {
+      setState({ ...state, ["video"]: file.file });
     }
   };
   return (
@@ -259,9 +270,18 @@ const MenuCreateUpdate = (props) => {
               <br />
               <Grid container spacing={3} className="FormFildes">
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
+                  <Typography>Image </Typography>
                   <Dropzone
                     onChangeStatus={handleImageExteriorView}
                     accept="image/*,audio/*,video/*"
+                  />
+                </Grid>
+                <Grid className="form-group-item" item xs={12} sm={6} md={5}>
+                  <Typography>Video </Typography>
+                  <Dropzone
+                    maxFiles="1"
+                    onChangeStatus={handleVideouplaod}
+                    accept="video/*"
                   />
                 </Grid>
               </Grid>

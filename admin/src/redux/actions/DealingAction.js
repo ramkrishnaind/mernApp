@@ -103,6 +103,8 @@ export const DealingStatusUpdateRequestAsync = (data) => {
   return (dispatch) => {
     dispatch(DealingUpdateStatusRequest());
     DealingStatusUpdateService(dispatch, data);
+    dispatch(DealingListRequest());
+    DealingListService(dispatch, "");
   };
 };
 
@@ -232,6 +234,8 @@ export const DealingDeleteRequestAsync = (data) => {
   return (dispatch) => {
     dispatch(DealingDeleteRequest());
     DealingDeleteService(dispatch, data);
+    dispatch(DealingListRequest());
+    DealingListService(dispatch, "");
   };
 };
 

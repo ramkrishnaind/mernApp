@@ -77,12 +77,6 @@ const DealingList = (props) => {
     });
   }
 
-  function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/dealing/edit?id="+data;
-    history.push("/dealing/add?id=" + data);
-    window.location.reload();
-  }
-
   return (
     <>
       <FormHeader
@@ -103,7 +97,7 @@ const DealingList = (props) => {
                 index + 1,
                 item.title,
                 item.description,
-                item.status,
+                item.isDisable,
                 item._id,
               ];
             })}
@@ -126,13 +120,6 @@ const DealingList = (props) => {
                   customBodyRender: (value, tableMeta, updateValue) => {
                     return (
                       <>
-                        <EditIcon
-                          style={{ color: "#0069d9", cursor: "pointer" }}
-                          onClick={() =>
-                            updatehandleOpenCreateModal(tableMeta.rowData[4])
-                          }
-                        />
-
                         {tableMeta.rowData[3] ? (
                           <Tooltip title="Active">
                             <Done
