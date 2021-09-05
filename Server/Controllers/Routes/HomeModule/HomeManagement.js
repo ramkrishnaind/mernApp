@@ -77,6 +77,10 @@ const updateHomeStatusSchema = Joi.object({
     _id: Joi.string().trim().required(),
     active: Joi.boolean().required(),
 });
+const updateStatusSchema = Joi.object({
+    _id: Joi.string().trim().required(),
+    isDisable: Joi.boolean().required(),
+});
 
 function createAboutSection(Models) {
     async function aboutSection(req, res) {
@@ -491,15 +495,15 @@ function getDealingInDetails(Models) {
 function updateDealingInStatusHelper(Models) {
     async function updateHomeStatus(req, res) {
         try {
-            let validateData = updateHomeStatusSchema.validate(req.body);
+            let validateData = updateStatusSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
 
-            let bodyData = _.pick(req.body, ["active", "_id"]);
+            let bodyData = _.pick(req.body, ["isDisable", "_id"]);
             let setData = {
-                active: bodyData.active,
+                isDisable: bodyData.isDisable,
             }
             let updateModule = await Models.DealingInDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
@@ -598,15 +602,15 @@ function deleteDealingItem(Models) {
 function updateDealingInItemStatusHelper(Models) {
     async function updateHomeStatus(req, res) {
         try {
-            let validateData = updateHomeStatusSchema.validate(req.body);
+            let validateData = updateStatusSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
 
-            let bodyData = _.pick(req.body, ["active", "_id"]);
+            let bodyData = _.pick(req.body, ["isDisable", "_id"]);
             let setData = {
-                active: bodyData.active,
+                isDisable: bodyData.isDisable,
             }
             let updateModule = await Models.DealingInItemDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
@@ -707,15 +711,15 @@ function deleteService(Models) {
 function updateServiceStatusHelper(Models) {
     async function updateHomeStatus(req, res) {
         try {
-            let validateData = updateHomeStatusSchema.validate(req.body);
+            let validateData = updateStatusSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
 
-            let bodyData = _.pick(req.body, ["active", "_id"]);
+            let bodyData = _.pick(req.body, ["isDisable", "_id"]);
             let setData = {
-                active: bodyData.active,
+                isDisable: bodyData.isDisable,
             }
             let updateModule = await Models.ServiceDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
@@ -812,15 +816,15 @@ function deleteServiceItem(Models) {
 function updateServiceItemStatusHelper(Models) {
     async function updateHomeStatus(req, res) {
         try {
-            let validateData = updateHomeStatusSchema.validate(req.body);
+            let validateData = updateStatusSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
 
-            let bodyData = _.pick(req.body, ["active", "_id"]);
+            let bodyData = _.pick(req.body, ["isDisable", "_id"]);
             let setData = {
-                active: bodyData.active,
+                isDisable: bodyData.isDisable,
             }
             let updateModule = await Models.ServiceItemDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
