@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import { Typography } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
+import React, {useEffect} from "react";
+import {Typography} from "@material-ui/core";
+import {withStyles} from "@material-ui/core/styles";
 import * as BlogAction from "../../redux/actions/BlogAction";
-import { useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
 
 import BreadCrumbs from "../../common/bread-crumbs";
 import FormHeader from "../../common/form-header";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import MUIDataTable from "mui-datatables";
 
 import Done from "@material-ui/icons/Done";
@@ -15,7 +15,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
 import history from "../../components/history";
-import { confirmAlert } from "react-confirm-alert";
+import {confirmAlert} from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
 const styles = (theme) => ({
@@ -33,7 +33,7 @@ const BlogList = (props) => {
   console.log("test prop", props.blog);
 
   const dispatch = useDispatch();
-  let { classes, blog } = props;
+  let {classes, blog} = props;
 
   useEffect(() => {
     dispatch(BlogAction.BlogListRequestAsync());
@@ -125,7 +125,7 @@ const BlogList = (props) => {
                     return (
                       <>
                         <EditIcon
-                          style={{ color: "#0069d9", cursor: "pointer" }}
+                          style={{color: "#0069d9", cursor: "pointer"}}
                           onClick={() =>
                             updatehandleOpenCreateModal(tableMeta.rowData[4])
                           }
@@ -137,7 +137,7 @@ const BlogList = (props) => {
                               onClick={() =>
                                 onDisable(tableMeta.rowData[4], false)
                               }
-                              style={{ color: "#1e7e34", cursor: "pointer" }}
+                              style={{color: "#1e7e34", cursor: "pointer"}}
                             />
                           </Tooltip>
                         ) : (
@@ -146,13 +146,13 @@ const BlogList = (props) => {
                               onClick={() =>
                                 onDisable(tableMeta.rowData[4], true)
                               }
-                              style={{ color: "#bd2130", cursor: "pointer" }}
+                              style={{color: "#bd2130", cursor: "pointer"}}
                             />
                           </Tooltip>
                         )}
 
                         <DeleteIcon
-                          style={{ color: "#bd2130", cursor: "pointer" }}
+                          style={{color: "#bd2130", cursor: "pointer"}}
                           onClick={() => onDeleteClick(tableMeta.rowData[4])}
                         />
                       </>
@@ -172,7 +172,7 @@ const BlogList = (props) => {
 };
 
 function mapStateToProps(state) {
-  const { blog } = state;
+  const {blog} = state;
 
   console.log("testingg", blog);
   return {

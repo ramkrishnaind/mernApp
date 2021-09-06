@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router';
+import React, {useEffect, useState} from 'react';
+import {withRouter} from 'react-router';
 import {
   Container,
   Grid,
@@ -14,7 +14,7 @@ import {
   Button,
 } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
-import { useParams } from 'react-router';
+import {useParams} from 'react-router';
 import './property-detail.css';
 import PageBanner from '../../components/page-banner';
 import bannerImage from '../../images/property_header_2.jpeg';
@@ -27,9 +27,9 @@ import Aminities from './components/amenities';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import StarIcon from '@material-ui/icons/Star';
 import APP_CONSTANTS from '../../constants/app-constants';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import * as PropertyAction from '../../redux/actions/PropertyAction';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import {Link as RouterLink, useLocation} from 'react-router-dom';
 import propertyDetail from '../property-detail';
 import MapContainer from '../../components/section-map/MapContainer';
 import BookNowModal from '../../components/book-now/book-now';
@@ -123,7 +123,7 @@ const useStyles = makeStyles((theme) => ({
 const HouseDetailPage = (props) => {
   const classes = useStyles();
   const location = useLocation();
-  const { item } = props;
+  const {item} = props;
   const dispatch = useDispatch();
   let query = useQuery();
   const [viewDetails, setViewDetails] = React.useState(false);
@@ -170,7 +170,7 @@ const HouseDetailPage = (props) => {
 
   console.log("property details *** ", PropertyDetail);
   return (
-    <div style={{ background: '#F7F7F7' }}>
+    <div style={{background: '#F7F7F7'}}>
       <PageBanner
         bgImage={bannerImage}
         title="Property"
@@ -179,7 +179,7 @@ const HouseDetailPage = (props) => {
       {/* <Gallery /> */}
       {viewDetails ? (
         <Container>
-          <Paper elevation={1} style={{ padding: 20, marginTop: 20 }}>
+          <Paper elevation={1} style={{padding: 20, marginTop: 20}}>
             <Grid container>
               <Grid item xs={12} md={8} className={classes.style2}>
                 <Typography className={classes.text7}>
@@ -195,7 +195,7 @@ const HouseDetailPage = (props) => {
                 <Typography className={classes.text5}>Rs. 3250000</Typography>
               </Grid>
             </Grid>
-            <Grid container style={{ marginTop: 10 }}>
+            <Grid container style={{marginTop: 10}}>
               <Grid item xs={12} md={8} className={classes.style2}>
                 <LocationOnIcon
                   style={{
@@ -213,7 +213,7 @@ const HouseDetailPage = (props) => {
                 {console.log(typeof PropertyDetail.rating)}
                 <Rating name="half-rating-read" defaultValue={PropertyDetail?.rating} precision={0.5} value={propertyDetail?.rating} readOnly />
               </Grid>
-              <Grid item xs={12} md={12} style={{ marginTop: 20 }}>
+              <Grid item xs={12} md={12} style={{marginTop: 20}}>
                 <Button
                   variant="contained"
                   className={`${classes.btn2} btn-book-online`}
@@ -232,15 +232,15 @@ const HouseDetailPage = (props) => {
               </Grid>
             </Grid>
           </Paper>
-          <Paper elevation={1} style={{ padding: 20, marginTop: 20 }}>
+          <Paper elevation={1} style={{padding: 20, marginTop: 20}}>
 
             <Grid container>
-              <Grid item xs={12} md={6} className={classes.style2} style={{ backgroundImage: "#03b2cb", padding: 40 }}>
+              <Grid item xs={12} md={6} className={classes.style2} style={{backgroundImage: "#03b2cb", padding: 40}}>
                 <img src="property_img3.jpeg" height={"100%"} width={'100%'} />
               </Grid>
-              <Grid item xs={12} md={6} style={{ padding: 20, marginTop: 20 }}>
-                <Typography className={classes.text7} style={{ padding: 20 }}> Property Brief</Typography>
-                <Typography className={classes.text3} style={{ padding: 20, lineHeight: "2.3em" }} >
+              <Grid item xs={12} md={6} style={{padding: 20, marginTop: 20}}>
+                <Typography className={classes.text7} style={{padding: 20}}> Property Brief</Typography>
+                <Typography className={classes.text3} style={{padding: 20, lineHeight: "2.3em"}} >
                   {/* Vishal Construction Company is a Jaipur based construction company which today is a renowned name in providing best in class real estate services to its clients located all over India. Vishal Construction Company specializes in its area of work wherein they are expert in the real estate services, construction process of housing, commercial and other types of properties. They majorly serve clientele of Rajasthan, Hyderabad, Kolkata and other metro cities of India. Vishal Construction Company has a long-standing reputation wherein they deliver excellence catering to services and workmanship. They believe in providing quality projects with timely delivery. */}
                   {PropertyDetail?.projectDescription}
                 </Typography>
@@ -252,10 +252,10 @@ const HouseDetailPage = (props) => {
               item
               xs={12}
               md={8}
-              style={{ display: 'flex', flexDirection: 'column', marginBottom: 20 }}
+              style={{display: 'flex', flexDirection: 'column', marginBottom: 20}}
             >
               <CarouselSlider />
-              <InfoCard item={{ title: 'Facts and Features' }}>
+              <InfoCard item={{title: 'Facts and Features'}}>
                 <Grid container>
                   <Grid item xs={12} md={3}>
                     <FactAndFeature
@@ -315,13 +315,13 @@ const HouseDetailPage = (props) => {
                   </Grid>
                 </Grid>
               </InfoCard>
-              <InfoCard item={{ title: 'Property Details' }}>
+              <InfoCard item={{title: 'Property Details'}}>
                 <Grid container>
                   <Grid
                     item
                     xs={12}
                     md={4}
-                    style={{ display: 'flex', flexDirection: 'column' }}
+                    style={{display: 'flex', flexDirection: 'column'}}
                   >
                     <Typography className={classes.text1}>
                       Property ID : {PropertyDetail?._id}
@@ -337,7 +337,7 @@ const HouseDetailPage = (props) => {
                     item
                     xs={12}
                     md={4}
-                    style={{ display: 'flex', flexDirection: 'column' }}
+                    style={{display: 'flex', flexDirection: 'column'}}
                   >
                     <Typography className={classes.text1}>Bath: 3</Typography>
                     <Typography className={classes.text1}>
@@ -351,7 +351,7 @@ const HouseDetailPage = (props) => {
                     item
                     xs={12}
                     md={4}
-                    style={{ display: 'flex', flexDirection: 'column' }}
+                    style={{display: 'flex', flexDirection: 'column'}}
                   >
                     <Typography className={classes.text1}>
                       Property status : For {PropertyDetail?.for}
@@ -363,7 +363,7 @@ const HouseDetailPage = (props) => {
                 </Grid>
               </InfoCard>
 
-              <InfoCard item={{ title: 'Amenities' }}>
+              <InfoCard item={{title: 'Amenities'}}>
                 <Grid container>
                   {PropertyDetail?.amenities?.basketballcourt ? (
                     <Grid item xs={12} md={4}>
@@ -416,8 +416,8 @@ const HouseDetailPage = (props) => {
                 </Grid>
               </InfoCard>
               <InfoCard
-                style={{ marginBottom: 20 }}
-                item={{ title: 'Reviews' }}
+                style={{marginBottom: 20}}
+                item={{title: 'Reviews'}}
                 reviewCount={
                   PropertyDetail?.review?.length != 0
                     ? PropertyDetail?.review?.length
@@ -437,8 +437,8 @@ const HouseDetailPage = (props) => {
 
             <Grid item xs={12} md={4}>
               <Grid container>
-                <Grid item item xs={12} md={12} style={{ marginTop: 20 }}>
-                  <Paper style={{ padding: 20 }}>
+                <Grid item item xs={12} md={12} style={{marginTop: 20}}>
+                  <Paper style={{padding: 20}}>
                     <Grid container>
                       <Grid item xs={12} md={6} className={classes.style1}>
                         <Typography className={classes.text4}>
@@ -468,7 +468,7 @@ const HouseDetailPage = (props) => {
                       <Grid item xs={12} md={6} className={classes.style1}>
                         <Typography className={classes.text4}>
                           <Button variant="contained" className={classes.btn1}>
-                            <a target="_blank" style={{ color: "#fff", textDecoration: 'none' }} href="https://goo.gl/maps/i9cYX1hYVQiAYhCL6" class="location-map">View Map <i class="far fa-map-marker-alt"></i></a>
+                            <a target="_blank" style={{color: "#fff", textDecoration: 'none'}} href="https://goo.gl/maps/i9cYX1hYVQiAYhCL6" class="location-map">View Map <i class="far fa-map-marker-alt"></i></a>
                           </Button>
 
                         </Typography>
@@ -512,9 +512,9 @@ const HouseDetailPage = (props) => {
                   item
                   xs={12}
                   md={12}
-                  style={{ marginTop: 20, marginBottom: 20 }}
+                  style={{marginTop: 20, marginBottom: 20}}
                 >
-                  <Paper style={{ padding: 20 }}>
+                  <Paper style={{padding: 20}}>
                     <Grid container>
                       <Grid item xs={12} md={12} className={classes.style1}>
                         <Typography className={classes.text4}>
@@ -524,26 +524,26 @@ const HouseDetailPage = (props) => {
                           label="Your Name"
                           fullWidth
                           variant="outlined"
-                          style={{ marginBottom: 15 }}
+                          style={{marginBottom: 15}}
                         ></TextField>
                         <TextField
                           label="Email"
                           fullWidth
                           variant="outlined"
-                          style={{ marginBottom: 15 }}
+                          style={{marginBottom: 15}}
                         ></TextField>
                         <TextField
                           label="Phone"
                           fullWidth
                           variant="outlined"
-                          style={{ marginBottom: 15 }}
+                          style={{marginBottom: 15}}
                         ></TextField>
                         <TextField
                           label="Message"
                           multiline
                           fullWidth
                           variant="outlined"
-                          style={{ marginBottom: 15 }}
+                          style={{marginBottom: 15}}
                         ></TextField>
                         <Typography className={classes.text1}>
                           Request a Site Visit
@@ -577,9 +577,9 @@ const HouseDetailPage = (props) => {
             </Grid>
           </Grid>
 
-          <Grid container style={{ paddingTop: 60, paddingBottom: 60 }} >
+          <Grid container style={{paddingTop: 60, paddingBottom: 60}} >
             <Grid item xs={8} md={8} >
-              <Paper elevation={1} style={{ padding: 20, marginTop: 20 }}>
+              <Paper elevation={1} style={{padding: 20, marginTop: 20}}>
                 <Grid item xs={12} md={8} className={classes.style2}>
                   <LocationOnIcon
                     style={{
@@ -596,7 +596,7 @@ const HouseDetailPage = (props) => {
               </Paper >
             </Grid>
 
-            <Grid item xs={8} md={8} style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', overflow: 'hidden' }}>
+            <Grid item xs={8} md={8} style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', overflow: 'hidden'}}>
 
               <MapContainer />
 

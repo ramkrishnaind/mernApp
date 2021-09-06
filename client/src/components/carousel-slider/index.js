@@ -10,13 +10,13 @@ const OwlCarouselSlider = (props) => {
 
   const images = props.images;
   const items = props.items || 1;
-  console.log("images check", images, props, (images || []));
+  // console.log("images check", images, props, (images || []));
   return (
     <Grid container style={{backgroundColor: '#FFFFFF'}}>
       <Grid item xs={12} md={12}>
-        <OwlCarousel items={items} className="owl-theme" loop nav={false} margin={8} autoplay={props.autoplay} dots={true}>
-          {(images || []).map((image) => {
-            return < div >
+        <OwlCarousel items={items} className="owl-theme" loop nav={false} margin={8} autoPlay={props.autoplay} dots={true}>
+          {(images || []).map((image, i) => {
+            return < div key={i}>
               <img className="img" src={image.imageUrl} style={props.style} alt="" />
             </div>;
           })}

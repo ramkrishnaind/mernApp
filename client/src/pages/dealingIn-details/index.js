@@ -7,7 +7,7 @@ import {
   Box,
   Paper,
 } from '@material-ui/core';
-import './service-details.css';
+import './dealingIn-details.css';
 import PageBanner from '../../components/page-banner';
 import {useDispatch, useSelector} from 'react-redux';
 import {useLocation} from 'react-router-dom';
@@ -105,14 +105,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ServiceDetailPage = (props) => {
+const DealingInItemDetailPage = (props) => {
   const classes = useStyles();
   const location = useLocation();
   const {item} = props;
   const dispatch = useDispatch();
   let query = useQuery();
   const [viewDetails, setViewDetails] = React.useState(true);
-  const [serviceDetail, setServiceDetail] = React.useState({});
+  const [dealingInDetail, setDealingInDetail] = React.useState({});
   let token = query.get('token');
 
   // const propertyListItem = useSelector((state) => state.PropertyDetail.data);
@@ -133,19 +133,17 @@ const ServiceDetailPage = (props) => {
     //   // serviceId: location?.state,
 
     // };
-    const serviceId = "613264c4d9beb61cec14f5a5";
-    fetchServiceDetails(serviceId);
-
-
+    const _id = "61322c65d8b4f010d7eda31b";
+    fetchDealingInDetails(_id);
   }, []);
 
-  const fetchServiceDetails = (serviceId) => {
+  const fetchDealingInDetails = (_id) => {
 
     const getData = async () => {
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getServiceDetails', {_id: serviceId}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getDealingInItem', {_id: _id}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
 
       console.log("Service Details Info ", response.data);
-      setServiceDetail(response.data);
+      setDealingInDetail(response.data);
       setViewDetails(true);
     };
     getData();
@@ -153,10 +151,10 @@ const ServiceDetailPage = (props) => {
 
   let img1 = '/property_img3.jpeg';
   let banner = '/about_us.jpeg';
-  if (serviceDetail !== {} && serviceDetail.media && serviceDetail.media.length > 0 && serviceDetail.media[0].image && serviceDetail.media[0].image.length > 0) {
-    img1 = ApiClient.SERVER_ADDRESS + "/" + serviceDetail.media[0].image[0].path;
+  if (dealingInDetail !== {} && dealingInDetail.media && dealingInDetail.media.length > 0 && dealingInDetail.media[0].image && dealingInDetail.media[0].image.length > 0) {
+    img1 = ApiClient.SERVER_ADDRESS + "/" + dealingInDetail.media[0].image[0].path;
     console.log(" imag ***x", img1);
-    banner = ApiClient.SERVER_ADDRESS + "/" + serviceDetail.media[0].banner[0].path;
+    banner = ApiClient.SERVER_ADDRESS + "/" + dealingInDetail.media[0].banner[0].path;
     console.log("banner", banner);
   }
 
@@ -165,8 +163,8 @@ const ServiceDetailPage = (props) => {
     <div style={{background: '#F7F7F7'}}>
       <PageBanner
         bgImage={banner}
-        title="Service details"
-        currentPage="SERVICE DETAILS"
+        title="Dealing In Item details"
+        currentPage="DEALING IN ITEM DETAILS"
       />
       {/* <Gallery /> */}
       {viewDetails ? (
@@ -179,9 +177,9 @@ const ServiceDetailPage = (props) => {
                 <img src={img1} height={"auto"} alt="" width={'110%'} />
               </Grid>
               <Grid item xs={12} md={6} style={{padding: 20, backgroundColor: "#ff7600", height: 'fit-content', margin: 'auto'}}>
-                <Typography className={classes.text8} style={{padding: 20}}> {serviceDetail.title}</Typography>
+                <Typography className={classes.text8} style={{padding: 20}}> {dealingInDetail.title}</Typography>
                 <Typography className={classes.text3} style={{padding: 20, lineHeight: "2.3em", color: '#fff'}} >
-                  {serviceDetail.description}
+                  {dealingInDetail.description}
                 </Typography>
               </Grid>
             </Grid>
@@ -209,5 +207,5 @@ const ServiceDetailPage = (props) => {
   );
 };
 
-export default ServiceDetailPage;
+export default DealingInItemDetailPage;
 

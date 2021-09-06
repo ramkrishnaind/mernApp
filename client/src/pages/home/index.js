@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useReducer} from "react";
 import {Typography, Grid, Container, makeStyles, Button, Box} from "@material-ui/core";
 import {useDispatch} from 'react-redux';
 import * as LoginAction from '../../redux/actions/LoginAction';
@@ -24,7 +24,7 @@ import OnlineBooking from "../../components/online-form/online-form";
 import EmiCalculater from "../../components/emiCalculater/emiCalculater";
 import EnquryForm from "../../components/enquryForm/enquryForm";
 import CountUp, {useCountUp} from 'react-countup';
-import {statsInfo, aboutSectionInfo, servicesInfo, bannersInfo, building_materials} from './intial-content';
+import {statsInfo, aboutSectionInfo, servicesInfo, bannersInfo} from './intial-content';
 import ApiClient from '../../api-client/index';
 import VisibilitySensor from "react-visibility-sensor";
 
@@ -92,15 +92,32 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+function reducer(state, newState) {
+  return {
+    ...state,
+    ...newState
+  };
+}
+
+function reducer2(state, newState) {
+  return [
+    ...state,
+    ...newState
+  ];
+}
+
 const HomePage = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [stats, setStats] = useState(statsInfo);
   const [aboutSection, setAboutUsSection] = useState({});
-  const [services] = useState(servicesInfo);
+  const [services, setServices] = useReducer(reducer, {});
   const [banners, setBanners] = useState([]);
   const [propertyData, setPropertyData] = useState({});
   const [dealingInData, setDealingInData] = useState({});
+  const [building_materials, setBuildingMaterials] = useReducer(reducer2, []);
+  const [showDealingInDetails, setShowDealingInDetaisl] = useState(false);
+
   useEffect(() => {
     dispatch(LoginAction.LoginRequestAsync({}));
   });
@@ -117,18 +134,56 @@ const HomePage = (props) => {
     populateBanners(cookie, authorization);
 
     populateAboutUsDetails(cookie, authorization);
-    // {imageUrl: '/slider/slider1.jpeg', desc: ""},
     populateStatsInfo(cookie, authorization);
 
     populatedDealingInfo(cookie, authorization);
+
+    populateServiceInfo(cookie, authorization);
+
+    populateBuildingMaterialInfo(cookie, authorization);
+
   }, []);
+
+  const populateBuildingMaterialInfo = (cookie, authorization) => {
+    const getData = async () => {
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/builder/getBuildingMaterials', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
+
+      // console.log("/builder/getBuildingMaterials ", response);
+
+      const buildingMaterialImgInfo = [];
+      const baseUrl = ApiClient.SERVER_ADDRESS;
+      response.data.forEach((imageInfo) => {
+        const imgDetails = {imageUrl: '', desc: '', name: ''};
+
+        imgDetails.imageUrl = baseUrl + "/" + imageInfo.image[0].path;
+        imgDetails.desc = "";
+        imgDetails.name = imageInfo.name;
+        buildingMaterialImgInfo.push(imgDetails);
+      });
+      // console.log("buildingMaterialImgInfo", buildingMaterialImgInfo);
+      setBuildingMaterials(buildingMaterialImgInfo);
+      setTimeout(() => setBuildingMaterials(buildingMaterialImgInfo), 100);
+    };
+    getData();
+  };
+
+  const populateServiceInfo = (cookie, authorization) => {
+    const getData = async () => {
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getService', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
+
+      // console.log("ServiceInfo ", response);
+      setServices(response.data);
+    };
+    getData();
+  };
 
   const populatedDealingInfo = (cookie, authorization) => {
     const getData = async () => {
       const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getDealingIn', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
 
-      console.log("dealing in data ", response);
+      // console.log("dealing in data ", response);
       setDealingInData(response.data);
+      setShowDealingInDetaisl(response.message !== 'Home DealingIn Data not found');
     };
     getData();
   };
@@ -143,7 +198,7 @@ const HomePage = (props) => {
         "projects": response.data.projects,
         "shortDescription": response.data.shortDescription
       };
-
+      // console.log("statsData", statsData);
       setStats(statsData);
     };
     getData();
@@ -165,6 +220,7 @@ const HomePage = (props) => {
           bannersImages.push(imageData);
         });
       });
+      // console.log("banner data", bannersImages);
       setBanners(bannersImages);
     };
     getBannerData();
@@ -186,7 +242,7 @@ const HomePage = (props) => {
       });
       aboutUsInfo.images = images;
       setAboutUsSection(aboutUsInfo);
-      console.log('About us details', aboutUsInfo, aboutSection);
+      // console.log('About us details', aboutUsInfo, aboutSection);
     };
     getData();
   };
@@ -194,7 +250,7 @@ const HomePage = (props) => {
 
   const showPropertyData = () => {
     if (propertyData !== {}) {
-      console.log("propertyData!={}", propertyData);
+      // console.log("propertyData!={}", propertyData);
       return <SectionTabs propertyData={propertyData} />;
     } else {
       return null;
@@ -214,7 +270,7 @@ const HomePage = (props) => {
 
   return (
     <div className="main-w3">
-      <OwlCarouselSlider images={banners} style={{width: '100%', maxHeight: 530}} autoplay={false} />
+      <OwlCarouselSlider images={banners} style={{width: '100%', maxHeight: 530}} autoPlay={false} />
       {/* <EmiCalculater />
       <EnquryForm/> */}
       <Box style={{backgroundColor: '#FFFFFF'}}>
@@ -285,16 +341,17 @@ const HomePage = (props) => {
       {/* SECTION - CLIENT*/}
       <div className="client-bg">
         <Container style={{paddingTop: 60, paddingBottom: 60}}>
-          <SectionClient dealingInData={dealingInData} />
+          {showDealingInDetails ? <SectionClient dealingInData={dealingInData} /> : null}
         </Container>
       </div>
 
       <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
         <Container>
-          <SectionHeader title={APP_CONSTANTS.section_services_title} subtitle={APP_CONSTANTS.section_services_subtitle} />
+          <SectionHeader title={services.header} subtitle={services.title} />
           <Grid container spacing={3} style={{marginTop: 30}}>
             {
-              (services || []).map((service) => {
+              (services.items || []).map((service) => {
+                console.log("service", service);
                 return <Grid item xs={12} md={3}>
                   <ServiceCard service={service} />
                 </Grid>;
@@ -307,7 +364,7 @@ const HomePage = (props) => {
       {/* SECTION - FEEDBACK*/}
       <div className="client-bg">
         <Container style={{paddingTop: 60, paddingBottom: 60}}>
-          <SectionFeedback items={feedbacks} />
+          <SectionFeedback />
         </Container>
       </div>;
 
