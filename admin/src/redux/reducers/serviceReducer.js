@@ -7,22 +7,22 @@ const initialState = {
   data: null,
 };
 
-const DealingReducer = (state = initialState, action) => {
+const ServiceReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case ACTION_KEYS.DEALING_LIST_REQUEST:
+    case ACTION_KEYS.SERVICE_LIST_REQUEST:
       return {
         ...state,
         isRequesting: true,
       };
-    case ACTION_KEYS.DEALING_LIST_SUCCESS:
+    case ACTION_KEYS.SERVICE_LIST_SUCCESS:
       return {
         ...state,
         isRequesting: false,
-        list: payload.data,
+        list: payload?.data,
       };
-    case ACTION_KEYS.DEALING_LIST_ERROR:
+    case ACTION_KEYS.SERVICE_LIST_ERROR:
       return {
         ...state,
         isRequesting: false,
@@ -34,4 +34,4 @@ const DealingReducer = (state = initialState, action) => {
   }
 };
 
-export default DealingReducer;
+export default ServiceReducer;

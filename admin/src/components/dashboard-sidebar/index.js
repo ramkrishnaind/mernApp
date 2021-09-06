@@ -250,6 +250,50 @@ const items = [
       },
     ],
   },
+  {
+    href: "/service",
+    icon: UsersIcon,
+    title: "Service Management",
+    items: [
+      {
+        href: "/service/add",
+        icon: ShoppingBagIcon,
+        title: "Add Service",
+      },
+      {
+        href: "/service",
+        icon: ShoppingBagIcon,
+        title: "Service List",
+      },
+      {
+        href: "/serviceItem/add",
+        icon: ShoppingBagIcon,
+        title: "Add Service Item",
+      },
+      {
+        href: "/serviceItem",
+        icon: ShoppingBagIcon,
+        title: "Service Item List",
+      },
+    ],
+  },
+  {
+    href: "/building",
+    icon: UsersIcon,
+    title: "Building Management",
+    items: [
+      {
+        href: "/building/add",
+        icon: ShoppingBagIcon,
+        title: "Add Building",
+      },
+      {
+        href: "/building",
+        icon: ShoppingBagIcon,
+        title: "Building List",
+      },
+    ],
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {

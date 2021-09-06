@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Typography, Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import * as DealingItemAction from "../../redux/actions/DealingItemAction";
+import * as ServiceItemAction from "../../redux/actions/ServiceItemAction";
 import { useDispatch } from "react-redux";
 
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -12,13 +12,11 @@ import MUIDataTable from "mui-datatables";
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
 import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-
-import "./dealingManagement.css";
+import "./serviceManagement.css";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -30,12 +28,12 @@ const styles = (theme) => ({
   },
 });
 
-const DealingItemList = (props) => {
+const ServiceItemList = (props) => {
   const dispatch = useDispatch();
-  let { classes, dealingItem } = props;
+  let { classes, serviceItem } = props;
 
   useEffect(() => {
-    dispatch(DealingItemAction.DealingItemListRequestAsync());
+    dispatch(ServiceItemAction.ServiceItemListRequestAsync());
   }, []);
 
   let options = {
@@ -49,7 +47,7 @@ const DealingItemList = (props) => {
       _id: data,
       isDisable: status,
     };
-    dispatch(DealingItemAction.DealingItemStatusUpdateRequestAsync(tempdata));
+    dispatch(ServiceItemAction.ServiceItemStatusUpdateRequestAsync(tempdata));
   }
 
   function onDeleteClick(data) {
@@ -63,7 +61,7 @@ const DealingItemList = (props) => {
         {
           label: "Yes",
           onClick: () =>
-            dispatch(DealingItemAction.DealingItemDeleteRequestAsync(tempdata)),
+            dispatch(ServiceItemAction.ServiceItemDeleteRequestAsync(tempdata)),
         },
         {
           label: "No",
@@ -71,30 +69,23 @@ const DealingItemList = (props) => {
       ],
     });
   }
-
-  function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/dealingItem/edit?id="+data;
-    history.push("/dealingItem/add?id=" + data);
-    window.location.reload();
-  }
-
   return (
     <>
       <Box className="MenuManagement_Data">
         <FormHeader
-          heading1={"Dealing Item Module Management"}
-          heading2={"List and Manage Dealing Item Here"}
+          heading1={"Service Item Module Management"}
+          heading2={"List and Manage Service Item Here"}
         />
         <BreadCrumbs
-          heading1={"DealingItemManagement"}
-          heading2={"Dealing Item Module List"}
+          heading1={"ServiceItemManagement"}
+          heading2={"Service Item Module List"}
         />
-        {dealingItem.list && dealingItem.list.length > 0 ? (
+        {serviceItem?.list && serviceItem?.list?.length > 0 ? (
           <>
             <MUIDataTable
               className="table-header"
-              title="Dealing Item List"
-              data={dealingItem.list.map((item, index) => {
+              title="Service Item List"
+              data={serviceItem?.list?.map((item, index) => {
                 return [
                   index + 1,
                   item.title,
@@ -164,10 +155,9 @@ const DealingItemList = (props) => {
 };
 
 function mapStateToProps(state) {
-  const { dealingItem } = state;
-  console.log("dealingItem", dealingItem);
+  const { serviceItem } = state;
   return {
-    dealingItem,
+    serviceItem,
   };
 }
-export default connect(mapStateToProps)(withStyles(styles)(DealingItemList));
+export default connect(mapStateToProps)(withStyles(styles)(ServiceItemList));

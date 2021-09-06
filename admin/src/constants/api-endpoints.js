@@ -95,20 +95,37 @@ const API_ENDPOINTS = {
   SLIDER_DATA_ENDPOINT: "slider/getSliderDetail",
 
   //DEALING module
-  DEALING_LIST_ENDPOINT: "home/getAllDealingIn",
+  DEALING_LIST_ENDPOINT: "home/getDealingList",
   DEALING_ADD_ENDPOINT: "home/createDealingIn",
-  DEALING_STATUS_UPDATE_ENDPOINT: "home/updateDealingInStatus",
-  DEALING_UPDATE_ENDPOINT: "home/updateDealingIn",
+  DEALING_STATUS_UPDATE_ENDPOINT: "home/updateDealingInStatusHelper",
   DEALING_DELETE_ENDPOINT: "home/deleteDealingIn",
-  DEALING_DATA_ENDPOINT: "home/getDealingInDetail",
+  DEALING_DATA_ENDPOINT: "home/getDealingInDetails",
 
-  //slider module
-  DEALING_ITEM_LIST_ENDPOINT: "slider/getSliderList",
+  //dealing item module
+  DEALING_ITEM_LIST_ENDPOINT: "home/getDealingItemList",
   DEALING_ITEM_ADD_ENDPOINT: "home/createDealingInItem",
-  DEALING_ITEM_STATUS_UPDATE_ENDPOINT: "slider/updateSliderStatus",
-  DEALING_ITEM_UPDATE_ENDPOINT: "slider/updateSlider",
-  DEALING_ITEM_DELETE_ENDPOINT: "slider/deleteSlider",
-  DEALING_ITEM_DATA_ENDPOINT: "slider/getSliderDetail",
+  DEALING_ITEM_STATUS_UPDATE_ENDPOINT: "home/updateDealingInItemStatusHelper",
+  DEALING_ITEM_DELETE_ENDPOINT: "home/deleteDealingItem",
+
+  //service module
+  SERVICE_LIST_ENDPOINT: "home/getServiceList",
+  SERVICE_ADD_ENDPOINT: "home/createService",
+  SERVICE_STATUS_UPDATE_ENDPOINT: "home/updateServiceStatusHelper",
+  SERVICE_DELETE_ENDPOINT: "home/deleteService",
+
+  //service item module
+  SERVICE_ITEM_LIST_ENDPOINT: "home/getServiceItemList",
+  SERVICE_ITEM_ADD_ENDPOINT: "home/createServiceItem",
+  SERVICE_ITEM_STATUS_UPDATE_ENDPOINT: "home/updateServiceItemStatus",
+  SERVICE_ITEM_DELETE_ENDPOINT: "home/deleteServiceItem",
+
+  //building module
+  BUILDING_LIST_ENDPOINT: "builder/getBuildingList",
+  BUILDING_ADD_ENDPOINT: "builder/createBuilding",
+  BUILDING_STATUS_UPDATE_ENDPOINT: "builder/updateBuildingStatus",
+  BUILDING_DELETE_ENDPOINT: "builder/deleteBuildingItem",
+  BUILDING_UPDATE_ENDPOINT: "builder/updateBuilding",
+  BUILDING_DATA_ENDPOINT: "builder/getBuildingItem",
 };
 
 export default API_ENDPOINTS;

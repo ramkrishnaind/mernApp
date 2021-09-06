@@ -40,6 +40,13 @@ import DealingList from "../pages/dealingManagement";
 import AddDealing from "../pages/dealingManagement/add";
 import DealingItemList from "../pages/dealingItemManagement";
 import AddDealingItem from "../pages/dealingItemManagement/add";
+import ServiceList from "../pages/serviceManagement";
+import AddService from "../pages/serviceManagement/add";
+import ServiceItemList from "../pages/serviceItemManagement";
+import AddServiceItem from "../pages/serviceItemManagement/add";
+import BuildingList from "../pages/buildingManagement";
+import AddBuilding from "../pages/buildingManagement/add";
+
 import Myacc from "../pages/MyAccountManagement";
 
 const Routes = (props) => {
@@ -185,6 +192,30 @@ const Routes = (props) => {
         {
           path: "/dealingItem",
           element: isAuth ? <DealingItemList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/service/add",
+          element: isAuth ? <AddService /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/service",
+          element: isAuth ? <ServiceList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/serviceItem/add",
+          element: isAuth ? <AddServiceItem /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/serviceItem",
+          element: isAuth ? <ServiceItemList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/building/add",
+          element: isAuth ? <AddBuilding /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/building",
+          element: isAuth ? <BuildingList /> : <Navigate to="/login" />,
         },
         {
           path: "/myaccount",
