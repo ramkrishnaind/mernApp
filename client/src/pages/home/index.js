@@ -148,14 +148,15 @@ const HomePage = (props) => {
     const getData = async () => {
       const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/builder/getBuildingMaterials', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
 
-      // console.log("/builder/getBuildingMaterials ", response);
+      console.log("/builder/getBuildingMaterials ", response);
 
       const buildingMaterialImgInfo = [];
       const baseUrl = ApiClient.SERVER_ADDRESS;
-      response.data.forEach((imageInfo) => {
+
+      (response?.data || []).forEach((imageInfo) => {
         const imgDetails = {imageUrl: '', desc: '', name: ''};
 
-        imgDetails.imageUrl = baseUrl + "/" + imageInfo.image[0].path;
+        imgDetails.imageUrl = baseUrl + "/" + imageInfo.image[0]?.path;
         imgDetails.desc = "";
         imgDetails.name = imageInfo.name;
         buildingMaterialImgInfo.push(imgDetails);
@@ -191,12 +192,12 @@ const HomePage = (props) => {
   const populateStatsInfo = (cookie, authorization) => {
     const getData = async () => {
       const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getMovingBanner', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
-
+      const data = response.data;
       const statsData = {
-        "years": response.data.years,
-        "clients": response.data.clients,
-        "projects": response.data.projects,
-        "shortDescription": response.data.shortDescription
+        "years": data?.years || statsInfo.years,
+        "clients": data?.clients || stats.clients,
+        "projects": data?.projects || stats.projects,
+        "shortDescription": data?.shortDescription || stats.shortDescription
       };
       // console.log("statsData", statsData);
       setStats(statsData);
