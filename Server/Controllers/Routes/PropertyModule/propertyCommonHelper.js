@@ -111,14 +111,14 @@ function getHomeAllProperty(Models) {
                     as: "features"
                 }
             }])
-
+            console.log('findData is', findData)
             let rentData = findData.filter(function (item) {
                 return item.for === "Rent";
             });
             let totalForRent = rentData.length;
 
             let sellData = findData.filter(function (item) {
-                return item.for === "Sell";
+                return item.for === "Sale";
             });
             let totalForSell = sellData.length;
 
