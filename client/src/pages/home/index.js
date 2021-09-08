@@ -27,6 +27,7 @@ import CountUp, {useCountUp} from 'react-countup';
 import {statsInfo, aboutSectionInfo, servicesInfo, bannersInfo} from './intial-content';
 import ApiClient from '../../api-client/index';
 import VisibilitySensor from "react-visibility-sensor";
+import SearchBox from '../../components/search-box/index';
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -105,6 +106,8 @@ function reducer2(state, newState) {
     ...newState
   ];
 }
+
+
 
 const HomePage = (props) => {
   const dispatch = useDispatch();
@@ -271,7 +274,12 @@ const HomePage = (props) => {
 
   return (
     <div className="main-w3">
-      <OwlCarouselSlider images={banners} style={{width: '100%', maxHeight: 530}} autoPlay={false} />
+      <Box style={{position: 'relative'}}>
+        <SearchBox />
+        <OwlCarouselSlider images={banners} style={{width: '100%', maxHeight: 530}} autoPlay={true} />
+
+      </Box>
+
       {/* <EmiCalculater />
       <EnquryForm/> */}
       <Box style={{backgroundColor: '#FFFFFF'}}>
