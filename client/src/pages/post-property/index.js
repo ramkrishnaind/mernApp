@@ -22,7 +22,7 @@ import Option from "./components/option";
 import PropertyOptionManager from "./utils/PropertyOptionManager";
 import Transaction from "./components/transaction";
 import APP_CONSTANTS from "../../utils/constants";
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as PropertyAction from "../../redux/actions/PropertyAction";
 
 const useStyles = makeStyles((theme) => ({
@@ -111,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const personal_details_options = ["Owner", "Agent", "Builder"];
-const property_details_options = ["Sale", "Rent/Lease"];
+const property_details_options = ["Sell", "Rent"];
 
 const PostPropertyPage = (props) => {
   const classes = useStyles();
@@ -145,9 +145,9 @@ const PostPropertyPage = (props) => {
 
   const onOptionPropertyForSelectListener = (option) => {
     console.log("-PropertyFor-- Option-", option);
-    if (option === "Sale") {
+    if (option === "Sell") {
       setPropertyForCurrentIndex(0);
-    } else if (option === "Rent/Lease") {
+    } else if (option === "Rent") {
       setPropertyForCurrentIndex(1);
     }
     setPropertyFor(option);
@@ -171,7 +171,7 @@ const PostPropertyPage = (props) => {
     console.log("-HandleChange-", event);
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
-      setFile({'exteriorView':URL.createObjectURL(img),'productId':1});
+      setFile({ 'exteriorView': URL.createObjectURL(img), 'productId': 1 });
     }
   }
 
@@ -235,14 +235,14 @@ const PostPropertyPage = (props) => {
 
   const submitFile = () => {
     const formData = new FormData();
-    formData.append('image',file);
-    formData.append('imagetype','livingRoom');
-    formData.append('propertyId','61155a4f37c57504a11628ce');
+    formData.append('image', file);
+    formData.append('imagetype', 'livingRoom');
+    formData.append('propertyId', '61155a4f37c57504a11628ce');
     dispatch(PropertyAction.UploadPropertyImageRequestAsync(formData));
   }
 
-  const fileUpload = (event) =>{
-    setFile({'exteriorView':event.target.files[0],'productId':1});
+  const fileUpload = (event) => {
+    setFile({ 'exteriorView': event.target.files[0], 'productId': 1 });
   }
   const _renderOwnerBlock = () => {
     if (isOwner) {
@@ -583,7 +583,7 @@ const PostPropertyPage = (props) => {
                       placeholder={e.placeholder}
                       onChange={handleChange}
                       name={fieldName}
-                      // style={{ width: 400 }}
+                    // style={{ width: 400 }}
                     />
                   </Grid>
                 );
@@ -739,148 +739,148 @@ const PostPropertyPage = (props) => {
   return (
     <Container>
       {
-        step?
-      <Grid container>
-        <Grid item xs={12} md={12}>
-          <Typography className={classes.text1}>
-            Sell or Rent your Property
-          </Typography>
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <FieldsContainer label="Personal Details">
-            <Grid container>
-              <Grid item xs={12} md={12}>
-                <Detail
-                  title="I am"
-                  options={personal_details_options}
-                  onOptionSelectListener={onOptionSelectListener}
-                />
-              </Grid>
-              <Grid item xs={12} md={12}>
-                <Select
-                  native
-                  value={state["iAm"]}
-                  onChange={handleChange}
-                  inputProps={{
-                    name: "iAm",
-                    id: "iAm",
-                  }}
-                  style={{ height: 48, marginRight: 5, maxHeight: 200 }}
-                >
-                  {personal_details_options.map((item, index) => {
-                    return (
-                      <option key={index} value={item}>
-                        {item}
-                      </option>
-                    );
-                  })}
-                </Select>
-              </Grid>
+        step ?
+          <Grid container>
+            <Grid item xs={12} md={12}>
+              <Typography className={classes.text1}>
+                Sell or Rent your Property
+              </Typography>
             </Grid>
-          </FieldsContainer>
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <FieldsContainer label="Property Details">
-            <Grid container>
-              <Grid item xs={12} md={12}>
-                <Detail
-                  title="For"
-                  options={property_details_options}
-                  onOptionSelectListener={onOptionPropertyForSelectListener}
-                />
-              </Grid>
-              <Grid item xs={12} md={12}>
-                <Select
-                  native
-                  value={state["pType"]}
-                  onChange={handleChange}
-                  inputProps={{
-                    name: "pType",
-                    id: "pType",
-                  }}
-                  style={{ height: 48, marginRight: 5, maxHeight: 200 }}
-                >
-                  {propertyOptions.items.map((item, index) => {
-                    return (
-                      <option key={index} value={item.id}>
-                        {item.name}
-                      </option>
-                    );
-                  })}
-                </Select>
-              </Grid>
+            <Grid item xs={12} md={12}>
+              <FieldsContainer label="Personal Details">
+                <Grid container>
+                  <Grid item xs={12} md={12}>
+                    <Detail
+                      title="I am"
+                      options={personal_details_options}
+                      onOptionSelectListener={onOptionSelectListener}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={12}>
+                    <Select
+                      native
+                      value={state["iAm"]}
+                      onChange={handleChange}
+                      inputProps={{
+                        name: "iAm",
+                        id: "iAm",
+                      }}
+                      style={{ height: 48, marginRight: 5, maxHeight: 200 }}
+                    >
+                      {personal_details_options.map((item, index) => {
+                        return (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        );
+                      })}
+                    </Select>
+                  </Grid>
+                </Grid>
+              </FieldsContainer>
             </Grid>
-          </FieldsContainer>
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <FieldsContainer label="Property Location">
-            <Grid container>
-              <Grid item xs={12} md={12} className={classes.style1}>
-                <TextField
-                  label="City"
-                  placeholder="Enter City"
-                  style={{ width: "25%" }}
-                  onChange={handleChange}
-                  name="pCity"
-                />
-                <TextField
-                  label="Locality"
-                  placeholder="Enter Locality"
-                  style={{ width: "25%" }}
-                  onChange={handleChange}
-                  name="property_location"
-                />
-              </Grid>
+            <Grid item xs={12} md={12}>
+              <FieldsContainer label="Property Details">
+                <Grid container>
+                  <Grid item xs={12} md={12}>
+                    <Detail
+                      title="For"
+                      options={property_details_options}
+                      onOptionSelectListener={onOptionPropertyForSelectListener}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={12}>
+                    <Select
+                      native
+                      value={state["pType"]}
+                      onChange={handleChange}
+                      inputProps={{
+                        name: "pType",
+                        id: "pType",
+                      }}
+                      style={{ height: 48, marginRight: 5, maxHeight: 200 }}
+                    >
+                      {propertyOptions.items.map((item, index) => {
+                        return (
+                          <option key={index} value={item.id}>
+                            {item.name}
+                          </option>
+                        );
+                      })}
+                    </Select>
+                  </Grid>
+                </Grid>
+              </FieldsContainer>
             </Grid>
-          </FieldsContainer>
-        </Grid>
-        <Grid item xs={12} md={12}>
-          {formFields?.sections?.map((section) => {
-            switch (section?.section_id) {
-              case APP_CONSTANTS.section_features:
-                return _renderFeaturesSection(section);
-              case APP_CONSTANTS.section_area:
-                return _renderAreaSection(section);
-              case APP_CONSTANTS.section_transaction:
-                return _renderTransactionSection(section);
-              case APP_CONSTANTS.section_price:
-                return _renderPriceSection(section);
-            }
-          })}
-        </Grid>
-        <Button variant="contained" onClick={submitData} color="primary">Save</Button>
-      </Grid>
-      
-       :
-       <Grid container>
-        <Grid item xs={12} md={12}>
-          <FieldsContainer label="Images">
-            <Grid container>
-              <Grid item xs={6} md={6}>
-                <p>Upload Images</p>
-              </Grid>
-              <Grid item xs={6} md={6}>
-                <input type="file" onChange={handleimage} />
-              </Grid>
+            <Grid item xs={12} md={12}>
+              <FieldsContainer label="Property Location">
+                <Grid container>
+                  <Grid item xs={12} md={12} className={classes.style1}>
+                    <TextField
+                      label="City"
+                      placeholder="Enter City"
+                      style={{ width: "25%" }}
+                      onChange={handleChange}
+                      name="pCity"
+                    />
+                    <TextField
+                      label="Locality"
+                      placeholder="Enter Locality"
+                      style={{ width: "25%" }}
+                      onChange={handleChange}
+                      name="property_location"
+                    />
+                  </Grid>
+                </Grid>
+              </FieldsContainer>
             </Grid>
-          </FieldsContainer>
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <FieldsContainer label="Videos">
-            <Grid container>
-              <Grid item xs={6} md={6}>
-                <p>Upload Videos</p>
-              </Grid>
-              <Grid item xs={6} md={6}>
-                <input type="file" onChange={fileUpload} />
-              </Grid>
+            <Grid item xs={12} md={12}>
+              {formFields?.sections?.map((section) => {
+                switch (section?.section_id) {
+                  case APP_CONSTANTS.section_features:
+                    return _renderFeaturesSection(section);
+                  case APP_CONSTANTS.section_area:
+                    return _renderAreaSection(section);
+                  case APP_CONSTANTS.section_transaction:
+                    return _renderTransactionSection(section);
+                  case APP_CONSTANTS.section_price:
+                    return _renderPriceSection(section);
+                }
+              })}
             </Grid>
-          </FieldsContainer>
-        </Grid>
-        <Button variant="contained" onClick={submitFile} color="primary">Save</Button>
-      </Grid> 
+            <Button variant="contained" onClick={submitData} color="primary">Save</Button>
+          </Grid>
+
+          :
+          <Grid container>
+            <Grid item xs={12} md={12}>
+              <FieldsContainer label="Images">
+                <Grid container>
+                  <Grid item xs={6} md={6}>
+                    <p>Upload Images</p>
+                  </Grid>
+                  <Grid item xs={6} md={6}>
+                    <input type="file" onChange={handleimage} />
+                  </Grid>
+                </Grid>
+              </FieldsContainer>
+            </Grid>
+            <Grid item xs={12} md={12}>
+              <FieldsContainer label="Videos">
+                <Grid container>
+                  <Grid item xs={6} md={6}>
+                    <p>Upload Videos</p>
+                  </Grid>
+                  <Grid item xs={6} md={6}>
+                    <input type="file" onChange={fileUpload} />
+                  </Grid>
+                </Grid>
+              </FieldsContainer>
+            </Grid>
+            <Button variant="contained" onClick={submitFile} color="primary">Save</Button>
+          </Grid>
       }
-      
+
     </Container>
   );
 };

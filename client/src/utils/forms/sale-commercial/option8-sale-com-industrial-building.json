@@ -1,6 +1,6 @@
 {
     "property_for_id": 1,
-    "property_category": "Sale",
+    "property_category": "Sell",
     "selected_property_type_id": 8,
     "sections": [
         {
@@ -46,7 +46,7 @@
                 {
                     "label": "Transaction Type",
                     "type": "radio",
-                    "values": ["New Property", "ReSale"],
+                    "values": ["New Property", "ReSell"],
                     "fieldName": "transaction_type"
                 },
                 {
