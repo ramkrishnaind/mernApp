@@ -25,4 +25,5 @@ module.exports = function (mongoose) {
     mongoose.model('dealingIn', require('./schema/dealingIn'));
     mongoose.model('service', require('./schema/service'));
     mongoose.model('serviceItem', require('./schema/serviceItem'));
+    mongoose.model('team', require('./schema/team'));
 }

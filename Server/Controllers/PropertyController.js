@@ -6,7 +6,8 @@ const multer = require("multer");
 const path = require('path');
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        let fpathId = 'uploads/' + req.body.imagetype + '/' + req.body.propertyId;
+        console.log(' image data is', req.body)
+        let fpathId = 'uploads/property/' + req.body.propertyId;
         try {
             if (!fs.existsSync(fpathId)) {
                 fs.mkdirSync(fpathId, { recursive: true }, (err) => {
