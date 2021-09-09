@@ -1,7 +1,7 @@
 export const bannersInfo = [
-    {imageUrl: '/slider/slider1.jpeg', desc: ""},
-    {imageUrl: '/slider/slider2.jpeg', desc: ""},
-    {imageUrl: '/slider/slider3.jpeg', desc: ""}
+    { imageUrl: '/slider/slider1.jpeg', desc: "" },
+    { imageUrl: '/slider/slider2.jpeg', desc: "" },
+    { imageUrl: '/slider/slider3.jpeg', desc: "" }
 ];
 
 export const statsInfo = {
@@ -18,9 +18,9 @@ export const aboutSectionInfo = {
         'At Vishal Construction Company, we always think ahead but our focus remains unerringly on delighting our customers and stakeholders. Functioning through an array of best-of-class practices and utilizing leading technologies, we at Vishal Construction Company believe either in staying ahead of the wave or riding it. If you are looking at blank cassettes on the web lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor incididunt.'
     ,
     images: [
-        {imageUrl: '/images/about_img.png', desc: ""},
-        {imageUrl: '/images/about_img.png', desc: ""},
-        {imageUrl: '/images/about_img.png', desc: ""}]
+        { imageUrl: '/images/about_img.png', desc: "" },
+        { imageUrl: '/images/about_img.png', desc: "" },
+        { imageUrl: '/images/about_img.png', desc: "" }]
 };
 
 export const servicesInfo = [
@@ -57,22 +57,22 @@ export const clientLookingforInfo = {
     items: [
         {
             name: 'HOUSE',
-            description: 'We have the best properties Sale, Buy, and Rent Dealers.',
+            description: 'We have the best properties Sell, Buy, and Rent Dealers.',
             icon: ''
         },
         {
             name: 'LAND',
-            description: 'We have the best properties Sale, Buy, and Rent Dealers.',
+            description: 'We have the best properties Sell, Buy, and Rent Dealers.',
             icon: ''
         },
         {
             name: 'OFFICE',
-            description: 'We have the best properties Sale, Buy, and Rent Dealers.',
+            description: 'We have the best properties Sell, Buy, and Rent Dealers.',
             icon: ''
         },
         {
             name: 'BUSINESS',
-            description: 'We have the best properties Sale, Buy, and Rent Dealers.',
+            description: 'We have the best properties Sell, Buy, and Rent Dealers.',
             icon: ''
         }
     ]
@@ -80,16 +80,16 @@ export const clientLookingforInfo = {
 };
 
 export const building_materials = [
-    {imageUrl: './../../images/building_material_img/m2.png', desc: ""},
-    {imageUrl: './../../images/building_material_img/m3.png', desc: ""},
-    {imageUrl: './../../images/building_material_img/m4.png', desc: ""},
-    {imageUrl: './../../images/building_material_img/m5.png', desc: ""},
-    {imageUrl: './../../images/building_material_img/m6.png', desc: ""},
-    {imageUrl: './../../images/building_material_img/m7.png', desc: ""},
-    {imageUrl: './../../images/building_material_img/m8.png', desc: ""},
-    {imageUrl: './../../images/building_material_img/m9.png', desc: ""},
-    {imageUrl: './../../images/building_material_img/m10.png', desc: ""},
-    {imageUrl: './../../images/building_material_img/m11.png', desc: ""},
-    {imageUrl: './../../images/building_material_img/m12.png', desc: ""},
-    {imageUrl: './../../images/building_material_img/m13.png', desc: ""}
+    { imageUrl: './../../images/building_material_img/m2.png', desc: "" },
+    { imageUrl: './../../images/building_material_img/m3.png', desc: "" },
+    { imageUrl: './../../images/building_material_img/m4.png', desc: "" },
+    { imageUrl: './../../images/building_material_img/m5.png', desc: "" },
+    { imageUrl: './../../images/building_material_img/m6.png', desc: "" },
+    { imageUrl: './../../images/building_material_img/m7.png', desc: "" },
+    { imageUrl: './../../images/building_material_img/m8.png', desc: "" },
+    { imageUrl: './../../images/building_material_img/m9.png', desc: "" },
+    { imageUrl: './../../images/building_material_img/m10.png', desc: "" },
+    { imageUrl: './../../images/building_material_img/m11.png', desc: "" },
+    { imageUrl: './../../images/building_material_img/m12.png', desc: "" },
+    { imageUrl: './../../images/building_material_img/m13.png', desc: "" }
 ];

@@ -1,11 +1,11 @@
 [
   {
     "property_for_id": 1,
-    "property_type": "Sale",
+    "property_type": "Sell",
     "items": [
       {
         "id": 0,
-        "name": "ALL RESIDENTIAL",
+        "name": "RESIDENTIAL",
         "value": ""
       },
       {
@@ -45,7 +45,7 @@
       },
       {
         "id": 0,
-        "name": "ALL COMMERCIAL",
+        "name": "COMMERCIAL",
         "value": ""
       },
       {
@@ -102,7 +102,7 @@
   },
   {
     "property_for_id": 2,
-    "propertyType": "Rent/Lease",
+    "propertyType": "Rent",
     "items": [
       {
         "id": 0,
@@ -111,7 +111,7 @@
       },
       {
         "id": 0,
-        "name": "ALL RESIDENTIAL",
+        "name": "RESIDENTIAL",
         "value": ""
       },
       {
@@ -151,7 +151,7 @@
       },
       {
         "id": 0,
-        "name": "ALL COMMERCIAL",
+        "name": "COMMERCIAL",
         "value": ""
       },
       {
