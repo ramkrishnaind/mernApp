@@ -18,6 +18,8 @@ import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -27,6 +29,10 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#1976d2",
+  },
 });
 
 const BlogList = (props) => {
@@ -34,7 +40,7 @@ const BlogList = (props) => {
 
   const dispatch = useDispatch();
   let { classes, blog } = props;
-
+  const [open, setOpen] = React.useState(true);
   useEffect(() => {
     dispatch(BlogAction.BlogListRequestAsync());
   }, []);
@@ -91,6 +97,14 @@ const BlogList = (props) => {
         heading2={"List and Manage Blog Here"}
       />
       <BreadCrumbs heading1={"BlogManagement"} heading2={"Blog Module List"} />
+
+      {typeof blog.list === "undefined" ? (
+        <Backdrop className={classes.backdrop} open={open}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        ""
+      )}
       {blog.list && blog.list.length > 0 ? (
         <>
           <MUIDataTable

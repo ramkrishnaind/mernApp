@@ -16,6 +16,8 @@ import ClearIcon from "@material-ui/icons/Clear";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "./serviceManagement.css";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -25,12 +27,16 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#1976d2",
+  },
 });
 
 const ServiceList = (props) => {
   const dispatch = useDispatch();
   let { classes, service } = props;
-
+  const [open, setOpen] = React.useState(true);
   useEffect(() => {
     dispatch(ServiceAction.ServiceListRequestAsync());
   }, []);
@@ -86,6 +92,13 @@ const ServiceList = (props) => {
           heading1={"ServiceManagement"}
           heading2={"Service Module List"}
         />
+        {typeof service.list === "undefined" ? (
+          <Backdrop className={classes.backdrop} open={open}>
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        ) : (
+          ""
+        )}
         {service?.list && service?.list?.length > 0 ? (
           <>
             <MUIDataTable

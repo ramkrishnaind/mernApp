@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Typography
-} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as MenuAction from "../../redux/actions/MenuAction";
 import { useDispatch } from "react-redux";
@@ -13,11 +11,13 @@ import MUIDataTable from "mui-datatables";
 
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
 
 import history from "../../components/history";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -27,15 +27,16 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#1976d2",
+  },
 });
 
 const MenuList = (props) => {
-
   const dispatch = useDispatch();
-  let {
-    classes,
-    menu,
-  } = props;
+  let { classes, menu } = props;
+  const [open, setOpen] = React.useState(true);
 
   useEffect(() => {
     dispatch(MenuAction.MenuListRequestAsync());
@@ -47,65 +48,69 @@ const MenuList = (props) => {
     download: true,
   };
 
-
   function onDisable(data, status) {
     let tempdata = {
       id: data,
-      status: status
+      status: status,
     };
     dispatch(MenuAction.MenuStatusUpdateRequestAsync(tempdata));
 
     if (status === "enable") {
       // toast.error("Disable")
-
-    }
-    else {
+    } else {
       // toast.success("Enable")
     }
   }
 
-  function onDeleteClick(data) {
-
-  }
+  function onDeleteClick(data) {}
 
   function updatehandleOpenCreateModal(data) {
     // window.location.href = "/menu/edit?id="+data;
-    history.push('/menu/add?id=' + data)
+    history.push("/menu/add?id=" + data);
     window.location.reload();
   }
 
   return (
     <>
-      <FormHeader heading1={"Menu Module Management"} heading2={"List and Manage Menu Here"} />
+      <FormHeader
+        heading1={"Menu Module Management"}
+        heading2={"List and Manage Menu Here"}
+      />
       <BreadCrumbs heading1={"MenuManagement"} heading2={"Menu Module List"} />
+
+      {typeof menu.list === "undefined" ? (
+        <Backdrop className={classes.backdrop} open={open}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        ""
+      )}
       {menu.list && menu.list.length > 0 ? (
         <>
-          <MUIDataTable className="table-header"
+          <MUIDataTable
+            className="table-header"
             title="Menu List"
             data={menu.list.map((item, index) => {
               return [
-                (index + 1),
+                index + 1,
                 item.name,
                 item.description,
                 item.status,
-                item._id
-              ]
+                item._id,
+              ];
             })}
-            columns={['SR No.', 'Name', 'Description',
+            columns={[
+              "SR No.",
+              "Name",
+              "Description",
               {
                 name: "Status",
                 options: {
                   customBodyRender: (value, tableMeta, updateValue) => {
-                    if (value === true)
-                      return (
-                        'Active'
-                      );
-                    else
-                      return (
-                        'Inactive'
-                      );
-                  }
-                }
+                    if (value === true) return "Active";
+                    else return "Inactive";
+                  },
+                },
               },
               {
                 name: "Actions",
@@ -113,54 +118,54 @@ const MenuList = (props) => {
                   customBodyRender: (value, tableMeta, updateValue) => {
                     return (
                       <>
-                        <EditIcon style={{ color: "#0069d9", cursor: "pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])} />
+                        <EditIcon
+                          style={{ color: "#0069d9", cursor: "pointer" }}
+                          onClick={() =>
+                            updatehandleOpenCreateModal(tableMeta.rowData[4])
+                          }
+                        />
 
                         {tableMeta.rowData[3] ? (
                           <Tooltip title="Active">
                             <Done
-                              onClick={() => onDisable(tableMeta.rowData[4], false)}
+                              onClick={() =>
+                                onDisable(tableMeta.rowData[4], false)
+                              }
                               style={{ color: "#1e7e34", cursor: "pointer" }}
                             />
                           </Tooltip>
-
                         ) : (
-                            <Tooltip title="Inactive">
-                              <ClearIcon
-                                onClick={() => onDisable(tableMeta.rowData[4], true)}
-                                style={{ color: "#bd2130", cursor: "pointer" }}
-                              />
-                            </Tooltip>
-                          )}
+                          <Tooltip title="Inactive">
+                            <ClearIcon
+                              onClick={() =>
+                                onDisable(tableMeta.rowData[4], true)
+                              }
+                              style={{ color: "#bd2130", cursor: "pointer" }}
+                            />
+                          </Tooltip>
+                        )}
 
                         {/* <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[4])} /> */}
                       </>
                     );
-                  }
-                }
-              }
+                  },
+                },
+              },
             ]}
             options={options}
-
           />
         </>
       ) : (
-          <Typography>Data not found.</Typography>
-        )}
+        <Typography>Data not found.</Typography>
+      )}
     </>
   );
-
-}
-
+};
 
 function mapStateToProps(state) {
   const { menu } = state;
   return {
     menu,
-
   };
 }
-export default connect(mapStateToProps)(
-  withStyles(styles)(MenuList),
-);
-
-
+export default connect(mapStateToProps)(withStyles(styles)(MenuList));

@@ -18,7 +18,7 @@ const AboutUsReducer = (state = initialState, action) => {
       };
     case ACTION_KEYS.ABOUTUS_LIST_SUCCESS:
       let data = [];
-      data[0] = payload.data;
+      data[0] = payload?.data;
       return {
         ...state,
         isRequesting: false,
@@ -48,7 +48,6 @@ const AboutUsReducer = (state = initialState, action) => {
         ...state,
         isRequesting: false,
         error: payload.error,
-
       };
     default:
       return state;
