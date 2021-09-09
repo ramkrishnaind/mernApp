@@ -3,6 +3,7 @@ const express = require('express');
 const fs = require('fs')
 var router = express.Router();
 const multer = require("multer");
+const path = require('path');
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
         let fpathId = 'uploads/' + req.body.imagetype + '/' + req.body.propertyId;
@@ -25,7 +26,7 @@ let storage = multer.diskStorage({
     }
 });
 let upload = multer({ storage: storage });
-const path = require('path');
+
 const propertyCommonHelper = require('./Routes/PropertyModule/propertyCommonHelper');
 let { createPropertyRequest, getPropertyRequest, updatePropertyStatusRequest, exteriorImage,
     getUserIdPropertyList, updatePrice, getSearchPropertyList } = require('./Routes');
