@@ -65,6 +65,7 @@ app.use(`${prefix}sitevisit`, require('./Controllers/siteVisitController')({ Mon
 app.use(`${prefix}career`, require('./Controllers/CareerController')({ MongoDBConnection }));
 app.use(`${prefix}blog`, require('./Controllers/BlogController')({ MongoDBConnection }));
 app.use(`${prefix}home`, require('./Controllers/HomeController')({ MongoDBConnection }));
+app.use(`${prefix}team`, require('./Controllers/OurTeamController')({ MongoDBConnection }));
 // let reactHTMLPath = process.env.NODE_ENV === 'production' ? "../FX-React/build" : "";
 
 // reactHTMLPath = path.join(__dirname, reactHTMLPath);

@@ -46,6 +46,15 @@ module.exports = {
     updateSliderStatus: require('./SliderModule/updateSliderStatusModule'),
     deleteSlider: require('./SliderModule/deleteSlderModule'),
     getSliderDetail: require('./SliderModule/getSliderDetailModule'),
+    //Our Team Member
+    createTeamMember: require('./OurTeamModule/createTeamMemberModule'),
+    getTeamList: require('./OurTeamModule/getTeamListModule'),
+    updateTeamMember: require('./OurTeamModule/updateTeamMemberModule'),
+    updateTeamMemberStatus: require('./OurTeamModule/updateTeamMemberStatusModule'),
+    deleteTeamMember: require('./OurTeamModule/deleteTeamMemberModule'),
+    getTeamMemberDetail: require('./OurTeamModule/getTeamMemberDetailModule'),
+    getClientTeamMember: require('./OurTeamModule/getTeamListModule'),
+    //////
     createBuilding: require('./BuildingMaterialsModule/createBuildingModule'),
     getBuildingList: require('./BuildingMaterialsModule/getBuildingListModule'),
     getBuildingMaterials: require('./BuildingMaterialsModule/getBuildingMaterialsModule'),
