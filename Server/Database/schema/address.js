@@ -15,7 +15,7 @@ const schema = new Schema({
         trim: true
     },
     state: {
-        type: Array
+        type: String
     },
     pinCode: {
         type: Number,
