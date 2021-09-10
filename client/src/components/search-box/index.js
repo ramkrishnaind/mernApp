@@ -7,12 +7,13 @@ import './search-box.css';
 import Divider from '@material-ui/core/Divider';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import {Icon} from '@material-ui/core';
+import {Link as RouterLink} from "react-router-dom";
 
 const Type = {
-    RENT: "rent",
-    SELL: "sell",
-    CONSTRUCTION: "construction",
-    INTERIOR: 'interior'
+    RENT: "Rent",
+    SELL: "Sell",
+    CONSTRUCTION: "Construction",
+    INTERIOR: 'Interior'
 };
 Object.freeze(Type);
 
@@ -37,22 +38,23 @@ const useStyles = makeStyles(theme => ({
 
 
 
-const SearchBox = () => {
+const SearchBox = (props) => {
     const classes = useStyles();
     // create state variables for each input
     const [type, setType] = useState(Type.RENT);
-    const [ptyType, setPType] = useState('');
-    const [minBudgetVal, setMinBudget] = useState('');
-    const [maxBudgetVal, setMaxBudget] = useState('');
-    const [location, setLocation] = useState('');
+    const [pType, setPType] = useState(null);
+    const [minAmount, setMinBudget] = useState(null);
+    const [maxAmount, setMaxBudget] = useState(null);
+    const [keyword, setkeyword] = useState(null);
 
     const handleSubmit = e => {
-        e.preventDefault();
+        // e.preventDefault();
         // handleClose();
         console.log("s");
     };
 
     const propertyType = [
+
         {
             value: 'RESIDENTIAL',
             label: 'Residental',
@@ -117,6 +119,7 @@ const SearchBox = () => {
         },
     ];
     console.log("type is ", type);
+
     return (
         <Box id="search-box">
             <Grid id="type">
@@ -126,14 +129,14 @@ const SearchBox = () => {
                 <Box className={type === Type.INTERIOR ? 'selected' : ''} onClick={() => setType(Type.INTERIOR)}> INTERIOR</Box>
             </Grid>
             <Box id="search-continer">
-                <form className={classes.root} onSubmit={handleSubmit} style={{width: '100%'}} >
+                <Box className={classes.root} style={{width: '100%'}} >
                     <TextField
                         id="city-locality"
                         label="city, locality"
                         variant="filled"
                         required
-                        value={location}
-                        onChange={e => setLocation(e.target.value)}
+                        value={keyword}
+                        onChange={e => setkeyword(e.target.value)}
                         InputProps={{
                             startAdornment: <InputAdornment position="start" style={{color: "red", marginLeft: -5}}><Icon fontSize="small" style={{color: "#ff7600"}}>room</Icon></InputAdornment>,
                         }}
@@ -143,7 +146,7 @@ const SearchBox = () => {
                         id="property-type"
                         select
                         label="Property type"
-                        value={ptyType}
+                        value={pType}
                         variant="filled"
                         onChange={e => setPType(e.target.value)}
                         InputProps={{
@@ -162,7 +165,7 @@ const SearchBox = () => {
                         id="budget"
                         select
                         label="Budget(Min Price)"
-                        value={minBudgetVal}
+                        value={minAmount}
                         variant="filled"
                         onChange={e => setMinBudget(e.target.value)}
                         InputProps={{
@@ -181,9 +184,12 @@ const SearchBox = () => {
                         id="budget"
                         select
                         label="Budget(Max Price)"
-                        value={maxBudgetVal}
+                        value={maxAmount}
                         variant="filled"
-                        onChange={e => setMaxBudget(e.target.value)}
+                        onChange={e => {
+                            setMaxBudget(e.target.value);
+                            console.log("Max budget", e.target.value);
+                        }}
                         InputProps={{
                             startAdornment: <InputAdornment position="start" >₹
                             </InputAdornment>,
@@ -197,11 +203,13 @@ const SearchBox = () => {
                     </TextField>
 
                     <div>
-                        <Button class="mb-search__btn" type="submit" variant="contained" color="primary">
-                            Search
-                        </Button>
+                        {keyword && pType && maxAmount && minAmount && type ?
+                            < Button class="mb-search__btn" type="submit" onClick={() => handleSubmit} component={RouterLink} to={{pathname: '/search-property-details', state: {keyword, pType, maxAmount, minAmount, type}}} variant="contained" color="primary">
+                                Search
+                            </Button> : null
+                        }
                     </div>
-                </form>
+                </Box>
             </Box>
         </Box >
     );
