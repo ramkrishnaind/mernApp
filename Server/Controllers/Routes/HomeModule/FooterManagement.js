@@ -33,8 +33,8 @@ const updateAddressSchema = Joi.object({
     address: Joi.string().trim().required(),
     city: Joi.string().trim().required(),
     state: Joi.string().required(),
-    pinCode: Joi.string(),
-    mobile: Joi.string(),
+    pinCode: Joi.number(),
+    mobile: Joi.number(),
     email: Joi.string(),
     timming: Joi.string()
 });
