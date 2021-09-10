@@ -42,8 +42,9 @@
                 {
                     "type": "option",
                     "label": "Furnished Status",
-                    "initial_counts": ["Furnished", "Unfrnised", "Semi-Furnished"],
-                    "showMore": false,
+                    "initial_counts": ["Furnished", "Unfrnised", "more+"],
+                    "more_counts": ["Semi-Furnished"],
+                    "showMore": true,
                     "fieldName": "Furnished_Status"
                 },
                 {

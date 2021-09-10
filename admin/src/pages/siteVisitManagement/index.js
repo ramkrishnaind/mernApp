@@ -1,24 +1,20 @@
 import React, { useEffect } from "react";
-import {
-  Typography
-} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as SitevisitAction from "../../redux/actions/SitevisitAction";
 import { useDispatch } from "react-redux";
-
 import BreadCrumbs from "../../common/bread-crumbs";
 import FormHeader from "../../common/form-header";
 import { connect } from "react-redux";
 import MUIDataTable from "mui-datatables";
-
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
-
 import history from "../../components/history";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -28,15 +24,16 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#1976d2",
+  },
 });
 
 const VistList = (props) => {
-
   const dispatch = useDispatch();
-  let {
-    classes,
-    sitevisit,
-  } = props;
+  const [open, setOpen] = React.useState(true);
+  let { classes, sitevisit } = props;
 
   useEffect(() => {
     dispatch(SitevisitAction.SitevisitListRequestAsync());
@@ -48,67 +45,75 @@ const VistList = (props) => {
     download: true,
   };
 
-
   function onDisable(data, status) {
     let tempdata = {
       id: data,
-      status: status
+      status: status,
     };
     dispatch(SitevisitAction.SitevisitStatusUpdateRequestAsync(tempdata));
 
     if (status === "enable") {
       // toast.error("Disable")
-
-    }
-    else {
+    } else {
       // toast.success("Enable")
     }
   }
 
-  function onDeleteClick(data) {
-
-  }
+  function onDeleteClick(data) {}
 
   function updatehandleOpenCreateModal(data) {
     // window.location.href = "/sitevisit/edit?id="+data;
-    history.push('/career/add?id=' + data)
+    history.push("/career/add?id=" + data);
     window.location.reload();
   }
 
   return (
     <>
-      <FormHeader heading1={"Site Visit Module Management"} heading2={"List and Manage Site Visit Here"} />
-      <BreadCrumbs heading1={"SitevisitManagement"} heading2={"Site Visit Module List"} />
+      <FormHeader
+        heading1={"Site Visit Module Management"}
+        heading2={"List and Manage Site Visit Here"}
+      />
+      <BreadCrumbs
+        heading1={"SitevisitManagement"}
+        heading2={"Site Visit Module List"}
+      />
+      {typeof sitevisit.list === "undefined" ? (
+        <Backdrop className={classes.backdrop} open={open}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        ""
+      )}
       {sitevisit?.list && sitevisit?.list?.list?.length > 0 ? (
         <>
-          <MUIDataTable className="table-header"
+          <MUIDataTable
+            className="table-header"
             title="Site Visit List"
             data={sitevisit?.list?.list?.map((item, index) => {
               return [
-                (index + 1),
+                index + 1,
                 item.name,
                 item.email,
                 item.phone,
                 item.time,
                 item.status,
-                item._id
-              ]
+                item._id,
+              ];
             })}
-            columns={['SR No.', 'Name', 'Email', 'Phone', 'Time',
+            columns={[
+              "SR No.",
+              "Name",
+              "Email",
+              "Phone",
+              "Time",
               {
                 name: "Status",
                 options: {
                   customBodyRender: (value, tableMeta, updateValue) => {
-                    if (value === true)
-                      return (
-                        'Active'
-                      );
-                    else
-                      return (
-                        'Inactive'
-                      );
-                  }
-                }
+                    if (value === true) return "Active";
+                    else return "Inactive";
+                  },
+                },
               },
               {
                 name: "Actions",
@@ -121,49 +126,44 @@ const VistList = (props) => {
                         {tableMeta.rowData[5] ? (
                           <Tooltip title="Active">
                             <Done
-                              onClick={() => onDisable(tableMeta.rowData[6], false)}
+                              onClick={() =>
+                                onDisable(tableMeta.rowData[6], false)
+                              }
                               style={{ color: "#1e7e34", cursor: "pointer" }}
                             />
                           </Tooltip>
-
                         ) : (
-                            <Tooltip title="Inactive">
-                              <ClearIcon
-                                onClick={() => onDisable(tableMeta.rowData[6], true)}
-                                style={{ color: "#bd2130", cursor: "pointer" }}
-                              />
-                            </Tooltip>
-                          )}
+                          <Tooltip title="Inactive">
+                            <ClearIcon
+                              onClick={() =>
+                                onDisable(tableMeta.rowData[6], true)
+                              }
+                              style={{ color: "#bd2130", cursor: "pointer" }}
+                            />
+                          </Tooltip>
+                        )}
 
                         {/* <DeleteIcon style={{ color: "#bd2130", cursor: "pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[4])} /> */}
                       </>
                     );
-                  }
-                }
-              }
+                  },
+                },
+              },
             ]}
             options={options}
-
           />
         </>
       ) : (
-          <Typography>Data not found.</Typography>
-        )}
+        <Typography>Data not found.</Typography>
+      )}
     </>
   );
-
-}
-
+};
 
 function mapStateToProps(state) {
   const { sitevisit } = state;
   return {
     sitevisit,
-
   };
 }
-export default connect(mapStateToProps)(
-  withStyles(styles)(VistList),
-);
-
-
+export default connect(mapStateToProps)(withStyles(styles)(VistList));

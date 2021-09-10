@@ -18,6 +18,8 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
 import history from "../../components/history";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -27,12 +29,16 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#1976d2",
+  },
 });
 
 const PropertyList = (props) => {
   const dispatch = useDispatch();
   let { classes, property } = props;
-
+  const [open, setOpen] = React.useState(true);
   useEffect(() => {
     dispatch(PropertyAction.PropertyListRequestAsync());
   }, []);
@@ -94,6 +100,13 @@ const PropertyList = (props) => {
         heading1={"PropertyManagement"}
         heading2={"Property Module List"}
       />
+      {typeof property.list === "undefined" ? (
+        <Backdrop className={classes.backdrop} open={open}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        ""
+      )}
       {property.list?.list && property.list?.list?.length > 0 ? (
         <>
           <MUIDataTable
