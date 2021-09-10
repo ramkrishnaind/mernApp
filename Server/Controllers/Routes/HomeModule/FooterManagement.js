@@ -25,12 +25,7 @@ const createSocialMediaSchema = Joi.object({
     linkedin: Joi.string().trim().required(),
     youtube: Joi.string().trim().required(),
 });
-const getAddressSchema = Joi.object({
-    _id: Joi.string().trim().required()
-});
-const getSocialMediaSchema = Joi.object({
-    _id: Joi.string().trim().required()
-});
+
 /////////// Update Schema ////////////////
 
 const updateAddressSchema = Joi.object({
@@ -119,16 +114,8 @@ function updateVishalAddress(Models) {
 function getVishalAddress(Models) {
     async function getAddress(req, res) {
         try {
-            let validateData = getAddressSchema.validate(req.body);
-            if (validateData.error) {
-                throw { status: false, error: validateData, message: "Invalid data" };
-            }
-
-            // pick data from req.body
-            let bodyData = _.pick(req.body, ['_id']);
-
             // Getting Address from Database
-            let findData = await Models.AddressDB.findOne({ _id: bodyData._id });
+            let findData = await Models.AddressDB.find();
             console.log('findData is', findData)
             if (findData) {
                 // if data found check verified or not
@@ -211,16 +198,8 @@ function updateSocialMedia(Models) {
 function getSocialMedia(Models) {
     async function getSocialMedia(req, res) {
         try {
-            let validateData = getSocialMediaSchema.validate(req.body);
-            if (validateData.error) {
-                throw { status: false, error: validateData, message: "Invalid data" };
-            }
-
-            // pick data from req.body
-            let bodyData = _.pick(req.body, ['_id']);
-
             // Getting SocialMedia from Database
-            let findData = await Models.SocialMediaDB.findOne({ _id: bodyData._id });
+            let findData = await Models.SocialMediaDB.find();
             console.log('findData is', findData)
             if (findData) {
                 // if data found check verified or not
