@@ -33,6 +33,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import * as SitevisitAction from '../../redux/actions/SitevisitAction';
 import ApiClient from '../../api-client';
+import '../../components/outer-carousel-slider/featured.css';
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -157,7 +158,7 @@ const stylessd = (theme) => ({
     color: '#000000',
     textTransform: 'none',
     fontFamily: '"Open Sans",sans-serif'
-  }
+  },
 });
 
 const DialogTitle = withStyles(stylessd)((props) => {
@@ -233,6 +234,7 @@ const PropertyListCard = (props) => {
   const mainImage = item?.images[0]?.mainImage[0]?.path ? ApiClient.SERVER_ADDRESS + "/" + item?.images[0]?.mainImage[0]?.path : "/no-image-available-icon-6.png";
   console.log("mainImage", mainImage, item?.images[0]);
   const address = item?.features[0]?.address || {};
+  const propertTag = item?.propertTag;
   return (
     <>
       <Paper style={{borderRadius: 0, padding: 0, marginTop: 30}}>
@@ -247,16 +249,20 @@ const PropertyListCard = (props) => {
               justifyContent: "flex-start",
             }}
           >
-            <img
-              className="image"
-              src={mainImage || process.env.PUBLIC_URL + "/property_img3.jpeg"}
-              style={{
-                width: "100%",
-                height: 300,
-                objectFit: "cover",
-                backgroundColor: "red",
-              }}
-            />
+            <div style={{position: 'relative'}}>
+              {propertTag ? <span class="featured">{propertTag}</span> : null}
+              <img
+                className="image"
+                src={mainImage}
+                style={{
+                  width: "100%",
+                  height: 300,
+                  objectFit: "cover",
+                  backgroundColor: "red",
+                }}
+                alt=""
+              />
+            </div>
             {/* <span className="featured">FEATURED</span> */}
           </Grid>
           <Grid item xs={12} md={8} style={{padding: 30}}>
