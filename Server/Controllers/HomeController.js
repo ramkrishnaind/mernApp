@@ -30,6 +30,7 @@ let bannerUpload = multer({ storage: storage });
 
 
 const homeFunction = require('./Routes/HomeModule/HomeManagement');
+const footerFunction = require('./Routes/HomeModule/FooterManagement');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 
@@ -96,5 +97,17 @@ module.exports = function (conn) {
     router.post('/getService', requestAuthMiddleware, homeFunction.getServiceForHome(db));
     router.post('/getServiceDetails', requestAuthMiddleware, homeFunction.getServiceItemDetails(db));
     //router.post('/applyForJob', userAuthMiddleware, homeFunction.createHomeFunc(db));
+
+    //Footer Address
+    router.post('/createVishalAddress', userAuthMiddleware, footerFunction.createVishalAddress(db));
+    router.post('/updateVishalAddress', userAuthMiddleware, footerFunction.updateVishalAddress(db));
+    router.post('/getVishalAddress', userAuthMiddleware, footerFunction.getVishalAddress(db));
+    router.post('/getFooterAddress', requestAuthMiddleware, footerFunction.getVishalAddress(db));
+
+    //Footer Social Media Linls
+    router.post('/createSocialMedia', userAuthMiddleware, footerFunction.createSocialMedia(db));
+    router.post('/updateSocialMedia', userAuthMiddleware, footerFunction.updateSocialMedia(db));
+    router.post('/getSocialMedia', userAuthMiddleware, footerFunction.getSocialMedia(db));
+    router.post('/getFooterSocialMedia', requestAuthMiddleware, footerFunction.getSocialMedia(db));
     return router;
 };
