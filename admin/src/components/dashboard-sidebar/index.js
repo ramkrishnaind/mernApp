@@ -294,6 +294,23 @@ const items = [
       },
     ],
   },
+  {
+    href: "/team",
+    icon: UsersIcon,
+    title: "Team",
+    items: [
+      {
+        href: "/team/add",
+        icon: ShoppingBagIcon,
+        title: "Add Team",
+      },
+      {
+        href: "/team",
+        icon: ShoppingBagIcon,
+        title: "Team List",
+      },
+    ],
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {

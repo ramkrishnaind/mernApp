@@ -126,6 +126,14 @@ const API_ENDPOINTS = {
   BUILDING_DELETE_ENDPOINT: "builder/deleteBuildingItem",
   BUILDING_UPDATE_ENDPOINT: "builder/updateBuilding",
   BUILDING_DATA_ENDPOINT: "builder/getBuildingItem",
+
+  //team module
+  TEAM_LIST_ENDPOINT: "team/getTeamList",
+  TEAM_ADD_ENDPOINT: "team/createTeamMember",
+  TEAM_STATUS_UPDATE_ENDPOINT: "team/updateTeamMemberStatus",
+  TEAM_UPDATE_ENDPOINT: "team/updateTeamMember",
+  TEAM_DELETE_ENDPOINT: "team/deleteTeamMember",
+  TEAM_DATA_ENDPOINT: "team/getTeamMemberDetail",
 };
 
 export default API_ENDPOINTS;
