@@ -311,6 +311,11 @@ const items = [
       },
     ],
   },
+  {
+    href: "/address",
+    icon: UserIcon,
+    title: "Home Address",
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {

@@ -46,10 +46,12 @@ import ServiceItemList from "../pages/serviceItemManagement";
 import AddServiceItem from "../pages/serviceItemManagement/add";
 import BuildingList from "../pages/buildingManagement";
 import AddBuilding from "../pages/buildingManagement/add";
-
 import Myacc from "../pages/MyAccountManagement";
 import TeamList from "../pages/teamManagement";
 import AddTeam from "../pages/teamManagement/add";
+
+import Address from "../pages/addressManagement/add";
+
 const Routes = (props) => {
   const { isAuth } = props;
   const routes = [
@@ -229,6 +231,10 @@ const Routes = (props) => {
         {
           path: "/team/add",
           element: isAuth ? <AddTeam /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/address",
+          element: isAuth ? <Address /> : <Navigate to="/login" />,
         },
         {
           path: "404",
