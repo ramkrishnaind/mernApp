@@ -43,7 +43,7 @@ const updateAddressSchema = Joi.object({
     email: Joi.string(),
     timming: Joi.string()
 });
-const createSocialMediaSchema = Joi.object({
+const updateSocialMediaSchema = Joi.object({
     _id: Joi.objectId().trim().required(),
     facebook: Joi.string().trim().required(),
     twitter: Joi.string().trim().required(),
