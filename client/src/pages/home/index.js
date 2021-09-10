@@ -27,6 +27,7 @@ import CountUp, {useCountUp} from 'react-countup';
 import {statsInfo, aboutSectionInfo, servicesInfo, bannersInfo} from './intial-content';
 import ApiClient from '../../api-client/index';
 import VisibilitySensor from "react-visibility-sensor";
+import SearchBox from '../../components/search-box/index';
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -106,6 +107,8 @@ function reducer2(state, newState) {
   ];
 }
 
+
+
 const HomePage = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -148,14 +151,15 @@ const HomePage = (props) => {
     const getData = async () => {
       const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/builder/getBuildingMaterials', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
 
-      // console.log("/builder/getBuildingMaterials ", response);
+      console.log("/builder/getBuildingMaterials ", response);
 
       const buildingMaterialImgInfo = [];
       const baseUrl = ApiClient.SERVER_ADDRESS;
-      response.data.forEach((imageInfo) => {
+
+      (response?.data || []).forEach((imageInfo) => {
         const imgDetails = {imageUrl: '', desc: '', name: ''};
 
-        imgDetails.imageUrl = baseUrl + "/" + imageInfo.image[0].path;
+        imgDetails.imageUrl = baseUrl + "/" + imageInfo.image[0]?.path;
         imgDetails.desc = "";
         imgDetails.name = imageInfo.name;
         buildingMaterialImgInfo.push(imgDetails);
@@ -191,12 +195,12 @@ const HomePage = (props) => {
   const populateStatsInfo = (cookie, authorization) => {
     const getData = async () => {
       const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getMovingBanner', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
-
+      const data = response.data;
       const statsData = {
-        "years": response.data.years,
-        "clients": response.data.clients,
-        "projects": response.data.projects,
-        "shortDescription": response.data.shortDescription
+        "years": data?.years || statsInfo.years,
+        "clients": data?.clients || stats.clients,
+        "projects": data?.projects || stats.projects,
+        "shortDescription": data?.shortDescription || stats.shortDescription
       };
       // console.log("statsData", statsData);
       setStats(statsData);
@@ -270,7 +274,12 @@ const HomePage = (props) => {
 
   return (
     <div className="main-w3">
-      <OwlCarouselSlider images={banners} style={{width: '100%', maxHeight: 530}} autoPlay={false} />
+      <Box style={{position: 'relative'}}>
+        <SearchBox />
+        <OwlCarouselSlider images={banners} style={{width: '100%', maxHeight: 530}} autoPlay={true} />
+
+      </Box>
+
       {/* <EmiCalculater />
       <EnquryForm/> */}
       <Box style={{backgroundColor: '#FFFFFF'}}>
