@@ -103,14 +103,25 @@ function getAllProperty(Models) {
 function getHomeAllProperty(Models) {
     async function PropertyList(req, res) {
         try {
-            let findData = await Models.PropertyDB.aggregate([{
-                $lookup: {
-                    from: "pfeatures",
-                    localField: "_id",
-                    foreignField: "propertyId",
-                    as: "features"
+            let findData = await Models.PropertyDB.aggregate([
+                {
+                    $lookup: {
+                        from: "pfeatures",
+                        localField: "_id",
+                        foreignField: "propertyId",
+                        as: "features"
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'pimages',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'images'
+                    }
                 }
-            }])
+            ])
             console.log('findData is', findData)
             let rentData = findData.filter(function (item) {
                 return item.for === "Rent";
