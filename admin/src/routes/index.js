@@ -48,7 +48,8 @@ import BuildingList from "../pages/buildingManagement";
 import AddBuilding from "../pages/buildingManagement/add";
 
 import Myacc from "../pages/MyAccountManagement";
-
+import TeamList from "../pages/teamManagement";
+import AddTeam from "../pages/teamManagement/add";
 const Routes = (props) => {
   const { isAuth } = props;
   const routes = [
@@ -220,6 +221,14 @@ const Routes = (props) => {
         {
           path: "/myaccount",
           element: isAuth ? <Myacc /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/team",
+          element: isAuth ? <TeamList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/team/add",
+          element: isAuth ? <AddTeam /> : <Navigate to="/login" />,
         },
         {
           path: "404",
