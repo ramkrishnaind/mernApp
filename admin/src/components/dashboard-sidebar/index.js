@@ -314,7 +314,12 @@ const items = [
   {
     href: "/address",
     icon: UserIcon,
-    title: "Home Address",
+    title: "Site Address",
+  },
+  {
+    href: "/social",
+    icon: UserIcon,
+    title: "Social Media",
   },
 ];
 

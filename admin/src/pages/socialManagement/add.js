@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
-import * as AddressAction from "../../redux/actions/AddressAction";
+import * as SocialAction from "../../redux/actions/SocialAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -11,32 +11,28 @@ import SubHeading from "../../common/SubHeadingBox";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 
-const AddressCreateUpdate = (props) => {
-  let query = useQuery();
-  let id = query.get("id");
-  let addressData = props?.address?.addressData;
+const SocialCreateUpdate = (props) => {
+  let socialData = props?.social?.socialData;
   const [refresh, setRefresh] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(AddressAction.AddressDataRequestAsync());
+    dispatch(SocialAction.SocialDataRequestAsync());
   }, []);
 
   useEffect(() => {
-    if (props.address.success) {
+    if (props.social.success) {
       setRefresh(true);
       setState(initialState);
     }
-  }, [props.address.success]);
+  }, [props.social.success]);
 
   const initialState = {
-    address: addressData?.address,
-    city: addressData?.city,
-    states: addressData?.state,
-    pinCode: addressData?.pinCode,
-    mobile: addressData?.mobile,
-    email: addressData?.email,
-    timming: addressData?.timming,
-    id: addressData?._id,
+    facebook: socialData?.facebook,
+    twitter: socialData?.twitter,
+    instagram: socialData?.state,
+    linkedin: socialData?.linkedin,
+    youtube: socialData?.youtube,
+    id: socialData?._id,
   };
 
   const [state, setState] = useState(initialState);
@@ -48,74 +44,57 @@ const AddressCreateUpdate = (props) => {
   };
 
   const handleSubmit = (e) => {
-    const {
-      address,
-      city,
-      id,
-      states,
-      pinCode,
-      mobile,
-      email,
-      timming,
-    } = state;
+    const { facebook, twitter, id, instagram, linkedin, youtube } = state;
     if (id == null) {
       let reqData = {
-        address: address,
-        city: city,
-        state: states,
-        pinCode: pinCode,
-        mobile: mobile,
-        email: email,
-        timming: timming,
+        facebook: facebook,
+        twitter: twitter,
+        instagram: instagram,
+        linkedin: linkedin,
+        youtube: youtube,
       };
-      dispatch(AddressAction.AddressAddRequestAsync(reqData));
+      dispatch(SocialAction.SocialAddRequestAsync(reqData));
     } else {
       let reqData = {
-        address: address,
-        city: city,
-        state: states,
-        pinCode: pinCode,
-        mobile: mobile,
-        email: email,
-        timming: timming,
+        facebook: facebook,
+        twitter: twitter,
+        instagram: instagram,
+        linkedin: linkedin,
+        youtube: youtube,
         _id: id,
       };
-      dispatch(AddressAction.AddressUpdateRequestAsync(reqData));
+      dispatch(SocialAction.SocialUpdateRequestAsync(reqData));
     }
   };
-
-  function useQuery() {
-    return new URLSearchParams(useLocation().search);
-  }
 
   return (
     <Box className="MenuManagement_Data">
       <FormHeader
-        heading1={"Address Module Management"}
-        heading2={"Create and Update Address Here"}
+        heading1={"Social Media Module Management"}
+        heading2={"Create and Update Social Media Here"}
       />
       {state.id ? (
         <>
           <BreadCrumbs
-            heading1={"TeamManagement"}
-            heading2={"Edit Address Module"}
+            heading1={"SocialMediaManagement"}
+            heading2={"Edit Social Media Module"}
           />
-          <SubHeading heading={"Edit Address Module"} />
+          <SubHeading heading={"Edit Social Media Module"} />
         </>
       ) : (
         <>
           <BreadCrumbs
-            heading1={"TeamManagement"}
-            heading2={"Add Address Module"}
+            heading1={"SocialMediaManagement"}
+            heading2={"Add Social Media Module"}
           />
-          <SubHeading heading={"Add Address Module"} />
+          <SubHeading heading={"Add Social Media Module"} />
         </>
       )}
       <Grid item xs={12} className="m-5 addUserFormanage">
         <div className="card w-100">
           <div className="card-header d-flex justify-content-between align-items-center">
             <Typography component="h3" variant="h3">
-              {state.id ? "Edit" : "Add"} Address
+              {state.id ? "Edit" : "Add"} Social Media
             </Typography>
           </div>
           <div class="card-body">
@@ -125,14 +104,16 @@ const AddressCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="Address*"
+                    label="Facebook*"
                     fullWidth
-                    value={state.address ? state.address : addressData?.address}
+                    value={
+                      state.facebook ? state.facebook : socialData?.facebook
+                    }
                     onChange={inputChange}
-                    name="address"
-                    id="address"
+                    name="facebook"
+                    id="facebook"
                     validators={["required"]}
-                    errorMessages={["address field is required"]}
+                    errorMessages={["facebook field is required"]}
                   />
                 </Grid>
 
@@ -140,14 +121,14 @@ const AddressCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="City*"
+                    label="Twitter*"
                     fullWidth
-                    value={state.city ? state.city : addressData?.city}
+                    value={state.twitter ? state.twitter : socialData?.twitter}
                     onChange={inputChange}
-                    name="city"
-                    id="city"
+                    name="twitter"
+                    id="twitter"
                     validators={["required"]}
-                    errorMessages={["city field is required"]}
+                    errorMessages={["twitter field is required"]}
                   />
                 </Grid>
 
@@ -155,14 +136,16 @@ const AddressCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="State"
+                    label="Instagram"
                     fullWidth
-                    value={state.states ? state.states : addressData?.states}
+                    value={
+                      state.instagram ? state.instagram : socialData?.instagram
+                    }
                     onChange={inputChange}
-                    name="states"
-                    id="states"
+                    name="instagram"
+                    id="instagram"
                     validators={["required"]}
-                    errorMessages={["states field is required"]}
+                    errorMessages={["instagram field is required"]}
                   />
                 </Grid>
 
@@ -170,12 +153,16 @@ const AddressCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="Pin Code"
+                    label="Linkedin"
                     fullWidth
-                    value={state.pinCode ? state.pinCode : addressData?.pinCode}
+                    value={
+                      state.linkedin ? state.linkedin : socialData?.linkedin
+                    }
                     onChange={inputChange}
-                    name="pinCode"
-                    id="pinCode"
+                    name="linkedin"
+                    id="linkedin"
+                    validators={["required"]}
+                    errorMessages={["linkedin field is required"]}
                   />
                 </Grid>
 
@@ -183,38 +170,14 @@ const AddressCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="Mobile"
+                    label="Youtube"
                     fullWidth
-                    value={state.mobile ? state.mobile : addressData?.mobile}
+                    value={state.youtube ? state.youtube : socialData?.youtube}
                     onChange={inputChange}
-                    name="mobile"
-                    id="mobile"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Email"
-                    fullWidth
-                    value={state.email ? state.email : addressData?.email}
-                    onChange={inputChange}
-                    name="email"
-                    id="email"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Timming"
-                    fullWidth
-                    value={state.timming ? state.timming : addressData?.timming}
-                    onChange={inputChange}
-                    name="timming"
-                    id="timming"
+                    name="youtube"
+                    id="youtube"
+                    validators={["required"]}
+                    errorMessages={["youtube field is required"]}
                   />
                 </Grid>
               </Grid>
@@ -230,7 +193,7 @@ const AddressCreateUpdate = (props) => {
                   Save
                 </Button>
 
-                <Link component={RouterLink} to="/address">
+                <Link component={RouterLink} to="/facebook">
                   <Button
                     variant="contained"
                     color="primary"
@@ -250,10 +213,10 @@ const AddressCreateUpdate = (props) => {
 };
 
 function mapStateToProps(state) {
-  const { address } = state;
-  console.log("adad", address);
+  const { social } = state;
+  console.log("adad", social);
   return {
-    address,
+    social,
   };
 }
-export default connect(mapStateToProps)(AddressCreateUpdate);
+export default connect(mapStateToProps)(SocialCreateUpdate);

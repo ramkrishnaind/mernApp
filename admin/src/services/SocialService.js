@@ -1,62 +1,62 @@
-import * as AddressAction from "../redux/actions/AddressAction";
+import * as SocialAction from "../redux/actions/SocialAction";
 import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/snackbarActions";
 import history from "../components/history";
 
-export const AddressAddService = async (dispatch, data) => {
+export const SocialAddService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.ADDRESS_ADD_ENDPOINT,
+      API_ENDPOINTS.SOCIAL_ADD_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(AddressAction.AddressAddSuccess(result));
+    dispatch(SocialAction.SocialAddSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
-    history.push("/address");
+    history.push("/social");
     window.location.reload();
   } catch (error) {
-    dispatch(AddressAction.AddressAddError(error));
+    dispatch(SocialAction.SocialAddError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
 };
 
-export const AddressUpdateService = async (dispatch, data) => {
+export const SocialUpdateService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.ADDRESS_UPDATE_ENDPOINT,
+      API_ENDPOINTS.SOCIAL_UPDATE_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(AddressAction.AddressUpdateSuccess(result));
+    dispatch(SocialAction.SocialUpdateSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
-    history.push("/address");
+    history.push("/Social");
     window.location.reload();
   } catch (error) {
-    dispatch(AddressAction.AddressUpdateError(error));
+    dispatch(SocialAction.SocialUpdateError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
 };
 
-export const AddressDataService = async (dispatch, data) => {
+export const SocialDataService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.ADDRESS_DATA_ENDPOINT,
+      API_ENDPOINTS.SOCIAL_DATA_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(AddressAction.AddressDataSuccess(result));
+    dispatch(SocialAction.SocialDataSuccess(result));
   } catch (error) {
-    dispatch(AddressAction.AddressDataError(error));
+    dispatch(SocialAction.SocialDataError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
 };

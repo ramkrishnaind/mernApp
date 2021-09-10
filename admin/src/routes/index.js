@@ -49,7 +49,7 @@ import AddBuilding from "../pages/buildingManagement/add";
 import Myacc from "../pages/MyAccountManagement";
 import TeamList from "../pages/teamManagement";
 import AddTeam from "../pages/teamManagement/add";
-
+import Social from "../pages/socialManagement/add";
 import Address from "../pages/addressManagement/add";
 
 const Routes = (props) => {
@@ -235,6 +235,10 @@ const Routes = (props) => {
         {
           path: "/address",
           element: isAuth ? <Address /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/social",
+          element: isAuth ? <Social /> : <Navigate to="/login" />,
         },
         {
           path: "404",

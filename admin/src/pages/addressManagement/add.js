@@ -91,7 +91,7 @@ const AddressCreateUpdate = (props) => {
       {state.id ? (
         <>
           <BreadCrumbs
-            heading1={"TeamManagement"}
+            heading1={"AddressManagement"}
             heading2={"Edit Address Module"}
           />
           <SubHeading heading={"Edit Address Module"} />
@@ -99,7 +99,7 @@ const AddressCreateUpdate = (props) => {
       ) : (
         <>
           <BreadCrumbs
-            heading1={"TeamManagement"}
+            heading1={"AddressManagement"}
             heading2={"Add Address Module"}
           />
           <SubHeading heading={"Add Address Module"} />

@@ -25,6 +25,8 @@ import ServiceItem from "./serviceItemReducer";
 import Building from "./buildingReducer";
 import Team from "./teamReducer";
 import Address from "./addressReducer";
+import Social from "./socialReducer";
+
 const reducers = {
   Login: LoginReducer,
   Register: RegisterReducer,
@@ -53,6 +55,7 @@ const reducers = {
   building: Building,
   team: Team,
   address: Address,
+  social: Social,
 };
 
 export default reducers;

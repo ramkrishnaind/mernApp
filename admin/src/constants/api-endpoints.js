@@ -139,6 +139,11 @@ const API_ENDPOINTS = {
   ADDRESS_ADD_ENDPOINT: "home/createVishalAddress",
   ADDRESS_UPDATE_ENDPOINT: "home/updateVishalAddress",
   ADDRESS_DATA_ENDPOINT: "home/getVishalAddress",
+
+  //social module
+  SOCIAL_ADD_ENDPOINT: "home/createSocialMedia",
+  SOCIAL_UPDATE_ENDPOINT: "home/updateSocialMedia",
+  SOCIAL_DATA_ENDPOINT: "home/getSocialMedia",
 };
 
 export default API_ENDPOINTS;
