@@ -86,15 +86,13 @@ const OurTeam = props => {
   const classes = useStyles();
 
 
+
   return (
     <Paper elevation={0} style={{padding: 20, marginTop: 20, paddingBottom: 20}}>
       <Grid container style={{display: 'flex', justifyContent: 'space-around'}}>
-        <ProfileCard />
-        <ProfileCard />
-        <ProfileCard />
-        <ProfileCard />
-        <ProfileCard />
-        <ProfileCard />
+        {(props.team || []).map((member) => {
+          return <ProfileCard member={member} />;
+        })}
       </Grid>
     </Paper>
   );

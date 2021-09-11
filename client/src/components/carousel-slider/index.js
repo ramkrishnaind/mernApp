@@ -9,6 +9,7 @@ import {Grid} from "@material-ui/core";
 const OwlCarouselSlider = (props) => {
 
   const images = props.images;
+
   const items = props.items || 1;
   // console.log("images check", images, props, (images || []));
   return (
