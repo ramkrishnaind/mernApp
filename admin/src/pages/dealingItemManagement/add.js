@@ -19,44 +19,22 @@ import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
 
 const MenuCreateUpdate = (props) => {
-  let query = useQuery();
-  let id = query.get("id");
-  let dealingItemData = props?.dealingItem?.dealingItemData;
-  const [refresh, setRefresh] = useState(false);
-
-  useEffect(() => {
-    let data = {
-      _id: id,
-    };
-    if (id != null) {
-      dispatch(DealingItemAction.DealingItemDataRequestAsync(data));
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if (props.dealingItem.success) {
-      setRefresh(true);
-      setState(initialState);
-    }
-  }, [props.dealingItem.success]);
-
   const dispatch = useDispatch();
 
   const initialState = {
-    title: dealingItemData?.title,
-    metaTitle: dealingItemData?.metaTitle,
-    metaKeywords: dealingItemData?.metaKeywords,
-    metaDescription: dealingItemData?.metaDescription,
-    shortDescription: dealingItemData?.shortDescription,
-    icon: dealingItemData?.icon,
-    banner: dealingItemData?.banner,
-    video: dealingItemData?.video,
+    title: "",
+    metaTitle: "",
+    metaKeywords: "",
+    metaDescription: "",
+    shortDescription: "",
+    icon: "",
+    banner: "",
+    video: "",
     image: [],
-    id: id,
   };
 
   const [state, setState] = useState(initialState);
-  const [description, setDescription] = useState(dealingItemData?.description);
+  const [description, setDescription] = useState("");
   const inputChange = (e) => {
     let { name, value } = e.target;
 
@@ -66,7 +44,7 @@ const MenuCreateUpdate = (props) => {
   const handleSubmit = (e) => {
     const {
       title,
-      id,
+
       metaTitle,
       metaKeywords,
       metaDescription,
@@ -76,43 +54,21 @@ const MenuCreateUpdate = (props) => {
       video,
     } = state;
 
-    if (id == null) {
-      var data = new FormData();
-      state?.image.map((item, index) => {
-        data.append("image", item);
-      });
-      data.append("title", title);
-      data.append("description", description);
-      data.append("metaTitle", metaTitle);
-      data.append("metaKeywords", metaKeywords);
-      data.append("metaDescription", metaDescription);
-      data.append("shortDescription", shortDescription);
-      data.append("icon", icon);
-      data.append("banner", banner);
-      data.append("video", video);
-      dispatch(DealingItemAction.DealingItemAddRequestAsync(data));
-    } else {
-      var data = new FormData();
-      state?.image.map((item, index) => {
-        data.append("image", item);
-      });
-      data.append("title", title);
-      data.append("description", description);
-      data.append("metaTitle", metaTitle);
-      data.append("metaKeywords", metaKeywords);
-      data.append("metaDescription", metaDescription);
-      data.append("shortDescription", shortDescription);
-      data.append("icon", icon);
-      data.append("banner", banner);
-      data.append("video", video);
-      data.append("_id", id);
-      dispatch(DealingItemAction.DealingItemUpdateRequestAsync(data));
-    }
+    var data = new FormData();
+    state?.image.map((item, index) => {
+      data.append("image", item);
+    });
+    data.append("title", title);
+    data.append("description", description);
+    data.append("metaTitle", metaTitle);
+    data.append("metaKeywords", metaKeywords);
+    data.append("metaDescription", metaDescription);
+    data.append("shortDescription", shortDescription);
+    data.append("icon", icon);
+    data.append("banner", banner);
+    data.append("video", video);
+    dispatch(DealingItemAction.DealingItemAddRequestAsync(data));
   };
-
-  function useQuery() {
-    return new URLSearchParams(useLocation().search);
-  }
 
   const handleChangeTextEditor = (content, editor) => {
     setDescription(content);
@@ -185,7 +141,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.title ? state.title : dealingItemData?.title}
+                    value={state.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -199,11 +155,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Short Description*"
                     fullWidth
-                    value={
-                      state.shortDescription
-                        ? state.shortDescription
-                        : dealingItemData?.shortDescription
-                    }
+                    value={state.shortDescription}
                     onChange={inputChange}
                     name="shortDescription"
                     id="shortDescription"
@@ -218,7 +170,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="icon*"
                     fullWidth
-                    value={state.icon ? state.icon : dealingItemData?.icon}
+                    value={state.icon}
                     onChange={inputChange}
                     name="icon"
                     id="icon"
@@ -231,11 +183,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={
-                      state.metaTitle
-                        ? state.metaTitle
-                        : dealingItemData?.metaTitle
-                    }
+                    value={state.metaTitle}
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
@@ -248,11 +196,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={
-                      state.metaKeywords
-                        ? state.metaKeywords
-                        : dealingItemData?.metaKeywords
-                    }
+                    value={state.metaKeywords}
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
@@ -265,11 +209,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={
-                      state.metaDescription
-                        ? state.metaDescription
-                        : dealingItemData?.metaDescription
-                    }
+                    value={state.metaDescription}
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"
@@ -277,28 +217,12 @@ const MenuCreateUpdate = (props) => {
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-                  {dealingItemData?.description != null ? (
-                    <>
-                      <ReactQuill
-                        onChange={handleChangeTextEditor}
-                        value={
-                          description
-                            ? description
-                            : dealingItemData?.description
-                        }
-                        placeholder="Enter description"
-                        theme="snow"
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <ReactQuill
-                        onChange={handleChangeTextEditor}
-                        placeholder="Enter description"
-                        theme="snow"
-                      />
-                    </>
-                  )}
+                  <ReactQuill
+                    onChange={handleChangeTextEditor}
+                    value={description}
+                    placeholder="Enter description"
+                    theme="snow"
+                  />
                 </Grid>
               </Grid>
               <br />

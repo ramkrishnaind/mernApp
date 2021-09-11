@@ -40,7 +40,17 @@ import DealingList from "../pages/dealingManagement";
 import AddDealing from "../pages/dealingManagement/add";
 import DealingItemList from "../pages/dealingItemManagement";
 import AddDealingItem from "../pages/dealingItemManagement/add";
+import ServiceList from "../pages/serviceManagement";
+import AddService from "../pages/serviceManagement/add";
+import ServiceItemList from "../pages/serviceItemManagement";
+import AddServiceItem from "../pages/serviceItemManagement/add";
+import BuildingList from "../pages/buildingManagement";
+import AddBuilding from "../pages/buildingManagement/add";
 import Myacc from "../pages/MyAccountManagement";
+import TeamList from "../pages/teamManagement";
+import AddTeam from "../pages/teamManagement/add";
+import Social from "../pages/socialManagement/add";
+import Address from "../pages/addressManagement/add";
 
 const Routes = (props) => {
   const { isAuth } = props;
@@ -187,8 +197,48 @@ const Routes = (props) => {
           element: isAuth ? <DealingItemList /> : <Navigate to="/login" />,
         },
         {
+          path: "/service/add",
+          element: isAuth ? <AddService /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/service",
+          element: isAuth ? <ServiceList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/serviceItem/add",
+          element: isAuth ? <AddServiceItem /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/serviceItem",
+          element: isAuth ? <ServiceItemList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/building/add",
+          element: isAuth ? <AddBuilding /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/building",
+          element: isAuth ? <BuildingList /> : <Navigate to="/login" />,
+        },
+        {
           path: "/myaccount",
           element: isAuth ? <Myacc /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/team",
+          element: isAuth ? <TeamList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/team/add",
+          element: isAuth ? <AddTeam /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/address",
+          element: isAuth ? <Address /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/social",
+          element: isAuth ? <Social /> : <Navigate to="/login" />,
         },
         {
           path: "404",

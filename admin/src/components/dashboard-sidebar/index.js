@@ -37,7 +37,7 @@ const items = [
   {
     href: "/menu",
     icon: UsersIcon,
-    title: "Menu Management",
+    title: "Menu",
     items: [
       {
         href: "/menu/add",
@@ -51,29 +51,6 @@ const items = [
       },
     ],
   },
-
-  // {
-  //   href: '/property-management',
-  //   icon: UsersIcon,
-  //   title: 'Property Management',
-  //   items: [
-  //     {
-  //       href: "/add-property",
-  //       icon: ShoppingBagIcon,
-  //       title: "Add New",
-  //     },
-  //     {
-  //       href: "/property-list",
-  //       icon: ShoppingBagIcon,
-  //       title: "Property List",
-  //     }
-  //   ]
-  // },
-  // {
-  //   href: '/user-management',
-  //   icon: ShoppingBagIcon,
-  //   title: 'User Management'
-  // },
   {
     href: "/role",
     icon: UsersIcon,
@@ -197,7 +174,7 @@ const items = [
   {
     href: "/property",
     icon: UsersIcon,
-    title: "Property Management",
+    title: "Property",
     items: [
       {
         href: "/property/add",
@@ -214,7 +191,7 @@ const items = [
   {
     href: "/aboutus",
     icon: UsersIcon,
-    title: "About Us Management",
+    title: "About Us",
     items: [
       {
         href: "/aboutus",
@@ -226,7 +203,7 @@ const items = [
   {
     href: "/dealing",
     icon: UsersIcon,
-    title: "Dealing Management",
+    title: "Dealing In",
     items: [
       {
         href: "/dealing/add",
@@ -249,6 +226,77 @@ const items = [
         title: "Dealing Item List",
       },
     ],
+  },
+  {
+    href: "/service",
+    icon: UsersIcon,
+    title: "Service",
+    items: [
+      {
+        href: "/service/add",
+        icon: ShoppingBagIcon,
+        title: "Add Service",
+      },
+      {
+        href: "/service",
+        icon: ShoppingBagIcon,
+        title: "Service List",
+      },
+      {
+        href: "/serviceItem/add",
+        icon: ShoppingBagIcon,
+        title: "Add Service Item",
+      },
+      {
+        href: "/serviceItem",
+        icon: ShoppingBagIcon,
+        title: "Service Item List",
+      },
+    ],
+  },
+  {
+    href: "/building",
+    icon: UsersIcon,
+    title: "Building",
+    items: [
+      {
+        href: "/building/add",
+        icon: ShoppingBagIcon,
+        title: "Add Building",
+      },
+      {
+        href: "/building",
+        icon: ShoppingBagIcon,
+        title: "Building List",
+      },
+    ],
+  },
+  {
+    href: "/team",
+    icon: UsersIcon,
+    title: "Team",
+    items: [
+      {
+        href: "/team/add",
+        icon: ShoppingBagIcon,
+        title: "Add Team",
+      },
+      {
+        href: "/team",
+        icon: ShoppingBagIcon,
+        title: "Team List",
+      },
+    ],
+  },
+  {
+    href: "/address",
+    icon: UserIcon,
+    title: "Site Address",
+  },
+  {
+    href: "/social",
+    icon: UserIcon,
+    title: "Social Media",
   },
 ];
 

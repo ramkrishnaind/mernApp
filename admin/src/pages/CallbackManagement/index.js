@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from "react";
-import {
-  Typography
-} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as CallbackAction from "../../redux/actions/CallbackAction";
 import { useDispatch } from "react-redux";
-
 import BreadCrumbs from "../../common/bread-crumbs";
 import FormHeader from "../../common/form-header";
 import { connect } from "react-redux";
 import MUIDataTable from "mui-datatables";
-
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import ClearIcon from "@material-ui/icons/Clear";
 
 import history from "../../components/history";
 
-
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -27,15 +24,16 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#1976d2",
+  },
 });
 
 const CallbackList = (props) => {
-
   const dispatch = useDispatch();
-  let {
-    classes,
-    callback,
-  } = props;
+  const [open, setOpen] = React.useState(true);
+  let { classes, callback } = props;
 
   useEffect(() => {
     dispatch(CallbackAction.CallbackListRequestAsync());
@@ -47,68 +45,75 @@ const CallbackList = (props) => {
     download: true,
   };
 
-
   function onDisable(data, status) {
     let tempdata = {
       id: data,
-      status: status
+      status: status,
     };
     dispatch(CallbackAction.CallbackStatusUpdateRequestAsync(tempdata));
 
     if (status === "enable") {
       // toast.error("Disable")
-
-    }
-    else {
+    } else {
       // toast.success("Enable")
     }
   }
 
-  function onDeleteClick(data) {
-
-  }
+  function onDeleteClick(data) {}
 
   function updatehandleOpenCreateModal(data) {
     // window.location.href = "/menu/edit?id="+data;
-    history.push('/career/add?id=' + data)
+    history.push("/career/add?id=" + data);
     window.location.reload();
   }
 
   return (
     <>
-      <FormHeader heading1={"Callback Module Management"} heading2={"List and Manage Callback Here"} />
-      <BreadCrumbs heading1={"CallbackManagement"} heading2={"Callback Module List"} />
+      <FormHeader
+        heading1={"Callback Module Management"}
+        heading2={"List and Manage Callback Here"}
+      />
+      <BreadCrumbs
+        heading1={"CallbackManagement"}
+        heading2={"Callback Module List"}
+      />
+      {typeof callback.list === "undefined" ? (
+        <Backdrop className={classes.backdrop} open={open}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        ""
+      )}
       {callback.list?.list && callback.list?.list.length > 0 ? (
         <>
-
-          <MUIDataTable className="table-header"
+          <MUIDataTable
+            className="table-header"
             title="Callback List"
             data={callback.list?.list.map((item, index) => {
               return [
-                (index + 1),
+                index + 1,
                 item.name,
                 item.email,
                 item.phone,
                 item.place,
                 item.status,
-                item._id
-              ]
+                item._id,
+              ];
             })}
-            columns={['SR No.', 'Name', 'Email', 'Phone', 'Place',
+            columns={[
+              "SR No.",
+              "Name",
+              "Email",
+              "Phone",
+              "Place",
               {
                 name: "Status",
                 options: {
                   customBodyRender: (value, tableMeta, updateValue) => {
-                    if (value === true)
-                      return (
-                        'Open'
-                      );
-                    else
-                      return (
-                        'Close'
-                      );
-                  }
-                }
+                    if (value === true) return "Open";
+                    else return "Close";
+                  },
+                },
               },
               {
                 name: "Actions",
@@ -121,39 +126,39 @@ const CallbackList = (props) => {
                         {tableMeta.rowData[5] ? (
                           <Tooltip title="Active">
                             <Done
-                              onClick={() => onDisable(tableMeta.rowData[6], false)}
+                              onClick={() =>
+                                onDisable(tableMeta.rowData[6], false)
+                              }
                               style={{ color: "#1e7e34", cursor: "pointer" }}
                             />
                           </Tooltip>
-
                         ) : (
-                            <Tooltip title="Inactive">
-                              <ClearIcon
-                                onClick={() => onDisable(tableMeta.rowData[6], true)}
-                                style={{ color: "#bd2130", cursor: "pointer" }}
-                              />
-                            </Tooltip>
-                          )}
+                          <Tooltip title="Inactive">
+                            <ClearIcon
+                              onClick={() =>
+                                onDisable(tableMeta.rowData[6], true)
+                              }
+                              style={{ color: "#bd2130", cursor: "pointer" }}
+                            />
+                          </Tooltip>
+                        )}
 
                         {/* <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[5])} /> */}
                       </>
                     );
-                  }
-                }
-              }
+                  },
+                },
+              },
             ]}
             options={options}
-
           />
         </>
       ) : (
-          <Typography>Data not found.</Typography>
-        )}
+        <Typography>Data not found.</Typography>
+      )}
     </>
   );
-
-}
-
+};
 
 function mapStateToProps(state) {
   const { callback } = state;
@@ -161,8 +166,4 @@ function mapStateToProps(state) {
     callback,
   };
 }
-export default connect(mapStateToProps)(
-  withStyles(styles)(CallbackList),
-);
-
-
+export default connect(mapStateToProps)(withStyles(styles)(CallbackList));

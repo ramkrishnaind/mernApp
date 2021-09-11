@@ -3,7 +3,7 @@ import {makeStyles} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
-import './section-header.css';
+import './section-map.css';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -77,8 +77,9 @@ const MapForm = () => {
     ];
 
     return (
-        <form className={classes.root} onSubmit={handleSubmit} style={{backgroundColor: '#00afb8e8', padding: 20}}>
+        <form className={classes.root} onSubmit={handleSubmit}>
             <TextField
+                className="form-group"
                 label="Search"
                 variant="filled"
                 required
@@ -86,12 +87,13 @@ const MapForm = () => {
                 onChange={e => setSearch(e.target.value)}
             />
             <TextField
+                className="form-group"
                 id="outlined-select-currency"
                 select
-                label="Select"
+                label="City"
                 value={city}
                 onChange={e => setCity(e.target.value)}
-                helperText="Please select City"
+                //helperText="Please select City"
                 variant="outlined"
             >
                 {cities.map((option) => (
@@ -101,12 +103,13 @@ const MapForm = () => {
                 ))}
             </TextField>
             <TextField
+                className="form-group"
                 id="outlined-select-currency"
                 select
-                label="Select"
+                label="State"
                 value={state}
                 onChange={e => setState(e.target.value)}
-                helperText="Please select State"
+                //helperText="Please select State"
                 variant="outlined"
             >
                 {states.map((option) => (
@@ -116,7 +119,7 @@ const MapForm = () => {
                 ))}
             </TextField>
 
-            <div>
+            <div className="form-btn">
                 <Button variant="contained" onClick={() => { }}>
                     Reset
                 </Button>

@@ -9,7 +9,7 @@ export const PropertyListService = async (dispatch, data) => {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
       API_ENDPOINTS.PROPERTY_LIST_ENDPOINT,
-      null,
+      data,
       null,
       null,
       true

@@ -29,24 +29,6 @@ const DealingReducer = (state = initialState, action) => {
         error: payload.error,
       };
 
-    case ACTION_KEYS.DEALING_DATA_REQUEST:
-      return {
-        ...state,
-        isRequesting: true,
-      };
-    case ACTION_KEYS.DEALING_DATA_SUCCESS:
-      return {
-        ...state,
-        isRequesting: false,
-        success: true,
-        dealingData: payload.data,
-      };
-    case ACTION_KEYS.DEALING_DATA_ERROR:
-      return {
-        ...state,
-        isRequesting: false,
-        error: payload.error,
-      };
     default:
       return state;
   }

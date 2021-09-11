@@ -27,6 +27,9 @@ module.exports = function (mongoose) {
     const DealingInItemDB = mongoose.model('dealingInItem');
     const ServiceDB = mongoose.model('service');
     const ServiceItemDB = mongoose.model('serviceItem');
+    const TeamDB = mongoose.model('team');
+    const AddressDB = mongoose.model('address');
+    const SocialMediaDB = mongoose.model('socialMedia');
     return {
         UserDB,
         AuthTokenDB,
@@ -52,6 +55,9 @@ module.exports = function (mongoose) {
         DealingInDB,
         DealingInItemDB,
         ServiceDB,
-        ServiceItemDB
+        ServiceItemDB,
+        TeamDB,
+        AddressDB,
+        SocialMediaDB
     }
 }

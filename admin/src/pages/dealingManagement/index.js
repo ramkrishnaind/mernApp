@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as DealingAction from "../../redux/actions/DealingAction";
 import { useDispatch } from "react-redux";
@@ -18,6 +18,8 @@ import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -27,12 +29,15 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#1976d2",
+  },
 });
-
 const DealingList = (props) => {
   const dispatch = useDispatch();
   let { classes, dealing } = props;
-
+  const [open, setOpen] = React.useState(true);
   useEffect(() => {
     dispatch(DealingAction.DealingListRequestAsync());
   }, []);
@@ -46,7 +51,7 @@ const DealingList = (props) => {
   function onDisable(data, status) {
     let tempdata = {
       _id: data,
-      active: status,
+      isDisable: status,
     };
     dispatch(DealingAction.DealingStatusUpdateRequestAsync(tempdata));
 
@@ -77,98 +82,94 @@ const DealingList = (props) => {
     });
   }
 
-  function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/dealing/edit?id="+data;
-    history.push("/dealing/add?id=" + data);
-    window.location.reload();
-  }
-
   return (
     <>
-      <FormHeader
-        heading1={"Dealing Module Management"}
-        heading2={"List and Manage Dealing Here"}
-      />
-      <BreadCrumbs
-        heading1={"DealingManagement"}
-        heading2={"Dealing Module List"}
-      />
-      {dealing.list && dealing.list.length > 0 ? (
-        <>
-          <MUIDataTable
-            className="table-header"
-            title="Dealing List"
-            data={dealing.list.map((item, index) => {
-              return [
-                index + 1,
-                item.title,
-                item.description,
-                item.status,
-                item._id,
-              ];
-            })}
-            columns={[
-              "SR No.",
-              "Title",
-              "Description",
-              {
-                name: "Status",
-                options: {
-                  customBodyRender: (value, tableMeta, updateValue) => {
-                    if (value === true) return "Active";
-                    else return "Inactive";
+      <Box className="MenuManagement_Data">
+        <FormHeader
+          heading1={"Dealing Module Management"}
+          heading2={"List and Manage Dealing Here"}
+        />
+        <BreadCrumbs
+          heading1={"DealingManagement"}
+          heading2={"Dealing Module List"}
+        />
+        {typeof dealing.list === "undefined" ? (
+          <Backdrop className={classes.backdrop} open={open}>
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        ) : (
+          ""
+        )}
+        {dealing.list && dealing.list.length > 0 ? (
+          <>
+            <MUIDataTable
+              className="table-header"
+              title="Dealing List"
+              data={dealing.list.map((item, index) => {
+                return [
+                  index + 1,
+                  item.title,
+                  item.description,
+                  item.isDisable,
+                  item._id,
+                ];
+              })}
+              columns={[
+                "SR No.",
+                "Title",
+                "Description",
+                {
+                  name: "Status",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      if (value === true) return "Active";
+                      else return "Inactive";
+                    },
                   },
                 },
-              },
-              {
-                name: "Actions",
-                options: {
-                  customBodyRender: (value, tableMeta, updateValue) => {
-                    return (
-                      <>
-                        <EditIcon
-                          style={{ color: "#0069d9", cursor: "pointer" }}
-                          onClick={() =>
-                            updatehandleOpenCreateModal(tableMeta.rowData[4])
-                          }
-                        />
+                {
+                  name: "Actions",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      return (
+                        <>
+                          {tableMeta.rowData[3] ? (
+                            <Tooltip title="Active">
+                              <Done
+                                onClick={() =>
+                                  onDisable(tableMeta.rowData[4], false)
+                                }
+                                style={{ color: "#1e7e34", cursor: "pointer" }}
+                              />
+                            </Tooltip>
+                          ) : (
+                            <Tooltip title="Inactive">
+                              <ClearIcon
+                                onClick={() =>
+                                  onDisable(tableMeta.rowData[4], true)
+                                }
+                                style={{ color: "#bd2130", cursor: "pointer" }}
+                              />
+                            </Tooltip>
+                          )}
 
-                        {tableMeta.rowData[3] ? (
-                          <Tooltip title="Active">
-                            <Done
-                              onClick={() =>
-                                onDisable(tableMeta.rowData[4], false)
-                              }
-                              style={{ color: "#1e7e34", cursor: "pointer" }}
-                            />
-                          </Tooltip>
-                        ) : (
-                          <Tooltip title="Inactive">
-                            <ClearIcon
-                              onClick={() =>
-                                onDisable(tableMeta.rowData[4], true)
-                              }
-                              style={{ color: "#bd2130", cursor: "pointer" }}
-                            />
-                          </Tooltip>
-                        )}
-
-                        <DeleteIcon
-                          style={{ color: "#bd2130", cursor: "pointer" }}
-                          onClick={() => onDeleteClick(tableMeta.rowData[4])}
-                        />
-                      </>
-                    );
+                          <DeleteIcon
+                            style={{ color: "#bd2130", cursor: "pointer" }}
+                            onClick={() => onDeleteClick(tableMeta.rowData[4])}
+                          />
+                        </>
+                      );
+                    },
                   },
                 },
-              },
-            ]}
-            options={options}
-          />
-        </>
-      ) : (
-        <Typography>Data not found.</Typography>
-      )}
+              ]}
+              options={options}
+            />
+          </>
+        ) : (
+          <Typography>Data not found.</Typography>
+        )}
+      </Box>
     </>
   );
 };

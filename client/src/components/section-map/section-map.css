@@ -1,0 +1,23 @@
+.MuiSelect-outlined.MuiSelect-outlined {
+    background: aliceblue!important;
+}
+.MuiFilledInput-input {
+    background: aliceblue!important;
+}
+.form-enquiry{
+	background-color: #2b2825;
+	padding: 20px;
+}
+.form-group.MuiFormControl-root.MuiTextField-root {
+	width: 100%;
+	margin: 0 0 20px;
+}
+.form-btn {   
+    width: 100%;
+}
+.form-btn button.MuiButtonBase-root {
+	margin: 0;
+}
+.form-btn button.MuiButtonBase-root + button.MuiButtonBase-root{
+	margin-left: 10px;
+}

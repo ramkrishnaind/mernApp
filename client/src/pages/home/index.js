@@ -30,67 +30,7 @@ import VisibilitySensor from "react-visibility-sensor";
 import SearchBox from '../../components/search-box/index';
 
 const useStyles = makeStyles((theme) => ({
-  text1: {
-    fontFamily: '"Open Sans",sans-serif',
-    color: '#06AEB8',
-    fontWeight: 400,
-    fontSize: 16
-  },
-  text2: {
-    fontFamily: '"Open Sans",sans-serif',
-    color: '#FF7601',
-    fontWeight: 400,
-    fontSize: 36,
-    marginBottom: 30
-  },
-  text3: {
-    fontFamily: '"Open Sans",sans-serif',
-    color: '#666666',
-    fontSize: 14,
-    marginBottom: 20,
-  },
-  text4: {
-    fontFamily: '"Open Sans",sans-serif',
-    color: '#FECE10',
-    fontSize: 51,
-    marginTop: 20,
-    fontWeight: 'bold',
-  },
-  text5: {
-    fontFamily: '"Open Sans",sans-serif',
-    color: '#FFFFFF',
-    fontSize: 19,
-    // marginTop: 20,
-    fontWeight: 400,
-  },
-  btnReadMore: {
-    marginTop: 20,
-    paddingTop: 20,
-    paddingBottom: 20,
-    borderRadius: 10,
-    width: 150,
-    borderColor: '#EF8821',
-    color: '#EF8821',
-    textTransform: 'none',
-    fontFamily: 'Open Sans,sans-serif'
-  },
-  box: {
-    width: 70,
-    height: 70,
-    backgroundColor: '#06AEB8',
-    borderRadius: 35,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  blob: {
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    height: "260px", width: "260px",
-    borderRadius: '50%',
-    position: "relative",
-    textAlign: "center",
-    padding: "40px"
-  }
+
 }));
 
 function reducer(state, newState) {
@@ -273,94 +213,104 @@ const HomePage = (props) => {
   );
 
   return (
-    <div className="main-w3">
-      <Box style={{position: 'relative'}} className="home-banner">
-        {/* <SearchBox /> */}
-        <OwlCarouselSlider images={banners} style={{width: '100%', maxHeight: 530}} autoPlay={true} />
+    <div className="main-content">
 
+      <Box className="slider-section section">
+        <OwlCarouselSlider images={banners} style={{height: "600px"}} autoPlay={true} />
       </Box>
-      <Box style={{position: 'relative', height: 260}}>
+      {/* slider-section */}
+
+      <Box className="search-section section ">
         <SearchBox />
       </Box>
+      {/*========== search-section ============*/}
 
       {/* <EmiCalculater />
       <EnquryForm/> */}
-      <Box style={{backgroundColor: '#FFFFFF'}}>
-        <Container>
-          <Grid container style={{paddingTop: 60, paddingBottom: 60}}>
-            <Grid item xs={12} md={6}>
+
+      <Box className="about-section section">
+        <Container className="container">
+          <Grid container spacing={3} alignItems="center" className="grid-container">
+            <Grid className="about-image-column" item xs={12} md={6}>
               {/* <img src={aboutSection.images[0].imageUrl} alt="" style={{height: 490}} /> */}
-              <OwlCarouselSlider images={aboutSection.images || aboutSectionInfo.images} autoplay={true} style={{height: 490, width: 'auto', maxWidth: "90%"}} />
+              <OwlCarouselSlider images={aboutSection.images || aboutSectionInfo.images} autoplay={true} />
             </Grid>
-            <Grid item xs={12} md={6} style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', paddingLeft: 20, paddingRight: 40}} className="animate__animated animate__backInRight">
-              <Typography className={classes.text1}><b>ABOUT VISHAL CONSTRUCTION COMPANY</b></Typography>
-              <Typography className={classes.text2}>{aboutSection.title}</Typography>
-              <Typography className={classes.text3}>
-                {aboutSection.description}
-              </Typography>
-              <Button variant="outlined" className={`${classes.btnReadMore} btn-readmore`}>
-                READ MORE
-              </Button>
+            <Grid className="about-content-column animate__animated animate__backInRight" item xs={12} md={6}>
+              <Grid className="about-content">
+                <Typography variant="h4">ABOUT VISHAL CONSTRUCTION COMPANY</Typography>
+                <Typography variant="h2">{aboutSection.title}</Typography>
+                <Typography>
+                  {aboutSection.description}
+                </Typography>
+                <Button variant="outlined" color="primary" className="about-btn">
+                  Read More
+                </Button>
+              </Grid>
             </Grid>
           </Grid>
         </Container>
       </Box>
-      <Container style={{paddingTop: 50, paddingBottom: 50}}>
-        <Grid container>
-          <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-            <Box className={classes.box}>
-              <DescriptionIcon style={{color: '#FFFFFF', fontSize: 40}} />
-            </Box>
-            <Typography className={classes.text4}>{Counter(stats.years)}+ YEARS</Typography>
-            <Typography className={classes.text5}>OF REDEFINING</Typography>
+      {/*========== about-section ============*/}
+
+      <Box className="stats-section section">
+        <Container className="container">
+          <Grid container spacing={3} alignItems="center">
+            <Grid className="stats-item" item xs={12} md={3}>
+              <Box className="stats-icon">
+                <DescriptionIcon />
+              </Box>
+              <Typography variant="h3">{Counter(stats.years)}+ YEARS</Typography>
+              <Typography>OF REDEFINING</Typography>
+            </Grid>
+
+            <Grid className="stats-item" item xs={12} md={3}>
+              <Box className="stats-icon">
+                <DescriptionIcon />
+              </Box>
+              <Typography variant="h3">{Counter(stats.projects)}+</Typography>
+              <Typography>PROJECTS</Typography>
+            </Grid>
+
+            <Grid className="stats-item" item xs={12} md={3}>
+              <Box className="stats-icon">
+                <DescriptionIcon />
+              </Box>
+              <Typography variant="h3">{Counter(stats.clients)}+ </Typography>
+              <Typography>Happy Clients</Typography>
+            </Grid>
+
+            <Grid className="stats-largest-block" item xs={12} md={3}>
+              <Typography>{stats.shortDescription}</Typography>
+            </Grid>
 
           </Grid>
-          <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-            <Box className={classes.box}>
-              <DescriptionIcon style={{color: '#FFFFFF', fontSize: 40}} />
-            </Box>
-            <Typography className={classes.text4}>{Counter(stats.projects)}+</Typography>
-            <Typography className={classes.text5}>PROJECTS</Typography>
+        </Container >
+      </Box>
+      {/*========== stats-section ============*/}
 
-          </Grid>
-          <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-            <Box className={classes.box}>
-              <ApartmentIcon style={{color: '#FFFFFF', fontSize: 40}} />
-            </Box>
-            <Typography className={classes.text4}>{Counter(stats.clients)}+ </Typography>
-            <Typography className={classes.text5}>Happy Clients</Typography>
 
-          </Grid>
-          <Grid item xs={12} md={3} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
-            <Box className={[classes.box, classes.blob]} >
-              <Typography className={classes.text5} style={{textTransform: 'capitalize'}}><b>{stats.shortDescription}</b></Typography>
-            </Box>
-          </Grid>
-        </Grid>
-      </Container >
-
-      <Box style={{backgroundColor: '#FFFFFF', paddingTop: 50}}>
+      <Box className="property-section section">
         <Container>
-          {/* ****** SECTION - SELL  ********* */}
-          <SectionHeader title={APP_CONSTANTS.section2_title} subtitle={APP_CONSTANTS.section2_subtitle} style={{marginBottom: 40}} />
+          <SectionHeader title={APP_CONSTANTS.section2_title} subtitle={APP_CONSTANTS.section2_subtitle} />
           {
             showPropertyData()
           }
 
         </Container>
-      </Box>;
+      </Box>
+      {/*========== property-section ============*/}
 
-      {/* SECTION - CLIENT*/}
-      <div className="client-bg">
-        <Container style={{paddingTop: 60, paddingBottom: 60}}>
+      <Box className="client-section section">
+        <Container>
           {showDealingInDetails ? <SectionClient dealingInData={dealingInData} /> : null}
         </Container>
-      </div>
+      </Box>
+      {/*========== client-section ============*/}
 
-      <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
+      <Box className="property-section section">
         <Container>
           <SectionHeader title={services.header} subtitle={services.title} />
-          <Grid container spacing={3} style={{marginTop: 30}}>
+          <Grid container spacing={3}>
             {
               (services.items || []).map((service) => {
                 console.log("service", service);
@@ -371,30 +321,32 @@ const HomePage = (props) => {
             }
           </Grid>
         </Container>
-      </div>;
+      </Box>
+      {/*========== property-section ============*/}
 
-      {/* SECTION - FEEDBACK*/}
-      <div className="client-bg">
-        <Container style={{paddingTop: 60, paddingBottom: 60}}>
+
+      <Box className="client-feedback-section section">
+        <Container>
           <SectionFeedback />
         </Container>
-      </div>;
+      </Box>
+      {/*========== client-feedback-section ============*/}
 
-      {/* TODO: SECTION - BUILDING MATERIAL */}
-      <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
+      <Box className="building-material-section section">
         <Container>
           <SectionHeader title={APP_CONSTANTS.building_material_title} subtitle={APP_CONSTANTS.building_material_subtitle} />
-          <OwlCarouselSlider images={building_materials} style={{width: '100%', marginTop: 60, border: "4px double #03b2cb", height: '200px', padding: 20}} items={4} autoplay={true} />
+          <OwlCarouselSlider images={building_materials} items={4} autoplay={true} nav={true} navText={['next', 'prev']} dots={false} />
         </Container>
+      </Box>
+      {/*========== building-material-section ============*/}
 
-      </div>;
-      {/* TODO: SECTION - MAP */}
-      <div style={{backgroundColor: '#FFFFFF', paddingTop: 60, paddingBottom: 60}}>
+      <Box className="map-enquiry-section section">
         <Container >
-          <SectionHeader style={{backgroundColor: '#fff'}} title={APP_CONSTANTS.map_section_title} subtitle={APP_CONSTANTS.map_subsection_title} />
+          <SectionHeader title={APP_CONSTANTS.map_section_title} subtitle={APP_CONSTANTS.map_subsection_title} />
           <SectionMap />
         </Container>
-      </div>
+      </Box>
+      {/*========== map-enquiry-section ============*/}
 
     </div >
   );

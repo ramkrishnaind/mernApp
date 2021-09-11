@@ -8,7 +8,9 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 const moduleSchema = Joi.object({
     type: Joi.string().required(),
     keyword: Joi.string().empty(""),
-    pType: Joi.string().empty("")
+    pType: Joi.string().empty(""),
+    minAmount: Joi.number().empty(""),
+    maxAmount: Joi.number().empty("")
 });
 
 function getSearchPropertyList(Models) {
@@ -21,16 +23,16 @@ function getSearchPropertyList(Models) {
 
             // pick data from req.body
 
-            let bodyData = _.pick(req.body, ["type", "keyword", "pType"]);
+            let bodyData = _.pick(req.body, ["type", "keyword", "pType", "minAmount", "maxAmount"]);
             let Obj = [{ for: bodyData.type }]
             if (bodyData.pType != "")
                 Obj.push({ pType: bodyData.pType })
-            if (bodyData.keyword != "")
-                Obj.push({
-                    $or: [{ 'nameOfProject': { '$regex': bodyData.keyword, '$options': 'i' } },
-                    { 'pCity': { '$regex': bodyData.keyword, '$options': 'i' } },
-                    { 'locality': { '$regex': bodyData.keyword, '$options': 'i' } }]
-                })
+            // if (bodyData.keyword != "")
+            //     Obj.push({
+            //         $or: [{ 'nameOfProject': { '$regex': bodyData.keyword, '$options': 'i' } },
+            //         { 'pCity': { '$regex': bodyData.keyword, '$options': 'i' } },
+            //         { 'locality': { '$regex': bodyData.keyword, '$options': 'i' } }]
+            //     })
 
             let findData = await Models.PropertyDB.aggregate([
                 {
@@ -60,7 +62,7 @@ function getSearchPropertyList(Models) {
                 list: findData
             }
 
-            res.send({ status: true, message: "", data: obj });
+            res.send({ status: true, message: "Search Result", data: obj });
         }
         catch (e) {
             console.log('Getting list err', e);

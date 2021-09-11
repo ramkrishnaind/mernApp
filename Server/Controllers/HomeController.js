@@ -30,6 +30,7 @@ let bannerUpload = multer({ storage: storage });
 
 
 const homeFunction = require('./Routes/HomeModule/HomeManagement');
+const footerFunction = require('./Routes/HomeModule/FooterManagement');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 
@@ -60,20 +61,18 @@ module.exports = function (conn) {
 
     router.post('/createDealingIn', userAuthMiddleware, upload.fields(imageVideo), homeFunction.createDealingIn(db));
     router.post('/updateDealingIn', userAuthMiddleware, upload.fields(imageVideo), homeFunction.updateMovingBanner(db));
-    router.post('/getDealingInList', userAuthMiddleware, homeFunction.getMovingBanner(db));
-    router.post('/getDealingInDetails', userAuthMiddleware, homeFunction.getMovingBanner(db));
-    router.post('/deleteDealingIn', userAuthMiddleware, homeFunction.getMovingBanner(db));
-    router.post('/updateDealingInStatus', userAuthMiddleware, homeFunction.getMovingBanner(db));
+
 
     //
     router.post('/createDealingInItem', userAuthMiddleware, upload.fields(pageMedia), homeFunction.createDealingInItem(db));
     router.post('/getDealingList', userAuthMiddleware, homeFunction.getDealingList(db));
+    router.post('/getDealingInDetails', userAuthMiddleware, homeFunction.getDealingInDetails(db));
     router.post('/deleteDealingIn', userAuthMiddleware, homeFunction.deleteDealingIn(db));
     router.post('/updateDealingInStatusHelper', userAuthMiddleware, homeFunction.updateDealingInStatusHelper(db));
 
     router.post('/getDealingItemList', userAuthMiddleware, homeFunction.getDealingItemList(db));
     router.post('/deleteDealingItem', userAuthMiddleware, homeFunction.deleteDealingItem(db));
-    router.post('/updateDealingInItemStatusHelper', userAuthMiddleware, homeFunction.createDealingInItem(db));
+    router.post('/updateDealingInItemStatusHelper', userAuthMiddleware, homeFunction.updateDealingInItemStatusHelper(db));
 
 
 
@@ -98,5 +97,17 @@ module.exports = function (conn) {
     router.post('/getService', requestAuthMiddleware, homeFunction.getServiceForHome(db));
     router.post('/getServiceDetails', requestAuthMiddleware, homeFunction.getServiceItemDetails(db));
     //router.post('/applyForJob', userAuthMiddleware, homeFunction.createHomeFunc(db));
+
+    //Footer Address
+    router.post('/createVishalAddress', userAuthMiddleware, footerFunction.createVishalAddress(db));
+    router.post('/updateVishalAddress', userAuthMiddleware, footerFunction.updateVishalAddress(db));
+    router.post('/getVishalAddress', userAuthMiddleware, footerFunction.getVishalAddress(db));
+    router.post('/getFooterAddress', requestAuthMiddleware, footerFunction.getVishalAddress(db));
+
+    //Footer Social Media Linls
+    router.post('/createSocialMedia', userAuthMiddleware, footerFunction.createSocialMedia(db));
+    router.post('/updateSocialMedia', userAuthMiddleware, footerFunction.updateSocialMedia(db));
+    router.post('/getSocialMedia', userAuthMiddleware, footerFunction.getSocialMedia(db));
+    router.post('/getFooterSocialMedia', requestAuthMiddleware, footerFunction.getSocialMedia(db));
     return router;
 };

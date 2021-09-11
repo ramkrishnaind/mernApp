@@ -12,10 +12,10 @@ function exteriorImage(Models) {
             const bodyData = {
                 propertyId: req.body.propertyId,
             }
-            console.log('req.body.imagetype is', req.body.imagetype)
+            console.log('req.body.imagetype is', req.body.imagetype, req.files)
             switch (req.body.imagetype) {
                 case 'mainImage':
-                    bodyData['bathrooms'] = req.files;
+                    bodyData['mainImage'] = req.files;
                     break;
                 case 'exteriorView':
                     bodyData['exteriorView'] = req.files;

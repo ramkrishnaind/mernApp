@@ -77,6 +77,10 @@ const updateHomeStatusSchema = Joi.object({
     _id: Joi.string().trim().required(),
     active: Joi.boolean().required(),
 });
+const updateStatusSchema = Joi.object({
+    _id: Joi.string().trim().required(),
+    isDisable: Joi.boolean().required(),
+});
 
 function createAboutSection(Models) {
     async function aboutSection(req, res) {
@@ -414,9 +418,9 @@ function getDealingList(Models) {
     async function DealingIn(req, res) {
         try {
             // Getting Home from Database
-            let findData = await Models.DealingInDB.findOne().lean();
+            let findData = await Models.DealingInDB.find().lean();
             console.log('findData is', findData)
-            if (findData.length) {
+            if (findData) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Home DealingIn Data", data: findData });
             } else {
@@ -460,18 +464,52 @@ function deleteDealingIn(Models) {
     }
     return deleteHome;
 }
-function updateDealingInStatusHelper(Models) {
-    async function updateHomeStatus(req, res) {
+function getDealingInDetails(Models) {
+    async function details(req, res) {
         try {
-            let validateData = updateHomeStatusSchema.validate(req.body);
+            let validateData = getHomeSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
 
-            let bodyData = _.pick(req.body, ["active", "_id"]);
+            // Getting Home from Database
+            let findData = await Models.DealingInDB.find({ _id: req.body._id });
+            console.log('findData is', findData)
+            if (deleteData) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Home DealingIn Data" });
+            } else {
+                res.send({ status: true, message: "Home DealingIn not found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('findData err DealingIn', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in findData" });
+        }
+    }
+    return details;
+}
+function updateDealingInStatusHelper(Models) {
+    async function updateHomeStatus(req, res) {
+        try {
+            let validateData = updateStatusSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            let bodyData = _.pick(req.body, ["isDisable", "_id"]);
             let setData = {
-                active: bodyData.active,
+                isDisable: bodyData.isDisable,
+            }
+            if (bodyData.isDisable == false) {
+                let setAllDisable = {
+                    isDisable: true,
+                }
+                let updateAllModule = await Models.DealingInDB.updateMany({ $set: setAllDisable });
             }
             let updateModule = await Models.DealingInDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
@@ -521,9 +559,9 @@ function getDealingItemList(Models) {
     async function DealingIn(req, res) {
         try {
             // Getting Home from Database
-            let findData = await Models.DealingInItemDB.findOne().lean();
+            let findData = await Models.DealingInItemDB.find().lean();
             console.log('findData is', findData)
-            if (findData.length) {
+            if (findData) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Home DealingIn Items Data", data: findData });
             } else {
@@ -570,15 +608,15 @@ function deleteDealingItem(Models) {
 function updateDealingInItemStatusHelper(Models) {
     async function updateHomeStatus(req, res) {
         try {
-            let validateData = updateHomeStatusSchema.validate(req.body);
+            let validateData = updateStatusSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
 
-            let bodyData = _.pick(req.body, ["active", "_id"]);
+            let bodyData = _.pick(req.body, ["isDisable", "_id"]);
             let setData = {
-                active: bodyData.active,
+                isDisable: bodyData.isDisable,
             }
             let updateModule = await Models.DealingInItemDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
@@ -630,9 +668,9 @@ function getServiceList(Models) {
     async function DealingIn(req, res) {
         try {
             // Getting Home from Database
-            let findData = await Models.ServiceDB.findOne().lean();
+            let findData = await Models.ServiceDB.find().lean();
             console.log('findData is', findData)
-            if (findData.length) {
+            if (findData) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Service Data", data: findData });
             } else {
@@ -679,15 +717,21 @@ function deleteService(Models) {
 function updateServiceStatusHelper(Models) {
     async function updateHomeStatus(req, res) {
         try {
-            let validateData = updateHomeStatusSchema.validate(req.body);
+            let validateData = updateStatusSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
 
-            let bodyData = _.pick(req.body, ["active", "_id"]);
+            let bodyData = _.pick(req.body, ["isDisable", "_id"]);
             let setData = {
-                active: bodyData.active,
+                isDisable: bodyData.isDisable,
+            }
+            if (bodyData.isDisable == false) {
+                let setAllDisable = {
+                    isDisable: true,
+                }
+                let updateAllModule = await Models.ServiceDB.updateMany({ $set: setAllDisable });
             }
             let updateModule = await Models.ServiceDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
@@ -735,9 +779,9 @@ function getServiceItemList(Models) {
     async function DealingIn(req, res) {
         try {
             // Getting Home from Database
-            let findData = await Models.ServiceItemDB.findOne().lean();
+            let findData = await Models.ServiceItemDB.find().lean();
             console.log('findData is', findData)
-            if (findData.length) {
+            if (findData) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Service Item Items Data", data: findData });
             } else {
@@ -784,15 +828,15 @@ function deleteServiceItem(Models) {
 function updateServiceItemStatusHelper(Models) {
     async function updateHomeStatus(req, res) {
         try {
-            let validateData = updateHomeStatusSchema.validate(req.body);
+            let validateData = updateStatusSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
 
-            let bodyData = _.pick(req.body, ["active", "_id"]);
+            let bodyData = _.pick(req.body, ["isDisable", "_id"]);
             let setData = {
-                active: bodyData.active,
+                isDisable: bodyData.isDisable,
             }
             let updateModule = await Models.ServiceItemDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
@@ -891,5 +935,6 @@ module.exports = {
     updateServiceStatusHelper,
     getServiceItemList,
     deleteServiceItem,
-    updateServiceItemStatusHelper
+    updateServiceItemStatusHelper,
+    getDealingInDetails
 };
