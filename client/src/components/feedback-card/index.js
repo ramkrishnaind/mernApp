@@ -41,8 +41,8 @@ const FeedbackCard = props => {
     const classes = useStyles();
     const {name, message, ratings, img1Path, img2Path} = props;
 
-    let img1 = '/property_img3.jpeg';
-    let img2 = '/property_img3.jpeg';
+    let img1 = 'no-image-available-icon-6.png';
+    let img2 = 'no-image-available-icon-6.png';
 
     if (img1Path) {
         img1 = ApiClient.SERVER_ADDRESS + "/" + img1Path;
