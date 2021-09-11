@@ -1,6 +1,9 @@
 .img  {  
     width:100% ;
 }
+.btn-more-detail{
+    text-decoration: none;
+}
 .btn-more-detail:hover {
     background-color: #FFFFFF;
     color: #000000
