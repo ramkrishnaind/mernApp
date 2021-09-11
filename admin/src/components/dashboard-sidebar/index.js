@@ -37,7 +37,7 @@ const items = [
   {
     href: "/menu",
     icon: UsersIcon,
-    title: "Menu Management",
+    title: "Menu",
     items: [
       {
         href: "/menu/add",
@@ -51,29 +51,6 @@ const items = [
       },
     ],
   },
-
-  // {
-  //   href: '/property-management',
-  //   icon: UsersIcon,
-  //   title: 'Property Management',
-  //   items: [
-  //     {
-  //       href: "/add-property",
-  //       icon: ShoppingBagIcon,
-  //       title: "Add New",
-  //     },
-  //     {
-  //       href: "/property-list",
-  //       icon: ShoppingBagIcon,
-  //       title: "Property List",
-  //     }
-  //   ]
-  // },
-  // {
-  //   href: '/user-management',
-  //   icon: ShoppingBagIcon,
-  //   title: 'User Management'
-  // },
   {
     href: "/role",
     icon: UsersIcon,
@@ -197,7 +174,7 @@ const items = [
   {
     href: "/property",
     icon: UsersIcon,
-    title: "Property Management",
+    title: "Property",
     items: [
       {
         href: "/property/add",
@@ -214,7 +191,7 @@ const items = [
   {
     href: "/aboutus",
     icon: UsersIcon,
-    title: "About Us Management",
+    title: "About Us",
     items: [
       {
         href: "/aboutus",
@@ -226,7 +203,7 @@ const items = [
   {
     href: "/dealing",
     icon: UsersIcon,
-    title: "Dealing Management",
+    title: "Dealing In",
     items: [
       {
         href: "/dealing/add",
@@ -253,7 +230,7 @@ const items = [
   {
     href: "/service",
     icon: UsersIcon,
-    title: "Service Management",
+    title: "Service",
     items: [
       {
         href: "/service/add",
@@ -280,7 +257,7 @@ const items = [
   {
     href: "/building",
     icon: UsersIcon,
-    title: "Building Management",
+    title: "Building",
     items: [
       {
         href: "/building/add",
