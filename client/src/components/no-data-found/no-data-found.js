@@ -1,4 +1,3 @@
-import {GridOverlay} from '@mui/x-data-grid';
 import {makeStyles} from '@material-ui/styles';
 import {createTheme} from '@material-ui/core/styles';
 import {Paper} from '@material-ui/core';
