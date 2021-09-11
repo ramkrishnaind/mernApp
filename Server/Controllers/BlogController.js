@@ -22,7 +22,7 @@ let storage = multer.diskStorage({
         cb(null, fpathId)
     },
     filename: (req, file, cb) => {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
     }
 });
 let upload = multer({ storage: storage });
@@ -38,7 +38,7 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(db);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(db);
 
-    router.post('/createBlog',userAuthMiddleware, upload.array("blogImage"), blogFunction.createBlogFunc(db));
+    router.post('/createBlog', userAuthMiddleware, upload.array("blogImage"), blogFunction.createBlogFunc(db));
     router.post('/updateBlog', userAuthMiddleware, upload.array("blogImage"), blogFunction.updateBlogFunc(db));
     router.post('/getBlog', userAuthMiddleware, blogFunction.getBlogFunc(db));
     router.post('/getBlogDetail', userAuthMiddleware, blogFunction.getBlogDetailFunc(db));
@@ -46,6 +46,6 @@ module.exports = function (conn) {
     router.post('/getAllActiveBlog', requestAuthMiddleware, blogFunction.getAllBlogFunc(db));
     router.post('/deleteBlog', userAuthMiddleware, blogFunction.deleteBlogFunc(db));
     router.post('/updateBlogStatus', userAuthMiddleware, blogFunction.updateBlogStatusFun(db));
-    router.post('/applyForJob', userAuthMiddleware, blogFunction.createBlogFunc(db));
+    router.post('/getBlogData', requestAuthMiddleware, blogFunction.getBlogDetailFunc(db));
     return router;
-};        
+};
