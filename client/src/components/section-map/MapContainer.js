@@ -4,8 +4,8 @@ import {Container} from '@material-ui/core';
 
 const containerStyle = {
     position: 'relative',
-    width: '800px',
-    height: '600px'
+    width: '100%',
+    height: '500px'
 };
 
 export class MapContainer extends Component {

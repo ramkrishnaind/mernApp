@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import "./owl.css";
+import "./slider.css";
 
 import {Grid} from "@material-ui/core";
 
@@ -12,18 +12,15 @@ const OwlCarouselSlider = (props) => {
   const items = props.items || 1;
   // console.log("images check", images, props, (images || []));
   return (
-    <Grid container style={{backgroundColor: '#FFFFFF'}}>
-      <Grid item xs={12} md={12}>
-        <OwlCarousel items={items} className="owl-theme" loop nav={false} margin={8} autoPlay={props.autoplay} dots={true}>
-          {(images || []).map((image, i) => {
-            return < div key={i}>
-              <img className="img" src={image.imageUrl} style={props.style} alt="" />
-            </div>;
-          })}
-        </OwlCarousel>
-      </Grid>
+    <Grid className="carousel-wrapper" container>     
+      <OwlCarousel items={items} className="carousel-item owl-theme" loop nav={false} margin={0} autoPlay={props.autoplay} dots={true}>
+        {(images || []).map((image, i) => {
+          return < div className="carousel-wrap" key={i}>
+            <img className="img" src={image.imageUrl} style={props.style} alt="" />
+          </div>;
+        })}
+      </OwlCarousel>     
     </Grid >
   );
 };
-
 export default OwlCarouselSlider;
