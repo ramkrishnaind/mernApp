@@ -1,11 +1,12 @@
-.client-bg  {
+.client-section  {
     background: url('../../images/clientbg.jpeg') no-repeat center;
     background-size: cover;
     background-attachment: fixed;
     position: relative;
     z-index: 0;
+    padding: 60px 0;
 }
-.client-bg ::before {
+.client-section::before {
     content: '';
     position: absolute;
     width: 100%;

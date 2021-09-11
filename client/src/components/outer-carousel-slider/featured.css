@@ -1,4 +1,20 @@
-
+.property-section .tab-content > .MuiBox-root {
+	padding-top: 45px;
+}
+.property-item{
+    position: relative;
+}
+.property-wrap{
+    background-color: #fff;
+    position: relative;
+    font-family: "Open Sans", sans-serif;
+}
+.property-image{
+    position: relative;
+}
+.property-image img{
+    width: 100%;
+}
 .featured {
     position: absolute;
     right: 0px;
@@ -15,7 +31,6 @@
     height: 25px;
     width: fit-content;
 }
-
 .featured:before {
     border-color: transparent;
     border-left-color: transparent!important;
@@ -25,6 +40,89 @@
     position: absolute;
     top: 0;
     border: 0px solid #ff3d77;
-    border-width: 12.5px 11px;
-    
+    border-width: 12.5px 11px;    
+}
+.property-summery{
+    position: relative;
+    padding: 15px 0 0
+}
+.property-tag {
+	color: #ef8822;
+	font-size: 14px;
+	line-height: 20px;
+	font-weight: 400;
+	min-height: 20px;
+	display: block;
+}
+.property-summery .property-title{    
+    font-size: 18px;
+    font-family: "Open Sans", sans-serif;
+    line-height: 1.2em;
+    color: #333333;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+.property-information {
+	margin: 0 -5px 5px;
+}
+.property-information .property-feature {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+	padding: 0 5px;
+}
+.property-feature svg {
+	fill: #ef8822;
+	width: 25px;
+	height: 25px;
+	margin-right: 5px;
+}
+.property-feature p {
+	font-size: 14px;
+	font-weight: 600;
+    font-family: "Open Sans", sans-serif;
+	color: #333333;
+}
+.property-button {
+	flex-wrap: nowrap;
+}
+.property-button .btn {   
+	position: relative;
+	display: block;	
+	width: 50%;
+}
+.btn {
+	display: inline-block;
+	font-weight: 400;
+	color: #212529;
+	text-align: center;
+	vertical-align: middle;
+	background-color: transparent;
+	border: 1px solid transparent;
+	border-radius: 0;
+	font-size: 14px;
+	padding: 9px 15px;
+	line-height: 24px;
+	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    text-decoration: none;
+}
+.btn-primary {
+	background-color: #ef8822;
+	border-color: #ef8822;
+	color: #fff;
+}
+.btn-primary:hover, .btn-primary:focus {
+	background-color: #00afb8;
+	border-color: #00afb8;
+	color: #fff;
+}
+.btn-secondary {
+	background-color: #333333;
+	border-color: #333333;
+	color: #fff;
+}
+.btn-secondary:hover, .btn-secondary:focus {
+	background-color: #676767;
+	border-color: #676767;
+	color: #fff;
 }

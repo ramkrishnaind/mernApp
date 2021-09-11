@@ -121,7 +121,8 @@ const SearchBox = (props) => {
     console.log("type is ", type);
 
     return (
-        <Box id="search-box">
+        <Box id="search-box" class="search-container">
+            <Box className="search-wrapper">
             <Grid id="type">
                 <Box className={type === Type.RENT ? 'selected' : ''} onClick={() => setType(Type.RENT)}>RENT</Box>
                 <Box className={type === Type.SELL ? 'selected' : ''} onClick={() => setType(Type.SELL)}> SELL</Box>
@@ -210,6 +211,7 @@ const SearchBox = (props) => {
                         }
                     </div>
                 </Box>
+            </Box>
             </Box>
         </Box >
     );
