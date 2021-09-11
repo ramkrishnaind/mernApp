@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   Grid,
   Typography,
@@ -12,7 +12,7 @@ import {
 
 } from "@material-ui/core";
 import PropTypes from "prop-types";
-import { Link as RouterLink } from "react-router-dom";
+import {Link as RouterLink} from "react-router-dom";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import LocalHotelIcon from "@material-ui/icons/LocalHotel";
 import ZoomOutMapIcon from "@material-ui/icons/ZoomOutMap";
@@ -21,17 +21,19 @@ import DriveEtaIcon from "@material-ui/icons/DriveEta";
 import StarIcon from "@material-ui/icons/Star";
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import '../header/header.css';
 import APP_CONSTANTS from '../../constants/app-constants';
 import Dialog from '@material-ui/core/Dialog';
-import '../enquryForm/enquryForm.css'
-import { withStyles } from '@material-ui/core/styles';
+import '../enquryForm/enquryForm.css';
+import {withStyles} from '@material-ui/core/styles';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import * as SitevisitAction from '../../redux/actions/SitevisitAction';
+import ApiClient from '../../api-client';
+import '../../components/outer-carousel-slider/featured.css';
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -156,11 +158,11 @@ const stylessd = (theme) => ({
     color: '#000000',
     textTransform: 'none',
     fontFamily: '"Open Sans",sans-serif'
-  }
+  },
 });
 
 const DialogTitle = withStyles(stylessd)((props) => {
-  const { children, classes, onClose, ...other } = props;
+  const {children, classes, onClose, ...other} = props;
 
 
   return (
@@ -184,7 +186,7 @@ const DialogActions = withStyles((theme) => ({
 
 
 const PropertyListCard = (props) => {
-  const { item } = props;
+  const {item} = props;
   console.log(item);
 
   const classes = useStyles();
@@ -196,6 +198,11 @@ const PropertyListCard = (props) => {
 
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
+
+
+  function handleNull(val) {
+    return val || '_ _ ';
+  }
 
   const handleData = (e) => {
     const formData = {
@@ -209,10 +216,10 @@ const PropertyListCard = (props) => {
     console.log('formData', formData);
     dispatch(SitevisitAction.SitevisitRequestAsync(formData));
     // toast.success('Request Sent successfully', { position: toast.POSITION.TOP_RIGHT, autoClose: 5000 })
-    setName('')
-    setMobile('')
-    setEmail('')
-    setTime('')
+    setName('');
+    setMobile('');
+    setEmail('');
+    setTime('');
     setOpen(false);
   };
 
@@ -224,10 +231,13 @@ const PropertyListCard = (props) => {
     setOpen(false);
   };
 
-
+  const mainImage = item?.images[0]?.mainImage[0]?.path ? ApiClient.SERVER_ADDRESS + "/" + item?.images[0]?.mainImage[0]?.path : "/no-image-available-icon-6.png";
+  console.log("mainImage", mainImage, item?.images[0]);
+  const address = item?.features[0]?.address || {};
+  const propertTag = item?.propertTag;
   return (
     <>
-      <Paper style={{ borderRadius: 0, padding: 0, marginTop: 30 }}>
+      <Paper style={{borderRadius: 0, padding: 0, marginTop: 30}}>
         <Grid container spacing={0}>
           <Grid
             item
@@ -239,19 +249,23 @@ const PropertyListCard = (props) => {
               justifyContent: "flex-start",
             }}
           >
-            <img
-              className="image"
-              src={process.env.PUBLIC_URL + "/property_img3.jpeg"}
-              style={{
-                width: "100%",
-                height: 300,
-                objectFit: "cover",
-                backgroundColor: "red",
-              }}
-            />
+            <div style={{position: 'relative'}}>
+              {propertTag ? <span class="featured">{propertTag}</span> : null}
+              <img
+                className="image"
+                src={mainImage}
+                style={{
+                  width: "100%",
+                  height: 300,
+                  objectFit: "cover",
+                  backgroundColor: "red",
+                }}
+                alt=""
+              />
+            </div>
             {/* <span className="featured">FEATURED</span> */}
           </Grid>
-          <Grid item xs={12} md={8} style={{ padding: 30 }}>
+          <Grid item xs={12} md={8} style={{padding: 30}}>
             <Grid container contaienr spacing={1}>
               <Grid
                 item
@@ -287,29 +301,30 @@ const PropertyListCard = (props) => {
                       }}
                     />
                     <Typography className={classes.text3}>
-                      {item?.pCity}
+
+                      {handleNull(address.latitude)}, {handleNull(address.longitude)} {handleNull(address.address)} {handleNull(address.city)} {handleNull(address.State)} {handleNull(address.pinCode)}
                     </Typography>
                   </Grid>
                 </Grid>
                 <Grid container>
                   <Grid item xs={6} md={6} className={classes.features}>
                     <ZoomOutMapIcon className={classes.icon} />
-                    <Typography className={classes.text4}>{item?.features[0]?.builtUpArea} Sq-Ft</Typography>
+                    <Typography className={classes.text4}>{handleNull(item?.features[0]?.builtUpArea)} Sq-Ft</Typography>
                   </Grid>
                   <Grid item xs={6} md={6} className={classes.features}>
                     <LocalHotelIcon className={classes.icon} />
-                    <Typography className={classes.text4}>{item?.features[0]?.bedrooms} Bedrooms</Typography>
+                    <Typography className={classes.text4}>{handleNull(item?.features[0]?.bedrooms)} Bedrooms</Typography>
                   </Grid>
                   <Grid item xs={6} md={6} className={classes.features}>
                     <DriveEtaIcon className={classes.icon} />
-                    <Typography className={classes.text4}>{item?.features[0]?.totalFloors} TotalFloors</Typography>
+                    <Typography className={classes.text4}>{handleNull(item?.features[0]?.totalFloors)} TotalFloors</Typography>
                   </Grid>
                   <Grid item xs={6} md={6} className={classes.features}>
                     <BathtubIcon className={classes.icon} />
-                    <Typography className={classes.text4}>{item?.features[0]?.bathrooms} Bathroom</Typography>
+                    <Typography className={classes.text4}>{handleNull(item?.features[0]?.bathrooms)} Bathroom</Typography>
                   </Grid>
                   <Grid item xs={12} md={12}>
-                    <Divider style={{ marginTop: 20, marginBottom: 20 }} />
+                    <Divider style={{marginTop: 20, marginBottom: 20}} />
                   </Grid>
                 </Grid>
               </Grid>
@@ -335,7 +350,7 @@ const PropertyListCard = (props) => {
                     }}
                   >
                     <Typography className={classes.text3}>Starts From</Typography>
-                    <Box style={{ width: 10, paddingRight: 5, paddingLeft: 5, color: '#333333' }}>/</Box>
+                    <Box style={{width: 10, paddingRight: 5, paddingLeft: 5, color: '#333333'}}>/</Box>
                     <Typography className={classes.text5}>Rs. 3250000</Typography>
                   </Grid>
                 </Grid>
@@ -356,7 +371,7 @@ const PropertyListCard = (props) => {
                             }}
                           >
                             <EventAvailableIcon className={classes.icon} />
-                            <Box style={{ width: 10 }}></Box>
+                            <Box style={{width: 10}}></Box>
                             <Typography className={classes.text3}>
                               1 day ago
                             </Typography>
@@ -403,8 +418,10 @@ const PropertyListCard = (props) => {
                         >
                           View Detail
                         </Button>
-                        <Box style={{ width: 10 }}></Box>
-                        <Button variant="contained" className={classes.btn2} onClick={handleClickOpen}>
+                        <Box style={{width: 10}}></Box>
+                        <Button variant="contained" className={classes.btn2}
+                        // onClick={handleClickOpen}
+                        >
                           Take a tour
                         </Button>
                       </Grid>
@@ -425,7 +442,7 @@ const PropertyListCard = (props) => {
         <Box className="emiForm">
           <TextField
             className="EmiInputs"
-            style={{ marginTop: 15 }}
+            style={{marginTop: 15}}
             variant="outlined"
             label="Your Name"
             name="Name"
@@ -437,13 +454,13 @@ const PropertyListCard = (props) => {
               }
             }}
             InputLabelProps={{
-              style: { color: '#FFFFFF' }
+              style: {color: '#FFFFFF'}
             }}
             fullWidth >
           </TextField>
           <TextField
             className="EmiInputs"
-            style={{ marginTop: 15 }}
+            style={{marginTop: 15}}
             variant="outlined"
             label="Email Address"
             type="email"
@@ -456,13 +473,13 @@ const PropertyListCard = (props) => {
               }
             }}
             InputLabelProps={{
-              style: { color: '#FFFFFF' }
+              style: {color: '#FFFFFF'}
             }}
             fullWidth >
           </TextField>
           <TextField
             className="EmiInputs"
-            style={{ marginTop: 15 }}
+            style={{marginTop: 15}}
             variant="outlined"
             label="Phone Number"
             name="Phone"
@@ -475,7 +492,7 @@ const PropertyListCard = (props) => {
               }
             }}
             InputLabelProps={{
-              style: { color: '#FFFFFF' }
+              style: {color: '#FFFFFF'}
             }}
             fullWidth >
           </TextField>

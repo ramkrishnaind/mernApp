@@ -20,6 +20,7 @@ import HouseDetailPage from "../pages/house-details/index";
 import AboutUsPage from "../pages/about-us/index";
 import ServiceDetailPage from '../pages/service-details/index';
 import DealingInItemDetailPage from '../pages/dealingIn-details/index';
+import SearchPropertyList from "../pages/search-property-list/index";
 
 const routes = [
   {
@@ -113,6 +114,10 @@ const routes = [
   {
     path: "/dealingInItem-details",
     render: (props) => <DealingInItemDetailPage {...props} />,
+  },
+  {
+    path: "/search-property-details",
+    render: (props) => <SearchPropertyList {...props} />,
   }
 ];
 
