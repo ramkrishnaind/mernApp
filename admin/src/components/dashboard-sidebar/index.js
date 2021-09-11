@@ -311,6 +311,16 @@ const items = [
       },
     ],
   },
+  {
+    href: "/address",
+    icon: UserIcon,
+    title: "Site Address",
+  },
+  {
+    href: "/social",
+    icon: UserIcon,
+    title: "Social Media",
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {

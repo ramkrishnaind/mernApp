@@ -134,6 +134,16 @@ const API_ENDPOINTS = {
   TEAM_UPDATE_ENDPOINT: "team/updateTeamMember",
   TEAM_DELETE_ENDPOINT: "team/deleteTeamMember",
   TEAM_DATA_ENDPOINT: "team/getTeamMemberDetail",
+
+  //address module
+  ADDRESS_ADD_ENDPOINT: "home/createVishalAddress",
+  ADDRESS_UPDATE_ENDPOINT: "home/updateVishalAddress",
+  ADDRESS_DATA_ENDPOINT: "home/getVishalAddress",
+
+  //social module
+  SOCIAL_ADD_ENDPOINT: "home/createSocialMedia",
+  SOCIAL_UPDATE_ENDPOINT: "home/updateSocialMedia",
+  SOCIAL_DATA_ENDPOINT: "home/getSocialMedia",
 };
 
 export default API_ENDPOINTS;
