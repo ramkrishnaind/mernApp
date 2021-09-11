@@ -274,10 +274,13 @@ const HomePage = (props) => {
 
   return (
     <div className="main-w3">
-      <Box style={{position: 'relative'}}>
-        <SearchBox />
+      <Box style={{position: 'relative'}} className="home-banner">
+        {/* <SearchBox /> */}
         <OwlCarouselSlider images={banners} style={{width: '100%', maxHeight: 530}} autoPlay={true} />
 
+      </Box>
+      <Box style={{position: 'relative', height: 260}}>
+        <SearchBox />
       </Box>
 
       {/* <EmiCalculater />

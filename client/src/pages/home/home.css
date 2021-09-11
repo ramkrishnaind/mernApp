@@ -57,3 +57,10 @@
     background-color: #fff;
 
 }
+
+.home-banner .owl-theme .owl-nav.disabled + .owl-dots {
+    position: relative!important;
+    /* margin-top: 10px; */
+    top: -30px!important;
+    margin-bottom: -30px!important;
+}

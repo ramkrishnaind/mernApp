@@ -6,7 +6,7 @@
 }
 #search-box #search-continer{
     position: absolute;
-    top:50%;
+    top:60%;
     left:50%;
     transform: translate(-50%,-50%);
     width: 900px;
@@ -21,7 +21,7 @@
 
 #search-box #type{
     position: absolute;
-    top:calc(50% - 60px);
+    top:calc(60% - 70px);
     left:calc(50%);
     transform: translate(-50%,-50%);
     display: flex;
