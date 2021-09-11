@@ -23,14 +23,11 @@ const SectionMap = props => {
     const {title, subtitle} = props;
     const classes = useStyles();
     return (
-        <Grid container style={{paddingTop: 60, paddingBottom: 60}} >
-            <Grid item xs={8} md={8} style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', overflow: 'hidden'}}>
-
+        <Grid container>
+            <Grid item xs={12} md={8}>
                 <MapContainer />
-
             </Grid>
-
-            <Grid item xs={4} md={4} style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+            <Grid className="form-enquiry" item xs={12} md={4}>
                 <MapForm />
             </Grid>
         </Grid>

@@ -1,15 +1,20 @@
-#search-box{
-    position: absolute;
-    z-index: 100;
-    height: 90%;
-    width: 100%;
+.search-section {
+	position: relative;	
 }
-#search-box #search-continer{
-    position: absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-    width: 900px;
+.search-container{
+	max-width: 1280px;
+	padding-left: 24px;
+	padding-right: 24px;
+	margin: 0 auto;
+}
+.search-wrapper {		
+	background-color: #f5f5f5;
+	border-radius: 20px;
+	padding: 30px;	
+}
+#search-box #search-continer{  
+    position: static;   
+    width: 100%;
     height: 62px;
     margin: 0 auto;
     border-radius: 32px;
@@ -18,61 +23,54 @@
     background-color: aliceblue!important;
     display: flex;
 }
-
-#search-box #type{
-    position: absolute;
-    top:calc(50% - 60px);
-    left:calc(50%);
-    transform: translate(-50%,-50%);
-    display: flex;
-    justify-content: space-around;
+#search-box #type {	
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 10px;
 }
-
 #search-box #type div{
     padding: 7px 18px;
-    color: #ffffff;
+    color: #222;
     font-size: 14px;
     font-weight: bold;
     text-transform: uppercase;
     border-radius: 10px;
     margin-left: 10px;
 }
-
 #search-box #type div:hover,#search-box #type div.selected{
     background: #ff7600;
+    color: #fff;
     border-radius: 10px;
     cursor: pointer;
     transition: 0.2s cubic-bezier(0.95, 0.05, 0.795, 0.035)
 }
-
 .MuiFilledInput-underline:after,.MuiFilledInput-underline:before{
     border-bottom:none!important
 }
-
-.mb-search__btn {
-    float: right;
-    width: auto;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-left: 20px;
-    margin-bottom:5px;
-    border-radius: 50px;
-    background-color: #ff7600;
-    margin: 6px 6px 0 0;
-    cursor: pointer;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 46px;
-    color: #fff;
-    border: none;
+.mb-search__btn {	
+	width: auto;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-left: 20px;
+	margin-bottom: 5px;
+	border-radius: 50px;
+	background-color: #ff7600;
+	margin: 0;
+	cursor: pointer;
+	text-align: center;
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 46px;
+	color: #fff;
+	border: none;
+	text-decoration: none;
+	min-width: 150px;
+	display: block;
 }
-
 .MuiTypography-colorTextSecondary{
     color:#ff7600!important;
     font-weight: bold!important;
 }
-
 .MuiFilledInput-root{
     background-color: unset!important;
 }

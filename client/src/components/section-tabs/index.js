@@ -40,6 +40,7 @@ const SectionTabs = (props) => {
   return (
     <div className={classes.root}>
       <Tabs
+        className="tabs"
         value={value}
         onChange={handleChange}
         aria-label="simple tabs example"
@@ -49,16 +50,16 @@ const SectionTabs = (props) => {
         }
       </Tabs>
 
-      <SectionTabPanel value={value} index={0}>
+      <SectionTabPanel className="tab-content" value={value} index={0}>
         <OuterCarouselSlider items={sell} />
       </SectionTabPanel>
-      <SectionTabPanel value={value} index={1}>
+      <SectionTabPanel className="tab-content" value={value} index={1}>
         <OuterCarouselSlider items={rent} />
       </SectionTabPanel>
-      <SectionTabPanel value={value} index={2}>
+      <SectionTabPanel className="tab-content" value={value} index={2}>
         <OuterCarouselSlider items={construction} />
       </SectionTabPanel>
-      <SectionTabPanel value={value} index={3}>
+      <SectionTabPanel className="tab-content" value={value} index={3}>
         <OuterCarouselSlider items={interior} />
       </SectionTabPanel>
     </div>
