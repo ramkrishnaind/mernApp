@@ -252,7 +252,7 @@ const MenuCreateUpdate = (props) => {
                       }}
                     >
                       {props?.user?.roleList?.map((role, index) => (
-                        <option value={role?.id}>{role?.name}</option>
+                        <option value={role?._id}>{role?.name}</option>
                       ))}
                     </Select>
                   </FormControl>
