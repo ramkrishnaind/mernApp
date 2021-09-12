@@ -1,22 +1,15 @@
 import React, { useEffect } from "react";
-import { Typography, Box } from "@material-ui/core";
+import { Typography, Box, Select } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import * as DealingAction from "../../redux/actions/DealingAction";
+import * as CareerAction from "../../redux/actions/CareerAction";
 import { useDispatch } from "react-redux";
-
 import BreadCrumbs from "../../common/bread-crumbs";
 import FormHeader from "../../common/form-header";
 import { connect } from "react-redux";
 import MUIDataTable from "mui-datatables";
-
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
-import history from "../../components/history";
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
 
 const styles = (theme) => ({
   root: {
@@ -28,12 +21,12 @@ const styles = (theme) => ({
     minWidth: 650,
   },
 });
-const DealingList = (props) => {
+const CareerList = (props) => {
   const dispatch = useDispatch();
-  let { classes, dealing } = props;
+  let { career } = props;
 
   useEffect(() => {
-    dispatch(DealingAction.DealingListRequestAsync());
+    dispatch(CareerAction.CareerApplicationListRequestAsync());
   }, []);
 
   let options = {
@@ -45,9 +38,9 @@ const DealingList = (props) => {
   function onDisable(data, status) {
     let tempdata = {
       _id: data,
-      isDisable: status,
+      active: status.target.value,
     };
-    dispatch(DealingAction.DealingStatusUpdateRequestAsync(tempdata));
+    // dispatch(CareerAction.CareerApplicationStatusUpdateRequestAsync(tempdata));
 
     if (status === "enable") {
       // toast.error("Disable")
@@ -56,56 +49,44 @@ const DealingList = (props) => {
     }
   }
 
-  function onDeleteClick(data) {
-    let tempdata = {
-      _id: data,
-    };
-    confirmAlert({
-      title: "Confirm to submit",
-      message: "Are you sure to do this.",
-      buttons: [
-        {
-          label: "Yes",
-          onClick: () =>
-            dispatch(DealingAction.DealingDeleteRequestAsync(tempdata)),
-        },
-        {
-          label: "No",
-        },
-      ],
-    });
-  }
-
   return (
     <>
       <Box className="MenuManagement_Data">
         <FormHeader
-          heading1={"Dealing Module Management"}
-          heading2={"List and Manage Dealing Here"}
+          heading1={"Career Application Management"}
+          heading2={"List and Manage Application Here"}
         />
         <BreadCrumbs
-          heading1={"DealingManagement"}
-          heading2={"Dealing Module List"}
+          heading1={"CareerManagement"}
+          heading2={"Career Application List"}
         />
 
-        {dealing.list && dealing.list.length > 0 ? (
+        {career?.applicationList && career?.applicationList?.length > 0 ? (
           <>
             <MUIDataTable
               className="table-header"
-              title="Dealing List"
-              data={dealing.list.map((item, index) => {
+              title="Application List"
+              data={career?.applicationList.map((item, index) => {
                 return [
                   index + 1,
-                  item.title,
-                  item.description,
-                  item.isDisable,
-                  item._id,
+                  item?.degination,
+                  item?.department,
+                  item?.desctiption,
+                  item?.experiance,
+                  item?.location,
+                  item?.vacancy,
+                  item?.active,
+                  item?._id,
                 ];
               })}
               columns={[
                 "SR No.",
-                "Title",
+                "Degination",
+                "Department",
                 "Description",
+                "Experiance",
+                "Location",
+                "Vacancy",
                 {
                   name: "Status",
                   options: {
@@ -121,11 +102,27 @@ const DealingList = (props) => {
                     customBodyRender: (value, tableMeta, updateValue) => {
                       return (
                         <>
-                          {tableMeta.rowData[3] ? (
+                          <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined-label"
+                            label="Role"
+                            native
+                            name="rating"
+                            inputProps={{
+                              name: "rating",
+                              id: "age-native-simple",
+                            }}
+                            onChange={(e) => onDisable(tableMeta.rowData[8], e)}
+                            value={tableMeta.rowData[7]}
+                          >
+                            <option value={false}>Inactive</option>
+                            <option value={true}>Active</option>
+                          </Select>
+                          {tableMeta.rowData[7] ? (
                             <Tooltip title="Active">
                               <Done
                                 onClick={() =>
-                                  onDisable(tableMeta.rowData[4], false)
+                                  onDisable(tableMeta.rowData[8], false)
                                 }
                                 style={{ color: "#1e7e34", cursor: "pointer" }}
                               />
@@ -134,17 +131,12 @@ const DealingList = (props) => {
                             <Tooltip title="Inactive">
                               <ClearIcon
                                 onClick={() =>
-                                  onDisable(tableMeta.rowData[4], true)
+                                  onDisable(tableMeta.rowData[8], true)
                                 }
                                 style={{ color: "#bd2130", cursor: "pointer" }}
                               />
                             </Tooltip>
                           )}
-
-                          <DeleteIcon
-                            style={{ color: "#bd2130", cursor: "pointer" }}
-                            onClick={() => onDeleteClick(tableMeta.rowData[4])}
-                          />
                         </>
                       );
                     },
@@ -163,9 +155,9 @@ const DealingList = (props) => {
 };
 
 function mapStateToProps(state) {
-  const { dealing } = state;
+  const { career } = state;
   return {
-    dealing,
+    career,
   };
 }
-export default connect(mapStateToProps)(withStyles(styles)(DealingList));
+export default connect(mapStateToProps)(withStyles(styles)(CareerList));

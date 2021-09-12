@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Typography, Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import * as DealingAction from "../../redux/actions/DealingAction";
+import * as FeedbackAction from "../../redux/actions/FeedbackAction";
 import { useDispatch } from "react-redux";
 
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -28,12 +28,12 @@ const styles = (theme) => ({
     minWidth: 650,
   },
 });
-const DealingList = (props) => {
-  const dispatch = useDispatch();
-  let { classes, dealing } = props;
 
+const FeedbackList = (props) => {
+  const dispatch = useDispatch();
+  let { feedback } = props;
   useEffect(() => {
-    dispatch(DealingAction.DealingListRequestAsync());
+    dispatch(FeedbackAction.FeedbackListRequestAsync());
   }, []);
 
   let options = {
@@ -45,9 +45,9 @@ const DealingList = (props) => {
   function onDisable(data, status) {
     let tempdata = {
       _id: data,
-      isDisable: status,
+      active: status,
     };
-    dispatch(DealingAction.DealingStatusUpdateRequestAsync(tempdata));
+    dispatch(FeedbackAction.FeedbackStatusUpdateRequestAsync(tempdata));
 
     if (status === "enable") {
       // toast.error("Disable")
@@ -67,7 +67,7 @@ const DealingList = (props) => {
         {
           label: "Yes",
           onClick: () =>
-            dispatch(DealingAction.DealingDeleteRequestAsync(tempdata)),
+            dispatch(FeedbackAction.FeedbackDeleteRequestAsync(tempdata)),
         },
         {
           label: "No",
@@ -76,29 +76,35 @@ const DealingList = (props) => {
     });
   }
 
+  function updatehandleOpenCreateModal(data) {
+    // window.location.href = "/blog/edit?id="+data;
+    history.push("/feedback/add?id=" + data);
+    window.location.reload();
+  }
+
   return (
     <>
       <Box className="MenuManagement_Data">
         <FormHeader
-          heading1={"Dealing Module Management"}
-          heading2={"List and Manage Dealing Here"}
+          heading1={"Feedback Module Management"}
+          heading2={"List and Manage Feedback Here"}
         />
         <BreadCrumbs
-          heading1={"DealingManagement"}
-          heading2={"Dealing Module List"}
+          heading1={"FeedbackManagement"}
+          heading2={"Feedback Module List"}
         />
 
-        {dealing.list && dealing.list.length > 0 ? (
+        {feedback.list && feedback.list.length > 0 ? (
           <>
             <MUIDataTable
               className="table-header"
-              title="Dealing List"
-              data={dealing.list.map((item, index) => {
+              title="Feedback List"
+              data={feedback.list.map((item, index) => {
                 return [
                   index + 1,
                   item.title,
                   item.description,
-                  item.isDisable,
+                  item.active,
                   item._id,
                 ];
               })}
@@ -121,6 +127,13 @@ const DealingList = (props) => {
                     customBodyRender: (value, tableMeta, updateValue) => {
                       return (
                         <>
+                          <EditIcon
+                            style={{ color: "#0069d9", cursor: "pointer" }}
+                            onClick={() =>
+                              updatehandleOpenCreateModal(tableMeta.rowData[4])
+                            }
+                          />
+
                           {tableMeta.rowData[3] ? (
                             <Tooltip title="Active">
                               <Done
@@ -163,9 +176,11 @@ const DealingList = (props) => {
 };
 
 function mapStateToProps(state) {
-  const { dealing } = state;
+  const { feedback } = state;
+
+  console.log("testingg", feedback);
   return {
-    dealing,
+    feedback,
   };
 }
-export default connect(mapStateToProps)(withStyles(styles)(DealingList));
+export default connect(mapStateToProps)(withStyles(styles)(FeedbackList));

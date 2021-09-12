@@ -7,7 +7,7 @@ import {
   BuildingUpdateService,
   BuildingDataService,
 } from "../../services/BuildingService";
-
+import * as Loader from "./LoaderActions";
 /**
  * Call by the Component to make Login Request
  * @param {*} data
@@ -15,6 +15,7 @@ import {
  */
 export const BuildingListRequestAsync = (data) => {
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(BuildingListRequest());
     BuildingListService(dispatch, data);
   };
@@ -58,6 +59,7 @@ export const BuildingListError = (data) => {
 export const BuildingAddRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(BuildingAddRequest());
     BuildingAddService(dispatch, data);
   };
@@ -101,6 +103,7 @@ export const BuildingAddError = (data) => {
 export const BuildingStatusUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(BuildingUpdateStatusRequest());
     BuildingStatusUpdateService(dispatch, data);
     dispatch(BuildingListRequest());
@@ -146,6 +149,7 @@ export const BuildingUpdateStatusError = (data) => {
 export const BuildingDeleteRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(BuildingDeleteRequest());
     BuildingDeleteService(dispatch, data);
     dispatch(BuildingListRequest());
@@ -191,6 +195,7 @@ export const BuildingDeleteError = (data) => {
 export const BuildingUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(BuildingUpdateRequest());
     BuildingUpdateService(dispatch, data);
   };
@@ -234,6 +239,7 @@ export const BuildingUpdateError = (data) => {
 export const BuildingDataRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(BuildingDataRequest());
     BuildingDataService(dispatch, data);
   };

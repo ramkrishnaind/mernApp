@@ -1,23 +1,23 @@
 import ACTION_KEYS from "../../constants/action-keys";
 import {
-  SliderListService,
-  SliderAddService,
-  SliderStatusUpdateService,
-  SliderUpdateService,
-  SliderDataService,
-  SliderDeleteService,
-} from "../../services/HomeSliderService";
+  FeedbackListService,
+  FeedbackAddService,
+  FeedbackStatusUpdateService,
+  FeedbackUpdateService,
+  FeedbackDataService,
+  FeedbackDeleteService,
+} from "../../services/FeedbackService";
 import * as Loader from "./LoaderActions";
 /**
  * Call by the Component to make Login Request
  * @param {*} data
  * @returns
  */
-export const SliderListRequestAsync = (data) => {
+export const FeedbackListRequestAsync = (data) => {
   return (dispatch) => {
     dispatch(Loader.showLoader(""));
-    dispatch(SliderListRequest());
-    SliderListService(dispatch, data);
+    dispatch(FeedbackListRequest());
+    FeedbackListService(dispatch, data);
   };
 };
 
@@ -25,9 +25,9 @@ export const SliderListRequestAsync = (data) => {
  * Action Creator to dispatch login action
  * @returns
  */
-const SliderListRequest = () => {
+const FeedbackListRequest = () => {
   return {
-    type: ACTION_KEYS.SLIDER_LIST_REQUEST,
+    type: ACTION_KEYS.FEEDBACK_LIST_REQUEST,
     payload: null,
   };
 };
@@ -37,9 +37,9 @@ const SliderListRequest = () => {
  * @param {*} data
  * @returns
  */
-export const SliderListSuccess = (data) => {
+export const FeedbackListSuccess = (data) => {
   return {
-    type: ACTION_KEYS.SLIDER_LIST_SUCCESS,
+    type: ACTION_KEYS.FEEDBACK_LIST_SUCCESS,
     payload: data,
   };
 };
@@ -49,19 +49,19 @@ export const SliderListSuccess = (data) => {
  * @param {*} data
  * @returns
  */
-export const SliderListError = (data) => {
+export const FeedbackListError = (data) => {
   return {
-    type: ACTION_KEYS.SLIDER_LIST_ERROR,
+    type: ACTION_KEYS.FEEDBACK_LIST_ERROR,
     payload: { error: data },
   };
 };
 
-export const SliderAddRequestAsync = (data) => {
+export const FeedbackAddRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
     dispatch(Loader.showLoader(""));
-    dispatch(SliderAddRequest());
-    SliderAddService(dispatch, data);
+    dispatch(FeedbackAddRequest());
+    FeedbackAddService(dispatch, data);
   };
 };
 
@@ -69,9 +69,9 @@ export const SliderAddRequestAsync = (data) => {
  * Action Creator to dispatch login action
  * @returns
  */
-const SliderAddRequest = () => {
+const FeedbackAddRequest = () => {
   return {
-    type: ACTION_KEYS.SLIDER_ADD_REQUEST,
+    type: ACTION_KEYS.FEEDBACK_ADD_REQUEST,
     payload: null,
   };
 };
@@ -81,9 +81,9 @@ const SliderAddRequest = () => {
  * @param {*} data
  * @returns
  */
-export const SliderAddSuccess = (data) => {
+export const FeedbackAddSuccess = (data) => {
   return {
-    type: ACTION_KEYS.SLIDER_ADD_SUCCESS,
+    type: ACTION_KEYS.FEEDBACK_ADD_SUCCESS,
     payload: data,
   };
 };
@@ -93,21 +93,21 @@ export const SliderAddSuccess = (data) => {
  * @param {*} data
  * @returns
  */
-export const SliderAddError = (data) => {
+export const FeedbackAddError = (data) => {
   return {
-    type: ACTION_KEYS.SLIDER_ADD_ERROR,
+    type: ACTION_KEYS.FEEDBACK_ADD_ERROR,
     payload: { error: data },
   };
 };
 
-export const SliderStatusUpdateRequestAsync = (data) => {
+export const FeedbackStatusUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
     dispatch(Loader.showLoader(""));
-    dispatch(SliderUpdateStatusRequest());
-    SliderStatusUpdateService(dispatch, data);
-    dispatch(SliderListRequest());
-    SliderListService(dispatch, "");
+    dispatch(FeedbackUpdateStatusRequest());
+    FeedbackStatusUpdateService(dispatch, data);
+    FeedbackListService(dispatch, "");
+    dispatch(FeedbackListRequest());
   };
 };
 
@@ -115,9 +115,9 @@ export const SliderStatusUpdateRequestAsync = (data) => {
  * Action Creator to dispatch login action
  * @returns
  */
-const SliderUpdateStatusRequest = () => {
+const FeedbackUpdateStatusRequest = () => {
   return {
-    type: ACTION_KEYS.SLIDER_UPDATE_STATUS_REQUEST,
+    type: ACTION_KEYS.FEEDBACK_UPDATE_STATUS_REQUEST,
     payload: null,
   };
 };
@@ -127,9 +127,9 @@ const SliderUpdateStatusRequest = () => {
  * @param {*} data
  * @returns
  */
-export const SliderUpdateStatusSuccess = (data) => {
+export const FeedbackUpdateStatusSuccess = (data) => {
   return {
-    type: ACTION_KEYS.SLIDER_UPDATE_STATUS_SUCCESS,
+    type: ACTION_KEYS.FEEDBACK_UPDATE_STATUS_SUCCESS,
     payload: data,
   };
 };
@@ -139,19 +139,19 @@ export const SliderUpdateStatusSuccess = (data) => {
  * @param {*} data
  * @returns
  */
-export const SliderUpdateStatusError = (data) => {
+export const FeedbackUpdateStatusError = (data) => {
   return {
-    type: ACTION_KEYS.SLIDER_UPDATE_STATUS_ERROR,
+    type: ACTION_KEYS.FEEDBACK_UPDATE_STATUS_ERROR,
     payload: { error: data },
   };
 };
 
-export const SliderUpdateRequestAsync = (data) => {
+export const FeedbackUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
     dispatch(Loader.showLoader(""));
-    dispatch(SliderUpdateRequest());
-    SliderUpdateService(dispatch, data);
+    dispatch(FeedbackUpdateRequest());
+    FeedbackUpdateService(dispatch, data);
   };
 };
 
@@ -159,9 +159,9 @@ export const SliderUpdateRequestAsync = (data) => {
  * Action Creator to dispatch login action
  * @returns
  */
-const SliderUpdateRequest = () => {
+const FeedbackUpdateRequest = () => {
   return {
-    type: ACTION_KEYS.SLIDER_UPDATE_REQUEST,
+    type: ACTION_KEYS.FEEDBACK_UPDATE_REQUEST,
     payload: null,
   };
 };
@@ -171,9 +171,9 @@ const SliderUpdateRequest = () => {
  * @param {*} data
  * @returns
  */
-export const SliderUpdateSuccess = (data) => {
+export const FeedbackUpdateSuccess = (data) => {
   return {
-    type: ACTION_KEYS.SLIDER_UPDATE_SUCCESS,
+    type: ACTION_KEYS.FEEDBACK_UPDATE_SUCCESS,
     payload: data,
   };
 };
@@ -183,19 +183,19 @@ export const SliderUpdateSuccess = (data) => {
  * @param {*} data
  * @returns
  */
-export const SliderUpdateError = (data) => {
+export const FeedbackUpdateError = (data) => {
   return {
-    type: ACTION_KEYS.SLIDER_UPDATE_ERROR,
+    type: ACTION_KEYS.FEEDBACK_UPDATE_ERROR,
     payload: { error: data },
   };
 };
 
-export const SliderDataRequestAsync = (data) => {
+export const FeedbackDataRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
     dispatch(Loader.showLoader(""));
-    dispatch(SliderDataRequest());
-    SliderDataService(dispatch, data);
+    dispatch(FeedbackDataRequest());
+    FeedbackDataService(dispatch, data);
   };
 };
 
@@ -203,9 +203,9 @@ export const SliderDataRequestAsync = (data) => {
  * Action Creator to dispatch login action
  * @returns
  */
-const SliderDataRequest = () => {
+const FeedbackDataRequest = () => {
   return {
-    type: ACTION_KEYS.SLIDER_DATA_REQUEST,
+    type: ACTION_KEYS.FEEDBACK_DATA_REQUEST,
     payload: null,
   };
 };
@@ -215,9 +215,9 @@ const SliderDataRequest = () => {
  * @param {*} data
  * @returns
  */
-export const SliderDataSuccess = (data) => {
+export const FeedbackDataSuccess = (data) => {
   return {
-    type: ACTION_KEYS.SLIDER_DATA_SUCCESS,
+    type: ACTION_KEYS.FEEDBACK_DATA_SUCCESS,
     payload: data,
   };
 };
@@ -227,21 +227,21 @@ export const SliderDataSuccess = (data) => {
  * @param {*} data
  * @returns
  */
-export const SliderDataError = (data) => {
+export const FeedbackDataError = (data) => {
   return {
-    type: ACTION_KEYS.SLIDER_DATA_ERROR,
+    type: ACTION_KEYS.FEEDBACK_DATA_ERROR,
     payload: { error: data },
   };
 };
 
-export const SliderDeleteRequestAsync = (data) => {
+export const FeedbackDeleteRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
     dispatch(Loader.showLoader(""));
-    dispatch(SliderDeleteRequest());
-    SliderDeleteService(dispatch, data);
-    dispatch(SliderListRequest());
-    SliderListService(dispatch, "");
+    dispatch(FeedbackDeleteRequest());
+    FeedbackDeleteService(dispatch, data);
+    FeedbackListService(dispatch, "");
+    dispatch(FeedbackListRequest());
   };
 };
 
@@ -249,9 +249,9 @@ export const SliderDeleteRequestAsync = (data) => {
  * Action Creator to dispatch login action
  * @returns
  */
-const SliderDeleteRequest = () => {
+const FeedbackDeleteRequest = () => {
   return {
-    type: ACTION_KEYS.SLIDER_DELETE_REQUEST,
+    type: ACTION_KEYS.FEEDBACK_DELETE_REQUEST,
     payload: null,
   };
 };
@@ -261,9 +261,9 @@ const SliderDeleteRequest = () => {
  * @param {*} data
  * @returns
  */
-export const SliderDeleteSuccess = (data) => {
+export const FeedbackDeleteSuccess = (data) => {
   return {
-    type: ACTION_KEYS.SLIDER_DELETE_SUCCESS,
+    type: ACTION_KEYS.FEEDBACK_DELETE_SUCCESS,
     payload: data,
   };
 };
@@ -273,9 +273,9 @@ export const SliderDeleteSuccess = (data) => {
  * @param {*} data
  * @returns
  */
-export const SliderDeleteError = (data) => {
+export const FeedbackDeleteError = (data) => {
   return {
-    type: ACTION_KEYS.SLIDER_DELETE_ERROR,
+    type: ACTION_KEYS.FEEDBACK_DELETE_ERROR,
     payload: { error: data },
   };
 };

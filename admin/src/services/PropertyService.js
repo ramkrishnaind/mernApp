@@ -3,7 +3,7 @@ import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/snackbarActions";
 import history from "../components/history";
-
+import * as Loader from "../redux/actions/LoaderActions";
 export const PropertyListService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
@@ -19,6 +19,7 @@ export const PropertyListService = async (dispatch, data) => {
     dispatch(PropertyAction.PropertyListError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const PropertyAddService = async (dispatch, data, imageData) => {
@@ -222,6 +223,7 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
     dispatch(PropertyAction.PropertyAddError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const PropertyStatusUpdateService = async (dispatch, data) => {
@@ -440,6 +442,7 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
     dispatch(PropertyAction.PropertyUpdateError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const PropertyDeleteService = async (dispatch, data) => {
@@ -458,6 +461,7 @@ export const PropertyDeleteService = async (dispatch, data) => {
     dispatch(PropertyAction.PropertyDeleteError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const PropertyDataService = async (dispatch, data) => {
@@ -475,4 +479,5 @@ export const PropertyDataService = async (dispatch, data) => {
     dispatch(PropertyAction.PropertyDataError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };

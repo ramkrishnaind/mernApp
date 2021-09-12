@@ -7,9 +7,10 @@ import {
   PropertyDataService,
   PropertyDeleteService,
 } from "../../services/PropertyService";
-
+import * as Loader from "./LoaderActions";
 export const PropertyListRequestAsync = (data) => {
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(PropertyListRequest());
     PropertyListService(dispatch, data);
   };
@@ -53,6 +54,7 @@ export const PropertyListError = (data) => {
 export const PropertyAddRequestAsync = (data, image) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(PropertyAddRequest());
     PropertyAddService(dispatch, data, image);
   };
@@ -96,6 +98,7 @@ export const PropertyAddError = (data) => {
 export const PropertyStatusUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(PropertyUpdateStatusRequest());
     PropertyStatusUpdateService(dispatch, data);
     PropertyListService(dispatch, "");
@@ -141,6 +144,7 @@ export const PropertyUpdateStatusError = (data) => {
 export const PropertyUpdateRequestAsync = (data, image) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(PropertyUpdateRequest());
     PropertyUpdateService(dispatch, data, image);
   };
@@ -184,6 +188,7 @@ export const PropertyUpdateError = (data) => {
 export const PropertyDataRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(PropertyDataRequest());
     PropertyDataService(dispatch, data);
   };
@@ -226,6 +231,7 @@ export const PropertyDataError = (data) => {
 
 export const PropertyDeleteRequestAsync = (data) => {
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(PropertyDeleteRequest());
     PropertyDeleteService(dispatch, data);
     dispatch(PropertyListRequest());

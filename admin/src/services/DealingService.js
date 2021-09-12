@@ -3,7 +3,7 @@ import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/snackbarActions";
 import history from "../components/history";
-
+import * as Loader from "../redux/actions/LoaderActions";
 export const DealingListService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
@@ -19,6 +19,7 @@ export const DealingListService = async (dispatch, data) => {
     dispatch(DealingAction.DealingListError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const DealingAddService = async (dispatch, data) => {
@@ -39,6 +40,7 @@ export const DealingAddService = async (dispatch, data) => {
     dispatch(DealingAction.DealingAddError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const DealingStatusUpdateService = async (dispatch, data) => {
@@ -57,6 +59,7 @@ export const DealingStatusUpdateService = async (dispatch, data) => {
     dispatch(DealingAction.DealingUpdateStatusError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const DealingDeleteService = async (dispatch, data) => {
@@ -75,4 +78,5 @@ export const DealingDeleteService = async (dispatch, data) => {
     dispatch(DealingAction.DealingDeleteError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };

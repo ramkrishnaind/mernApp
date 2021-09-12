@@ -5,7 +5,7 @@ import {
   DealingItemStatusUpdateService,
   DealingItemDeleteService,
 } from "../../services/DealingItemService";
-
+import * as Loader from "./LoaderActions";
 /**
  * Call by the Component to make Login Request
  * @param {*} data
@@ -13,6 +13,7 @@ import {
  */
 export const DealingItemListRequestAsync = (data) => {
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(DealingItemListRequest());
     DealingItemListService(dispatch, data);
   };
@@ -56,6 +57,7 @@ export const DealingItemListError = (data) => {
 export const DealingItemAddRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(DealingItemAddRequest());
     DealingItemAddService(dispatch, data);
   };
@@ -99,6 +101,7 @@ export const DealingItemAddError = (data) => {
 export const DealingItemStatusUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(DealingItemUpdateStatusRequest());
     DealingItemStatusUpdateService(dispatch, data);
     dispatch(DealingItemListRequest());
@@ -144,6 +147,7 @@ export const DealingItemUpdateStatusError = (data) => {
 export const DealingItemDeleteRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(DealingItemDeleteRequest());
     DealingItemDeleteService(dispatch, data);
     dispatch(DealingItemListRequest());

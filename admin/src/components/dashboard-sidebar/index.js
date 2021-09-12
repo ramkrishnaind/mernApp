@@ -100,6 +100,11 @@ const items = [
         icon: ShoppingBagIcon,
         title: "Career List",
       },
+      {
+        href: "/career/applied",
+        icon: ShoppingBagIcon,
+        title: "Job Application List ",
+      },
     ],
   },
   {
@@ -297,6 +302,23 @@ const items = [
     href: "/social",
     icon: UserIcon,
     title: "Social Media",
+  },
+  {
+    href: "/feedback",
+    icon: UsersIcon,
+    title: "Feedback",
+    items: [
+      {
+        href: "/feedback/add",
+        icon: ShoppingBagIcon,
+        title: " Add Feedback",
+      },
+      {
+        href: "/feedback",
+        icon: ShoppingBagIcon,
+        title: "Feedback List",
+      },
+    ],
   },
 ];
 
