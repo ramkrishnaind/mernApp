@@ -10,9 +10,12 @@ import Typography from '@material-ui/core/Typography';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import {Instagram} from '@material-ui/icons';
 import {
     Box,
 } from '@material-ui/core';
+import ReactHtmlParser, {processNodes, convertNodeToElement, htmlparser2} from 'react-html-parser';
+import ApiClient from '../../../../api-client';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -79,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ProfileCard() {
+export default function ProfileCard(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
 
@@ -87,19 +90,21 @@ export default function ProfileCard() {
         setExpanded(!expanded);
     };
 
+    const profileImage = props?.member?.image[0].path ? ApiClient.SERVER_ADDRESS + "/" + props.member.image[0].path : "no-image-available-icon-6.png";
+
     return (
-        <Card className={classes.root} style={{margin: 20}}>
+        <Card className={classes.root} style={{margin: 20, minWidth: 300}}>
 
             <Box style={{display: 'flex', justifyContent: 'center'}}>
-                <img src={"/client_1.jpg"} className={classes.avatar} alt='' />
+                <img src={profileImage} className={classes.avatar} alt='' />
             </Box>
             <CardContent>
                 <Typography className={[classes.textCenter, classes.text1]} variant="body2" color="textSecondary" component="p">
-                    Vishal Construction
+                    {props?.member?.name}
                 </Typography>
                 <Typography className={[classes.textCenter, classes.text3]}>
 
-                    This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.
+                    {ReactHtmlParser(props?.member?.description || '')}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing style={{justifyContent: 'center'}}>
@@ -112,6 +117,10 @@ export default function ProfileCard() {
                 <IconButton aria-label="twitter">
                     < TwitterIcon />
                 </IconButton>
+                <IconButton aria-label="insta">
+                    <Instagram />
+                </IconButton>
+
 
             </CardActions>
         </Card>

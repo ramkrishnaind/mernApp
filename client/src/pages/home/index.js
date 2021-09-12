@@ -215,12 +215,12 @@ const HomePage = (props) => {
   return (
     <div className="main-content">
 
-      <Box className="slider-section section">       
-        <OwlCarouselSlider images={banners} autoPlay={true} />       
-      </Box>  
+      <Box className="slider-section section">
+        <OwlCarouselSlider images={banners} style={{height: "600px"}} autoPlay={true} />
+      </Box>
       {/* slider-section */}
 
-      <Box className="search-section section">       
+      <Box className="search-section section ">
         <SearchBox />
       </Box>
       {/*========== search-section ============*/}
@@ -232,82 +232,82 @@ const HomePage = (props) => {
         <Container className="container">
           <Grid container spacing={3} alignItems="center" className="grid-container">
             <Grid className="about-image-column" item xs={12} md={6}>
-               {/* <img src={aboutSection.images[0].imageUrl} alt="" style={{height: 490}} /> */}           
-              <OwlCarouselSlider images={aboutSection.images || aboutSectionInfo.images} autoplay={true}/>
+              {/* <img src={aboutSection.images[0].imageUrl} alt="" style={{height: 490}} /> */}
+              <OwlCarouselSlider images={aboutSection.images || aboutSectionInfo.images} autoplay={true} />
             </Grid>
             <Grid className="about-content-column animate__animated animate__backInRight" item xs={12} md={6}>
               <Grid className="about-content">
-              <Typography variant="h4">ABOUT VISHAL CONSTRUCTION COMPANY</Typography>             
-              <Typography variant="h2">{aboutSection.title}</Typography>
-              <Typography>
-                {aboutSection.description}
-              </Typography>
-              <Button variant="outlined" color="primary" className="about-btn">
-                Read More
-              </Button>              
+                <Typography variant="h4">ABOUT VISHAL CONSTRUCTION COMPANY</Typography>
+                <Typography variant="h2">{aboutSection.title}</Typography>
+                <Typography>
+                  {aboutSection.description}
+                </Typography>
+                <Button variant="outlined" color="primary" className="about-btn">
+                  Read More
+                </Button>
               </Grid>
             </Grid>
           </Grid>
         </Container>
-      </Box>      
+      </Box>
       {/*========== about-section ============*/}
 
       <Box className="stats-section section">
-      <Container className="container">
-        <Grid container spacing={3} alignItems="center">
-          <Grid className="stats-item" item xs={12} md={3}>
-            <Box className="stats-icon">
-              <DescriptionIcon />
-            </Box>
-            <Typography variant="h3">{Counter(stats.years)}+ YEARS</Typography>
-            <Typography>OF REDEFINING</Typography>
-          </Grid>
+        <Container className="container">
+          <Grid container spacing={3} alignItems="center">
+            <Grid className="stats-item" item xs={12} md={3}>
+              <Box className="stats-icon">
+                <DescriptionIcon />
+              </Box>
+              <Typography variant="h3">{Counter(stats.years)}+ YEARS</Typography>
+              <Typography>OF REDEFINING</Typography>
+            </Grid>
 
-          <Grid className="stats-item" item xs={12} md={3}>
-            <Box className="stats-icon">
-              <DescriptionIcon />
-            </Box>
-            <Typography variant="h3">{Counter(stats.projects)}+</Typography>
-            <Typography>PROJECTS</Typography>
-          </Grid>
+            <Grid className="stats-item" item xs={12} md={3}>
+              <Box className="stats-icon">
+                <DescriptionIcon />
+              </Box>
+              <Typography variant="h3">{Counter(stats.projects)}+</Typography>
+              <Typography>PROJECTS</Typography>
+            </Grid>
 
-          <Grid className="stats-item" item xs={12} md={3}>
-            <Box className="stats-icon">
-              <DescriptionIcon />
-            </Box>
-            <Typography variant="h3">{Counter(stats.clients)}+ </Typography>
-            <Typography>Happy Clients</Typography>
-          </Grid>
+            <Grid className="stats-item" item xs={12} md={3}>
+              <Box className="stats-icon">
+                <DescriptionIcon />
+              </Box>
+              <Typography variant="h3">{Counter(stats.clients)}+ </Typography>
+              <Typography>Happy Clients</Typography>
+            </Grid>
 
-          <Grid className="stats-largest-block" item xs={12} md={3}>
-            <Typography>{stats.shortDescription}</Typography>
-          </Grid>
+            <Grid className="stats-largest-block" item xs={12} md={3}>
+              <Typography>{stats.shortDescription}</Typography>
+            </Grid>
 
-        </Grid>
-      </Container >
+          </Grid>
+        </Container >
       </Box>
       {/*========== stats-section ============*/}
-      
 
-      <Box className="property-section section"> 
-        <Container>         
-          <SectionHeader title={APP_CONSTANTS.section2_title} subtitle={APP_CONSTANTS.section2_subtitle}/>
+
+      <Box className="property-section section">
+        <Container>
+          <SectionHeader title={APP_CONSTANTS.section2_title} subtitle={APP_CONSTANTS.section2_subtitle} />
           {
             showPropertyData()
           }
 
         </Container>
-      </Box>      
-      {/*========== property-section ============*/}   
-     
-      <Box className="client-section section"> 
+      </Box>
+      {/*========== property-section ============*/}
+
+      <Box className="client-section section">
         <Container>
           {showDealingInDetails ? <SectionClient dealingInData={dealingInData} /> : null}
         </Container>
-      </Box>     
-      {/*========== client-section ============*/}   
+      </Box>
+      {/*========== client-section ============*/}
 
-      <Box className="property-section section"> 
+      <Box className="property-section section">
         <Container>
           <SectionHeader title={services.header} subtitle={services.title} />
           <Grid container spacing={3}>
@@ -322,31 +322,31 @@ const HomePage = (props) => {
           </Grid>
         </Container>
       </Box>
-      {/*========== property-section ============*/}   
+      {/*========== property-section ============*/}
 
-      
-      <Box className="client-feedback-section section"> 
+
+      <Box className="client-feedback-section section">
         <Container>
           <SectionFeedback />
         </Container>
-      </Box>     
-      {/*========== client-feedback-section ============*/}  
-     
-      <Box className="building-material-section section"> 
+      </Box>
+      {/*========== client-feedback-section ============*/}
+
+      <Box className="building-material-section section">
         <Container>
           <SectionHeader title={APP_CONSTANTS.building_material_title} subtitle={APP_CONSTANTS.building_material_subtitle} />
-          <OwlCarouselSlider images={building_materials} items={4} autoplay={true} nav={true} navText={['next', 'prev']} dots={false}  />         
+          <OwlCarouselSlider images={building_materials} items={4} autoplay={true} nav={true} navText={['next', 'prev']} dots={false} />
         </Container>
       </Box>
-      {/*========== building-material-section ============*/}  
-     
-      <Box className="map-enquiry-section section"> 
+      {/*========== building-material-section ============*/}
+
+      <Box className="map-enquiry-section section">
         <Container >
           <SectionHeader title={APP_CONSTANTS.map_section_title} subtitle={APP_CONSTANTS.map_subsection_title} />
           <SectionMap />
         </Container>
       </Box>
-       {/*========== map-enquiry-section ============*/}  
+      {/*========== map-enquiry-section ============*/}
 
     </div >
   );

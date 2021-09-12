@@ -161,7 +161,7 @@ const SearchPropertyList = (props) => {
   return (
     <div style={{background: '#F7F7F7'}}>
 
-      <Box style={{position: 'relative', height: 326, width: "100%", backgroundImage: 'url(/about_us.jpeg)'}}>
+      <Box style={{height: 326, width: "100%", backgroundImage: 'url(/about_us.jpeg)'}}>
         <SearchBox />
       </Box>
 

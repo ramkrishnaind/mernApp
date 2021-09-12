@@ -13,6 +13,8 @@ import InfoCard from './components/ourTeam';
 import {useDispatch, useSelector} from 'react-redux';
 import {useLocation} from 'react-router-dom';
 import OurTeam from './components/ourTeam/index';
+import ApiClient from '../../api-client';
+import OwlCarouselSlider from '../../components/carousel-slider';
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -91,6 +93,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    // backgroundColor: 'rgb(255, 118, 0)'
   },
   style3: {
     display: 'flex',
@@ -112,32 +115,53 @@ const AboutUsPage = (props) => {
   const {item} = props;
   const dispatch = useDispatch();
   let query = useQuery();
-  const [viewDetails, setViewDetails] = React.useState(true);
+  const [viewDetails, setViewDetails] = useState(false);
   let token = query.get('token');
-  const [PropertyDetail, setPropertyDetail] = React.useState({});
-  const propertyListItem = useSelector((state) => state.PropertyDetail.data);
-  console.log("propertyListItem", propertyListItem);
-  if (propertyListItem) {
-    if (viewDetails === false) {
-      console.log(propertyListItem);
-      setViewDetails(true);
-      setPropertyDetail(propertyListItem.data);
-    }
-  }
+  const [aboutUsSection, setAboutUsSection] = useState({});
+  const [team, setTeam] = useState([]);
   function useQuery() {
     return new URLSearchParams(useLocation().search);
   }
 
   React.useEffect(() => {
-    let reqData = {
-      propertyId: location?.state,
-      // propertyId: "6125373540f10f2712e43db5"
-    };
-    console.log('GetPropertyDetailRequestAsync', viewDetails);
-    // dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
+    populateAboutUsDetails();
+    populateTeamDetails();
   }, []);
-  console.log('view Details', viewDetails);
-  console.log("property details *** ", PropertyDetail);
+
+
+  const populateAboutUsDetails = () => {
+    const getData = async () => {
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getHomeAbout', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      // setPropertyData(response.data);
+      const aboutUsInfo = {};
+      aboutUsInfo.header = response?.data?.header;
+      aboutUsInfo.title = response?.data?.title;
+      aboutUsInfo.description = response?.data?.description;
+      let images = [];
+      const baseUrl = ApiClient.SERVER_ADDRESS;
+      response?.data?.aboutImages?.forEach((imageInfo) => {
+        let imageUrl = baseUrl + "/" + imageInfo.path;
+        const imageData = {imageUrl: imageUrl, desc: ""};
+        images.push(imageData);
+      });
+      aboutUsInfo.images = images;
+      setAboutUsSection(aboutUsInfo);
+      // console.log('About us details', aboutUsInfo, aboutSection);
+    };
+    getData();
+  };
+
+  const populateTeamDetails = () => {
+    const getData = async () => {
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/team/getClientTeamMember', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      // setPropertyData(response.data);
+
+      setTeam(response.data.list);
+      setViewDetails(true);
+      // console.log('About us details', aboutUsInfo, aboutSection);
+    };
+    getData();
+  };
 
   return (
     <div style={{background: '#F7F7F7'}}>
@@ -154,17 +178,21 @@ const AboutUsPage = (props) => {
 
             <Grid container>
               <Grid item xs={12} md={6} className={classes.style2} >
-                <img src="about-img.jpeg" height={"auto"} width={'110%'} />
+                <OwlCarouselSlider images={aboutUsSection.images || []} autoplay={true} style={{height: 490, width: 'auto', maxWidth: "90%"}} />
+                {/* {console.log(aboutUsSection)} */}
+                {/* <img src={aboutUsSection.images[0].imageUrl || "about-img.jpeg"} height={"auto"} alt={''} style={{border: "20px solid #fff"}} width={'110%'} /> */}
               </Grid>
               <Grid item xs={12} md={6} style={{padding: 20, backgroundColor: "#ff7600", height: 'fit-content', margin: 'auto'}}>
-                <Typography className={classes.text8} style={{padding: 20}}> Real Estate Services In Jaipur</Typography>
+
+                <Typography className={classes.text8} style={{padding: 20}}> {aboutUsSection.header}</Typography>
+                <Typography className={classes.text4} style={{paddingLeft: 20, color: '#fff'}}> {aboutUsSection.title}</Typography>
                 <Typography className={classes.text3} style={{padding: 20, lineHeight: "2.3em", color: '#fff'}} >
-                  Vishal Construction Company is a Jaipur based construction company which today is a renowned name in providing best in class real estate services to its clients located all over India. Vishal Construction Company specializes in its area of work wherein they are expert in the real estate services, construction process of housing, commercial and other types of properties. They majorly serve clientele of Rajasthan, Hyderabad, Kolkata and other metro cities of India.
+                  {aboutUsSection.description}
                 </Typography>
               </Grid>
             </Grid>
           </Paper>
-          <Paper elevation={0} style={{padding: 20, marginTop: 20, marginBottom: 20}}>
+          {/* <Paper elevation={0} style={{padding: 20, marginTop: 20, marginBottom: 20}}>
 
             <Grid container style={{marginBottom: 20}}>
               <Grid item xs={12} md={6} style={{padding: 20, marginTop: 20}}>
@@ -180,8 +208,8 @@ const AboutUsPage = (props) => {
               </Grid>
 
             </Grid>
-          </Paper>
-          <OurTeam />
+          </Paper> */}
+          <OurTeam team={team} />
 
         </Container>
       ) : null}
