@@ -3,7 +3,7 @@ import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/snackbarActions";
 import history from "../components/history";
-
+import * as Loader from "../redux/actions/LoaderActions";
 export const ServiceItemListService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
@@ -19,6 +19,7 @@ export const ServiceItemListService = async (dispatch, data) => {
     dispatch(ServiceItemAction.ServiceItemListError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const ServiceItemAddService = async (dispatch, data) => {
@@ -39,6 +40,7 @@ export const ServiceItemAddService = async (dispatch, data) => {
     dispatch(ServiceItemAction.ServiceItemAddError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const ServiceItemStatusUpdateService = async (dispatch, data) => {
@@ -57,6 +59,7 @@ export const ServiceItemStatusUpdateService = async (dispatch, data) => {
     dispatch(ServiceItemAction.ServiceItemUpdateStatusError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const ServiceItemDeleteService = async (dispatch, data) => {
@@ -75,4 +78,5 @@ export const ServiceItemDeleteService = async (dispatch, data) => {
     dispatch(ServiceItemAction.ServiceItemDeleteError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };

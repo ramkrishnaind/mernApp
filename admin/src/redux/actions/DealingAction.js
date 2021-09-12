@@ -5,6 +5,7 @@ import {
   DealingStatusUpdateService,
   DealingDeleteService,
 } from "../../services/DealingService";
+import * as Loader from "./LoaderActions";
 
 /**
  * Call by the Component to make Login Request
@@ -13,6 +14,7 @@ import {
  */
 export const DealingListRequestAsync = (data) => {
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(DealingListRequest());
     DealingListService(dispatch, data);
   };
@@ -56,6 +58,7 @@ export const DealingListError = (data) => {
 export const DealingAddRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(DealingAddRequest());
     DealingAddService(dispatch, data);
   };
@@ -99,6 +102,7 @@ export const DealingAddError = (data) => {
 export const DealingStatusUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(DealingUpdateStatusRequest());
     DealingStatusUpdateService(dispatch, data);
     dispatch(DealingListRequest());
@@ -144,6 +148,7 @@ export const DealingUpdateStatusError = (data) => {
 export const DealingDeleteRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(DealingDeleteRequest());
     DealingDeleteService(dispatch, data);
     dispatch(DealingListRequest());

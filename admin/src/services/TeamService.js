@@ -3,7 +3,7 @@ import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/snackbarActions";
 import history from "../components/history";
-
+import * as Loader from "../redux/actions/LoaderActions";
 export const TeamListService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
@@ -19,6 +19,7 @@ export const TeamListService = async (dispatch, data) => {
     dispatch(TeamAction.TeamListError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const TeamAddService = async (dispatch, data) => {
@@ -39,6 +40,7 @@ export const TeamAddService = async (dispatch, data) => {
     dispatch(TeamAction.TeamAddError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const TeamStatusUpdateService = async (dispatch, data) => {
@@ -57,6 +59,7 @@ export const TeamStatusUpdateService = async (dispatch, data) => {
     dispatch(TeamAction.TeamUpdateStatusError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const TeamUpdateService = async (dispatch, data) => {
@@ -77,6 +80,7 @@ export const TeamUpdateService = async (dispatch, data) => {
     dispatch(TeamAction.TeamUpdateError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const TeamDeleteService = async (dispatch, data) => {
@@ -95,6 +99,7 @@ export const TeamDeleteService = async (dispatch, data) => {
     dispatch(TeamAction.TeamDeleteError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const TeamDataService = async (dispatch, data) => {
@@ -112,4 +117,5 @@ export const TeamDataService = async (dispatch, data) => {
     dispatch(TeamAction.TeamDataError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };

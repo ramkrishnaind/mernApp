@@ -4,7 +4,7 @@ import {
   SocialUpdateService,
   SocialDataService,
 } from "../../services/SocialService";
-
+import * as Loader from "./LoaderActions";
 /**
  * Call by the Component to make Login Request
  * @param {*} data
@@ -14,6 +14,7 @@ import {
 export const SocialAddRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(SocialAddRequest());
     SocialAddService(dispatch, data);
   };
@@ -57,6 +58,7 @@ export const SocialAddError = (data) => {
 export const SocialUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(SocialUpdateRequest());
     SocialUpdateService(dispatch, data);
   };
@@ -100,6 +102,7 @@ export const SocialUpdateError = (data) => {
 export const SocialDataRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(SocialDataRequest());
     SocialDataService(dispatch, data);
   };

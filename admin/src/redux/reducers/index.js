@@ -26,7 +26,7 @@ import Building from "./buildingReducer";
 import Team from "./teamReducer";
 import Address from "./addressReducer";
 import Social from "./socialReducer";
-
+import Loader from "./loaderReducer";
 const reducers = {
   Login: LoginReducer,
   Register: RegisterReducer,
@@ -56,6 +56,7 @@ const reducers = {
   team: Team,
   address: Address,
   social: Social,
+  loader: Loader,
 };
 
 export default reducers;

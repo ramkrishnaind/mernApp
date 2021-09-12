@@ -18,8 +18,6 @@ import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Backdrop from "@material-ui/core/Backdrop";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -29,15 +27,11 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: "#1976d2",
-  },
 });
 const DealingList = (props) => {
   const dispatch = useDispatch();
   let { classes, dealing } = props;
-  const [open, setOpen] = React.useState(true);
+
   useEffect(() => {
     dispatch(DealingAction.DealingListRequestAsync());
   }, []);
@@ -93,13 +87,7 @@ const DealingList = (props) => {
           heading1={"DealingManagement"}
           heading2={"Dealing Module List"}
         />
-        {typeof dealing.list === "undefined" ? (
-          <Backdrop className={classes.backdrop} open={open}>
-            <CircularProgress color="inherit" />
-          </Backdrop>
-        ) : (
-          ""
-        )}
+
         {dealing.list && dealing.list.length > 0 ? (
           <>
             <MUIDataTable

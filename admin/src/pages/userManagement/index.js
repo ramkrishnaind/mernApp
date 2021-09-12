@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as UserAction from "../../redux/actions/UserAction";
 import { useDispatch } from "react-redux";
@@ -18,9 +18,6 @@ import ClearIcon from "@material-ui/icons/Clear";
 import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Backdrop from "@material-ui/core/Backdrop";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -29,10 +26,6 @@ const styles = (theme) => ({
   },
   table: {
     minWidth: 650,
-  },
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: "#1976d2",
   },
 });
 
@@ -93,96 +86,95 @@ const UserList = (props) => {
 
   return (
     <>
-      <FormHeader
-        heading1={"User Module Management"}
-        heading2={"List and Manage User Here"}
-      />
-      <BreadCrumbs heading1={"UserManagement"} heading2={"User Module List"} />
-      {typeof user.list === "undefined" ? (
-        <Backdrop className={classes.backdrop} open={open}>
-          <CircularProgress color="inherit" />
-        </Backdrop>
-      ) : (
-        ""
-      )}
-      {user.list && user.list.length > 0 ? (
-        <>
-          <MUIDataTable
-            className="table-header"
-            title="User List"
-            data={user.list.map((item, index) => {
-              return [
-                index + 1,
-                item.firstName + " " + item.lastName,
-                item.email,
-                item.countryCode + " " + item.mobile,
-                item.verified,
-                item._id,
-              ];
-            })}
-            columns={[
-              "SR No.",
-              "Full Name",
-              "Email",
-              "Phone",
-              {
-                name: "Status",
-                options: {
-                  customBodyRender: (value, tableMeta, updateValue) => {
-                    if (value === true) return "Active";
-                    else return "Inactive";
+      <Box className="MenuManagement_Data">
+        <FormHeader
+          heading1={"User Module Management"}
+          heading2={"List and Manage User Here"}
+        />
+        <BreadCrumbs
+          heading1={"UserManagement"}
+          heading2={"User Module List"}
+        />
+
+        {user.list && user.list.length > 0 ? (
+          <>
+            <MUIDataTable
+              className="table-header"
+              title="User List"
+              data={user.list.map((item, index) => {
+                return [
+                  index + 1,
+                  item.firstName + " " + item.lastName,
+                  item.email,
+                  item.countryCode + " " + item.mobile,
+                  item.verified,
+                  item._id,
+                ];
+              })}
+              columns={[
+                "SR No.",
+                "Full Name",
+                "Email",
+                "Phone",
+                {
+                  name: "Status",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      if (value === true) return "Active";
+                      else return "Inactive";
+                    },
                   },
                 },
-              },
-              {
-                name: "Actions",
-                options: {
-                  customBodyRender: (value, tableMeta, updateValue) => {
-                    return (
-                      <>
-                        <EditIcon
-                          style={{ color: "#0069d9", cursor: "pointer" }}
-                          onClick={() =>
-                            updatehandleOpenCreateModal(tableMeta.rowData[5])
-                          }
-                        />
+                {
+                  name: "Actions",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      return (
+                        <>
+                          <EditIcon
+                            style={{ color: "#0069d9", cursor: "pointer" }}
+                            onClick={() =>
+                              updatehandleOpenCreateModal(tableMeta.rowData[5])
+                            }
+                          />
 
-                        {tableMeta.rowData[4] ? (
-                          <Tooltip title="Active">
-                            <Done
-                              onClick={() =>
-                                onDisable(tableMeta.rowData[5], false)
-                              }
-                              style={{ color: "#1e7e34", cursor: "pointer" }}
-                            />
-                          </Tooltip>
-                        ) : (
-                          <Tooltip title="Inactive">
-                            <ClearIcon
-                              onClick={() =>
-                                onDisable(tableMeta.rowData[5], true)
-                              }
-                              style={{ color: "#bd2130", cursor: "pointer" }}
-                            />
-                          </Tooltip>
-                        )}
+                          {tableMeta.rowData[4] ? (
+                            <Tooltip title="Active">
+                              <Done
+                                onClick={() =>
+                                  onDisable(tableMeta.rowData[5], false)
+                                }
+                                style={{ color: "#1e7e34", cursor: "pointer" }}
+                              />
+                            </Tooltip>
+                          ) : (
+                            <Tooltip title="Inactive">
+                              <ClearIcon
+                                onClick={() =>
+                                  onDisable(tableMeta.rowData[5], true)
+                                }
+                                style={{ color: "#bd2130", cursor: "pointer" }}
+                              />
+                            </Tooltip>
+                          )}
 
-                        <DeleteIcon
-                          style={{ color: "#bd2130", cursor: "pointer" }}
-                          onClick={() => onDeleteClick(tableMeta.rowData[5])}
-                        />
-                      </>
-                    );
+                          <DeleteIcon
+                            style={{ color: "#bd2130", cursor: "pointer" }}
+                            onClick={() => onDeleteClick(tableMeta.rowData[5])}
+                          />
+                        </>
+                      );
+                    },
                   },
                 },
-              },
-            ]}
-            options={options}
-          />
-        </>
-      ) : (
-        <Typography>Data not found.</Typography>
-      )}
+              ]}
+              options={options}
+            />
+          </>
+        ) : (
+          <Typography>Data not found.</Typography>
+        )}
+      </Box>
     </>
   );
 };

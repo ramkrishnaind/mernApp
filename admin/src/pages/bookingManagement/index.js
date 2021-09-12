@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as BookingAction from "../../redux/actions/BookingAction";
 import { useDispatch } from "react-redux";
@@ -17,8 +17,6 @@ import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
 
 import history from "../../components/history";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Backdrop from "@material-ui/core/Backdrop";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -28,15 +26,11 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: "#1976d2",
-  },
 });
 
 const BookingList = (props) => {
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState(true);
+
   let { classes, booking } = props;
 
   useEffect(() => {
@@ -73,101 +67,97 @@ const BookingList = (props) => {
 
   return (
     <>
-      <FormHeader
-        heading1={"Booking Module Management"}
-        heading2={"List and Manage Booking Here"}
-      />
-      <BreadCrumbs
-        heading1={"BookingManagement"}
-        heading2={"Booking Module List"}
-      />
-      {typeof booking.list === "undefined" ? (
-        <Backdrop className={classes.backdrop} open={open}>
-          <CircularProgress color="inherit" />
-        </Backdrop>
-      ) : (
-        ""
-      )}
-      {booking.list && booking.list.length > 0 ? (
-        <>
-          <MUIDataTable
-            className="table-header"
-            title="Booking List"
-            data={booking.list.map((item, index) => {
-              return [
-                index + 1,
-                item.name,
-                item.name,
-                item.name,
-                item.description,
-                item._id,
-              ];
-            })}
-            columns={[
-              "SR No.",
-              "Name",
-              "Email",
-              "Phone",
-              "Description",
-              // {
-              //   name: "Status",
-              //   options: {
-              //     customBodyRender: (value, tableMeta, updateValue) => {
-              //       if (value === true)
-              //         return (
-              //           'Active'
-              //         );
-              //       else
-              //         return (
-              //           'Inactive'
-              //         );
-              //     }
-              //   }
-              // },
-              {
-                name: "Actions",
-                options: {
-                  customBodyRender: (value, tableMeta, updateValue) => {
-                    return (
-                      <>
-                        {/* <EditIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/> */}
+      <Box className="MenuManagement_Data">
+        <FormHeader
+          heading1={"Booking Module Management"}
+          heading2={"List and Manage Booking Here"}
+        />
+        <BreadCrumbs
+          heading1={"BookingManagement"}
+          heading2={"Booking Module List"}
+        />
 
-                        {tableMeta.rowData[3] ? (
-                          <Tooltip title="Active">
-                            <Done
-                              onClick={() =>
-                                onDisable(tableMeta.rowData[4], false)
-                              }
-                              style={{ color: "#1e7e34", cursor: "pointer" }}
-                            />
-                          </Tooltip>
-                        ) : (
-                          <Tooltip title="Inactive">
-                            <ClearIcon
-                              onClick={() =>
-                                onDisable(tableMeta.rowData[4], true)
-                              }
-                              style={{ color: "#bd2130", cursor: "pointer" }}
-                            />
-                          </Tooltip>
-                        )}
+        {booking.list && booking.list.length > 0 ? (
+          <>
+            <MUIDataTable
+              className="table-header"
+              title="Booking List"
+              data={booking.list.map((item, index) => {
+                return [
+                  index + 1,
+                  item.name,
+                  item.name,
+                  item.name,
+                  item.description,
+                  item._id,
+                ];
+              })}
+              columns={[
+                "SR No.",
+                "Name",
+                "Email",
+                "Phone",
+                "Description",
+                // {
+                //   name: "Status",
+                //   options: {
+                //     customBodyRender: (value, tableMeta, updateValue) => {
+                //       if (value === true)
+                //         return (
+                //           'Active'
+                //         );
+                //       else
+                //         return (
+                //           'Inactive'
+                //         );
+                //     }
+                //   }
+                // },
+                {
+                  name: "Actions",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      return (
+                        <>
+                          {/* <EditIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/> */}
 
-                        <DeleteIcon
-                          style={{ color: "#bd2130", cursor: "pointer" }}
-                          onClick={() => onDeleteClick(tableMeta.rowData[4])}
-                        />
-                      </>
-                    );
+                          {tableMeta.rowData[3] ? (
+                            <Tooltip title="Active">
+                              <Done
+                                onClick={() =>
+                                  onDisable(tableMeta.rowData[4], false)
+                                }
+                                style={{ color: "#1e7e34", cursor: "pointer" }}
+                              />
+                            </Tooltip>
+                          ) : (
+                            <Tooltip title="Inactive">
+                              <ClearIcon
+                                onClick={() =>
+                                  onDisable(tableMeta.rowData[4], true)
+                                }
+                                style={{ color: "#bd2130", cursor: "pointer" }}
+                              />
+                            </Tooltip>
+                          )}
+
+                          <DeleteIcon
+                            style={{ color: "#bd2130", cursor: "pointer" }}
+                            onClick={() => onDeleteClick(tableMeta.rowData[4])}
+                          />
+                        </>
+                      );
+                    },
                   },
                 },
-              },
-            ]}
-            options={options}
-          />
-        </>
-      ) : (
-        <Typography>Data not found.</Typography>
-      )}
+              ]}
+              options={options}
+            />
+          </>
+        ) : (
+          <Typography>Data not found.</Typography>
+        )}
+      </Box>
     </>
   );
 };

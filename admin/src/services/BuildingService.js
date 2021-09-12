@@ -3,7 +3,7 @@ import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/snackbarActions";
 import history from "../components/history";
-
+import * as Loader from "../redux/actions/LoaderActions";
 export const BuildingListService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
@@ -19,6 +19,7 @@ export const BuildingListService = async (dispatch, data) => {
     dispatch(BuildingAction.BuildingListError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const BuildingAddService = async (dispatch, data) => {
@@ -39,6 +40,7 @@ export const BuildingAddService = async (dispatch, data) => {
     dispatch(BuildingAction.BuildingAddError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const BuildingStatusUpdateService = async (dispatch, data) => {
@@ -57,6 +59,7 @@ export const BuildingStatusUpdateService = async (dispatch, data) => {
     dispatch(BuildingAction.BuildingUpdateStatusError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const BuildingDeleteService = async (dispatch, data) => {
@@ -75,6 +78,7 @@ export const BuildingDeleteService = async (dispatch, data) => {
     dispatch(BuildingAction.BuildingDeleteError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const BuildingUpdateService = async (dispatch, data) => {
@@ -95,6 +99,7 @@ export const BuildingUpdateService = async (dispatch, data) => {
     dispatch(BuildingAction.BuildingUpdateError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const BuildingDataService = async (dispatch, data) => {
@@ -112,4 +117,5 @@ export const BuildingDataService = async (dispatch, data) => {
     dispatch(BuildingAction.BuildingDataError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
