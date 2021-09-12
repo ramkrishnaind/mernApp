@@ -38,7 +38,7 @@ const CareerReducer = (state = initialState, action) => {
       return {
         ...state,
         isRequesting: false,
-        success:true,
+        success: true,
         careerData: payload.data,
       };
     case ACTION_KEYS.CAREER_DATA_ERROR:
@@ -46,7 +46,25 @@ const CareerReducer = (state = initialState, action) => {
         ...state,
         isRequesting: false,
         error: payload.error,
-        
+      };
+    //application
+
+    case ACTION_KEYS.CAREER_APPLICATION_LIST_REQUEST:
+      return {
+        ...state,
+        isRequesting: true,
+      };
+    case ACTION_KEYS.CAREER_APPLICATION_LIST_SUCCESS:
+      return {
+        ...state,
+        isRequesting: false,
+        applicationList: payload.data,
+      };
+    case ACTION_KEYS.CAREER_APPLICATION_LIST_ERROR:
+      return {
+        ...state,
+        isRequesting: false,
+        error: payload.error,
       };
     default:
       return state;

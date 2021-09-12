@@ -44,6 +44,9 @@ const API_ENDPOINTS = {
   CAREER_DELETE_ENDPOINT: "career/deleteCareer",
   CAREER_DATA_ENDPOINT: "career/getCareerDetail",
 
+  CAREER_APPLICATION_LIST_ENDPOINT: "career/getAllCareer",
+  CAREER_APPLICATION_STATUS_UPDATE_ENDPOINT: "career/updateCareerStatus",
+
   //blog module
   BLOG_LIST_ENDPOINT: "blog/getAllBlog",
   BLOG_ADD_ENDPOINT: "blog/createBlog",
@@ -144,6 +147,14 @@ const API_ENDPOINTS = {
   SOCIAL_ADD_ENDPOINT: "home/createSocialMedia",
   SOCIAL_UPDATE_ENDPOINT: "home/updateSocialMedia",
   SOCIAL_DATA_ENDPOINT: "home/getSocialMedia",
+
+  //feedback module
+  FEEDBACK_LIST_ENDPOINT: "feedback/getFeedbackList",
+  FEEDBACK_ADD_ENDPOINT: "feedback/createFeedback",
+  FEEDBACK_STATUS_UPDATE_ENDPOINT: "feedback/updateFeedbackStatus",
+  FEEDBACK_UPDATE_ENDPOINT: "feedback/updateFeedback",
+  FEEDBACK_DELETE_ENDPOINT: "feedback/deleteFeedback",
+  FEEDBACK_DATA_ENDPOINT: "feedback/getFeedbackDetails",
 };
 
 export default API_ENDPOINTS;

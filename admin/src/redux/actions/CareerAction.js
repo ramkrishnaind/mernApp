@@ -6,6 +6,8 @@ import {
   CareerUpdateService,
   CareerDataService,
   CareerDeleteService,
+  CareerApplicationListService,
+  CareerApplicationStatusUpdateService,
 } from "../../services/CareerService";
 import * as Loader from "./LoaderActions";
 /**
@@ -276,6 +278,100 @@ export const CareerDeleteSuccess = (data) => {
 export const CareerDeleteError = (data) => {
   return {
     type: ACTION_KEYS.CAREER_DELETE_ERROR,
+    payload: { error: data },
+  };
+};
+
+/**
+ * Application part
+ * @param {*} data
+ * @returns
+ */
+export const CareerApplicationListRequestAsync = (data) => {
+  return (dispatch) => {
+    dispatch(Loader.showLoader(""));
+    dispatch(CareerApplicationListRequest());
+    CareerApplicationListService(dispatch, data);
+  };
+};
+
+/**
+ * Action Creator to dispatch login action
+ * @returns
+ */
+const CareerApplicationListRequest = () => {
+  return {
+    type: ACTION_KEYS.CAREER_APPLICATION_LIST_REQUEST,
+    payload: null,
+  };
+};
+
+/**
+ * Action Creator to dispatch Success
+ * @param {*} data
+ * @returns
+ */
+export const CareerApplicationListSuccess = (data) => {
+  return {
+    type: ACTION_KEYS.CAREER_APPLICATION_LIST_SUCCESS,
+    payload: data,
+  };
+};
+
+/**
+ * Action Creator to dispatch error
+ * @param {*} data
+ * @returns
+ */
+export const CareerApplicationListError = (data) => {
+  return {
+    type: ACTION_KEYS.CAREER_APPLICATION_LIST_ERROR,
+    payload: { error: data },
+  };
+};
+
+export const CareerApplicationStatusUpdateRequestAsync = (data) => {
+  // console.log('data',data);
+  return (dispatch) => {
+    dispatch(Loader.showLoader(""));
+    dispatch(CareerApplicationStatusUpdateStatusRequest());
+    CareerApplicationStatusUpdateService(dispatch, data);
+    dispatch(CareerApplicationListRequest());
+    CareerApplicationListService(dispatch, "");
+  };
+};
+
+/**
+ * Action Creator to dispatch login action
+ * @returns
+ */
+const CareerApplicationStatusUpdateStatusRequest = () => {
+  return {
+    type: ACTION_KEYS.CAREER_APPLICATION_UPDATE_STATUS_REQUEST,
+    payload: null,
+  };
+};
+
+/**
+ * Action Creator to dispatch Success
+ * @param {*} data
+ * @returns
+ */
+export const CareerApplicationUpdateStatusSuccess = (data) => {
+  return {
+    type: ACTION_KEYS.CAREER_APPLICATION_UPDATE_STATUS_SUCCESS,
+    payload: data,
+  };
+};
+
+/**
+ * Action Creator to dispatch error
+ * @param {*} data
+ * @returns
+ */
+export const CareerApplicationUpdateStatusError = (data) => {
+  return {
+    type: ACTION_KEYS.CAREER_APPLICATION_UPDATE_STATUS_ERROR,
     payload: { error: data },
   };
 };

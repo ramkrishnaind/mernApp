@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Typography, Box } from "@material-ui/core";
+import React, { useEffect } from "react";
+import { Typography, Box, Select } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import * as ReviewAction from "../../redux/actions/reviewAction";
+import * as CareerAction from "../../redux/actions/CareerAction";
 import { useDispatch } from "react-redux";
-
 import BreadCrumbs from "../../common/bread-crumbs";
 import FormHeader from "../../common/form-header";
 import { connect } from "react-redux";
 import MUIDataTable from "mui-datatables";
-
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import ClearIcon from "@material-ui/icons/Clear";
 
-import history from "../../components/history";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -24,13 +21,12 @@ const styles = (theme) => ({
     minWidth: 650,
   },
 });
-
-const ReviewList = (props) => {
+const CareerList = (props) => {
   const dispatch = useDispatch();
-  let { classes, review } = props;
+  let { career } = props;
 
   useEffect(() => {
-    dispatch(ReviewAction.ReviewListRequestAsync());
+    dispatch(CareerAction.CareerApplicationListRequestAsync());
   }, []);
 
   let options = {
@@ -41,10 +37,10 @@ const ReviewList = (props) => {
 
   function onDisable(data, status) {
     let tempdata = {
-      id: data,
-      status: status,
+      _id: data,
+      active: status.target.value,
     };
-    dispatch(ReviewAction.ReviewStatusUpdateRequestAsync(tempdata));
+    // dispatch(CareerAction.CareerApplicationStatusUpdateRequestAsync(tempdata));
 
     if (status === "enable") {
       // toast.error("Disable")
@@ -53,54 +49,50 @@ const ReviewList = (props) => {
     }
   }
 
-  function onDeleteClick(data) {}
-
-  function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/menu/edit?id="+data;
-    history.push("/career/add?id=" + data);
-    window.location.reload();
-  }
-
   return (
     <>
       <Box className="MenuManagement_Data">
         <FormHeader
-          heading1={"Review Module Management"}
-          heading2={"List and Manage Review Here"}
+          heading1={"Career Application Management"}
+          heading2={"List and Manage Application Here"}
         />
         <BreadCrumbs
-          heading1={"ReviewManagement"}
-          heading2={"Review Module List"}
+          heading1={"CareerManagement"}
+          heading2={"Career Application List"}
         />
 
-        {review.list?.list && review.list?.list.length > 0 ? (
+        {career?.applicationList && career?.applicationList?.length > 0 ? (
           <>
             <MUIDataTable
               className="table-header"
-              title="Review List"
-              data={review.list?.list.map((item, index) => {
+              title="Application List"
+              data={career?.applicationList.map((item, index) => {
                 return [
                   index + 1,
-                  item.name,
-                  item.email,
-                  item.rating,
-                  item.comment,
-                  item.status,
-                  item._id,
+                  item?.degination,
+                  item?.department,
+                  item?.desctiption,
+                  item?.experiance,
+                  item?.location,
+                  item?.vacancy,
+                  item?.active,
+                  item?._id,
                 ];
               })}
               columns={[
                 "SR No.",
-                "Name",
-                "Email",
-                "Rating",
-                "Comment",
+                "Degination",
+                "Department",
+                "Description",
+                "Experiance",
+                "Location",
+                "Vacancy",
                 {
                   name: "Status",
                   options: {
                     customBodyRender: (value, tableMeta, updateValue) => {
-                      if (value === true) return "Open";
-                      else return "Close";
+                      if (value === true) return "Active";
+                      else return "Inactive";
                     },
                   },
                 },
@@ -110,13 +102,27 @@ const ReviewList = (props) => {
                     customBodyRender: (value, tableMeta, updateValue) => {
                       return (
                         <>
-                          {/* <EditIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/> */}
-
-                          {tableMeta.rowData[5] ? (
+                          <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined-label"
+                            label="Role"
+                            native
+                            name="rating"
+                            inputProps={{
+                              name: "rating",
+                              id: "age-native-simple",
+                            }}
+                            onChange={(e) => onDisable(tableMeta.rowData[8], e)}
+                            value={tableMeta.rowData[7]}
+                          >
+                            <option value={false}>Inactive</option>
+                            <option value={true}>Active</option>
+                          </Select>
+                          {tableMeta.rowData[7] ? (
                             <Tooltip title="Active">
                               <Done
                                 onClick={() =>
-                                  onDisable(tableMeta.rowData[6], false)
+                                  onDisable(tableMeta.rowData[8], false)
                                 }
                                 style={{ color: "#1e7e34", cursor: "pointer" }}
                               />
@@ -125,14 +131,12 @@ const ReviewList = (props) => {
                             <Tooltip title="Inactive">
                               <ClearIcon
                                 onClick={() =>
-                                  onDisable(tableMeta.rowData[6], true)
+                                  onDisable(tableMeta.rowData[8], true)
                                 }
                                 style={{ color: "#bd2130", cursor: "pointer" }}
                               />
                             </Tooltip>
                           )}
-
-                          {/* <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[5])} /> */}
                         </>
                       );
                     },
@@ -151,9 +155,9 @@ const ReviewList = (props) => {
 };
 
 function mapStateToProps(state) {
-  const { review } = state;
+  const { career } = state;
   return {
-    review,
+    career,
   };
 }
-export default connect(mapStateToProps)(withStyles(styles)(ReviewList));
+export default connect(mapStateToProps)(withStyles(styles)(CareerList));

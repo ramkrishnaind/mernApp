@@ -119,3 +119,41 @@ export const CareerDataService = async (dispatch, data) => {
   }
   dispatch(Loader.hideLoader(""));
 };
+
+//application part
+export const CareerApplicationListService = async (dispatch, data) => {
+  try {
+    const result = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.CAREER_APPLICATION_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(CareerAction.CareerApplicationListSuccess(result));
+  } catch (error) {
+    dispatch(CareerAction.CareerApplicationListError(error));
+    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+  }
+  dispatch(Loader.hideLoader(""));
+};
+
+export const CareerApplicationStatusUpdateService = async (dispatch, data) => {
+  try {
+    const result = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.CAREER_APPLICATION_STATUS_UPDATE_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(CareerAction.CareerApplicationUpdateStatusSuccess(result));
+    dispatch(Snackbar.showSuccessSnackbar(result.message));
+  } catch (error) {
+    dispatch(CareerAction.CareerApplicationUpdateStatusError(error));
+    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+  }
+  dispatch(Loader.hideLoader(""));
+};
