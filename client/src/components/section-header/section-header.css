@@ -46,3 +46,22 @@
 	letter-spacing: 0;
 	font-weight: 500;
 }
+@media only screen and (max-width: 991px) {
+	.section-header .section-title {	
+		font-size: 24px;		
+	}
+}
+@media only screen and (max-width: 767px) {
+	.section-header {		
+		padding-left: 25px;
+		margin-bottom: 25px;
+	}
+	.section-header .section-subtitle {
+		font-size: 14px;
+		line-height: 1em;
+		top: -1px;
+	}
+	.section-header .section-title {	
+		font-size: 20px;		
+	}
+}

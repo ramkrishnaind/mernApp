@@ -20,7 +20,32 @@ const useStyles = makeStyles((theme) => ({
     
 }));
 
-
+const options = {
+    margin: 24,
+    responsiveClass: true,
+    nav: true,
+    dots: false,
+    autoplay: true,
+    navText: ["Prev", "Next"],
+    smartSpeed: 1000,
+    responsive: {
+        0: {
+            items: 1,
+            margin: 10,
+        },
+        576: {
+            items: 2,
+            margin: 10,
+        },
+        768: {
+            items: 2,
+            margin: 15,
+        },
+        992: {
+            items: 3,
+        }
+    },
+};
 
 const OuterCarouselSlider = (props) => {
 
@@ -36,7 +61,7 @@ const OuterCarouselSlider = (props) => {
     return (
         <div>
             {total > 0 ?
-                <OwlCarousel items={Math.min(3, total)} className="owl-theme" loop={false} nav={true} margin={15} autoPlay={true} dots={false} navText={['next', 'prev']}>
+                <OwlCarousel items={Math.min(3, total)} className="owl-theme" {...options}>
                     {data.map((item, i) => {
                         const {_id, userId, propertyDetails, status, iAm, pType, postingAs, nameOfProject, propertTag, created, updated, __v, features} = item;
                         const propertyFor = item.for;
