@@ -5,7 +5,7 @@ import {
   ServiceStatusUpdateService,
   ServiceDeleteService,
 } from "../../services/ServiceService";
-
+import * as Loader from "./LoaderActions";
 /**
  * Call by the Component to make Login Request
  * @param {*} data
@@ -13,6 +13,7 @@ import {
  */
 export const ServiceListRequestAsync = (data) => {
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(ServiceListRequest());
     ServiceListService(dispatch, data);
   };
@@ -56,6 +57,7 @@ export const ServiceListError = (data) => {
 export const ServiceAddRequestAsync = (data) => {
   console.log("data", data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(ServiceAddRequest());
     ServiceAddService(dispatch, data);
   };
@@ -99,6 +101,7 @@ export const ServiceAddError = (data) => {
 export const ServiceStatusUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(ServiceUpdateStatusRequest());
     ServiceStatusUpdateService(dispatch, data);
     dispatch(ServiceListRequest());
@@ -144,6 +147,7 @@ export const ServiceUpdateStatusError = (data) => {
 export const ServiceDeleteRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(ServiceDeleteRequest());
     ServiceDeleteService(dispatch, data);
     dispatch(ServiceListRequest());

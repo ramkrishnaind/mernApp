@@ -16,6 +16,7 @@ import AddRole from "../pages/roleManagement/add";
 
 import CareerList from "../pages/careerManagement";
 import AddCareer from "../pages/careerManagement/add";
+import CareerApplication from "../pages/careerManagement/application";
 import BlogList from "../pages/blogManagement";
 import AddBlog from "../pages/blogManagement/add";
 import ContactusList from "../pages/contactusManagement";
@@ -51,7 +52,8 @@ import TeamList from "../pages/teamManagement";
 import AddTeam from "../pages/teamManagement/add";
 import Social from "../pages/socialManagement/add";
 import Address from "../pages/addressManagement/add";
-
+import FeedbackList from "../pages/feedbackManagement";
+import AddFeedback from "../pages/feedbackManagement/add";
 const Routes = (props) => {
   const { isAuth } = props;
   const routes = [
@@ -123,6 +125,10 @@ const Routes = (props) => {
         {
           path: "/career/add",
           element: isAuth ? <AddCareer /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/career/applied",
+          element: isAuth ? <CareerApplication /> : <Navigate to="/login" />,
         },
         {
           path: "/blog",
@@ -239,6 +245,14 @@ const Routes = (props) => {
         {
           path: "/social",
           element: isAuth ? <Social /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/feedback",
+          element: isAuth ? <FeedbackList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/feedback/add",
+          element: isAuth ? <AddFeedback /> : <Navigate to="/login" />,
         },
         {
           path: "404",

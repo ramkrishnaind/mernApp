@@ -18,8 +18,7 @@ import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "./blogManagement.css";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Backdrop from "@material-ui/core/Backdrop";
+
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -29,15 +28,11 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: "#1976d2",
-  },
 });
 
 const BuildingList = (props) => {
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState(true);
+
   let { classes, building } = props;
 
   useEffect(() => {
@@ -101,13 +96,7 @@ const BuildingList = (props) => {
           heading1={"BuildingManagement"}
           heading2={"Building Module List"}
         />
-        {typeof building.list === "undefined" ? (
-          <Backdrop className={classes.backdrop} open={open}>
-            <CircularProgress color="inherit" />
-          </Backdrop>
-        ) : (
-          ""
-        )}
+
         {building?.list?.list && building?.list?.list.length > 0 ? (
           <>
             <MUIDataTable

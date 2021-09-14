@@ -3,7 +3,7 @@ import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/snackbarActions";
 import history from "../components/history";
-
+import * as Loader from "../redux/actions/LoaderActions";
 export const SocialAddService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
@@ -22,6 +22,7 @@ export const SocialAddService = async (dispatch, data) => {
     dispatch(SocialAction.SocialAddError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const SocialUpdateService = async (dispatch, data) => {
@@ -42,6 +43,7 @@ export const SocialUpdateService = async (dispatch, data) => {
     dispatch(SocialAction.SocialUpdateError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const SocialDataService = async (dispatch, data) => {
@@ -59,4 +61,5 @@ export const SocialDataService = async (dispatch, data) => {
     dispatch(SocialAction.SocialDataError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };

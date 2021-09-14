@@ -8,49 +8,50 @@
 
 /* -----blog left box----- */
 
-.BlogDetailsLeft{
+/* {
     padding: 2rem 0px;
-}
-.BlogDetailsLeft .blogDescription{
+} */
+.blogDescription{
     font-size: 14px;
     color: #777777;
     padding: 2rem 0px;
     line-height: 28px;
 }
-.BlogDetailsLeft .Leftgrid img{
+.Leftgrid img{
     width: 100%;
+    max-height:600px
 }
 .detailsheadingData{
     padding: 0rem 0px 0px;
     border-bottom: 1px solid #cdcdcd;
 }
-.BlogDetailsLeft .Leftgrid .date{
+.Leftgrid .date{
     border-right: 1px solid #cdcdcd;
     text-align: center;
     padding: 15px;
 }
-.BlogDetailsLeft .Leftgrid .date .dateText{
+.Leftgrid .date .dateText{
     color: #ef8822;
     font-size: 30px;
     line-height: 29px;
 }
-.BlogDetailsLeft .Leftgrid .date .dateText .month{
+.Leftgrid .date .dateText .month{
     font-size: 15px;
 }
-.BlogDetailsLeft .Leftgrid .DetailsHeading{
+.Leftgrid .DetailsHeading{
     padding: 15px;
 }
-.BlogDetailsLeft .Leftgrid .DetailsHeading .DetailsText{
+.Leftgrid .DetailsHeading .DetailsText{
     color: #777777;
     font-size: 1.5rem;
     font-weight: 600;
 }
-.BlogDetailsLeft .Leftgrid .DetailsHeading .providedBy{
+.Leftgrid .DetailsHeading .providedBy{
     color: #ef8822;
     font-size: 15px;
     padding-top: 1rem;
 }
-.BlogDetailsLeft .Leftgrid .DetailsHeading .providedBy span:nth-child(1){
+.Leftgrid .DetailsHeading .providedBy span:nth-child(1){
     margin-right: 2rem;
 }
 .PostAuthor {
@@ -107,4 +108,59 @@
 .commentAvatrImage .MuiAvatar-root{
     width: 100px;
     height: 100px;
+}
+
+.blog-container{
+    display: flex;
+}
+
+/* right side */
+
+.Rightgrid{
+    padding: 2rem 0px;
+}
+.Rightgrid input{
+    border: 2px solid rgb(220 207 207 / 20%);
+    border-radius: 20px;
+}
+
+.Rightgrid .heading{
+    margin-top: 20px!important;
+    margin-bottom: 20px!important;
+    font-size: 16px;
+    padding: 0px 0 10px;
+    color: #333333;
+    display: inline-block;
+    font-weight: bold;
+    width: 100%;
+    border-bottom: 1px solid #cccccc;
+    margin: 0;
+}
+.recent-blogs{
+    background-color:aliceblue;
+    border-radius: 20px;
+    padding: 20px;
+    
+
+}
+.recent-blogs .blog-title{
+    font-size: 14px;
+    color: #ff7600;
+    font-weight: bold;
+}
+
+.recent-blogs .blog-date{
+    color: #777777;
+    line-height: 2em;
+    font-weight: 400;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.recent-blogs .blog-content{
+padding-left: 20px;
+margin: auto;
+}
+
+.recent-blogs .blog-card img{
+    border-radius: 20px;
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as ReviewAction from "../../redux/actions/reviewAction";
 import { useDispatch } from "react-redux";
@@ -14,8 +14,6 @@ import Tooltip from "@material-ui/core/Tooltip";
 import ClearIcon from "@material-ui/icons/Clear";
 
 import history from "../../components/history";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Backdrop from "@material-ui/core/Backdrop";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -25,17 +23,11 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: "#1976d2",
-  },
 });
 
 const ReviewList = (props) => {
   const dispatch = useDispatch();
   let { classes, review } = props;
-  const [open, setOpen] = React.useState(true);
-  // console.log('reviewreview',review);
 
   useEffect(() => {
     dispatch(ReviewAction.ReviewListRequestAsync());
@@ -71,93 +63,89 @@ const ReviewList = (props) => {
 
   return (
     <>
-      <FormHeader
-        heading1={"Callback Module Management"}
-        heading2={"List and Manage Callback Here"}
-      />
-      <BreadCrumbs
-        heading1={"CallbackManagement"}
-        heading2={"Callback Module List"}
-      />
-      {typeof review.list === "undefined" ? (
-        <Backdrop className={classes.backdrop} open={open}>
-          <CircularProgress color="inherit" />
-        </Backdrop>
-      ) : (
-        ""
-      )}
-      {review.list?.list && review.list?.list.length > 0 ? (
-        <>
-          <MUIDataTable
-            className="table-header"
-            title="Callback List"
-            data={review.list?.list.map((item, index) => {
-              return [
-                index + 1,
-                item.name,
-                item.email,
-                item.rating,
-                item.comment,
-                item.status,
-                item._id,
-              ];
-            })}
-            columns={[
-              "SR No.",
-              "Name",
-              "Email",
-              "Rating",
-              "Comment",
-              {
-                name: "Status",
-                options: {
-                  customBodyRender: (value, tableMeta, updateValue) => {
-                    if (value === true) return "Open";
-                    else return "Close";
+      <Box className="MenuManagement_Data">
+        <FormHeader
+          heading1={"Review Module Management"}
+          heading2={"List and Manage Review Here"}
+        />
+        <BreadCrumbs
+          heading1={"ReviewManagement"}
+          heading2={"Review Module List"}
+        />
+
+        {review.list?.list && review.list?.list.length > 0 ? (
+          <>
+            <MUIDataTable
+              className="table-header"
+              title="Review List"
+              data={review.list?.list.map((item, index) => {
+                return [
+                  index + 1,
+                  item.name,
+                  item.email,
+                  item.rating,
+                  item.comment,
+                  item.status,
+                  item._id,
+                ];
+              })}
+              columns={[
+                "SR No.",
+                "Name",
+                "Email",
+                "Rating",
+                "Comment",
+                {
+                  name: "Status",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      if (value === true) return "Open";
+                      else return "Close";
+                    },
                   },
                 },
-              },
-              {
-                name: "Actions",
-                options: {
-                  customBodyRender: (value, tableMeta, updateValue) => {
-                    return (
-                      <>
-                        {/* <EditIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/> */}
+                {
+                  name: "Actions",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      return (
+                        <>
+                          {/* <EditIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/> */}
 
-                        {tableMeta.rowData[5] ? (
-                          <Tooltip title="Active">
-                            <Done
-                              onClick={() =>
-                                onDisable(tableMeta.rowData[6], false)
-                              }
-                              style={{ color: "#1e7e34", cursor: "pointer" }}
-                            />
-                          </Tooltip>
-                        ) : (
-                          <Tooltip title="Inactive">
-                            <ClearIcon
-                              onClick={() =>
-                                onDisable(tableMeta.rowData[6], true)
-                              }
-                              style={{ color: "#bd2130", cursor: "pointer" }}
-                            />
-                          </Tooltip>
-                        )}
+                          {tableMeta.rowData[5] ? (
+                            <Tooltip title="Active">
+                              <Done
+                                onClick={() =>
+                                  onDisable(tableMeta.rowData[6], false)
+                                }
+                                style={{ color: "#1e7e34", cursor: "pointer" }}
+                              />
+                            </Tooltip>
+                          ) : (
+                            <Tooltip title="Inactive">
+                              <ClearIcon
+                                onClick={() =>
+                                  onDisable(tableMeta.rowData[6], true)
+                                }
+                                style={{ color: "#bd2130", cursor: "pointer" }}
+                              />
+                            </Tooltip>
+                          )}
 
-                        {/* <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[5])} /> */}
-                      </>
-                    );
+                          {/* <DeleteIcon style={{ color: "#bd2130", cursor:"pointer" }} onClick={() => onDeleteClick(tableMeta.rowData[5])} /> */}
+                        </>
+                      );
+                    },
                   },
                 },
-              },
-            ]}
-            options={options}
-          />
-        </>
-      ) : (
-        <Typography>Data not found.</Typography>
-      )}
+              ]}
+              options={options}
+            />
+          </>
+        ) : (
+          <Typography>Data not found.</Typography>
+        )}
+      </Box>
     </>
   );
 };

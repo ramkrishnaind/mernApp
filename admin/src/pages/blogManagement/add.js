@@ -48,6 +48,7 @@ const MenuCreateUpdate = (props) => {
     metaKeywords: blogData?.metaKeywords,
     metaDescription: blogData?.metaDescription,
     image: "",
+    bannerImage: "",
     id: id,
   };
 
@@ -70,9 +71,11 @@ const MenuCreateUpdate = (props) => {
       metaKeywords,
       metaDescription,
       image,
+      bannerImage,
     } = state;
     if (id == null) {
       var data = new FormData();
+      data.append("bannerImage", bannerImage);
       data.append("blogImage", image);
       data.append("title", title);
       data.append("sortDescription", sortDescription);
@@ -85,6 +88,7 @@ const MenuCreateUpdate = (props) => {
       dispatch(BlogAction.BlogAddRequestAsync(data));
     } else {
       var data = new FormData();
+      data.append("bannerImage", bannerImage);
       data.append("blogImage", image);
       data.append("title", title);
       data.append("sortDescription", sortDescription);
@@ -109,6 +113,13 @@ const MenuCreateUpdate = (props) => {
     let list = state;
     if (status == "done") {
       setState({ ...state, ["image"]: file.file });
+    }
+  };
+
+  const handleBlogBannerUpload = (file, status) => {
+    let list = state;
+    if (status == "done") {
+      setState({ ...state, ["bannerImage"]: file.file });
     }
   };
 
@@ -141,13 +152,6 @@ const MenuCreateUpdate = (props) => {
             <Typography component="h3" variant="h3">
               {state.id ? "Edit" : "Add"} Blog
             </Typography>
-            {/* <Button
-                onClick={() => this.props.history.push("menu")}
-                variant="contained"
-                color="primary"
-                type="submit"
-                
-              >Back</Button> */}
           </div>
           <div class="card-body">
             <ValidatorForm onSubmit={handleSubmit}>
@@ -267,6 +271,14 @@ const MenuCreateUpdate = (props) => {
                   <Dropzone
                     maxFiles="1"
                     onChangeStatus={handleBannerUpload}
+                    accept="image/*"
+                  />
+                </Grid>
+                <Grid className="form-group-item" item xs={12} sm={6} md={5}>
+                  <Typography>Banner Image </Typography>
+                  <Dropzone
+                    maxFiles="1"
+                    onChangeStatus={handleBlogBannerUpload}
                     accept="image/*"
                   />
                 </Grid>
