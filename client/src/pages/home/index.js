@@ -216,7 +216,7 @@ const HomePage = (props) => {
     <div className="main-content">
 
       <Box className="slider-section section">
-        <OwlCarouselSlider images={banners} style={{height: "600px"}} autoPlay={true} />
+        <OwlCarouselSlider images={banners} autoPlay={true} />
       </Box>
       {/* slider-section */}
 
@@ -255,7 +255,7 @@ const HomePage = (props) => {
       <Box className="stats-section section">
         <Container className="container">
           <Grid container spacing={3} alignItems="center">
-            <Grid className="stats-item" item xs={12} md={3}>
+            <Grid className="stats-item" item xs={6} md={3}>
               <Box className="stats-icon">
                 <DescriptionIcon />
               </Box>
@@ -263,7 +263,7 @@ const HomePage = (props) => {
               <Typography>OF REDEFINING</Typography>
             </Grid>
 
-            <Grid className="stats-item" item xs={12} md={3}>
+            <Grid className="stats-item" item xs={6} md={3}>
               <Box className="stats-icon">
                 <DescriptionIcon />
               </Box>
@@ -271,7 +271,7 @@ const HomePage = (props) => {
               <Typography>PROJECTS</Typography>
             </Grid>
 
-            <Grid className="stats-item" item xs={12} md={3}>
+            <Grid className="stats-item" item xs={6} md={3}>
               <Box className="stats-icon">
                 <DescriptionIcon />
               </Box>
@@ -279,7 +279,7 @@ const HomePage = (props) => {
               <Typography>Happy Clients</Typography>
             </Grid>
 
-            <Grid className="stats-largest-block" item xs={12} md={3}>
+            <Grid className="stats-largest-block" item xs={6} md={3}>
               <Typography>{stats.shortDescription}</Typography>
             </Grid>
 

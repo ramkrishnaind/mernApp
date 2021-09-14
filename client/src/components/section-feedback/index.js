@@ -12,26 +12,36 @@ import ApiClient from '../../api-client/index';
 
 
 const useStyles = makeStyles((theme) => ({
-    text1: {
-        fontFamily: '"Open Sans",sans-serif',
-        color: '#FFFFFF',
-        fontSize: 14,
-        marginTop: 30
-    },
-    text2: {
-        fontFamily: '"Open Sans",sans-serif',
-        color: '#FFFFFF',
-        fontSize: 30,
-        fontWeight: 400
-    },
-    text3: {
-        fontFamily: '"Open Sans",sans-serif',
-        color: '#FFFFFF',
-        fontSize: 14,
-    },
+  
 }));
 
-
+const options = {
+    margin: 50,
+    responsiveClass: true,
+    loop: false,
+    nav: false,
+    dots: true,
+    autoplay: true,
+    navText: ["Prev", "Next"],
+    smartSpeed: 1000,
+    responsive: {
+        0: {
+            items: 1,
+            margin: 10,
+        },
+        576: {
+            items: 2,
+            margin: 15,
+        },
+        768: {
+            items: 2,
+            margin: 20,
+        },
+        992: {
+            items: 3,            
+        }
+    },
+};
 
 const getFeedbackUi = (feedbackData) => {
     const newList = feedbackData.list.map(({name, message, rating, image}, i) => {
@@ -66,9 +76,9 @@ const SectionFeedback = props => {
     return (
         <>
             <SectionHeader title={APP_CONSTANTS.section_feedback_title} subtitle={APP_CONSTANTS.section_feedback_subtitle} style={{color: '#FFFFFF'}} />
-            <div style={{marginTop: 40}}>
-                <OwlCarousel items={3} className="owl-theme" loop nav={true} margin={8} autoPlay={true} dots={true}>
-                    {getFeedbackUi(feedbacks)}
+            <div className="feedback-wrapper">
+                <OwlCarousel className='owl-theme' {...options}>
+                    {getFeedbackUi(feedbacks)}                 
                 </OwlCarousel>
             </div>
         </>
