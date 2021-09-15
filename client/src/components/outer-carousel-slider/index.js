@@ -14,10 +14,11 @@ import DriveEtaIcon from '@material-ui/icons/DriveEta';
 // import './property-view-card.css';
 import InnerCarouselSlider from "../inner-carousel-slider";
 import {CustomNoRowsOverlay} from '../../components/no-data-found/no-data-found';
+import ApiClient from "../../api-client";
 import './featured.css';
 
 const useStyles = makeStyles((theme) => ({
-    
+
 }));
 
 const options = {
@@ -63,61 +64,63 @@ const OuterCarouselSlider = (props) => {
             {total > 0 ?
                 <OwlCarousel items={Math.min(3, total)} className="owl-theme" {...options}>
                     {data.map((item, i) => {
-                        const {_id, userId, propertyDetails, status, iAm, pType, postingAs, nameOfProject, propertTag, created, updated, __v, features} = item;
+                        const {_id, userId, propertyDetails, status, iAm, pType, postingAs, nameOfProject, propertTag, created, updated, __v, features, images} = item;
+                        const img = images && images[0]?.mainImage && images[0]?.mainImage[0]?.path ? ApiClient.SERVER_ADDRESS + "/" + images[0]?.mainImage[0]?.path : 'no-image-available-icon-6.png';
+                        console.log("img path", img, images);
                         const propertyFor = item.for;
                         return (
                             <Box key={i} className="property-item">
                                 <Grid contaienr className="property-wrap">
-                                   
-                                        {/* <InnerCarouselSlider /> */}
-                                        <Grid className="property-image" style={{position: 'relative'}}>
-                                            {propertTag ? <span class="featured">{propertTag}</span> : null}
-                                            <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
-                                        </Grid>
 
-                                        <Grid className="property-summery">                                         
-                                            <Box component="span" className="property-tag">{pType}</Box>
-                                            <Typography variant="h3" className="property-title">{nameOfProject}</Typography>
-                                            
-                                            <Grid container className="property-information">
-                                                <Grid item xs={6} md={6} className="property-feature">
-                                                    <ZoomOutMapIcon />
-                                                    <Typography>{features[0]?.builtUpArea} Sq-Ft</Typography>
-                                                </Grid>
-                                                <Grid item xs={6} md={6} className="property-feature">
-                                                    <LocalHotelIcon  />
-                                                    <Typography >{features[0]?.bedrooms} Bedrooms</Typography>
-                                                </Grid>
-                                                <Grid item xs={6} md={6} className="property-feature">
-                                                    <LocalHotelIcon />
-                                                    <Typography>{features[0]?.balconies} Balconies</Typography>
-                                                </Grid>
-                                                <Grid item xs={6} md={6} className="property-feature">
-                                                    <BathtubIcon />
-                                                    <Typography>{features[0]?.bathrooms} Bathroom</Typography>
-                                                </Grid>
+                                    {/* <InnerCarouselSlider /> */}
+                                    <Grid className="property-image" style={{position: 'relative'}}>
+                                        {propertTag ? <span class="featured">{propertTag}</span> : null}
+                                        <img className="img" style={{height: "238px"}} src={img} />
+                                    </Grid>
+
+                                    <Grid className="property-summery">
+                                        <Box component="span" className="property-tag">{pType}</Box>
+                                        <Typography variant="h3" className="property-title">{nameOfProject}</Typography>
+
+                                        <Grid container className="property-information">
+                                            <Grid item xs={6} md={6} className="property-feature">
+                                                <ZoomOutMapIcon />
+                                                <Typography>{features[0]?.builtUpArea} Sq-Ft</Typography>
                                             </Grid>
-                                            <Grid container className="property-button">                                              
-                                                <Box className="btn btn-primary" component={RouterLink} to={
-                                                    {
-                                                        pathname: '/home-detail',
-                                                        state: _id
-                                                    }}>
-                                                    MORE DETAIL
-                                                </Box>                                                
-                                                <Box className="btn btn-secondary">
-                                                    CALL NOW
-                                                </Box>                                                
+                                            <Grid item xs={6} md={6} className="property-feature">
+                                                <LocalHotelIcon />
+                                                <Typography >{features[0]?.bedrooms} Bedrooms</Typography>
                                             </Grid>
-                                        </Grid>    
-                                       
-                                        {/* <Grid contaienr>
+                                            <Grid item xs={6} md={6} className="property-feature">
+                                                <LocalHotelIcon />
+                                                <Typography>{features[0]?.balconies} Balconies</Typography>
+                                            </Grid>
+                                            <Grid item xs={6} md={6} className="property-feature">
+                                                <BathtubIcon />
+                                                <Typography>{features[0]?.bathrooms} Bathroom</Typography>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid container className="property-button">
+                                            <Box className="btn btn-primary" component={RouterLink} to={
+                                                {
+                                                    pathname: '/home-detail',
+                                                    state: _id
+                                                }}>
+                                                MORE DETAIL
+                                            </Box>
+                                            <Box className="btn btn-secondary">
+                                                CALL NOW
+                                            </Box>
+                                        </Grid>
+                                    </Grid>
+
+                                    {/* <Grid contaienr>
                                         <Grid item style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginTop: 10}}>
                                             <LocationOnIcon style={{color: '#FF7601', fontSize: 20, padding: 0, marginRight: 8}} />
                                             <Typography className={classes.text3}>{iAm}</Typography>
                                         </Grid>
                                     </Grid> */}
-                                 
+
                                 </Grid>
                             </Box>
                         );
