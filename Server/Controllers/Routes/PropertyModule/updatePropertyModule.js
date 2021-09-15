@@ -5,6 +5,7 @@ Joi.objectId = require('joi-objectid')(Joi)
 const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
+    propertyId: Joi.objectId().trim().required(),
     iAm: Joi.string().required(),
     for: Joi.string().empty(""),
     pType: Joi.string().empty(""),
@@ -48,8 +49,8 @@ const moduleSchema = Joi.object({
 
 
 
-function createPropertyRequest(Models) {
-    async function create(req, res) {
+function updatePropertyRequest(Models) {
+    async function update(req, res) {
         try {
             // validate data using joi
             let validateData = moduleSchema.validate(req.body);
@@ -58,7 +59,7 @@ function createPropertyRequest(Models) {
             }
 
             // pick data from req.body
-            let bodyData = _.pick(req.body, ["iAm", "for", "pType", "postingAs", "pCity", "nameOfProject",
+            let bodyData = _.pick(req.body, ["propertyId","iAm", "for", "pType", "postingAs", "pCity", "nameOfProject",
                 "bedrooms", "balconies", "floorNo", "totalFloors", "furnishedStatus", "bathrooms", "superArea",
                 "builtUpArea", "carpetArea", "transactionType", "possessionStatus", "availableFromMonth",
                 "availableFromYear", "ageOfConstruction", "expectedPrice", "pricePerSqFt", "isPLCIncluded",
@@ -68,14 +69,14 @@ function createPropertyRequest(Models) {
                 "userId", "totalArea", "tag"]);
             // searching email or mobile already exists or not
             // let findData = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
-            bodyData.propertyCode = "VP001";
+            let propertyCode = "VP001";
             if (bodyData.isPostedByAdmin) {
                 bodyData.status = 1;
             } else {
                 bodyData.status = 2;
             }
             const moduleFeatureSchema = {
-                bedrooms: bodyData.bathrooms,
+                bedrooms: bodyData.bedrooms,
                 balconies: bodyData.balconies,
                 floorNo: bodyData.floorNo,
                 totalFloors: bodyData.totalFloors,
@@ -113,13 +114,13 @@ function createPropertyRequest(Models) {
                 pCity: bodyData.city,
                 locality: bodyData.locality,
                 status: bodyData.status,
+                propertyCode: propertyCode,
                 propertyDetails: bodyData.propertyDetails,
                 tag: bodyData.tag,
                 userId: bodyData.userId
             };
 
-            let saveModule = await new Models.PropertyDB(bodyData).save();
-            moduleFeatureSchema.propertyId = saveModule._id;
+            let saveModule = await new Models.PropertyDB.findOneAndUpdate({ _id: bodyData._id }, { $set: bodyData });
             let featureSchemaModule = await new Models.PFeaturesDB(moduleFeatureSchema).save();
             console.log('saveModule is', featureSchemaModule)
             res.send({ status: true, propertyId: saveModule._id, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
@@ -129,6 +130,6 @@ function createPropertyRequest(Models) {
             await errorResponseHelper({ res, error: e, defaultMessage: "Error in saveModule" });
         }
     }
-    return create;
+    return update;
 }
-module.exports = createPropertyRequest;
+module.exports = updatePropertyRequest;

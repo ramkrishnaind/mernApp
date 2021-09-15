@@ -25,6 +25,7 @@ module.exports = {
     getReviewRequest: require('./ReviewModule/getReviewListModule'),
     updateReviewStatusRequest: require('./ReviewModule/updateReviewStatusModule'),
     createPropertyRequest: require('./PropertyModule/createPropertyModule'),
+    updatePropertyRequest: require('./PropertyModule/updatePropertyModule'),
     getPropertyRequest: require('./PropertyModule/getPropertyListModule'),
     updatePropertyStatusRequest: require('./PropertyModule/updatePropertyStatusModule'),
     propertyCommonHelper: require('./PropertyModule/propertyCommonHelper'),
