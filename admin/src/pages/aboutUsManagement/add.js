@@ -21,7 +21,7 @@ const MenuCreateUpdate = (props) => {
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-         dispatch(AboutUsAction.AboutUsDataRequestAsync());
+    dispatch(AboutUsAction.AboutUsDataRequestAsync());
   }, [id]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const MenuCreateUpdate = (props) => {
   const dispatch = useDispatch();
 
   const initialState = {
-    header:aboutusData?.header,
+    header: aboutusData?.header,
     title: aboutusData?.title,
     description: aboutusData?.description,
     metaTitle: aboutusData?.metaTitle,
@@ -45,7 +45,7 @@ const MenuCreateUpdate = (props) => {
   };
 
   const [state, setState] = useState(initialState);
- 
+
   const inputChange = (e) => {
     let { name, value } = e.target;
 
@@ -71,7 +71,7 @@ const MenuCreateUpdate = (props) => {
     data.append("metaDescription", metaDescription);
     data.append("_id", id);
     state?.image.map((item, index) => {
-      data.append("aboutImages",item);
+      data.append("aboutImages", item);
     });
     dispatch(AboutUsAction.AboutUsUpdateRequestAsync(data));
   };
@@ -93,7 +93,6 @@ const MenuCreateUpdate = (props) => {
       setState({ ...state, ["image"]: data });
     }
   };
-
 
   return (
     <Box className="MenuManagement_Data">
@@ -248,7 +247,7 @@ const MenuCreateUpdate = (props) => {
                   Save
                 </Button>
 
-                <Link component={RouterLink} to="/blog">
+                <Link component={RouterLink} to="/aboutus">
                   <Button
                     variant="contained"
                     color="primary"
