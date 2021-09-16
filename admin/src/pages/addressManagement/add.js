@@ -223,17 +223,6 @@ const AddressCreateUpdate = (props) => {
                 >
                   Save
                 </Button>
-
-                <Link component={RouterLink} to="/address">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    type="button"
-                    className={"CanceForm"}
-                  >
-                    Cancel
-                  </Button>
-                </Link>
               </Box>
             </ValidatorForm>
           </div>

@@ -6,6 +6,7 @@ import {withRouter} from 'react-router-dom';
 import Header from '../../components/header';
 import SectionHeader from "../../components/section-header";
 import SectionMap from "../../components/section-map";
+import SectionBM from "../../components/section-building-materials";
 import PropertyViewCard from "../../components/property-view-card";
 import OwlCarouselSlider from "../../components/carousel-slider";
 // import AboutUsOwlCarouselSlider from "../../components/about/index";
@@ -335,7 +336,8 @@ const HomePage = (props) => {
       <Box className="building-material-section section">
         <Container>
           <SectionHeader title={APP_CONSTANTS.building_material_title} subtitle={APP_CONSTANTS.building_material_subtitle} />
-          <OwlCarouselSlider images={building_materials} items={4} autoplay={true} nav={true} navText={['next', 'prev']} dots={false} />
+          {/* <OwlCarouselSlider images={building_materials} items={5} autoplay={true} nav={true} navText={['next', 'prev']} dots={false} /> */}
+          <SectionBM/>
         </Container>
       </Box>
       {/*========== building-material-section ============*/}

@@ -105,7 +105,7 @@ function EnquryForm(props) {
   return (
     <div className="EnquryForm">
       <Button variant="outlined" color="primary" onClick={handleClickOpen} className="enquryButton">
-        <ChatIcon style={{ color: "#FF7601", fontSize: 25, padding: 0, marginRight: 8, color: '#fff' }} />
+        <ChatIcon />
       </Button>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} className="EnquryFormData">
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
