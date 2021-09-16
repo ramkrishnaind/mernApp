@@ -21,6 +21,15 @@ const useStyles = makeStyles(theme => ({
             margin: theme.spacing(2),
         },
     },
+    primary: {
+       backgroundColor: '#ef8822',
+       borderRadius: '10px',
+       '&:hover': {       
+        backgroundColor: '#00b0b8',
+    },
+    },
+    
+    
 }));
 
 
@@ -85,6 +94,9 @@ const MapForm = () => {
                 required
                 value={search}
                 onChange={e => setSearch(e.target.value)}
+                InputLabelProps={{
+                    shrink: true,
+                  }}
             />
             <TextField
                 className="form-group"
@@ -95,6 +107,9 @@ const MapForm = () => {
                 onChange={e => setCity(e.target.value)}
                 //helperText="Please select City"
                 variant="outlined"
+                InputLabelProps={{
+                    shrink: true,
+                  }}
             >
                 {cities.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -111,6 +126,9 @@ const MapForm = () => {
                 onChange={e => setState(e.target.value)}
                 //helperText="Please select State"
                 variant="outlined"
+                InputLabelProps={{
+                    shrink: true,
+                  }}
             >
                 {states.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -119,11 +137,8 @@ const MapForm = () => {
                 ))}
             </TextField>
 
-            <div className="form-btn">
-                <Button variant="contained" onClick={() => { }}>
-                    Reset
-                </Button>
-                <Button type="submit" variant="contained" color="primary">
+            <div className="form-btn">                
+                <Button className={classes.primary} type="submit" variant="contained" color="primary">
                     Search
                 </Button>
             </div>
