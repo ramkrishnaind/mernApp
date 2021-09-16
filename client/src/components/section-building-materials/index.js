@@ -10,7 +10,7 @@ const options = {
   responsiveClass: true,
   nav: true,
   dots: false,
-  autoplay: false,
+  autoplay: true,
   navText: ["Prev", "Next"],
   smartSpeed: 1000,
   responsive: {

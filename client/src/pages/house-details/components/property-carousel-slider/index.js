@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import { Helmet } from "react-helmet";
-import SectionBM from "../../../../components/section-building-materials";
+
 const CarouselSlider = () => {
     return (
 
@@ -38,8 +38,6 @@ const CarouselSlider = () => {
                 </div>
 
             </div>
-            <SectionBM/>
-            
             <Helmet>
 
                 <script type='text/javascript' src='https://cdn.jsdelivr.net/gh/sushilreact/newassets/gallery.js'></script>
