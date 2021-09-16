@@ -110,7 +110,7 @@ const MapForm = () => {
                     </MenuItem>
                 ))}
             </TextField>
-            <label for="states" >States</label>
+            <label for="states" >State</label>
             <TextField
                 className="form-group"
                 id="states"
