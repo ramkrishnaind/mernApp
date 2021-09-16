@@ -64,6 +64,7 @@ const Option = (props) => {
 
   const handleSelectOption = (item, index) => {
     setSelectedOptionIndex(index);
+    setSelectedOption("");
     onSelect && onSelect({ label, item });
   };
 
