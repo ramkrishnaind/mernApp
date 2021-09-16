@@ -44,7 +44,11 @@ const OuterCarouselSlider = (props) => {
                         console.log("img path", img, images);
                         const propertyFor = item.for;
                         return (
-                            <Box key={i} className="property-item">
+                            <Box key={i} className="property-item" component={RouterLink} to={
+                                {
+                                    pathname: '/home-detail',
+                                    state: _id
+                                }} >
                                 <Grid contaienr className="property-wrap">
 
                                     {/* <InnerCarouselSlider /> */}

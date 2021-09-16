@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import './section-map.css';
+import './map_form.css';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -39,13 +40,14 @@ const MapForm = () => {
     };
 
     const cities = [
+
+        {
+            value: '',
+            label: '',
+        },
         {
             value: 'Jaipur',
             label: 'Jaipur',
-        },
-        {
-            value: 'EUR',
-            label: '€',
         },
         {
             value: 'BTC',
@@ -58,6 +60,10 @@ const MapForm = () => {
     ];
 
     const states = [
+        {
+            value: '',
+            label: '',
+        },
         {
             value: 'Rajesthan',
             label: 'Rajesthan',
@@ -77,7 +83,8 @@ const MapForm = () => {
     ];
 
     return (
-        <form className={classes.root} onSubmit={handleSubmit}>
+        <form className={`${classes.root} map-form`} onSubmit={handleSubmit}>
+            <label for="search" >Search</label>
             <TextField
                 className="form-group"
                 label="Search"
@@ -86,15 +93,16 @@ const MapForm = () => {
                 value={search}
                 onChange={e => setSearch(e.target.value)}
             />
+            <label for="city" >City</label>
             <TextField
                 className="form-group"
-                id="outlined-select-currency"
+                id="city"
                 select
                 label="City"
                 value={city}
                 onChange={e => setCity(e.target.value)}
                 //helperText="Please select City"
-                variant="outlined"
+                variant="filled"
             >
                 {cities.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -102,15 +110,16 @@ const MapForm = () => {
                     </MenuItem>
                 ))}
             </TextField>
+            <label for="states" >States</label>
             <TextField
                 className="form-group"
-                id="outlined-select-currency"
+                id="states"
                 select
                 label="State"
                 value={state}
                 onChange={e => setState(e.target.value)}
                 //helperText="Please select State"
-                variant="outlined"
+                variant="filled"
             >
                 {states.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -120,10 +129,10 @@ const MapForm = () => {
             </TextField>
 
             <div className="form-btn">
-                <Button variant="contained" onClick={() => { }}>
+                {/* <Button variant="contained" onClick={() => { }}>
                     Reset
-                </Button>
-                <Button type="submit" variant="contained" color="primary">
+                </Button> */}
+                <Button type="submit" className="search-btn" variant="contained" >
                     Search
                 </Button>
             </div>

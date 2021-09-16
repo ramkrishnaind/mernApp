@@ -6,6 +6,7 @@ import APP_CONSTANTS from "../../constants/app-constants";
 import LocalHotelIcon from '@material-ui/icons/LocalHotel';
 import ApiClient from '../../api-client/index';
 import {Link as RouterLink} from 'react-router-dom';
+import ReactHtmlParser from 'react-html-parser';
 
 const useStyles = makeStyles((theme) => ({
     text1: {
@@ -36,7 +37,7 @@ const SectionClient = props => {
             <Grid item xs={12} md={6} style={{display: 'flex', flexDirection: 'column'}}>
                 <SectionHeader title={header} subtitle={title} style={{color: '#FFFFFF'}} />
                 <Typography className={classes.text1} style={{lineHeight: "2em"}}>
-                    {description}
+                    {ReactHtmlParser(description)}
                 </Typography>
                 <Grid container style={{marginTop: 30}}>
                     {(items || []).map((item, i) => {
@@ -47,7 +48,7 @@ const SectionClient = props => {
                             <Grid container>
                                 <Grid component={RouterLink} to={{pathname: '/dealingInItem-details', state: _id}} style={{display: 'flex', flexDirection: 'column', textDecoration: 'none', cursor: 'pointer'}}>
                                     <Typography className={classes.text2} style={{textTransform: 'uppercase'}}>{title}</Typography>
-                                    <Typography className={classes.text3} >{shortDescription}</Typography>
+                                    <Typography className={classes.text3} >{ReactHtmlParser(shortDescription)}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>);
