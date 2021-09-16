@@ -44,7 +44,9 @@ const SectionClient = props => {
                         const {title, shortDescription, icon, _id} = item;
                         // console.log("title,shortDescription,icon", title, shortDescription, icon, item);
                         return (<Grid key={i} item xs={12} md={6} style={{display: 'flex', flexDirection: 'row', paddingTop: 5, paddingBottom: 20}}>
-                            <LocalHotelIcon style={{color: '#FF7601', fontSize: 40, padding: 0, marginRight: 8}} />
+                            {/* <LocalHotelIcon  /> */}
+
+                            <i className={`fas ${icon}`} style={{color: '#FF7601', fontSize: 40, padding: 0, marginRight: 20, marginTop: 11}} aria-hidden="true"></i>
                             <Grid container>
                                 <Grid component={RouterLink} to={{pathname: '/dealingInItem-details', state: _id}} style={{display: 'flex', flexDirection: 'column', textDecoration: 'none', cursor: 'pointer'}}>
                                     <Typography className={classes.text2} style={{textTransform: 'uppercase'}}>{title}</Typography>

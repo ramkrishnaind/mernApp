@@ -44,6 +44,7 @@
 	text-transform: uppercase;
 	margin: 10px 0 0;
 	display: block;
+	width: fit-content;
 }
 .about-content .about-btn:hover, .about-content .about-btn:focus {    
 	background-color: #ef8822;
