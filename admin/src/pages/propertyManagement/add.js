@@ -33,7 +33,7 @@ import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
 
 const personal_details_options = ["Owner", "Agent", "Builder"];
-const property_details_options = ["Sell", "Rent/Lease"];
+const property_details_options = ["Sell", "Rent"];
 
 const PropertyCreateUpdate = (props) => {
   // store data
@@ -159,7 +159,7 @@ const PropertyCreateUpdate = (props) => {
     const clonePropertyTypeOptions = _.cloneDeep(propertyTypeOptions);
     if (option === "Sell") {
       clonePropertyTypeOptions.splice(1, 1);
-    } else if (option === "Rent/Lease") {
+    } else if (option === "Rent") {
       clonePropertyTypeOptions.splice(0, 1);
     }
     setPropertyOptions(clonePropertyTypeOptions[0]);
@@ -188,7 +188,7 @@ const PropertyCreateUpdate = (props) => {
     const clonePropertyTypeOptions = _.cloneDeep(propertyTypeOptions);
     if (option === "Sell") {
       clonePropertyTypeOptions.splice(1, 1);
-    } else if (option === "Rent/Lease") {
+    } else if (option === "Rent") {
       clonePropertyTypeOptions.splice(0, 1);
     }
     setPropertyOptions(clonePropertyTypeOptions[0]);
@@ -1341,7 +1341,7 @@ const PropertyCreateUpdate = (props) => {
                                   handleAminitiesInputChange(e, i)
                                 }
                                 name="amenities"
-                                // value={x}
+                              // value={x}
                               ></TextField>
 
                               <div className="RemoveBtn">
