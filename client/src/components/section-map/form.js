@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
-import {makeStyles} from '@material-ui/core';
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import './section-map.css';
+import './map_form.css';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -22,14 +23,14 @@ const useStyles = makeStyles(theme => ({
         },
     },
     primary: {
-       backgroundColor: '#ef8822',
-       borderRadius: '10px',
-       '&:hover': {       
-        backgroundColor: '#00b0b8',
+        backgroundColor: '#ef8822',
+        borderRadius: '10px',
+        '&:hover': {
+            backgroundColor: '#00b0b8',
+        },
     },
-    },
-    
-    
+
+
 }));
 
 
@@ -48,13 +49,14 @@ const MapForm = () => {
     };
 
     const cities = [
+
+        {
+            value: '',
+            label: '',
+        },
         {
             value: 'Jaipur',
             label: 'Jaipur',
-        },
-        {
-            value: 'EUR',
-            label: '€',
         },
         {
             value: 'BTC',
@@ -67,6 +69,10 @@ const MapForm = () => {
     ];
 
     const states = [
+        {
+            value: '',
+            label: '',
+        },
         {
             value: 'Rajesthan',
             label: 'Rajesthan',
@@ -86,7 +92,8 @@ const MapForm = () => {
     ];
 
     return (
-        <form className={classes.root} onSubmit={handleSubmit}>
+        <form className={`${classes.root} map-form`} onSubmit={handleSubmit}>
+            <label for="search" >Search</label>
             <TextField
                 className="form-group"
                 label="Search"
@@ -96,11 +103,12 @@ const MapForm = () => {
                 onChange={e => setSearch(e.target.value)}
                 InputLabelProps={{
                     shrink: true,
-                  }}
+                }}
             />
+            <label for="city" >City</label>
             <TextField
                 className="form-group"
-                id="outlined-select-currency"
+                id="city"
                 select
                 label="City"
                 value={city}
@@ -109,7 +117,7 @@ const MapForm = () => {
                 variant="outlined"
                 InputLabelProps={{
                     shrink: true,
-                  }}
+                }}
             >
                 {cities.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -117,9 +125,10 @@ const MapForm = () => {
                     </MenuItem>
                 ))}
             </TextField>
+            <label for="states" >State</label>
             <TextField
                 className="form-group"
-                id="outlined-select-currency"
+                id="states"
                 select
                 label="State"
                 value={state}
@@ -128,7 +137,7 @@ const MapForm = () => {
                 variant="outlined"
                 InputLabelProps={{
                     shrink: true,
-                  }}
+                }}
             >
                 {states.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -137,7 +146,7 @@ const MapForm = () => {
                 ))}
             </TextField>
 
-            <div className="form-btn">                
+            <div className="form-btn">
                 <Button className={classes.primary} type="submit" variant="contained" color="primary">
                     Search
                 </Button>

@@ -107,7 +107,6 @@ const SectionBM = (props) => {
           <Box className="mask mask-2"></Box>
           <Box className="content"><h3>Hindware</h3></Box>
         </Box>
-
       </OwlCarousel>
     </Grid>
   );

@@ -120,6 +120,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function handleNull(val) {
+  return val || '--';
+}
+
 const HouseDetailPage = (props) => {
   const classes = useStyles();
   const location = useLocation();
@@ -192,7 +196,7 @@ const HouseDetailPage = (props) => {
               <Grid item xs={12} md={4} className={classes.style3}>
                 <Typography className={classes.text3}>Starts From</Typography>
                 <Box className={classes.box1}>/</Box>
-                <Typography className={classes.text5}>Rs. 3250000</Typography>
+                <Typography className={classes.text5}>{PropertyDetail?.price?.price}</Typography>
               </Grid>
             </Grid>
             <Grid container style={{marginTop: 10}}>
@@ -259,60 +263,65 @@ const HouseDetailPage = (props) => {
                 <Grid container>
                   <Grid item xs={12} md={3}>
                     <FactAndFeature
-                      icon={familyIcon}
-                      title="TYPE"
-                      value={PropertyDetail?.pType}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                    <FactAndFeature
-                      icon={yearIcon}
-                      title="YEAR BUILT"
-                      value={PropertyDetail?.availableFromYear}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                    <FactAndFeature
-                      icon={familyIcon}
-                      title="HEATING"
-                      value="Radiant"
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                    <FactAndFeature
-                      icon={yearIcon}
-                      title="SQFT"
-                      value={PropertyDetail?.builtUpArea}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                    <FactAndFeature
-                      icon={familyIcon}
+                      icon={'fa-bed'}
                       title="BEDROOMS"
                       value={PropertyDetail?.bedrooms}
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
                     <FactAndFeature
-                      icon={yearIcon}
+                      icon={'fa-bath'}
                       title="BATHROOMS"
                       value={PropertyDetail?.bathrooms}
                     />
                   </Grid>
+
                   <Grid item xs={12} md={3}>
                     <FactAndFeature
-                      icon={familyIcon}
-                      title="GARAGE"
-                      value="1"
+                      icon={'fa-university'}
+                      title="BALCONY"
+                      value={PropertyDetail?.balconies}
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
                     <FactAndFeature
-                      icon={yearIcon}
+                      icon={'fa-check-circle'}
                       title="STATUS"
-                      value="Active"
+                      value={PropertyDetail?.possessionStatus}
                     />
                   </Grid>
+                  <Grid item xs={12} md={3}>
+                    <FactAndFeature
+                      icon={'fa-gift'}
+                      title="FURNISHING"
+                      value={PropertyDetail?.furnishedStatus}
+                    />
+
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <FactAndFeature
+                      icon={'fa-home'}
+                      title="PROPERTY TYPE"
+                      value={PropertyDetail?.pType}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <FactAndFeature
+                      icon={'fa-calculator'}
+                      title="TRANSACTION TYPE"
+                      value={PropertyDetail?.transactionType}
+                    />
+                  </Grid>
+
+
+                  <Grid item xs={12} md={3}>
+                    <FactAndFeature
+                      icon={'fa-bars'}
+                      title="TOTAL FLOOR"
+                      value={`${PropertyDetail?.floorNo}/${PropertyDetail?.totalFloors}`}
+                    />
+                  </Grid>
+
                 </Grid>
               </InfoCard>
               <InfoCard item={{title: 'Property Details'}}>
@@ -324,14 +333,12 @@ const HouseDetailPage = (props) => {
                     style={{display: 'flex', flexDirection: 'column'}}
                   >
                     <Typography className={classes.text1}>
-                      Property ID : {PropertyDetail?._id}
+                      Property Code : {PropertyDetail?._id}
                     </Typography>
                     <Typography className={classes.text1}>
-                      Property Price : $5300/month
+                      Property Price : {PropertyDetail?.price?.price}
                     </Typography>
-                    <Typography className={classes.text1}>
-                      Property Type : {PropertyDetail?.pType}
-                    </Typography>
+
                   </Grid>
                   <Grid
                     item
@@ -339,10 +346,7 @@ const HouseDetailPage = (props) => {
                     md={4}
                     style={{display: 'flex', flexDirection: 'column'}}
                   >
-                    <Typography className={classes.text1}>Bath: 3</Typography>
-                    <Typography className={classes.text1}>
-                      Rooms : {PropertyDetail?.bedrooms}{' '}
-                    </Typography>
+                    <Typography className={classes.text1}>Guard Room: {PropertyDetail?.gaurdRoom == true ? 'Yes' : 'No'}</Typography>
                     <Typography className={classes.text1}>
                       Garages: 1
                     </Typography>
@@ -356,16 +360,20 @@ const HouseDetailPage = (props) => {
                     <Typography className={classes.text1}>
                       Property status : For {PropertyDetail?.for}
                     </Typography>
-                    <Typography className={classes.text1}>
-                      Bedrooms: {PropertyDetail?.bedrooms}
-                    </Typography>
                   </Grid>
                 </Grid>
               </InfoCard>
 
               <InfoCard item={{title: 'Amenities'}}>
                 <Grid container>
-                  {PropertyDetail?.amenities?.basketballcourt ? (
+                  {
+                    Object.keys(PropertyDetail?.amenities || []).map(amenities => {
+                      return <Grid item xs={12} md={4}>
+                        <Aminities icon={''} title={amenities[0].toUpperCase() + amenities.slice(1)} />
+                      </Grid>;
+                    })
+                  }
+                  {/* {PropertyDetail?.amenities?.basketballcourt ? (
                     <Grid item xs={12} md={4}>
                       <Aminities icon={familyIcon} title="Basketball Court" />
                     </Grid>
@@ -412,7 +420,7 @@ const HouseDetailPage = (props) => {
                     <Grid item xs={12} md={4}>
                       <Aminities icon={yearIcon} title="Home Theater" />
                     </Grid>
-                  ) : null}
+                  ) : null} */}
                 </Grid>
               </InfoCard>
               <InfoCard
@@ -448,19 +456,19 @@ const HouseDetailPage = (props) => {
                           Address :
                         </Typography>
                         <Typography className={classes.text1}>
-                          State/county
+                          State/county :
                         </Typography>
-                        <Typography className={classes.text1}>
+                        {/* <Typography className={classes.text1}>
                           Neighborhood
-                        </Typography>
+                        </Typography> */}
                         <Typography className={classes.text1}>
-                          Zip/Postal Code
+                          Zip/Postal Code :
                         </Typography>
-                        <Typography className={classes.text1}>
+                        {/* <Typography className={classes.text1}>
                           Country
-                        </Typography>
+                        </Typography> */}
                         <Typography className={classes.text1}>
-                          City
+                          City :
                         </Typography>
 
                       </Grid>
@@ -468,27 +476,27 @@ const HouseDetailPage = (props) => {
                       <Grid item xs={12} md={6} className={classes.style1}>
                         <Typography className={classes.text4}>
                           <Button variant="contained" className={classes.btn1}>
-                            <a target="_blank" style={{color: "#fff", textDecoration: 'none'}} href="https://goo.gl/maps/i9cYX1hYVQiAYhCL6" class="location-map">View Map <i class="far fa-map-marker-alt"></i></a>
+                            <a target="_blank" style={{color: "#fff", textDecoration: 'none'}} href={`https://www.google.com/maps/search/?api=1&query=${PropertyDetail?.address?.latitude},${PropertyDetail?.address?.longitude}`} class="location-map">View Map <i class="far fa-map-marker-alt"></i></a>
                           </Button>
 
                         </Typography>
                         <Typography className={classes.text1}>
-                          42 Albemarle st.
+                          {handleNull(PropertyDetail?.address?.address)}
                         </Typography>
                         <Typography className={classes.text1}>
-                          New York
+                          {handleNull(PropertyDetail?.address?.State)}
                         </Typography>
-                        <Typography className={classes.text1}>
+                        {/* <Typography className={classes.text1}>
                           Andersonville
-                        </Typography>
+                        </Typography> */}
                         <Typography className={classes.text1}>
-                          4203
+                          {handleNull(PropertyDetail?.address?.pinCode)}
                         </Typography>
-                        <Typography className={classes.text1}>
+                        {/* <Typography className={classes.text1}>
                           United States
-                        </Typography>
+                        </Typography> */}
                         <Typography className={classes.text1}>
-                          Chicago
+                          {handleNull(PropertyDetail?.address?.city)}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -596,9 +604,9 @@ const HouseDetailPage = (props) => {
               </Paper >
             </Grid>
 
-            <Grid item xs={8} md={8} style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', overflow: 'hidden'}}>
+            <Grid item xs={8} md={8} className="map-container" style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', overflow: 'hidden'}}>
 
-              <MapContainer />
+              <MapContainer markers={[{lat: PropertyDetail?.address?.latitude, lng: PropertyDetail?.address?.longitude}]} />
 
             </Grid>
           </Grid>
