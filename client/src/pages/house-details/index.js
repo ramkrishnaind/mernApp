@@ -121,7 +121,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function handleNull(val) {
-  return val || '--';
+  return val || ' --';
 }
 
 const HouseDetailPage = (props) => {
@@ -421,6 +421,22 @@ const HouseDetailPage = (props) => {
                       <Aminities icon={yearIcon} title="Home Theater" />
                     </Grid>
                   ) : null} */}
+                </Grid>
+              </InfoCard>
+              <InfoCard item={{title: 'Price Details'}}>
+                <Grid container>
+                  {
+                    Object.keys(PropertyDetail?.price || []).map(priceInfo => {
+                      return <Grid item xs={12} md={4}>
+                        <Grid container style={{marginTop: 10, marginBottom: 10}}>
+                          <Grid item xs={12} md={12} className={classes.style2}>
+                            <Typography className={classes.text1}>{priceInfo} : {handleNull(PropertyDetail?.price[priceInfo])}</Typography>
+                          </Grid>
+                        </Grid>
+                      </Grid>;
+                    })
+                  }
+
                 </Grid>
               </InfoCard>
               <InfoCard
