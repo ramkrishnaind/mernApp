@@ -12,6 +12,16 @@ import PageBanner from '../../components/page-banner';
 import {useDispatch, useSelector} from 'react-redux';
 import {useLocation} from 'react-router-dom';
 import ApiClient from '../../api-client';
+import ReactHtmlParser from 'react-html-parser';
+
+const NoDataAvailable = (text) => {
+  return <Container style={{padding: 20, margin: 20}}>
+    <Paper elevation={2} style={{padding: 20, textAlign: 'center'}}>
+      {text}
+    </Paper>
+  </Container>;
+};
+
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -111,7 +121,7 @@ const DealingInItemDetailPage = (props) => {
   const {item} = props;
   const dispatch = useDispatch();
   let query = useQuery();
-  const [viewDetails, setViewDetails] = React.useState(true);
+  const [viewDetails, setViewDetails] = React.useState(false);
   const [dealingInDetail, setDealingInDetail] = React.useState({});
   let token = query.get('token');
 
@@ -133,7 +143,7 @@ const DealingInItemDetailPage = (props) => {
     //   // serviceId: location?.state,
 
     // };
-    const _id = "61322c65d8b4f010d7eda31b";
+    const _id = location?.state;
     fetchDealingInDetails(_id);
   }, []);
 
@@ -143,8 +153,10 @@ const DealingInItemDetailPage = (props) => {
       const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getDealingInItem', {_id: _id}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
 
       console.log("Service Details Info ", response.data);
-      setDealingInDetail(response.data);
-      setViewDetails(true);
+      if (response.data) {
+        setDealingInDetail(response.data);
+        setViewDetails(true);
+      }
     };
     getData();
   };
@@ -179,7 +191,7 @@ const DealingInItemDetailPage = (props) => {
               <Grid item xs={12} md={6} style={{padding: 20, backgroundColor: "#ff7600", height: 'fit-content', margin: 'auto'}}>
                 <Typography className={classes.text8} style={{padding: 20}}> {dealingInDetail.title}</Typography>
                 <Typography className={classes.text3} style={{padding: 20, lineHeight: "2.3em", color: '#fff'}} >
-                  {dealingInDetail.description}
+                  {ReactHtmlParser(dealingInDetail.description)}
                 </Typography>
               </Grid>
             </Grid>
@@ -202,7 +214,7 @@ const DealingInItemDetailPage = (props) => {
             </Grid>
           </Paper> */}
         </Container>
-      ) : null}
+      ) : NoDataAvailable('No Data Available')}
     </div>
   );
 };
