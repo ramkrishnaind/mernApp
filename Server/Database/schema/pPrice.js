@@ -60,8 +60,17 @@ const schema = new Schema({
     per: {
         type: String
     },
+    maintenanceFor: {
+        type: String
+    },
     brokerage: {
         type: Number
+    },
+    bookingAmount: {
+        type: Number
+    },
+    isStumpDutyRCExcluded: {
+        type: Boolean
     }
 }, {
     timestamps: {

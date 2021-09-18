@@ -38,12 +38,14 @@ const moduleSchema = Joi.object({
     city: Joi.string(),
     State: Joi.string(),
     pinCode: Joi.string(),
-    propertTag: Joi.string(),
+    propertyTag: Joi.string(),
+    transactionType: Joi.string(),
     propertyDetails: Joi.array(),
     isPostedByAdmin: Joi.boolean(),
     userId: Joi.objectId(),
     totalArea: Joi.number(),
-    tag: Joi.string()
+    tag: Joi.string(),
+    gaurdRoom: Joi.boolean(),
 });
 
 
@@ -65,7 +67,7 @@ function createPropertyRequest(Models) {
                 "isCarParkingIncluded", "isClubMemberShipIncluded", "otherCharges", "isStumpDutyRCExcluded",
                 "bookingAmount", "maintenanceCharge", "maintenanceFor", "brokerageCharge", "amenities", "latitude",
                 "longitude", "address", "city", "State", "pinCode", "propertTag", "isPostedByAdmin", "propertyDetails",
-                "userId", "totalArea", "tag"]);
+                "userId", "totalArea", "propertyTag", "gaurdRoom"]);
             // searching email or mobile already exists or not
             // let findData = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
             bodyData.propertyCode = "VP001";
@@ -90,14 +92,6 @@ function createPropertyRequest(Models) {
                 availableFromMonth: bodyData.availableFromMonth,
                 availableFromYear: bodyData.availableFromYear,
                 ageOfConstruction: bodyData.ageOfConstruction,
-                expectedPrice: bodyData.expectedPrice,
-                pricePerSqFt: bodyData.pricePerSqFt,
-                otherCharges: bodyData.otherCharges,
-                isStumpDutyRCExcluded: bodyData.isStumpDutyRCExcluded,
-                bookingAmount: bodyData.bookingAmount,
-                maintenanceCharge: bodyData.maintenanceCharge,
-                maintenanceFor: bodyData.maintenanceFor,
-                brokerageCharge: bodyData.brokerageCharge,
                 amenities: bodyData.amenities,
                 propertTag: bodyData.propertTag,
                 address: {
@@ -110,18 +104,28 @@ function createPropertyRequest(Models) {
                 },
                 pCity: bodyData.city,
                 locality: bodyData.locality,
-                pCity: bodyData.city,
-                locality: bodyData.locality,
                 status: bodyData.status,
                 propertyDetails: bodyData.propertyDetails,
                 tag: bodyData.tag,
-                userId: bodyData.userId
+                userId: bodyData.userId,
+                gaurdRoom: bodyData.gaurdRoom
             };
-
+            const priceSchema = {
+                expectedPrice: bodyData.expectedPrice,
+                pricePerSqft: bodyData.pricePerSqFt,
+                otherCharges: bodyData.otherCharges,
+                isStumpDutyRCExcluded: bodyData.isStumpDutyRCExcluded,
+                bookingAmount: bodyData.bookingAmount,
+                maintenanceCharge: bodyData.maintenanceCharge,
+                maintenanceFor: bodyData.maintenanceFor,
+                brokerage: bodyData.brokerageCharge,
+            };
             let saveModule = await new Models.PropertyDB(bodyData).save();
             moduleFeatureSchema.propertyId = saveModule._id;
             let featureSchemaModule = await new Models.PFeaturesDB(moduleFeatureSchema).save();
             console.log('saveModule is', featureSchemaModule)
+            let priceSchemaModule = await new Models.PPriceDB(priceSchema).save();
+
             res.send({ status: true, propertyId: saveModule._id, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
         }
         catch (e) {

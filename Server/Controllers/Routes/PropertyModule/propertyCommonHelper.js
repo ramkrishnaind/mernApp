@@ -211,16 +211,22 @@ function propertyDetail(Models) {
             let findData = await Models.PropertyDB.findOne({ _id }).lean();
             if (findData) {
                 let propertyFeatures = await Models.PFeaturesDB.findOne({ propertyId: findData._id }).lean();
-                //let propertyAmenities = await Models.PFeaturesDB.findOne({ propertyId: findData._id }).lean();
-
+                let propertyImages = await Models.PImageDB.findOne({ propertyId: findData._id }).lean();
+                let propertyPrice = await Models.PPriceDB.findOne({ propertyId: findData._id }).lean();
+                let propertyReview = await Models.ReviewDB.find({ propertyId: findData._id }).lean();
+                let totalReviews = propertyReview.length;
+                let totalRatingSum = array.reduce(function (totalSum, currentValue) {
+                    return totalSum + currentValue.rating;
+                }, 0);
+                let rating = totalRatingSum / totalReviews;
                 result._id = findData._id;
                 result.iAm = findData.iAm;
                 result.userName = '';
                 result.for = findData.for;
                 result.pType = findData.pType;
-                result.pCity = findData.pCity;
+                result.pCity = findData.address.city;
                 result.nameOfProject = findData.nameOfProject;
-                result.projectDescription = '';
+                result.projectDescription = description;
                 result.postingAs = findData.postingAs;
                 result.created = findData.created;
                 result.bedrooms = propertyFeatures.bedrooms;
@@ -237,39 +243,12 @@ function propertyDetail(Models) {
                 result.availableFromMonth = propertyFeatures.availableFromMonth;
                 result.availableFromYear = propertyFeatures.availableFromYear;
                 result.ageOfConstruction = propertyFeatures.ageOfConstruction;
-                result.amenities = {
-                    basketballcourt: true,
-                    airConditioned: true,
-                    swimmingPool: true,
-                    noSmokingZone: true,
-                    gym: true,
-                    petFriendly: true,
-                    freeParkingOnPremises: true,
-                    wheelchairFriendly: true,
-                    homeTheater: true,
-                }
-                result.images = {
-                    main: {},
-                    bedroom: [],
-                }
-                result.rating = 4.5;
-                result.review = [];
-                result.address = {
-                    latitude: '',
-                    longitude: '',
-                    address: '',
-                    city: '',
-                    State: '',
-                    pinCode: '',
-                }
-                result.price = {
-                    priceFor: 'Sell',
-                    price: 3000000,
-                    bookingAmount: '',
-                    maintenanceCharge: '',
-                    brokerageCharge: '',
-                    maintenanceFor: '',
-                }
+                result.amenities = propertyFeatures.amenities;
+                result.images = propertyImages;
+                result.rating = rating ? rating : 0;
+                result.review = propertyReview;
+                result.address = propertyFeatures.address;
+                result.price = propertyPrice;
                 res.send({ status: true, message: "Property Details", data: result });
             }
             res.send({ status: true, message: "Property Note available.", data: result });
