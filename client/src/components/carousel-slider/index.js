@@ -11,17 +11,21 @@ const OwlCarouselSlider = (props) => {
   const images = props.images;
 
   const items = props.items || 1;
+
+
   // console.log("images check", images, props, (images || []));
   return (
-    <Grid className="carousel-wrapper" container>     
-      <OwlCarousel items={items} className="carousel-item owl-theme" loop nav={false} margin={0} autoPlay={props.autoplay} dots={true}>
+    
+    <Grid className="carousel-wrapper" container>   
+    <OwlCarousel items={items} className="carousel-item owl-theme" loop nav={false} margin={0} autoPlay={props.autoplay} dots={true}>
         {(images || []).map((image, i) => {
           return < div className="carousel-wrap" key={i}>
             <img className="img" src={image.imageUrl} style={props.style} alt="" />
           </div>;
         })}
-      </OwlCarousel>     
-    </Grid >
+      </OwlCarousel>      
+    </Grid >  
   );
+
 };
 export default OwlCarouselSlider;

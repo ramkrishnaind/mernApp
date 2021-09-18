@@ -3,3 +3,44 @@
     border-radius: 16px;
     margin-right: 10px;
 }
+.property-detail-gallery{
+    margin-top: 20px;
+}
+.property-detail-gallery .image-gallery-left-nav .image-gallery-svg, .property-detail-gallery .image-gallery-right-nav .image-gallery-svg {
+	height: 70px;
+	width: 40px;
+}
+.property-detail-gallery .image-gallery-fullscreen-button, .property-detail-gallery .image-gallery-play-button {
+	bottom: auto;
+	top: 0;
+}
+.property-detail-gallery .image-gallery-thumbnail {	    
+    width: 100px;    
+    height: 100px;
+}
+.property-detail-gallery .image-gallery-thumbnail-inner {
+	height: 100%;
+}
+.property-detail-gallery .image-gallery-thumbnail .image-gallery-thumbnail-image {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+}
+.property-detail-gallery .image-gallery-slide .image-gallery-description {
+	background: rgba(0,0,0,.6);
+	bottom: 30px;
+	color: #fff;		
+}
+@media only screen and (max-width: 767px) {
+    .property-detail-gallery .image-gallery-left-nav, .image-gallery-right-nav {
+        padding: 50px 5px;        
+    }
+    .property-detail-gallery .image-gallery-left-nav .image-gallery-svg, .property-detail-gallery .image-gallery-right-nav .image-gallery-svg {
+        height: 40px;
+        width: 20px;
+    }
+    .property-detail-gallery .image-gallery-thumbnail {
+        width: 70px;	
+        height: 70px;
+    }
+}

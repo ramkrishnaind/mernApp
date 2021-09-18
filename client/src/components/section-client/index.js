@@ -32,36 +32,41 @@ const SectionClient = props => {
     // console.log("dealingInData", props.dealingInData.media);
     const {header, title, description, media, items} = props.dealingInData;
     return (
-        <Grid container>
-            <Grid item xs={12} md={6} style={{display: 'flex', flexDirection: 'column'}}>
+        <Grid container spacing={3}>
+            <Grid item xs={12} md={6}>
                 <SectionHeader title={header} subtitle={title} style={{color: '#FFFFFF'}} />
-                <Typography className={classes.text1} style={{lineHeight: "2em"}}>
-                    {description}
-                </Typography>
-                <Grid container style={{marginTop: 30}}>
+                <Box className="client-text">
+                    <Typography>{description}</Typography>
+                </Box>                
+                <Grid container spacing={2}>
                     {(items || []).map((item, i) => {
                         const {title, shortDescription, icon, _id} = item;
                         // console.log("title,shortDescription,icon", title, shortDescription, icon, item);
-                        return (<Grid key={i} item xs={12} md={6} style={{display: 'flex', flexDirection: 'row', paddingTop: 5, paddingBottom: 20}}>
-                            <LocalHotelIcon style={{color: '#FF7601', fontSize: 40, padding: 0, marginRight: 8}} />
-                            <Grid container>
-                                <Grid component={RouterLink} to={{pathname: '/dealingInItem-details', state: _id}} style={{display: 'flex', flexDirection: 'column', textDecoration: 'none', cursor: 'pointer'}}>
-                                    <Typography className={classes.text2} style={{textTransform: 'uppercase'}}>{title}</Typography>
-                                    <Typography className={classes.text3} >{shortDescription}</Typography>
-                                </Grid>
-                            </Grid>
+                        return (<Grid key={i} item xs={12} md={6} >
+                            <Box className="client-block-wrap">
+                                <Box className="client-block-icon">
+                                    <LocalHotelIcon />
+                                </Box>
+                                <Box className="client-block-summery">
+                                    <Typography><strong>{title}</strong></Typography>
+                                    <Typography>{shortDescription}</Typography>
+                                </Box>
+                            </Box>                            
                         </Grid>);
-
                     })}
                 </Grid>
             </Grid>
-            <Grid item xs={12} md={6} style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
+            <Grid item xs={12} md={6}>
+                <Box className="client-video-block">
                 {
-                    media && (media[0].video[0].length === 0 ? <img src={ApiClient.SERVER_ADDRESS + "/" + media[0].image[0].path} alt="" style={{height: 250, border: '10px solid #00b0b8'}} />
-                        : <video playsInLine="playsinline" autoPlay="autoplay" muted="muted" loop="loop" style={{height: 250, border: '10px solid #00b0b8'}}>
+                    media && (media[0].video[0].length === 0 ? 
+                        <img src={ApiClient.SERVER_ADDRESS + "/" + media[0].image[0].path} alt="" />
+                        : 
+                        <video className="client-video" playsInLine="playsinline" autoPlay="autoplay" muted="muted" loop="loop">
                             <source src={ApiClient.SERVER_ADDRESS + "/" + media[0].video[0].path} type="video/mp4" ></source>
                         </video >)
                 }
+                </Box>
             </Grid>
         </Grid>
     );
