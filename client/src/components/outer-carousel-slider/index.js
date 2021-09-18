@@ -14,6 +14,7 @@ import DriveEtaIcon from '@material-ui/icons/DriveEta';
 // import './property-view-card.css';
 import InnerCarouselSlider from "../inner-carousel-slider";
 import { CustomNoRowsOverlay } from '../../components/no-data-found/no-data-found';
+import ApiClient from "../../api-client";
 import './featured.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -34,26 +35,26 @@ const settings = {
     initialSlide: 0,
     draggable: false,
     responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,         
+        {
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 3,
+            }
+        },
+        {
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 2,
+            }
+        },
+        {
+            breakpoint: 576,
+            settings: {
+                slidesToShow: 1,
+            }
         }
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,          
-        }
-      },
-      {
-        breakpoint: 576,
-        settings: {
-          slidesToShow: 1,         
-        }
-      }
     ]
-  };
+};
 
 const settings1 = {
     dots: false,
@@ -64,7 +65,7 @@ const settings1 = {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    cssEase: 'linear',   
+    cssEase: 'linear',
 };
 
 const OuterCarouselSlider = (props) => {
@@ -83,10 +84,16 @@ const OuterCarouselSlider = (props) => {
             {total > 0 ?
                 <Slider items={Math.min(3, total)} className="property-carousel" {...settings}>
                     {data.map((item, i) => {
-                        const { _id, userId, propertyDetails, status, iAm, pType, postingAs, nameOfProject, propertTag, created, updated, __v, features } = item;
+                        const { _id, userId, propertyDetails, status, iAm, pType, postingAs, nameOfProject, propertTag, created, updated, __v, features, images } = item;
+                        const img = images && images[0]?.mainImage && images[0]?.mainImage[0]?.path ? ApiClient.SERVER_ADDRESS + "/" + images[0]?.mainImage[0]?.path : 'no-image-available-icon-6.png';
+                        console.log("img path", img, images);
                         const propertyFor = item.for;
                         return (
-                            <Box key={i} className="property-item">
+                            <Box key={i} className="property-item" component={RouterLink} to={
+                                {
+                                    pathname: '/home-detail',
+                                    state: _id
+                                }} >
                                 <Grid contaienr className="property-wrap">
 
                                     {/* <InnerCarouselSlider /> */}
@@ -95,14 +102,14 @@ const OuterCarouselSlider = (props) => {
                                         {/* <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} /> */}
                                         <Slider {...settings1}>
                                             <Box className="property-image-thumb">
-                                                <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />                                                
+                                                <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
                                             </Box>
                                             <Box className="property-image-thumb">
-                                                <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />                                                
+                                                <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
                                             </Box>
                                             <Box className="property-image-thumb">
-                                                <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />                                               
-                                            </Box>                                            
+                                                <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                                            </Box>
                                         </Slider>
                                     </Grid>
 

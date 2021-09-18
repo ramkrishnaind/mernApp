@@ -92,9 +92,9 @@ const Aminities = (props) => {
   return (
     <Grid container style={{marginTop: 10, marginBottom: 10}}>
       <Grid item xs={12} md={12} className={classes.style2}>
-        <Box style={{marginRight: 10, padding: 5}}>
+        {/* <Box style={{marginRight: 10, padding: 5}}>
           <img src={icon} style={{width: 30, height: 30}} />
-        </Box>
+        </Box> */}
         <Typography className={classes.text1}>{title}</Typography>
       </Grid>
     </Grid>

@@ -3,6 +3,7 @@
 }
 .property-item{
     position: relative;
+	text-decoration: none;
 }
 .property-carousel > .slick-list {
     margin: 0 -9px;
