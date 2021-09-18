@@ -1,19 +1,19 @@
-import React, {useState} from "react";
-import OwlCarousel from "react-owl-carousel";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
+import React, { useState } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./outer-carousel-slider.css";
 import PropertyViewCard from "../property-view-card";
-import {Typography, Grid, Container, makeStyles, Button, Box} from "@material-ui/core";
+import { Typography, Grid, Container, makeStyles, Button, Box } from "@material-ui/core";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import LocalHotelIcon from '@material-ui/icons/LocalHotel';
-import {Link as RouterLink} from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
 import BathtubIcon from '@material-ui/icons/Bathtub';
 import DriveEtaIcon from '@material-ui/icons/DriveEta';
 // import './property-view-card.css';
 import InnerCarouselSlider from "../inner-carousel-slider";
-import {CustomNoRowsOverlay} from '../../components/no-data-found/no-data-found';
+import { CustomNoRowsOverlay } from '../../components/no-data-found/no-data-found';
 import ApiClient from "../../api-client";
 import './featured.css';
 
@@ -21,31 +21,51 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const options = {
-    margin: 24,
-    responsiveClass: true,
-    nav: true,
+
+
+const settings = {
     dots: false,
-    autoplay: true,
-    navText: ["Prev", "Next"],
-    smartSpeed: 1000,
-    responsive: {
-        0: {
-            items: 1,
-            margin: 10,
+    arrows: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: false,
+    autoplaySpeed: 2000,
+    initialSlide: 0,
+    draggable: false,
+    responsive: [
+        {
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 3,
+            }
         },
-        576: {
-            items: 2,
-            margin: 10,
+        {
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 2,
+            }
         },
-        768: {
-            items: 2,
-            margin: 15,
-        },
-        992: {
-            items: 3,
+        {
+            breakpoint: 576,
+            settings: {
+                slidesToShow: 1,
+            }
         }
-    },
+    ]
+};
+
+const settings1 = {
+    dots: false,
+    arrows: false,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    cssEase: 'linear',
 };
 
 const OuterCarouselSlider = (props) => {
@@ -62,20 +82,35 @@ const OuterCarouselSlider = (props) => {
     return (
         <div>
             {total > 0 ?
-                <OwlCarousel items={Math.min(3, total)} className="owl-theme" {...options}>
+                <Slider items={Math.min(3, total)} className="property-carousel" {...settings}>
                     {data.map((item, i) => {
-                        const {_id, userId, propertyDetails, status, iAm, pType, postingAs, nameOfProject, propertTag, created, updated, __v, features, images} = item;
+                        const { _id, userId, propertyDetails, status, iAm, pType, postingAs, nameOfProject, propertTag, created, updated, __v, features, images } = item;
                         const img = images && images[0]?.mainImage && images[0]?.mainImage[0]?.path ? ApiClient.SERVER_ADDRESS + "/" + images[0]?.mainImage[0]?.path : 'no-image-available-icon-6.png';
                         console.log("img path", img, images);
                         const propertyFor = item.for;
                         return (
-                            <Box key={i} className="property-item">
+                            <Box key={i} className="property-item" component={RouterLink} to={
+                                {
+                                    pathname: '/home-detail',
+                                    state: _id
+                                }} >
                                 <Grid contaienr className="property-wrap">
 
                                     {/* <InnerCarouselSlider /> */}
-                                    <Grid className="property-image" style={{position: 'relative'}}>
+                                    <Grid className="property-image" style={{ position: 'relative' }}>
                                         {propertTag ? <span class="featured">{propertTag}</span> : null}
-                                        <img className="img" style={{height: "238px"}} src={img} />
+                                        {/* <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} /> */}
+                                        <Slider {...settings1}>
+                                            <Box className="property-image-thumb">
+                                                <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                                            </Box>
+                                            <Box className="property-image-thumb">
+                                                <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                                            </Box>
+                                            <Box className="property-image-thumb">
+                                                <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                                            </Box>
+                                        </Slider>
                                     </Grid>
 
                                     <Grid className="property-summery">
@@ -125,7 +160,7 @@ const OuterCarouselSlider = (props) => {
                             </Box>
                         );
                     })}
-                </OwlCarousel> : <CustomNoRowsOverlay />}
+                </Slider> : <CustomNoRowsOverlay />}
         </div>
     );
 };

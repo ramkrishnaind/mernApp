@@ -29,6 +29,7 @@ import {statsInfo, aboutSectionInfo, servicesInfo, bannersInfo} from './intial-c
 import ApiClient from '../../api-client/index';
 import VisibilitySensor from "react-visibility-sensor";
 import SearchBox from '../../components/search-box/index';
+import {Link as RouterLink} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -243,7 +244,7 @@ const HomePage = (props) => {
                 <Typography>
                   {aboutSection.description}
                 </Typography>
-                <Button variant="outlined" color="primary" className="about-btn">
+                <Button component={RouterLink} to={{pathname: '/about-us'}} variant="outlined" color="primary" className="about-btn">
                   Read More
                 </Button>
               </Grid>

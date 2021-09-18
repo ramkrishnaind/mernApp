@@ -8,17 +8,33 @@ const containerStyle = {
     height: '400px'
 };
 
-export class MapContainer extends Component {
-    render() {
-        return (
+const addMarkers = (markers) => {
+    return (markers).map((marker, i) => {
+        return <Marker
+            key={i}
+            title={`${marker.lat},${marker.lng}`}
+            name={''}
+            position={marker} />;
+    });
+};
 
+export class MapContainer extends Component {
+
+
+
+    render() {
+        const defaultMarker = {lat: 26.827091790669822, lng: 75.84772681478361};
+
+        const markers = this.props.markers || [defaultMarker];
+
+        console.log("marker ", markers, this.props.markers);
+        return (
             <Map google={this.props.google}
                 zoom={14}
                 containerStyle={containerStyle}
-                initialCenter={{lat: 37.778519, lng: -122.405640}}
-
+                initialCenter={markers[0]}
             >
-                <Marker onClick={this.onMarkerClick}
+                {/* <Marker onClick={this.onMarkerClick}
                     name={'Current location'} />
 
                 <Marker
@@ -32,7 +48,10 @@ export class MapContainer extends Component {
                 <Marker
                     name={'Your position'}
                     position={{lat: 37.762391, lng: -122.439192}}
-                />
+                /> */}
+                {
+                    addMarkers(markers)
+                }
 
                 <InfoWindow onClose={this.onInfoWindowClose}>
                     {/* <div>
