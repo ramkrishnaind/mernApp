@@ -11,3 +11,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.slick-prev.slick-arrow, .slick-next.slick-arrow {
+	width: 25px;
+	height: 30px;
+}
+.slick-prev.slick-arrow {
+	left: 0;
+}
+.slick-next.slick-arrow  {
+	right: 0;
+}
+.slick-prev.slick-arrow::before, .slick-next.slick-arrow::before {
+  content: "\e941";	
+	line-height: 1;
+	opacity: 1;
+  color: #ef8822;
+	font-size: 30px;
+	font-family: 'Material Icons';
+	font-weight: normal;
+	display: block;
+}
+.slick-prev.slick-arrow::before{
+  transform: rotate(180deg);
+}
+.slick-prev.slick-disabled::before, .slick-next.slick-disabled::before {
+	opacity: .50;
+}

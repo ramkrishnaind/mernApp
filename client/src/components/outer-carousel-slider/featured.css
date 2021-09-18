@@ -4,6 +4,26 @@
 .property-item{
     position: relative;
 }
+.property-carousel > .slick-list {
+    margin: 0 -9px;
+}
+.property-carousel > .slick-list > .slick-track > .slick-slide {
+    padding: 0 10px;
+}
+.slick-prev.slick-arrow, .slick-next.slick-arrow {
+	position: absolute;
+	top: -35px;
+	transform: none;
+	width: 25px;
+	height: 30px;
+}
+.slick-prev.slick-arrow {
+	left: auto;
+	right: 35px;
+}
+.slick-next.slick-arrow  {
+	right: 0;
+}
 .property-wrap{
     background-color: #fff;
     position: relative;
@@ -146,4 +166,4 @@
 	.btn {	
 		padding: 7px 15px;		
 	}
-}
+} 
