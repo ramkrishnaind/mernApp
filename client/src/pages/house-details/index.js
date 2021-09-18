@@ -33,6 +33,8 @@ import {Link as RouterLink, useLocation} from 'react-router-dom';
 import propertyDetail from '../property-detail';
 import MapContainer from '../../components/section-map/MapContainer';
 import BookNowModal from '../../components/book-now/book-now';
+import {NoDataAvailable} from '../../components/no-details-available/no-details-available';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -683,7 +685,7 @@ const HouseDetailPage = (props) => {
             </Grid>
           </Grid>
         </Container >
-      ) : null}
+      ) : NoDataAvailable('Details Unavailable')}
       <BookNowModal open={bookNow} closeBookNow={closeBookNow} />
     </div >
   );

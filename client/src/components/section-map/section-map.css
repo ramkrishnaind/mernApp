@@ -1,9 +1,9 @@
-.MuiSelect-outlined.MuiSelect-outlined {
+/* .MuiSelect-outlined.MuiSelect-outlined {
     background: aliceblue!important;
 }
 .MuiFilledInput-input {
     background: aliceblue!important;
-}
+} */
 .form-enquiry{
 	background-color: #2b2825;
 	padding: 20px;
@@ -11,6 +11,32 @@
 .form-group.MuiFormControl-root.MuiTextField-root {
 	width: 100%;
 	margin: 0 0 20px;
+}
+/* .form-group.MuiFormControl-root >label {
+	color: #fff;
+	position: static;
+	transform: none;
+	margin-bottom: 10px;
+	font-size: 14px;
+}
+.form-group.MuiFormControl-root .MuiFilledInput-input {
+	background-color: #fff;
+	border-radius: 10px;
+	box-sizing: border-box;
+	padding: 10px 15px;
+	font-size: 14px;
+	height: 40px;	
+}
+.form-group.MuiFormControl-root .MuiSelect-selectMenu {
+	background-color: #fff;
+	border-radius: 10px;
+	box-sizing: border-box;
+	padding: 10px 15px;
+	height: 40px;	
+	font-size: 14px;
+} */
+.form-group.MuiFormControl-root  .MuiInputBase-formControl fieldset {
+	display: none;
 }
 .form-btn {   
     width: 100%;
@@ -20,4 +46,9 @@
 }
 .form-btn button.MuiButtonBase-root + button.MuiButtonBase-root{
 	margin-left: 10px;
+}
+@media only screen and (max-width: 767px) {
+	.form-enquiry {
+		padding: 5px;
+	}
 }

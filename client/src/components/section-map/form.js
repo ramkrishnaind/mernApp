@@ -22,6 +22,15 @@ const useStyles = makeStyles(theme => ({
             margin: theme.spacing(2),
         },
     },
+    primary: {
+        backgroundColor: '#ef8822',
+        borderRadius: '10px',
+        '&:hover': {
+            backgroundColor: '#00b0b8',
+        },
+    },
+
+
 }));
 
 
@@ -92,6 +101,9 @@ const MapForm = () => {
                 required
                 value={search}
                 onChange={e => setSearch(e.target.value)}
+                InputLabelProps={{
+                    shrink: true,
+                }}
             />
             <label for="city" >City</label>
             <TextField

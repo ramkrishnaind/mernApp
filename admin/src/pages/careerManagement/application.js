@@ -41,12 +41,6 @@ const CareerList = (props) => {
       active: status.target.value,
     };
     // dispatch(CareerAction.CareerApplicationStatusUpdateRequestAsync(tempdata));
-
-    if (status === "enable") {
-      // toast.error("Disable")
-    } else {
-      // toast.success("Enable")
-    }
   }
 
   return (
@@ -118,7 +112,7 @@ const CareerList = (props) => {
                             <option value={false}>Inactive</option>
                             <option value={true}>Active</option>
                           </Select>
-                          {tableMeta.rowData[7] ? (
+                          {/* {tableMeta.rowData[7] ? (
                             <Tooltip title="Active">
                               <Done
                                 onClick={() =>
@@ -136,7 +130,7 @@ const CareerList = (props) => {
                                 style={{ color: "#bd2130", cursor: "pointer" }}
                               />
                             </Tooltip>
-                          )}
+                          )} */}
                         </>
                       );
                     },

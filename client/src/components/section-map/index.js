@@ -24,7 +24,7 @@ const SectionMap = props => {
     const classes = useStyles();
     return (
         <Grid container>
-            <Grid item xs={12} md={8}>
+            <Grid item className="map-container" xs={12} md={8}>
                 <MapContainer key={2} />
             </Grid>
             <Grid className="form-enquiry" item xs={12} md={4}>

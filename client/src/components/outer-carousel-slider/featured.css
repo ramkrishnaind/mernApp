@@ -5,6 +5,26 @@
     position: relative;
 	text-decoration: none;
 }
+.property-carousel > .slick-list {
+    margin: 0 -9px;
+}
+.property-carousel > .slick-list > .slick-track > .slick-slide {
+    padding: 0 10px;
+}
+.slick-prev.slick-arrow, .slick-next.slick-arrow {
+	position: absolute;
+	top: -35px;
+	transform: none;
+	width: 25px;
+	height: 30px;
+}
+.slick-prev.slick-arrow {
+	left: auto;
+	right: 35px;
+}
+.slick-next.slick-arrow  {
+	right: 0;
+}
 .property-wrap{
     background-color: #fff;
     position: relative;
@@ -126,4 +146,29 @@
 	background-color: #676767;
 	border-color: #676767;
 	color: #fff;
+}
+@media only screen and (max-width: 767px) {
+	.property-section .tab-content > .MuiBox-root {
+		padding-top: 30px;
+	}
+	.property-tag {		
+		font-size: 13px;	
+	}
+	.property-summery .property-title {
+		font-size: 15px;		
+		margin-bottom: 10px;
+	}
+	.property-information .property-feature{
+		margin-bottom: 7px;
+	}
+	.property-feature p {
+		font-size: 13px;		
+	}
+	.btn {	
+		padding: 7px 15px;		
+	}
+} 
+
+.property-image-thumb{
+	height:200px
 }

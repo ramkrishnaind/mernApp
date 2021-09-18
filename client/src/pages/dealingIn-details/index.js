@@ -13,14 +13,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useLocation} from 'react-router-dom';
 import ApiClient from '../../api-client';
 import ReactHtmlParser from 'react-html-parser';
-
-const NoDataAvailable = (text) => {
-  return <Container style={{padding: 20, margin: 20}}>
-    <Paper elevation={2} style={{padding: 20, textAlign: 'center'}}>
-      {text}
-    </Paper>
-  </Container>;
-};
+import {NoDataAvailable} from '../../components/no-details-available/no-details-available';
 
 
 const useStyles = makeStyles((theme) => ({

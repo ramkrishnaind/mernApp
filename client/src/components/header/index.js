@@ -302,7 +302,7 @@ const Header = (props) => {
             >
               <Box className="logoImage">
                 <div className="logo">
-                  <img src={Logo} />
+                  <a href="/"> <img src={Logo} /> </a>
                 </div>
               </Box>
               <Grid

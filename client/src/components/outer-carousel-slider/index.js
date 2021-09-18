@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import OwlCarousel from "react-owl-carousel";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./outer-carousel-slider.css";
 import PropertyViewCard from "../property-view-card";
 import {Typography, Grid, Container, makeStyles, Button, Box} from "@material-ui/core";
@@ -23,6 +23,51 @@ const useStyles = makeStyles((theme) => ({
 
 
 
+const settings = {
+    dots: false,
+    arrows: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: false,
+    autoplaySpeed: 2000,
+    initialSlide: 0,
+    draggable: false,
+    responsive: [
+        {
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 3,
+            }
+        },
+        {
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 2,
+            }
+        },
+        {
+            breakpoint: 576,
+            settings: {
+                slidesToShow: 1,
+            }
+        }
+    ]
+};
+
+const settings1 = {
+    dots: false,
+    arrows: false,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    cssEase: 'linear',
+};
+
 const OuterCarouselSlider = (props) => {
 
     // console.log("property props", props);
@@ -37,7 +82,7 @@ const OuterCarouselSlider = (props) => {
     return (
         <div>
             {total > 0 ?
-                <OwlCarousel items={Math.min(3, total)} className="owl-theme" loop={false} nav={true} margin={15} autoPlay={true} dots={false} navText={['next', 'prev']}>
+                <Slider items={Math.min(3, total)} className="property-carousel" {...settings}>
                     {data.map((item, i) => {
                         const {_id, userId, propertyDetails, status, iAm, pType, postingAs, nameOfProject, propertTag, created, updated, __v, features, images} = item;
                         const img = images && images[0]?.mainImage && images[0]?.mainImage[0]?.path ? ApiClient.SERVER_ADDRESS + "/" + images[0]?.mainImage[0]?.path : 'no-image-available-icon-6.png';
@@ -54,7 +99,18 @@ const OuterCarouselSlider = (props) => {
                                     {/* <InnerCarouselSlider /> */}
                                     <Grid className="property-image" style={{position: 'relative'}}>
                                         {propertTag ? <span class="featured">{propertTag}</span> : null}
-                                        <img className="img" style={{height: "238px"}} src={img} />
+                                        {/* <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} /> */}
+                                        <Slider {...settings1}>
+                                            <Box className="property-image-thumb">
+                                                <img src={img} />
+                                            </Box>
+                                            <Box className="property-image-thumb">
+                                                <img src={img} />
+                                            </Box>
+                                            <Box className="property-image-thumb">
+                                                <img src={img} />
+                                            </Box>
+                                        </Slider>
                                     </Grid>
 
                                     <Grid className="property-summery">
@@ -101,11 +157,10 @@ const OuterCarouselSlider = (props) => {
                                     </Grid> */}
 
                                 </Grid>
-                            </Box>
-                        );
+                            </Box>);
                     })}
-                </OwlCarousel> : <CustomNoRowsOverlay />}
-        </div>
+                </Slider> : <CustomNoRowsOverlay />}
+        </div >
     );
 };
 
