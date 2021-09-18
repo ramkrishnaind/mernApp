@@ -283,37 +283,35 @@ function propertyDetail(Models) {
     return PropertyList;
 }
 function deleteProperty(Models) {
-    return function deleteProperty(Models) {
-        async function deletePropertyFun(req, res) {
-            try {
-                let validateData = singlePropertyModuleSchema.validate(req.body);
-                if (validateData.error) {
-                    throw { status: false, error: validateData, message: "Invalid data" };
-                }
-
-
-                // Getting User from Database
-                let deleteData = await Models.PropertyDB.remove({ _id: req.body.propertyId });
-                let deleteFeaturesData = await Models.PFeaturesDB.remove({ _id: req.body.propertyId });
-                let deletePriceData = await Models.PPriceDB.remove({ _id: req.body.propertyId });
-                let deleteImageData = await Models.PImageDB.remove({ _id: req.body.propertyId });
-                console.log('deleteData is', deleteData)
-                if (deleteData) {
-                    // if data found check verified or not
-                    res.send({ status: true, message: "Property Deleted Successfully" });
-                } else {
-                    res.send({ status: true, message: "User not found" });
-                }
-
-
+    async function deletePropertyFun(req, res) {
+        try {
+            let validateData = singlePropertyModuleSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
             }
-            catch (e) {
-                console.log('createUserHelper err', e);
-                await errorResponseHelper({ res, error: e, defaultMessage: "Error in SignUp" });
+
+
+            // Getting User from Database
+            let deleteData = await Models.PropertyDB.remove({ _id: req.body.propertyId });
+            let deleteFeaturesData = await Models.PFeaturesDB.remove({ _id: req.body.propertyId });
+            let deletePriceData = await Models.PPriceDB.remove({ _id: req.body.propertyId });
+            let deleteImageData = await Models.PImageDB.remove({ _id: req.body.propertyId });
+            console.log('deleteData is', deleteData)
+            if (deleteData) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Property Deleted Successfully" });
+            } else {
+                res.send({ status: true, message: "User not found" });
             }
+
+
         }
-        return deletePropertyFun;
-    };
+        catch (e) {
+            console.log('createUserHelper err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in SignUp" });
+        }
+    }
+    return deletePropertyFun;
 }
 function getPropertyLatLong(Models) {
     async function PropertyList(req, res) {

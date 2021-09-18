@@ -52,6 +52,8 @@ function logInHelper(Models) {
                 userId: userData._id,
                 accountno: userData.accountno,
                 token,
+                mobile: userData.mobile,
+                image: userData.image,
                 created_at: new Date()
             }
 

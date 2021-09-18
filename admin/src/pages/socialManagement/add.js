@@ -192,17 +192,6 @@ const SocialCreateUpdate = (props) => {
                 >
                   Save
                 </Button>
-
-                <Link component={RouterLink} to="/facebook">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    type="button"
-                    className={"CanceForm"}
-                  >
-                    Cancel
-                  </Button>
-                </Link>
               </Box>
             </ValidatorForm>
           </div>

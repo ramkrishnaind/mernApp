@@ -5,7 +5,7 @@ import {
   ServiceItemStatusUpdateService,
   ServiceItemDeleteService,
 } from "../../services/ServiceItemService";
-
+import * as Loader from "./LoaderActions";
 /**
  * Call by the Component to make Login Request
  * @param {*} data
@@ -13,6 +13,7 @@ import {
  */
 export const ServiceItemListRequestAsync = (data) => {
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(ServiceItemListRequest());
     ServiceItemListService(dispatch, data);
   };
@@ -56,6 +57,7 @@ export const ServiceItemListError = (data) => {
 export const ServiceItemAddRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(ServiceItemAddRequest());
     ServiceItemAddService(dispatch, data);
   };
@@ -99,6 +101,7 @@ export const ServiceItemAddError = (data) => {
 export const ServiceItemStatusUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(ServiceItemUpdateStatusRequest());
     ServiceItemStatusUpdateService(dispatch, data);
     dispatch(ServiceItemListRequest());
@@ -144,6 +147,7 @@ export const ServiceItemUpdateStatusError = (data) => {
 export const ServiceItemDeleteRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(ServiceItemDeleteRequest());
     ServiceItemDeleteService(dispatch, data);
     dispatch(ServiceItemListRequest());

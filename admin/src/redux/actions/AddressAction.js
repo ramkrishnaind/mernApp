@@ -4,7 +4,7 @@ import {
   AddressUpdateService,
   AddressDataService,
 } from "../../services/AddressService";
-
+import * as Loader from "./LoaderActions";
 /**
  * Call by the Component to make Login Request
  * @param {*} data
@@ -15,6 +15,7 @@ export const AddressAddRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
     dispatch(AddressAddRequest());
+    dispatch(Loader.showLoader(""));
     AddressAddService(dispatch, data);
   };
 };
@@ -58,6 +59,7 @@ export const AddressUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
     dispatch(AddressUpdateRequest());
+    dispatch(Loader.showLoader(""));
     AddressUpdateService(dispatch, data);
   };
 };
@@ -100,6 +102,7 @@ export const AddressUpdateError = (data) => {
 export const AddressDataRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(AddressDataRequest());
     AddressDataService(dispatch, data);
   };

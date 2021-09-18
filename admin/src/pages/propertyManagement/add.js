@@ -1341,7 +1341,7 @@ const PropertyCreateUpdate = (props) => {
                                   handleAminitiesInputChange(e, i)
                                 }
                                 name="amenities"
-                              // value={x}
+                                // value={x}
                               ></TextField>
 
                               <div className="RemoveBtn">

@@ -7,7 +7,7 @@ import {
   BlogDataService,
   BlogDeleteService,
 } from "../../services/BlogService";
-
+import * as Loader from "./LoaderActions";
 /**
  * Call by the Component to make Login Request
  * @param {*} data
@@ -15,6 +15,7 @@ import {
  */
 export const BlogListRequestAsync = (data) => {
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(BlogListRequest());
     BlogListService(dispatch, data);
   };
@@ -58,6 +59,7 @@ export const BlogListError = (data) => {
 export const BlogAddRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(BlogAddRequest());
     BlogAddService(dispatch, data);
   };
@@ -101,6 +103,7 @@ export const BlogAddError = (data) => {
 export const BlogStatusUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(BlogUpdateStatusRequest());
     BlogStatusUpdateService(dispatch, data);
     BlogListService(dispatch, "");
@@ -146,6 +149,7 @@ export const BlogUpdateStatusError = (data) => {
 export const BlogUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(BlogUpdateRequest());
     BlogUpdateService(dispatch, data);
   };
@@ -189,6 +193,7 @@ export const BlogUpdateError = (data) => {
 export const BlogDataRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(BlogDataRequest());
     BlogDataService(dispatch, data);
   };
@@ -232,6 +237,7 @@ export const BlogDataError = (data) => {
 export const BlogDeleteRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(BlogDeleteRequest());
     BlogDeleteService(dispatch, data);
     BlogListService(dispatch, "");

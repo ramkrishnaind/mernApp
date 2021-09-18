@@ -3,7 +3,7 @@ import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/snackbarActions";
 import history from "../components/history";
-
+import * as Loader from "../redux/actions/LoaderActions";
 export const SliderListService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
@@ -19,6 +19,7 @@ export const SliderListService = async (dispatch, data) => {
     dispatch(HomeSliderAction.SliderListError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const SliderAddService = async (dispatch, data) => {
@@ -39,6 +40,7 @@ export const SliderAddService = async (dispatch, data) => {
     dispatch(HomeSliderAction.SliderAddError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const SliderStatusUpdateService = async (dispatch, data) => {
@@ -57,6 +59,7 @@ export const SliderStatusUpdateService = async (dispatch, data) => {
     dispatch(HomeSliderAction.SliderUpdateStatusError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const SliderUpdateService = async (dispatch, data) => {
@@ -77,6 +80,7 @@ export const SliderUpdateService = async (dispatch, data) => {
     dispatch(HomeSliderAction.SliderUpdateError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const SliderDeleteService = async (dispatch, data) => {
@@ -95,6 +99,7 @@ export const SliderDeleteService = async (dispatch, data) => {
     dispatch(HomeSliderAction.SliderDeleteError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const SliderDataService = async (dispatch, data) => {
@@ -112,4 +117,5 @@ export const SliderDataService = async (dispatch, data) => {
     dispatch(HomeSliderAction.SliderDataError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
   }
+  dispatch(Loader.hideLoader(""));
 };

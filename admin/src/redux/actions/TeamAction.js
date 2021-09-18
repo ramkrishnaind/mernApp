@@ -7,7 +7,7 @@ import {
   TeamDataService,
   TeamDeleteService,
 } from "../../services/TeamService";
-
+import * as Loader from "./LoaderActions";
 /**
  * Call by the Component to make Login Request
  * @param {*} data
@@ -15,6 +15,7 @@ import {
  */
 export const TeamListRequestAsync = (data) => {
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(TeamListRequest());
     TeamListService(dispatch, data);
   };
@@ -58,6 +59,7 @@ export const TeamListError = (data) => {
 export const TeamAddRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(TeamAddRequest());
     TeamAddService(dispatch, data);
   };
@@ -101,6 +103,7 @@ export const TeamAddError = (data) => {
 export const TeamStatusUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(TeamUpdateStatusRequest());
     TeamStatusUpdateService(dispatch, data);
     TeamListService(dispatch, "");
@@ -146,6 +149,7 @@ export const TeamUpdateStatusError = (data) => {
 export const TeamUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(TeamUpdateRequest());
     TeamUpdateService(dispatch, data);
   };
@@ -189,6 +193,7 @@ export const TeamUpdateError = (data) => {
 export const TeamDataRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(TeamDataRequest());
     TeamDataService(dispatch, data);
   };
@@ -232,6 +237,7 @@ export const TeamDataError = (data) => {
 export const TeamDeleteRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    dispatch(Loader.showLoader(""));
     dispatch(TeamDeleteRequest());
     TeamDeleteService(dispatch, data);
     TeamListService(dispatch, "");
