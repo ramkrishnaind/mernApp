@@ -12,12 +12,12 @@ const useStyles = makeStyles((theme) => ({
   text1: {
     fontFamily: '"Open Sans",sans-serif',
     color: "#777777",
-    fontSize: 13,
+    fontSize: 12,
   },
   text2: {
     fontFamily: '"Open Sans",sans-serif',
     color: "#888888",
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: 700,
   },
   text3: {
@@ -83,17 +83,20 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "flex-start",
   },
+  iconStyle: {
+    color: '#FF7601',
+  }
 }));
 
 const FactAndFeature = (props) => {
   const classes = useStyles();
-  const { icon, title, value } = props;
+  const {icon, title, value} = props;
 
   return (
-    <Grid container style={{ marginTop: 20, marginBottom: 20 }}>
+    <Grid container style={{marginTop: 20, marginBottom: 20}}>
       <Grid item xs={12} md={12} className={classes.style2}>
-        <Paper style={{ marginRight: 10, padding: 5 }}>
-          <img src={icon} style={{ width: 30, height: 30 }} />
+        <Paper style={{marginRight: 10, padding: 5}}>
+          <i class={`fa ${icon}  ${classes.iconStyle}`} aria-hidden="true"></i>
         </Paper>
         <Grid container>
           <Grid item xs={8} md={8} className={classes.style1}>

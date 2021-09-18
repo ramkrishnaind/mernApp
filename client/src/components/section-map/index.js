@@ -25,7 +25,7 @@ const SectionMap = props => {
     return (
         <Grid container>
             <Grid item xs={12} md={8}>
-                <MapContainer />
+                <MapContainer key={2} />
             </Grid>
             <Grid className="form-enquiry" item xs={12} md={4}>
                 <MapForm />

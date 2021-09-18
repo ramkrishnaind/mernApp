@@ -3,3 +3,7 @@
     border-radius: 16px;
     margin-right: 10px;
 }
+
+.map-container >div{
+    width: 100%;
+}
