@@ -232,6 +232,7 @@ function propertyDetail(Models) {
                     result.possessionStatus = propertyFeatures.possessionStatus;
                     result.availableFromMonth = propertyFeatures.availableFromMonth;
                     result.availableFromYear = propertyFeatures.availableFromYear;
+                    result.propertyTag = propertyFeatures.propertyTag;
                     result.ageOfConstruction = propertyFeatures.ageOfConstruction;
                     result.amenities = propertyFeatures.amenities;
                     result.images = propertyImages;

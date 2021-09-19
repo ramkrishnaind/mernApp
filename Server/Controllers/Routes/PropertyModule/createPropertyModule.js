@@ -44,7 +44,7 @@ const moduleSchema = Joi.object({
     isPostedByAdmin: Joi.boolean(),
     userId: Joi.objectId(),
     totalArea: Joi.number(),
-    tag: Joi.string(),
+    propertyTag: Joi.string(),
     gaurdRoom: Joi.boolean(),
     description: Joi.string(),
 });
@@ -109,7 +109,7 @@ function createPropertyRequest(Models) {
                 locality: bodyData.locality,
                 status: bodyData.status,
                 propertyDetails: bodyData.propertyDetails,
-                tag: bodyData.tag,
+                propertyTag: bodyData.propertyTag,
                 userId: bodyData.userId,
                 gaurdRoom: bodyData.gaurdRoom
             };
