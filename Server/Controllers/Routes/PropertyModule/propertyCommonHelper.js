@@ -215,7 +215,7 @@ function propertyDetail(Models) {
                 let propertyPrice = await Models.PPriceDB.findOne({ propertyId: findData._id }).lean();
                 let propertyReview = await Models.ReviewDB.find({ propertyId: findData._id }).lean();
                 let totalReviews = propertyReview.length;
-                let totalRatingSum = array.reduce(function (totalSum, currentValue) {
+                let totalRatingSum = propertyReview.reduce(function (totalSum, currentValue) {
                     return totalSum + currentValue.rating;
                 }, 0);
                 let rating = totalRatingSum / totalReviews;
@@ -224,9 +224,9 @@ function propertyDetail(Models) {
                 result.userName = '';
                 result.for = findData.for;
                 result.pType = findData.pType;
-                result.pCity = findData.address.city;
+                result.pCity = findData.pCity ? findData.pCity : propertyFeatures.address.city;
                 result.nameOfProject = findData.nameOfProject;
-                result.projectDescription = description;
+                result.projectDescription = propertyFeatures.description;
                 result.postingAs = findData.postingAs;
                 result.created = findData.created;
                 result.bedrooms = propertyFeatures.bedrooms;
