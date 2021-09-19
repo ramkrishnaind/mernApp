@@ -44,8 +44,8 @@ const API_ENDPOINTS = {
   CAREER_DELETE_ENDPOINT: "career/deleteCareer",
   CAREER_DATA_ENDPOINT: "career/getCareerDetail",
 
-  CAREER_APPLICATION_LIST_ENDPOINT: "career/getAllCareer",
-  CAREER_APPLICATION_STATUS_UPDATE_ENDPOINT: "career/updateCareerStatus",
+  CAREER_APPLICATION_LIST_ENDPOINT: "career/JobApplications",
+  CAREER_APPLICATION_STATUS_UPDATE_ENDPOINT: "career/updateApplicationStatus",
 
   //blog module
   BLOG_LIST_ENDPOINT: "blog/getAllBlog",
