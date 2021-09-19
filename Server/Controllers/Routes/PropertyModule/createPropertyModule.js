@@ -46,6 +46,7 @@ const moduleSchema = Joi.object({
     totalArea: Joi.number(),
     tag: Joi.string(),
     gaurdRoom: Joi.boolean(),
+    description: Joi.string(),
 });
 
 
@@ -67,10 +68,11 @@ function createPropertyRequest(Models) {
                 "isCarParkingIncluded", "isClubMemberShipIncluded", "otherCharges", "isStumpDutyRCExcluded",
                 "bookingAmount", "maintenanceCharge", "maintenanceFor", "brokerageCharge", "amenities", "latitude",
                 "longitude", "address", "city", "State", "pinCode", "propertTag", "isPostedByAdmin", "propertyDetails",
-                "userId", "totalArea", "propertyTag", "gaurdRoom"]);
+                "userId", "totalArea", "propertyTag", "gaurdRoom", "description"]);
             // searching email or mobile already exists or not
-            // let findData = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
-            bodyData.propertyCode = "VP001";
+            let propertiesLength = await Models.PropertyDB.count();
+            let code = propertiesLength + 1;
+            bodyData.propertyCode = "VP" + code;
             if (bodyData.isPostedByAdmin) {
                 bodyData.status = 1;
             } else {
@@ -94,6 +96,7 @@ function createPropertyRequest(Models) {
                 ageOfConstruction: bodyData.ageOfConstruction,
                 amenities: bodyData.amenities,
                 propertTag: bodyData.propertTag,
+                description: bodyData.description,
                 address: {
                     latitude: bodyData.latitude,
                     longitude: bodyData.longitude,

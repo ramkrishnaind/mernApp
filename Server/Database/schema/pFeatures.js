@@ -103,6 +103,9 @@ const schema = new Schema({
     ageOfConstruction: {
         type: String
     },
+    description: {
+        type: String
+    },
     amenities: {
         type: Array
     },
