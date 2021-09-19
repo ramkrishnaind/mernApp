@@ -22,6 +22,7 @@ const moduleSchema = Joi.object({
     possessionStatus: Joi.string().empty(""),
     availableFromMonth: Joi.number(),
     availableFromYear: Joi.number(),
+    buildYear: Joi.number(),
     ageOfConstruction: Joi.string().empty(""),
     expectedPrice: Joi.number(),
     pricePerSqFt: Joi.number(),
@@ -68,7 +69,7 @@ function createPropertyRequest(Models) {
                 "isCarParkingIncluded", "isClubMemberShipIncluded", "otherCharges", "isStumpDutyRCExcluded",
                 "bookingAmount", "maintenanceCharge", "maintenanceFor", "brokerageCharge", "amenities", "latitude",
                 "longitude", "address", "city", "State", "pinCode", "propertTag", "isPostedByAdmin", "propertyDetails",
-                "userId", "totalArea", "propertyTag", "gaurdRoom", "description"]);
+                "userId", "totalArea", "propertyTag", "gaurdRoom", "description", "buildYear"]);
             // searching email or mobile already exists or not
             let propertiesLength = await Models.PropertyDB.count();
             let code = propertiesLength + 1;
@@ -93,6 +94,7 @@ function createPropertyRequest(Models) {
                 possessionStatus: bodyData.possessionStatus,
                 availableFromMonth: bodyData.availableFromMonth,
                 availableFromYear: bodyData.availableFromYear,
+                buildYear: bodyData.buildYear,
                 ageOfConstruction: bodyData.ageOfConstruction,
                 amenities: bodyData.amenities,
                 propertTag: bodyData.propertTag,

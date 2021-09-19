@@ -100,6 +100,9 @@ const schema = new Schema({
     availableFromYear: {
         type: Number
     },
+    buildYear: {
+        type: Number
+    },
     ageOfConstruction: {
         type: String
     },
