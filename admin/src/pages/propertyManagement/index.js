@@ -59,7 +59,7 @@ const PropertyList = (props) => {
 
   function onDeleteClick(data) {
     let tempdata = {
-      _id: data,
+      propertyId: data,
     };
 
     confirmAlert({

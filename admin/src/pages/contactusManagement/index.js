@@ -47,7 +47,7 @@ const ContactUsList = (props) => {
   function onDisable(data, status) {
     let tempdata = {
       id: data,
-      isDisable: status,
+      isResolved: status,
     };
     dispatch(ContactusAction.ContactUsStatusUpdateRequestAsync(tempdata));
 
