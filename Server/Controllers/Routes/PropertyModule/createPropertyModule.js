@@ -126,6 +126,7 @@ function createPropertyRequest(Models) {
             let saveModule = await new Models.PropertyDB(bodyData).save();
             moduleFeatureSchema.propertyId = saveModule._id;
             priceSchema.propertyId = saveModule._id;
+            console.log("priceSchema before saving", priceSchema);
             let featureSchemaModule = await new Models.PFeaturesDB(moduleFeatureSchema).save();
             console.log('saveModule is', featureSchemaModule)
             let priceSchemaModule = await new Models.PPriceDB(priceSchema).save();
