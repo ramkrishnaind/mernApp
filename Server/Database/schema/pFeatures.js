@@ -109,6 +109,9 @@ const schema = new Schema({
     amenities: {
         type: Array
     },
+    propertyDetails: {
+        type: Array
+    },
     address: {
         type: Object
     }

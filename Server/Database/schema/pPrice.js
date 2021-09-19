@@ -54,7 +54,7 @@ const schema = new Schema({
     taxRegistration: {
         type: Boolean
     },
-    maintenanceCharges: {
+    maintenanceCharge: {
         type: Number
     },
     per: {
