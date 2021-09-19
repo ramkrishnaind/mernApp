@@ -236,6 +236,7 @@ function propertyDetail(Models) {
                     result.propertyTag = propertyFeatures.propertyTag;
                     result.ageOfConstruction = propertyFeatures.ageOfConstruction;
                     result.amenities = propertyFeatures.amenities;
+                    result.propertyDetails = propertyFeatures.propertyDetails;
                     result.images = propertyImages;
                     result.rating = rating ? rating : 0;
                     result.review = propertyReview;
