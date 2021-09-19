@@ -130,6 +130,7 @@ function createPropertyRequest(Models) {
             console.log('saveModule is', featureSchemaModule)
             let priceSchemaModule = await new Models.PPriceDB(priceSchema).save();
 
+            console.log('priceSchemaModule at saving time', priceSchemaModule)
             res.send({ status: true, propertyId: saveModule._id, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
         }
         catch (e) {

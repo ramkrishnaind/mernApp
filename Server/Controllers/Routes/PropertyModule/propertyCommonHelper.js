@@ -220,6 +220,7 @@ function propertyDetail(Models) {
                     result.created = findData.created;
                     result.bedrooms = propertyFeatures.bedrooms;
                     result.bathrooms = propertyFeatures.bathrooms;
+                    result.balconies = propertyFeatures.balconies;
                     result.gaurdRoom = true;
                     result.floorNo = propertyFeatures.floorNo;
                     result.totalFloors = propertyFeatures.totalFloors;
