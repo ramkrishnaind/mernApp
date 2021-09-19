@@ -30,6 +30,7 @@ module.exports = function (mongoose) {
     const TeamDB = mongoose.model('team');
     const AddressDB = mongoose.model('address');
     const SocialMediaDB = mongoose.model('socialMedia');
+    const JobApplicationDB = mongoose.model('jobApplication');
     return {
         UserDB,
         AuthTokenDB,
@@ -58,6 +59,7 @@ module.exports = function (mongoose) {
         ServiceItemDB,
         TeamDB,
         AddressDB,
-        SocialMediaDB
+        SocialMediaDB,
+        JobApplicationDB
     }
 }

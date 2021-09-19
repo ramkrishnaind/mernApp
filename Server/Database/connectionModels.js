@@ -28,4 +28,5 @@ module.exports = function (mongoose) {
     mongoose.model('team', require('./schema/team'));
     mongoose.model('address', require('./schema/address'));
     mongoose.model('socialMedia', require('./schema/socialMedia'));
+    mongoose.model('jobApplication', require('./schema/jobApplication'));
 }
