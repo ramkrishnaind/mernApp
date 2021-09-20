@@ -47,13 +47,12 @@ function logInHelper(Models) {
             console.log(roleName);
             // create token and add in token collection
             let token = jwt.sign({ date: new Date(), email: userData.email }, process.env.SECRET);
+            console.log('userData is', userData)
             let tokenObj = {
                 email: userData.email,
                 userId: userData._id,
                 accountno: userData.accountno,
                 token,
-                mobile: userData.mobile,
-                image: userData.image,
                 created_at: new Date()
             }
 
@@ -72,6 +71,8 @@ function logInHelper(Models) {
                 lastName: userData.lastName,
                 email: userData.email,
                 accountno: userData.accountno,
+                mobile: userData.mobile,
+                image: userData.image ? userData.image : [],
                 token
             };
 

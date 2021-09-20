@@ -59,7 +59,7 @@ function updatePropertyRequest(Models) {
             }
 
             // pick data from req.body
-            let bodyData = _.pick(req.body, ["propertyId","iAm", "for", "pType", "postingAs", "pCity", "nameOfProject",
+            let bodyData = _.pick(req.body, ["propertyId", "iAm", "for", "pType", "postingAs", "pCity", "nameOfProject",
                 "bedrooms", "balconies", "floorNo", "totalFloors", "furnishedStatus", "bathrooms", "superArea",
                 "builtUpArea", "carpetArea", "transactionType", "possessionStatus", "availableFromMonth",
                 "availableFromYear", "ageOfConstruction", "expectedPrice", "pricePerSqFt", "isPLCIncluded",
@@ -69,7 +69,6 @@ function updatePropertyRequest(Models) {
                 "userId", "totalArea", "tag"]);
             // searching email or mobile already exists or not
             // let findData = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
-            let propertyCode = "VP001";
             if (bodyData.isPostedByAdmin) {
                 bodyData.status = 1;
             } else {
