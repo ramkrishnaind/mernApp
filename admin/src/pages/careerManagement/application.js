@@ -38,9 +38,9 @@ const CareerList = (props) => {
   function onDisable(data, status) {
     let tempdata = {
       _id: data,
-      active: status.target.value,
+      status: status.target.value,
     };
-    // dispatch(CareerAction.CareerApplicationStatusUpdateRequestAsync(tempdata));
+    dispatch(CareerAction.CareerApplicationStatusUpdateRequestAsync(tempdata));
   }
 
   return (
@@ -63,30 +63,32 @@ const CareerList = (props) => {
               data={career?.applicationList.map((item, index) => {
                 return [
                   index + 1,
-                  item?.degination,
-                  item?.department,
-                  item?.desctiption,
-                  item?.experiance,
-                  item?.location,
-                  item?.vacancy,
-                  item?.active,
+                  item?.jobName,
+                  item?.firstName,
+                  item?.lastName,
+                  item?.mobile,
+                  item?.qualification,
+                  item?.message,
+                  item?.status,
                   item?._id,
                 ];
               })}
               columns={[
                 "SR No.",
-                "Degination",
-                "Department",
-                "Description",
-                "Experiance",
-                "Location",
-                "Vacancy",
+                "Job Name",
+                "First Name",
+                "Last Name",
+                "Mobile",
+                "Qualification",
+                "Message",
                 {
                   name: "Status",
                   options: {
                     customBodyRender: (value, tableMeta, updateValue) => {
-                      if (value === true) return "Active";
-                      else return "Inactive";
+                      if (value === 1) return "Applied";
+                      else if (value === 2) return "Selected For Interview";
+                      else if (value === 3) return "Selected";
+                      else if (value === 4) return "Rejected";
                     },
                   },
                 },
@@ -94,45 +96,69 @@ const CareerList = (props) => {
                   name: "Actions",
                   options: {
                     customBodyRender: (value, tableMeta, updateValue) => {
-                      return (
-                        <>
-                          <Select
-                            labelId="demo-simple-select-outlined-label"
-                            id="demo-simple-select-outlined-label"
-                            label="Role"
-                            native
-                            name="rating"
-                            inputProps={{
-                              name: "rating",
-                              id: "age-native-simple",
-                            }}
-                            onChange={(e) => onDisable(tableMeta.rowData[8], e)}
-                            value={tableMeta.rowData[7]}
-                          >
-                            <option value={false}>Inactive</option>
-                            <option value={true}>Active</option>
-                          </Select>
-                          {/* {tableMeta.rowData[7] ? (
-                            <Tooltip title="Active">
-                              <Done
-                                onClick={() =>
-                                  onDisable(tableMeta.rowData[8], false)
-                                }
-                                style={{ color: "#1e7e34", cursor: "pointer" }}
-                              />
-                            </Tooltip>
-                          ) : (
-                            <Tooltip title="Inactive">
-                              <ClearIcon
-                                onClick={() =>
-                                  onDisable(tableMeta.rowData[8], true)
-                                }
-                                style={{ color: "#bd2130", cursor: "pointer" }}
-                              />
-                            </Tooltip>
-                          )} */}
-                        </>
+                      return tableMeta.rowData[7] == 4 ? (
+                        <Select
+                          labelId="demo-simple-select-outlined-label"
+                          id="demo-simple-select-outlined-label"
+                          label="Role"
+                          native
+                          name="rating"
+                          inputProps={{
+                            name: "rating",
+                            id: "age-native-simple",
+                          }}
+                          onChange={(e) => onDisable(tableMeta.rowData[8], e)}
+                          value={tableMeta.rowData[7]}
+                          disabled
+                        >
+                          <option value="1">Applied</option>
+                          <option value="2">Selected For Interview</option>
+                          <option value="3">Selected </option>
+                          <option value="4">Rejected </option>
+                        </Select>
+                      ) : (
+                        <Select
+                          labelId="demo-simple-select-outlined-label"
+                          id="demo-simple-select-outlined-label"
+                          label="Role"
+                          native
+                          name="rating"
+                          inputProps={{
+                            name: "rating",
+                            id: "age-native-simple",
+                          }}
+                          onChange={(e) => onDisable(tableMeta.rowData[8], e)}
+                          value={tableMeta.rowData[7]}
+                        >
+                          <option value="1">Applied</option>
+                          <option value="2">Selected For Interview</option>
+                          <option value="3">Selected </option>
+                          <option value="4">Rejected </option>
+                        </Select>
                       );
+                      // return (
+                      //   <>
+                      //     <Select
+                      //       labelId="demo-simple-select-outlined-label"
+                      //       id="demo-simple-select-outlined-label"
+                      //       label="Role"
+                      //       native
+                      //       name="rating"
+                      //       inputProps={{
+                      //         name: "rating",
+                      //         id: "age-native-simple",
+                      //       }}
+                      //       onChange={(e) => onDisable(tableMeta.rowData[8], e)}
+                      //       value={tableMeta.rowData[7]}
+                      //       disabled
+                      //     >
+                      //       <option value="1">Applied</option>
+                      //       <option value="2">Selected For Interview</option>
+                      //       <option value="3">Selected </option>
+                      //       <option value="4">Rejected </option>
+                      //     </Select>
+                      //   </>
+                      // );
                     },
                   },
                 },
