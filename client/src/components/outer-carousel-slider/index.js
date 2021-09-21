@@ -86,8 +86,8 @@ const OuterCarouselSlider = (props) => {
                 <Slider items={Math.min(3, total)} className="property-carousel" {...settings}>
                     {data.map((item, i) => {
                         const {_id, userId, propertyDetails, status, iAm, pType, postingAs, nameOfProject, propertTag, created, updated, __v, features, images} = item;
-                        const img = images && images[0]?.mainImage && images[0]?.mainImage[0]?.path ? ApiClient.SERVER_ADDRESS + "/" + images[0]?.mainImage[0]?.path : 'no-image-available-icon-6.png';
-                        console.log("img path", img, images);
+                        // const img = images && images[0]?.mainImage && images[0]?.mainImage[0]?.path ? ApiClient.SERVER_ADDRESS + "/" + images[0]?.mainImage[0]?.path : 'no-image-available-icon-6.png';
+                        // console.log("img path", img, images);
                         const propertyFor = item.for;
 
                         let imgs = images[0]?.mainImage;
