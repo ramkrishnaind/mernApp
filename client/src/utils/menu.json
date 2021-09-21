@@ -25,31 +25,19 @@
     },
     {
         "id": 3,
-        "title": "Services",
+        "title": "Property",
         "image": "",
         "submenu": [
             {
                 "title": "RENT",
                 "commercial": [
                     {
-                        "title": "Office"
-                    },
-                    {
-                        "title": "Shop"
+                        "title": "Commercial"
                     }
                 ],
                 "residential": [
                     {
-                        "title": "Flats"
-                    },
-                    {
-                        "title": "2 BHK Flats"
-                    },
-                    {
-                        "title": "3 BHK Flats"
-                    },
-                    {
-                        "title": "Villas"
+                        "title": "Residential"
                     }
                 ]
             },
@@ -57,79 +45,21 @@
                 "title": "SELL",
                 "commercial": [
                     {
-                        "title": "Office S"
-                    },
-                    {
-                        "title": "Shop S"
+                        "title": "Commercial"
                     }
                 ],
                 "residential": [
                     {
-                        "title": "Flats S"
-                    },
-                    {
-                        "title": "2 BHK Flats S"
-                    },
-                    {
-                        "title": "3 BHK Flats S"
-                    },
-                    {
-                        "title": "Villas S"
-                    }
-                ]
-            },
-            {
-                "title": "CONSTRUCTION",
-                "commercial": [
-                    {
-                        "title": "Office"
-                    },
-                    {
-                        "title": "Shop"
-                    }
-                ],
-                "residential": [
-                    {
-                        "title": "Flats"
-                    },
-                    {
-                        "title": "2 BHK Flats"
-                    },
-                    {
-                        "title": "3 BHK Flats"
-                    },
-                    {
-                        "title": "Villas"
-                    }
-                ]
-            },
-            {
-                "title": "INTERIOR",
-                "commercial": [
-                    {
-                        "title": "Office"
-                    },
-                    {
-                        "title": "Shop"
-                    }
-                ],
-                "residential": [
-                    {
-                        "title": "Flats"
-                    },
-                    {
-                        "title": "2 BHK Flats"
-                    },
-                    {
-                        "title": "3 BHK Flats"
-                    },
-                    {
-                        "title": "Villas"
+                        "title": "Residential"
                     }
                 ]
             }
-            
         ]
+    },
+    {
+        "id": 4,
+        "title": "Services",
+        "href": "/service-details"
     },
     {
         "id": 4,
