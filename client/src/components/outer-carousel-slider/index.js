@@ -113,7 +113,7 @@ const OuterCarouselSlider = (props) => {
                                         {propertTag ? <span class="featured">{propertTag}</span> : null}
                                         {/* <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} /> */}
                                         <Slider {...settings1}>
-                                            { }
+
                                             {(imgs).map(imgPath => {
 
                                                 return <Box className="property-image-thumb">

@@ -53,3 +53,7 @@
         height: 70px;
     }
 }
+
+.image-gallery-content .image-gallery-slide .image-gallery-image{
+    height: 400px!important;
+}

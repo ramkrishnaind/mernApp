@@ -34,6 +34,7 @@ import propertyDetail from '../property-detail';
 import MapContainer from '../../components/section-map/MapContainer';
 import BookNowModal from '../../components/book-now/book-now';
 import {NoDataAvailable} from '../../components/no-details-available/no-details-available';
+import ApiClient from '../../api-client';
 
 
 
@@ -174,6 +175,28 @@ const HouseDetailPage = (props) => {
     setBookNow(false);
   };
 
+  let imgs = [];
+
+  if (viewDetails) {
+    imgs = PropertyDetail.images?.mainImage;
+
+    if (!imgs || imgs.length == 0) {
+      imgs = [{
+        original: 'no-image-available-icon-6.png',
+        thumbnail: 'no-image-available-icon-6.png',
+        description: ""
+      }];
+    } else {
+      imgs = imgs.map(imgInfo => {
+        return {
+          original: ApiClient.SERVER_ADDRESS + "/" + imgInfo.path,
+          thumbnail: ApiClient.SERVER_ADDRESS + "/" + imgInfo.path,
+          description: ""
+        };
+      });
+    }
+  }
+
   console.log("property details *** ", PropertyDetail);
   return (
     <div style={{background: '#F7F7F7'}}>
@@ -253,14 +276,18 @@ const HouseDetailPage = (props) => {
               </Grid>
             </Grid>
           </Paper>
-          <Grid container spacing={2}>
+          <Grid container mt={2} spacing={2}>
             <Grid
               item
               xs={12}
               md={8}
+
               style={{display: 'flex', flexDirection: 'column'}}
             >
-              <CarouselSlider />
+              <Paper style={{marginTop: 20}}>
+                <CarouselSlider images={imgs} />
+              </Paper>
+
               <InfoCard item={{title: 'Facts and Features'}}>
                 <Grid container>
                   <Grid item xs={12} md={3}>
