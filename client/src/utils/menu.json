@@ -27,32 +27,7 @@
         "id": 3,
         "title": "Services",
         "image": "",
-        "submenu": [
-            {
-                "title": "RENT",
-                "commercial": [
-                    {
-                        "title": "Office"
-                    },
-                    {
-                        "title": "Shop"
-                    }
-                ],
-                "residential": [
-                    {
-                        "title": "Flats"
-                    },
-                    {
-                        "title": "2 BHK Flats"
-                    },
-                    {
-                        "title": "3 BHK Flats"
-                    },
-                    {
-                        "title": "Villas"
-                    }
-                ]
-            },
+        "submenu": [       
             {
                 "title": "SELL",
                 "commercial": [
@@ -75,6 +50,31 @@
                     },
                     {
                         "title": "Villas S"
+                    }
+                ]
+            },
+            {
+                "title": "RENT",
+                "commercial": [
+                    {
+                        "title": "Office"
+                    },
+                    {
+                        "title": "Shop"
+                    }
+                ],
+                "residential": [
+                    {
+                        "title": "Flats"
+                    },
+                    {
+                        "title": "2 BHK Flats"
+                    },
+                    {
+                        "title": "3 BHK Flats"
+                    },
+                    {
+                        "title": "Villas"
                     }
                 ]
             },
@@ -133,20 +133,30 @@
     },
     {
         "id": 4,
+        "title": "Sell",
+        "href": "/sell"
+    },
+    {
+        "id": 5,
+        "title": "Rent",
+        "href": "/rent"
+    },
+    {
+        "id": 6,
         "title": "Careers",
         "href": "/carrer"
     },
     {
-        "id": 5,
+        "id": 7,
         "title": "Finance"
     },
     {
-        "id": 6,
+        "id": 8,
         "title": "Contact Us",
         "href": "/contact-us"
     },
     {
-        "id": 7,
+        "id": 9,
         "title": "Blog",
         "href": "/blog"
     }

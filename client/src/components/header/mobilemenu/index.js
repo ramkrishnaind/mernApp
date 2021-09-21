@@ -51,7 +51,7 @@ export default function Mobilemenu() {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
-                {['Home', 'About', 'Services', 'Careers', 'Finance', 'Contact Us', 'Blog'].map((text, index) => (
+                {['Home', 'About', 'Services', 'Sell', 'Rent', 'Careers', 'Finance', 'Contact Us', 'Blog'].map((text, index) => (
                     <ListItem button key={text}>
                         <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                         <ListItemText primary={text} />
@@ -69,7 +69,7 @@ export default function Mobilemenu() {
                 <React.Fragment key={anchor}>
                     <div className="fullWidthheader">
                         <div className="blackRowheader PL">
-                            <img src={logo} alt="Logo" className="mobilelogoWidth" />
+                            <a href="/"><img src={logo} alt="Logo" className="mobilelogoWidth" /></a>
                             <div className="humbergIcon">
                                 <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
                                 <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>

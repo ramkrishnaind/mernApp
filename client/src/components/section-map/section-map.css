@@ -9,6 +9,8 @@
 	padding: 20px;
 }
 .form-group.MuiFormControl-root.MuiTextField-root {
+	background-color: transparent;
+	border-radius: 0;
 	width: 100%;
 	margin: 0 0 20px;
 }

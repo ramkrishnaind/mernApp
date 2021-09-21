@@ -25,9 +25,9 @@
 .about-image-column .slider-item img {
 	max-height: 100%;
 }
-/* .about-image-column .owl-dots {
+.about-image-column .owl-dots {
 	display: none;
-} */
+}
 .about-content h4{
 	color: #00b0b8;
 	font-size: 16px;
