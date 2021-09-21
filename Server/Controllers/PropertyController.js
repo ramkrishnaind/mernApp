@@ -54,6 +54,7 @@ module.exports = function (conn) {
     router.post('/getUserIdPropertyRequest', getUserIdPropertyList(allCollection))
     router.post('/updatePrice', updatePrice(allCollection))
     router.post('/getSearchPropertyList', requestAuthMiddleware, getSearchPropertyList(allCollection))
+    router.post('/getSearchTerms', requestAuthMiddleware, getSearchTerms(allCollection))
     router.post('/getPropertyLatLong', requestAuthMiddleware, propertyCommonHelper.getPropertyLatLong(allCollection))
 
 
