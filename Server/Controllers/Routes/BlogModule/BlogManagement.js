@@ -20,7 +20,7 @@ const updateBlogSchema = Joi.object({
     _id: Joi.objectId().trim().required(),
     title: Joi.string().trim().required(),
     sortDescription: Joi.string().trim(),
-    description: Joi.number().required(),
+    description: Joi.string().required(),
     metaTitle: Joi.string(),
     metaKeywords: Joi.string(),
     metaDescription: Joi.string()
@@ -36,7 +36,7 @@ const updateBlogStatusSchema = Joi.object({
 function createBlogHelper(Models) {
     async function createBlog(req, res) {
         try {
-            
+
             let validateData = createBlogSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: "Invalid data" };
@@ -45,14 +45,14 @@ function createBlogHelper(Models) {
             // pick data from req.body
             let blogFormData = _.pick(req.body, ['title', 'sortDescription', 'description', 'metaTitle', 'metaKeywords', 'metaDescription']);
 
-            if(req.files.length > 0)
-            blogFormData.blogImage = req.files;
-
+            let blogMedia = req.files;
+            blogFormData.blogImage = blogMedia.blogImage;
+            blogFormData.bannerImage = blogMedia.bannerImage;
             let saveBlog = await new Models.BlogDB(blogFormData).save();
-            console.log('saveBlog is ',saveBlog)
+            console.log('saveBlog is ', saveBlog)
             saveBlog = saveBlog.toObject();
-            
-            res.send({ status: true, message: "New Blog created successfully"});
+
+            res.send({ status: true, message: "New Blog created successfully" });
         }
         catch (e) {
             console.log('createBlogHelper err', e);
@@ -65,17 +65,17 @@ function createBlogHelper(Models) {
 function updateBlogHelper(Models) {
     async function update(req, res) {
         try {
-            
+
             let validateData = updateBlogSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: CONSTANTSMESSAGE.INVALID_DATA };
             }
 
             // pick data from req.body
-         
+
             let bodyData = _.pick(req.body, ['title', 'sortDescription', 'description', 'metaTitle', 'metaKeywords', 'metaDescription']);
 
-            
+
             let setData = {
                 title: bodyData.title,
                 sortDescription: bodyData.sortDescription,
@@ -84,13 +84,11 @@ function updateBlogHelper(Models) {
                 metaKeywords: bodyData.metaKeywords,
                 metaDescription: bodyData.metaDescription
             }
-            if(req.files.length > 0)
-            {
-                bodyData.blogImage = req.files;
-                setData ['blogImage']= bodyData.blogImage
-            }
-            
-            let updateModule = await Models.BlogDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData});
+            let blogMedia = req.files;
+            setData['blogImage'] = blogMedia.blogImage;
+            setData['bannerImage'] = blogMedia.bannerImage;
+
+            let updateModule = await Models.BlogDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
             res.send({ status: true, message: 'Blog updated Successfully' });
         }
@@ -110,11 +108,11 @@ function getAllBlogHelper(Models) {
             if (findData.length) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Blogs List", data: findData });
-            }else{
-                res.send({ status: true, message: "No Data found for Blogs"});
+            } else {
+                res.send({ status: true, message: "No Data found for Blogs" });
             }
 
-            
+
         }
         catch (e) {
             console.log('createBlogHelper err', e);
@@ -131,18 +129,18 @@ function getBlogHelper(Models) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
-            
+
             // Getting Blog from Database
-            let findData = await Models.BlogDB.findOne({_id:req.body._id});
-            console.log('findData is',findData)
+            let findData = await Models.BlogDB.findOne({ _id: req.body._id });
+            console.log('findData is', findData)
             if (findData) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Blog Data", data: findData });
-            }else{
-                res.send({ status: true, message: "Blog Data not found"});
+            } else {
+                res.send({ status: true, message: "Blog Data not found" });
             }
 
-            
+
         }
         catch (e) {
             console.log('createBlogHelper err', e);
@@ -159,16 +157,16 @@ function updateBlogStatusHelper(Models) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
-            
-            let bodyData = _.pick(req.body, ["active","_id"]);
+
+            let bodyData = _.pick(req.body, ["active", "_id"]);
             let setData = {
                 active: bodyData.active,
             }
-            let updateModule = await Models.BlogDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData});
+            let updateModule = await Models.BlogDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
 
-            
+
         }
         catch (e) {
             console.log('createBlogHelper err', e);
@@ -185,18 +183,18 @@ function deleteBlogHelper(Models) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
-            
+
             // Getting Blog from Database
-            let deleteData = await Models.BlogDB.remove({_id:req.body._id});
-            console.log('deleteData is',deleteData)
+            let deleteData = await Models.BlogDB.remove({ _id: req.body._id });
+            console.log('deleteData is', deleteData)
             if (deleteData) {
                 // if data found check verified or not
-                res.send({ status: true, message: "Blog Deleted Successfully"});
-            }else{
-                res.send({ status: true, message: "Blog not found"});
+                res.send({ status: true, message: "Blog Deleted Successfully" });
+            } else {
+                res.send({ status: true, message: "Blog not found" });
             }
 
-            
+
         }
         catch (e) {
             console.log('createBlogHelper err', e);

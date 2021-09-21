@@ -107,7 +107,7 @@
     },
     {
         "property_for_id": 2,
-        "propertyType": "Rent/Lease",
+        "propertyType": "Rent",
         "items": [
             {
                 "id": 0,

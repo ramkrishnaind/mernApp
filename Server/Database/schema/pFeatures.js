@@ -10,7 +10,7 @@ const schema = new Schema({
         ref: 'property',
         default: null
     },
-    tag: {
+    propertyTag: {
         type: String
     },
     bedrooms: {
@@ -100,10 +100,19 @@ const schema = new Schema({
     availableFromYear: {
         type: Number
     },
+    buildYear: {
+        type: Number
+    },
     ageOfConstruction: {
         type: String
     },
+    description: {
+        type: String
+    },
     amenities: {
+        type: Array
+    },
+    propertyDetails: {
         type: Array
     },
     address: {

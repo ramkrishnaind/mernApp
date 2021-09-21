@@ -10,6 +10,9 @@ import {
   Checkbox,
   FormControlLabel,
   FormGroup,
+  RadioGroup,
+  Radio,
+  FormLabel,
 } from "@material-ui/core";
 import _ from "lodash";
 import classes from "./makeStyles";
@@ -32,8 +35,11 @@ import Transaction from "./components/transaction";
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
 
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
 const personal_details_options = ["Owner", "Agent", "Builder"];
-const property_details_options = ["Sell", "Rent/Lease"];
+const property_details_options = ["Sell", "Rent"];
 
 const PropertyCreateUpdate = (props) => {
   // store data
@@ -91,7 +97,7 @@ const PropertyCreateUpdate = (props) => {
     },
     available_from_month: propertyData?.availableFromMonth,
     available_from_year: propertyData?.availableFromYear,
-
+    gaurdRoom: propertyData?.gaurdRoom,
     id: id,
     status: true,
   };
@@ -107,6 +113,7 @@ const PropertyCreateUpdate = (props) => {
     locationMap: [],
     other: [],
   };
+  const [description, setDescription] = useState(propertyData?.description);
   const [state, setState] = useState(initialState);
   const [amenities, setAmenities] = useState([{ 0: "" }]);
   const [propertyDetail, setPropertyDetail] = useState([
@@ -151,7 +158,7 @@ const PropertyCreateUpdate = (props) => {
 
   useEffect(() => {
     // console.log("-Form-Data-image-", image);
-    // console.log("-Form-Data-State-", state);
+    console.log("-Form-Data-State-", state);
 
     // console.log("-Form-amenities-State-", amenities);
     // console.log("-Property-Features-", propertyDetail);
@@ -159,7 +166,7 @@ const PropertyCreateUpdate = (props) => {
     const clonePropertyTypeOptions = _.cloneDeep(propertyTypeOptions);
     if (option === "Sell") {
       clonePropertyTypeOptions.splice(1, 1);
-    } else if (option === "Rent/Lease") {
+    } else if (option === "Rent") {
       clonePropertyTypeOptions.splice(0, 1);
     }
     setPropertyOptions(clonePropertyTypeOptions[0]);
@@ -188,7 +195,7 @@ const PropertyCreateUpdate = (props) => {
     const clonePropertyTypeOptions = _.cloneDeep(propertyTypeOptions);
     if (option === "Sell") {
       clonePropertyTypeOptions.splice(1, 1);
-    } else if (option === "Rent/Lease") {
+    } else if (option === "Rent") {
       clonePropertyTypeOptions.splice(0, 1);
     }
     setPropertyOptions(clonePropertyTypeOptions[0]);
@@ -277,8 +284,11 @@ const PropertyCreateUpdate = (props) => {
         city: state.city,
         State: state.State,
         pinCode: state.pinCode,
-        propertTag: state.Transaction_Type,
+        propertyTag: state.Property_Tag,
+        transactionType: state.Transaction_Type,
         propertyDetails: propertyDetail,
+        description: description,
+        gaurdRoom: state.gaurdRoom,
       };
 
       let data = {
@@ -328,9 +338,12 @@ const PropertyCreateUpdate = (props) => {
         city: state.city,
         State: state.State,
         pinCode: state.pinCode,
-        propertTag: state.Transaction_Type,
+        propertyTag: state.Property_Tag,
+        transactionType: state.Transaction_Type,
         propertyDetails: propertyDetail,
         propertyId: state.id,
+        description: description,
+        gaurdRoom: state.gaurdRoom,
       };
 
       let data = {
@@ -1058,6 +1071,10 @@ const PropertyCreateUpdate = (props) => {
     }
   };
 
+  const handleChangeTextEditor = (content, editor) => {
+    setDescription(content);
+  };
+
   return (
     <Box className="PropertyManagement_Data">
       <FormHeader
@@ -1107,12 +1124,7 @@ const PropertyCreateUpdate = (props) => {
                           {_renderOwnerBlock()}
                         </Grid>
                       )} */}
-                    </Grid>
-                  </FieldsContainer>
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                  <FieldsContainer label="Property Details">
-                    <Grid container>
+
                       <Grid item xs={12} md={12}>
                         <Detail
                           title="For"
@@ -1153,7 +1165,10 @@ const PropertyCreateUpdate = (props) => {
                         </Select>
                       </Grid>
                     </Grid>
-
+                  </FieldsContainer>
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                  <FieldsContainer label="Property Details">
                     <Box mt={2} />
                     {propertyDetail.map((x, i) => {
                       return (
@@ -1341,7 +1356,7 @@ const PropertyCreateUpdate = (props) => {
                                   handleAminitiesInputChange(e, i)
                                 }
                                 name="amenities"
-                                // value={x}
+                              // value={x}
                               ></TextField>
 
                               <div className="RemoveBtn">
@@ -1421,7 +1436,80 @@ const PropertyCreateUpdate = (props) => {
                   </FieldsContainer>
                 </Grid>
 
+                <Grid className="form-group-item" item xs={12} sm={12} md={12}>
+                  {propertyData?.description != null ? (
+                    <>
+                      <ReactQuill
+                        onChange={handleChangeTextEditor}
+                        value={
+                          description ? description : propertyData?.description
+                        }
+                        placeholder="Enter description"
+                        theme="snow"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <ReactQuill
+                        onChange={handleChangeTextEditor}
+                        placeholder="Enter description"
+                        theme="snow"
+                      />
+                    </>
+                  )}
+                </Grid>
+
+                <Box mt={2} />
+                <Grid item xs={12} md={12}>
+                  <FormLabel component="legend">Gaurd Room</FormLabel>
+                  <RadioGroup
+                    row
+                    aria-label="gender"
+                    name="gaurdRoom"
+                    onChange={handleChange}
+                    value={
+                      state.gaurdRoom
+                        ? state.gaurdRoom
+                        : propertyData?.gaurdRoom
+                    }
+                  >
+                    <FormControlLabel
+                      value={true}
+                      control={<Radio />}
+                      label="Yes"
+                    />
+                    <FormControlLabel
+                      value={false}
+                      control={<Radio />}
+                      label="No"
+                    />
+                  </RadioGroup>
+                </Grid>
                 <Grid item xs={12} sm={12}>
+                  <Grid item xs={12} md={12}>
+                    <Grid container>
+                      {_.size(formFields) > 0 &&
+                        formFields?.sections?.map((section, sectionIndex) => {
+                          switch (section?.section_id) {
+                            case APP_CONSTANTS.section_features:
+                              return _renderFeaturesSection(
+                                section,
+                                sectionIndex
+                              );
+                            case APP_CONSTANTS.section_area:
+                              return _renderAreaSection(section, sectionIndex);
+                            case APP_CONSTANTS.section_transaction:
+                              return _renderTransactionSection(
+                                section,
+                                sectionIndex
+                              );
+                            case APP_CONSTANTS.section_price:
+                              return _renderPriceSection(section, sectionIndex);
+                          }
+                        })}
+                    </Grid>
+                  </Grid>
+
                   <FieldsContainer label="Property Image">
                     <Grid container>
                       <Grid item xs={12} sm={6} md={4}>
@@ -1553,30 +1641,6 @@ const PropertyCreateUpdate = (props) => {
                         accept="image/*,audio/*,video/*"
                       />
                     </Grid>
-                  </Grid>
-                </Grid>
-
-                <Grid item xs={12} md={12}>
-                  <Grid container>
-                    {_.size(formFields) > 0 &&
-                      formFields?.sections?.map((section, sectionIndex) => {
-                        switch (section?.section_id) {
-                          case APP_CONSTANTS.section_features:
-                            return _renderFeaturesSection(
-                              section,
-                              sectionIndex
-                            );
-                          case APP_CONSTANTS.section_area:
-                            return _renderAreaSection(section, sectionIndex);
-                          case APP_CONSTANTS.section_transaction:
-                            return _renderTransactionSection(
-                              section,
-                              sectionIndex
-                            );
-                          case APP_CONSTANTS.section_price:
-                            return _renderPriceSection(section, sectionIndex);
-                        }
-                      })}
                   </Grid>
                 </Grid>
               </Grid>

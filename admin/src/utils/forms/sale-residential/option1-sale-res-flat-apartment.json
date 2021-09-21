@@ -93,15 +93,21 @@
             "section_id": "transaction",
             "fields": [
                 {
+                    "label": "Property Tag",
+                    "type": "radio",
+                    "values": ["New", "Most Selling","Featured"],
+                    "fieldName": "property_tag"
+                },
+                {
                     "label": "Transaction Type",
                     "type": "radio",
-                    "values": ["New Property", "ReSell"],
+                    "values": ["New Property", "ReSell","Rent"],
                     "fieldName": "transaction_type"
                 },
                 {
                     "label": "Possession Status",
                     "type": "radio",
-                    "values": ["Under Construction", "Ready to move"],
+                    "values": ["Under Construction", "Ready to Move","Sold Out"],
                     "fieldName": "Possession_Status"
                 },
                 {
@@ -148,28 +154,6 @@
                             "placeholder": "",
                             "label": "Price Per Sq-ft:",
                             "fieldName": "expected_price_per_sq_ft"
-                        }
-                    ]
-                },
-                {
-                    "type": "checkbox",
-                    "label": "Price Includes",
-                    "fieldName": "price_includes",
-                    "fields": [
-                        {
-                            "label": "PLC",
-                            "value": "plc",
-                            "fieldName": "price_includes_plc"
-                        },
-                        {
-                            "label": "Car Parking",
-                            "value": "car parking",
-                            "fieldName": "price_includes_car_parking"
-                        },
-                        {
-                            "label": "Club Membership",
-                            "value": "club membership",
-                            "fieldName": "price_includes_club_membership"
                         }
                     ]
                 },

@@ -171,7 +171,7 @@ function getHomeAllProperty(Models) {
     return PropertyList;
 }
 function propertyDetail(Models) {
-    async function PropertyList(req, res) {
+    async function propertyDetailFun(req, res) {
         try {
             let validateData = singlePropertyModuleSchema.validate(req.body);
             if (validateData.error) {
@@ -179,100 +179,76 @@ function propertyDetail(Models) {
             }
 
             // pick data from req.body
-
+            let property;
             let bodyData = _.pick(req.body, ["propertyId"]);
             let _id = bodyData.propertyId;
-            let result = {};
-            // let findData = await Models.PropertyDB.aggregate([
-            //     {
-            //         $match: {
-            //             _id
-            //         }
-            //     },
-            //     {
-            //         $lookup:
-            //         {
-            //             from: 'pfeatures',
-            //             localField: '_id',
-            //             foreignField: 'propertyId',
-            //             as: 'features'
-            //         }
-            //     },
-            //     {
-            //         $lookup:
-            //         {
-            //             from: 'pimages',
-            //             localField: '_id',
-            //             foreignField: 'propertyId',
-            //             as: 'images'
-            //         }
-            //     }
-            // ]);
             let findData = await Models.PropertyDB.findOne({ _id }).lean();
+            console.log("findData is", findData)
             if (findData) {
-                let propertyFeatures = await Models.PFeaturesDB.findOne({ propertyId: findData._id }).lean();
-                //let propertyAmenities = await Models.PFeaturesDB.findOne({ propertyId: findData._id }).lean();
+                let propertyFeaturesResponse = await Models.PFeaturesDB.findOne({ propertyId: findData._id }).lean();
+                let propertyImagesResponse = await Models.PImageDB.findOne({ propertyId: findData._id }).lean();
+                let propertyPriceResponse = await Models.PPriceDB.findOne({ propertyId: findData._id }).lean();
+                let propertyReviewResponse = await Models.ReviewDB.find({ propertyId: findData._id }).lean();
 
-                result._id = findData._id;
-                result.iAm = findData.iAm;
-                result.userName = '';
-                result.for = findData.for;
-                result.pType = findData.pType;
-                result.pCity = findData.pCity;
-                result.nameOfProject = findData.nameOfProject;
-                result.projectDescription = '';
-                result.postingAs = findData.postingAs;
-                result.created = findData.created;
-                result.bedrooms = propertyFeatures.bedrooms;
-                result.bathrooms = propertyFeatures.bathrooms;
-                result.gaurdRoom = true;
-                result.floorNo = propertyFeatures.floorNo;
-                result.totalFloors = propertyFeatures.totalFloors;
-                result.furnishedStatus = propertyFeatures.furnishedStatus;
-                result.superArea = propertyFeatures.superArea;
-                result.builtUpArea = propertyFeatures.builtUpArea;
-                result.carpetArea = propertyFeatures.carpetArea;
-                result.transactionType = propertyFeatures.transactionType;
-                result.possessionStatus = propertyFeatures.possessionStatus;
-                result.availableFromMonth = propertyFeatures.availableFromMonth;
-                result.availableFromYear = propertyFeatures.availableFromYear;
-                result.ageOfConstruction = propertyFeatures.ageOfConstruction;
-                result.amenities = {
-                    basketballcourt: true,
-                    airConditioned: true,
-                    swimmingPool: true,
-                    noSmokingZone: true,
-                    gym: true,
-                    petFriendly: true,
-                    freeParkingOnPremises: true,
-                    wheelchairFriendly: true,
-                    homeTheater: true,
-                }
-                result.images = {
-                    main: {},
-                    bedroom: [],
-                }
-                result.rating = 4.5;
-                result.review = [];
-                result.address = {
-                    latitude: '',
-                    longitude: '',
-                    address: '',
-                    city: '',
-                    State: '',
-                    pinCode: '',
-                }
-                result.price = {
-                    priceFor: 'Sell',
-                    price: 3000000,
-                    bookingAmount: '',
-                    maintenanceCharge: '',
-                    brokerageCharge: '',
-                    maintenanceFor: '',
-                }
-                res.send({ status: true, message: "Property Details", data: result });
+                property = await Promise.all([propertyFeaturesResponse, propertyImagesResponse, propertyPriceResponse, propertyReviewResponse]).then(values => {
+                    console.log(values);
+                    let result = {};
+                    let propertyFeatures = values[0];
+                    let propertyImages = values[1];
+                    let propertyPrice = values[2];
+                    let propertyReview = values[3];
+                    console.log("propertyFeatures is", propertyFeatures)
+                    console.log("propertyImages is", propertyImages)
+                    console.log("propertyPrice is", propertyPrice)
+                    console.log("propertyReview is", propertyReview)
+
+
+                    let totalReviews = propertyReview.length;
+                    let totalRatingSum = propertyReview.reduce(function (totalSum, currentValue) {
+                        return totalSum + currentValue.rating;
+                    }, 0);
+                    let rating = totalRatingSum / totalReviews;
+                    result._id = findData._id;
+                    result.iAm = findData.iAm;
+                    result.userName = '';
+                    result.for = findData.for;
+                    result.pType = findData.pType;
+                    result.pCity = findData.pCity ? findData.pCity : propertyFeatures.address.city;
+                    result.nameOfProject = findData.nameOfProject;
+                    result.projectDescription = propertyFeatures.description;
+                    result.postingAs = findData.postingAs;
+                    result.created = findData.created;
+                    result.bedrooms = propertyFeatures.bedrooms;
+                    result.bathrooms = propertyFeatures.bathrooms;
+                    result.balconies = propertyFeatures.balconies;
+                    result.gaurdRoom = true;
+                    result.floorNo = propertyFeatures.floorNo;
+                    result.totalFloors = propertyFeatures.totalFloors;
+                    result.furnishedStatus = propertyFeatures.furnishedStatus;
+                    result.superArea = propertyFeatures.superArea;
+                    result.builtUpArea = propertyFeatures.builtUpArea;
+                    result.carpetArea = propertyFeatures.carpetArea;
+                    result.transactionType = propertyFeatures.transactionType;
+                    result.possessionStatus = propertyFeatures.possessionStatus;
+                    result.availableFromMonth = propertyFeatures.availableFromMonth;
+                    result.availableFromYear = propertyFeatures.availableFromYear;
+                    result.buildYear = propertyFeatures.buildYear;
+                    result.propertyTag = propertyFeatures.propertyTag;
+                    result.ageOfConstruction = propertyFeatures.ageOfConstruction;
+                    result.amenities = propertyFeatures.amenities;
+                    result.propertyDetails = propertyFeatures.propertyDetails;
+                    result.images = propertyImages;
+                    result.rating = rating ? rating : 0;
+                    result.review = propertyReview;
+                    result.address = propertyFeatures.address;
+                    result.price = propertyPrice;
+                    return result;
+                });
+                res.send({ status: true, message: "Property Details", data: property });
+            } else {
+                res.send({ status: true, message: "Property Note available.", data: findData });
             }
-            res.send({ status: true, message: "Property Note available.", data: result });
+
 
         }
         catch (e) {
@@ -280,40 +256,38 @@ function propertyDetail(Models) {
             await errorResponseHelper({ res, error: e, defaultMessage: "Error in Getting Property Details" });
         }
     }
-    return PropertyList;
+    return propertyDetailFun;
 }
 function deleteProperty(Models) {
-    return function deleteProperty(Models) {
-        async function deletePropertyFun(req, res) {
-            try {
-                let validateData = singlePropertyModuleSchema.validate(req.body);
-                if (validateData.error) {
-                    throw { status: false, error: validateData, message: "Invalid data" };
-                }
-
-
-                // Getting User from Database
-                let deleteData = await Models.PropertyDB.remove({ _id: req.body.propertyId });
-                let deleteFeaturesData = await Models.PFeaturesDB.remove({ _id: req.body.propertyId });
-                let deletePriceData = await Models.PPriceDB.remove({ _id: req.body.propertyId });
-                let deleteImageData = await Models.PImageDB.remove({ _id: req.body.propertyId });
-                console.log('deleteData is', deleteData)
-                if (deleteData) {
-                    // if data found check verified or not
-                    res.send({ status: true, message: "Property Deleted Successfully" });
-                } else {
-                    res.send({ status: true, message: "User not found" });
-                }
-
-
+    async function deletePropertyFun(req, res) {
+        try {
+            let validateData = singlePropertyModuleSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
             }
-            catch (e) {
-                console.log('createUserHelper err', e);
-                await errorResponseHelper({ res, error: e, defaultMessage: "Error in SignUp" });
+
+
+            // Getting User from Database
+            let deleteData = await Models.PropertyDB.remove({ _id: req.body.propertyId });
+            let deleteFeaturesData = await Models.PFeaturesDB.remove({ _id: req.body.propertyId });
+            let deletePriceData = await Models.PPriceDB.remove({ _id: req.body.propertyId });
+            let deleteImageData = await Models.PImageDB.remove({ _id: req.body.propertyId });
+            console.log('deleteData is', deleteData)
+            if (deleteData) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Property Deleted Successfully" });
+            } else {
+                res.send({ status: true, message: "User not found" });
             }
+
+
         }
-        return deletePropertyFun;
-    };
+        catch (e) {
+            console.log('createUserHelper err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in SignUp" });
+        }
+    }
+    return deletePropertyFun;
 }
 function getPropertyLatLong(Models) {
     async function PropertyList(req, res) {

@@ -38,8 +38,14 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(db);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(db);
 
-    router.post('/createBlog', userAuthMiddleware, upload.array("blogImage"), blogFunction.createBlogFunc(db));
-    router.post('/updateBlog', userAuthMiddleware, upload.array("blogImage"), blogFunction.updateBlogFunc(db));
+    const pageMedia = [{
+        name: 'blogImage', maxCount: 3
+    }, {
+        name: 'bannerImage', maxCount: 3
+    }];
+
+    router.post('/createBlog', userAuthMiddleware, upload.fields(pageMedia), blogFunction.createBlogFunc(db));
+    router.post('/updateBlog', userAuthMiddleware, upload.fields(pageMedia), blogFunction.updateBlogFunc(db));
     router.post('/getBlog', userAuthMiddleware, blogFunction.getBlogFunc(db));
     router.post('/getBlogDetail', userAuthMiddleware, blogFunction.getBlogDetailFunc(db));
     router.post('/getAllBlog', userAuthMiddleware, blogFunction.getAllBlogFunc(db));

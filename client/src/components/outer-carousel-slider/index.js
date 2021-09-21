@@ -159,7 +159,8 @@ const OuterCarouselSlider = (props) => {
                                 </Grid>
                             </Box>);
                     })}
-                </Slider> : <CustomNoRowsOverlay />}
+                </Slider> : <CustomNoRowsOverlay />
+            }
         </div >
     );
 };

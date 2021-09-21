@@ -29,7 +29,7 @@ let storage = multer.diskStorage({
 let upload = multer({ storage: storage });
 
 const propertyCommonHelper = require('./Routes/PropertyModule/propertyCommonHelper');
-let { createPropertyRequest, getPropertyRequest, updatePropertyStatusRequest, exteriorImage,
+let { createPropertyRequest, getPropertyRequest, updatePropertyRequest, updatePropertyStatusRequest, exteriorImage,
     getUserIdPropertyList, updatePrice, getSearchPropertyList } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
@@ -41,7 +41,7 @@ module.exports = function (conn) {
 
     router.post('/createPropertyRequest', userAuthMiddleware, createPropertyRequest(allCollection))
     router.post('/createProperty', requestAuthMiddleware, createPropertyRequest(allCollection))
-    router.post('/updateProperty', userAuthMiddleware, createPropertyRequest(allCollection))
+    router.post('/updateProperty', userAuthMiddleware, updatePropertyRequest(allCollection))
     router.post('/deleteProperty', userAuthMiddleware, propertyCommonHelper.deleteProperty(allCollection))
     router.post('/propertyDetail', requestAuthMiddleware, propertyCommonHelper.propertyDetail(allCollection))
     router.post('/getPropertyDetail', userAuthMiddleware, propertyCommonHelper.propertyDetail(allCollection))

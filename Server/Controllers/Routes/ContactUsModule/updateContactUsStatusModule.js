@@ -6,7 +6,7 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const schema = Joi.object({
     id: Joi.string().required(),
-    isDisable: Joi.boolean().required()
+    isResolved: Joi.boolean().required()
 });
 
 function updateSliderStatus(Models) {
@@ -18,11 +18,11 @@ function updateSliderStatus(Models) {
                 throw { status: false, error: validateData, message: CONSTANTSMESSAGE.INVALID_DATA };
             }
 
-            let bodyData = _.pick(req.body, ["isDisable","id"]);
+            let bodyData = _.pick(req.body, ["isResolved", "id"]);
             let setData = {
-                isDisable: bodyData.isDisable,
+                isResolved: bodyData.isResolved,
             }
-            let updateModule = await Models.SliderDB.findOneAndUpdate({ _id: bodyData.id }, { $set: setData});
+            let updateModule = await Models.SliderDB.findOneAndUpdate({ _id: bodyData.id }, { $set: setData });
             console.log('updateModule is', updateModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
         }

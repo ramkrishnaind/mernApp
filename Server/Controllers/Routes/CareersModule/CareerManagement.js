@@ -38,11 +38,23 @@ const updateCareerStatusSchema = Joi.object({
     _id: Joi.string().trim().required(),
     active: Joi.boolean().required(),
 });
-
+const jobApplicationSchema = Joi.object({
+    firstName: Joi.string().trim().required(),
+    lastName: Joi.string().trim(),
+    mobile: Joi.number().required(),
+    qualification: Joi.string().required(),
+    careerID: Joi.string().trim().required(),
+    email: Joi.string().required(),
+    message: Joi.string()
+});
+const updateJobApplicationSchema = Joi.object({
+    _id: Joi.string().trim().required(),
+    status: Joi.number().required(),
+});
 function createCareerHelper(Models) {
     async function createCareer(req, res) {
         try {
-            
+
             let validateData = createCareerSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: "Invalid data" };
@@ -53,8 +65,8 @@ function createCareerHelper(Models) {
 
             let saveCareer = await new Models.CareerDB(careerFormData).save();
             saveCareer = saveCareer.toObject();
-            
-            res.send({ status: true, message: "New Job post created successfully"});
+
+            res.send({ status: true, message: "New Job post created successfully" });
         }
         catch (e) {
             console.log('createCareerHelper err', e);
@@ -67,15 +79,15 @@ function createCareerHelper(Models) {
 function updateCareerHelper(Models) {
     async function update(req, res) {
         try {
-            
+
             let validateData = updateCareerSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: CONSTANTSMESSAGE.INVALID_DATA };
             }
 
             // pick data from req.body
-         
-            let bodyData = _.pick(req.body, ["_id",'degination', 'department', 'vacancy', 'experiance', 'location', 'desctiption', 'metaTitle', 'metaKeywords', 'metaDescription']);
+
+            let bodyData = _.pick(req.body, ["_id", 'degination', 'department', 'vacancy', 'experiance', 'location', 'desctiption', 'metaTitle', 'metaKeywords', 'metaDescription']);
             console.log('bodyData is', bodyData)
             let setData = {
                 degination: bodyData.degination,
@@ -88,8 +100,8 @@ function updateCareerHelper(Models) {
                 metaKeywords: bodyData.metaKeywords,
                 metaDescription: bodyData.metaDescription
             }
-            
-            let updateModule = await Models.CareerDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData});
+
+            let updateModule = await Models.CareerDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
             res.send({ status: true, message: 'Job Post updated Successfully' });
         }
@@ -109,11 +121,11 @@ function getAllCareerHelper(Models) {
             if (findData.length) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Careers List", data: findData });
-            }else{
-                res.send({ status: true, message: "No Data found for Careers"});
+            } else {
+                res.send({ status: true, message: "No Data found for Careers" });
             }
 
-            
+
         }
         catch (e) {
             console.log('createCareerHelper err', e);
@@ -130,18 +142,18 @@ function getCareerHelper(Models) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
-            
+
             // Getting Career from Database
-            let findData = await Models.CareerDB.findOne({_id:req.body._id});
-            console.log('findData is',findData)
+            let findData = await Models.CareerDB.findOne({ _id: req.body._id });
+            console.log('findData is', findData)
             if (findData) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Career Data", data: findData });
-            }else{
-                res.send({ status: true, message: "Career Data not found"});
+            } else {
+                res.send({ status: true, message: "Career Data not found" });
             }
 
-            
+
         }
         catch (e) {
             console.log('createCareerHelper err', e);
@@ -158,16 +170,16 @@ function updateCareerStatusHelper(Models) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
-            
-            let bodyData = _.pick(req.body, ["active","_id"]);
+
+            let bodyData = _.pick(req.body, ["active", "_id"]);
             let setData = {
                 active: bodyData.active,
             }
-            let updateModule = await Models.CareerDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData});
+            let updateModule = await Models.CareerDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
 
-            
+
         }
         catch (e) {
             console.log('createCareerHelper err', e);
@@ -184,18 +196,18 @@ function deleteCareerHelper(Models) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
 
-            
+
             // Getting Career from Database
-            let deleteData = await Models.CareerDB.remove({_id:req.body._id});
-            console.log('deleteData is',deleteData)
+            let deleteData = await Models.CareerDB.remove({ _id: req.body._id });
+            console.log('deleteData is', deleteData)
             if (deleteData) {
                 // if data found check verified or not
-                res.send({ status: true, message: "Career Deleted Successfully"});
-            }else{
-                res.send({ status: true, message: "Career not found"});
+                res.send({ status: true, message: "Career Deleted Successfully" });
+            } else {
+                res.send({ status: true, message: "Career not found" });
             }
 
-            
+
         }
         catch (e) {
             console.log('createCareerHelper err', e);
@@ -203,6 +215,76 @@ function deleteCareerHelper(Models) {
         }
     }
     return deleteCareer;
+}
+function applyForJob(Models) {
+    async function apply(req, res) {
+        try {
+
+            let validateData = jobApplicationSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+            // pick data from req.body
+            let jobFormData = _.pick(req.body, ['firstName', 'lastName', 'qualification', 'careerID', 'email', 'mobile', 'message']);
+            jobFormData.resume = req.files;
+            let saveJob = await new Models.JobApplicationDB(jobFormData).save();
+            saveJob = saveJob.toObject();
+            res.send({ status: true, message: "Applied successfully.!" });
+        }
+        catch (e) {
+            console.log('createCareerHelper err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error While Applying to Job" });
+        }
+    }
+    return apply;
+}
+function updateApplicationStatus(Models) {
+    async function updatStatus(req, res) {
+        try {
+            let validateData = updateJobApplicationSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            let bodyData = _.pick(req.body, ["status", "_id"]);
+            let setData = {
+                status: bodyData.status,
+            }
+            let updateModule = await Models.JobApplicationDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
+            console.log('updateModule is', updateModule)
+            res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
+
+
+        }
+        catch (e) {
+            console.log('createCareerHelper err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in SignUp" });
+        }
+    }
+    return updatStatus;
+}
+function getAllApplication(Models) {
+    async function getAllData(req, res) {
+        try {
+            // Getting all Careers from Database
+            let findData = await Models.JobApplicationDB.find();
+            if (findData.length) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Application List", data: findData });
+            } else {
+                res.send({ status: true, message: "No Data found for Careers" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('createCareerHelper err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in getting data" });
+        }
+    }
+    return getAllData;
 }
 
 module.exports = {
@@ -212,5 +294,8 @@ module.exports = {
     getCareerFunc: getCareerHelper,
     updateCareerStatusFun: updateCareerStatusHelper,
     deleteCareerFunc: deleteCareerHelper,
-    getCareerDetailFunc: getCareerHelper
+    getCareerDetailFunc: getCareerHelper,
+    applyForJob,
+    updateApplicationStatus,
+    getAllApplication
 };
