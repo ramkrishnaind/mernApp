@@ -16,6 +16,7 @@ import InnerCarouselSlider from "../inner-carousel-slider";
 import {CustomNoRowsOverlay} from '../../components/no-data-found/no-data-found';
 import ApiClient from "../../api-client";
 import './featured.css';
+import {map} from "jquery";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -88,6 +89,17 @@ const OuterCarouselSlider = (props) => {
                         const img = images && images[0]?.mainImage && images[0]?.mainImage[0]?.path ? ApiClient.SERVER_ADDRESS + "/" + images[0]?.mainImage[0]?.path : 'no-image-available-icon-6.png';
                         console.log("img path", img, images);
                         const propertyFor = item.for;
+
+                        let imgs = images[0]?.mainImage;
+
+                        if (!imgs || imgs.length == 0) {
+                            imgs = ['no-image-available-icon-6.png'];
+                        } else {
+                            imgs = imgs.map(imgInfo => {
+                                return ApiClient.SERVER_ADDRESS + "/" + imgInfo.path;
+                            });
+                        }
+
                         return (
                             <Box key={i} className="property-item" component={RouterLink} to={
                                 {
@@ -101,15 +113,13 @@ const OuterCarouselSlider = (props) => {
                                         {propertTag ? <span class="featured">{propertTag}</span> : null}
                                         {/* <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} /> */}
                                         <Slider {...settings1}>
-                                            <Box className="property-image-thumb">
-                                                <img src={img} />
-                                            </Box>
-                                            <Box className="property-image-thumb">
-                                                <img src={img} />
-                                            </Box>
-                                            <Box className="property-image-thumb">
-                                                <img src={img} />
-                                            </Box>
+                                            { }
+                                            {(imgs).map(imgPath => {
+
+                                                return <Box className="property-image-thumb">
+                                                    <img src={imgPath} alt="" />
+                                                </Box>;
+                                            })}
                                         </Slider>
                                     </Grid>
 

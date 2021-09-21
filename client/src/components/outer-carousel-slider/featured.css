@@ -32,6 +32,8 @@
 }
 .property-image{
     position: relative;
+	height: 200px;
+	background-color: aliceblue;
 }
 .property-image img{
     width: 100%;
