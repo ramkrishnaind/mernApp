@@ -18,7 +18,7 @@ const BuildingCreateUpdate = (props) => {
   let query = useQuery();
   let id = query.get("id");
   let buildingData = props?.building?.buildingData;
-  const [refresh, setRefresh] = useState(false);
+  const [, setRefresh] = useState(false);
 
   useEffect(() => {
     let data = {
@@ -54,14 +54,13 @@ const BuildingCreateUpdate = (props) => {
 
   const handleSubmit = (e) => {
     const { name, id, image } = state;
+    var data = new FormData();
     if (id == null) {
-      var data = new FormData();
       data.append("image", image);
       data.append("name", name);
 
       dispatch(BuildingAction.BuildingAddRequestAsync(data));
     } else {
-      var data = new FormData();
       data.append("image", image);
       data.append("name", name);
       data.append("id", id);
@@ -74,8 +73,7 @@ const BuildingCreateUpdate = (props) => {
   }
 
   const handleBannerUpload = (file, status) => {
-    let list = state;
-    if (status == "done") {
+    if (status === "done") {
       setState({ ...state, ["image"]: file.file });
     }
   };

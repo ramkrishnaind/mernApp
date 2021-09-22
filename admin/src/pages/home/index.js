@@ -1,14 +1,7 @@
-import React from 'react'
-import {useDispatch} from 'react-redux';
+import React from "react";
 
 const HomePage = () => {
-    const dispatch = useDispatch();
+  return <div>Home Page works!</div>;
+};
 
-    return (
-        <div>
-            Home Page works!
-        </div>
-    )
-}
-
-export default HomePage
+export default HomePage;

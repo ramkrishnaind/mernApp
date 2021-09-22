@@ -7,9 +7,6 @@ import BreadCrumbs from "../../common/bread-crumbs";
 import FormHeader from "../../common/form-header";
 import { connect } from "react-redux";
 import MUIDataTable from "mui-datatables";
-import Done from "@material-ui/icons/Done";
-import Tooltip from "@material-ui/core/Tooltip";
-import ClearIcon from "@material-ui/icons/Clear";
 
 const styles = (theme) => ({
   root: {
@@ -96,7 +93,7 @@ const CareerList = (props) => {
                   name: "Actions",
                   options: {
                     customBodyRender: (value, tableMeta, updateValue) => {
-                      return tableMeta.rowData[7] == 4 ? (
+                      return tableMeta.rowData[7] === 4 ? (
                         <Select
                           labelId="demo-simple-select-outlined-label"
                           id="demo-simple-select-outlined-label"

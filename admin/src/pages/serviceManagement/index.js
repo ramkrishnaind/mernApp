@@ -29,7 +29,7 @@ const styles = (theme) => ({
 
 const ServiceList = (props) => {
   const dispatch = useDispatch();
-  let { classes, service } = props;
+  let { service } = props;
   useEffect(() => {
     dispatch(ServiceAction.ServiceListRequestAsync());
   }, []);

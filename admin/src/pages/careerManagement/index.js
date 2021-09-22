@@ -28,7 +28,7 @@ const styles = (theme) => ({
 });
 const CareerList = (props) => {
   const dispatch = useDispatch();
-  let { classes, career } = props;
+  let { career } = props;
 
   useEffect(() => {
     dispatch(CareerAction.CareerListRequestAsync());
@@ -46,12 +46,6 @@ const CareerList = (props) => {
       active: status,
     };
     dispatch(CareerAction.CareerStatusUpdateRequestAsync(tempdata));
-
-    if (status === "enable") {
-      // toast.error("Disable")
-    } else {
-      // toast.success("Enable")
-    }
   }
 
   function onDeleteClick(data) {

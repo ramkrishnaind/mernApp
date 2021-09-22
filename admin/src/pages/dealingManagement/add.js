@@ -72,7 +72,7 @@ const MenuCreateUpdate = (props) => {
   const handleImageExteriorView = (file, status) => {
     let list = state;
     let data = [];
-    if (status == "done") {
+    if (status === "done") {
       if (list.image && list.image.length) {
         data = list.image;
         data[list.image.length] = file.file;
@@ -84,8 +84,7 @@ const MenuCreateUpdate = (props) => {
   };
 
   const handleVideouplaod = (file, status) => {
-    let list = state;
-    if (status == "done") {
+    if (status === "done") {
       setState({ ...state, ["video"]: file.file });
     }
   };

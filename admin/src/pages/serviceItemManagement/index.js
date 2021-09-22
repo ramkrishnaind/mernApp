@@ -13,7 +13,6 @@ import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ClearIcon from "@material-ui/icons/Clear";
-import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "./serviceManagement.css";
@@ -30,7 +29,7 @@ const styles = (theme) => ({
 
 const ServiceItemList = (props) => {
   const dispatch = useDispatch();
-  let { classes, serviceItem } = props;
+  let { serviceItem } = props;
 
   useEffect(() => {
     dispatch(ServiceItemAction.ServiceItemListRequestAsync());

@@ -54,7 +54,6 @@ const MenuCreateUpdate = (props) => {
   };
 
   const [state, setState] = useState(initialState);
-  const [file, setFile] = useState("");
   const [description, setDescription] = useState(teamData?.description);
 
   const inputChange = (e) => {
@@ -75,8 +74,8 @@ const MenuCreateUpdate = (props) => {
       instagram,
       linkedin,
     } = state;
-    if (id == null) {
-      var data = new FormData();
+    var data = new FormData();
+    if (id === null) {
       data.append("image", image);
       data.append("name", name);
       data.append("shortDescription", shortDescription);
@@ -89,7 +88,6 @@ const MenuCreateUpdate = (props) => {
       console.log("dsadsd", data);
       dispatch(TeamAction.TeamAddRequestAsync(data));
     } else {
-      var data = new FormData();
       data.append("image", image);
       data.append("name", name);
       data.append("shortDescription", shortDescription);
@@ -113,8 +111,7 @@ const MenuCreateUpdate = (props) => {
   };
 
   const handleBannerUpload = (file, status) => {
-    let list = state;
-    if (status == "done") {
+    if (status === "done") {
       setState({ ...state, ["image"]: file.file });
     }
   };

@@ -11,10 +11,8 @@ import MUIDataTable from "mui-datatables";
 
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
-import DeleteIcon from "@material-ui/icons/Delete";
 import ClearIcon from "@material-ui/icons/Clear";
 
-import history from "../../components/history";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -28,7 +26,7 @@ const styles = (theme) => ({
 
 const EnquiryList = (props) => {
   const dispatch = useDispatch();
-  let { classes, enquiry } = props;
+  let { enquiry } = props;
   useEffect(() => {
     dispatch(MenuAction.EnquiryListRequestAsync());
   }, []);
@@ -45,20 +43,6 @@ const EnquiryList = (props) => {
       status: status,
     };
     dispatch(MenuAction.EnquiryStatusUpdateRequestAsync(tempdata));
-
-    if (status === "enable") {
-      // toast.error("Disable")
-    } else {
-      // toast.success("Enable")
-    }
-  }
-
-  function onDeleteClick(data) {}
-
-  function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/menu/edit?id="+data;
-    history.push("/career/add?id=" + data);
-    window.location.reload();
   }
 
   return (

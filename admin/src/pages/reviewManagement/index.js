@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Typography, Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as ReviewAction from "../../redux/actions/reviewAction";
@@ -13,7 +13,6 @@ import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import ClearIcon from "@material-ui/icons/Clear";
 
-import history from "../../components/history";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -27,7 +26,7 @@ const styles = (theme) => ({
 
 const ReviewList = (props) => {
   const dispatch = useDispatch();
-  let { classes, review } = props;
+  let { review } = props;
 
   useEffect(() => {
     dispatch(ReviewAction.ReviewListRequestAsync());
@@ -45,22 +44,7 @@ const ReviewList = (props) => {
       status: status,
     };
     dispatch(ReviewAction.ReviewStatusUpdateRequestAsync(tempdata));
-
-    if (status === "enable") {
-      // toast.error("Disable")
-    } else {
-      // toast.success("Enable")
-    }
   }
-
-  function onDeleteClick(data) {}
-
-  function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/menu/edit?id="+data;
-    history.push("/career/add?id=" + data);
-    window.location.reload();
-  }
-
   return (
     <>
       <Box className="MenuManagement_Data">

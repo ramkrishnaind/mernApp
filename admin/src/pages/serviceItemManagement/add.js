@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
@@ -54,7 +54,7 @@ const MenuCreateUpdate = (props) => {
     } = state;
 
     var data = new FormData();
-    state?.image.map((item, index) => {
+    state?.image?.map((item) => {
       data.append("image", item);
     });
     data.append("title", title);
@@ -80,7 +80,7 @@ const MenuCreateUpdate = (props) => {
   const handleImageExteriorView = (file, status) => {
     let list = state;
     let data = [];
-    if (status == "done") {
+    if (status === "done") {
       if (list.image && list.image.length) {
         data = list.image;
         data[list.image.length] = file.file;
@@ -92,15 +92,13 @@ const MenuCreateUpdate = (props) => {
   };
 
   const handleVideouplaod = (file, status) => {
-    let list = state;
-    if (status == "done") {
+    if (status === "done") {
       setState({ ...state, ["video"]: file.file });
     }
   };
 
   const handleBannerUpload = (file, status) => {
-    let list = state;
-    if (status == "done") {
+    if (status === "done") {
       setState({ ...state, ["banner"]: file.file });
     }
   };

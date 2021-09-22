@@ -21,7 +21,7 @@ const MenuCreateUpdate = (props) => {
   let query = useQuery();
   let id = query.get("id");
   let blogData = props?.blog?.blogData;
-  const [refresh, setRefresh] = useState(false);
+  const [, setRefresh] = useState(false);
 
   useEffect(() => {
     let data = {
@@ -53,7 +53,6 @@ const MenuCreateUpdate = (props) => {
   };
 
   const [state, setState] = useState(initialState);
-  const [file, setFile] = useState("");
   const [description, setDescription] = useState(blogData?.description);
 
   const inputChange = (e) => {
@@ -73,8 +72,8 @@ const MenuCreateUpdate = (props) => {
       image,
       bannerImage,
     } = state;
+    var data = new FormData();
     if (id == null) {
-      var data = new FormData();
       data.append("bannerImage", bannerImage);
       data.append("blogImage", image);
       data.append("title", title);
@@ -84,10 +83,8 @@ const MenuCreateUpdate = (props) => {
       data.append("metaKeywords", metaKeywords);
       data.append("metaDescription", metaDescription);
 
-      console.log("dsadsd", data);
       dispatch(BlogAction.BlogAddRequestAsync(data));
     } else {
-      var data = new FormData();
       data.append("bannerImage", bannerImage);
       data.append("blogImage", image);
       data.append("title", title);
@@ -110,15 +107,13 @@ const MenuCreateUpdate = (props) => {
   };
 
   const handleBannerUpload = (file, status) => {
-    let list = state;
-    if (status == "done") {
+    if (status === "done") {
       setState({ ...state, ["image"]: file.file });
     }
   };
 
   const handleBlogBannerUpload = (file, status) => {
-    let list = state;
-    if (status == "done") {
+    if (status === "done") {
       setState({ ...state, ["bannerImage"]: file.file });
     }
   };

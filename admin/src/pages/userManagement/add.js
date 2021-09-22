@@ -29,7 +29,7 @@ const MenuCreateUpdate = (props) => {
   let query = useQuery();
   let id = query.get("id");
   let userData = props?.user?.userData;
-  const [refresh, setRefresh] = useState(false);
+  const [, setRefresh] = useState(false);
 
   useEffect(() => {
     let data = {
@@ -72,9 +72,8 @@ const MenuCreateUpdate = (props) => {
 
   const handleSubmit = (e) => {
     const { firstName, lastName, id, email, mobile, userRole, image } = state;
-
+    var data = new FormData();
     if (id == null) {
-      var data = new FormData();
       data.append("firstName", firstName);
       data.append("lastName", lastName);
       data.append("email", email);
@@ -86,7 +85,6 @@ const MenuCreateUpdate = (props) => {
       // console.log('reqdsd',reqData);
       dispatch(UserAction.UserAddRequestAsync(data));
     } else {
-      var data = new FormData();
       data.append("firstName", firstName);
       data.append("lastName", lastName);
       data.append("email", email);
@@ -105,8 +103,7 @@ const MenuCreateUpdate = (props) => {
   }
 
   const handleBannerUpload = (file, status) => {
-    let list = state;
-    if (status == "done") {
+    if (status === "done") {
       setState({ ...state, ["image"]: file.file });
     }
   };

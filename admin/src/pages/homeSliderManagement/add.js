@@ -1,56 +1,39 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Grid,
-  Typography,
-  Box,
-  Link
-} from "@material-ui/core";
-import {
-  ValidatorForm,
-  TextValidator,
-} from "react-material-ui-form-validator";
+import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 import * as HomeSliderAction from "../../redux/actions/HomeSliderAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
-import './sliderManagement.css';
+import "./sliderManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
-import {
-  Link as RouterLink,
-  useLocation
-} from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 // import Link from "next/link";
-
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
 
 const MenuCreateUpdate = (props) => {
-
   let query = useQuery();
   let id = query.get("id");
   let sliderData = props?.slider?.sliderData;
-  const [refresh, setRefresh] = useState(false);
+  const [, setRefresh] = useState(false);
 
   useEffect(() => {
     let data = {
-      _id: id
-    }
+      _id: id,
+    };
     if (id != null) {
       dispatch(HomeSliderAction.SliderDataRequestAsync(data));
     }
-
   }, [id]);
 
   useEffect(() => {
     if (props.slider.success) {
-      setRefresh(true)
-      setState(initialState)
+      setRefresh(true);
+      setState(initialState);
     }
   }, [props.slider.success]);
 
@@ -62,7 +45,7 @@ const MenuCreateUpdate = (props) => {
     metaTitle: sliderData?.metaTitle,
     metaKeywords: sliderData?.metaKeywords,
     metaDescription: sliderData?.metaDescription,
-    description:sliderData?.description,
+    description: sliderData?.description,
     image: [],
     id: id,
   };
@@ -75,29 +58,35 @@ const MenuCreateUpdate = (props) => {
   };
 
   const handleSubmit = (e) => {
-    const { name, id, metaTitle, metaKeywords, metaDescription,description, image } = state;
+    const {
+      name,
+      id,
+      metaTitle,
+      metaKeywords,
+      metaDescription,
+      description,
+      image,
+    } = state;
     var data = new FormData();
-    state?.image.map((item, index) => {
-      data.append("image",item);
+    image?.map((item, index) => {
+      data.append("image", item);
     });
 
     if (id == null) {
-     
-      data.append('name', name);
-      data.append('description', description);
-      data.append('metaTitle', metaTitle);
-      data.append('metaKeywords', metaKeywords);
-      data.append('metaDescription', metaDescription);
+      data.append("name", name);
+      data.append("description", description);
+      data.append("metaTitle", metaTitle);
+      data.append("metaKeywords", metaKeywords);
+      data.append("metaDescription", metaDescription);
 
       dispatch(HomeSliderAction.SliderAddRequestAsync(data));
-    }
-    else {
-      data.append('name', name);
-      data.append('description', description);
-      data.append('metaTitle', metaTitle);
-      data.append('metaKeywords', metaKeywords);
-      data.append('metaDescription', metaDescription);
-      data.append('_id', id);
+    } else {
+      data.append("name", name);
+      data.append("description", description);
+      data.append("metaTitle", metaTitle);
+      data.append("metaKeywords", metaKeywords);
+      data.append("metaDescription", metaDescription);
+      data.append("_id", id);
       dispatch(HomeSliderAction.SliderUpdateRequestAsync(data));
     }
   };
@@ -109,7 +98,7 @@ const MenuCreateUpdate = (props) => {
   const handleImageExteriorView = (file, status) => {
     let list = state;
     let data = [];
-    if (status == "done") {
+    if (status === "done") {
       if (list.image && list.image.length) {
         data = list.image;
         data[list.image.length] = file.file;
@@ -122,25 +111,33 @@ const MenuCreateUpdate = (props) => {
 
   return (
     <Box className="MenuManagement_Data">
-      <FormHeader heading1={"Slider Module Management"} heading2={"Create and Update Slider Here"} />
+      <FormHeader
+        heading1={"Slider Module Management"}
+        heading2={"Create and Update Slider Here"}
+      />
       {state.id ? (
         <>
-          <BreadCrumbs heading1={"SliderManagement"} heading2={"Edit Slider Module"} />
+          <BreadCrumbs
+            heading1={"SliderManagement"}
+            heading2={"Edit Slider Module"}
+          />
           <SubHeading heading={"Edit Slider Module"} />
         </>
       ) : (
-          <>
-            <BreadCrumbs heading1={"HomeSliderManagement"} heading2={"Add Slider Module"} />
-            <SubHeading heading={"Add Slider Module"} />
-          </>
-        )
-      }
+        <>
+          <BreadCrumbs
+            heading1={"HomeSliderManagement"}
+            heading2={"Add Slider Module"}
+          />
+          <SubHeading heading={"Add Slider Module"} />
+        </>
+      )}
       <Grid item xs={12} className="m-5 addUserFormanage">
         <div className="card w-100">
           <div className="card-header d-flex justify-content-between align-items-center">
             <Typography component="h3" variant="h3">
-              {state.id ? 'Edit' : 'Add'} Home Slider
-              </Typography>
+              {state.id ? "Edit" : "Add"} Home Slider
+            </Typography>
             {/* <Button
                 onClick={() => this.props.history.push("menu")}
                 variant="contained"
@@ -158,7 +155,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Name*"
                     fullWidth
-                    value={(state.name) ? state.name : sliderData?.name}
+                    value={state.name ? state.name : sliderData?.name}
                     onChange={inputChange}
                     name="name"
                     id="name"
@@ -173,7 +170,11 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Description*"
                     fullWidth
-                    value={(state.description) ? state.description : sliderData?.description}
+                    value={
+                      state.description
+                        ? state.description
+                        : sliderData?.description
+                    }
                     onChange={inputChange}
                     name="description"
                     id="description"
@@ -188,7 +189,9 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={(state.metaTitle) ? state.metaTitle : sliderData?.metaTitle}
+                    value={
+                      state.metaTitle ? state.metaTitle : sliderData?.metaTitle
+                    }
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
@@ -201,7 +204,11 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={(state.metaKeywords) ? state.metaKeywords : sliderData?.metaKeywords}
+                    value={
+                      state.metaKeywords
+                        ? state.metaKeywords
+                        : sliderData?.metaKeywords
+                    }
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
@@ -214,7 +221,11 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={(state.metaDescription) ? state.metaDescription : sliderData?.metaDescription}
+                    value={
+                      state.metaDescription
+                        ? state.metaDescription
+                        : sliderData?.metaDescription
+                    }
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"
@@ -259,18 +270,14 @@ const MenuCreateUpdate = (props) => {
           </div>
         </div>
       </Grid>
-    </Box >
-  )
-}
-
+    </Box>
+  );
+};
 
 function mapStateToProps(state) {
   const { slider } = state;
   return {
     slider,
-
   };
 }
-export default connect(mapStateToProps)(
-  (MenuCreateUpdate),
-);
+export default connect(mapStateToProps)(MenuCreateUpdate);

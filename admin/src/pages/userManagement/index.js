@@ -31,8 +31,7 @@ const styles = (theme) => ({
 
 const UserList = (props) => {
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState(true);
-  let { classes, user } = props;
+  let { user } = props;
 
   useEffect(() => {
     dispatch(UserAction.UserListRequestAsync());
@@ -50,12 +49,6 @@ const UserList = (props) => {
       status: status,
     };
     dispatch(UserAction.UserStatusUpdateRequestAsync(tempdata));
-
-    if (status === "enable") {
-      // toast.error("Disable")
-    } else {
-      // toast.success("Enable")
-    }
   }
 
   function onDeleteClick(id) {

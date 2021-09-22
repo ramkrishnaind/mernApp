@@ -48,12 +48,6 @@ const FeedbackList = (props) => {
       active: status,
     };
     dispatch(FeedbackAction.FeedbackStatusUpdateRequestAsync(tempdata));
-
-    if (status === "enable") {
-      // toast.error("Disable")
-    } else {
-      // toast.success("Enable")
-    }
   }
 
   function onDeleteClick(data) {
@@ -77,7 +71,6 @@ const FeedbackList = (props) => {
   }
 
   function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/blog/edit?id="+data;
     history.push("/feedback/add?id=" + data);
     window.location.reload();
   }

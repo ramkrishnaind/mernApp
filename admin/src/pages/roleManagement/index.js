@@ -29,7 +29,7 @@ const styles = (theme) => ({
 
 const RoleList = (props) => {
   const dispatch = useDispatch();
-  let { classes, role } = props;
+  let { role } = props;
 
   useEffect(() => {
     dispatch(RoleAction.RoleListRequestAsync());
@@ -49,12 +49,6 @@ const RoleList = (props) => {
       updatedBy: userData._id,
     };
     dispatch(RoleAction.RoleStatusUpdateRequestAsync(tempdata));
-
-    if (status === "enable") {
-      // toast.error("Disable")
-    } else {
-      // toast.success("Enable")
-    }
   }
 
   function onDeleteClick(data) {

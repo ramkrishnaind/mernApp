@@ -1,11 +1,6 @@
-
 import React, { useEffect } from "react";
 
-import {
-  Grid,
-  Typography,
-  Link
-} from "@material-ui/core";
+import { Grid, Typography, Link } from "@material-ui/core";
 
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/styles";
@@ -207,8 +202,8 @@ const VerificationPage = (props) => {
 
   useEffect(() => {
     let data = {
-      token: token
-    }
+      token: token,
+    };
     if (token != null) {
       dispatch(VerificationAction.VerificationRequestAsync(data));
     }
@@ -226,25 +221,23 @@ const VerificationPage = (props) => {
           <div className={classes.form}>
             <Typography className={classes.mainHeading}>
               Vishal Properties
-          </Typography>
+            </Typography>
 
             <Typography className={classes.welcomeHeading}>
               {props?.verification?.response?.message}
             </Typography>
 
-            <React.Fragment>
-
-
-            </React.Fragment>
+            <React.Fragment></React.Fragment>
           </div>
           <Typography color="primary" className={classes.createAccount}>
-            Back to <Link component={RouterLink} to="/login">Login</Link>
+            Back to{" "}
+            <Link component={RouterLink} to="/login">
+              Login
+            </Link>
           </Typography>
         </div>
 
-        <div className={classes.logotypeContainer}>
-        </div>
-
+        <div className={classes.logotypeContainer}></div>
       </Grid>
     </>
   );
@@ -252,7 +245,7 @@ const VerificationPage = (props) => {
 
 function mapStateToProps(state) {
   const { verification } = state;
-  console.log('state', verification);
+  console.log("state", verification);
   return {
     verification,
   };

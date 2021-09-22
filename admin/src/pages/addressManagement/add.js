@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
+import { Button, Grid, Typography, Box } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 import * as AddressAction from "../../redux/actions/AddressAction";
@@ -8,12 +8,11 @@ import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
 import "./blogManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
-import { Link as RouterLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 
 const AddressCreateUpdate = (props) => {
   let addressData = props?.address?.addressData;
-  const [refresh, setRefresh] = useState(false);
+  const [, setRefresh] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(AddressAction.AddressDataRequestAsync());

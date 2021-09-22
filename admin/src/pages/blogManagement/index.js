@@ -31,7 +31,7 @@ const styles = (theme) => ({
 
 const BlogList = (props) => {
   const dispatch = useDispatch();
-  let { classes, blog } = props;
+  let { blog } = props;
   useEffect(() => {
     dispatch(BlogAction.BlogListRequestAsync());
   }, []);

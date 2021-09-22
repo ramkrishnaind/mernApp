@@ -33,19 +33,19 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
       true
     );
     var propertyId = "6125373540f10f2712e43db5";
-    if (result.propertyId != "") {
+    if (result.propertyId !== "") {
       propertyId = result.propertyId;
     }
     if (imageData.mainImage) {
-      var data = new FormData();
-      data.append("image", imageData.mainImage);
-      data.append("imageType", "mainImage");
-      data.append("propertyId", propertyId);
+      var mainImage = new FormData();
+      mainImage.append("image", imageData.mainImage);
+      mainImage.append("imagetype", "mainImage");
+      mainImage.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        mainImage,
         null,
         null,
         true
@@ -53,18 +53,17 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.badrooms.length > 0) {
-      var data = new FormData();
+      var badrooms = new FormData();
       imageData.badrooms.map((item, index) => {
-        data.append("image", item);
+        badrooms.append("image", item);
       });
-      data.append("imageType", "badrooms");
-      // data.append("propertyId", result.data._id);
-      data.append("propertyId", propertyId);
+      badrooms.append("imagetype", "badrooms");
+      badrooms.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        badrooms,
         null,
         null,
         true
@@ -72,17 +71,17 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.bathrooms.length > 0) {
-      var data = new FormData();
+      var bathrooms = new FormData();
       imageData.bathrooms.map((item, index) => {
-        data.append("image", item);
+        bathrooms.append("image", item);
       });
-      data.append("imageType", "bathrooms");
-      data.append("propertyId", propertyId);
+      bathrooms.append("imagetype", "bathrooms");
+      bathrooms.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        bathrooms,
         null,
         null,
         true
@@ -90,17 +89,17 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.exteriorView.length > 0) {
-      var data = new FormData();
+      var exteriorView = new FormData();
       imageData.exteriorView.map((item, index) => {
-        data.append("image", item);
+        exteriorView.append("image", item);
       });
-      data.append("imageType", "exteriorView");
-      data.append("propertyId", propertyId);
+      exteriorView.append("imagetype", "exteriorView");
+      exteriorView.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        exteriorView,
         null,
         null,
         true
@@ -108,17 +107,17 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.floorPlan.length > 0) {
-      var data = new FormData();
+      var floorPlan = new FormData();
       imageData.floorPlan.map((item, index) => {
-        data.append("image", item);
+        floorPlan.append("image", item);
       });
-      data.append("imageType", "floorPlan");
-      data.append("propertyId", propertyId);
+      floorPlan.append("imagetype", "floorPlan");
+      floorPlan.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        floorPlan,
         null,
         null,
         true
@@ -126,17 +125,17 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.kitchen.length > 0) {
-      var data = new FormData();
+      var kitchen = new FormData();
       imageData.kitchen.map((item, index) => {
-        data.append("image", item);
+        kitchen.append("image", item);
       });
-      data.append("imageType", "kitchen");
-      data.append("propertyId", propertyId);
+      kitchen.append("imagetype", "kitchen");
+      kitchen.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        kitchen,
         null,
         null,
         true
@@ -144,17 +143,17 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.livingRoom.length > 0) {
-      var data = new FormData();
+      var livingRoom = new FormData();
       imageData.livingRoom.map((item, index) => {
-        data.append("image", item);
+        livingRoom.append("image", item);
       });
-      data.append("imageType", "livingRoom");
-      data.append("propertyId", propertyId);
+      livingRoom.append("imagetype", "livingRoom");
+      livingRoom.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        livingRoom,
         null,
         null,
         true
@@ -162,17 +161,17 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.locationMap.length > 0) {
-      var data = new FormData();
+      var locationMap = new FormData();
       imageData.locationMap.map((item, index) => {
-        data.append("image", item);
+        locationMap.append("image", item);
       });
-      data.append("imageType", "locationMap");
-      data.append("propertyId", propertyId);
+      locationMap.append("imagetype", "locationMap");
+      locationMap.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        locationMap,
         null,
         null,
         true
@@ -180,17 +179,17 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.masterPlan.length > 0) {
-      var data = new FormData();
+      var masterPlan = new FormData();
       imageData.masterPlan.map((item, index) => {
-        data.append("image", item);
+        masterPlan.append("image", item);
       });
-      data.append("imageType", "masterPlan");
-      data.append("propertyId", propertyId);
+      masterPlan.append("imagetype", "masterPlan");
+      masterPlan.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        masterPlan,
         null,
         null,
         true
@@ -198,17 +197,17 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.other.length > 0) {
-      var data = new FormData();
+      var other = new FormData();
       imageData.other.map((item, index) => {
-        data.append("image", item);
+        other.append("image", item);
       });
-      data.append("imageType", "other");
-      data.append("propertyId", propertyId);
+      other.append("imagetype", "other");
+      other.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        other,
         null,
         null,
         true
@@ -217,8 +216,8 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
 
     dispatch(PropertyAction.PropertyAddSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
-    history.push("/property");
-    window.location.reload();
+    // history.push("/property");
+    // window.location.reload();
   } catch (error) {
     dispatch(PropertyAction.PropertyAddError(error));
     dispatch(Snackbar.showFailSnackbar(error.response.data.message));
@@ -257,15 +256,15 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
     var propertyId = data.propertyId;
 
     if (imageData.mainImage) {
-      var data = new FormData();
-      data.append("image", imageData.mainImage);
-      data.append("imageType", "mainImage");
-      data.append("propertyId", propertyId);
+      var mainImage = new FormData();
+      mainImage.append("image", imageData.mainImage);
+      mainImage.append("imagetype", "mainImage");
+      mainImage.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        mainImage,
         null,
         null,
         true
@@ -273,17 +272,17 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.badrooms.length > 0) {
-      var data = new FormData();
+      var badrooms = new FormData();
       imageData.badrooms.map((item, index) => {
-        data.append("image", item);
+        badrooms.append("image", item);
       });
-      data.append("imageType", "badrooms");
-      data.append("propertyId", propertyId);
+      badrooms.append("imagetype", "badrooms");
+      badrooms.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        badrooms,
         null,
         null,
         true
@@ -291,17 +290,17 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.bathrooms.length > 0) {
-      var data = new FormData();
+      var bathrooms = new FormData();
       imageData.bathrooms.map((item, index) => {
-        data.append("image", item);
+        bathrooms.append("image", item);
       });
-      data.append("imageType", "bathrooms");
-      data.append("propertyId", propertyId);
+      bathrooms.append("imagetype", "bathrooms");
+      bathrooms.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        bathrooms,
         null,
         null,
         true
@@ -309,17 +308,17 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.exteriorView.length > 0) {
-      var data = new FormData();
+      var exteriorView = new FormData();
       imageData.exteriorView.map((item, index) => {
-        data.append("image", item);
+        exteriorView.append("image", item);
       });
-      data.append("imageType", "exteriorView");
-      data.append("propertyId", propertyId);
+      exteriorView.append("imagetype", "exteriorView");
+      exteriorView.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        exteriorView,
         null,
         null,
         true
@@ -327,17 +326,17 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.floorPlan.length > 0) {
-      var data = new FormData();
+      var floorPlan = new FormData();
       imageData.floorPlan.map((item, index) => {
-        data.append("image", item);
+        floorPlan.append("image", item);
       });
-      data.append("imageType", "floorPlan");
-      data.append("propertyId", propertyId);
+      floorPlan.append("imagetype", "floorPlan");
+      floorPlan.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        floorPlan,
         null,
         null,
         true
@@ -345,17 +344,17 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.kitchen.length > 0) {
-      var data = new FormData();
+      var kitchen = new FormData();
       imageData.kitchen.map((item, index) => {
-        data.append("image", item);
+        kitchen.append("image", item);
       });
-      data.append("imageType", "kitchen");
-      data.append("propertyId", propertyId);
+      kitchen.append("imagetype", "kitchen");
+      kitchen.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        kitchen,
         null,
         null,
         true
@@ -363,17 +362,17 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.livingRoom.length > 0) {
-      var data = new FormData();
+      var livingRoom = new FormData();
       imageData.livingRoom.map((item, index) => {
-        data.append("image", item);
+        livingRoom.append("image", item);
       });
-      data.append("imageType", "livingRoom");
-      data.append("propertyId", propertyId);
+      livingRoom.append("imagetype", "livingRoom");
+      livingRoom.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        livingRoom,
         null,
         null,
         true
@@ -381,17 +380,17 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.locationMap.length > 0) {
-      var data = new FormData();
+      var locationMap = new FormData();
       imageData.locationMap.map((item, index) => {
-        data.append("image", item);
+        locationMap.append("image", item);
       });
-      data.append("imageType", "locationMap");
-      data.append("propertyId", propertyId);
+      locationMap.append("imagetype", "locationMap");
+      locationMap.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        locationMap,
         null,
         null,
         true
@@ -399,17 +398,17 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.masterPlan.length > 0) {
-      var data = new FormData();
+      var masterPlan = new FormData();
       imageData.masterPlan.map((item, index) => {
-        data.append("image", item);
+        masterPlan.append("image", item);
       });
-      data.append("imageType", "masterPlan");
-      data.append("propertyId", propertyId);
+      masterPlan.append("imagetype", "masterPlan");
+      masterPlan.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        masterPlan,
         null,
         null,
         true
@@ -417,17 +416,17 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
     }
 
     if (imageData.other.length > 0) {
-      var data = new FormData();
+      var other = new FormData();
       imageData.other.map((item, index) => {
-        data.append("image", item);
+        other.append("image", item);
       });
-      data.append("imageType", "other");
-      data.append("propertyId", propertyId);
+      other.append("imagetype", "other");
+      other.append("propertyId", propertyId);
 
       await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        data,
+        other,
         null,
         null,
         true

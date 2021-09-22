@@ -12,11 +12,9 @@ import MUIDataTable from "mui-datatables";
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
 
 import ClearIcon from "@material-ui/icons/Clear";
 
-import history from "../../components/history";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -31,7 +29,7 @@ const styles = (theme) => ({
 const BookingList = (props) => {
   const dispatch = useDispatch();
 
-  let { classes, booking } = props;
+  let { booking } = props;
 
   useEffect(() => {
     dispatch(BookingAction.BookingListRequestAsync());
@@ -49,21 +47,9 @@ const BookingList = (props) => {
       status: status,
     };
     dispatch(BookingAction.BookingStatusUpdateRequestAsync(tempdata));
-
-    if (status === "enable") {
-      // toast.error("Disable")
-    } else {
-      // toast.success("Enable")
-    }
   }
 
   function onDeleteClick(data) {}
-
-  function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/menu/edit?id="+data;
-    history.push("/career/add?id=" + data);
-    window.location.reload();
-  }
 
   return (
     <>

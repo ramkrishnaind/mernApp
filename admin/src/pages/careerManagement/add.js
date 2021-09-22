@@ -8,11 +8,7 @@ import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
 import "./careerManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
-import {
-  BrowserRouter as Router,
-  Link as RouterLink,
-  useLocation,
-} from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 
 import { connect } from "react-redux";
 // import Link from "next/link";
@@ -23,7 +19,7 @@ const MenuCreateUpdate = (props) => {
   let id = query.get("id");
   const dispatch = useDispatch();
 
-  const [refresh, setRefresh] = useState(false);
+  const [, setRefresh] = useState(false);
 
   const initialState = {
     degination: careerData?.degination,
@@ -68,7 +64,6 @@ const MenuCreateUpdate = (props) => {
       experiance,
       location,
       vacancy,
-      active,
       id,
     } = state;
     if (id == null) {

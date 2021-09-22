@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 
 import {
@@ -7,7 +6,7 @@ import {
   Typography,
   Button,
   TextField,
-  Link
+  Link,
 } from "@material-ui/core";
 
 import { connect } from "react-redux";
@@ -204,14 +203,13 @@ const styles = (theme) => ({
   },
 });
 const ResetPassword = (props) => {
-
   let query = useQuery();
   let token = query.get("token");
 
   const initialState = {
     password: "",
     cpassword: "",
-    token: token
+    token: token,
   };
   const [state, setState] = useState(initialState);
   const dispatch = useDispatch();
@@ -223,15 +221,14 @@ const ResetPassword = (props) => {
   };
   const loginSubmit = (e) => {
     const { password, cpassword, token } = state;
-    if (password == cpassword) {
+    if (password === cpassword) {
       let reqData = {
         newPassword: password,
-        token: token
+        token: token,
       };
       dispatch(NewPasswordAction.NewPasswordRequestAsync(reqData));
-    }
-    else {
-      dispatch(Snackbar.showFailSnackbar('Both password must be same.'));
+    } else {
+      dispatch(Snackbar.showFailSnackbar("Both password must be same."));
     }
   };
 
@@ -247,10 +244,10 @@ const ResetPassword = (props) => {
           <div className={classes.form}>
             <Typography className={classes.mainHeading}>
               Vishal Properties
-          </Typography>
+            </Typography>
             <Typography className={classes.welcomeHeading}>
               Set New Password
-          </Typography>
+            </Typography>
             <React.Fragment>
               <TextField
                 id="password"
@@ -284,31 +281,34 @@ const ResetPassword = (props) => {
                 {false ? (
                   <CircularProgress size={26} className={classes.loginLoader} />
                 ) : (
-                    <Button
-                      fullWidth
-                      disabled={
-                        state?.password?.length === 0 || state?.cpassword?.length === 0
-                      }
-                      onClick={loginSubmit}
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                    >
-                      Submit
-                    </Button>
-                  )}
+                  <Button
+                    fullWidth
+                    disabled={
+                      state?.password?.length === 0 ||
+                      state?.cpassword?.length === 0
+                    }
+                    onClick={loginSubmit}
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                  >
+                    Submit
+                  </Button>
+                )}
               </div>
             </React.Fragment>
           </div>
           <Typography color="primary" className={classes.createAccount}>
-            Back to <Link component={RouterLink} to="/login">Login</Link>
+            Back to{" "}
+            <Link component={RouterLink} to="/login">
+              Login
+            </Link>
           </Typography>
         </div>
 
         <div className={classes.logotypeContainer}>
           {/* <img src={logo} alt="logo" className={classes.logotypeImage} /> */}
         </div>
-
       </Grid>
       {/* <Register /> */}
     </>

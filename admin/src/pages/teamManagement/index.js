@@ -30,10 +30,8 @@ const styles = (theme) => ({
 });
 
 const TeamList = (props) => {
-  console.log("test prop", props.team);
-
   const dispatch = useDispatch();
-  let { classes, team } = props;
+  let { team } = props;
 
   useEffect(() => {
     dispatch(TeamAction.TeamListRequestAsync());
@@ -51,12 +49,6 @@ const TeamList = (props) => {
       isDisable: status,
     };
     dispatch(TeamAction.TeamStatusUpdateRequestAsync(tempdata));
-
-    if (status === "enable") {
-      // toast.error("Disable")
-    } else {
-      // toast.success("Enable")
-    }
   }
 
   function onDeleteClick(data) {
