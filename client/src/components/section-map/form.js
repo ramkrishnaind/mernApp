@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core';
+import React, {useState} from 'react';
+import {makeStyles} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -114,10 +114,7 @@ const MapForm = () => {
                 value={city}
                 onChange={e => setCity(e.target.value)}
                 //helperText="Please select City"
-                variant="outlined"
-                InputLabelProps={{
-                    shrink: true,
-                }}
+                variant="filled"
             >
                 {cities.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -134,10 +131,7 @@ const MapForm = () => {
                 value={state}
                 onChange={e => setState(e.target.value)}
                 //helperText="Please select State"
-                variant="outlined"
-                InputLabelProps={{
-                    shrink: true,
-                }}
+                variant="filled"
             >
                 {states.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -147,7 +141,10 @@ const MapForm = () => {
             </TextField>
 
             <div className="form-btn">
-                <Button className={classes.primary} type="submit" variant="contained" color="primary">
+                {/* <Button variant="contained" onClick={() => { }}>
+                    Reset
+                </Button> */}
+                <Button type="submit" className="search-btn" variant="contained" >
                     Search
                 </Button>
             </div>

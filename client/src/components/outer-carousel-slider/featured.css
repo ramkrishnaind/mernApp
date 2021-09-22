@@ -32,6 +32,8 @@
 }
 .property-image{
     position: relative;
+	height: 200px;
+	background-color: aliceblue;
 }
 .property-image img{
     width: 100%;
@@ -168,3 +170,7 @@
 		padding: 7px 15px;		
 	}
 } 
+
+.property-image-thumb img{
+	height:200px
+}
