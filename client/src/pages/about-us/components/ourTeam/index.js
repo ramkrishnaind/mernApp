@@ -88,7 +88,7 @@ const OurTeam = props => {
 
 
   return (
-    <Paper elevation={0} style={{padding: 20, marginTop: 20, paddingBottom: 20}}>
+    <Paper elevation={0}>
       <Grid container style={{display: 'flex', justifyContent: 'space-around'}}>
         {(props.team || []).map((member) => {
           return <ProfileCard member={member} />;
