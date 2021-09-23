@@ -60,17 +60,18 @@ module.exports = function (conn) {
     router.post('/movingBanner', userAuthMiddleware, homeFunction.getMovingBanner(db));
 
     router.post('/createDealingIn', userAuthMiddleware, upload.fields(imageVideo), homeFunction.createDealingIn(db));
-    router.post('/updateDealingIn', userAuthMiddleware, upload.fields(imageVideo), homeFunction.updateMovingBanner(db));
-
+    router.post('/updateDealingIn', userAuthMiddleware, upload.fields(imageVideo), homeFunction.updateDealingIn(db));
 
     //
     router.post('/createDealingInItem', userAuthMiddleware, upload.fields(pageMedia), homeFunction.createDealingInItem(db));
     router.post('/getDealingList', userAuthMiddleware, homeFunction.getDealingList(db));
     router.post('/getDealingInDetails', userAuthMiddleware, homeFunction.getDealingInDetails(db));
     router.post('/deleteDealingIn', userAuthMiddleware, homeFunction.deleteDealingIn(db));
+    router.post('/updateDealingInItem', userAuthMiddleware, upload.fields(pageMedia), homeFunction.updateDealingInItem(db));
     router.post('/updateDealingInStatusHelper', userAuthMiddleware, homeFunction.updateDealingInStatusHelper(db));
 
     router.post('/getDealingItemList', userAuthMiddleware, homeFunction.getDealingItemList(db));
+    router.post('/getDealingItem', userAuthMiddleware, homeFunction.getDealingItem(db));
     router.post('/deleteDealingItem', userAuthMiddleware, homeFunction.deleteDealingItem(db));
     router.post('/updateDealingInItemStatusHelper', userAuthMiddleware, homeFunction.updateDealingInItemStatusHelper(db));
 
@@ -79,11 +80,15 @@ module.exports = function (conn) {
     // 
     router.post('/createService', userAuthMiddleware, homeFunction.createService(db));
     router.post('/getServiceList', userAuthMiddleware, homeFunction.getServiceList(db));
+    router.post('/getServiceDetail', userAuthMiddleware, homeFunction.getServiceDetail(db));
+    router.post('/updateService', userAuthMiddleware, homeFunction.updateService(db));
     router.post('/deleteService', userAuthMiddleware, homeFunction.deleteService(db));
     router.post('/updateServiceStatusHelper', userAuthMiddleware, homeFunction.updateServiceStatusHelper(db));
     //
     router.post('/createServiceItem', userAuthMiddleware, upload.fields(pageMedia), homeFunction.createServiceItem(db));
+    router.post('/updateServiceItem', userAuthMiddleware, upload.fields(pageMedia), homeFunction.updateServiceItem(db));
     router.post('/getServiceItemList', userAuthMiddleware, homeFunction.getServiceItemList(db));
+    router.post('/getServiceItem', userAuthMiddleware, homeFunction.getServiceItemDetails(db));
     router.post('/deleteServiceItem', userAuthMiddleware, homeFunction.deleteServiceItem(db));
     router.post('/updateServiceItemStatus', userAuthMiddleware, homeFunction.updateServiceItemStatusHelper(db));
 

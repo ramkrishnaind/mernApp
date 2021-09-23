@@ -52,6 +52,14 @@ const createServiceItemSchema = Joi.object({
     metaKeywords: Joi.string(),
     metaDescription: Joi.string()
 });
+const createServiceSchema = Joi.object({
+    header: Joi.string().required(),
+    title: Joi.string().required(),
+    description: Joi.string().required(),
+    metaTitle: Joi.string(),
+    metaKeywords: Joi.string(),
+    metaDescription: Joi.string()
+});
 /////////// Update Schema ////////////////
 
 const updateHomeAboutSchema = Joi.object({
@@ -69,6 +77,43 @@ const updateHomeMovingBannerSchema = Joi.object({
     projects: Joi.number().required(),
     clients: Joi.number().required(),
     shortDescription: Joi.string()
+});
+const updateDealingInSchema = Joi.object({
+    _id: Joi.objectId().trim().required(),
+    header: Joi.string().required(),
+    title: Joi.string().required(),
+    description: Joi.string().required(),
+    metaTitle: Joi.string(),
+    metaKeywords: Joi.string(),
+    metaDescription: Joi.string()
+});
+const updateServiceSchema = Joi.object({
+    _id: Joi.objectId().trim().required(),
+    header: Joi.string().required(),
+    title: Joi.string().required(),
+    description: Joi.string().required(),
+    metaTitle: Joi.string(),
+    metaKeywords: Joi.string(),
+    metaDescription: Joi.string()
+});
+const updateDealingInItemSchema = Joi.object({
+    _id: Joi.objectId().trim().required(),
+    title: Joi.string().required(),
+    icon: Joi.string().required(),
+    shortDescription: Joi.string().required(),
+    description: Joi.string().required(),
+    metaTitle: Joi.string(),
+    metaKeywords: Joi.string(),
+    metaDescription: Joi.string()
+});
+const updateServiceItemSchema = Joi.object({
+    _id: Joi.objectId().trim().required(),
+    title: Joi.string().required(),
+    shortDescription: Joi.string().required(),
+    description: Joi.string().required(),
+    metaTitle: Joi.string(),
+    metaKeywords: Joi.string(),
+    metaDescription: Joi.string()
 });
 const getHomeSchema = Joi.object({
     _id: Joi.string().trim().required()
@@ -367,16 +412,13 @@ function createDealingInItem(Models) {
 
             // pick data from req.body
             let DealingInItemFormData = _.pick(req.body, ['title', 'shortDescription', 'description', 'icon', 'metaTitle', 'metaKeywords', 'metaDescription']);
-            console.log('DealingInItemFormData is', DealingInItemFormData);
-            console.log('req.files is', req.files);
+
             DealingInItemFormData.media = req.files;
             let isDealingInItemExist = await Models.DealingInItemDB.find({ title: DealingInItemFormData.title });
             if (isDealingInItemExist.length) {
                 res.send({ status: false, message: CONSTANTSMESSAGE.ALREADY_EXIST_MESSAGE });
             } else {
                 let saveDealingInItem = await new Models.DealingInItemDB(DealingInItemFormData).save();
-                console.log('saveDealingInItem is ', saveDealingInItem)
-
                 res.send({ status: true, message: "New DealingInItem created successfully" });
             }
         }
@@ -492,6 +534,43 @@ function getDealingInDetails(Models) {
     }
     return details;
 }
+function updateDealingIn(Models) {
+    async function update(req, res) {
+        try {
+            let validateData = updateDealingInSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            let bodyData = _.pick(req.body, ['_id', 'title', 'shortDescription', 'description', 'metaTitle', 'metaKeywords', 'metaDescription']);
+
+            let setData = {
+                title: bodyData.title,
+                shortDescription: bodyData.shortDescription,
+                description: bodyData.description,
+                icon: bodyData.icon,
+                metaTitle: bodyData.metaTitle,
+                metaKeywords: bodyData.metaKeywords,
+                metaDescription: bodyData.metaDescription,
+            }
+            if (req.files) {
+                setData.media = req.files;
+            }
+
+            let updateModule = await Models.DealingInDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
+            console.log('updateModule is', updateModule)
+            res.send({ status: true, error: false, message: "Dealing In Data Updated" });
+
+
+        }
+        catch (e) {
+            console.log('DealingIn err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in DealingIn" });
+        }
+    }
+    return update;
+}
 function updateDealingInStatusHelper(Models) {
     async function updateHomeStatus(req, res) {
         try {
@@ -605,6 +684,40 @@ function deleteDealingItem(Models) {
     }
     return deleteHome;
 }
+function updateDealingInItem(Models) {
+    async function updateHomeStatus(req, res) {
+        try {
+            let validateData = updateDealingInItemSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            let bodyData = _.pick(req.body, ['_id', 'header', 'title', 'description', 'metaTitle', 'metaKeywords', 'metaDescription']);
+            let setData = {
+                header: bodyData.header,
+                title: bodyData.title,
+                description: bodyData.description,
+                metaTitle: bodyData.metaTitle,
+                metaKeywords: bodyData.metaKeywords,
+                metaDescription: bodyData.metaDescription,
+            }
+            if (req.files) {
+                setData.media = req.files;
+            }
+            let updateModule = await Models.DealingInItemDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
+            console.log('updateModule is', updateModule)
+            res.send({ status: true, error: false, message: "DealingIn Data Updated Successfully." });
+
+
+        }
+        catch (e) {
+            console.log('DealingIn err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in DealingIn" });
+        }
+    }
+    return updateHomeStatus;
+}
 function updateDealingInItemStatusHelper(Models) {
     async function updateHomeStatus(req, res) {
         try {
@@ -638,7 +751,7 @@ function createService(Models) {
     async function create(req, res) {
         try {
             console.log('req.body is', req.body)
-            let validateData = createDealingInSchema.validate(req.body);
+            let validateData = createServiceSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
@@ -663,6 +776,66 @@ function createService(Models) {
         }
     }
     return create;
+}
+function getServiceDetail(Models) {
+    async function details(req, res) {
+        try {
+            let validateData = getHomeSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+            // Getting Home from Database
+            let findData = await Models.ServiceDB.findOne({ _id: req.body._id }).lean();
+            console.log('findData is', findData)
+            if (findData) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Service Data", data: findData });
+            } else {
+                res.send({ status: true, message: "Service Data not found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('getDealingIn err Items', e);
+            await errorResponseHelper({ res, error: e, message: "Error in ServiceItem Items" });
+        }
+    }
+    return details;
+}
+function updateService(Models) {
+    async function update(req, res) {
+        try {
+            let validateData = updateServiceSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+            let bodyData = _.pick(req.body, ['_id', 'title', 'shortDescription', 'description', 'metaTitle', 'metaKeywords', 'metaDescription']);
+
+            let setData = {
+                title: bodyData.title,
+                shortDescription: bodyData.shortDescription,
+                description: bodyData.description,
+                metaTitle: bodyData.metaTitle,
+                metaKeywords: bodyData.metaKeywords,
+                metaDescription: bodyData.metaDescription,
+            }
+            if (req.files) {
+                setData.media = req.files;
+            }
+            let updateModule = await Models.ServiceDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
+            console.log('updateModule is', updateModule)
+            res.send({ status: true, message: "Service Details Updated Successfully." });
+
+
+        }
+        catch (e) {
+            console.log('ServiceItemDB err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in ServiceItemDB" });
+        }
+    }
+    return update;
 }
 function getServiceList(Models) {
     async function DealingIn(req, res) {
@@ -746,6 +919,7 @@ function updateServiceStatusHelper(Models) {
     }
     return updateHomeStatus;
 }
+
 function createServiceItem(Models) {
     async function create(req, res) {
         try {
@@ -774,6 +948,40 @@ function createServiceItem(Models) {
         }
     }
     return create;
+}
+function updateServiceItem(Models) {
+    async function update(req, res) {
+        try {
+            let validateData = updateServiceItemSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            let bodyData = _.pick(req.body, ['_id', 'title', 'shortDescription', 'description', 'metaTitle', 'metaKeywords', 'metaDescription']);
+            let setData = {
+                title: bodyData.title,
+                shortDescription: bodyData.shortDescription,
+                description: bodyData.description,
+                metaTitle: bodyData.metaTitle,
+                metaKeywords: bodyData.metaKeywords,
+                metaDescription: bodyData.metaDescription,
+            }
+            if (req.files) {
+                setData.media = req.files;
+            }
+            let updateModule = await Models.ServiceItemDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
+            console.log('updateModule is', updateModule)
+            res.send({ status: true, message: 'Service Item Updated Successfully.' });
+
+
+        }
+        catch (e) {
+            console.log('ServiceItemDB err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in ServiceItemDB" });
+        }
+    }
+    return update;
 }
 function getServiceItemList(Models) {
     async function DealingIn(req, res) {
@@ -936,5 +1144,10 @@ module.exports = {
     getServiceItemList,
     deleteServiceItem,
     updateServiceItemStatusHelper,
-    getDealingInDetails
+    getDealingInDetails,
+    updateDealingIn,
+    updateDealingInItem,
+    getServiceDetail,
+    updateService,
+    updateServiceItem
 };
