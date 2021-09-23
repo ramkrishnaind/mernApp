@@ -27,7 +27,7 @@ const VistList = (props) => {
 
   useEffect(() => {
     dispatch(SitevisitAction.SitevisitListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

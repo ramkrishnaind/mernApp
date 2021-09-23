@@ -19,10 +19,10 @@ const MenuCreateUpdate = (props) => {
   let id = query.get("id");
   let aboutusData = props?.aboutus?.aboutusData;
   const [, setRefresh] = useState(false);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(AboutUsAction.AboutUsDataRequestAsync());
-  }, [id]);
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (props.aboutus.success) {
@@ -30,8 +30,6 @@ const MenuCreateUpdate = (props) => {
       setState(initialState);
     }
   }, [props.aboutus.success]);
-
-  const dispatch = useDispatch();
 
   const initialState = {
     header: aboutusData?.header,
@@ -70,7 +68,7 @@ const MenuCreateUpdate = (props) => {
     data.append("metaKeywords", metaKeywords);
     data.append("metaDescription", metaDescription);
     data.append("_id", id);
-    state?.image.map((item, index) => {
+    state?.image.forEach((item, index) => {
       data.append("aboutImages", item);
     });
     dispatch(AboutUsAction.AboutUsUpdateRequestAsync(data));

@@ -19,7 +19,7 @@ const BuildingCreateUpdate = (props) => {
   let id = query.get("id");
   let buildingData = props?.building?.buildingData;
   const [, setRefresh] = useState(false);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     let data = {
       _id: id,
@@ -27,7 +27,7 @@ const BuildingCreateUpdate = (props) => {
     if (id != null) {
       dispatch(BuildingAction.BuildingDataRequestAsync(data));
     }
-  }, [id]);
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (props.building.success) {
@@ -35,8 +35,6 @@ const BuildingCreateUpdate = (props) => {
       setState(initialState);
     }
   }, [props.building.success]);
-
-  const dispatch = useDispatch();
 
   const initialState = {
     name: buildingData?.name,

@@ -8,7 +8,10 @@ import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
 import "./dealingManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import {
+  Link as RouterLink,
+  // useLocation
+} from "react-router-dom";
 import { connect } from "react-redux";
 // import Link from "next/link";
 
@@ -55,7 +58,7 @@ const MenuCreateUpdate = (props) => {
     } = state;
 
     var data = new FormData();
-    state?.image.map((item, index) => {
+    state?.image.forEach((item, index) => {
       data.append("image", item);
     });
     data.append("title", title);
@@ -95,8 +98,7 @@ const MenuCreateUpdate = (props) => {
   };
 
   const handleBannerUpload = (file, status) => {
-    let list = state;
-    if (status == "done") {
+    if (status === "done") {
       setState({ ...state, ["banner"]: file.file });
     }
   };

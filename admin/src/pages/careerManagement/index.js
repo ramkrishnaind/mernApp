@@ -32,7 +32,7 @@ const CareerList = (props) => {
 
   useEffect(() => {
     dispatch(CareerAction.CareerListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

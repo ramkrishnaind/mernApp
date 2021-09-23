@@ -207,7 +207,7 @@ const VerificationPage = (props) => {
     if (token != null) {
       dispatch(VerificationAction.VerificationRequestAsync(data));
     }
-  }, [token]);
+  }, [token, dispatch]);
 
   function useQuery() {
     return new URLSearchParams(useLocation().search);

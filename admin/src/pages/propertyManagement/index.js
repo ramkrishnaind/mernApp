@@ -35,7 +35,7 @@ const PropertyList = (props) => {
 
   useEffect(() => {
     dispatch(PropertyAction.PropertyListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

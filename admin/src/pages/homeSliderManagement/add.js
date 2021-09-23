@@ -20,7 +20,7 @@ const MenuCreateUpdate = (props) => {
   let id = query.get("id");
   let sliderData = props?.slider?.sliderData;
   const [, setRefresh] = useState(false);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     let data = {
       _id: id,
@@ -28,7 +28,7 @@ const MenuCreateUpdate = (props) => {
     if (id != null) {
       dispatch(HomeSliderAction.SliderDataRequestAsync(data));
     }
-  }, [id]);
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (props.slider.success) {
@@ -36,8 +36,6 @@ const MenuCreateUpdate = (props) => {
       setState(initialState);
     }
   }, [props.slider.success]);
-
-  const dispatch = useDispatch();
 
   const initialState = {
     name: sliderData?.name,
@@ -68,7 +66,7 @@ const MenuCreateUpdate = (props) => {
       image,
     } = state;
     var data = new FormData();
-    image?.map((item, index) => {
+    image?.forEach((item, index) => {
       data.append("image", item);
     });
 

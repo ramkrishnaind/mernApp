@@ -32,7 +32,7 @@ const ServiceList = (props) => {
   let { service } = props;
   useEffect(() => {
     dispatch(ServiceAction.ServiceListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

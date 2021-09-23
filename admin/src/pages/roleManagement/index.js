@@ -33,7 +33,7 @@ const RoleList = (props) => {
 
   useEffect(() => {
     dispatch(RoleAction.RoleListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

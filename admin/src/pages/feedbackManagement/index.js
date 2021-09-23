@@ -34,7 +34,7 @@ const FeedbackList = (props) => {
   let { feedback } = props;
   useEffect(() => {
     dispatch(FeedbackAction.FeedbackListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,
