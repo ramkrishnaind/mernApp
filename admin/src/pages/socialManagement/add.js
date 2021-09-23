@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
+import { Button, Grid, Typography, Box } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 import * as SocialAction from "../../redux/actions/SocialAction";
@@ -8,12 +8,12 @@ import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
 import "./blogManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+
 import { connect } from "react-redux";
 
 const SocialCreateUpdate = (props) => {
   let socialData = props?.social?.socialData;
-  const [refresh, setRefresh] = useState(false);
+  const [, setRefresh] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(SocialAction.SocialDataRequestAsync());
@@ -45,7 +45,7 @@ const SocialCreateUpdate = (props) => {
 
   const handleSubmit = (e) => {
     const { facebook, twitter, id, instagram, linkedin, youtube } = state;
-    if (id == null) {
+    if (id === null) {
       let reqData = {
         facebook: facebook,
         twitter: twitter,

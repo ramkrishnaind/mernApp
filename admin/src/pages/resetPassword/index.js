@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 
 import {
@@ -215,12 +214,11 @@ const ResetPassword = (props) => {
   };
   const loginSubmit = (e) => {
     const { email, confEmail } = state;
-    console.log(state)
-    if (email == confEmail) {
+    console.log(state);
+    if (email === confEmail) {
       props.dispatch(ResetPasswordRequestAsync({ email: email, confEmail }));
-    }
-    else {
-      dispatch(Snackbar.showFailSnackbar('Both password must be same.'));
+    } else {
+      dispatch(Snackbar.showFailSnackbar("Both password must be same."));
     }
   };
 
@@ -232,7 +230,7 @@ const ResetPassword = (props) => {
           <div className={classes.form}>
             <Typography className={classes.mainHeading}>
               Vishal Properties
-          </Typography>
+            </Typography>
             {/* <Typography className={classes.welcomeHeading}>
               Welcome back!
           </Typography>
@@ -291,19 +289,20 @@ const ResetPassword = (props) => {
                 {false ? (
                   <CircularProgress size={26} className={classes.loginLoader} />
                 ) : (
-                    <Button
-                      fullWidth
-                      disabled={
-                        state?.email?.length === 0 || state?.confEmail?.length === 0
-                      }
-                      onClick={loginSubmit}
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                    >
-                      Reset Password
-                    </Button>
-                  )}
+                  <Button
+                    fullWidth
+                    disabled={
+                      state?.email?.length === 0 ||
+                      state?.confEmail?.length === 0
+                    }
+                    onClick={loginSubmit}
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                  >
+                    Reset Password
+                  </Button>
+                )}
               </div>
             </React.Fragment>
           </div>
@@ -315,7 +314,6 @@ const ResetPassword = (props) => {
         <div className={classes.logotypeContainer}>
           {/* <img src={logo} alt="logo" className={classes.logotypeImage} /> */}
         </div>
-
       </Grid>
       {/* <Register /> */}
     </>

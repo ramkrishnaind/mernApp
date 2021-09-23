@@ -33,6 +33,9 @@ import {Link as RouterLink, useLocation} from 'react-router-dom';
 import propertyDetail from '../property-detail';
 import MapContainer from '../../components/section-map/MapContainer';
 import BookNowModal from '../../components/book-now/book-now';
+import {NoDataAvailable} from '../../components/no-details-available/no-details-available';
+import ApiClient from '../../api-client';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -121,7 +124,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function handleNull(val) {
-  return val || '--';
+  return val || ' --';
 }
 
 const HouseDetailPage = (props) => {
@@ -171,6 +174,28 @@ const HouseDetailPage = (props) => {
   const closeBookNow = () => {
     setBookNow(false);
   };
+
+  let imgs = [];
+
+  if (viewDetails) {
+    imgs = PropertyDetail.images?.mainImage;
+
+    if (!imgs || imgs.length == 0) {
+      imgs = [{
+        original: 'no-image-available-icon-6.png',
+        thumbnail: 'no-image-available-icon-6.png',
+        description: ""
+      }];
+    } else {
+      imgs = imgs.map(imgInfo => {
+        return {
+          original: ApiClient.SERVER_ADDRESS + "/" + imgInfo.path,
+          thumbnail: ApiClient.SERVER_ADDRESS + "/" + imgInfo.path,
+          description: ""
+        };
+      });
+    }
+  }
 
   console.log("property details *** ", PropertyDetail);
   return (
@@ -246,33 +271,37 @@ const HouseDetailPage = (props) => {
                 <Typography className={classes.text7} style={{padding: 20}}> Property Brief</Typography>
                 <Typography className={classes.text3} style={{padding: 20, lineHeight: "2.3em"}} >
                   {/* Vishal Construction Company is a Jaipur based construction company which today is a renowned name in providing best in class real estate services to its clients located all over India. Vishal Construction Company specializes in its area of work wherein they are expert in the real estate services, construction process of housing, commercial and other types of properties. They majorly serve clientele of Rajasthan, Hyderabad, Kolkata and other metro cities of India. Vishal Construction Company has a long-standing reputation wherein they deliver excellence catering to services and workmanship. They believe in providing quality projects with timely delivery. */}
-                  {PropertyDetail?.projectDescription}
+                  {handleNull(PropertyDetail?.projectDescription)}
                 </Typography>
               </Grid>
             </Grid>
           </Paper>
-          <Grid container spacing={2}>
+          <Grid container mt={2} spacing={2}>
             <Grid
               item
               xs={12}
               md={8}
-              style={{display: 'flex', flexDirection: 'column', marginBottom: 20}}
+
+              style={{display: 'flex', flexDirection: 'column'}}
             >
-              <CarouselSlider />
+              <Paper style={{marginTop: 20}}>
+                <CarouselSlider images={imgs} />
+              </Paper>
+
               <InfoCard item={{title: 'Facts and Features'}}>
                 <Grid container>
                   <Grid item xs={12} md={3}>
                     <FactAndFeature
                       icon={'fa-bed'}
                       title="BEDROOMS"
-                      value={PropertyDetail?.bedrooms}
+                      value={handleNull(PropertyDetail?.bedrooms)}
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
                     <FactAndFeature
                       icon={'fa-bath'}
                       title="BATHROOMS"
-                      value={PropertyDetail?.bathrooms}
+                      value={handleNull(PropertyDetail?.bathrooms)}
                     />
                   </Grid>
 
@@ -280,21 +309,21 @@ const HouseDetailPage = (props) => {
                     <FactAndFeature
                       icon={'fa-university'}
                       title="BALCONY"
-                      value={PropertyDetail?.balconies}
+                      value={handleNull(PropertyDetail?.balconies)}
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
                     <FactAndFeature
                       icon={'fa-check-circle'}
                       title="STATUS"
-                      value={PropertyDetail?.possessionStatus}
+                      value={handleNull(PropertyDetail?.possessionStatus)}
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
                     <FactAndFeature
                       icon={'fa-gift'}
                       title="FURNISHING"
-                      value={PropertyDetail?.furnishedStatus}
+                      value={handleNull(PropertyDetail?.furnishedStatus)}
                     />
 
                   </Grid>
@@ -302,14 +331,14 @@ const HouseDetailPage = (props) => {
                     <FactAndFeature
                       icon={'fa-home'}
                       title="PROPERTY TYPE"
-                      value={PropertyDetail?.pType}
+                      value={handleNull(PropertyDetail?.pType)}
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
                     <FactAndFeature
                       icon={'fa-calculator'}
                       title="TRANSACTION TYPE"
-                      value={PropertyDetail?.transactionType}
+                      value={handleNull(PropertyDetail?.transactionType)}
                     />
                   </Grid>
 
@@ -318,7 +347,7 @@ const HouseDetailPage = (props) => {
                     <FactAndFeature
                       icon={'fa-bars'}
                       title="TOTAL FLOOR"
-                      value={`${PropertyDetail?.floorNo}/${PropertyDetail?.totalFloors}`}
+                      value={`${handleNull(PropertyDetail?.floorNo)}/${handleNull(PropertyDetail?.totalFloors)}`}
                     />
                   </Grid>
 
@@ -333,10 +362,10 @@ const HouseDetailPage = (props) => {
                     style={{display: 'flex', flexDirection: 'column'}}
                   >
                     <Typography className={classes.text1}>
-                      Property Code : {PropertyDetail?._id}
+                      Property Code : {handleNull(PropertyDetail?._id)}
                     </Typography>
                     <Typography className={classes.text1}>
-                      Property Price : {PropertyDetail?.price?.price}
+                      Property Price : {handleNull(PropertyDetail?.price?.price)}
                     </Typography>
 
                   </Grid>
@@ -347,9 +376,9 @@ const HouseDetailPage = (props) => {
                     style={{display: 'flex', flexDirection: 'column'}}
                   >
                     <Typography className={classes.text1}>Guard Room: {PropertyDetail?.gaurdRoom == true ? 'Yes' : 'No'}</Typography>
-                    <Typography className={classes.text1}>
+                    {/* <Typography className={classes.text1}>
                       Garages: 1
-                    </Typography>
+                    </Typography> */}
                   </Grid>
                   <Grid
                     item
@@ -358,7 +387,7 @@ const HouseDetailPage = (props) => {
                     style={{display: 'flex', flexDirection: 'column'}}
                   >
                     <Typography className={classes.text1}>
-                      Property status : For {PropertyDetail?.for}
+                      Property status : For {handleNull(PropertyDetail?.for)}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -423,8 +452,25 @@ const HouseDetailPage = (props) => {
                   ) : null} */}
                 </Grid>
               </InfoCard>
+              <InfoCard item={{title: 'Price Details'}}>
+                <Grid container>
+                  {
+                    Object.keys(PropertyDetail?.price || []).map(priceInfo => {
+                      return <Grid item xs={12} md={4}>
+                        <Grid container style={{marginTop: 10, marginBottom: 10}}>
+                          <Grid item xs={12} md={12} className={classes.style2}>
+                            <Typography className={classes.text1}>{priceInfo} : {handleNull(PropertyDetail?.price[priceInfo])}</Typography>
+                          </Grid>
+                        </Grid>
+                      </Grid>;
+                    })
+                  }
+
+                </Grid>
+              </InfoCard>
+
               <InfoCard
-                style={{marginBottom: 20}}
+                style={{marginBottom: "40px"}}
                 item={{title: 'Reviews'}}
                 reviewCount={
                   PropertyDetail?.review?.length != 0
@@ -434,6 +480,60 @@ const HouseDetailPage = (props) => {
               >
                 Reviews
               </InfoCard>
+
+              <Grid
+                item
+                xs={12}
+                md={12}
+                style={{marginTop: 20}}
+              >
+                <Paper style={{padding: 20}}>
+                  <Grid container>
+                    <Grid item xs={12} md={12} className={classes.style1}>
+                      <Typography className={classes.text4}>
+                        Rate us and Write a Review
+                      </Typography>
+                      <Typography className={classes.text1}>
+                        Your rating for this listing:
+                      </Typography>
+                      <Rating name="half-rating-read" style={{marginBottom: 15}} defaultValue={0} precision={0.5} value={0} />
+                      <Container style={{display: 'flex', padding: 0}} >
+                        <Grid md={6}>
+                          <TextField
+                            label="Your Name"
+                            fullWidth
+                            variant="outlined"
+                            style={{marginBottom: 15}}
+                          ></TextField>
+                        </Grid>
+                        <Grid md={6}>
+                          <TextField
+                            label="Email"
+                            fullWidth
+                            variant="outlined"
+                            style={{marginBottom: 15}}
+                          ></TextField>
+                        </Grid>
+                      </Container>
+                      <TextField
+                        id="filled-multiline-static"
+                        label="Comment"
+                        multiline
+                        rows={2}
+                        fullWidth
+                        defaultValue=""
+                        variant="outlined"
+                        style={{marginBottom: 15}}
+                      />
+
+                      <Button variant="contained" className={classes.btn1}>
+                        Submit
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Paper>
+              </Grid>
+
 
 
 
@@ -581,6 +681,7 @@ const HouseDetailPage = (props) => {
                     </Grid>
                   </Paper>
                 </Grid>
+
               </Grid>
             </Grid>
           </Grid>
@@ -611,7 +712,7 @@ const HouseDetailPage = (props) => {
             </Grid>
           </Grid>
         </Container >
-      ) : null}
+      ) : NoDataAvailable('Details Unavailable')}
       <BookNowModal open={bookNow} closeBookNow={closeBookNow} />
     </div >
   );

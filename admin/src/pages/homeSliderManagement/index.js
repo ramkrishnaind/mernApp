@@ -31,7 +31,7 @@ const styles = (theme) => ({
 
 const HomeSliderList = (props) => {
   const dispatch = useDispatch();
-  let { classes, slider } = props;
+  let { slider } = props;
 
   useEffect(() => {
     dispatch(HomeSliderAction.SliderListRequestAsync());
@@ -49,12 +49,6 @@ const HomeSliderList = (props) => {
       isDisable: status,
     };
     dispatch(HomeSliderAction.SliderStatusUpdateRequestAsync(tempdata));
-
-    if (status === "enable") {
-      // toast.error("Disable")
-    } else {
-      // toast.success("Enable")
-    }
   }
 
   function onDeleteClick(data) {
@@ -116,7 +110,7 @@ const HomeSliderList = (props) => {
                   name: "Is Disable",
                   options: {
                     customBodyRender: (value, tableMeta, updateValue) => {
-                      if (value == true) return "Yes";
+                      if (value === true) return "Yes";
                       else return "No";
                     },
                   },

@@ -25,31 +25,31 @@
     },
     {
         "id": 3,
-        "title": "Services",
+        "title": "Property",
         "image": "",
         "submenu": [       
             {
                 "title": "SELL",
                 "commercial": [
                     {
-                        "title": "Office S"
+                        "title": "Office"
                     },
                     {
-                        "title": "Shop S"
+                        "title": "Shop"
                     }
                 ],
                 "residential": [
                     {
-                        "title": "Flats S"
+                        "title": "Flats"
                     },
                     {
-                        "title": "2 BHK Flats S"
+                        "title": "2 BHK Flats"
                     },
                     {
-                        "title": "3 BHK Flats S"
+                        "title": "3 BHK Flats"
                     },
                     {
-                        "title": "Villas S"
+                        "title": "Villas"
                     }
                 ]
             },
@@ -128,7 +128,6 @@
                     }
                 ]
             }
-            
         ]
     },
     {

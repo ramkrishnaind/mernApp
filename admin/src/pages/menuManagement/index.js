@@ -11,7 +11,6 @@ import MUIDataTable from "mui-datatables";
 
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
-import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
 
@@ -29,7 +28,7 @@ const styles = (theme) => ({
 
 const MenuList = (props) => {
   const dispatch = useDispatch();
-  let { classes, menu } = props;
+  let { menu } = props;
 
   useEffect(() => {
     dispatch(MenuAction.MenuListRequestAsync());
@@ -47,18 +46,9 @@ const MenuList = (props) => {
       status: status,
     };
     dispatch(MenuAction.MenuStatusUpdateRequestAsync(tempdata));
-
-    if (status === "enable") {
-      // toast.error("Disable")
-    } else {
-      // toast.success("Enable")
-    }
   }
 
-  function onDeleteClick(data) {}
-
   function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/menu/edit?id="+data;
     history.push("/menu/add?id=" + data);
     window.location.reload();
   }

@@ -331,13 +331,28 @@ function getPropertyLatLong(Models) {
     }
     return PropertyList;
 }
+function getSearchTerms(Models) {
+    async function cities(req, res) {
+        try {
+
+            let data = ['jaipur', 'gurugram'];
+            res.send({ status: true, message: "Properties Data for Home Page", data });
+        }
+        catch (e) {
+            console.log('Getting list err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Getting list" });
+        }
+    }
+    return cities;
+}
 
 module.exports = {
     getAllProperty,
     propertyDetail,
     deleteProperty,
     getHomeAllProperty,
-    getPropertyLatLong
+    getPropertyLatLong,
+    getSearchTerms
     // createUserFunc: createUserHelper,
     // getAllUserFunc: getAllUserHelper,
     // getUserFunc: getUserHelper,

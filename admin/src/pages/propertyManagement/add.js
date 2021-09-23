@@ -13,6 +13,7 @@ import {
   RadioGroup,
   Radio,
   FormLabel,
+  FormControl,
 } from "@material-ui/core";
 import _ from "lodash";
 import classes from "./makeStyles";
@@ -49,23 +50,12 @@ const PropertyCreateUpdate = (props) => {
   const [, setIsOwner] = React.useState(false);
   const [propertyOptions, setPropertyOptions] = React.useState([]);
   const [formFields, setFormFields] = React.useState(null);
-  const [propertyFeatures] = React.useState({});
   const [currentAreaField, setCurrentAreaField] = React.useState({});
   const [areaUnit] = React.useState("");
 
   let propertyData = props?.property?.propertyData;
   let query = useQuery();
   let id = query.get("id");
-  // superArea: state.Super_Area?.size,
-  // builtUpArea: state.Built_up_Area?.size,
-  // carpetArea: state.Carpet_Area?.size,
-
-  // possessionStatus: state.Possession_Status,
-  // availableFromMonth: state.available_from_month,
-  // availableFromYear: state.available_from_year,
-
-  // expectedPrice: state.expected_price,
-  // pricePerSqFt: state.expected_price_per_sq_ft,
 
   const initialState = {
     iAm: propertyData?.iAm,
@@ -84,22 +74,35 @@ const PropertyCreateUpdate = (props) => {
     latitude: propertyData?.address?.latitude,
     address: propertyData?.address?.address,
     city: propertyData?.address?.city,
-    state: propertyData?.address?.State,
+    State: propertyData?.address?.State,
     pinCode: propertyData?.address?.pinCode,
     Super_Area: {
       size: propertyData?.superArea,
     },
     Carpet_Area: {
-      size: propertyData?.superArea,
+      size: propertyData?.carpetArea,
     },
     Built_up_Area: {
-      size: propertyData?.superArea,
+      size: propertyData?.builtUpArea,
     },
     available_from_month: propertyData?.availableFromMonth,
     available_from_year: propertyData?.availableFromYear,
     gaurdRoom: propertyData?.gaurdRoom,
     id: id,
     status: true,
+    Transaction_Type: propertyData?.transactionType,
+    Property_Tag: propertyData?.propertyTag,
+
+    expected_price: propertyData?.price?.expectedPrice,
+    expected_price_per_sq_ft: propertyData?.price?.pricePerSqft,
+    other_charges: propertyData?.price?.otherCharges,
+    stamp_duty_registration_charges_excluded:
+      propertyData?.price?.isStumpDutyRCExcluded,
+    booking_token_amount: propertyData?.price?.bookingAmount,
+    maintenance_charges: propertyData?.price?.maintenanceCharge,
+    maintenance_charges_per: propertyData?.price?.maintenanceFor,
+    brokerage: propertyData?.price?.brokerage,
+    build_year: propertyData?.buildYear,
   };
 
   const imageState = {
@@ -113,7 +116,9 @@ const PropertyCreateUpdate = (props) => {
     locationMap: [],
     other: [],
   };
-  const [description, setDescription] = useState(propertyData?.description);
+  const [description, setDescription] = useState(
+    propertyData?.projectDescription
+  );
   const [state, setState] = useState(initialState);
   const [amenities, setAmenities] = useState([{ 0: "" }]);
   const [propertyDetail, setPropertyDetail] = useState([
@@ -157,11 +162,7 @@ const PropertyCreateUpdate = (props) => {
   }, [state]);
 
   useEffect(() => {
-    // console.log("-Form-Data-image-", image);
     console.log("-Form-Data-State-", state);
-
-    // console.log("-Form-amenities-State-", amenities);
-    // console.log("-Property-Features-", propertyDetail);
     let option = state.for;
     const clonePropertyTypeOptions = _.cloneDeep(propertyTypeOptions);
     if (option === "Sell") {
@@ -171,9 +172,13 @@ const PropertyCreateUpdate = (props) => {
     }
     setPropertyOptions(clonePropertyTypeOptions[0]);
 
-    if (propertyData && propertyData?.amenities != "") {
-      const result = Object.keys(propertyData?.amenities);
+    if (propertyData && propertyData?.amenities !== "") {
+      const result = propertyData?.amenities;
       setAmenities(result);
+    }
+    if (propertyData && propertyData?.propertyDetails !== "") {
+      const result = propertyData?.propertyDetails;
+      setPropertyDetail(result);
     }
     // amenities
   }, [state]);
@@ -226,6 +231,14 @@ const PropertyCreateUpdate = (props) => {
     const fieldName = e.target.name;
     const fieldValue = e.target.value;
     setCurrentAreaField({ fieldName, fieldValue });
+    let name = fieldName.replace(/[^a-zA-Z]/gi, "_");
+    setState({
+      ...state,
+      [name]: {
+        size: fieldValue,
+        unit: "",
+      },
+    });
   };
 
   const handleAreaUnitChange = (event) => {
@@ -289,6 +302,7 @@ const PropertyCreateUpdate = (props) => {
         propertyDetails: propertyDetail,
         description: description,
         gaurdRoom: state.gaurdRoom,
+        buildYear: state.build_year,
       };
 
       let data = {
@@ -344,6 +358,7 @@ const PropertyCreateUpdate = (props) => {
         propertyId: state.id,
         description: description,
         gaurdRoom: state.gaurdRoom,
+        buildYear: state.build_year,
       };
 
       let data = {
@@ -723,6 +738,8 @@ const PropertyCreateUpdate = (props) => {
                       placeholder={e.placeholder}
                       onChange={handleChange}
                       name={e.fieldName}
+                      style={{ marginBottom: 15 }}
+                      value={state[e.fieldName]}
                     />
                   </Grid>
                 );
@@ -737,6 +754,7 @@ const PropertyCreateUpdate = (props) => {
                     onChange={handleChange}
                     style={{ width: 300, marginBottom: 15 }}
                     name={fieldName}
+                    value={state[fieldName]}
                   />
                 </Grid>
               );
@@ -752,6 +770,7 @@ const PropertyCreateUpdate = (props) => {
                         onChange={handleChange}
                         placeholder={e.placeholder}
                         style={{ width: 300, marginBottom: 15 }}
+                        value={state[e.fieldName]}
                       />
                     </Grid>
                   );
@@ -948,7 +967,7 @@ const PropertyCreateUpdate = (props) => {
   const handleImageExteriorView = (file, status) => {
     let list = image;
     let data = [];
-    if (status == "done") {
+    if (status === "done") {
       if (list.exteriorView && list.exteriorView.length) {
         data = list.exteriorView;
         data[list.exteriorView.length] = file.file;
@@ -962,7 +981,7 @@ const PropertyCreateUpdate = (props) => {
   const handleImageLivingRoom = (file, status) => {
     let list = image;
     let data = [];
-    if (status == "done") {
+    if (status === "done") {
       if (list.livingRoom && list.livingRoom.length) {
         data = list.livingRoom;
         data[list.livingRoom.length] = file.file;
@@ -976,7 +995,7 @@ const PropertyCreateUpdate = (props) => {
   const handleImageBadrooms = (file, status) => {
     let list = image;
     let data = [];
-    if (status == "done") {
+    if (status === "done") {
       if (list.badrooms && list.badrooms.length) {
         data = list.badrooms;
         data[list.badrooms.length] = file.file;
@@ -990,7 +1009,7 @@ const PropertyCreateUpdate = (props) => {
   const handleImageBathrooms = (file, status) => {
     let list = image;
     let data = [];
-    if (status == "done") {
+    if (status === "done") {
       if (list.bathrooms && list.bathrooms.length) {
         data = list.bathrooms;
         data[list.bathrooms.length] = file.file;
@@ -1004,7 +1023,7 @@ const PropertyCreateUpdate = (props) => {
   const handleImageKitchen = (file, status) => {
     let list = image;
     let data = [];
-    if (status == "done") {
+    if (status === "done") {
       if (list.kitchen && list.kitchen.length) {
         data = list.kitchen;
         data[list.kitchen.length] = file.file;
@@ -1018,7 +1037,7 @@ const PropertyCreateUpdate = (props) => {
   const handleImageFloorPlan = (file, status) => {
     let list = image;
     let data = [];
-    if (status == "done") {
+    if (status === "done") {
       if (list.floorPlan && list.floorPlan.length) {
         data = list.floorPlan;
         data[list.floorPlan.length] = file.file;
@@ -1032,7 +1051,7 @@ const PropertyCreateUpdate = (props) => {
   const handleImageMasterPlan = (file, status) => {
     let list = image;
     let data = [];
-    if (status == "done") {
+    if (status === "done") {
       if (list.masterPlan && list.masterPlan.length) {
         data = list.masterPlan;
         data[list.masterPlan.length] = file.file;
@@ -1046,7 +1065,7 @@ const PropertyCreateUpdate = (props) => {
   const handleImageLocationMap = (file, status) => {
     let list = image;
     let data = [];
-    if (status == "done") {
+    if (status === "done") {
       if (list.locationMap && list.locationMap.length) {
         data = list.locationMap;
         data[list.locationMap.length] = file.file;
@@ -1060,7 +1079,7 @@ const PropertyCreateUpdate = (props) => {
   const handleImageOther = (file, status) => {
     let list = image;
     let data = [];
-    if (status == "done") {
+    if (status === "done") {
       if (list.other && list.other.length) {
         data = list.other;
         data[list.other.length] = file.file;
@@ -1356,7 +1375,7 @@ const PropertyCreateUpdate = (props) => {
                                   handleAminitiesInputChange(e, i)
                                 }
                                 name="amenities"
-                              // value={x}
+                                // value={x}
                               ></TextField>
 
                               <div className="RemoveBtn">
@@ -1437,12 +1456,14 @@ const PropertyCreateUpdate = (props) => {
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-                  {propertyData?.description != null ? (
+                  {propertyData?.projectDescription != null ? (
                     <>
                       <ReactQuill
                         onChange={handleChangeTextEditor}
                         value={
-                          description ? description : propertyData?.description
+                          description
+                            ? description
+                            : propertyData?.projectDescription
                         }
                         placeholder="Enter description"
                         theme="snow"
@@ -1461,29 +1482,31 @@ const PropertyCreateUpdate = (props) => {
 
                 <Box mt={2} />
                 <Grid item xs={12} md={12}>
-                  <FormLabel component="legend">Gaurd Room</FormLabel>
-                  <RadioGroup
-                    row
-                    aria-label="gender"
-                    name="gaurdRoom"
-                    onChange={handleChange}
-                    value={
-                      state.gaurdRoom
-                        ? state.gaurdRoom
-                        : propertyData?.gaurdRoom
-                    }
-                  >
-                    <FormControlLabel
-                      value={true}
-                      control={<Radio />}
-                      label="Yes"
-                    />
-                    <FormControlLabel
-                      value={false}
-                      control={<Radio />}
-                      label="No"
-                    />
-                  </RadioGroup>
+                  <FormControl component="fieldset">
+                    <FormLabel component="legend">Gaurd Room</FormLabel>
+                    <RadioGroup
+                      row
+                      aria-label="gender"
+                      name="gaurdRoom"
+                      onChange={handleChange}
+                      value={
+                        state.gaurdRoom
+                          ? state.gaurdRoom
+                          : propertyData?.gaurdRoom
+                      }
+                    >
+                      <FormControlLabel
+                        value="true"
+                        control={<Radio />}
+                        label="Yes"
+                      />
+                      <FormControlLabel
+                        value="{false}"
+                        control={<Radio />}
+                        label="No"
+                      />
+                    </RadioGroup>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={12}>
                   <Grid item xs={12} md={12}>

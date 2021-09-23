@@ -18,7 +18,7 @@ const MenuCreateUpdate = (props) => {
   let query = useQuery();
   let id = query.get("id");
   let aboutusData = props?.aboutus?.aboutusData;
-  const [refresh, setRefresh] = useState(false);
+  const [, setRefresh] = useState(false);
 
   useEffect(() => {
     dispatch(AboutUsAction.AboutUsDataRequestAsync());
@@ -83,7 +83,7 @@ const MenuCreateUpdate = (props) => {
   const handleImageExteriorView = (file, status) => {
     let list = state;
     let data = [];
-    if (status == "done") {
+    if (status === "done") {
       if (list.image && list.image.length) {
         data = list.image;
         data[list.image.length] = file.file;

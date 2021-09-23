@@ -27,7 +27,7 @@ const MenuCreateUpdate = (props) => {
   let query = useQuery();
   let id = query.get("id");
   let feedbackData = props?.feedback?.feedbackData;
-  const [refresh, setRefresh] = useState(false);
+  const [, setRefresh] = useState(false);
 
   useEffect(() => {
     let data = {
@@ -66,8 +66,8 @@ const MenuCreateUpdate = (props) => {
 
   const handleSubmit = (e) => {
     const { name, email, id, rating, comment, image } = state;
-    if (id == null) {
-      var data = new FormData();
+    var data = new FormData();
+    if (id === null) {
       data.append("image", image);
       data.append("name", name);
       data.append("email", email);
@@ -75,7 +75,6 @@ const MenuCreateUpdate = (props) => {
       data.append("comment", comment);
       dispatch(FeedbackAction.FeedbackAddRequestAsync(data));
     } else {
-      var data = new FormData();
       data.append("image", image);
       data.append("name", name);
       data.append("email", email);
@@ -91,8 +90,7 @@ const MenuCreateUpdate = (props) => {
   }
 
   const handleBannerUpload = (file, status) => {
-    let list = state;
-    if (status == "done") {
+    if (status === "done") {
       setState({ ...state, ["image"]: file.file });
     }
   };

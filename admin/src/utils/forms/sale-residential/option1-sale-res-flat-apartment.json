@@ -96,13 +96,13 @@
                     "label": "Property Tag",
                     "type": "radio",
                     "values": ["New", "Most Selling","Featured"],
-                    "fieldName": "property_tag"
+                    "fieldName": "Property_Tag"
                 },
                 {
                     "label": "Transaction Type",
                     "type": "radio",
                     "values": ["New Property", "ReSell","Rent"],
-                    "fieldName": "transaction_type"
+                    "fieldName": "Transaction_Type"
                 },
                 {
                     "label": "Possession Status",

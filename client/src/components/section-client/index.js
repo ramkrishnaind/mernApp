@@ -1,11 +1,11 @@
 import React from "react";
-import { Typography, Grid, makeStyles, Box } from "@material-ui/core";
+import {Typography, Grid, makeStyles, Box} from "@material-ui/core";
 import './section-client.css';
 import SectionHeader from "../section-header";
 import APP_CONSTANTS from "../../constants/app-constants";
 import LocalHotelIcon from '@material-ui/icons/LocalHotel';
 import ApiClient from '../../api-client/index';
-import { Link as RouterLink } from 'react-router-dom';
+import {Link as RouterLink} from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
 
 const useStyles = makeStyles((theme) => ({
@@ -31,26 +31,26 @@ const useStyles = makeStyles((theme) => ({
 const SectionClient = props => {
     const classes = useStyles();
     // console.log("dealingInData", props.dealingInData.media);
-    const { header, title, description, media, items } = props.dealingInData;
+    const {header, title, description, media, items} = props.dealingInData;
     return (
         <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
-                <SectionHeader title={header} subtitle={title} style={{ color: '#FFFFFF' }} />
+                <SectionHeader title={header} subtitle={title} style={{color: '#FFFFFF'}} />
                 <Box className="client-text">
-                    <Typography>{description}</Typography>
+                    <Typography>{ReactHtmlParser(description)}</Typography>
                 </Box>
                 <Grid container spacing={2}>
                     {(items || []).map((item, i) => {
-                        const { title, shortDescription, icon, _id } = item;
+                        const {title, shortDescription, icon, _id} = item;
                         // console.log("title,shortDescription,icon", title, shortDescription, icon, item);
                         return (<Grid key={i} item xs={12} md={6} >
                             <Box className="client-block-wrap">
                                 <Box className="client-block-icon">
-                                    <LocalHotelIcon />
+                                    <i className={`fas ${icon}`} style={{color: '#FF7601', fontSize: 40, padding: 0, marginRight: 20, marginTop: 11}} aria-hidden="true"></i>
                                 </Box>
-                                <Box className="client-block-summery">
+                                <Box component={RouterLink} to={{pathname: '/dealingInItem-details', state: _id}} className="client-block-summery">
                                     <Typography><strong>{title}</strong></Typography>
-                                    <Typography>{shortDescription}</Typography>
+                                    <Typography>{ReactHtmlParser(shortDescription)}</Typography>
                                 </Box>
                             </Box>
                         </Grid>);
@@ -74,4 +74,4 @@ const SectionClient = props => {
 
 };
 
-export default SectionClient;
+export default SectionClient;;;;

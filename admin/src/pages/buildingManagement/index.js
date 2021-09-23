@@ -33,7 +33,7 @@ const styles = (theme) => ({
 const BuildingList = (props) => {
   const dispatch = useDispatch();
 
-  let { classes, building } = props;
+  let { building } = props;
 
   useEffect(() => {
     dispatch(BuildingAction.BuildingListRequestAsync());
@@ -51,12 +51,6 @@ const BuildingList = (props) => {
       isDisable: status,
     };
     dispatch(BuildingAction.BuildingStatusUpdateRequestAsync(tempdata));
-
-    if (status === "enable") {
-      // toast.error("Disable")
-    } else {
-      // toast.success("Enable")
-    }
   }
 
   function onDeleteClick(data) {

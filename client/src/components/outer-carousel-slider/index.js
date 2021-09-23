@@ -1,21 +1,22 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./outer-carousel-slider.css";
 import PropertyViewCard from "../property-view-card";
-import { Typography, Grid, Container, makeStyles, Button, Box } from "@material-ui/core";
+import {Typography, Grid, Container, makeStyles, Button, Box} from "@material-ui/core";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import LocalHotelIcon from '@material-ui/icons/LocalHotel';
-import { Link as RouterLink } from "react-router-dom";
+import {Link as RouterLink} from "react-router-dom";
 import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
 import BathtubIcon from '@material-ui/icons/Bathtub';
 import DriveEtaIcon from '@material-ui/icons/DriveEta';
 // import './property-view-card.css';
 import InnerCarouselSlider from "../inner-carousel-slider";
-import { CustomNoRowsOverlay } from '../../components/no-data-found/no-data-found';
+import {CustomNoRowsOverlay} from '../../components/no-data-found/no-data-found';
 import ApiClient from "../../api-client";
 import './featured.css';
+import {map} from "jquery";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -84,10 +85,21 @@ const OuterCarouselSlider = (props) => {
             {total > 0 ?
                 <Slider items={Math.min(3, total)} className="property-carousel" {...settings}>
                     {data.map((item, i) => {
-                        const { _id, userId, propertyDetails, status, iAm, pType, postingAs, nameOfProject, propertTag, created, updated, __v, features, images } = item;
-                        const img = images && images[0]?.mainImage && images[0]?.mainImage[0]?.path ? ApiClient.SERVER_ADDRESS + "/" + images[0]?.mainImage[0]?.path : 'no-image-available-icon-6.png';
-                        console.log("img path", img, images);
+                        const {_id, userId, propertyDetails, status, iAm, pType, postingAs, nameOfProject, propertTag, created, updated, __v, features, images} = item;
+                        // const img = images && images[0]?.mainImage && images[0]?.mainImage[0]?.path ? ApiClient.SERVER_ADDRESS + "/" + images[0]?.mainImage[0]?.path : 'no-image-available-icon-6.png';
+                        // console.log("img path", img, images);
                         const propertyFor = item.for;
+
+                        let imgs = images[0]?.mainImage;
+
+                        if (!imgs || imgs.length == 0) {
+                            imgs = ['no-image-available-icon-6.png'];
+                        } else {
+                            imgs = imgs.map(imgInfo => {
+                                return ApiClient.SERVER_ADDRESS + "/" + imgInfo.path;
+                            });
+                        }
+
                         return (
                             <Box key={i} className="property-item" component={RouterLink} to={
                                 {
@@ -97,19 +109,17 @@ const OuterCarouselSlider = (props) => {
                                 <Grid contaienr className="property-wrap">
 
                                     {/* <InnerCarouselSlider /> */}
-                                    <Grid className="property-image" style={{ position: 'relative' }}>
+                                    <Grid className="property-image" style={{position: 'relative'}}>
                                         {propertTag ? <span class="featured">{propertTag}</span> : null}
                                         {/* <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} /> */}
                                         <Slider {...settings1}>
-                                            <Box className="property-image-thumb">
-                                                <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
-                                            </Box>
-                                            <Box className="property-image-thumb">
-                                                <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
-                                            </Box>
-                                            <Box className="property-image-thumb">
-                                                <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
-                                            </Box>
+
+                                            {(imgs).map(imgPath => {
+
+                                                return <Box className="property-image-thumb">
+                                                    <img src={imgPath} alt="" />
+                                                </Box>;
+                                            })}
                                         </Slider>
                                     </Grid>
 
@@ -157,11 +167,11 @@ const OuterCarouselSlider = (props) => {
                                     </Grid> */}
 
                                 </Grid>
-                            </Box>
-                        );
+                            </Box>);
                     })}
-                </Slider> : <CustomNoRowsOverlay />}
-        </div>
+                </Slider> : <CustomNoRowsOverlay />
+            }
+        </div >
     );
 };
 

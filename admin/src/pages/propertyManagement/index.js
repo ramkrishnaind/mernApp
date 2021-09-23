@@ -31,7 +31,7 @@ const styles = (theme) => ({
 
 const PropertyList = (props) => {
   const dispatch = useDispatch();
-  let { classes, property } = props;
+  let { property } = props;
 
   useEffect(() => {
     dispatch(PropertyAction.PropertyListRequestAsync());
@@ -49,12 +49,6 @@ const PropertyList = (props) => {
       status: status,
     };
     dispatch(PropertyAction.PropertyStatusUpdateRequestAsync(tempdata));
-
-    if (status === "enable") {
-      // toast.error("Disable")
-    } else {
-      // toast.success("Enable")
-    }
   }
 
   function onDeleteClick(data) {

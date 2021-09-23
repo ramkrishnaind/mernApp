@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Typography, Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as CallbackAction from "../../redux/actions/CallbackAction";
@@ -25,7 +25,7 @@ const styles = (theme) => ({
 
 const CallbackList = (props) => {
   const dispatch = useDispatch();
-  let { classes, callback } = props;
+  let { callback } = props;
 
   useEffect(() => {
     dispatch(CallbackAction.CallbackListRequestAsync());
@@ -43,20 +43,6 @@ const CallbackList = (props) => {
       status: status,
     };
     dispatch(CallbackAction.CallbackStatusUpdateRequestAsync(tempdata));
-
-    if (status === "enable") {
-      // toast.error("Disable")
-    } else {
-      // toast.success("Enable")
-    }
-  }
-
-  function onDeleteClick(data) {}
-
-  function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/menu/edit?id="+data;
-    history.push("/career/add?id=" + data);
-    window.location.reload();
   }
 
   return (
