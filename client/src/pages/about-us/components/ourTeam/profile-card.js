@@ -18,68 +18,59 @@ import ReactHtmlParser, {processNodes, convertNodeToElement, htmlparser2} from '
 import ApiClient from '../../../../api-client';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    teamwrap: {
+        backgroundColor: '#f4f4f4',
+        boxShadow: 'none',
+        padding: '20px',
         maxWidth: 345,
+        width: '100%',
+        marginBottom: '25px',
+        transition: 'all 0.6s ease',
+        transformStyle: 'preserve-3d',
+        backfaceVisibility: 'hidden',
+        "&:hover":{  
+            boxShadow: '5px 7px 9px -4px rgb(158, 158, 158)',  
+            transform: 'rotateY(0deg)', 
+        }
     },
-    media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
+    teamimage: {
+        backgroundColor: '#fff',
+        height: 120,
+        width: 120,
+        borderRadius: "50%",
+        margin: '0 auto 15px',
     },
-    expand: {
-        transform: 'rotate(0deg)',
-        marginLeft: 'auto',
-        transition: theme.transitions.create('transform', {
-            duration: theme.transitions.duration.shortest,
-        }),
+    teamsummery: {       
+        padding: '0', 
+        textAlign: 'center',      
     },
-    expandOpen: {
-        transform: 'rotate(180deg)',
+    teamname: {   
+        color: '#007b5e',    
+        fontSize: '18px', 
+        marginBottom: '15px',  
+        fontFamily: '"Open Sans",sans-serif',  
     },
-    avatar: {
-        height: 160,
-        width: 160,
-        borderRadius: "50%"
-    },
-    textCenter: {
-        textAlign: 'center'
-    },
-    text1: {
+    teamcontent: {
+        color: '#777777', 
+        fontSize: '14px', 
         fontFamily: '"Open Sans",sans-serif',
-        color: '#06AEB8',
-        fontWeight: 600,
-        fontSize: 16,
-
-
-    },
-    text2: {
-        fontFamily: '"Open Sans",sans-serif',
-        color: '#FF7601',
-        fontWeight: 400,
-        fontSize: 36,
-        marginBottom: 30
-    },
-    text3: {
-        fontFamily: '"Open Sans",sans-serif',
-        color: '#666666',
-        fontSize: 14,
-        marginBottom: 20,
-        lineHeight: '1.8',
-        marginTop: 10
-    },
-    text4: {
-        fontFamily: '"Open Sans",sans-serif',
-        color: '#FECE10',
-        fontSize: 51,
-        marginTop: 20,
-        fontWeight: 'bold',
-    },
-    text5: {
-        fontFamily: '"Open Sans",sans-serif',
-        color: '#FFFFFF',
-        fontSize: 19,
-        // marginTop: 20,
-        fontWeight: 400,
-    },
+        marginBottom: '15px', 
+    }, 
+    teamsocial: {
+        padding: '0', 
+        textAlign: 'center',
+        justifyContent: 'center',           
+    }, 
+    teamsocialicon:  {
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+        padding: '6px',
+        margin: '0 3px', 
+        "& svg":{
+            color: '#007b5e',
+            height: 20,
+            width: 20,  
+        }                
+    }  
 }));
 
 export default function ProfileCard(props) {
@@ -93,36 +84,32 @@ export default function ProfileCard(props) {
     const profileImage = props?.member?.image[0].path ? ApiClient.SERVER_ADDRESS + "/" + props.member.image[0].path : "no-image-available-icon-6.png";
 
     return (
-        <Card className={classes.root} style={{margin: 20, minWidth: 300}}>
-
-            <Box style={{display: 'flex', justifyContent: 'center'}}>
+        <Card className={classes.teamwrap}>
+            <Box className={classes.teamimage}>
                 <img src={profileImage} className={classes.avatar} alt='' />
             </Box>
-            <CardContent>
-                <Typography className={[classes.textCenter, classes.text1]} variant="body2" color="textSecondary" component="p">
+            <CardContent className={classes.teamsummery}>
+                <Typography className={classes.teamname} variant="body2" component="p">
                     {props?.member?.name}
                 </Typography>
-                <Typography className={[classes.textCenter, classes.text3]}>
-
+                <Box className={classes.teamcontent}>
                     {ReactHtmlParser(props?.member?.description || '')}
-                </Typography>
+                </Box>
             </CardContent>
-            <CardActions disableSpacing style={{justifyContent: 'center'}}>
-                <IconButton aria-label="fb">
+            <CardActions className={classes.teamsocial} disableSpacing>
+                <IconButton  className={classes.teamsocialicon} aria-label="fb">
                     <FacebookIcon />
                 </IconButton>
-                <IconButton aria-label="in">
+                <IconButton className={classes.teamsocialicon} aria-label="in">
                     <LinkedInIcon />
                 </IconButton>
-                <IconButton aria-label="twitter">
+                <IconButton className={classes.teamsocialicon} aria-label="twitter">
                     < TwitterIcon />
                 </IconButton>
-                <IconButton aria-label="insta">
+                <IconButton className={classes.teamsocialicon} aria-label="insta">
                     <Instagram />
                 </IconButton>
-
-
             </CardActions>
-        </Card>
+        </Card> 
     );
 }

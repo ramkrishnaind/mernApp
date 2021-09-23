@@ -1,7 +1,7 @@
 import React from "react";
-import {Grid, Typography, Box, makeStyles, Paper} from "@material-ui/core";
+import { Breadcrumbs, Grid, Typography, Box, makeStyles, Link } from "@material-ui/core";
 import PropTypes from "prop-types";
-import {Link as RouterLink} from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import "./page-slider.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -9,94 +9,60 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-  },
-  text1: {
+    height: 326,
+    overflow: "hidden",
+    textAlign: "center",
+    backgroundSize: 'cover',
+    position: "relative",
+    backgroundPosition: "center",
+  }, 
+  bannertitle: {
     fontFamily: '"Open Sans",sans-serif',
-    color: "#000",
+    color: "#fff",
     fontSize: 40,
+    fontWeight: 500,
   },
-  text2: {
+  breadcrumbs:{
+    display: "flex",  
+    justifyContent: "center",
+    marginTop: '10px',
+    color: "#fff",
+  },
+  breadcrumbtext: {
     fontFamily: '"Open Sans",sans-serif',
-    color: "#000",
-    fontSize: 14,
-    marginTop: 10,
-    fontWeight: 'bold',
+    color: "#fff",
+    fontSize: 14,  
+    fontWeight: 400,  
+    textDecoration: 'none',
   },
-  text3: {
-    fontFamily: '"Open Sans",sans-serif',
-    color: "#FFFFFF",
-    fontSize: 14,
-  },
-  text4: {
-    fontFamily: '"Open Sans",sans-serif',
-    color: "#FFFFFF",
-    fontSize: 15,
-    fontWeight: "bold",
-  },
+  "@media (max-width: 767px)": {
+    bannerContainer: {     
+      height: 200,    
+    }, 
+    bannertitle: {     
+      fontSize: 24,
+    },
+  }
 }));
 
 const PageBanner = (props) => {
   const classes = useStyles();
-  const {showSearch = false, bgImage, title, currentPage} = props;
+  const { showSearch = false, bgImage, title, currentPage } = props;
 
   return (
     <div
       className={`${classes.bannerContainer}`}
-      style={{
-        backgroundImage: `url(${bgImage}`,
-        height: 326,
-        overflow: "hidden",
-        textAlign: "center",
-        backgroundSize: 'auto',
-        position: "relative",
-        backgroundPosition: "center",
-      }}
+      style={{ backgroundImage: `url(${bgImage}`, }}
     >
       <Grid container>
-        <Grid
-          item
-          xs={12}
-          md={12}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
+        <Grid item xs={12} md={12}>
+          <Typography variant="h1" className={classes.bannertitle}>{title}</Typography>
 
-          }}
-        >
-          <Typography className={classes.text1}>{title}</Typography>
-          <Grid container>
-            <Grid
-              item
-              xs={12}
-              md={4}
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                margin: 'auto',
-                backgroundColor: 'rgb(255, 255, 255, 0.8)',
-                padding: 20
-              }}
-            >
+          <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbs}>
+            <Link className={classes.breadcrumbtext} color="inherit" underline="hover" href="/">HOME</Link>
+            <Typography className={classes.breadcrumbtext} >{currentPage}</Typography>
+          </Breadcrumbs>
 
-              <Typography
-                className={classes.text2}
-                component={RouterLink}
-                to="/"
-              >
-                HOME
-              </Typography>
-              <Box style={{width: 10}}></Box>
-              <Typography className={classes.text2}>/</Typography>
-              <Box style={{width: 10}}></Box>
-              <Typography className={classes.text2}>{currentPage}</Typography>
-
-
-            </Grid>
-          </Grid>
         </Grid>
       </Grid>
     </div >
