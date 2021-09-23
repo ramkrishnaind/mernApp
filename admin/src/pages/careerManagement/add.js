@@ -41,7 +41,7 @@ const MenuCreateUpdate = (props) => {
     if (id != null) {
       dispatch(CareerAction.CareerDataRequestAsync(data));
     }
-  }, []);
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (props.career.success) {

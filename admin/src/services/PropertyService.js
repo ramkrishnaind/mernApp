@@ -54,7 +54,7 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
 
     if (imageData.badrooms.length > 0) {
       var badrooms = new FormData();
-      imageData.badrooms.map((item, index) => {
+      imageData.badrooms.forEach((item, index) => {
         badrooms.append("image", item);
       });
       badrooms.append("imagetype", "badrooms");
@@ -72,7 +72,7 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
 
     if (imageData.bathrooms.length > 0) {
       var bathrooms = new FormData();
-      imageData.bathrooms.map((item, index) => {
+      imageData.bathrooms.forEach((item, index) => {
         bathrooms.append("image", item);
       });
       bathrooms.append("imagetype", "bathrooms");
@@ -90,7 +90,7 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
 
     if (imageData.exteriorView.length > 0) {
       var exteriorView = new FormData();
-      imageData.exteriorView.map((item, index) => {
+      imageData.exteriorView.forEach((item, index) => {
         exteriorView.append("image", item);
       });
       exteriorView.append("imagetype", "exteriorView");
@@ -108,7 +108,7 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
 
     if (imageData.floorPlan.length > 0) {
       var floorPlan = new FormData();
-      imageData.floorPlan.map((item, index) => {
+      imageData.floorPlan.forEach((item, index) => {
         floorPlan.append("image", item);
       });
       floorPlan.append("imagetype", "floorPlan");
@@ -126,7 +126,7 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
 
     if (imageData.kitchen.length > 0) {
       var kitchen = new FormData();
-      imageData.kitchen.map((item, index) => {
+      imageData.kitchen.forEach((item, index) => {
         kitchen.append("image", item);
       });
       kitchen.append("imagetype", "kitchen");
@@ -144,7 +144,7 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
 
     if (imageData.livingRoom.length > 0) {
       var livingRoom = new FormData();
-      imageData.livingRoom.map((item, index) => {
+      imageData.livingRoom.forEach((item, index) => {
         livingRoom.append("image", item);
       });
       livingRoom.append("imagetype", "livingRoom");
@@ -162,7 +162,7 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
 
     if (imageData.locationMap.length > 0) {
       var locationMap = new FormData();
-      imageData.locationMap.map((item, index) => {
+      imageData.locationMap.forEach((item, index) => {
         locationMap.append("image", item);
       });
       locationMap.append("imagetype", "locationMap");
@@ -180,7 +180,7 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
 
     if (imageData.masterPlan.length > 0) {
       var masterPlan = new FormData();
-      imageData.masterPlan.map((item, index) => {
+      imageData.masterPlan.forEach((item, index) => {
         masterPlan.append("image", item);
       });
       masterPlan.append("imagetype", "masterPlan");
@@ -198,7 +198,7 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
 
     if (imageData.other.length > 0) {
       var other = new FormData();
-      imageData.other.map((item, index) => {
+      imageData.other.forEach((item, index) => {
         other.append("image", item);
       });
       other.append("imagetype", "other");
@@ -273,7 +273,7 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
 
     if (imageData.badrooms.length > 0) {
       var badrooms = new FormData();
-      imageData.badrooms.map((item, index) => {
+      imageData.badrooms.forEach((item, index) => {
         badrooms.append("image", item);
       });
       badrooms.append("imagetype", "badrooms");
@@ -291,7 +291,7 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
 
     if (imageData.bathrooms.length > 0) {
       var bathrooms = new FormData();
-      imageData.bathrooms.map((item, index) => {
+      imageData.bathrooms.forEach((item, index) => {
         bathrooms.append("image", item);
       });
       bathrooms.append("imagetype", "bathrooms");
@@ -309,7 +309,7 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
 
     if (imageData.exteriorView.length > 0) {
       var exteriorView = new FormData();
-      imageData.exteriorView.map((item, index) => {
+      imageData.exteriorView.forEach((item, index) => {
         exteriorView.append("image", item);
       });
       exteriorView.append("imagetype", "exteriorView");
@@ -327,7 +327,7 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
 
     if (imageData.floorPlan.length > 0) {
       var floorPlan = new FormData();
-      imageData.floorPlan.map((item, index) => {
+      imageData.floorPlan.forEach((item, index) => {
         floorPlan.append("image", item);
       });
       floorPlan.append("imagetype", "floorPlan");
@@ -345,7 +345,7 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
 
     if (imageData.kitchen.length > 0) {
       var kitchen = new FormData();
-      imageData.kitchen.map((item, index) => {
+      imageData.kitchen.forEach((item, index) => {
         kitchen.append("image", item);
       });
       kitchen.append("imagetype", "kitchen");
@@ -363,7 +363,7 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
 
     if (imageData.livingRoom.length > 0) {
       var livingRoom = new FormData();
-      imageData.livingRoom.map((item, index) => {
+      imageData.livingRoom.forEach((item, index) => {
         livingRoom.append("image", item);
       });
       livingRoom.append("imagetype", "livingRoom");
@@ -381,7 +381,7 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
 
     if (imageData.locationMap.length > 0) {
       var locationMap = new FormData();
-      imageData.locationMap.map((item, index) => {
+      imageData.locationMap.forEach((item, index) => {
         locationMap.append("image", item);
       });
       locationMap.append("imagetype", "locationMap");
@@ -399,7 +399,7 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
 
     if (imageData.masterPlan.length > 0) {
       var masterPlan = new FormData();
-      imageData.masterPlan.map((item, index) => {
+      imageData.masterPlan.forEach((item, index) => {
         masterPlan.append("image", item);
       });
       masterPlan.append("imagetype", "masterPlan");
@@ -417,7 +417,7 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
 
     if (imageData.other.length > 0) {
       var other = new FormData();
-      imageData.other.map((item, index) => {
+      imageData.other.forEach((item, index) => {
         other.append("image", item);
       });
       other.append("imagetype", "other");

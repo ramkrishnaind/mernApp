@@ -34,7 +34,7 @@ const AboutUsList = (props) => {
 
   useEffect(() => {
     dispatch(AboutUsAction.AboutUsListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

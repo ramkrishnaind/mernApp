@@ -37,7 +37,7 @@ const BuildingList = (props) => {
 
   useEffect(() => {
     dispatch(BuildingAction.BuildingListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

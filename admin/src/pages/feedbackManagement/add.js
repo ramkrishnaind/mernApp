@@ -28,7 +28,7 @@ const MenuCreateUpdate = (props) => {
   let id = query.get("id");
   let feedbackData = props?.feedback?.feedbackData;
   const [, setRefresh] = useState(false);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     let data = {
       _id: id,
@@ -36,7 +36,7 @@ const MenuCreateUpdate = (props) => {
     if (id != null) {
       dispatch(FeedbackAction.FeedbackDataRequestAsync(data));
     }
-  }, [id]);
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (props.feedback.success) {
@@ -44,8 +44,6 @@ const MenuCreateUpdate = (props) => {
       setState(initialState);
     }
   }, [props.feedback.success]);
-
-  const dispatch = useDispatch();
 
   const initialState = {
     name: feedbackData?.name,

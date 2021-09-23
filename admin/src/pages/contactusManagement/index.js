@@ -31,7 +31,7 @@ const ContactUsList = (props) => {
 
   useEffect(() => {
     dispatch(ContactusAction.ContactusListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

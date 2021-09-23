@@ -47,7 +47,7 @@ const MenuCreateUpdate = (props) => {
       dispatch(RoleAction.RoleDataRequestAsync(data));
     }
     dispatch(RoleAction.RoleMenuListRequestAsync(data));
-  }, []);
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (props.role.success) {

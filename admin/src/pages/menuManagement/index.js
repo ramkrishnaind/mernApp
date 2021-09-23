@@ -32,7 +32,7 @@ const MenuList = (props) => {
 
   useEffect(() => {
     dispatch(MenuAction.MenuListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

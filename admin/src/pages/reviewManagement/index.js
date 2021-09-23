@@ -30,7 +30,7 @@ const ReviewList = (props) => {
 
   useEffect(() => {
     dispatch(ReviewAction.ReviewListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

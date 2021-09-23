@@ -21,8 +21,8 @@ const MenuCreateUpdate = (props) => {
   let query = useQuery();
   let id = query.get("id");
   let teamData = props?.team?.teamData;
-  const [refresh, setRefresh] = useState(false);
-
+  const [, setRefresh] = useState(false);
+  const dispatch = useDispatch();
   useEffect(() => {
     let data = {
       _id: id,
@@ -30,7 +30,7 @@ const MenuCreateUpdate = (props) => {
     if (id != null) {
       dispatch(TeamAction.TeamDataRequestAsync(data));
     }
-  }, [id]);
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (props.team.success) {
@@ -38,8 +38,6 @@ const MenuCreateUpdate = (props) => {
       setState(initialState);
     }
   }, [props.team.success]);
-
-  const dispatch = useDispatch();
 
   const initialState = {
     name: teamData?.name,
