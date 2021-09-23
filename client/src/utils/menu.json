@@ -27,30 +27,104 @@
         "id": 3,
         "title": "Property",
         "image": "",
-        "submenu": [
-            {
-                "title": "RENT",
-                "commercial": [
-                    {
-                        "title": "Commercial"
-                    }
-                ],
-                "residential": [
-                    {
-                        "title": "Residential"
-                    }
-                ]
-            },
+        "submenu": [       
             {
                 "title": "SELL",
                 "commercial": [
                     {
-                        "title": "Commercial"
+                        "title": "Office"
+                    },
+                    {
+                        "title": "Shop"
                     }
                 ],
                 "residential": [
                     {
-                        "title": "Residential"
+                        "title": "Flats"
+                    },
+                    {
+                        "title": "2 BHK Flats"
+                    },
+                    {
+                        "title": "3 BHK Flats"
+                    },
+                    {
+                        "title": "Villas"
+                    }
+                ]
+            },
+            {
+                "title": "RENT",
+                "commercial": [
+                    {
+                        "title": "Office"
+                    },
+                    {
+                        "title": "Shop"
+                    }
+                ],
+                "residential": [
+                    {
+                        "title": "Flats"
+                    },
+                    {
+                        "title": "2 BHK Flats"
+                    },
+                    {
+                        "title": "3 BHK Flats"
+                    },
+                    {
+                        "title": "Villas"
+                    }
+                ]
+            },
+            {
+                "title": "CONSTRUCTION",
+                "commercial": [
+                    {
+                        "title": "Office"
+                    },
+                    {
+                        "title": "Shop"
+                    }
+                ],
+                "residential": [
+                    {
+                        "title": "Flats"
+                    },
+                    {
+                        "title": "2 BHK Flats"
+                    },
+                    {
+                        "title": "3 BHK Flats"
+                    },
+                    {
+                        "title": "Villas"
+                    }
+                ]
+            },
+            {
+                "title": "INTERIOR",
+                "commercial": [
+                    {
+                        "title": "Office"
+                    },
+                    {
+                        "title": "Shop"
+                    }
+                ],
+                "residential": [
+                    {
+                        "title": "Flats"
+                    },
+                    {
+                        "title": "2 BHK Flats"
+                    },
+                    {
+                        "title": "3 BHK Flats"
+                    },
+                    {
+                        "title": "Villas"
                     }
                 ]
             }
@@ -58,25 +132,30 @@
     },
     {
         "id": 4,
-        "title": "Services",
-        "href": "/service-details"
+        "title": "Sell",
+        "href": "/sell"
     },
     {
-        "id": 4,
+        "id": 5,
+        "title": "Rent",
+        "href": "/rent"
+    },
+    {
+        "id": 6,
         "title": "Careers",
         "href": "/carrer"
     },
     {
-        "id": 5,
+        "id": 7,
         "title": "Finance"
     },
     {
-        "id": 6,
+        "id": 8,
         "title": "Contact Us",
         "href": "/contact-us"
     },
     {
-        "id": 7,
+        "id": 9,
         "title": "Blog",
         "href": "/blog"
     }

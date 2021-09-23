@@ -1,5 +1,51 @@
-.btn-book-online {
-    background-image: linear-gradient(90deg, #da3287, #ffde5e);
-    border-radius: 16px;
-    margin-right: 10px;
+.about-block-item{
+    margin-bottom: 40px;
+}
+.about-block-image {
+	position: relative;
+	margin-right: -100px;
+}
+.about-block-content {
+    background-color: #ff7600;
+    color: #fff;
+	padding: 30px;
+	position: relative;
+	z-index: 2;	
+}
+.about-block-content h3 {
+    font-family: 'Open Sans', sans-serif;
+	font-size: 25px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+.about-block-content  p {
+    font-family: 'Open Sans', sans-serif;
+	font-size: 14px;	
+    line-height: 28px;
+    letter-spacing: 0;
+}
+.about-page-item{
+    margin-bottom: 40px;
+}
+.about-page-content h4 {
+    font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+	color: #00afb8;
+	margin-bottom: 10px;
+}
+.about-page-content h3 {
+    font-family: 'Open Sans', sans-serif;
+	font-size: 24px;
+	color: #ff7600;
+	margin-bottom: 20px;
+}
+.about-page-content p {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+	color: #777777;
+	line-height: 24px;
+    letter-spacing: 0;
+}
+.about-whyus-item .about-page-content p {
+    line-height: 28px;
 }

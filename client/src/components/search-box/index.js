@@ -126,8 +126,8 @@ const SearchBox = (props) => {
                 <Grid id="type">
                     <Box className={type === Type.RENT ? 'selected' : ''} onClick={() => setType(Type.RENT)}>RENT</Box>
                     <Box className={type === Type.SELL ? 'selected' : ''} onClick={() => setType(Type.SELL)}> SELL</Box>
-                    <Box className={type === Type.CONSTRUCTION ? 'selected' : ''} onClick={() => setType(Type.CONSTRUCTION)} > CONSTRUCTION </Box>
-                    <Box className={type === Type.INTERIOR ? 'selected' : ''} onClick={() => setType(Type.INTERIOR)}> INTERIOR</Box>
+                    {/* <Box className={type === Type.CONSTRUCTION ? 'selected' : ''} onClick={() => setType(Type.CONSTRUCTION)} > CONSTRUCTION </Box>
+                    <Box className={type === Type.INTERIOR ? 'selected' : ''} onClick={() => setType(Type.INTERIOR)}> INTERIOR</Box> */}
                 </Grid>
                 <Box id="search-continer" className="search-form">
                     <Box className="search-form-area" >
