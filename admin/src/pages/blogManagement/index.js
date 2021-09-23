@@ -34,7 +34,7 @@ const BlogList = (props) => {
   let { blog } = props;
   useEffect(() => {
     dispatch(BlogAction.BlogListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

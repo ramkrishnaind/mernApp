@@ -35,7 +35,7 @@ const UserList = (props) => {
 
   useEffect(() => {
     dispatch(UserAction.UserListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

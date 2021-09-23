@@ -35,7 +35,7 @@ const HomeSliderList = (props) => {
 
   useEffect(() => {
     dispatch(HomeSliderAction.SliderListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

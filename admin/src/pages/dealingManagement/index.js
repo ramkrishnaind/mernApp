@@ -12,7 +12,6 @@ import MUIDataTable from "mui-datatables";
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -33,7 +32,7 @@ const DealingList = (props) => {
 
   useEffect(() => {
     dispatch(DealingAction.DealingListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

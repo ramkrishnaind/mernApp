@@ -1,6 +1,9 @@
 import React from "react";
 import { Box, Button, Link, Typography } from "@material-ui/core";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import {
+  Link as RouterLink,
+  // useLocation
+} from "react-router-dom";
 import "./404style.css";
 const Error404Page = () => {
   return (

@@ -35,7 +35,7 @@ const TeamList = (props) => {
 
   useEffect(() => {
     dispatch(TeamAction.TeamListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

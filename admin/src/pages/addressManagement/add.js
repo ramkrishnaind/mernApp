@@ -16,7 +16,7 @@ const AddressCreateUpdate = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(AddressAction.AddressDataRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (props.address.success) {

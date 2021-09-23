@@ -12,9 +12,9 @@ import MUIDataTable from "mui-datatables";
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
+// import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
-import history from "../../components/history";
+// import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
@@ -32,11 +32,11 @@ const styles = (theme) => ({
 
 const DealingItemList = (props) => {
   const dispatch = useDispatch();
-  let { classes, dealingItem } = props;
+  let { dealingItem } = props;
 
   useEffect(() => {
     dispatch(DealingItemAction.DealingItemListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,
@@ -72,11 +72,10 @@ const DealingItemList = (props) => {
     });
   }
 
-  function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/dealingItem/edit?id="+data;
-    history.push("/dealingItem/add?id=" + data);
-    window.location.reload();
-  }
+  // function updatehandleOpenCreateModal(data) {
+  //   history.push("/dealingItem/add?id=" + data);
+  //   window.location.reload();
+  // }
 
   return (
     <>

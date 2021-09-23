@@ -11,7 +11,6 @@ import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import ClearIcon from "@material-ui/icons/Clear";
 
-import history from "../../components/history";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -29,7 +28,7 @@ const CallbackList = (props) => {
 
   useEffect(() => {
     dispatch(CallbackAction.CallbackListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

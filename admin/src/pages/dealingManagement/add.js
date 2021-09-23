@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
@@ -8,7 +8,7 @@ import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
 import "./dealingManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { connect } from "react-redux";
 // import Link from "next/link";
 
@@ -43,7 +43,7 @@ const MenuCreateUpdate = (props) => {
     const {
       title,
       header,
-      id,
+
       metaTitle,
       metaKeywords,
       metaDescription,
@@ -51,7 +51,7 @@ const MenuCreateUpdate = (props) => {
     } = state;
 
     var data = new FormData();
-    state?.image.map((item, index) => {
+    state?.image.forEach((item, index) => {
       data.append("image", item);
     });
     data.append("video", video);

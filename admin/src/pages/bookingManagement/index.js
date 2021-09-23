@@ -33,7 +33,7 @@ const BookingList = (props) => {
 
   useEffect(() => {
     dispatch(BookingAction.BookingListRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   let options = {
     selectableRows: false,

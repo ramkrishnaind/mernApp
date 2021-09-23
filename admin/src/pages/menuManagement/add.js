@@ -27,7 +27,6 @@ const MenuCreateUpdate = (props) => {
   let query = useQuery();
   let id = query.get("id");
   const dispatch = useDispatch();
-
   const [, setRefresh] = useState(false);
 
   const initialState = {
@@ -36,7 +35,6 @@ const MenuCreateUpdate = (props) => {
     id: id,
     status: true,
   };
-  console.log("initialState", initialState);
   const [state, setState] = useState(initialState);
 
   useEffect(() => {
@@ -46,7 +44,7 @@ const MenuCreateUpdate = (props) => {
     if (id != null) {
       dispatch(MenuAction.MenuDataRequestAsync(data));
     }
-  }, []);
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (props.menu.success) {

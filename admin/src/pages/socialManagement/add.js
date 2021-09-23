@@ -17,7 +17,7 @@ const SocialCreateUpdate = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(SocialAction.SocialDataRequestAsync());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (props.social.success) {

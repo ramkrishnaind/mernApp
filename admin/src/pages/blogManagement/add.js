@@ -22,7 +22,7 @@ const MenuCreateUpdate = (props) => {
   let id = query.get("id");
   let blogData = props?.blog?.blogData;
   const [, setRefresh] = useState(false);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     let data = {
       _id: id,
@@ -30,7 +30,7 @@ const MenuCreateUpdate = (props) => {
     if (id != null) {
       dispatch(BlogAction.BlogDataRequestAsync(data));
     }
-  }, [id]);
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (props.blog.success) {
@@ -38,8 +38,6 @@ const MenuCreateUpdate = (props) => {
       setState(initialState);
     }
   }, [props.blog.success]);
-
-  const dispatch = useDispatch();
 
   const initialState = {
     title: blogData?.title,

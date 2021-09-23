@@ -30,24 +30,6 @@ const MenuCreateUpdate = (props) => {
   let id = query.get("id");
   let userData = props?.user?.userData;
   const [, setRefresh] = useState(false);
-
-  useEffect(() => {
-    let data = {
-      _id: id,
-    };
-    if (id != null) {
-      dispatch(UserAction.UserDataRequestAsync(data));
-    }
-    dispatch(UserAction.RoleListRequestAsync());
-  }, [id]);
-
-  useEffect(() => {
-    if (props.user.success) {
-      setRefresh(true);
-      setState(initialState);
-    }
-  }, [props.user.success]);
-
   const dispatch = useDispatch();
 
   const initialState = {
@@ -60,6 +42,23 @@ const MenuCreateUpdate = (props) => {
     userRole: userData?.userRole,
     image: userData?.image,
   };
+
+  useEffect(() => {
+    let data = {
+      _id: id,
+    };
+    if (id != null) {
+      dispatch(UserAction.UserDataRequestAsync(data));
+    }
+    dispatch(UserAction.RoleListRequestAsync());
+  }, [id, dispatch]);
+
+  useEffect(() => {
+    if (props.user.success) {
+      setRefresh(true);
+      setState(initialState);
+    }
+  }, [props.user.success]);
 
   const [state, setState] = useState(initialState);
   const [country, setCountry] = useState("+91");
