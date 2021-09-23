@@ -14,7 +14,7 @@
 	width: 100%;
 	margin: 0 0 20px;
 }
-/* .form-group.MuiFormControl-root >label {
+.form-group.MuiFormControl-root >label {
 	color: #fff;
 	position: static;
 	transform: none;
@@ -25,18 +25,18 @@
 	background-color: #fff;
 	border-radius: 10px;
 	box-sizing: border-box;
-	padding: 10px 15px;
+	padding: 12px 15px;
 	font-size: 14px;
-	height: 40px;	
+	height: 44px;	
 }
 .form-group.MuiFormControl-root .MuiSelect-selectMenu {
 	background-color: #fff;
 	border-radius: 10px;
 	box-sizing: border-box;
-	padding: 10px 15px;
-	height: 40px;	
+	padding: 12px 15px;
+	height: 44px;	
 	font-size: 14px;
-} */
+}
 .form-group.MuiFormControl-root  .MuiInputBase-formControl fieldset {
 	display: none;
 }

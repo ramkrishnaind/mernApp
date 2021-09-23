@@ -5,8 +5,7 @@ import {Container} from '@material-ui/core';
 const containerStyle = {
     position: 'relative',
     width: '100%',
-    height: '100%',
-    minHeight: '100%'
+    height: '400px'
 };
 
 const addMarkers = (markers) => {

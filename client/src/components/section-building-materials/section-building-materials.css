@@ -10,15 +10,21 @@
 .building-material-wrap {
 	padding: 20px;
 	margin: 10px;
-	float: left;
-	border: 10px solid #fff;
+	/* float: left; */
+	/* border: 10px solid #fff; */
 	overflow: hidden;
 	position: relative;
 	text-align: center;
-	-webkit-box-shadow: 0px 0px 20px rgb(230 230 230);
-	-moz-box-shadow: 0px 0px 20px rgb(230 230 230);
 	box-shadow: 0px 0px 20px rgb(230 230 230);
-	cursor: default;	
+	cursor: default;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 180px;	
+}
+.building-material-wrap img {
+	height: 100%;
+	object-fit: contain;
 }
 .building-material-wrap .mask-1, .building-material-wrap .mask-2 {
     background-color: rgba(0, 0, 0, 0.5);
@@ -40,11 +46,11 @@
 .building-material-wrap .mask-1 {
     left: auto;
     right: 0;
-    -webkit-transform: rotate(54.5deg) translateX(-180px);
-    -moz-transform: rotate(54.5deg) translateX(-180px);
-    -o-transform: rotate(54.5deg) translateX(-180px);
-    -ms-transform: rotate(54.5deg) translateX(-180px);
-    transform: rotate(54.5deg) translateX(-180px);
+    -webkit-transform: rotate(58deg) translateX(-180px);
+    -moz-transform: rotate(58deg) translateX(-180px);
+    -o-transform: rotate(58deg) translateX(-180px);
+    -ms-transform: rotate(58deg) translateX(-180px);
+    transform: rotate(58deg) translateX(-180px);
     -webkit-transform-origin: 100% 0%;
     -moz-transform-origin: 100% 0%;
     -o-transform-origin: 100% 0%;
@@ -52,20 +58,20 @@
     transform-origin: 100% 0%;
 }
 .building-material-wrap:hover .mask-1 {
-    -webkit-transform: rotate(54.5deg) translateX(1px);
-    -moz-transform: rotate(54.5deg) translateX(1px);
-    -o-transform: rotate(54.5deg) translateX(1px);
-    -ms-transform: rotate(54.5deg) translateX(1px);
-    transform: rotate(54.5deg) translateX(1px);
+    -webkit-transform: rotate(58deg) translateX(1px);
+    -moz-transform: rotate(58deg) translateX(1px);
+    -o-transform: rotate(58deg) translateX(1px);
+    -ms-transform: rotate(58deg) translateX(1px);
+    transform: rotate(58deg) translateX(1px);
 }
 .building-material-wrap .mask-2 {
     top: auto;
     bottom: 0;
-    -webkit-transform: rotate(54.5deg) translateX(180px);
-    -moz-transform: rotate(54.5deg) translateX(180px);
-    -o-transform: rotate(54.5deg) translateX(180px);
-    -ms-transform: rotate(54.5deg) translateX(180px);
-    transform: rotate(54.5deg) translateX(180px);
+    -webkit-transform: rotate(58deg) translateX(180px);
+    -moz-transform: rotate(58deg) translateX(180px);
+    -o-transform: rotate(58deg) translateX(180px);
+    -ms-transform: rotate(58deg) translateX(180px);
+    transform: rotate(58deg) translateX(180px);
     -webkit-transform-origin: 0% 100%;
     -moz-transform-origin: 0% 100%;
     -o-transform-origin: 0% 100%;
@@ -73,11 +79,11 @@
     transform-origin: 0% 100%;
 }
 .building-material-wrap:hover .mask-2 {
-    -webkit-transform: rotate(54.5deg) translateX(-1px);
-    -moz-transform: rotate(54.5deg) translateX(-1px);
-    -o-transform: rotate(54.5deg) translateX(-1px);
-    -ms-transform: rotate(54.5deg) translateX(-1px);
-    transform: rotate(54.5deg) translateX(-1px);
+    -webkit-transform: rotate(58deg) translateX(-1px);
+    -moz-transform: rotate(58deg) translateX(-1px);
+    -o-transform: rotate(58deg) translateX(-1px);
+    -ms-transform: rotate(58deg) translateX(-1px);
+    transform: rotate(58deg) translateX(-1px);
 }
 .building-material-wrap:hover .mask-1, .building-material-wrap:hover .mask-2 {
     -webkit-transition-delay: 0s;
@@ -132,13 +138,26 @@
     -ms-transform: rotate(0deg) translate(-50%, -50%);
     transform: rotate(0deg) translate(-50%, -50%);
 }
+@media only screen and (max-width: 991px) {
+    .building-material-wrap {
+        padding: 15px;     
+        height: 150px;
+    }
+    .building-material-wrap .mask-1, .building-material-wrap .mask-2 {       
+        display: none;
+    }
+    .building-material-wrap .content {
+        display: none
+    }
+}
 @media only screen and (max-width: 767px) {
 	.building-material-wrapper {
 		padding-top: 20px;
 	}
 	.building-material-wrap {
-		padding: 0;
+		padding: 10px;
 		margin: 5px;	
 		box-shadow: 0px 0px 10px rgb(230 230 230);	
+        height: 110px;
 	}
 }
