@@ -49,3 +49,8 @@
 .about-whyus-item .about-page-content p {
     line-height: 28px;
 }
+@media only screen and (max-width: 991px) {
+	.about-block-image {	
+		margin-right: 0;
+	}
+}
