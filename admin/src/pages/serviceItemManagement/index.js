@@ -12,7 +12,9 @@ import MUIDataTable from "mui-datatables";
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
+import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "./serviceManagement.css";
@@ -68,6 +70,12 @@ const ServiceItemList = (props) => {
       ],
     });
   }
+
+  function updatehandleOpenCreateModal(data) {
+    history.push("/serviceItem/add?id=" + data);
+    window.location.reload();
+  }
+
   return (
     <>
       <Box className="MenuManagement_Data">
@@ -113,6 +121,12 @@ const ServiceItemList = (props) => {
                     customBodyRender: (value, tableMeta, updateValue) => {
                       return (
                         <>
+                          <EditIcon
+                            style={{ color: "#0069d9", cursor: "pointer" }}
+                            onClick={() =>
+                              updatehandleOpenCreateModal(tableMeta.rowData[4])
+                            }
+                          />
                           {tableMeta.rowData[3] ? (
                             <Tooltip title="Active">
                               <Done

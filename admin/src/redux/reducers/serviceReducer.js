@@ -29,6 +29,24 @@ const ServiceReducer = (state = initialState, action) => {
         error: payload.error,
       };
 
+    case ACTION_KEYS.SERVICE_DATA_REQUEST:
+      return {
+        ...state,
+        isRequesting: true,
+      };
+    case ACTION_KEYS.SERVICE_DATA_SUCCESS:
+      return {
+        ...state,
+        isRequesting: false,
+        success: true,
+        serviceData: payload.data,
+      };
+    case ACTION_KEYS.SERVICE_DATA_ERROR:
+      return {
+        ...state,
+        isRequesting: false,
+        error: payload.error,
+      };
     default:
       return state;
   }

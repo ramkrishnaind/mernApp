@@ -80,3 +80,42 @@ export const ServiceDeleteService = async (dispatch, data) => {
   }
   dispatch(Loader.hideLoader(""));
 };
+
+export const ServiceDataService = async (dispatch, data) => {
+  try {
+    const result = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.SERVICE_DATA_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(ServiceAction.ServiceDataSuccess(result));
+  } catch (error) {
+    dispatch(ServiceAction.ServiceDataError(error));
+    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+  }
+  dispatch(Loader.hideLoader(""));
+};
+
+export const ServiceUpdateService = async (dispatch, data) => {
+  try {
+    const result = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.SERVICE_UPDATE_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(ServiceAction.ServiceUpdateSuccess(result));
+    dispatch(Snackbar.showSuccessSnackbar(result.message));
+    history.push("/service");
+    window.location.reload();
+  } catch (error) {
+    dispatch(ServiceAction.ServiceUpdateError(error));
+    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+  }
+  dispatch(Loader.hideLoader(""));
+};

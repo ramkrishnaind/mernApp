@@ -80,3 +80,42 @@ export const DealingDeleteService = async (dispatch, data) => {
   }
   dispatch(Loader.hideLoader(""));
 };
+
+export const DealingDataService = async (dispatch, data) => {
+  try {
+    const result = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.DEALING_DATA_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(DealingAction.DealingDataSuccess(result));
+  } catch (error) {
+    dispatch(DealingAction.DealingDataError(error));
+    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+  }
+  dispatch(Loader.hideLoader(""));
+};
+
+export const DealingUpdateService = async (dispatch, data) => {
+  try {
+    const result = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.DEALING_UPDATE_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(DealingAction.DealingUpdateSuccess(result));
+    dispatch(Snackbar.showSuccessSnackbar(result.message));
+    history.push("/dealing");
+    window.location.reload();
+  } catch (error) {
+    dispatch(DealingAction.DealingUpdateError(error));
+    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+  }
+  dispatch(Loader.hideLoader(""));
+};

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
@@ -8,7 +8,7 @@ import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
 import "./dealingManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 // import Link from "next/link";
 
@@ -20,19 +20,39 @@ import "react-dropzone-uploader/dist/styles.css";
 
 const MenuCreateUpdate = (props) => {
   const dispatch = useDispatch();
+  let query = useQuery();
+  let id = query.get("id");
+  let dealingData = props?.dealing?.dealingData;
+  useEffect(() => {
+    let data = {
+      _id: id,
+    };
+    if (id != null) {
+      dispatch(DealingAction.DealingDataRequestAsync(data));
+    }
+  }, [id, dispatch]);
+
+  const [, setRefresh] = useState(false);
+  useEffect(() => {
+    if (props.dealing.success) {
+      setRefresh(true);
+      setState(initialState);
+    }
+  }, [props.dealing.success]);
 
   const initialState = {
-    title: "",
-    header: "",
-    metaTitle: "",
-    metaKeywords: "",
-    metaDescription: "",
+    title: dealingData?.title,
+    header: dealingData?.header,
+    metaTitle: dealingData?.metaTitle,
+    metaKeywords: dealingData?.metaKeywords,
+    metaDescription: dealingData?.metaDescription,
     image: [],
     video: "",
+    id: id,
   };
 
   const [state, setState] = useState(initialState);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(dealingData?.description);
   const inputChange = (e) => {
     let { name, value } = e.target;
 
@@ -43,7 +63,7 @@ const MenuCreateUpdate = (props) => {
     const {
       title,
       header,
-
+      id,
       metaTitle,
       metaKeywords,
       metaDescription,
@@ -54,15 +74,28 @@ const MenuCreateUpdate = (props) => {
     state?.image.forEach((item, index) => {
       data.append("image", item);
     });
-    data.append("video", video);
-    data.append("title", title);
-    data.append("header", header);
-    data.append("description", description);
-    data.append("metaTitle", metaTitle);
-    data.append("metaKeywords", metaKeywords);
-    data.append("metaDescription", metaDescription);
+    if (id === null) {
+      data.append("video", video);
+      data.append("title", title);
+      data.append("header", header);
+      data.append("description", description);
+      data.append("metaTitle", metaTitle);
+      data.append("metaKeywords", metaKeywords);
+      data.append("metaDescription", metaDescription);
 
-    dispatch(DealingAction.DealingAddRequestAsync(data));
+      dispatch(DealingAction.DealingAddRequestAsync(data));
+    } else {
+      data.append("video", video);
+      data.append("title", title);
+      data.append("header", header);
+      data.append("description", description);
+      data.append("metaTitle", metaTitle);
+      data.append("metaKeywords", metaKeywords);
+      data.append("metaDescription", metaDescription);
+      data.append("_id", id);
+
+      dispatch(DealingAction.DealingUpdateRequestAsync(data));
+    }
   };
 
   const handleChangeTextEditor = (content, editor) => {
@@ -88,6 +121,11 @@ const MenuCreateUpdate = (props) => {
       setState({ ...state, ["video"]: file.file });
     }
   };
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+
   return (
     <Box className="MenuManagement_Data">
       <FormHeader
@@ -127,7 +165,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Header*"
                     fullWidth
-                    value={state.header}
+                    value={state.header ? state.header : dealingData?.header}
                     onChange={inputChange}
                     name="header"
                     id="header"
@@ -142,7 +180,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.title}
+                    value={state.title ? state.title : dealingData?.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -157,7 +195,9 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={state.metaTitle}
+                    value={
+                      state.metaTitle ? state.metaTitle : dealingData?.metaTitle
+                    }
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
@@ -170,7 +210,11 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={state.metaKeywords}
+                    value={
+                      state.metaKeywords
+                        ? state.metaKeywords
+                        : dealingData?.metaKeywords
+                    }
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
@@ -183,7 +227,11 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={state.metaDescription}
+                    value={
+                      state.metaDescription
+                        ? state.metaDescription
+                        : dealingData?.metaDescription
+                    }
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"
@@ -191,12 +239,26 @@ const MenuCreateUpdate = (props) => {
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-                  <ReactQuill
-                    onChange={handleChangeTextEditor}
-                    value={description}
-                    placeholder="Enter description"
-                    theme="snow"
-                  />
+                  {dealingData?.description != null ? (
+                    <>
+                      <ReactQuill
+                        onChange={handleChangeTextEditor}
+                        value={
+                          description ? description : dealingData?.description
+                        }
+                        placeholder="Enter description"
+                        theme="snow"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <ReactQuill
+                        onChange={handleChangeTextEditor}
+                        placeholder="Enter description"
+                        theme="snow"
+                      />
+                    </>
+                  )}
                 </Grid>
               </Grid>
               <br />

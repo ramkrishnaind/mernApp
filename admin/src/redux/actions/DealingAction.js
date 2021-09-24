@@ -4,6 +4,8 @@ import {
   DealingAddService,
   DealingStatusUpdateService,
   DealingDeleteService,
+  DealingDataService,
+  DealingUpdateService,
 } from "../../services/DealingService";
 import * as Loader from "./LoaderActions";
 
@@ -187,6 +189,94 @@ export const DealingDeleteSuccess = (data) => {
 export const DealingDeleteError = (data) => {
   return {
     type: ACTION_KEYS.DEALING_DELETE_ERROR,
+    payload: { error: data },
+  };
+};
+
+export const DealingDataRequestAsync = (data) => {
+  // console.log('data',data);
+  return (dispatch) => {
+    dispatch(Loader.showLoader(""));
+    dispatch(DealingDataRequest());
+    DealingDataService(dispatch, data);
+  };
+};
+
+/**
+ * Action Creator to dispatch login action
+ * @returns
+ */
+const DealingDataRequest = () => {
+  return {
+    type: ACTION_KEYS.DEALING_ITEM_DATA_REQUEST,
+    payload: null,
+  };
+};
+
+/**
+ * Action Creator to dispatch Success
+ * @param {*} data
+ * @returns
+ */
+export const DealingDataSuccess = (data) => {
+  return {
+    type: ACTION_KEYS.DEALING_ITEM_DATA_SUCCESS,
+    payload: data,
+  };
+};
+
+/**
+ * Action Creator to dispatch error
+ * @param {*} data
+ * @returns
+ */
+export const DealingDataError = (data) => {
+  return {
+    type: ACTION_KEYS.DEALING_ITEM_DATA_ERROR,
+    payload: { error: data },
+  };
+};
+
+export const DealingUpdateRequestAsync = (data) => {
+  // console.log('data',data);
+  return (dispatch) => {
+    dispatch(Loader.showLoader(""));
+    dispatch(DealingUpdateRequest());
+    DealingUpdateService(dispatch, data);
+  };
+};
+
+/**
+ * Action Creator to dispatch login action
+ * @returns
+ */
+const DealingUpdateRequest = () => {
+  return {
+    type: ACTION_KEYS.DEALING_ITEM_UPDATE_REQUEST,
+    payload: null,
+  };
+};
+
+/**
+ * Action Creator to dispatch Success
+ * @param {*} data
+ * @returns
+ */
+export const DealingUpdateSuccess = (data) => {
+  return {
+    type: ACTION_KEYS.DEALING_ITEM_UPDATE_SUCCESS,
+    payload: data,
+  };
+};
+
+/**
+ * Action Creator to dispatch error
+ * @param {*} data
+ * @returns
+ */
+export const DealingUpdateError = (data) => {
+  return {
+    type: ACTION_KEYS.DEALING_ITEM_UPDATE_ERROR,
     payload: { error: data },
   };
 };

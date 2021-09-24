@@ -4,6 +4,8 @@ import {
   ServiceItemAddService,
   ServiceItemStatusUpdateService,
   ServiceItemDeleteService,
+  ServiceItemUpdateService,
+  ServiceItemDataService,
 } from "../../services/ServiceItemService";
 import * as Loader from "./LoaderActions";
 /**
@@ -186,6 +188,94 @@ export const ServiceItemDeleteSuccess = (data) => {
 export const ServiceItemDeleteError = (data) => {
   return {
     type: ACTION_KEYS.SERVICE_ITEM_DELETE_ERROR,
+    payload: { error: data },
+  };
+};
+
+export const ServiceItemDataRequestAsync = (data) => {
+  // console.log('data',data);
+  return (dispatch) => {
+    dispatch(Loader.showLoader(""));
+    dispatch(ServiceItemDataRequest());
+    ServiceItemDataService(dispatch, data);
+  };
+};
+
+/**
+ * Action Creator to dispatch login action
+ * @returns
+ */
+const ServiceItemDataRequest = () => {
+  return {
+    type: ACTION_KEYS.SERVICE_DATA_REQUEST,
+    payload: null,
+  };
+};
+
+/**
+ * Action Creator to dispatch Success
+ * @param {*} data
+ * @returns
+ */
+export const ServiceItemDataSuccess = (data) => {
+  return {
+    type: ACTION_KEYS.SERVICE_DATA_SUCCESS,
+    payload: data,
+  };
+};
+
+/**
+ * Action Creator to dispatch error
+ * @param {*} data
+ * @returns
+ */
+export const ServiceItemDataError = (data) => {
+  return {
+    type: ACTION_KEYS.SERVICE_DATA_ERROR,
+    payload: { error: data },
+  };
+};
+
+export const ServiceItemUpdateRequestAsync = (data) => {
+  // console.log('data',data);
+  return (dispatch) => {
+    dispatch(Loader.showLoader(""));
+    dispatch(ServiceItemUpdateRequest());
+    ServiceItemUpdateService(dispatch, data);
+  };
+};
+
+/**
+ * Action Creator to dispatch login action
+ * @returns
+ */
+const ServiceItemUpdateRequest = () => {
+  return {
+    type: ACTION_KEYS.SERVICE_UPDATE_REQUEST,
+    payload: null,
+  };
+};
+
+/**
+ * Action Creator to dispatch Success
+ * @param {*} data
+ * @returns
+ */
+export const ServiceItemUpdateSuccess = (data) => {
+  return {
+    type: ACTION_KEYS.SERVICE_UPDATE_SUCCESS,
+    payload: data,
+  };
+};
+
+/**
+ * Action Creator to dispatch error
+ * @param {*} data
+ * @returns
+ */
+export const ServiceItemUpdateError = (data) => {
+  return {
+    type: ACTION_KEYS.SERVICE_UPDATE_ERROR,
     payload: { error: data },
   };
 };
