@@ -98,7 +98,7 @@ const Footer = props => {
     };
 
     return (
-        <>
+        <div>
             <Grid container spacing={3}>
                 <Grid item xs={12} md={4} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
                     <Typography className={classes.text1}>VISHAL CONSTRUCTION</Typography>
@@ -215,7 +215,7 @@ const Footer = props => {
             <Grid container style={{ marginTop: 40 }} spacing={2} className="footerSplit">
                 <Mobilefootermenu />
             </Grid>
-        </>
+        </div>
     );
 };
 
