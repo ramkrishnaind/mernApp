@@ -105,19 +105,19 @@ const Footer = props => {
                     <Grid contaienr>
                         <Grid item xs={12} md={12} className={classes.footer_column1}>
                             <LocationOnIcon style={{ color: '#06AEB8', fontSize: 20, padding: 0, marginRight: 8 }} />
-                            <Typography className={classes.text3}>{footerDetails?.adress} {footerDetails?.city} {footerDetails?.state} - {footerDetails?.pinCode}</Typography>
+                            <Typography className={classes.text3}>{footerDetails ? footerDetails.adress : ''} {footerDetails ? footerDetails.city : ''} {footerDetails ? footerDetails.state : ''} - {footerDetails ? footerDetails.pinCode : ''}</Typography>
                         </Grid>
                         <Grid item xs={12} md={12} className={classes.footer_column1}>
                             <PhoneIphoneIcon style={{ color: "#06AEB8", fontSize: 20, padding: 0, marginRight: 8, }} />
-                            <Typography className={classes.text3}>{footerDetails?.mobile}</Typography>
+                            <Typography className={classes.text3}>{footerDetails ? footerDetails.mobile : ''}</Typography>
                         </Grid>
                         <Grid item xs={12} md={12} className={classes.footer_column1}>
                             <MailOutlineIcon style={{ color: "#06AEB8", fontSize: 20, padding: 0, marginRight: 8, }} />
-                            <Typography className={classes.text3}>{footerDetails?.email}</Typography>
+                            <Typography className={classes.text3}>{footerDetails ? footerDetails.email : ''}</Typography>
                         </Grid>
                         <Grid item xs={12} md={12} className={classes.footer_column1}>
                             <AccessTimeIcon style={{ color: "#06AEB8", fontSize: 20, padding: 0, marginRight: 8, }} />
-                            <Typography className={classes.text3}>{footerDetails?.timming}</Typography>
+                            <Typography className={classes.text3}>{footerDetails ? footerDetails.timming : ''}</Typography>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -158,27 +158,27 @@ const Footer = props => {
                     <Grid container>
                         <Grid item style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginTop: 10 }}>
                             <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks?.send}>
+                                <a href={socialLinks ? socialLinks.send : ''}>
                                     <SendIcon style={{ color: '#FFFFFF', fontSize: 20, padding: 0, }} />
                                 </a>
                             </Box>
                             <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks?.twitter}>
+                                <a href={socialLinks ? socialLinks.twitter : ''}>
                                     <TwitterIcon style={{ color: '#FFFFFF', fontSize: 20, padding: 0, }} />
                                 </a>
                             </Box>
                             <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks?.pinterest}>
+                                <a href={socialLinks ? socialLinks.pinterest : ''}>
                                     <PinterestIcon style={{ color: '#FFFFFF', fontSize: 20, padding: 0, }} />
                                 </a>
                             </Box>
                             <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks?.youtube}>
+                                <a href={socialLinks ? socialLinks.youtube : ''}>
                                     <YouTubeIcon style={{ color: '#FFFFFF', fontSize: 20, padding: 0, }} />
                                 </a>
                             </Box>
                             <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks?.language}>
+                                <a href={socialLinks ? socialLinks.language : ''}>
                                     <LanguageIcon style={{ color: '#FFFFFF', fontSize: 20, padding: 0, }} />
                                 </a >
                             </Box>
