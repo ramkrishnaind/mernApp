@@ -48,12 +48,6 @@ const BlogList = (props) => {
       active: status,
     };
     dispatch(BlogAction.BlogStatusUpdateRequestAsync(tempdata));
-
-    if (status === "enable") {
-      // toast.error("Disable")
-    } else {
-      // toast.success("Enable")
-    }
   }
 
   function onDeleteClick(data) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
@@ -8,10 +8,7 @@ import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
 import "./dealingManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
-import {
-  Link as RouterLink,
-  // useLocation
-} from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 // import Link from "next/link";
 
@@ -23,21 +20,41 @@ import "react-dropzone-uploader/dist/styles.css";
 
 const MenuCreateUpdate = (props) => {
   const dispatch = useDispatch();
+  let query = useQuery();
+  let id = query.get("id");
+  let dealingItemData = props?.dealingItem?.dealingItemData;
+  useEffect(() => {
+    let data = {
+      _id: id,
+    };
+    if (id != null) {
+      dispatch(DealingItemAction.DealingItemDataRequestAsync(data));
+    }
+  }, [id, dispatch]);
+
+  const [, setRefresh] = useState(false);
+  useEffect(() => {
+    if (props.dealingItem.success) {
+      setRefresh(true);
+      setState(initialState);
+    }
+  }, [props.dealingItem.success]);
 
   const initialState = {
-    title: "",
-    metaTitle: "",
-    metaKeywords: "",
-    metaDescription: "",
-    shortDescription: "",
-    icon: "",
-    banner: "",
-    video: "",
+    title: dealingItemData?.title,
+    metaTitle: dealingItemData?.metaTitle,
+    metaKeywords: dealingItemData?.metaKeywords,
+    metaDescription: dealingItemData?.metaDescription,
+    shortDescription: dealingItemData?.shortDescription,
+    icon: dealingItemData?.icon,
+    banner: dealingItemData?.banner,
+    video: dealingItemData?.video,
+    id: id,
     image: [],
   };
 
   const [state, setState] = useState(initialState);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(dealingItemData?.description);
   const inputChange = (e) => {
     let { name, value } = e.target;
 
@@ -47,7 +64,7 @@ const MenuCreateUpdate = (props) => {
   const handleSubmit = (e) => {
     const {
       title,
-
+      id,
       metaTitle,
       metaKeywords,
       metaDescription,
@@ -61,16 +78,30 @@ const MenuCreateUpdate = (props) => {
     state?.image.forEach((item, index) => {
       data.append("image", item);
     });
-    data.append("title", title);
-    data.append("description", description);
-    data.append("metaTitle", metaTitle);
-    data.append("metaKeywords", metaKeywords);
-    data.append("metaDescription", metaDescription);
-    data.append("shortDescription", shortDescription);
-    data.append("icon", icon);
-    data.append("banner", banner);
-    data.append("video", video);
-    dispatch(DealingItemAction.DealingItemAddRequestAsync(data));
+    if (id === null) {
+      data.append("title", title);
+      data.append("description", description);
+      data.append("metaTitle", metaTitle);
+      data.append("metaKeywords", metaKeywords);
+      data.append("metaDescription", metaDescription);
+      data.append("shortDescription", shortDescription);
+      data.append("icon", icon);
+      data.append("banner", banner);
+      data.append("video", video);
+      dispatch(DealingItemAction.DealingItemAddRequestAsync(data));
+    } else {
+      data.append("title", title);
+      data.append("description", description);
+      data.append("metaTitle", metaTitle);
+      data.append("metaKeywords", metaKeywords);
+      data.append("metaDescription", metaDescription);
+      data.append("shortDescription", shortDescription);
+      data.append("icon", icon);
+      data.append("banner", banner);
+      data.append("video", video);
+      data.append("_id", id);
+      dispatch(DealingItemAction.DealingItemUpdateRequestAsync(data));
+    }
   };
 
   const handleChangeTextEditor = (content, editor) => {
@@ -103,6 +134,9 @@ const MenuCreateUpdate = (props) => {
     }
   };
 
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
   return (
     <Box className="MenuManagement_Data">
       <FormHeader
@@ -142,7 +176,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.title}
+                    value={state.title ? state.title : dealingItemData?.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -156,7 +190,11 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Short Description*"
                     fullWidth
-                    value={state.shortDescription}
+                    value={
+                      state.shortDescription
+                        ? state.shortDescription
+                        : dealingItemData?.shortDescription
+                    }
                     onChange={inputChange}
                     name="shortDescription"
                     id="shortDescription"
@@ -171,7 +209,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="icon*"
                     fullWidth
-                    value={state.icon}
+                    value={state.icon ? state.icon : dealingItemData?.icon}
                     onChange={inputChange}
                     name="icon"
                     id="icon"
@@ -184,7 +222,11 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={state.metaTitle}
+                    value={
+                      state.metaTitle
+                        ? state.metaTitle
+                        : dealingItemData?.metaTitle
+                    }
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
@@ -197,7 +239,11 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={state.metaKeywords}
+                    value={
+                      state.metaKeywords
+                        ? state.metaKeywords
+                        : dealingItemData?.metaKeywords
+                    }
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
@@ -210,7 +256,11 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={state.metaDescription}
+                    value={
+                      state.metaDescription
+                        ? state.metaDescription
+                        : dealingItemData?.metaDescription
+                    }
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"
@@ -218,12 +268,28 @@ const MenuCreateUpdate = (props) => {
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-                  <ReactQuill
-                    onChange={handleChangeTextEditor}
-                    value={description}
-                    placeholder="Enter description"
-                    theme="snow"
-                  />
+                  {dealingItemData?.description != null ? (
+                    <>
+                      <ReactQuill
+                        onChange={handleChangeTextEditor}
+                        value={
+                          description
+                            ? description
+                            : dealingItemData?.description
+                        }
+                        placeholder="Enter description"
+                        theme="snow"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <ReactQuill
+                        onChange={handleChangeTextEditor}
+                        placeholder="Enter description"
+                        theme="snow"
+                      />
+                    </>
+                  )}
                 </Grid>
               </Grid>
               <br />

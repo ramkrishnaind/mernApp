@@ -80,3 +80,42 @@ export const DealingItemDeleteService = async (dispatch, data) => {
   }
   dispatch(Loader.hideLoader(""));
 };
+
+export const DealingItemDataService = async (dispatch, data) => {
+  try {
+    const result = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.DEALING_ITEM_DATA_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(DealingItemAction.DealingItemDataSuccess(result));
+  } catch (error) {
+    dispatch(DealingItemAction.DealingItemDataError(error));
+    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+  }
+  dispatch(Loader.hideLoader(""));
+};
+
+export const DealingItemUpdateService = async (dispatch, data) => {
+  try {
+    const result = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.DEALING_ITEM_UPDATE_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(DealingItemAction.DealingItemUpdateSuccess(result));
+    dispatch(Snackbar.showSuccessSnackbar(result.message));
+    history.push("/dealingItem");
+    window.location.reload();
+  } catch (error) {
+    dispatch(DealingItemAction.DealingItemUpdateError(error));
+    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+  }
+  dispatch(Loader.hideLoader(""));
+};

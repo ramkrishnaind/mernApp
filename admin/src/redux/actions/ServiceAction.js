@@ -4,6 +4,8 @@ import {
   ServiceAddService,
   ServiceStatusUpdateService,
   ServiceDeleteService,
+  ServiceDataService,
+  ServiceUpdateService,
 } from "../../services/ServiceService";
 import * as Loader from "./LoaderActions";
 /**
@@ -186,6 +188,94 @@ export const ServiceDeleteSuccess = (data) => {
 export const ServiceDeleteError = (data) => {
   return {
     type: ACTION_KEYS.SERVICE_DELETE_ERROR,
+    payload: { error: data },
+  };
+};
+
+export const ServiceDataRequestAsync = (data) => {
+  // console.log('data',data);
+  return (dispatch) => {
+    dispatch(Loader.showLoader(""));
+    dispatch(ServiceDataRequest());
+    ServiceDataService(dispatch, data);
+  };
+};
+
+/**
+ * Action Creator to dispatch login action
+ * @returns
+ */
+const ServiceDataRequest = () => {
+  return {
+    type: ACTION_KEYS.SERVICE_DATA_REQUEST,
+    payload: null,
+  };
+};
+
+/**
+ * Action Creator to dispatch Success
+ * @param {*} data
+ * @returns
+ */
+export const ServiceDataSuccess = (data) => {
+  return {
+    type: ACTION_KEYS.SERVICE_DATA_SUCCESS,
+    payload: data,
+  };
+};
+
+/**
+ * Action Creator to dispatch error
+ * @param {*} data
+ * @returns
+ */
+export const ServiceDataError = (data) => {
+  return {
+    type: ACTION_KEYS.SERVICE_DATA_ERROR,
+    payload: { error: data },
+  };
+};
+
+export const ServiceUpdateRequestAsync = (data) => {
+  // console.log('data',data);
+  return (dispatch) => {
+    dispatch(Loader.showLoader(""));
+    dispatch(ServiceUpdateRequest());
+    ServiceUpdateService(dispatch, data);
+  };
+};
+
+/**
+ * Action Creator to dispatch login action
+ * @returns
+ */
+const ServiceUpdateRequest = () => {
+  return {
+    type: ACTION_KEYS.SERVICE_UPDATE_REQUEST,
+    payload: null,
+  };
+};
+
+/**
+ * Action Creator to dispatch Success
+ * @param {*} data
+ * @returns
+ */
+export const ServiceUpdateSuccess = (data) => {
+  return {
+    type: ACTION_KEYS.SERVICE_UPDATE_SUCCESS,
+    payload: data,
+  };
+};
+
+/**
+ * Action Creator to dispatch error
+ * @param {*} data
+ * @returns
+ */
+export const ServiceUpdateError = (data) => {
+  return {
+    type: ACTION_KEYS.SERVICE_UPDATE_ERROR,
     payload: { error: data },
   };
 };

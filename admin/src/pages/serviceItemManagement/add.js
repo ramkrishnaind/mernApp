@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
@@ -8,7 +8,7 @@ import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
 import "./serviceManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 // import Link from "next/link";
 
@@ -20,21 +20,40 @@ import "react-dropzone-uploader/dist/styles.css";
 
 const MenuCreateUpdate = (props) => {
   const dispatch = useDispatch();
+  let query = useQuery();
+  let id = query.get("id");
+  let serviceItemData = props?.serviceItem?.serviceItemData;
+  useEffect(() => {
+    let data = {
+      _id: id,
+    };
+    if (id != null) {
+      dispatch(ServiceItemAction.ServiceItemDataRequestAsync(data));
+    }
+  }, [id, dispatch]);
+
+  const [, setRefresh] = useState(false);
+  useEffect(() => {
+    if (props.serviceItem.success) {
+      setRefresh(true);
+      setState(initialState);
+    }
+  }, [props.serviceItem.success]);
 
   const initialState = {
-    title: "",
-    metaTitle: "",
-    metaKeywords: "",
-    metaDescription: "",
-    shortDescription: "",
-
+    title: serviceItemData?.title,
+    metaTitle: serviceItemData?.metaTitle,
+    metaKeywords: serviceItemData?.metaKeywords,
+    metaDescription: serviceItemData?.metaDescription,
+    shortDescription: serviceItemData?.shortDescription,
+    id: id,
     banner: "",
     video: "",
     image: [],
   };
 
   const [state, setState] = useState(initialState);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(serviceItemData?.description);
   const inputChange = (e) => {
     let { name, value } = e.target;
 
@@ -48,7 +67,7 @@ const MenuCreateUpdate = (props) => {
       metaKeywords,
       metaDescription,
       shortDescription,
-
+      id,
       banner,
       video,
     } = state;
@@ -57,16 +76,30 @@ const MenuCreateUpdate = (props) => {
     state?.image?.forEach((item) => {
       data.append("image", item);
     });
-    data.append("title", title);
-    data.append("description", description);
-    data.append("metaTitle", metaTitle);
-    data.append("metaKeywords", metaKeywords);
-    data.append("metaDescription", metaDescription);
-    data.append("shortDescription", shortDescription);
+    if (id === null) {
+      data.append("title", title);
+      data.append("description", description);
+      data.append("metaTitle", metaTitle);
+      data.append("metaKeywords", metaKeywords);
+      data.append("metaDescription", metaDescription);
+      data.append("shortDescription", shortDescription);
 
-    data.append("banner", banner);
-    data.append("video", video);
-    dispatch(ServiceItemAction.ServiceItemAddRequestAsync(data));
+      data.append("banner", banner);
+      data.append("video", video);
+      dispatch(ServiceItemAction.ServiceItemAddRequestAsync(data));
+    } else {
+      data.append("title", title);
+      data.append("description", description);
+      data.append("metaTitle", metaTitle);
+      data.append("metaKeywords", metaKeywords);
+      data.append("metaDescription", metaDescription);
+      data.append("shortDescription", shortDescription);
+
+      data.append("banner", banner);
+      data.append("video", video);
+      data.append("_id", id);
+      dispatch(ServiceItemAction.ServiceItemUpdateRequestAsync(data));
+    }
   };
 
   const handleChangeTextEditor = (content, editor) => {
@@ -98,6 +131,10 @@ const MenuCreateUpdate = (props) => {
       setState({ ...state, ["banner"]: file.file });
     }
   };
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
 
   return (
     <Box className="MenuManagement_Data">
@@ -138,7 +175,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.title}
+                    value={state.title ? state.title : serviceItemData?.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -152,7 +189,11 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Short Description*"
                     fullWidth
-                    value={state.shortDescription}
+                    value={
+                      state.shortDescription
+                        ? state.shortDescription
+                        : serviceItemData?.shortDescription
+                    }
                     onChange={inputChange}
                     name="shortDescription"
                     id="shortDescription"
@@ -167,7 +208,11 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={state.metaTitle}
+                    value={
+                      state.metaTitle
+                        ? state.metaTitle
+                        : serviceItemData?.metaTitle
+                    }
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
@@ -180,7 +225,11 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={state.metaKeywords}
+                    value={
+                      state.metaKeywords
+                        ? state.metaKeywords
+                        : serviceItemData?.metaKeywords
+                    }
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
@@ -193,7 +242,11 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={state.metaDescription}
+                    value={
+                      state.metaDescription
+                        ? state.metaDescription
+                        : serviceItemData?.metaDescription
+                    }
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"
@@ -201,12 +254,28 @@ const MenuCreateUpdate = (props) => {
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-                  <ReactQuill
-                    onChange={handleChangeTextEditor}
-                    value={description}
-                    placeholder="Enter description"
-                    theme="snow"
-                  />
+                  {serviceItemData?.description != null ? (
+                    <>
+                      <ReactQuill
+                        onChange={handleChangeTextEditor}
+                        value={
+                          description
+                            ? description
+                            : serviceItemData?.description
+                        }
+                        placeholder="Enter description"
+                        theme="snow"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <ReactQuill
+                        onChange={handleChangeTextEditor}
+                        placeholder="Enter description"
+                        theme="snow"
+                      />
+                    </>
+                  )}
                 </Grid>
               </Grid>
               <br />

@@ -103,24 +103,31 @@ const API_ENDPOINTS = {
   DEALING_STATUS_UPDATE_ENDPOINT: "home/updateDealingInStatusHelper",
   DEALING_DELETE_ENDPOINT: "home/deleteDealingIn",
   DEALING_DATA_ENDPOINT: "home/getDealingInDetails",
+  DEALING_UPDATE_ENDPOINT: "home/updateDealingIn",
 
   //dealing item module
   DEALING_ITEM_LIST_ENDPOINT: "home/getDealingItemList",
   DEALING_ITEM_ADD_ENDPOINT: "home/createDealingInItem",
   DEALING_ITEM_STATUS_UPDATE_ENDPOINT: "home/updateDealingInItemStatusHelper",
   DEALING_ITEM_DELETE_ENDPOINT: "home/deleteDealingItem",
+  DEALING_ITEM_DATA_ENDPOINT: "home/getDealingItem",
+  DEALING_ITEM_UPDATE_ENDPOINT: "home/updateDealingInItem",
 
   //service module
   SERVICE_LIST_ENDPOINT: "home/getServiceList",
   SERVICE_ADD_ENDPOINT: "home/createService",
   SERVICE_STATUS_UPDATE_ENDPOINT: "home/updateServiceStatusHelper",
   SERVICE_DELETE_ENDPOINT: "home/deleteService",
+  SERVICE_DATA_ENDPOINT: "home/getServiceDetail",
+  SERVICE_UPDATE_ENDPOINT: "home/updateService",
 
   //service item module
   SERVICE_ITEM_LIST_ENDPOINT: "home/getServiceItemList",
   SERVICE_ITEM_ADD_ENDPOINT: "home/createServiceItem",
   SERVICE_ITEM_STATUS_UPDATE_ENDPOINT: "home/updateServiceItemStatus",
   SERVICE_ITEM_DELETE_ENDPOINT: "home/deleteServiceItem",
+  SERVICE_ITEM_DATA_ENDPOINT: "home/getServiceItem",
+  SERVICE_ITEM_UPDATE_ENDPOINT: "home/updateServiceItem",
 
   //building module
   BUILDING_LIST_ENDPOINT: "builder/getBuildingList",

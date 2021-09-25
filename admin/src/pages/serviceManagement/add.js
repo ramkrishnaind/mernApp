@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
@@ -8,7 +8,7 @@ import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
 import "./serviceManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 // import Link from "next/link";
 
@@ -17,16 +17,37 @@ import "react-quill/dist/quill.snow.css";
 
 const MenuCreateUpdate = (props) => {
   const dispatch = useDispatch();
+  let query = useQuery();
+  let id = query.get("id");
+  let serviceData = props?.service?.serviceData;
+  useEffect(() => {
+    let data = {
+      _id: id,
+    };
+    if (id != null) {
+      dispatch(ServiceAction.ServiceDataRequestAsync(data));
+    }
+  }, [id, dispatch]);
+
+  const [, setRefresh] = useState(false);
+  useEffect(() => {
+    if (props.service.success) {
+      setRefresh(true);
+      setState(initialState);
+    }
+  }, [props.service.success]);
+
   const initialState = {
-    title: "",
-    header: "",
-    metaTitle: "",
-    metaKeywords: "",
-    metaDescription: "",
+    title: serviceData?.title,
+    header: serviceData?.header,
+    metaTitle: serviceData?.metaTitle,
+    metaKeywords: serviceData?.metaKeywords,
+    metaDescription: serviceData?.metaDescription,
+    id: id,
   };
 
   const [state, setState] = useState(initialState);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(serviceData?.description);
   const inputChange = (e) => {
     let { name, value } = e.target;
 
@@ -34,23 +55,45 @@ const MenuCreateUpdate = (props) => {
   };
 
   const handleSubmit = (e) => {
-    const { title, header, metaTitle, metaKeywords, metaDescription } = state;
-
-    let reqData = {
-      title: title,
-      header: header,
-      description: description,
-      metaTitle: metaTitle,
-      metaKeywords: metaKeywords,
-      metaDescription: metaDescription,
-    };
-    // console.log("res", reqData);
-    dispatch(ServiceAction.ServiceAddRequestAsync(reqData));
+    const {
+      title,
+      header,
+      metaTitle,
+      metaKeywords,
+      metaDescription,
+      id,
+    } = state;
+    if (id === null) {
+      let reqData = {
+        title: title,
+        header: header,
+        description: description,
+        metaTitle: metaTitle,
+        metaKeywords: metaKeywords,
+        metaDescription: metaDescription,
+      };
+      dispatch(ServiceAction.ServiceAddRequestAsync(reqData));
+    } else {
+      let reqData = {
+        title: title,
+        header: header,
+        description: description,
+        metaTitle: metaTitle,
+        metaKeywords: metaKeywords,
+        metaDescription: metaDescription,
+        _id: id,
+      };
+      dispatch(ServiceAction.ServiceUpdateRequestAsync(reqData));
+    }
   };
 
   const handleChangeTextEditor = (content, editor) => {
     setDescription(content);
   };
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
 
   return (
     <Box className="MenuManagement_Data">
@@ -91,7 +134,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Header*"
                     fullWidth
-                    value={state.header}
+                    value={state.header ? state.header : serviceData?.header}
                     onChange={inputChange}
                     name="header"
                     id="header"
@@ -106,7 +149,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.title}
+                    value={state.title ? state.title : serviceData?.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -121,7 +164,9 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={state.metaTitle}
+                    value={
+                      state.metaTitle ? state.metaTitle : serviceData?.metaTitle
+                    }
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
@@ -134,7 +179,11 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={state.metaKeywords}
+                    value={
+                      state.metaKeywords
+                        ? state.metaKeywords
+                        : serviceData?.metaKeywords
+                    }
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
@@ -147,7 +196,11 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={state.metaDescription}
+                    value={
+                      state.metaDescription
+                        ? state.metaDescription
+                        : serviceData?.metaDescription
+                    }
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"
@@ -155,12 +208,26 @@ const MenuCreateUpdate = (props) => {
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-                  <ReactQuill
-                    onChange={handleChangeTextEditor}
-                    placeholder="Enter description"
-                    theme="snow"
-                    value={description}
-                  />
+                  {serviceData?.description != null ? (
+                    <>
+                      <ReactQuill
+                        onChange={handleChangeTextEditor}
+                        value={
+                          description ? description : serviceData?.description
+                        }
+                        placeholder="Enter description"
+                        theme="snow"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <ReactQuill
+                        onChange={handleChangeTextEditor}
+                        placeholder="Enter description"
+                        theme="snow"
+                      />
+                    </>
+                  )}
                 </Grid>
               </Grid>
 
