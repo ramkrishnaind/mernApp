@@ -71,7 +71,7 @@ module.exports = function (conn) {
     router.post('/updateDealingInStatusHelper', userAuthMiddleware, homeFunction.updateDealingInStatusHelper(db));
 
     router.post('/getDealingItemList', userAuthMiddleware, homeFunction.getDealingItemList(db));
-    router.post('/getDealingItem', userAuthMiddleware, homeFunction.getDealingItem(db));
+    router.post('/getDealingItem', userAuthMiddleware, homeFunction.getDealingInItemDetails(db));
     router.post('/deleteDealingItem', userAuthMiddleware, homeFunction.deleteDealingItem(db));
     router.post('/updateDealingInItemStatusHelper', userAuthMiddleware, homeFunction.updateDealingInItemStatusHelper(db));
 
