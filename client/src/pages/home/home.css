@@ -55,6 +55,18 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+.portfolio-item p{
+	color: #666666;
+	font-size: 14px;
+	font-family: "Open Sans", sans-serif;
+	line-height: 24px;
+	margin: 0 0 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 .about-content .about-btn {
 	border: 1px solid #ef8822;
 	color: #ef8822;

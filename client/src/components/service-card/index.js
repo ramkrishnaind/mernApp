@@ -43,7 +43,7 @@ const ServiceCard = props => {
                 <img className="img pulse" src={img1} alt="" style={{width: '100%', height: 240}} />
                 <div className="mask">
                     <h2>{title}</h2>
-                    <p>{shortDescription}</p>
+                    <p className="portfolio-item-content">{shortDescription}</p>
                     <Box className={'info'} style={{marginTop: 10}} component={RouterLink} to={
                         {
                             pathname: '/service-details',

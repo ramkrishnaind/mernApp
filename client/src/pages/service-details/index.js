@@ -12,6 +12,7 @@ import PageBanner from '../../components/page-banner';
 import {useDispatch, useSelector} from 'react-redux';
 import {useLocation} from 'react-router-dom';
 import ApiClient from '../../api-client';
+import ReactHtmlParser from 'react-html-parser';
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -133,7 +134,7 @@ const ServiceDetailPage = (props) => {
     //   // serviceId: location?.state,
 
     // };
-    const serviceId = "613264c4d9beb61cec14f5a5";
+    const serviceId = location?.state;
     fetchServiceDetails(serviceId);
 
 
@@ -181,7 +182,7 @@ const ServiceDetailPage = (props) => {
               <Grid item xs={12} md={6} style={{padding: 20, backgroundColor: "#ff7600", height: 'fit-content', margin: 'auto'}}>
                 <Typography className={classes.text8} style={{padding: 20}}> {serviceDetail.title}</Typography>
                 <Typography className={classes.text3} style={{padding: 20, lineHeight: "2.3em", color: '#fff'}} >
-                  {serviceDetail.description}
+                  {ReactHtmlParser(serviceDetail.description)}
                 </Typography>
               </Grid>
             </Grid>
