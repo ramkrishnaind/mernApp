@@ -13,6 +13,9 @@ import './footer.css';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import $ from 'jquery';
+
+
 
 const useStyles = makeStyles((theme) => ({
     text1: {
@@ -97,6 +100,14 @@ const Footer = props => {
 
     };
 
+ 
+
+        var $btnClick = $("#show-hidden-menu");
+        $btnClick.on("click", function() {
+            $('.hidden-menu').slideToggle("slow");
+        });
+
+       
     return (
         <div>
             <Grid container spacing={3}>
@@ -215,6 +226,22 @@ const Footer = props => {
             <Grid container style={{ marginTop: 40 }} spacing={2} className="footerSplit">
                 <Mobilefootermenu />
             </Grid>
+            <Box className="projectquick_action genralsticky">
+                <ul>
+                    <li id="show-hidden-menu" class="animatebtn social_links"><i class="fas fa-external-link-alt"></i></li>
+                    <Box className="hidden-menu" style={{ display: "none"}}>
+                        <div class="fixed-social">                            
+                            <a href="#" class="fixed-facebook" target="_blank"><i class="fab fa-facebook"></i></a>                            
+                            <a href="#" class="fixed-twitter" target="_blank"><i class="fab fa-twitter"></i></a>                           
+                            <a href="#" class="fixed-gplus" target="_blank"><i class="fab fa-google"></i></a>                           
+                            <a href="#" class="fixed-linkedin" target="_blank"><i class="fab fa-linkedin"></i></a>                           
+                            <a href="#" class="fixed-instagrem" target="_blank"><i class="fab fa-instagram"></i></a>                           
+                            <a href="#" class="fixed-tumblr" target="_blank"><i class="fab fa-tumblr"></i></a>                            
+                        </div>
+                    </Box>
+                    <li class="animatebtn"> <a href="tel:+91 9571647680"> <i class="fa fa-phone-alt"></i> </a> </li>
+                </ul>
+            </Box>
         </div>
     );
 };
