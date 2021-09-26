@@ -162,12 +162,12 @@ const MenuCreateUpdate = (props) => {
                       id="demo-simple-select-outlined-label"
                       htmlFor="age-native-simple"
                     >
-                      Role
+                      Rating
                     </InputLabel>
                     <Select
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined-label"
-                      label="Role"
+                      label="Rating"
                       native
                       name="rating"
                       value={state.rating ? state.rating : feedbackData?.rating}
