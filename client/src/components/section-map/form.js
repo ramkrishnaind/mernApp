@@ -92,10 +92,10 @@ const MapForm = () => {
     ];
 
     return (
-        <form className={`${classes.root} map-form`} onSubmit={handleSubmit}>           
+        <form className={`${classes.root} map-form`} onSubmit={handleSubmit}>
             <TextField
                 className="form-group"
-                label="Search"
+                label="Location"
                 variant="filled"
                 required
                 value={search}
@@ -103,7 +103,7 @@ const MapForm = () => {
                 InputLabelProps={{
                     shrink: true,
                 }}
-            />           
+            />
             <TextField
                 className="form-group"
                 id="city"
@@ -119,7 +119,7 @@ const MapForm = () => {
                         {option.label}
                     </MenuItem>
                 ))}
-            </TextField>          
+            </TextField>
             <TextField
                 className="form-group"
                 id="states"

@@ -77,7 +77,7 @@ figure {
     color: #666666;
 	font-size: 14px;
 	font-family: "Open Sans", sans-serif;
-	line-height: 24px;
+	/* line-height: 24px; */
 	margin: 0 0 20px;
     display: -webkit-box;
     -webkit-line-clamp: 5;
@@ -87,8 +87,14 @@ figure {
 .portfolio-item .mask p {
     opacity: 1;
     transform: translateY(0px);
-    height: 40%;
-    overflow-y: scroll;
+    /* height: 40%; */
+    /* overflow-y: scroll;  */
+    display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;  
+  overflow: hidden!important;
+  height: 90px;
+  margin-bottom: 10px;
 }
 .portfolio-item a.info {
     display: inline-block;
