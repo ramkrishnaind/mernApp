@@ -1,4 +1,4 @@
-import { useRoutes, Navigate } from "react-router-dom";
+import {useRoutes, Navigate} from "react-router-dom";
 import DashboardLayout from "../components/dashboard-layout";
 import MainLayout from "../components/main-layout";
 
@@ -55,7 +55,7 @@ import Address from "../pages/addressManagement/add";
 import FeedbackList from "../pages/feedbackManagement";
 import AddFeedback from "../pages/feedbackManagement/add";
 const Routes = (props) => {
-  const { isAuth } = props;
+  const {isAuth} = props;
   const routes = [
     {
       path: "/",

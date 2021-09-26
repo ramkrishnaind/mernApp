@@ -33,7 +33,7 @@
 }
 .logo {
 	position: relative;
-	padding: 6px 15px 6px 0;
+	padding: 5px 15px 5px 0;
 	z-index: 2;
 }
 .logo::before {
@@ -55,6 +55,12 @@
     border-left: 50px solid #2b2825;
     content: "";
     z-index: 99;
+}
+.logo a{   
+    display: block;
+}
+.logo a img{
+    max-height: 85px;   
 }
 .bg-white {
     background-color: #FFFFFF;

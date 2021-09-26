@@ -13,19 +13,32 @@
                 "href":"/about-us"
             },
             {
-                "title": "About The Directors"
+                "title": "About The Directors",
+                "href":"/about-directors"
             },
             {
-                "title": "Invest With Us"
+                "title": "Invest With Us",
+                "href":"/invest-with-us"
             },
             {
-                "title": "Construction Process"
+                "title": "Construction Process",
+                "href":"/construction-process"
             }
         ]
     },
     {
         "id": 3,
-        "title": "Property",
+        "title": "Sell",
+        "href": "/sell"
+    },
+    {
+        "id": 4,
+        "title": "Rent",
+        "href": "/rent"
+    },
+    {
+        "id": 5,
+        "title": "Services",
         "image": "",
         "submenu": [       
             {
@@ -129,16 +142,6 @@
                 ]
             }
         ]
-    },
-    {
-        "id": 4,
-        "title": "Sell",
-        "href": "/sell"
-    },
-    {
-        "id": 5,
-        "title": "Rent",
-        "href": "/rent"
     },
     {
         "id": 6,

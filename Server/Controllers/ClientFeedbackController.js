@@ -34,7 +34,7 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.post('/createFeedbackRequest', userAuthMiddleware, upload.array("image"), createFeedbackRequest(allCollection))
+    router.post('/createFeedback', userAuthMiddleware, upload.array("image"), createFeedbackRequest(allCollection))
     router.post('/getFeedbackRequest', requestAuthMiddleware, getFeedbackRequest(allCollection))
     router.post('/getFeedbackForHome', requestAuthMiddleware, getFeedbackForHome(allCollection))
     router.post('/updateFeedbackStatusRequest', userAuthMiddleware, updateFeedbackStatusRequest(allCollection))

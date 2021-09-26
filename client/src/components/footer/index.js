@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Typography, Grid, Container, makeStyles, Button, Box, TextField, IconButton} from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { Typography, Grid, Container, makeStyles, Button, Box, TextField, IconButton } from "@material-ui/core";
 import './footer.css';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import SendIcon from '@material-ui/icons/Send';
@@ -13,6 +13,9 @@ import './footer.css';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import $ from 'jquery';
+
+
 
 const useStyles = makeStyles((theme) => ({
     text1: {
@@ -77,7 +80,7 @@ const Footer = props => {
     const populateSocialMediaLinks = () => {
 
         const getData = async () => {
-            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getFooterSocialMedia', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getFooterSocialMedia', {}, {}, { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization }, false);
             setSocialLinks(response.data);
             localStorage.setItem('social-links', JSON.stringify(response.data));
             console.log('populateSocialMediaLinks details', response.data);
@@ -88,7 +91,7 @@ const Footer = props => {
     const populateFooterDetails = () => {
 
         const getData = async () => {
-            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getFooterAddress', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getFooterAddress', {}, {}, { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization }, false);
             setFooterDetails(response.data);
             localStorage.setItem('company_detials', JSON.stringify(response.data));
             // console.log('populateFooterDetails details', response);
@@ -97,35 +100,41 @@ const Footer = props => {
 
     };
 
+ 
+
+        var $btnClick = $("#show-hidden-menu");
+        $btnClick.on("click", function() {
+            $('.hidden-menu').slideToggle("slow");
+        });
+
+       
     return (
-        <>
-
+        <div>
             <Grid container spacing={3}>
-
-                <Grid item xs={12} md={4} style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+                <Grid item xs={12} md={4} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
                     <Typography className={classes.text1}>VISHAL CONSTRUCTION</Typography>
                     <Grid contaienr>
                         <Grid item xs={12} md={12} className={classes.footer_column1}>
-                            <LocationOnIcon style={{color: '#06AEB8', fontSize: 20, padding: 0, marginRight: 8}} />
-                            <Typography className={classes.text3}>{footerDetails?.adress} {footerDetails?.city} {footerDetails?.state} - {footerDetails?.pinCode}</Typography>
+                            <LocationOnIcon style={{ color: '#06AEB8', fontSize: 20, padding: 0, marginRight: 8 }} />
+                            <Typography className={classes.text3}>{footerDetails ? footerDetails.adress : ''} {footerDetails ? footerDetails.city : ''} {footerDetails ? footerDetails.state : ''} - {footerDetails ? footerDetails.pinCode : ''}</Typography>
                         </Grid>
                         <Grid item xs={12} md={12} className={classes.footer_column1}>
-                            <PhoneIphoneIcon style={{color: "#06AEB8", fontSize: 20, padding: 0, marginRight: 8, }} />
-                            <Typography className={classes.text3}>{footerDetails?.mobile}</Typography>
+                            <PhoneIphoneIcon style={{ color: "#06AEB8", fontSize: 20, padding: 0, marginRight: 8, }} />
+                            <Typography className={classes.text3}>{footerDetails ? footerDetails.mobile : ''}</Typography>
                         </Grid>
                         <Grid item xs={12} md={12} className={classes.footer_column1}>
-                            <MailOutlineIcon style={{color: "#06AEB8", fontSize: 20, padding: 0, marginRight: 8, }} />
-                            <Typography className={classes.text3}>{footerDetails?.email}</Typography>
+                            <MailOutlineIcon style={{ color: "#06AEB8", fontSize: 20, padding: 0, marginRight: 8, }} />
+                            <Typography className={classes.text3}>{footerDetails ? footerDetails.email : ''}</Typography>
                         </Grid>
                         <Grid item xs={12} md={12} className={classes.footer_column1}>
-                            <AccessTimeIcon style={{color: "#06AEB8", fontSize: 20, padding: 0, marginRight: 8, }} />
-                            <Typography className={classes.text3}>{footerDetails?.timming}</Typography>
+                            <AccessTimeIcon style={{ color: "#06AEB8", fontSize: 20, padding: 0, marginRight: 8, }} />
+                            <Typography className={classes.text3}>{footerDetails ? footerDetails.timming : ''}</Typography>
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12} md={4} style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+                <Grid item xs={12} md={4} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
                     <Typography className={classes.text1}>POPULAR LINKS</Typography>
-                    <Grid contaienr style={{width: '100%', display: 'flex', marginTop: 10}}>
+                    <Grid contaienr style={{ width: '100%', display: 'flex', marginTop: 10 }}>
                         <Grid item xs={6} md={6}>
                             <Box>
                                 <Typography className={`${classes.text3} links`}>Home</Typography>
@@ -145,50 +154,50 @@ const Footer = props => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12} md={4} style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+                <Grid item xs={12} md={4} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
                     <Typography className={classes.text1}>NEWSLETTER</Typography>
                     <Typography className={classes.text3}>Subscribe your email to get the latest news and new offer also discount</Typography>
                     <Grid container>
-                        <Grid item style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginTop: 10}}>
-                            <TextField placeholder="Email Address" style={{backgroundColor: '#FFFFFF', border: 'none'}} />
-                            <Box style={{display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 5, backgroundColor: '#FF7601', marginLeft: 8}}>
-                                <SendIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                        <Grid item style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginTop: 10 }}>
+                            <TextField placeholder="Email Address" style={{ backgroundColor: '#FFFFFF', border: 'none' }} />
+                            <Box style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 5, backgroundColor: '#FF7601', marginLeft: 8 }}>
+                                <SendIcon style={{ color: '#FFFFFF', fontSize: 20, padding: 0, }} />
                             </Box>
                         </Grid>
                     </Grid>
                     <Typography className={classes.text2}>Follow us on</Typography>
                     <Grid container>
-                        <Grid item style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginTop: 10}}>
+                        <Grid item style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginTop: 10 }}>
                             <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks?.send}>
-                                    <SendIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                                <a href={socialLinks ? socialLinks.send : ''}>
+                                    <SendIcon style={{ color: '#FFFFFF', fontSize: 20, padding: 0, }} />
                                 </a>
                             </Box>
                             <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks?.twitter}>
-                                    <TwitterIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                                <a href={socialLinks ? socialLinks.twitter : ''}>
+                                    <TwitterIcon style={{ color: '#FFFFFF', fontSize: 20, padding: 0, }} />
                                 </a>
                             </Box>
                             <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks?.pinterest}>
-                                    <PinterestIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                                <a href={socialLinks ? socialLinks.pinterest : ''}>
+                                    <PinterestIcon style={{ color: '#FFFFFF', fontSize: 20, padding: 0, }} />
                                 </a>
                             </Box>
                             <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks?.youtube}>
-                                    <YouTubeIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                                <a href={socialLinks ? socialLinks.youtube : ''}>
+                                    <YouTubeIcon style={{ color: '#FFFFFF', fontSize: 20, padding: 0, }} />
                                 </a>
                             </Box>
                             <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks?.language}>
-                                    <LanguageIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                                <a href={socialLinks ? socialLinks.language : ''}>
+                                    <LanguageIcon style={{ color: '#FFFFFF', fontSize: 20, padding: 0, }} />
                                 </a >
                             </Box>
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid container style={{marginTop: 40}} spacing={2}>
+            <Grid container style={{ marginTop: 40 }} spacing={2}>
                 <Grid xs={12} md={2}>
                     <Typography className={classes.text4}>1BHK Flats in Jaipur</Typography>
                 </Grid>
@@ -208,17 +217,32 @@ const Footer = props => {
                     <Typography className={classes.text4}>Villas in Jaipur</Typography>
                 </Grid>
             </Grid>
-            <Grid container style={{marginTop: 40}} spacing={2}>
-                <Grid xs={12} md={12} style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <Grid container style={{ marginTop: 40 }} spacing={2}>
+                <Grid xs={12} md={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Typography className={classes.text3}>© 2021 Design by Dzone India Software & Technologies Pvt. Ltd All Right Reserved</Typography>
                 </Grid>
 
             </Grid>
-
-            <Grid container style={{marginTop: 40}} spacing={2} className="footerSplit">
+            <Grid container style={{ marginTop: 40 }} spacing={2} className="footerSplit">
                 <Mobilefootermenu />
             </Grid>
-        </>
+            <Box className="projectquick_action genralsticky">
+                <ul>
+                    <li id="show-hidden-menu" class="animatebtn social_links"><i class="fas fa-external-link-alt"></i></li>
+                    <Box className="hidden-menu" style={{ display: "none"}}>
+                        <div class="fixed-social">                            
+                            <a href="#" class="fixed-facebook" target="_blank"><i class="fab fa-facebook"></i></a>                            
+                            <a href="#" class="fixed-twitter" target="_blank"><i class="fab fa-twitter"></i></a>                           
+                            <a href="#" class="fixed-gplus" target="_blank"><i class="fab fa-google"></i></a>                           
+                            <a href="#" class="fixed-linkedin" target="_blank"><i class="fab fa-linkedin"></i></a>                           
+                            <a href="#" class="fixed-instagrem" target="_blank"><i class="fab fa-instagram"></i></a>                           
+                            <a href="#" class="fixed-tumblr" target="_blank"><i class="fab fa-tumblr"></i></a>                            
+                        </div>
+                    </Box>
+                    <li class="animatebtn"> <a href="tel:+91 9571647680"> <i class="fa fa-phone-alt"></i> </a> </li>
+                </ul>
+            </Box>
+        </div>
     );
 };
 
