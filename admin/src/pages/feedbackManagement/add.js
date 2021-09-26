@@ -22,6 +22,7 @@ import { connect } from "react-redux";
 
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
+import Rating from "@mui/material/Rating";
 
 const MenuCreateUpdate = (props) => {
   let query = useQuery();
@@ -157,33 +158,11 @@ const MenuCreateUpdate = (props) => {
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <FormControl variant="outlined" style={{ width: "100%" }}>
-                    <InputLabel
-                      id="demo-simple-select-outlined-label"
-                      htmlFor="age-native-simple"
-                    >
-                      Rating
-                    </InputLabel>
-                    <Select
-                      labelId="demo-simple-select-outlined-label"
-                      id="demo-simple-select-outlined-label"
-                      label="Rating"
-                      native
-                      name="rating"
-                      value={state.rating ? state.rating : feedbackData?.rating}
-                      onChange={inputChange}
-                      inputProps={{
-                        name: "rating",
-                        id: "age-native-simple",
-                      }}
-                    >
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                    </Select>
-                  </FormControl>
+                  <Rating
+                    name="rating"
+                    value={state.rating ? state.rating : feedbackData?.rating}
+                    onChange={inputChange}
+                  />
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={6} md={4}>
