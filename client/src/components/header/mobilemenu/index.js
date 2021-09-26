@@ -12,8 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
-import logo from './images/logo.1b530668.png';
-
+import logo from "../../../images/vishal-logo.png";
 
 const useStyles = makeStyles({
     list: {

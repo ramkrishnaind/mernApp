@@ -69,14 +69,14 @@ const MenuItem = (props) => {
       setActiveIndex(index);
     };
     return (
-      <Grid container spacing={0} style={{width: 600, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', }}>
-        <Grid item md={3} className="services-submenu-bg">
+      <Grid container spacing={0} style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', }}>
+        <Grid item md={12} className="services-submenu-bg1">
           {submenu.map((sm, idx) => {
-            const mStyle = idx === activeIndex ? {color: '#FF7601', backgroundColor: '#FFFFFF', fontFamily: '"Open Sans",sans-serif'} : {color: '#FFFFFF', fontFamily: '"Open Sans",sans-serif'};
+            const mStyle = idx === activeIndex ? {fontFamily: '"Open Sans",sans-serif'} : {fontFamily: '"Open Sans",sans-serif'};
             return <DropdownMenu style={mStyle} onClick={() => onSubmenuClickListener(idx)}>{sm.title}</DropdownMenu>;
           })}
         </Grid>
-        <Grid item md={6} style={{padding: 10}}>
+        {/* <Grid item md={6} style={{padding: 10}}>
           <Grid container>
             <Grid item md={6} style={{display: 'flex', flexDirection: 'column'}}>
               <Typography>COMMERCIAL</Typography>
@@ -90,7 +90,7 @@ const MenuItem = (props) => {
         </Grid>
         <Grid item md={3} style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center', paddingRight: 8}}>
           <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} style={{width: 100, height: 100}} />
-        </Grid>
+        </Grid> */}
       </Grid>
     );
   };
@@ -112,7 +112,7 @@ const MenuItem = (props) => {
     switch (menuId) {
       case 2:
         return _renderAboutUsSubmenu();
-      case 3:
+      case 5:
         return _renderServicesSubmenu();
       case 4:
         return _renderPropertySubmenu();

@@ -18,6 +18,9 @@ import Verification from "../pages/verificationPage";
 import Profile from "../pages/profile";
 import HouseDetailPage from "../pages/house-details/index";
 import AboutUsPage from "../pages/about-us/index";
+import AboutDirectors from "../pages/about-us/about-director/index";
+import InvestWithUs from "../pages/about-us/invest-with-us/index";
+import ConstructionProcess from "../pages/about-us/construction-process/index";
 import ServiceDetailPage from '../pages/service-details/index';
 import DealingInItemDetailPage from '../pages/dealingIn-details/index';
 import SearchPropertyList from "../pages/search-property-list/index";
@@ -106,6 +109,18 @@ const routes = [
   {
     path: "/about-us",
     render: (props) => <AboutUsPage {...props} />,
+  },
+  {
+    path: "/about-directors",
+    render: (props) => <AboutDirectors {...props} />,
+  },
+  {
+    path: "/invest-with-us",
+    render: (props) => <InvestWithUs {...props} />,
+  },
+  {
+    path: "/construction-process",
+    render: (props) => <ConstructionProcess {...props} />,
   },
   {
     path: "/service-details",
