@@ -19,6 +19,7 @@ import {withRouter, Link as RouterLink} from "react-router-dom";
 //import Logo from "../../images/logo.png";
 import Logo from "../../images/vishal-logo.png";
 import Mobilemenu from "./mobilemenu";
+import ApiClient from "../../api-client";
 
 import Dialog from "@material-ui/core/Dialog";
 
@@ -142,6 +143,7 @@ const Header = (props) => {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const [bookNow, setBookNow] = useState(false);
+  const [ownerDetails, setOwnerDetails] = useState({});
   useEffect(() => {
     let userdata = localStorage.getItem("user");
     if (userdata) {
@@ -149,7 +151,19 @@ const Header = (props) => {
     } else {
       setUserdata(false);
     }
+    populateOwnerDetails();
+
   });
+
+  const populateOwnerDetails = () => {
+    const getData = async () => {
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getFooterAddress', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      setOwnerDetails(response.data);
+      localStorage.setItem('owner details', JSON.stringify(response.data));
+      // console.log('populateFooterDetails details', response);
+    };
+    getData();
+  };
 
 
   const handleData = (e) => {
@@ -205,7 +219,9 @@ const Header = (props) => {
   });
   // Window Scroll Function End
 
-
+  const handleNull = (val) => {
+    return val || '-';
+  };
 
   return (
     <>
@@ -233,11 +249,13 @@ const Header = (props) => {
               >
                 <PhoneIcon className={classes.icon} />
                 <Typography className={classes.contact}>
-                  {APP_CONSTANTS.phoneNumber}
+                  {/* {APP_CONSTANTS.phoneNumber} */}
+                  {handleNull(ownerDetails?.mobile)}
                 </Typography>
                 <MailOutlineIcon className={classes.icon} />
                 <Typography className={classes.contact}>
-                  {APP_CONSTANTS.email}
+                  {/* {APP_CONSTANTS.email} */}
+                  {handleNull(ownerDetails?.email)}
                 </Typography>
               </Grid>
               <Grid
