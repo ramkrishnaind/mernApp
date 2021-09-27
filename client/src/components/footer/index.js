@@ -100,14 +100,14 @@ const Footer = props => {
 
     };
 
- 
 
-        var $btnClick = $("#show-hidden-menu");
-        $btnClick.on("click", function() {
-            $('.hidden-menu').slideToggle("slow");
-        });
 
-       
+    var $btnClick = $("#show-hidden-menu");
+    $btnClick.on("click", function () {
+        $('.hidden-menu').slideToggle("slow");
+    });
+
+
     return (
         <div>
             <Grid container spacing={3}>
@@ -116,7 +116,7 @@ const Footer = props => {
                     <Grid contaienr>
                         <Grid item xs={12} md={12} className={classes.footer_column1}>
                             <LocationOnIcon style={{ color: '#06AEB8', fontSize: 20, padding: 0, marginRight: 8 }} />
-                            <Typography className={classes.text3}>{footerDetails ? footerDetails.adress : ''} {footerDetails ? footerDetails.city : ''} {footerDetails ? footerDetails.state : ''} - {footerDetails ? footerDetails.pinCode : ''}</Typography>
+                            <Typography className={classes.text3}>{footerDetails ? footerDetails.address : ''} {footerDetails ? footerDetails.city : ''} {footerDetails ? footerDetails.state : ''} - {footerDetails ? footerDetails.pinCode : ''}</Typography>
                         </Grid>
                         <Grid item xs={12} md={12} className={classes.footer_column1}>
                             <PhoneIphoneIcon style={{ color: "#06AEB8", fontSize: 20, padding: 0, marginRight: 8, }} />
@@ -229,14 +229,14 @@ const Footer = props => {
             <Box className="projectquick_action genralsticky">
                 <ul>
                     <li id="show-hidden-menu" class="animatebtn social_links"><i class="fas fa-external-link-alt"></i></li>
-                    <Box className="hidden-menu" style={{ display: "none"}}>
-                        <div class="fixed-social">                            
-                            <a href="#" class="fixed-facebook" target="_blank"><i class="fab fa-facebook"></i></a>                            
-                            <a href="#" class="fixed-twitter" target="_blank"><i class="fab fa-twitter"></i></a>                           
-                            <a href="#" class="fixed-gplus" target="_blank"><i class="fab fa-google"></i></a>                           
-                            <a href="#" class="fixed-linkedin" target="_blank"><i class="fab fa-linkedin"></i></a>                           
-                            <a href="#" class="fixed-instagrem" target="_blank"><i class="fab fa-instagram"></i></a>                           
-                            <a href="#" class="fixed-tumblr" target="_blank"><i class="fab fa-tumblr"></i></a>                            
+                    <Box className="hidden-menu" style={{ display: "none" }}>
+                        <div class="fixed-social">
+                            <a href="#" class="fixed-facebook" target="_blank"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="fixed-twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="fixed-gplus" target="_blank"><i class="fab fa-google"></i></a>
+                            <a href="#" class="fixed-linkedin" target="_blank"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="fixed-instagrem" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="fixed-tumblr" target="_blank"><i class="fab fa-tumblr"></i></a>
                         </div>
                     </Box>
                     <li class="animatebtn"> <a href="tel:+91 9571647680"> <i class="fa fa-phone-alt"></i> </a> </li>
