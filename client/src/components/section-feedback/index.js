@@ -12,7 +12,7 @@ import ApiClient from '../../api-client/index';
 
 
 const useStyles = makeStyles((theme) => ({
-  
+
 }));
 
 const options = {
@@ -38,13 +38,13 @@ const options = {
             margin: 20,
         },
         992: {
-            items: 3,            
+            items: 3,
         }
     },
 };
 
 const getFeedbackUi = (feedbackData) => {
-    const newList = feedbackData.list.map(({name, message, rating, image}, i) => {
+    const newList = (feedbackData?.list || []).map(({name, message, rating, image}, i) => {
         return <div key={i}>
             <FeedbackCard key={i + 5000} name={name} img1Path={image.length >= 2 && image[0].path ? image[0].path : null} img2Path={image.length >= 2 && image[1].path ? image[1].path : null} message={message} rating={rating} />
         </div>;
@@ -78,7 +78,7 @@ const SectionFeedback = props => {
             <SectionHeader title={APP_CONSTANTS.section_feedback_title} subtitle={APP_CONSTANTS.section_feedback_subtitle} style={{color: '#FFFFFF'}} />
             <div className="feedback-wrapper">
                 <OwlCarousel className='owl-theme' {...options}>
-                    {getFeedbackUi(feedbacks)}                 
+                    {getFeedbackUi(feedbacks)}
                 </OwlCarousel>
             </div>
         </>
