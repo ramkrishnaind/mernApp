@@ -5,7 +5,7 @@ Joi.objectId = require('joi-objectid')(Joi)
 const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const schema = Joi.object({
-    id: Joi.string().required(),
+    _id: Joi.string().required(),
     status: Joi.boolean().required()
 });
 
@@ -19,12 +19,12 @@ function updateFeedbackStatus(Models) {
                 throw { status: false, error: validateData, message: CONSTANTSMESSAGE.INVALID_DATA };
             }
 
-            let bodyData = _.pick(req.body, ["status","id"]);
+            let bodyData = _.pick(req.body, ["status", "_id"]);
             let setData = {
                 status: bodyData.status,
-                
+
             }
-            let updateModule = await Models.FeedbackDB.findOneAndUpdate({ _id: bodyData.id }, { $set: setData});
+            let updateModule = await Models.FeedbackDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
         }
