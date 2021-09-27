@@ -6,8 +6,9 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
     name: Joi.string().required(),
+    email: Joi.string().allow('null'),
     rating: Joi.number().required(),
-    propertyId: Joi.string().required(),
+    propertyId: Joi.string().allow('null'),
     message: Joi.string().required()
 });
 

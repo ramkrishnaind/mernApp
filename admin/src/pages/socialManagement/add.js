@@ -45,7 +45,7 @@ const SocialCreateUpdate = (props) => {
 
   const handleSubmit = (e) => {
     const { facebook, twitter, id, instagram, linkedin, youtube } = state;
-    if (id === null) {
+    if (id === null || id === undefined) {
       let reqData = {
         facebook: facebook,
         twitter: twitter,

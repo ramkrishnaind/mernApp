@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {makeStyles, Box, Grid} from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
+// import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import './search-box.css';
@@ -8,6 +8,9 @@ import Divider from '@material-ui/core/Divider';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import {Icon} from '@material-ui/core';
 import {Link as RouterLink} from "react-router-dom";
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import ApiClient from '../../api-client';
 
 const Type = {
     RENT: "Rent",
@@ -46,11 +49,34 @@ const SearchBox = (props) => {
     const [minAmount, setMinBudget] = useState(null);
     const [maxAmount, setMaxBudget] = useState(null);
     const [keyword, setkeyword] = useState(null);
+    const [cityOptions, setCityOptions] = useState(null);
+
 
     const handleSubmit = e => {
         // e.preventDefault();
         // handleClose();
         console.log("s");
+    };
+
+
+    useEffect(() => {
+        populateCity();
+    }, []);
+
+    const populateCity = () => {
+        const getData = async () => {
+            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/property/getSearchTerms', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+            const data = processData(response.data || []);
+            setCityOptions(data);
+            console.log('setkeyword', response);
+        };
+        getData();
+    };
+
+    const processData = (data) => {
+        return data.map((city) => {
+            return {label: city};
+        });
     };
 
     const propertyType = [
@@ -119,7 +145,14 @@ const SearchBox = (props) => {
         },
     ];
     console.log("type is ", type);
-
+    const hints = [
+        {label: 'The Shawshank Redemption', year: 1994},
+        {label: 'The Godfather', year: 1972},
+        {label: 'The Godfather: Part II', year: 1974},
+        {label: 'The Dark Knight', year: 2008},
+        {label: '12 Angry Men', year: 1957},
+        {label: "Schindler's List", year: 1993},
+        {label: 'Pulp Fiction', year: 1994}];
     return (
         <Box id="search-box" className="search-container">
             <Box className="search-wrapper" style={{height: 'fit-content', margin: 'auto'}} >
@@ -133,7 +166,28 @@ const SearchBox = (props) => {
                     <Box className="search-form-area" >
                         <Grid container spacing={2} >
                             <Grid item xs={6} md={3}>
-                                <TextField
+
+                                <Autocomplete
+                                    disablePortal
+                                    id="city-locality"
+                                    variant="filled"
+                                    options={cityOptions}
+                                    onChange={e => setkeyword(cityOptions[e.target.value]?.label)}
+                                    // sx={{width: 300}}
+                                    renderInput={(params) =>
+                                        <TextField
+                                            id="city-locality"
+                                            variant="filled"
+                                            label="City, Locality"
+
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start" style={{color: "red", marginLeft: -5}}><Icon fontSize="small" style={{color: "#ff7600"}}>room</Icon></InputAdornment>,
+                                            }} {...params}
+                                        />}
+                                />
+
+
+                                {/* <TextField
                                     id="city-locality"
                                     label="city, locality"
                                     variant="filled"
@@ -143,7 +197,7 @@ const SearchBox = (props) => {
                                     InputProps={{
                                         startAdornment: <InputAdornment position="start" style={{color: "red", marginLeft: -5}}><Icon fontSize="small" style={{color: "#ff7600"}}>room</Icon></InputAdornment>,
                                     }}
-                                />
+                                /> */}
                                 <Divider className="search-form-divider" orientation="vertical" />
                             </Grid>
                             <Grid item xs={6} md={3}>
