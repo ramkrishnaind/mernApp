@@ -45,7 +45,7 @@ const FeedbackList = (props) => {
   function onDisable(data, status) {
     let tempdata = {
       _id: data,
-      active: status,
+      status: status,
     };
     dispatch(FeedbackAction.FeedbackStatusUpdateRequestAsync(tempdata));
   }
