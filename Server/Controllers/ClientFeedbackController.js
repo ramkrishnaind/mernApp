@@ -38,6 +38,7 @@ module.exports = function (conn) {
     router.post('/getFeedbackRequest', requestAuthMiddleware, getFeedbackRequest(allCollection))
     router.post('/getFeedbackForHome', requestAuthMiddleware, getFeedbackForHome(allCollection))
     router.post('/updateFeedbackStatusRequest', userAuthMiddleware, updateFeedbackStatusRequest(allCollection))
+    router.post('/getFeedbackList', userAuthMiddleware, getFeedbackRequest(allCollection))
 
     return router;
 };
