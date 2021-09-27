@@ -338,7 +338,7 @@ const HomePage = (props) => {
         <Container>
           <SectionHeader title={APP_CONSTANTS.building_material_title} subtitle={APP_CONSTANTS.building_material_subtitle} />
           {/* <OwlCarouselSlider images={building_materials} items={5} autoplay={true} nav={true} navText={['next', 'prev']} dots={false} /> */}
-          <SectionBM/>
+          <SectionBM images={building_materials} />
         </Container>
       </Box>
       {/*========== building-material-section ============*/}

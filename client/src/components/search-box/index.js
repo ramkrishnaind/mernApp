@@ -133,91 +133,92 @@ const SearchBox = (props) => {
                     <Box className="search-form-area" >
                         <Grid container spacing={2} >
                             <Grid item xs={6} md={3}>
-                            <TextField
-                                id="city-locality"
-                                label="city, locality"
-                                variant="filled"
-                                required
-                                value={keyword}
-                                onChange={e => setkeyword(e.target.value)}
-                                InputProps={{
-                                    startAdornment: <InputAdornment position="start" style={{color: "red", marginLeft: -5}}><Icon fontSize="small" style={{color: "#ff7600"}}>room</Icon></InputAdornment>,
-                                }}
-                            />
-                            <Divider className="search-form-divider" orientation="vertical" />
+                                <TextField
+                                    id="city-locality"
+                                    label="city, locality"
+                                    variant="filled"
+                                    required
+                                    value={keyword}
+                                    onChange={e => setkeyword(e.target.value)}
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start" style={{color: "red", marginLeft: -5}}><Icon fontSize="small" style={{color: "#ff7600"}}>room</Icon></InputAdornment>,
+                                    }}
+                                />
+                                <Divider className="search-form-divider" orientation="vertical" />
                             </Grid>
                             <Grid item xs={6} md={3}>
-                            <TextField
-                                id="property-type"
-                                select
-                                label="Property type"
-                                value={pType}
-                                variant="filled"
-                                onChange={e => setPType(e.target.value)}
-                                InputProps={{
-                                    startAdornment: <InputAdornment position="start" style={{color: "red", marginLeft: -1}}><Icon fontSize="small" style={{color: "#ff7600"}}>home</Icon></InputAdornment>,
-                                }}
+                                <TextField
+                                    id="property-type"
+                                    select
+                                    label="Property type"
+                                    value={pType}
+                                    variant="filled"
+                                    onChange={e => setPType(e.target.value)}
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start" style={{color: "red", marginLeft: -1}}><Icon fontSize="small" style={{color: "#ff7600"}}>home</Icon></InputAdornment>,
+                                    }}
 
-                            >
-                                {propertyType.map((option) => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                            <Divider className="search-form-divider" orientation="vertical" />
+                                >
+                                    {propertyType.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                                <Divider className="search-form-divider" orientation="vertical" />
                             </Grid>
                             <Grid item xs={6} md={3}>
-                            <TextField
-                                id="budget"
-                                select
-                                label="Budget(Min Price)"
-                                value={minAmount}
-                                variant="filled"
-                                onChange={e => setMinBudget(e.target.value)}
-                                InputProps={{
-                                    startAdornment: <InputAdornment position="start" >₹</InputAdornment>,
-                                }}
+                                <TextField
+                                    id="budget"
+                                    select
+                                    label="Budget(Min Price)"
+                                    value={minAmount}
+                                    variant="filled"
+                                    onChange={e => setMinBudget(e.target.value)}
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start" >₹</InputAdornment>,
+                                    }}
 
-                            >
-                                {minBudget.map((option) => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                            <Divider className="search-form-divider" orientation="vertical" />
+                                >
+                                    {minBudget.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                                <Divider className="search-form-divider" orientation="vertical" />
                             </Grid>
                             <Grid item xs={6} md={3}>
-                        <TextField
-                            id="budget"
-                            select
-                            label="Budget(Max Price)"
-                            value={maxAmount}
-                            variant="filled"
-                            onChange={e => {
-                                setMaxBudget(e.target.value);
-                                console.log("Max budget", e.target.value);
-                            }}
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start" >₹
-                                </InputAdornment>,
-                            }}
-                        >
-                            {maxBudget.map((option) => (
-                                <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
-                                </MenuItem>
-                            ))}
-                        </TextField>
+                                <TextField
+                                    id="budget"
+                                    select
+                                    label="Budget(Max Price)"
+                                    value={maxAmount}
+                                    variant="filled"
+                                    onChange={e => {
+                                        setMaxBudget(e.target.value);
+                                        console.log("Max budget", e.target.value);
+                                    }}
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start" >₹
+                                        </InputAdornment>,
+                                    }}
+                                >
+                                    {maxBudget.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
                         </Grid>
-                       </Grid>
                         <Grid className="search-form-button">
-                            {keyword && pType && maxAmount && minAmount && type ?
-                                < Button class="mb-search__btn" type="submit" onClick={() => handleSubmit} component={RouterLink} to={{pathname: '/search-property-details', state: {keyword, pType, maxAmount, minAmount, type}}} variant="contained" color="primary">
-                                    Search
-                                </Button> : null
-                            }
+                            {/* {keyword && pType && maxAmount && minAmount && type ? */}
+                            < Button class="mb-search__btn" type="submit" onClick={() => handleSubmit} component={RouterLink} to={{pathname: '/search-property-details', state: {keyword, pType, maxAmount, minAmount, type}}} variant="contained" color="primary">
+                                Search
+                            </Button>
+                            {/* : null */}
+                            {/* } */}
                         </Grid>
                     </Box>
                 </Box>
