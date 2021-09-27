@@ -131,16 +131,32 @@ const SearchPropertyList = (props) => {
     return new URLSearchParams(useLocation().search);
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     console.log("Search location?.state", location?.state);
     // let reqData = {
     //   propertyId: location?.state,
     //   // propertyId: "6125373540f10f2712e43db5"
     // };
-    console.log('GetPropertyDetailRequestAsync', viewDetails);
     // dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
-    populateProperties(location?.state);
+    if (location?.state)
+      populateProperties(location?.state);
   }, [location?.state]);
+
+
+  useEffect(() => {
+
+    const type = new URLSearchParams(location.search).get("type");
+    if (type) {
+      const payload = {
+        "type": type,
+        "keyword": null,
+        "pType": null,
+        "minAmount": null,
+        "maxAmount": null
+      };
+      populateProperties(payload);
+    }
+  }, []);
 
   const populateProperties = (payload) => {
     const getData = async () => {
