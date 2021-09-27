@@ -153,16 +153,7 @@ const PropertyCreateUpdate = (props) => {
   }, [refresh]);
 
   useEffect(() => {
-    if (state["pType"]) {
-      const formData = PropertyOptionManager.getFormFieldsBySelectedPropertyType(
-        state["pType"]
-      );
-      setFormFields(formData);
-    }
-  }, [state]);
-
-  useEffect(() => {
-    console.log("-Form-Data-State-", state);
+    // console.log("-Form-Data-State-", state);
     let option = state.for;
     const clonePropertyTypeOptions = _.cloneDeep(propertyTypeOptions);
     if (option === "Sell") {
@@ -180,6 +171,14 @@ const PropertyCreateUpdate = (props) => {
       const result = propertyData?.propertyDetails;
       setPropertyDetail(result);
     }
+
+    if (state["pType"]) {
+      const formData = PropertyOptionManager.getFormFieldsBySelectedPropertyType(
+        state["pType"]
+      );
+      setFormFields(formData);
+    }
+
     // amenities
   }, [state, propertyData]);
 
@@ -442,7 +441,7 @@ const PropertyCreateUpdate = (props) => {
       <FieldsContainer label={sectionName} key={sectionIndex}>
         <Grid container>
           {fields?.length > 0 &&
-            fields?.forEach((field, fieldIndex) => {
+            fields?.map((field, fieldIndex) => {
               const {
                 label,
                 initial_counts,
@@ -556,7 +555,7 @@ const PropertyCreateUpdate = (props) => {
       <FieldsContainer label={sectionName}>
         <Grid container>
           {fields?.length > 0 &&
-            fields?.forEach((field, index) => {
+            fields?.map((field, index) => {
               const { label, type, units, placeholder } = field || {};
               if (type === "textfield") {
                 return (
@@ -632,7 +631,7 @@ const PropertyCreateUpdate = (props) => {
     return (
       <FieldsContainer label={sectionName}>
         <Grid container>
-          {fields?.forEach((field, index) => {
+          {fields?.map((field, index) => {
             const { label, type, values, fieldName, placeholder, data } =
               field || {};
             if (type === "radio") {
@@ -725,7 +724,7 @@ const PropertyCreateUpdate = (props) => {
     return (
       <FieldsContainer label={sectionName}>
         <Grid container>
-          {fields?.forEach((field) => {
+          {fields?.map((field) => {
             const { label, type, values, placeholder, data, fieldName } =
               field || {};
             if (type === "textfield" && data) {
@@ -759,7 +758,7 @@ const PropertyCreateUpdate = (props) => {
                 </Grid>
               );
             } else if (type === "text-dropdown" && field.data) {
-              return field?.data?.forEach((e, i) => {
+              return field?.data?.map((e, i) => {
                 if (e.type === "textfield") {
                   return (
                     <Grid item xs={12} md={4} key={i}>
@@ -1512,32 +1511,24 @@ const PropertyCreateUpdate = (props) => {
                   <Grid item xs={12} md={12}>
                     <Grid container>
                       {_.size(formFields) > 0 &&
-                        formFields?.sections?.forEach(
-                          (section, sectionIndex) => {
-                            switch (section?.section_id) {
-                              case APP_CONSTANTS.section_features:
-                                return _renderFeaturesSection(
-                                  section,
-                                  sectionIndex
-                                );
-                              case APP_CONSTANTS.section_area:
-                                return _renderAreaSection(
-                                  section,
-                                  sectionIndex
-                                );
-                              case APP_CONSTANTS.section_transaction:
-                                return _renderTransactionSection(
-                                  section,
-                                  sectionIndex
-                                );
-                              case APP_CONSTANTS.section_price:
-                                return _renderPriceSection(
-                                  section,
-                                  sectionIndex
-                                );
-                            }
+                        formFields?.sections?.map((section, sectionIndex) => {
+                          switch (section?.section_id) {
+                            case APP_CONSTANTS.section_features:
+                              return _renderFeaturesSection(
+                                section,
+                                sectionIndex
+                              );
+                            case APP_CONSTANTS.section_area:
+                              return _renderAreaSection(section, sectionIndex);
+                            case APP_CONSTANTS.section_transaction:
+                              return _renderTransactionSection(
+                                section,
+                                sectionIndex
+                              );
+                            case APP_CONSTANTS.section_price:
+                              return _renderPriceSection(section, sectionIndex);
                           }
-                        )}
+                        })}
                     </Grid>
                   </Grid>
 

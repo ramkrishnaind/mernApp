@@ -14,7 +14,7 @@ const createVishalAddressSchema = Joi.object({
     city: Joi.string().trim().required(),
     state: Joi.string().required(),
     pinCode: Joi.number(),
-    mobile: Joi.number(),
+    mobile: Joi.string(),
     email: Joi.string(),
     timming: Joi.string()
 });
@@ -34,7 +34,7 @@ const updateAddressSchema = Joi.object({
     city: Joi.string().trim().required(),
     state: Joi.string().required(),
     pinCode: Joi.number(),
-    mobile: Joi.number(),
+    mobile: Joi.string(),
     email: Joi.string(),
     timming: Joi.string()
 });

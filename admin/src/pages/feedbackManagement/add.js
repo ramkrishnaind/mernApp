@@ -22,6 +22,7 @@ import { connect } from "react-redux";
 
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
+import Rating from "@mui/material/Rating";
 
 const MenuCreateUpdate = (props) => {
   let query = useQuery();
@@ -49,7 +50,7 @@ const MenuCreateUpdate = (props) => {
     name: feedbackData?.name,
     email: feedbackData?.email,
     rating: feedbackData?.rating,
-    comment: feedbackData?.comment,
+    message: feedbackData?.message,
     image: "",
     id: id,
   };
@@ -63,21 +64,21 @@ const MenuCreateUpdate = (props) => {
   };
 
   const handleSubmit = (e) => {
-    const { name, email, id, rating, comment, image } = state;
+    const { name, email, id, rating, message, image } = state;
     var data = new FormData();
     if (id === null) {
       data.append("image", image);
       data.append("name", name);
       data.append("email", email);
       data.append("rating", rating);
-      data.append("comment", comment);
+      data.append("message", message);
       dispatch(FeedbackAction.FeedbackAddRequestAsync(data));
     } else {
       data.append("image", image);
       data.append("name", name);
       data.append("email", email);
       data.append("rating", rating);
-      data.append("comment", comment);
+      data.append("message", message);
       data.append("_id", id);
       dispatch(FeedbackAction.FeedbackUpdateRequestAsync(data));
     }
@@ -157,33 +158,11 @@ const MenuCreateUpdate = (props) => {
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <FormControl variant="outlined" style={{ width: "100%" }}>
-                    <InputLabel
-                      id="demo-simple-select-outlined-label"
-                      htmlFor="age-native-simple"
-                    >
-                      Role
-                    </InputLabel>
-                    <Select
-                      labelId="demo-simple-select-outlined-label"
-                      id="demo-simple-select-outlined-label"
-                      label="Role"
-                      native
-                      name="rating"
-                      value={state.rating ? state.rating : feedbackData?.rating}
-                      onChange={inputChange}
-                      inputProps={{
-                        name: "rating",
-                        id: "age-native-simple",
-                      }}
-                    >
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                    </Select>
-                  </FormControl>
+                  <Rating
+                    name="rating"
+                    value={state.rating ? state.rating : feedbackData?.rating}
+                    onChange={inputChange}
+                  />
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={6} md={4}>
@@ -193,11 +172,11 @@ const MenuCreateUpdate = (props) => {
                     label="Comment*"
                     fullWidth
                     value={
-                      state.comment ? state.comment : feedbackData?.comment
+                      state.message ? state.message : feedbackData?.message
                     }
                     onChange={inputChange}
-                    name="comment"
-                    id="comment"
+                    name="message"
+                    id="message"
                   />
                 </Grid>
               </Grid>

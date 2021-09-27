@@ -31,7 +31,7 @@ function getFeedbackList(Models) {
                 list: findData
             }
 
-            res.send({ status: true, message: "", data: obj });
+            res.send({ status: true, message: "", data: obj.list, obj });
         }
         catch (e) {
             console.log('Getting list err', e);
