@@ -147,6 +147,7 @@ const MenuItem = (props) => {
       <Box onClick={onMenuClickListener} aria-controls="menu" m={0}>
         <Grid
           container
+          className="primary-menu-navbar"
           style={{
             display: "flex",
             flexDirection: "row",
