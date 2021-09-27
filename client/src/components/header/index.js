@@ -332,9 +332,10 @@ const Header = (props) => {
                   alignItems: "center",
                   justifyContent: "center",
                 }}
+                className="primary-menu"
               >
                 {menuItems.map((menu) => {
-                  return <MenuItemList menu={menu} />;
+                  return <MenuItemList  menu={menu} />;
                 })}
               </Grid>
               <Grid
