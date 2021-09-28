@@ -151,16 +151,23 @@ const Header = (props) => {
     } else {
       setUserdata(false);
     }
-    populateOwnerDetails();
 
   });
+
+  useEffect(() => {
+    const company_detials = localStorage.getItem('company_detials');
+    if (!company_detials)
+      populateOwnerDetails();
+    else {
+      setOwnerDetails(JSON.parse(company_detials));
+    }
+  }, []);
 
   const populateOwnerDetails = () => {
     const getData = async () => {
       const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getFooterAddress', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
       setOwnerDetails(response.data);
-      localStorage.setItem('owner details', JSON.stringify(response.data));
-      // console.log('populateFooterDetails details', response);
+      localStorage.setItem('company_detials', JSON.stringify(response.data));
     };
     getData();
   };
@@ -335,7 +342,7 @@ const Header = (props) => {
                 className="primary-menu"
               >
                 {menuItems.map((menu) => {
-                  return <MenuItemList  menu={menu} />;
+                  return <MenuItemList menu={menu} />;
                 })}
               </Grid>
               <Grid

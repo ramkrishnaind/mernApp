@@ -94,7 +94,7 @@ const Footer = props => {
 
     };
     const populateFooterDetails = () => {
-
+        console.log("populateFooterDetails");
         const getData = async () => {
             const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getFooterAddress', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
             setFooterDetails(response.data);
