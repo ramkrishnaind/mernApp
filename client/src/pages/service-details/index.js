@@ -154,8 +154,14 @@ const ServiceDetailPage = (props) => {
 
   let img1 = '/property_img3.jpeg';
   let banner = '/about_us.jpeg';
+  let images = [];
   if (serviceDetail !== {} && serviceDetail.media && serviceDetail.media.length > 0 && serviceDetail.media[0].image && serviceDetail.media[0].image.length > 0) {
-    img1 = ApiClient.SERVER_ADDRESS + "/" + serviceDetail.media[0].image[0].path;
+    // img1 = ApiClient.SERVER_ADDRESS + "/" + serviceDetail.media[0].image[0].path;
+
+    images = serviceDetail.media[0].image.map((imgInfo) => {
+      return ApiClient.SERVER_ADDRESS + "/" + imgInfo.path;
+    });
+
     console.log(" imag ***x", img1);
     banner = ApiClient.SERVER_ADDRESS + "/" + serviceDetail.media[0].banner[0].path;
     console.log("banner", banner);
@@ -170,39 +176,27 @@ const ServiceDetailPage = (props) => {
         currentPage="SERVICE DETAILS"
       />
       {/* <Gallery /> */}
-      {viewDetails ? (
-        <Box>
-          <Box className="middel-content">
-            <h2> <span style={{color: "#00afb8"}}>{serviceDetail.title}</span></h2>
-            <p>{ReactHtmlParser(serviceDetail.description)}</p>
-          </Box>
-          {/* <Box className="work-space">
-            <h2>Vishal <span style={{color: "#00afb8"}}>Work Space</span></h2>
-            <Grid container spacing={3}>
-              <Grid item xs={4} className="workSpaceImgaes">
-                <img src={process.env.PUBLIC_URL + Workspace1} />
-              </Grid>
-              <Grid item xs={4} className="workSpaceImgaes">
-                <img src={process.env.PUBLIC_URL + Workspace2} />
-              </Grid>
-              <Grid item xs={4} className="workSpaceImgaes">
-                <img src={process.env.PUBLIC_URL + Workspace3} />
-              </Grid>
-            </Grid>
-            <Grid container spacing={3}>
-              <Grid item xs={4} className="workSpaceImgaes">
-                <img src={process.env.PUBLIC_URL + Workspace4} />
-              </Grid>
-              <Grid item xs={4} className="workSpaceImgaes">
-                <img src={process.env.PUBLIC_URL + Workspace5} />
-              </Grid>
-              <Grid item xs={4} className="workSpaceImgaes">
-                <img src={process.env.PUBLIC_URL + Workspace6} />
-              </Grid>
-            </Grid>
-          </Box> */}
+      {viewDetails ? (<Box className="CareerPageText">
+        <Container>
+          <div className={classes.root} className="headingtext">
 
-        </Box >) : null}
+            <Box className="middel-content">
+              <h2> <span style={{color: "#00afb8"}}>{ReactHtmlParser(serviceDetail?.title)}</span></h2>
+              <p>{ReactHtmlParser(serviceDetail?.description)}</p>
+            </Box>
+            <Box className="work-space">
+              <h2><span style={{color: "#00afb8"}}>{ReactHtmlParser(serviceDetail?.title)}</span></h2>
+              {(images || []).map((img) => {
+                return <Grid container spacing={3}>
+                  <Grid item xs={4} className="workSpaceImgaes">
+                    <img src={img} alt='' />
+                  </Grid>
+                </Grid>;
+              })}
+            </Box>
+          </div>
+        </Container>
+      </Box>) : null}
       {/* // <Container> */}
 
       {/* <Paper elevation={0} style={{padding: 20, marginTop: 20}}>

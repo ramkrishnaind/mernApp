@@ -35,6 +35,7 @@ import MapContainer from '../../components/section-map/MapContainer';
 import BookNowModal from '../../components/book-now/book-now';
 import {NoDataAvailable} from '../../components/no-details-available/no-details-available';
 import ApiClient from '../../api-client';
+import HtmlParser from 'react-html-parser';
 
 
 
@@ -115,6 +116,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
+  style4: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   box1: {
     width: 10,
     paddingRight: 5,
@@ -138,7 +145,7 @@ const HouseDetailPage = (props) => {
   const [PropertyDetail, setPropertyDetail] = React.useState({});
   const propertyListItem = useSelector((state) => state.PropertyDetail.data);
   const [bookNow, setBookNow] = useState(false);
-  console.log("propertyListItem", propertyListItem);
+  // console.log("propertyListItem", propertyListItem);
   if (propertyListItem) {
     if (viewDetails === false) {
       console.log(propertyListItem);
@@ -152,11 +159,11 @@ const HouseDetailPage = (props) => {
 
   useEffect(() => {
     const isbookNowActive = localStorage.getItem("bookNow");
-    console.log("isBookNow", typeof isbookNowActive, isbookNowActive);
+    // console.log("isBookNow", typeof isbookNowActive, isbookNowActive);
     let userDetails = localStorage.getItem("user");
     if (isbookNowActive === "true" && userDetails) {
       setBookNow(true);
-      console.log('setBookNow(true);', bookNow);
+      // console.log('setBookNow(true);', bookNow);
       localStorage.setItem("bookNow", false);
     }
   }, []);
@@ -166,7 +173,7 @@ const HouseDetailPage = (props) => {
       propertyId: location?.state || localStorage.getItem('pid'),
       // propertyId: "6125373540f10f2712e43db5"
     };
-    console.log('GetPropertyDetailRequestAsync');
+    // console.log('GetPropertyDetailRequestAsync');
     dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
   }, []);
 
@@ -221,7 +228,7 @@ const HouseDetailPage = (props) => {
               <Grid item xs={12} md={4} className={classes.style3}>
                 <Typography className={classes.text3}>Starts From</Typography>
                 <Box className={classes.box1}>/</Box>
-                <Typography className={classes.text5}>{PropertyDetail?.price?.price}</Typography>
+                <Typography className={classes.text5}>{PropertyDetail?.price?.expectedPrice}</Typography>
               </Grid>
             </Grid>
             <Grid container style={{marginTop: 10}}>
@@ -264,14 +271,14 @@ const HouseDetailPage = (props) => {
           <Paper elevation={1} style={{padding: 20, marginTop: 20}}>
 
             <Grid container>
-              <Grid item xs={12} md={6} className={classes.style2} style={{backgroundImage: "#03b2cb", padding: 40}}>
-                <img src="property_img3.jpeg" height={"100%"} width={'100%'} />
+              <Grid item xs={12} md={6} className={classes.style4} style={{backgroundColor: "#eee", padding: 20}}>
+                <CarouselSlider images={imgs} />
               </Grid>
               <Grid item xs={12} md={6} style={{padding: 20, marginTop: 20}}>
                 <Typography className={classes.text7} style={{padding: 20}}> Property Brief</Typography>
                 <Typography className={classes.text3} style={{padding: 20, lineHeight: "2.3em"}} >
                   {/* Vishal Construction Company is a Jaipur based construction company which today is a renowned name in providing best in class real estate services to its clients located all over India. Vishal Construction Company specializes in its area of work wherein they are expert in the real estate services, construction process of housing, commercial and other types of properties. They majorly serve clientele of Rajasthan, Hyderabad, Kolkata and other metro cities of India. Vishal Construction Company has a long-standing reputation wherein they deliver excellence catering to services and workmanship. They believe in providing quality projects with timely delivery. */}
-                  {handleNull(PropertyDetail?.projectDescription)}
+                  {HtmlParser(handleNull(PropertyDetail?.projectDescription))}
                 </Typography>
               </Grid>
             </Grid>
@@ -284,10 +291,6 @@ const HouseDetailPage = (props) => {
 
               style={{display: 'flex', flexDirection: 'column'}}
             >
-              <Paper style={{marginTop: 20}}>
-                <CarouselSlider images={imgs} />
-              </Paper>
-
               <InfoCard item={{title: 'Facts and Features'}}>
                 <Grid container>
                   <Grid item xs={12} md={3}>
@@ -396,7 +399,7 @@ const HouseDetailPage = (props) => {
               <InfoCard item={{title: 'Amenities'}}>
                 <Grid container>
                   {
-                    Object.keys(PropertyDetail?.amenities || []).map(amenities => {
+                    (PropertyDetail?.amenities || []).map(amenities => {
                       return <Grid item xs={12} md={4}>
                         <Aminities icon={''} title={amenities[0].toUpperCase() + amenities.slice(1)} />
                       </Grid>;
@@ -456,6 +459,9 @@ const HouseDetailPage = (props) => {
                 <Grid container>
                   {
                     Object.keys(PropertyDetail?.price || []).map(priceInfo => {
+
+                      if (priceInfo === '_id' || priceInfo === 'priceIncludes' || priceInfo === '__v' || priceInfo === 'created' || priceInfo === 'updated') {return null;}
+
                       return <Grid item xs={12} md={4}>
                         <Grid container style={{marginTop: 10, marginBottom: 10}}>
                           <Grid item xs={12} md={12} className={classes.style2}>

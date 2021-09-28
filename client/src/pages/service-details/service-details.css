@@ -8,3 +8,14 @@
     text-align: center;
     padding-top: 60px;
 }
+
+.work-space h2{
+    font-size: 36px;
+    color: #333333;
+    font-weight: 600;
+    line-height: 1.5em;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    position: relative;
+    margin-bottom: 2rem;
+}

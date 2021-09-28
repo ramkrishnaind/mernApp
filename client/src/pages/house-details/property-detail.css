@@ -44,3 +44,8 @@
         height: 70px;
     }
 }
+
+.map-container >div{
+    width: 100%!important;
+    height:100%!important;
+}
