@@ -171,9 +171,41 @@ const ServiceDetailPage = (props) => {
       />
       {/* <Gallery /> */}
       {viewDetails ? (
-        <Container>
+        <Box>
+          <Box className="middel-content">
+            <h2> <span style={{color: "#00afb8"}}>{serviceDetail.title}</span></h2>
+            <p>{ReactHtmlParser(serviceDetail.description)}</p>
+          </Box>
+          {/* <Box className="work-space">
+            <h2>Vishal <span style={{color: "#00afb8"}}>Work Space</span></h2>
+            <Grid container spacing={3}>
+              <Grid item xs={4} className="workSpaceImgaes">
+                <img src={process.env.PUBLIC_URL + Workspace1} />
+              </Grid>
+              <Grid item xs={4} className="workSpaceImgaes">
+                <img src={process.env.PUBLIC_URL + Workspace2} />
+              </Grid>
+              <Grid item xs={4} className="workSpaceImgaes">
+                <img src={process.env.PUBLIC_URL + Workspace3} />
+              </Grid>
+            </Grid>
+            <Grid container spacing={3}>
+              <Grid item xs={4} className="workSpaceImgaes">
+                <img src={process.env.PUBLIC_URL + Workspace4} />
+              </Grid>
+              <Grid item xs={4} className="workSpaceImgaes">
+                <img src={process.env.PUBLIC_URL + Workspace5} />
+              </Grid>
+              <Grid item xs={4} className="workSpaceImgaes">
+                <img src={process.env.PUBLIC_URL + Workspace6} />
+              </Grid>
+            </Grid>
+          </Box> */}
 
-          <Paper elevation={0} style={{padding: 20, marginTop: 20}}>
+        </Box >) : null}
+      {/* // <Container> */}
+
+      {/* <Paper elevation={0} style={{padding: 20, marginTop: 20}}>
 
             <Grid container>
               <Grid item xs={12} md={6} className={classes.style2} >
@@ -186,8 +218,8 @@ const ServiceDetailPage = (props) => {
                 </Typography>
               </Grid>
             </Grid>
-          </Paper>
-          {/* <Paper elevation={0} style={{padding: 20, marginTop: 20, marginBottom: 20}}>
+          </Paper> */};
+      {/* <Paper elevation={0} style={{padding: 20, marginTop: 20, marginBottom: 20}}>
 
             <Grid container style={{marginBottom: 20}}>
               <Grid item xs={12} md={6} style={{padding: 20, marginTop: 20}}>
@@ -204,9 +236,9 @@ const ServiceDetailPage = (props) => {
 
             </Grid>
           </Paper> */}
-        </Container>
-      ) : null}
-    </div>
+      {/* // </Container> */}
+
+    </div >
   );
 };
 
