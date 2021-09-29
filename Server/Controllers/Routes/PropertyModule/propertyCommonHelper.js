@@ -212,6 +212,7 @@ function propertyDetail(Models) {
                     result.iAm = findData.iAm;
                     result.userName = '';
                     result.for = findData.for;
+                    result.propertyCode = findData.propertyCode;
                     result.pType = findData.pType;
                     result.pCity = findData.pCity ? findData.pCity : propertyFeatures.address.city;
                     result.nameOfProject = findData.nameOfProject;
