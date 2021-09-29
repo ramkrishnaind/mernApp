@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   Typography,
   makeStyles,
@@ -10,6 +10,7 @@ import {
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CloseIcon from "@material-ui/icons/Close";
 import {useHistory, Link as RouterLink} from 'react-router-dom';
+import ApiClient from "../../api-client";
 
 const useStyles = makeStyles((theme) => ({
   menu: {
@@ -64,16 +65,36 @@ const MenuItem = (props) => {
   };
 
   const _renderServicesSubmenu = () => {
-    const [activeIndex, setActiveIndex] = React.useState(0);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [services, setServices] = useState(null);
     const onSubmenuClickListener = index => {
       setActiveIndex(index);
     };
+
+    const populateServiceInfo = () => {
+      const getData = async () => {
+        const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getService', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+
+        // console.log("ServiceInfo ", response);
+        setServices(response?.data?.items);
+      };
+      getData();
+    };
+
+    useEffect(() => {
+      populateServiceInfo();
+    }, []);
+
+    <Box className={'info'} style={{marginTop: 10}} >
+      MORE DETAIL
+    </Box>;
+
     return (
       <Grid container spacing={0} style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', }}>
         <Grid item md={12} className="services-submenu-bg1">
-          {submenu.map((sm, idx) => {
+          {(services || []).map((sm, idx) => {
             const mStyle = idx === activeIndex ? {fontFamily: '"Open Sans",sans-serif'} : {fontFamily: '"Open Sans",sans-serif'};
-            return <DropdownMenu style={mStyle} onClick={() => onSubmenuClickListener(idx)}>{sm.title}</DropdownMenu>;
+            return <DropdownMenu style={mStyle} component={RouterLink} to={{pathname: '/service-details', state: sm._id}} >{sm.title}</DropdownMenu>;
           })}
         </Grid>
         {/* <Grid item md={6} style={{padding: 10}}>

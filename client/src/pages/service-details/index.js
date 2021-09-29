@@ -138,7 +138,7 @@ const ServiceDetailPage = (props) => {
     fetchServiceDetails(serviceId);
 
 
-  }, []);
+  }, [location?.state]);
 
   const fetchServiceDetails = (serviceId) => {
 
