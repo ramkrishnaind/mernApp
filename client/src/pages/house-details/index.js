@@ -365,7 +365,7 @@ const HouseDetailPage = (props) => {
                     style={{display: 'flex', flexDirection: 'column'}}
                   >
                     <Typography className={classes.text1}>
-                      Property Code : {handleNull(PropertyDetail?._id)}
+                      Property Code : {handleNull(PropertyDetail?.propertyCode)}
                     </Typography>
                     <Typography className={classes.text1}>
                       Property Price : {handleNull(PropertyDetail?.price?.price)}
