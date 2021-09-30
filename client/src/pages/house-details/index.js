@@ -283,13 +283,13 @@ const HouseDetailPage = (props) => {
           </Paper>
           <Paper elevation={1} style={{ padding: 20, marginTop: 20 }}>
 
-            <Grid container>
-              <Grid item xs={12} md={8} className={classes.style4} style={{ backgroundColor: "#eee", padding: 20 }}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={8} className={classes.style4}>
                 <CarouselSlider images={imagesData} />
               </Grid>
-              <Grid item xs={12} md={4} style={{ padding: 20, marginTop: 20 }}>
-                <Typography className={classes.text7} style={{ padding: 20 }}> Property Brief</Typography>
-                <Typography className={classes.text3} style={{ padding: 20, lineHeight: "2.3em" }} >
+              <Grid item xs={12} md={4}>
+                <Typography className={classes.text7}> Property Brief</Typography>
+                <Typography className={classes.text3} style={{ lineHeight: "2.3em" }} >
                   {/* Vishal Construction Company is a Jaipur based construction company which today is a renowned name in providing best in class real estate services to its clients located all over India. Vishal Construction Company specializes in its area of work wherein they are expert in the real estate services, construction process of housing, commercial and other types of properties. They majorly serve clientele of Rajasthan, Hyderabad, Kolkata and other metro cities of India. Vishal Construction Company has a long-standing reputation wherein they deliver excellence catering to services and workmanship. They believe in providing quality projects with timely delivery. */}
                   {HtmlParser(handleNull(PropertyDetail?.projectDescription))}
                 </Typography>

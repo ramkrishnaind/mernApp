@@ -4,7 +4,8 @@
     margin-right: 10px;
 }
 .property-detail-gallery{
-    margin-top: 20px;
+    /* margin-top: 20px; */
+    overflow: hidden;
 }
 .property-detail-gallery .image-gallery-left-nav .image-gallery-svg, .property-detail-gallery .image-gallery-right-nav .image-gallery-svg {
 	height: 70px;
