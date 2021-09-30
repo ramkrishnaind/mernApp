@@ -483,7 +483,7 @@ const HouseDetailPage = (props) => {
               </InfoCard>
               <Paper elevation={1} style={{ padding: 20, marginTop: 20 }}>
                 <Grid container>
-                  <Grid item xs={12} md={12} className={classes.style4} style={{ backgroundColor: "#eee", padding: 20 }}>
+                  <Grid item xs={12} md={12} className={classes.style4} style={{ padding: 20 }}>
                     <Typography className={classes.text4}>
                       Master Plan
                     </Typography>
@@ -495,7 +495,7 @@ const HouseDetailPage = (props) => {
               </Paper>
               <Paper elevation={1} style={{ padding: 20, marginTop: 20 }}>
                 <Grid container>
-                  <Grid item xs={12} md={12} className={classes.style4} style={{ backgroundColor: "#eee", padding: 20 }}>
+                  <Grid item xs={12} md={12} className={classes.style4} style={{ padding: 20 }}>
                     <Typography className={classes.text4}>
                       Floor Plan
                     </Typography>
@@ -520,7 +520,7 @@ const HouseDetailPage = (props) => {
               <Grid
                 item
                 xs={12}
-                md={8}
+                md={12}
                 style={{ marginTop: 20 }}
               >
                 <Paper style={{ padding: 20 }}>
