@@ -60,7 +60,7 @@ export const ReviewStatusUpdateRequestAsync = (data) => {
     dispatch(ReviewUpdateStatusRequest());
     ReviewStatusUpdateService(dispatch, data);
     dispatch(ReviewListRequest());
-    ReviewListService(dispatch, "");
+    ReviewListService(dispatch);
   };
 };
 

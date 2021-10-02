@@ -105,8 +105,8 @@ export const MenuStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(MenuUpdateStatusRequest());
     MenuStatusUpdateService(dispatch, data);
-    MenuListService(dispatch, "");
     dispatch(MenuListRequest());
+    MenuListService(dispatch);
   };
 };
 

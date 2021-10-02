@@ -59,7 +59,7 @@ export const ContactUsStatusUpdateRequestAsync = (data) => {
     dispatch(ContactUsUpdateStatusRequest());
     ContactUsStatusUpdateService(dispatch, data);
     dispatch(ContactUsListRequest());
-    ContactUsListService(dispatch, "");
+    ContactUsListService(dispatch);
   };
 };
 

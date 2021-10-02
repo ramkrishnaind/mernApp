@@ -109,7 +109,7 @@ export const CareerStatusUpdateRequestAsync = (data) => {
     dispatch(CareerUpdateStatusRequest());
     CareerStatusUpdateService(dispatch, data);
     dispatch(CareerListRequest());
-    CareerListService(dispatch, "");
+    CareerListService(dispatch);
   };
 };
 
@@ -243,7 +243,7 @@ export const CareerDeleteRequestAsync = (data) => {
     dispatch(CareerDeleteRequest());
     CareerDeleteService(dispatch, data);
     dispatch(CareerListRequest());
-    CareerListService(dispatch, "");
+    CareerListService(dispatch);
   };
 };
 

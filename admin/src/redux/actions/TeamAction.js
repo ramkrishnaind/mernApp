@@ -106,8 +106,8 @@ export const TeamStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(TeamUpdateStatusRequest());
     TeamStatusUpdateService(dispatch, data);
-    TeamListService(dispatch, "");
     dispatch(TeamListRequest());
+    TeamListService(dispatch);
   };
 };
 

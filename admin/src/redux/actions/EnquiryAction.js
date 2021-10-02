@@ -59,7 +59,7 @@ export const EnquiryStatusUpdateRequestAsync = (data) => {
     dispatch(EnquiryUpdateStatusRequest());
     EnquiryStatusUpdateService(dispatch, data);
     dispatch(EnquiryListRequest());
-    EnquiryListService(dispatch, "");
+    EnquiryListService(dispatch);
   };
 };
 

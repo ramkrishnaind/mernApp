@@ -108,7 +108,7 @@ export const RoleStatusUpdateRequestAsync = (data) => {
     dispatch(RoleUpdateStatusRequest());
     RoleStatusUpdateService(dispatch, data);
     dispatch(RoleListRequest());
-    RoleListService(dispatch, "");
+    RoleListService(dispatch);
   };
 };
 
@@ -241,7 +241,7 @@ export const RoleDeleteRequestAsync = (data) => {
     dispatch(RoleDeleteRequest());
     RoleDeleteService(dispatch, data);
     dispatch(RoleListRequest());
-    RoleListService(dispatch, "");
+    RoleListService(dispatch);
   };
 };
 
