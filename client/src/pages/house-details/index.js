@@ -303,9 +303,10 @@ const HouseDetailPage = (props) => {
     let badrooms = PropertyDetail?.images?.badrooms || [];
     let bathrooms = PropertyDetail?.images?.bathrooms || [];
     let kitchen = PropertyDetail?.images?.kitchen || [];
+    let locationMap = PropertyDetail?.images?.locationMap || [];
     let other = PropertyDetail?.images?.other || [];
 
-    Images = [...mainImage, ...exteriorView, ...livingRoom, ...badrooms, ...kitchen, ...bathrooms, ...other];
+    Images = [...mainImage, ...exteriorView, ...livingRoom, ...badrooms, ...kitchen, ...bathrooms, ...locationMap, ...other];
     let masterPlanImages = PropertyDetail?.images?.masterPlan;
     let floorPlanImages = PropertyDetail?.images?.floorPlan;
     masterPlan = createImagePath({ imgs: masterPlanImages, value: "Master Plan" });
