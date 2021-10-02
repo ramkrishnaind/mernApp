@@ -22,7 +22,7 @@ const getUserSchema = Joi.object({
 });
 const updateUserStatusSchema = Joi.object({
     _id: Joi.string().trim().required(),
-    status: Joi.boolean().required(),
+    status: Joi.number().required(),
 });
 
 async function prepareTemplateSendMail(data) {
