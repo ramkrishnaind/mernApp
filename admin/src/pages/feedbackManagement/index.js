@@ -97,7 +97,7 @@ const FeedbackList = (props) => {
                   index + 1,
                   item.name,
                   item.message,
-                  item.active,
+                  item.status,
                   item._id,
                 ];
               })}
