@@ -35,13 +35,20 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.post('/createTeamMember', userAuthMiddleware, upload.array("image"), createTeamMember(allCollection))
-    router.post('/getTeamList', userAuthMiddleware, getTeamList(allCollection))
+    router.post('/createTeamMember', userAuthMiddleware, upload.array("image"), createTeamMember(allCollection, false))
+    router.post('/createDirector', userAuthMiddleware, upload.array("image"), createTeamMember(allCollection, true))
+    router.post('/getTeamList', userAuthMiddleware, getTeamList(allCollection, false))
+    router.post('/getDirectorList', userAuthMiddleware, getTeamList(allCollection, true))
     router.post('/updateTeamMember', userAuthMiddleware, upload.array("image"), updateTeamMember(allCollection))
+    router.post('/updateDirector', userAuthMiddleware, upload.array("image"), updateTeamMember(allCollection))
     router.post('/updateTeamMemberStatus', userAuthMiddleware, updateTeamMemberStatus(allCollection))
+    router.post('/updateDirectorStatus', userAuthMiddleware, updateTeamMemberStatus(allCollection))
     router.post('/deleteTeamMember', userAuthMiddleware, deleteTeamMember(allCollection))
+    router.post('/deleteDirector', userAuthMiddleware, deleteTeamMember(allCollection))
     router.post('/getTeamMemberDetail', userAuthMiddleware, getTeamMemberDetail(allCollection))
-    router.post('/getClientTeamMember', requestAuthMiddleware, getClientTeamMember(allCollection))
+    router.post('/getDirectorDetail', userAuthMiddleware, getTeamMemberDetail(allCollection))
+    router.post('/getClientTeamMember', requestAuthMiddleware, getClientTeamMember(allCollection, false))
+    router.post('/getDirector', requestAuthMiddleware, getClientTeamMember(allCollection, true))
 
     return router;
 };
