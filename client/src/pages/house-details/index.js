@@ -54,7 +54,7 @@ const options = {
       items: 1,
     },
     576: {
-      items: 1,
+      items: 2,
     },
     768: {
       items: 2,
@@ -587,17 +587,31 @@ const HouseDetailPage = (props) => {
                       <div className="plan-item">
                         <a className="plan-download" href="/property_img3.jpeg" target="_blank"><i class="fa fa-download"></i></a>
                         <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                        <p>Master Name</p>
                       </div>
                       <div className="plan-item">
                         <a className="plan-download" href="/property_img3.jpeg" target="_blank"><i class="fa fa-download"></i></a>
                         <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                        <p>Master Name</p>
                       </div>
                       <div className="plan-item">
                         <a className="plan-download" href="/property_img3.jpeg" target="_blank"><i class="fa fa-download"></i></a>
                         <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                        <p>Master Name</p>
                       </div>
-                    </OwlCarousel>                   
+                      <div className="plan-item">
+                        <a className="plan-download" href="/property_img3.jpeg" target="_blank"><i class="fa fa-download"></i></a>
+                        <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                        <p>Master Name</p>
+                      </div>
+                      <div className="plan-item">
+                        <a className="plan-download" href="/property_img3.jpeg" target="_blank"><i class="fa fa-download"></i></a>
+                        <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                        <p>Master Name</p>
+                      </div>
+                    </OwlCarousel>                             
                   </Grid>
+                  <Box className="download-all"><button className="btn btn-secondary">Download all</button></Box>     
                 </Grid>
               </Paper>
               <Paper elevation={1} style={{padding: 20, marginTop: 20}}>
