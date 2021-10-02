@@ -37,8 +37,33 @@ import {NoDataAvailable} from '../../components/no-details-available/no-details-
 import ApiClient from '../../api-client';
 import HtmlParser from 'react-html-parser';
 import Moment from 'react-moment';
+import OwlCarousel from "react-owl-carousel";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
 
-
+const options = {
+  margin: 10,
+  responsiveClass: true,
+  nav: true,
+  dots: false,
+  autoplay: true,
+  navText: ["Prev", "Next"],
+  smartSpeed: 1000,
+  responsive: {
+    0: {
+      items: 1,
+    },
+    576: {
+      items: 1,
+    },
+    768: {
+      items: 2,
+    },
+    992: {
+      items: 2,
+    }
+  },
+};
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -551,25 +576,53 @@ const HouseDetailPage = (props) => {
               </InfoCard>
               <Paper elevation={1} style={{padding: 20, marginTop: 20}}>
                 <Grid container>
-                  <Grid item xs={12} md={12} className={classes.style4} style={{padding: 20}}>
+                  <Grid item xs={12} md={12}>
                     <Typography className={classes.text4}>
                       Master Plan
                     </Typography>
                   </Grid>
-                  <Grid item xs={12} md={12} className={classes.style4} style={{backgroundColor: "#eee", padding: 20}}>
-                    <CarouselSlider images={masterPlan} />
+                  <Grid item xs={12} md={12} className={classes.style4}>
+                    {/* <CarouselSlider images={masterPlan} /> */}
+                    <OwlCarousel className='owl-theme plan-carousel' {...options}>
+                      <div className="plan-item">
+                        <a className="plan-download" href="/property_img3.jpeg" target="_blank"><i class="fa fa-download"></i></a>
+                        <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                      </div>
+                      <div className="plan-item">
+                        <a className="plan-download" href="/property_img3.jpeg" target="_blank"><i class="fa fa-download"></i></a>
+                        <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                      </div>
+                      <div className="plan-item">
+                        <a className="plan-download" href="/property_img3.jpeg" target="_blank"><i class="fa fa-download"></i></a>
+                        <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                      </div>
+                    </OwlCarousel>                   
                   </Grid>
                 </Grid>
               </Paper>
               <Paper elevation={1} style={{padding: 20, marginTop: 20}}>
                 <Grid container>
-                  <Grid item xs={12} md={12} className={classes.style4} style={{padding: 20}}>
+                  <Grid item xs={12} md={12}>
                     <Typography className={classes.text4}>
                       Floor Plan
                     </Typography>
                   </Grid>
-                  <Grid item xs={12} md={12} className={classes.style4} style={{backgroundColor: "#eee", padding: 20}}>
-                    <CarouselSlider images={floopPlan} />
+                  <Grid item xs={12} md={12} className={classes.style4}>
+                    {/* <CarouselSlider images={floopPlan} /> */}
+                    <OwlCarousel className='owl-theme plan-carousel' {...options}>
+                      <div className="plan-item">
+                        <a className="plan-download" href="/property_img3.jpeg" target="_blank"><i class="fa fa-download"></i></a>
+                        <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                      </div>
+                      <div className="plan-item">
+                        <a className="plan-download" href="/property_img3.jpeg" target="_blank"><i class="fa fa-download"></i></a>
+                        <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                      </div>
+                      <div className="plan-item">
+                        <a className="plan-download" href="/property_img3.jpeg" target="_blank"><i class="fa fa-download"></i></a>
+                        <img className="img" src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                      </div>
+                    </OwlCarousel>  
                   </Grid>
                 </Grid>
               </Paper>
@@ -620,9 +673,9 @@ const HouseDetailPage = (props) => {
                 item
                 xs={12}
                 md={12}
-                style={{marginTop: 20}}
+                style={{marginTop: 20, marginBottom: 20}}
               >
-                <Paper style={{padding: 20}}>
+                <Paper style={{padding: 20}} >
                   <Grid container>
                     <Grid item xs={12} md={12} className={classes.style1}>
                       <Typography className={classes.text4}>
@@ -820,7 +873,7 @@ const HouseDetailPage = (props) => {
                       </Grid>
                     </Grid>
                   </Paper>
-                  <Paper elevation={1} style={{padding: 20, marginTop: 20}} >
+                  <Paper elevation={1} style={{padding: 20, marginTop: 20,}} >
                     <Grid container>
                       <Grid item xs={12} md={12} className={classes.style2}>
                         <LocationOnIcon
