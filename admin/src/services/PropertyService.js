@@ -164,23 +164,23 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
       );
     }
 
-    if (imageData.locationMap.length > 0) {
-      var locationMap = new FormData();
-      imageData.locationMap.forEach((item, index) => {
-        locationMap.append("image", item);
-      });
-      locationMap.append("imagetype", "locationMap");
-      locationMap.append("propertyId", propertyId);
+    // if (imageData.locationMap.length > 0) {
+    //   var locationMap = new FormData();
+    //   imageData.locationMap.forEach((item, index) => {
+    //     locationMap.append("image", item);
+    //   });
+    //   locationMap.append("imagetype", "locationMap");
+    //   locationMap.append("propertyId", propertyId);
 
-      await ApiClient.call(
-        ApiClient.REQUEST_METHOD.POST,
-        API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        locationMap,
-        null,
-        null,
-        true
-      );
-    }
+    //   await ApiClient.call(
+    //     ApiClient.REQUEST_METHOD.POST,
+    //     API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
+    //     locationMap,
+    //     null,
+    //     null,
+    //     true
+    //   );
+    // }
 
     if (imageData.masterPlan.length > 0) {
       var masterPlan = new FormData();
@@ -391,23 +391,23 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
       );
     }
 
-    if (imageData.locationMap.length > 0) {
-      var locationMap = new FormData();
-      imageData.locationMap.forEach((item, index) => {
-        locationMap.append("image", item);
-      });
-      locationMap.append("imagetype", "locationMap");
-      locationMap.append("propertyId", propertyId);
+    // if (imageData.locationMap.length > 0) {
+    //   var locationMap = new FormData();
+    //   imageData.locationMap.forEach((item, index) => {
+    //     locationMap.append("image", item);
+    //   });
+    //   locationMap.append("imagetype", "locationMap");
+    //   locationMap.append("propertyId", propertyId);
 
-      await ApiClient.call(
-        ApiClient.REQUEST_METHOD.POST,
-        API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        locationMap,
-        null,
-        null,
-        true
-      );
-    }
+    //   await ApiClient.call(
+    //     ApiClient.REQUEST_METHOD.POST,
+    //     API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
+    //     locationMap,
+    //     null,
+    //     null,
+    //     true
+    //   );
+    // }
 
     if (imageData.masterPlan.length > 0) {
       var masterPlan = new FormData();
