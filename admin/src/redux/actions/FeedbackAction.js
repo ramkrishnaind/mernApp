@@ -106,8 +106,8 @@ export const FeedbackStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(FeedbackUpdateStatusRequest());
     FeedbackStatusUpdateService(dispatch, data);
-    FeedbackListService(dispatch, "");
     dispatch(FeedbackListRequest());
+    FeedbackListService(dispatch);
   };
 };
 
@@ -240,8 +240,8 @@ export const FeedbackDeleteRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(FeedbackDeleteRequest());
     FeedbackDeleteService(dispatch, data);
-    FeedbackListService(dispatch, "");
     dispatch(FeedbackListRequest());
+    FeedbackListService(dispatch);
   };
 };
 

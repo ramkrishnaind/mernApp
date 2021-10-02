@@ -158,6 +158,7 @@ const MenuCreateUpdate = (props) => {
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                  <Typography>Rating </Typography>
                   <Rating
                     name="rating"
                     value={state.rating ? state.rating : feedbackData?.rating}

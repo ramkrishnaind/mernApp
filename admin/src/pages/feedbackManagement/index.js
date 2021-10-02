@@ -45,7 +45,7 @@ const FeedbackList = (props) => {
   function onDisable(data, status) {
     let tempdata = {
       _id: data,
-      active: status,
+      status: status,
     };
     dispatch(FeedbackAction.FeedbackStatusUpdateRequestAsync(tempdata));
   }
@@ -95,16 +95,16 @@ const FeedbackList = (props) => {
               data={feedback.list.map((item, index) => {
                 return [
                   index + 1,
-                  item.title,
-                  item.description,
+                  item.name,
+                  item.message,
                   item.active,
                   item._id,
                 ];
               })}
               columns={[
                 "SR No.",
-                "Title",
-                "Description",
+                "Name",
+                "Message",
                 {
                   name: "Status",
                   options: {
