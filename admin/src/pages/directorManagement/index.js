@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Typography, Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import * as FeedbackAction from "../../redux/actions/FeedbackAction";
+import * as DirectorAction from "../../redux/actions/DirectorAction";
 import { useDispatch } from "react-redux";
 
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -29,11 +29,12 @@ const styles = (theme) => ({
   },
 });
 
-const FeedbackList = (props) => {
+const DirectorList = (props) => {
   const dispatch = useDispatch();
-  let { feedback } = props;
+  let { director } = props;
+
   useEffect(() => {
-    dispatch(FeedbackAction.FeedbackListRequestAsync());
+    dispatch(DirectorAction.DirectorListRequestAsync());
   }, [dispatch]);
 
   let options = {
@@ -45,9 +46,9 @@ const FeedbackList = (props) => {
   function onDisable(data, status) {
     let tempdata = {
       _id: data,
-      status: status,
+      isDisable: status,
     };
-    dispatch(FeedbackAction.FeedbackStatusUpdateRequestAsync(tempdata));
+    dispatch(DirectorAction.DirectorStatusUpdateRequestAsync(tempdata));
   }
 
   function onDeleteClick(data) {
@@ -61,7 +62,7 @@ const FeedbackList = (props) => {
         {
           label: "Yes",
           onClick: () =>
-            dispatch(FeedbackAction.FeedbackDeleteRequestAsync(tempdata)),
+            dispatch(DirectorAction.DirectorDeleteRequestAsync(tempdata)),
         },
         {
           label: "No",
@@ -71,7 +72,7 @@ const FeedbackList = (props) => {
   }
 
   function updatehandleOpenCreateModal(data) {
-    history.push("/feedback/add?id=" + data);
+    history.push("/director/add?id=" + data);
     window.location.reload();
   }
 
@@ -79,41 +80,42 @@ const FeedbackList = (props) => {
     <>
       <Box className="MenuManagement_Data">
         <FormHeader
-          heading1={"Feedback Module Management"}
-          heading2={"List and Manage Feedback Here"}
+          heading1={"Director Module Management"}
+          heading2={"List and Manage Director Here"}
         />
         <BreadCrumbs
-          heading1={"FeedbackManagement"}
-          heading2={"Feedback Module List"}
+          heading1={"DirectorManagement"}
+          heading2={"Director Module List"}
         />
 
-        {feedback.list && feedback.list.length > 0 ? (
+        {director?.list?.list && director.list?.list.length > 0 ? (
           <>
             <MUIDataTable
               className="table-header"
-              title="Feedback List"
-              data={feedback.list.map((item, index) => {
+              title="Team List"
+              data={director?.list?.list.map((item, index) => {
                 return [
                   index + 1,
                   item.name,
-<<<<<<< HEAD
-                  item.rating,
-                  item.status,
-=======
-                  item.message,
-                  item.active,
->>>>>>> 210410dd6a2fcf94de1594fea1e25cb56cf4e01e
+                  item.designation,
+                  item.shortDescription,
+                  item.facebook,
+                  item.instagram,
+                  item.linkedin,
+                  item.twitter,
+                  item.isDisable,
                   item._id,
                 ];
               })}
               columns={[
                 "SR No.",
                 "Name",
-<<<<<<< HEAD
-                "Rating",
-=======
-                "Message",
->>>>>>> 210410dd6a2fcf94de1594fea1e25cb56cf4e01e
+                "Designation",
+                "Description",
+                "Facebook",
+                "Instagram",
+                "Linkedin",
+                "Twitter",
                 {
                   name: "Status",
                   options: {
@@ -132,15 +134,15 @@ const FeedbackList = (props) => {
                           <EditIcon
                             style={{ color: "#0069d9", cursor: "pointer" }}
                             onClick={() =>
-                              updatehandleOpenCreateModal(tableMeta.rowData[4])
+                              updatehandleOpenCreateModal(tableMeta.rowData[9])
                             }
                           />
 
-                          {tableMeta.rowData[3] ? (
+                          {tableMeta.rowData[8] ? (
                             <Tooltip title="Active">
                               <Done
                                 onClick={() =>
-                                  onDisable(tableMeta.rowData[4], false)
+                                  onDisable(tableMeta.rowData[9], false)
                                 }
                                 style={{ color: "#1e7e34", cursor: "pointer" }}
                               />
@@ -149,7 +151,7 @@ const FeedbackList = (props) => {
                             <Tooltip title="Inactive">
                               <ClearIcon
                                 onClick={() =>
-                                  onDisable(tableMeta.rowData[4], true)
+                                  onDisable(tableMeta.rowData[9], true)
                                 }
                                 style={{ color: "#bd2130", cursor: "pointer" }}
                               />
@@ -158,7 +160,7 @@ const FeedbackList = (props) => {
 
                           <DeleteIcon
                             style={{ color: "#bd2130", cursor: "pointer" }}
-                            onClick={() => onDeleteClick(tableMeta.rowData[4])}
+                            onClick={() => onDeleteClick(tableMeta.rowData[9])}
                           />
                         </>
                       );
@@ -178,11 +180,9 @@ const FeedbackList = (props) => {
 };
 
 function mapStateToProps(state) {
-  const { feedback } = state;
-
-  console.log("testingg", feedback);
+  const { director } = state;
   return {
-    feedback,
+    director,
   };
 }
-export default connect(mapStateToProps)(withStyles(styles)(FeedbackList));
+export default connect(mapStateToProps)(withStyles(styles)(DirectorList));

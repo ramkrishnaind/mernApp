@@ -38,7 +38,11 @@ export const ServiceAddService = async (dispatch, data) => {
     window.location.reload();
   } catch (error) {
     dispatch(ServiceAction.ServiceAddError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -57,7 +61,11 @@ export const ServiceStatusUpdateService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(ServiceAction.ServiceUpdateStatusError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -76,7 +84,11 @@ export const ServiceDeleteService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(ServiceAction.ServiceDeleteError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -94,7 +106,11 @@ export const ServiceDataService = async (dispatch, data) => {
     dispatch(ServiceAction.ServiceDataSuccess(result));
   } catch (error) {
     dispatch(ServiceAction.ServiceDataError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -115,7 +131,11 @@ export const ServiceUpdateService = async (dispatch, data) => {
     window.location.reload();
   } catch (error) {
     dispatch(ServiceAction.ServiceUpdateError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };

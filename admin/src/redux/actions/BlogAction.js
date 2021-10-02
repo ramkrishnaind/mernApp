@@ -106,8 +106,8 @@ export const BlogStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(BlogUpdateStatusRequest());
     BlogStatusUpdateService(dispatch, data);
-    BlogListService(dispatch, "");
     dispatch(BlogListRequest());
+    BlogListService(dispatch);
   };
 };
 
@@ -240,8 +240,8 @@ export const BlogDeleteRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(BlogDeleteRequest());
     BlogDeleteService(dispatch, data);
-    BlogListService(dispatch, "");
     dispatch(BlogListRequest());
+    BlogListService(dispatch);
   };
 };
 

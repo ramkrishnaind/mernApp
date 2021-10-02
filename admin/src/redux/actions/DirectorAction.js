@@ -1,23 +1,23 @@
 import ACTION_KEYS from "../../constants/action-keys";
 import {
-  FeedbackListService,
-  FeedbackAddService,
-  FeedbackStatusUpdateService,
-  FeedbackUpdateService,
-  FeedbackDataService,
-  FeedbackDeleteService,
-} from "../../services/FeedbackService";
+  DirectorListService,
+  DirectorAddService,
+  DirectorStatusUpdateService,
+  DirectorUpdateService,
+  DirectorDataService,
+  DirectorDeleteService,
+} from "../../services/DirectorService";
 import * as Loader from "./LoaderActions";
 /**
  * Call by the Component to make Login Request
  * @param {*} data
  * @returns
  */
-export const FeedbackListRequestAsync = (data) => {
+export const DirectorListRequestAsync = (data) => {
   return (dispatch) => {
     dispatch(Loader.showLoader(""));
-    dispatch(FeedbackListRequest());
-    FeedbackListService(dispatch, data);
+    dispatch(DirectorListRequest());
+    DirectorListService(dispatch, data);
   };
 };
 
@@ -25,9 +25,9 @@ export const FeedbackListRequestAsync = (data) => {
  * Action Creator to dispatch login action
  * @returns
  */
-const FeedbackListRequest = () => {
+const DirectorListRequest = () => {
   return {
-    type: ACTION_KEYS.FEEDBACK_LIST_REQUEST,
+    type: ACTION_KEYS.DIRECTOR_LIST_REQUEST,
     payload: null,
   };
 };
@@ -37,9 +37,9 @@ const FeedbackListRequest = () => {
  * @param {*} data
  * @returns
  */
-export const FeedbackListSuccess = (data) => {
+export const DirectorListSuccess = (data) => {
   return {
-    type: ACTION_KEYS.FEEDBACK_LIST_SUCCESS,
+    type: ACTION_KEYS.DIRECTOR_LIST_SUCCESS,
     payload: data,
   };
 };
@@ -49,19 +49,19 @@ export const FeedbackListSuccess = (data) => {
  * @param {*} data
  * @returns
  */
-export const FeedbackListError = (data) => {
+export const DirectorListError = (data) => {
   return {
-    type: ACTION_KEYS.FEEDBACK_LIST_ERROR,
+    type: ACTION_KEYS.DIRECTOR_LIST_ERROR,
     payload: { error: data },
   };
 };
 
-export const FeedbackAddRequestAsync = (data) => {
+export const DirectorAddRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
     dispatch(Loader.showLoader(""));
-    dispatch(FeedbackAddRequest());
-    FeedbackAddService(dispatch, data);
+    dispatch(DirectorAddRequest());
+    DirectorAddService(dispatch, data);
   };
 };
 
@@ -69,9 +69,9 @@ export const FeedbackAddRequestAsync = (data) => {
  * Action Creator to dispatch login action
  * @returns
  */
-const FeedbackAddRequest = () => {
+const DirectorAddRequest = () => {
   return {
-    type: ACTION_KEYS.FEEDBACK_ADD_REQUEST,
+    type: ACTION_KEYS.DIRECTOR_ADD_REQUEST,
     payload: null,
   };
 };
@@ -81,9 +81,9 @@ const FeedbackAddRequest = () => {
  * @param {*} data
  * @returns
  */
-export const FeedbackAddSuccess = (data) => {
+export const DirectorAddSuccess = (data) => {
   return {
-    type: ACTION_KEYS.FEEDBACK_ADD_SUCCESS,
+    type: ACTION_KEYS.DIRECTOR_ADD_SUCCESS,
     payload: data,
   };
 };
@@ -93,21 +93,21 @@ export const FeedbackAddSuccess = (data) => {
  * @param {*} data
  * @returns
  */
-export const FeedbackAddError = (data) => {
+export const DirectorAddError = (data) => {
   return {
-    type: ACTION_KEYS.FEEDBACK_ADD_ERROR,
+    type: ACTION_KEYS.DIRECTOR_ADD_ERROR,
     payload: { error: data },
   };
 };
 
-export const FeedbackStatusUpdateRequestAsync = (data) => {
+export const DirectorStatusUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
     dispatch(Loader.showLoader(""));
-    dispatch(FeedbackUpdateStatusRequest());
-    FeedbackStatusUpdateService(dispatch, data);
-    dispatch(FeedbackListRequest());
-    FeedbackListService(dispatch);
+    dispatch(DirectorUpdateStatusRequest());
+    DirectorStatusUpdateService(dispatch, data);
+    dispatch(DirectorListRequest());
+    DirectorListService(dispatch);
   };
 };
 
@@ -115,9 +115,9 @@ export const FeedbackStatusUpdateRequestAsync = (data) => {
  * Action Creator to dispatch login action
  * @returns
  */
-const FeedbackUpdateStatusRequest = () => {
+const DirectorUpdateStatusRequest = () => {
   return {
-    type: ACTION_KEYS.FEEDBACK_UPDATE_STATUS_REQUEST,
+    type: ACTION_KEYS.DIRECTOR_UPDATE_STATUS_REQUEST,
     payload: null,
   };
 };
@@ -127,9 +127,9 @@ const FeedbackUpdateStatusRequest = () => {
  * @param {*} data
  * @returns
  */
-export const FeedbackUpdateStatusSuccess = (data) => {
+export const DirectorUpdateStatusSuccess = (data) => {
   return {
-    type: ACTION_KEYS.FEEDBACK_UPDATE_STATUS_SUCCESS,
+    type: ACTION_KEYS.DIRECTOR_UPDATE_STATUS_SUCCESS,
     payload: data,
   };
 };
@@ -139,19 +139,19 @@ export const FeedbackUpdateStatusSuccess = (data) => {
  * @param {*} data
  * @returns
  */
-export const FeedbackUpdateStatusError = (data) => {
+export const DirectorUpdateStatusError = (data) => {
   return {
-    type: ACTION_KEYS.FEEDBACK_UPDATE_STATUS_ERROR,
+    type: ACTION_KEYS.DIRECTOR_UPDATE_STATUS_ERROR,
     payload: { error: data },
   };
 };
 
-export const FeedbackUpdateRequestAsync = (data) => {
+export const DirectorUpdateRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
     dispatch(Loader.showLoader(""));
-    dispatch(FeedbackUpdateRequest());
-    FeedbackUpdateService(dispatch, data);
+    dispatch(DirectorUpdateRequest());
+    DirectorUpdateService(dispatch, data);
   };
 };
 
@@ -159,9 +159,9 @@ export const FeedbackUpdateRequestAsync = (data) => {
  * Action Creator to dispatch login action
  * @returns
  */
-const FeedbackUpdateRequest = () => {
+const DirectorUpdateRequest = () => {
   return {
-    type: ACTION_KEYS.FEEDBACK_UPDATE_REQUEST,
+    type: ACTION_KEYS.DIRECTOR_UPDATE_REQUEST,
     payload: null,
   };
 };
@@ -171,9 +171,9 @@ const FeedbackUpdateRequest = () => {
  * @param {*} data
  * @returns
  */
-export const FeedbackUpdateSuccess = (data) => {
+export const DirectorUpdateSuccess = (data) => {
   return {
-    type: ACTION_KEYS.FEEDBACK_UPDATE_SUCCESS,
+    type: ACTION_KEYS.DIRECTOR_UPDATE_SUCCESS,
     payload: data,
   };
 };
@@ -183,19 +183,19 @@ export const FeedbackUpdateSuccess = (data) => {
  * @param {*} data
  * @returns
  */
-export const FeedbackUpdateError = (data) => {
+export const DirectorUpdateError = (data) => {
   return {
-    type: ACTION_KEYS.FEEDBACK_UPDATE_ERROR,
+    type: ACTION_KEYS.DIRECTOR_UPDATE_ERROR,
     payload: { error: data },
   };
 };
 
-export const FeedbackDataRequestAsync = (data) => {
+export const DirectorDataRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
     dispatch(Loader.showLoader(""));
-    dispatch(FeedbackDataRequest());
-    FeedbackDataService(dispatch, data);
+    dispatch(DirectorDataRequest());
+    DirectorDataService(dispatch, data);
   };
 };
 
@@ -203,9 +203,9 @@ export const FeedbackDataRequestAsync = (data) => {
  * Action Creator to dispatch login action
  * @returns
  */
-const FeedbackDataRequest = () => {
+const DirectorDataRequest = () => {
   return {
-    type: ACTION_KEYS.FEEDBACK_DATA_REQUEST,
+    type: ACTION_KEYS.DIRECTOR_DATA_REQUEST,
     payload: null,
   };
 };
@@ -215,9 +215,9 @@ const FeedbackDataRequest = () => {
  * @param {*} data
  * @returns
  */
-export const FeedbackDataSuccess = (data) => {
+export const DirectorDataSuccess = (data) => {
   return {
-    type: ACTION_KEYS.FEEDBACK_DATA_SUCCESS,
+    type: ACTION_KEYS.DIRECTOR_DATA_SUCCESS,
     payload: data,
   };
 };
@@ -227,21 +227,22 @@ export const FeedbackDataSuccess = (data) => {
  * @param {*} data
  * @returns
  */
-export const FeedbackDataError = (data) => {
+export const DirectorDataError = (data) => {
   return {
-    type: ACTION_KEYS.FEEDBACK_DATA_ERROR,
+    type: ACTION_KEYS.DIRECTOR_DATA_ERROR,
     payload: { error: data },
   };
 };
 
-export const FeedbackDeleteRequestAsync = (data) => {
+export const DirectorDeleteRequestAsync = (data) => {
   // console.log('data',data);
   return (dispatch) => {
+    DirectorDeleteService(dispatch, data);
     dispatch(Loader.showLoader(""));
-    dispatch(FeedbackDeleteRequest());
-    FeedbackDeleteService(dispatch, data);
-    dispatch(FeedbackListRequest());
-    FeedbackListService(dispatch);
+    dispatch(DirectorDeleteRequest());
+
+    dispatch(DirectorListRequest());
+    DirectorListService(dispatch);
   };
 };
 
@@ -249,9 +250,9 @@ export const FeedbackDeleteRequestAsync = (data) => {
  * Action Creator to dispatch login action
  * @returns
  */
-const FeedbackDeleteRequest = () => {
+const DirectorDeleteRequest = () => {
   return {
-    type: ACTION_KEYS.FEEDBACK_DELETE_REQUEST,
+    type: ACTION_KEYS.DIRECTOR_DELETE_REQUEST,
     payload: null,
   };
 };
@@ -261,9 +262,9 @@ const FeedbackDeleteRequest = () => {
  * @param {*} data
  * @returns
  */
-export const FeedbackDeleteSuccess = (data) => {
+export const DirectorDeleteSuccess = (data) => {
   return {
-    type: ACTION_KEYS.FEEDBACK_DELETE_SUCCESS,
+    type: ACTION_KEYS.DIRECTOR_DELETE_SUCCESS,
     payload: data,
   };
 };
@@ -273,9 +274,9 @@ export const FeedbackDeleteSuccess = (data) => {
  * @param {*} data
  * @returns
  */
-export const FeedbackDeleteError = (data) => {
+export const DirectorDeleteError = (data) => {
   return {
-    type: ACTION_KEYS.FEEDBACK_DELETE_ERROR,
+    type: ACTION_KEYS.DIRECTOR_DELETE_ERROR,
     payload: { error: data },
   };
 };

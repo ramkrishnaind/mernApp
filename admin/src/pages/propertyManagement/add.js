@@ -312,7 +312,7 @@ const PropertyCreateUpdate = (props) => {
         floorPlan: image.floorPlan,
         kitchen: image.kitchen,
         livingRoom: image.livingRoom,
-        locationMap: image.locationMap,
+        // locationMap: image.locationMap,
         masterPlan: image.masterPlan,
         other: image.other,
       };
@@ -368,7 +368,7 @@ const PropertyCreateUpdate = (props) => {
         floorPlan: image.floorPlan,
         kitchen: image.kitchen,
         livingRoom: image.livingRoom,
-        locationMap: image.locationMap,
+        // locationMap: image.locationMap,
         masterPlan: image.masterPlan,
         other: image.other,
       };
@@ -1061,19 +1061,19 @@ const PropertyCreateUpdate = (props) => {
     }
   };
 
-  const handleImageLocationMap = (file, status) => {
-    let list = image;
-    let data = [];
-    if (status === "done") {
-      if (list.locationMap && list.locationMap.length) {
-        data = list.locationMap;
-        data[list.locationMap.length] = file.file;
-      } else {
-        data["0"] = file.file;
-      }
-      setImageState({ ...image, ["locationMap"]: data });
-    }
-  };
+  // const handleImageLocationMap = (file, status) => {
+  //   let list = image;
+  //   let data = [];
+  //   if (status === "done") {
+  //     if (list.locationMap && list.locationMap.length) {
+  //       data = list.locationMap;
+  //       data[list.locationMap.length] = file.file;
+  //     } else {
+  //       data["0"] = file.file;
+  //     }
+  //     setImageState({ ...image, ["locationMap"]: data });
+  //   }
+  // };
 
   const handleImageOther = (file, status) => {
     let list = image;
@@ -1500,7 +1500,7 @@ const PropertyCreateUpdate = (props) => {
                         label="Yes"
                       />
                       <FormControlLabel
-                        value="{false}"
+                        value="false"
                         control={<Radio />}
                         label="No"
                       />
@@ -1644,7 +1644,7 @@ const PropertyCreateUpdate = (props) => {
 
                 <Grid item xs={12} sm={12}>
                   <Grid container>
-                    <Grid item xs={12} sm={6} md={6}>
+                    {/* <Grid item xs={12} sm={6} md={6}>
                       <Typography variant="subtitle1" gutterBottom>
                         Location Map
                       </Typography>
@@ -1652,7 +1652,7 @@ const PropertyCreateUpdate = (props) => {
                         onChangeStatus={handleImageLocationMap}
                         accept="image/*,audio/*,video/*"
                       />
-                    </Grid>
+                    </Grid> */}
 
                     <Grid item xs={12} sm={6} md={6}>
                       <Typography variant="subtitle1" gutterBottom>

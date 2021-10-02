@@ -17,7 +17,11 @@ export const SliderListService = async (dispatch, data) => {
     dispatch(HomeSliderAction.SliderListSuccess(result));
   } catch (error) {
     dispatch(HomeSliderAction.SliderListError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -38,7 +42,11 @@ export const SliderAddService = async (dispatch, data) => {
     window.location.reload();
   } catch (error) {
     dispatch(HomeSliderAction.SliderAddError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -57,7 +65,11 @@ export const SliderStatusUpdateService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(HomeSliderAction.SliderUpdateStatusError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -78,7 +90,11 @@ export const SliderUpdateService = async (dispatch, data) => {
     window.location.reload();
   } catch (error) {
     dispatch(HomeSliderAction.SliderUpdateError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -97,7 +113,11 @@ export const SliderDeleteService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(HomeSliderAction.SliderDeleteError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -115,7 +135,11 @@ export const SliderDataService = async (dispatch, data) => {
     dispatch(HomeSliderAction.SliderDataSuccess(result));
   } catch (error) {
     dispatch(HomeSliderAction.SliderDataError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };

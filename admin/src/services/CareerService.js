@@ -17,7 +17,11 @@ export const CareerListService = async (dispatch, data) => {
     dispatch(CareerAction.CareerListSuccess(result));
   } catch (error) {
     dispatch(CareerAction.CareerListError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -38,7 +42,11 @@ export const CareerAddService = async (dispatch, data) => {
     window.location.reload();
   } catch (error) {
     dispatch(CareerAction.CareerAddError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -57,7 +65,11 @@ export const CareerStatusUpdateService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(CareerAction.CareerUpdateStatusError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -78,7 +90,11 @@ export const CareerUpdateService = async (dispatch, data) => {
     window.location.reload();
   } catch (error) {
     dispatch(CareerAction.CareerUpdateError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -97,7 +113,11 @@ export const CareerDeleteService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(CareerAction.CareerDeleteError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -115,7 +135,11 @@ export const CareerDataService = async (dispatch, data) => {
     dispatch(CareerAction.CareerDataSuccess(result));
   } catch (error) {
     dispatch(CareerAction.CareerDataError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -134,7 +158,11 @@ export const CareerApplicationListService = async (dispatch, data) => {
     dispatch(CareerAction.CareerApplicationListSuccess(result));
   } catch (error) {
     dispatch(CareerAction.CareerApplicationListError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -153,7 +181,11 @@ export const CareerApplicationStatusUpdateService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(CareerAction.CareerApplicationUpdateStatusError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };

@@ -17,7 +17,11 @@ export const BuildingListService = async (dispatch, data) => {
     dispatch(BuildingAction.BuildingListSuccess(result));
   } catch (error) {
     dispatch(BuildingAction.BuildingListError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -38,7 +42,11 @@ export const BuildingAddService = async (dispatch, data) => {
     window.location.reload();
   } catch (error) {
     dispatch(BuildingAction.BuildingAddError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -57,7 +65,11 @@ export const BuildingStatusUpdateService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(BuildingAction.BuildingUpdateStatusError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -76,7 +88,11 @@ export const BuildingDeleteService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(BuildingAction.BuildingDeleteError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -97,7 +113,11 @@ export const BuildingUpdateService = async (dispatch, data) => {
     window.location.reload();
   } catch (error) {
     dispatch(BuildingAction.BuildingUpdateError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -115,7 +135,11 @@ export const BuildingDataService = async (dispatch, data) => {
     dispatch(BuildingAction.BuildingDataSuccess(result));
   } catch (error) {
     dispatch(BuildingAction.BuildingDataError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };

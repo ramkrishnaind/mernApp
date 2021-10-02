@@ -20,7 +20,11 @@ export const SocialAddService = async (dispatch, data) => {
     window.location.reload();
   } catch (error) {
     dispatch(SocialAction.SocialAddError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -41,7 +45,11 @@ export const SocialUpdateService = async (dispatch, data) => {
     window.location.reload();
   } catch (error) {
     dispatch(SocialAction.SocialUpdateError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -59,7 +67,11 @@ export const SocialDataService = async (dispatch, data) => {
     dispatch(SocialAction.SocialDataSuccess(result));
   } catch (error) {
     dispatch(SocialAction.SocialDataError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };

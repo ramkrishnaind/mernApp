@@ -58,8 +58,8 @@ export const CallbackStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(CallbackUpdateStatusRequest());
     CallbackStatusUpdateService(dispatch, data);
-    CallbackListService(dispatch, "");
     dispatch(CallbackListRequest());
+    CallbackListService(dispatch);
   };
 };
 

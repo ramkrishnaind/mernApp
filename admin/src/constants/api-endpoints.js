@@ -88,6 +88,8 @@ const API_ENDPOINTS = {
   //ABOUT module
   ABOUTUS_LIST_ENDPOINT: "home/homeAbout",
   ABOUTUS_UPDATE_ENDPOINT: "home/updateAboutSection",
+  ABOUTUS_ADD_ENDPOINT: "home/createAboutSection",
+  ABOUTUS_DATA_ENDPOINT: "home/homeAbout",
 
   //slider module
   SLIDER_LIST_ENDPOINT: "slider/getSliderList",
@@ -162,6 +164,14 @@ const API_ENDPOINTS = {
   FEEDBACK_UPDATE_ENDPOINT: "feedback/updateFeedback",
   FEEDBACK_DELETE_ENDPOINT: "feedback/deleteFeedback",
   FEEDBACK_DATA_ENDPOINT: "feedback/getFeedbackDetails",
+
+  //director module
+  DIRECTOR_LIST_ENDPOINT: "team/getDirectorList",
+  DIRECTOR_ADD_ENDPOINT: "team/createDirector",
+  DIRECTOR_STATUS_UPDATE_ENDPOINT: "team/updateDirectorStatus",
+  DIRECTOR_UPDATE_ENDPOINT: "team/updateDirector",
+  DIRECTOR_DELETE_ENDPOINT: "team/deleteDirector",
+  DIRECTOR_DATA_ENDPOINT: "team/getDirectorDetail",
 };
 
 export default API_ENDPOINTS;

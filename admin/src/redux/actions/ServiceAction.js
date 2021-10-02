@@ -107,7 +107,7 @@ export const ServiceStatusUpdateRequestAsync = (data) => {
     dispatch(ServiceUpdateStatusRequest());
     ServiceStatusUpdateService(dispatch, data);
     dispatch(ServiceListRequest());
-    ServiceListService(dispatch, "");
+    ServiceListService(dispatch);
   };
 };
 
@@ -153,7 +153,7 @@ export const ServiceDeleteRequestAsync = (data) => {
     dispatch(ServiceDeleteRequest());
     ServiceDeleteService(dispatch, data);
     dispatch(ServiceListRequest());
-    ServiceListService(dispatch, "");
+    ServiceListService(dispatch);
   };
 };
 

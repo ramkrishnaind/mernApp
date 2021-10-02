@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
-import * as TeamAction from "../../redux/actions/TeamAction";
+import * as DirectorAction from "../../redux/actions/DirectorAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -17,10 +17,11 @@ import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
 
-const MenuCreateUpdate = (props) => {
+const DirectorCreateUpdate = (props) => {
   let query = useQuery();
   let id = query.get("id");
-  let teamData = props?.team?.teamData;
+  let directorData = props?.director?.directorData;
+
   const [, setRefresh] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -28,31 +29,29 @@ const MenuCreateUpdate = (props) => {
       _id: id,
     };
     if (id != null) {
-      dispatch(TeamAction.TeamDataRequestAsync(data));
+      dispatch(DirectorAction.DirectorDataRequestAsync(data));
     }
   }, [id, dispatch]);
 
-  useEffect(() => {
-    if (props.team.success) {
-      setRefresh(true);
-      setState(initialState);
-    }
-  }, [props.team.success]);
-
   const initialState = {
-    name: teamData?.name,
-    shortDescription: teamData?.shortDescription,
-    designation: teamData?.designation,
-    facebook: teamData?.facebook,
-    twitter: teamData?.twitter,
-    instagram: teamData?.instagram,
-    linkedin: teamData?.linkedin,
+    name: directorData?.name,
+    shortDescription: directorData?.shortDescription,
+    designation: directorData?.designation,
+    facebook: directorData?.facebook,
+    twitter: directorData?.twitter,
+    instagram: directorData?.instagram,
+    linkedin: directorData?.linkedin,
     image: "",
     id: id,
   };
-
+  useEffect(() => {
+    if (props.director.success) {
+      setRefresh(true);
+      setState(initialState);
+    }
+  }, [props.director.success]);
   const [state, setState] = useState(initialState);
-  const [description, setDescription] = useState(teamData?.description);
+  const [description, setDescription] = useState(directorData?.description);
 
   const inputChange = (e) => {
     let { name, value } = e.target;
@@ -83,7 +82,8 @@ const MenuCreateUpdate = (props) => {
       data.append("twitter", twitter);
       data.append("instagram", instagram);
       data.append("linkedin", linkedin);
-      dispatch(TeamAction.TeamAddRequestAsync(data));
+
+      dispatch(DirectorAction.DirectorAddRequestAsync(data));
     } else {
       data.append("image", image);
       data.append("name", name);
@@ -94,8 +94,9 @@ const MenuCreateUpdate = (props) => {
       data.append("twitter", twitter);
       data.append("instagram", instagram);
       data.append("linkedin", linkedin);
+
       data.append("_id", id);
-      dispatch(TeamAction.TeamUpdateRequestAsync(data));
+      dispatch(DirectorAction.DirectorUpdateRequestAsync(data));
     }
   };
 
@@ -116,31 +117,31 @@ const MenuCreateUpdate = (props) => {
   return (
     <Box className="MenuManagement_Data">
       <FormHeader
-        heading1={"Team Module Management"}
-        heading2={"Create and Update Team Here"}
+        heading1={"Director Module Management"}
+        heading2={"Create and Update Director Here"}
       />
       {state.id ? (
         <>
           <BreadCrumbs
-            heading1={"TeamManagement"}
-            heading2={"Edit Team Module"}
+            heading1={"DirectorManagement"}
+            heading2={"Edit Director Module"}
           />
-          <SubHeading heading={"Edit Team Module"} />
+          <SubHeading heading={"Edit Director Module"} />
         </>
       ) : (
         <>
           <BreadCrumbs
-            heading1={"TeamManagement"}
-            heading2={"Add Team Module"}
+            heading1={"DirectorManagement"}
+            heading2={"Add Director Module"}
           />
-          <SubHeading heading={"Add Team Module"} />
+          <SubHeading heading={"Add Director Module"} />
         </>
       )}
       <Grid item xs={12} className="m-5 addUserFormanage">
         <div className="card w-100">
           <div className="card-header d-flex justify-content-between align-items-center">
             <Typography component="h3" variant="h3">
-              {state.id ? "Edit" : "Add"} Team
+              {state.id ? "Edit" : "Add"} Director
             </Typography>
             {/* <Button
                 onClick={() => this.props.history.push("menu")}
@@ -159,7 +160,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.name ? state.name : teamData?.name}
+                    value={state.name ? state.name : directorData?.name}
                     onChange={inputChange}
                     name="name"
                     id="name"
@@ -177,7 +178,7 @@ const MenuCreateUpdate = (props) => {
                     value={
                       state.shortDescription
                         ? state.shortDescription
-                        : teamData?.shortDescription
+                        : directorData?.shortDescription
                     }
                     onChange={inputChange}
                     name="shortDescription"
@@ -196,7 +197,7 @@ const MenuCreateUpdate = (props) => {
                     value={
                       state.designation
                         ? state.designation
-                        : teamData?.designation
+                        : directorData?.designation
                     }
                     onChange={inputChange}
                     name="designation"
@@ -210,7 +211,9 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Facebook"
                     fullWidth
-                    value={state.facebook ? state.facebook : teamData?.facebook}
+                    value={
+                      state.facebook ? state.facebook : directorData?.facebook
+                    }
                     onChange={inputChange}
                     name="facebook"
                     id="facebook"
@@ -223,7 +226,9 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Twitter"
                     fullWidth
-                    value={state.twitter ? state.twitter : teamData?.twitter}
+                    value={
+                      state.twitter ? state.twitter : directorData?.twitter
+                    }
                     onChange={inputChange}
                     name="twitter"
                     id="twitter"
@@ -237,7 +242,9 @@ const MenuCreateUpdate = (props) => {
                     label="Instagram"
                     fullWidth
                     value={
-                      state.instagram ? state.instagram : teamData?.instagram
+                      state.instagram
+                        ? state.instagram
+                        : directorData?.instagram
                     }
                     onChange={inputChange}
                     name="instagram"
@@ -251,7 +258,9 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Linkedin"
                     fullWidth
-                    value={state.linkedin ? state.linkedin : teamData?.linkedin}
+                    value={
+                      state.linkedin ? state.linkedin : directorData?.linkedin
+                    }
                     onChange={inputChange}
                     name="linkedin"
                     id="linkedin"
@@ -259,12 +268,12 @@ const MenuCreateUpdate = (props) => {
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-                  {teamData?.description != null ? (
+                  {directorData?.description != null ? (
                     <>
                       <ReactQuill
                         onChange={handleChangeTextEditor}
                         value={
-                          description ? description : teamData?.description
+                          description ? description : directorData?.description
                         }
                         placeholder="Enter description"
                         theme="snow"
@@ -306,7 +315,7 @@ const MenuCreateUpdate = (props) => {
                   Save
                 </Button>
 
-                <Link component={RouterLink} to="/team">
+                <Link component={RouterLink} to="/director">
                   <Button
                     variant="contained"
                     color="primary"
@@ -326,9 +335,9 @@ const MenuCreateUpdate = (props) => {
 };
 
 function mapStateToProps(state) {
-  const { team } = state;
+  const { director } = state;
   return {
-    team,
+    director,
   };
 }
-export default connect(mapStateToProps)(MenuCreateUpdate);
+export default connect(mapStateToProps)(DirectorCreateUpdate);

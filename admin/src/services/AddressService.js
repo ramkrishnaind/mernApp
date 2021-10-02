@@ -20,7 +20,11 @@ export const AddressAddService = async (dispatch, data) => {
     window.location.reload();
   } catch (error) {
     dispatch(AddressAction.AddressAddError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -41,7 +45,11 @@ export const AddressUpdateService = async (dispatch, data) => {
     window.location.reload();
   } catch (error) {
     dispatch(AddressAction.AddressUpdateError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -59,7 +67,11 @@ export const AddressDataService = async (dispatch, data) => {
     dispatch(AddressAction.AddressDataSuccess(result));
   } catch (error) {
     dispatch(AddressAction.AddressDataError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };

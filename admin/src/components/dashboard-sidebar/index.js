@@ -199,6 +199,11 @@ const items = [
     title: "About Us",
     items: [
       {
+        href: "/aboutus/add",
+        icon: ShoppingBagIcon,
+        title: "Add About Us",
+      },
+      {
         href: "/aboutus",
         icon: ShoppingBagIcon,
         title: "About Us List",
@@ -317,6 +322,23 @@ const items = [
         href: "/feedback",
         icon: ShoppingBagIcon,
         title: "Feedback List",
+      },
+    ],
+  },
+  {
+    href: "/director",
+    icon: UsersIcon,
+    title: "Director",
+    items: [
+      {
+        href: "/director/add",
+        icon: ShoppingBagIcon,
+        title: "Add Director",
+      },
+      {
+        href: "/director",
+        icon: ShoppingBagIcon,
+        title: "Director List",
       },
     ],
   },
