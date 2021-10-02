@@ -45,11 +45,11 @@ const SearchBox = (props) => {
     const classes = useStyles();
     // create state variables for each input
     const [type, setType] = useState(Type.RENT);
-    const [pType, setPType] = useState(null);
-    const [minAmount, setMinBudget] = useState(null);
-    const [maxAmount, setMaxBudget] = useState(null);
-    const [keyword, setkeyword] = useState(null);
-    const [cityOptions, setCityOptions] = useState(null);
+    const [pType, setPType] = useState('');
+    const [minAmount, setMinBudget] = useState('');
+    const [maxAmount, setMaxBudget] = useState('');
+    const [keyword, setkeyword] = useState('');
+    const [cityOptions, setCityOptions] = useState('');
 
 
     const handleSubmit = e => {

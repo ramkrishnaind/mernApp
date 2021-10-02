@@ -29,12 +29,12 @@
     {
         "id": 3,
         "title": "Sell",
-        "href": "/search-property-details?type=sell"
+        "href": "/search-property-details?type=Sell"
     },
     {
         "id": 4,
         "title": "Rent",
-        "href": "/search-property-details?type=rent"
+        "href": "/search-property-details?type=Rent"
     },
     {
         "id": 5,

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router';
+import React, {useEffect, useState} from 'react';
+import {withRouter} from 'react-router';
 import {
   Container,
   Grid,
@@ -14,7 +14,7 @@ import {
   Button,
 } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
-import { useParams } from 'react-router';
+import {useParams} from 'react-router';
 import './property-detail.css';
 import PageBanner from '../../components/page-banner';
 import bannerImage from '../../images/property_header_2.jpeg';
@@ -27,15 +27,16 @@ import Aminities from './components/amenities';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import StarIcon from '@material-ui/icons/Star';
 import APP_CONSTANTS from '../../constants/app-constants';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import * as PropertyAction from '../../redux/actions/PropertyAction';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import {Link as RouterLink, useLocation} from 'react-router-dom';
 import propertyDetail from '../property-detail';
 import MapContainer from '../../components/section-map/MapContainer';
 import BookNowModal from '../../components/book-now/book-now';
-import { NoDataAvailable } from '../../components/no-details-available/no-details-available';
+import {NoDataAvailable} from '../../components/no-details-available/no-details-available';
 import ApiClient from '../../api-client';
 import HtmlParser from 'react-html-parser';
+import Moment from 'react-moment';
 
 
 
@@ -128,6 +129,18 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 5,
     color: '#333333',
   },
+  teamimage: {
+    backgroundColor: '#fff',
+    height: 120,
+    width: 120,
+    borderRadius: "10px",
+
+  },
+  avatar: {
+    height: "60px",
+    width: "60px",
+    borderRadius: "50%",
+  }
 }));
 
 function handleNull(val) {
@@ -137,7 +150,7 @@ function handleNull(val) {
 const HouseDetailPage = (props) => {
   const classes = useStyles();
   const location = useLocation();
-  const { item } = props;
+  const {item} = props;
   const dispatch = useDispatch();
   let query = useQuery();
   const [viewDetails, setViewDetails] = React.useState(false);
@@ -145,12 +158,20 @@ const HouseDetailPage = (props) => {
   const [PropertyDetail, setPropertyDetail] = React.useState({});
   const propertyListItem = useSelector((state) => state.PropertyDetail.data);
   const [bookNow, setBookNow] = useState(false);
+  const [reviews, setReviews] = useState([]);
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [comment, setComment] = useState('');
+  const [rating, setRating] = useState(0);
   // console.log("propertyListItem", propertyListItem);
   if (propertyListItem) {
     if (viewDetails === false) {
       console.log(propertyListItem);
       setViewDetails(true);
       setPropertyDetail(propertyListItem.data);
+      setReviews(propertyListItem?.data?.review || []);
+      console.log("review ", propertyListItem?.data?.review);
     }
   }
   function useQuery() {
@@ -177,6 +198,53 @@ const HouseDetailPage = (props) => {
     dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
   }, []);
 
+  const setDefaultReview = () => {
+    setName('');
+    setEmail('');
+    setComment('');
+    setRating(0);
+  };
+
+  const submitReview = async (payload) => {
+
+    try {
+
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/review/createReviewRequest', payload, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+
+      if (!response || response.error) {
+        console.log("error submiting review ", response.message);
+        return;
+      }
+
+      const reviewList = [{
+        name, email, rating, comment
+      }, ...reviews];
+      setReviews(reviewList);
+      setDefaultReview();
+
+    } catch (e) {
+      console.log("error::submitReview::", e);
+    }
+
+  };
+
+
+  const onReviewSubmit = async (e) => {
+    e.preventDefault();
+    if (!name || !email || !comment || !rating) {
+      return;
+    }
+
+    const propertyId = PropertyDetail._id;
+
+    const payload = {
+      name, email, comment, rating, propertyId
+    };
+
+    await submitReview(payload);
+    //TODO
+    console.log("name,email.comment", name, email, comment);
+  };
 
   const closeBookNow = () => {
     setBookNow(false);
@@ -201,25 +269,25 @@ const HouseDetailPage = (props) => {
   let Images = [], imagesData = [], masterPlan = [], floopPlan = [];
 
   if (viewDetails) {
-    let mainImage = PropertyDetail.images?.mainImage;
-    let exteriorView = PropertyDetail.images?.exteriorView;
-    let livingRoom = PropertyDetail.images?.livingRoom;
-    let badrooms = PropertyDetail.images?.badrooms;
-    let bathrooms = PropertyDetail.images?.bathrooms;
-    let kitchen = PropertyDetail.images?.kitchen;
-    let locationMap = PropertyDetail.images?.locationMap;
-    let other = PropertyDetail.images?.other;
+    let mainImage = PropertyDetail?.images?.mainImage || [];
+    let exteriorView = PropertyDetail?.images?.exteriorView || [];
+    let livingRoom = PropertyDetail?.images?.livingRoom || [];
+    let badrooms = PropertyDetail?.images?.badrooms || [];
+    let bathrooms = PropertyDetail?.images?.bathrooms || [];
+    let kitchen = PropertyDetail?.images?.kitchen || [];
+    let locationMap = PropertyDetail?.images?.locationMap || [];
+    let other = PropertyDetail?.images?.other || [];
 
     Images = [...mainImage, ...exteriorView, ...livingRoom, ...badrooms, ...kitchen, ...bathrooms, ...locationMap, ...other];
-    masterPlan = createImagePath(PropertyDetail.images?.masterPlan);
-    floopPlan = createImagePath(PropertyDetail.images?.floorPlan);
-    imagesData = createImagePath(Images)
+    masterPlan = createImagePath(PropertyDetail?.images?.masterPlan);
+    floopPlan = createImagePath(PropertyDetail?.images?.floorPlan);
+    imagesData = createImagePath(Images);
 
   }
 
   console.log("property details *** ", PropertyDetail);
   return (
-    <div style={{ background: '#F7F7F7' }}>
+    <div style={{background: '#F7F7F7'}}>
       <PageBanner
         bgImage={bannerImage}
         title="Property"
@@ -228,7 +296,7 @@ const HouseDetailPage = (props) => {
       {/* <Gallery /> */}
       {viewDetails ? (
         <Container>
-          <Paper elevation={1} style={{ padding: 20, marginTop: 20 }}>
+          <Paper elevation={1} style={{padding: 20, marginTop: 20}}>
             <Grid container>
               <Grid item xs={12} md={8} className={classes.style2}>
                 <Typography className={classes.text7}>
@@ -244,7 +312,7 @@ const HouseDetailPage = (props) => {
                 <Typography className={classes.text5}>{PropertyDetail?.price?.expectedPrice}</Typography>
               </Grid>
             </Grid>
-            <Grid container style={{ marginTop: 10 }}>
+            <Grid container style={{marginTop: 10}}>
               <Grid item xs={12} md={8} className={classes.style2}>
                 <LocationOnIcon
                   style={{
@@ -262,7 +330,7 @@ const HouseDetailPage = (props) => {
                 {console.log(typeof PropertyDetail.rating)}
                 <Rating name="half-rating-read" defaultValue={PropertyDetail?.rating} precision={0.5} value={propertyDetail?.rating} readOnly />
               </Grid>
-              <Grid item xs={12} md={12} style={{ marginTop: 20 }}>
+              <Grid item xs={12} md={12} style={{marginTop: 20}}>
                 <Button
                   variant="contained"
                   className={`${classes.btn2} btn-book-online`}
@@ -281,7 +349,7 @@ const HouseDetailPage = (props) => {
               </Grid>
             </Grid>
           </Paper>
-          <Paper elevation={1} style={{ padding: 20, marginTop: 20 }}>
+          <Paper elevation={1} style={{padding: 20, marginTop: 20}}>
 
             <Grid container spacing={3}>
               <Grid item xs={12} md={8} className={classes.style4}>
@@ -289,7 +357,7 @@ const HouseDetailPage = (props) => {
               </Grid>
               <Grid item xs={12} md={4}>
                 <Typography className={classes.text7}> Property Brief</Typography>
-                <Typography className={classes.text3} style={{ lineHeight: "2.3em" }} >
+                <Typography className={classes.text3} style={{lineHeight: "2.3em"}} >
                   {/* Vishal Construction Company is a Jaipur based construction company which today is a renowned name in providing best in class real estate services to its clients located all over India. Vishal Construction Company specializes in its area of work wherein they are expert in the real estate services, construction process of housing, commercial and other types of properties. They majorly serve clientele of Rajasthan, Hyderabad, Kolkata and other metro cities of India. Vishal Construction Company has a long-standing reputation wherein they deliver excellence catering to services and workmanship. They believe in providing quality projects with timely delivery. */}
                   {HtmlParser(handleNull(PropertyDetail?.projectDescription))}
                 </Typography>
@@ -297,8 +365,8 @@ const HouseDetailPage = (props) => {
             </Grid>
           </Paper>
           <Grid container mt={2} spacing={2}>
-            <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column' }} >
-              <InfoCard item={{ title: 'Facts and Features' }}>
+            <Grid item xs={12} md={8} style={{display: 'flex', flexDirection: 'column'}} >
+              <InfoCard item={{title: 'Facts and Features'}}>
                 <Grid container>
                   <Grid item xs={12} md={3}>
                     <FactAndFeature
@@ -363,13 +431,13 @@ const HouseDetailPage = (props) => {
 
                 </Grid>
               </InfoCard>
-              <InfoCard item={{ title: 'Property Details' }}>
+              <InfoCard item={{title: 'Property Details'}}>
                 <Grid container>
                   <Grid
                     item
                     xs={12}
                     md={4}
-                    style={{ display: 'flex', flexDirection: 'column' }}
+                    style={{display: 'flex', flexDirection: 'column'}}
                   >
                     <Typography className={classes.text1}>
                       Property Code : {handleNull(PropertyDetail?.propertyCode)}
@@ -383,7 +451,7 @@ const HouseDetailPage = (props) => {
                     item
                     xs={12}
                     md={4}
-                    style={{ display: 'flex', flexDirection: 'column' }}
+                    style={{display: 'flex', flexDirection: 'column'}}
                   >
                     <Typography className={classes.text1}>Guard Room: {PropertyDetail?.gaurdRoom == true ? 'Yes' : 'No'}</Typography>
                     {/* <Typography className={classes.text1}>
@@ -394,7 +462,7 @@ const HouseDetailPage = (props) => {
                     item
                     xs={12}
                     md={4}
-                    style={{ display: 'flex', flexDirection: 'column' }}
+                    style={{display: 'flex', flexDirection: 'column'}}
                   >
                     <Typography className={classes.text1}>
                       Property status : For {handleNull(PropertyDetail?.for)}
@@ -403,7 +471,7 @@ const HouseDetailPage = (props) => {
                 </Grid>
               </InfoCard>
 
-              <InfoCard item={{ title: 'Amenities' }}>
+              <InfoCard item={{title: 'Amenities'}}>
                 <Grid container>
                   {
                     (PropertyDetail?.amenities || []).map(amenities => {
@@ -462,15 +530,15 @@ const HouseDetailPage = (props) => {
                   ) : null} */}
                 </Grid>
               </InfoCard>
-              <InfoCard item={{ title: 'Price Details' }}>
+              <InfoCard item={{title: 'Price Details'}}>
                 <Grid container>
                   {
                     Object.keys(PropertyDetail?.price || []).map(priceInfo => {
 
-                      if (priceInfo === '_id' || priceInfo === 'propertyId' || priceInfo === 'priceIncludes' || priceInfo === '__v' || priceInfo === 'created' || priceInfo === 'updated') { return null; }
+                      if (priceInfo === '_id' || priceInfo === 'propertyId' || priceInfo === 'priceIncludes' || priceInfo === '__v' || priceInfo === 'created' || priceInfo === 'updated') {return null;}
 
                       return <Grid item xs={12} md={4}>
-                        <Grid container style={{ marginTop: 10, marginBottom: 10 }}>
+                        <Grid container style={{marginTop: 10, marginBottom: 10}}>
                           <Grid item xs={12} md={12} className={classes.style2}>
                             <Typography className={classes.text1}>{priceInfo} : {handleNull(PropertyDetail?.price[priceInfo])}</Typography>
                           </Grid>
@@ -481,49 +549,80 @@ const HouseDetailPage = (props) => {
 
                 </Grid>
               </InfoCard>
-              <Paper elevation={1} style={{ padding: 20, marginTop: 20 }}>
+              <Paper elevation={1} style={{padding: 20, marginTop: 20}}>
                 <Grid container>
-                  <Grid item xs={12} md={12} className={classes.style4} style={{ padding: 20 }}>
+                  <Grid item xs={12} md={12} className={classes.style4} style={{padding: 20}}>
                     <Typography className={classes.text4}>
                       Master Plan
                     </Typography>
                   </Grid>
-                  <Grid item xs={12} md={12} className={classes.style4} style={{ backgroundColor: "#eee", padding: 20 }}>
+                  <Grid item xs={12} md={12} className={classes.style4} style={{backgroundColor: "#eee", padding: 20}}>
                     <CarouselSlider images={masterPlan} />
                   </Grid>
                 </Grid>
               </Paper>
-              <Paper elevation={1} style={{ padding: 20, marginTop: 20 }}>
+              <Paper elevation={1} style={{padding: 20, marginTop: 20}}>
                 <Grid container>
-                  <Grid item xs={12} md={12} className={classes.style4} style={{ padding: 20 }}>
+                  <Grid item xs={12} md={12} className={classes.style4} style={{padding: 20}}>
                     <Typography className={classes.text4}>
                       Floor Plan
                     </Typography>
                   </Grid>
-                  <Grid item xs={12} md={12} className={classes.style4} style={{ backgroundColor: "#eee", padding: 20 }}>
+                  <Grid item xs={12} md={12} className={classes.style4} style={{backgroundColor: "#eee", padding: 20}}>
                     <CarouselSlider images={floopPlan} />
                   </Grid>
                 </Grid>
               </Paper>
+              {/* {Reviews Component} */}
               <InfoCard
-                style={{ marginBottom: "40px" }}
-                item={{ title: 'Reviews' }}
+                style={{marginBottom: "40px"}}
+                item={{title: 'Reviews'}}
                 reviewCount={
                   PropertyDetail?.review?.length != 0
                     ? PropertyDetail?.review?.length
                     : '0'
                 }
               >
-                Reviews
-              </InfoCard>
+                {(reviews || []).map((review, i) => <Paper elevation={0} style={{borderRadius: 20}}>
+                  <Grid key={i} container style={{backgroundColor: "whitesmoke", padding: 20, borderRadius: 20, marginTop: 20}}>
 
+                    <Grid item md={2}>
+                      <Box style={{textOverflow: 'ellipsis', overflow: 'hidden', fontSize: 10, justifyContent: 'center'}} >
+                        <Box style={{display: "flex", justifyContent: 'center'}}> <img className={classes.teamimage} src={'no-image-available-icon-6.png'} className={classes.avatar} alt='' />
+                        </Box>
+                        <Box style={{textAlign: 'center', width: '100%'}}>
+                          {review.name}
+                        </Box>
+                      </Box>
+                    </Grid>
+                    <Grid item md={10}>
+                      <h3>
+
+                        {review.email}
+                      </h3>
+                      {/* <div>{review.email}</div> */}
+                      <p>
+                        <h6>
+                          <Moment format="MMM DD, YYYY">{review.created}</Moment>
+                        </h6>
+                      </p>
+                      <Rating name="half-rating-read" style={{marginBottom: 15, marginTop: 10}} defaultValue={0} precision={0.5} value={review.rating || 0} />
+                      <Box mt={1} style={{fontSize: 14}}>
+                        {review.comment}
+                      </Box>
+                    </Grid>
+                  </Grid >
+
+                </Paper>)}
+              </InfoCard>
+              {/* {Reviews Form} */}
               <Grid
                 item
                 xs={12}
                 md={12}
-                style={{ marginTop: 20 }}
+                style={{marginTop: 20}}
               >
-                <Paper style={{ padding: 20 }}>
+                <Paper style={{padding: 20}}>
                   <Grid container>
                     <Grid item xs={12} md={12} className={classes.style1}>
                       <Typography className={classes.text4}>
@@ -532,40 +631,52 @@ const HouseDetailPage = (props) => {
                       <Typography className={classes.text1}>
                         Your rating for this listing:
                       </Typography>
-                      <Rating name="half-rating-read" style={{ marginBottom: 15 }} defaultValue={0} precision={0.5} value={0} />
-                      <Container style={{ display: 'flex', padding: 0 }} >
-                        <Grid md={6}>
-                          <TextField
-                            label="Your Name"
-                            fullWidth
-                            variant="outlined"
-                            style={{ marginBottom: 15 }}
-                          ></TextField>
-                        </Grid>
-                        <Grid md={6}>
-                          <TextField
-                            label="Email"
-                            fullWidth
-                            variant="outlined"
-                            style={{ marginBottom: 15 }}
-                          ></TextField>
-                        </Grid>
-                      </Container>
-                      <TextField
-                        id="filled-multiline-static"
-                        label="Comment"
-                        multiline
-                        rows={2}
-                        fullWidth
-                        defaultValue=""
-                        variant="outlined"
-                        style={{ marginBottom: 15 }}
-                      />
+                      <form onSubmit={(e) => onReviewSubmit(e)} style={{width: "100%"}}>
+                        <Rating name="review-rating" onChange={(event, newValue) => setRating(newValue)}
+                          style={{marginBottom: 15}} precision={0.5} value={rating}
+                        />
+                        <Container style={{display: 'flex', padding: 0}} >
 
-                      <Button variant="contained" className={classes.btn1}>
-                        Submit
-                      </Button>
+                          <Grid md={6}>
+                            <TextField
+                              label="Your Name *"
+                              fullWidth
+                              variant="outlined"
+                              value={name}
+                              onChange={(e) => setName(e.target.value)}
+                              style={{marginBottom: 15}}
+                            ></TextField>
+                          </Grid>
+                          <Grid md={6}>
+                            <TextField
+                              label="Email *"
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                              fullWidth
+                              variant="outlined"
+                              style={{marginBottom: 15}}
+                            ></TextField>
+                          </Grid>
+                        </Container>
+                        <TextField
+                          id="filled-multiline-static"
+                          label="Comment *"
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
+                          multiline
+                          rows={2}
+                          fullWidth
+                          defaultValue=""
+                          variant="outlined"
+                          style={{marginBottom: 15}}
+                        />
+
+                        <Button type="submit" variant="contained" className={classes.btn1}>
+                          Submit
+                        </Button>
+                      </form>
                     </Grid>
+
                   </Grid>
                 </Paper>
               </Grid>
@@ -574,8 +685,8 @@ const HouseDetailPage = (props) => {
 
             <Grid item xs={12} md={4}>
               <Grid container>
-                <Grid item item xs={12} md={12} style={{ marginTop: 20 }}>
-                  <Paper style={{ padding: 20 }}>
+                <Grid item item xs={12} md={12} style={{marginTop: 20}}>
+                  <Paper style={{padding: 20}}>
                     <Grid container>
                       <Grid item xs={12} md={6} className={classes.style1}>
                         <Typography className={classes.text4}>
@@ -605,7 +716,7 @@ const HouseDetailPage = (props) => {
                       <Grid item xs={12} md={6} className={classes.style1}>
                         <Typography className={classes.text4}>
                           <Button variant="contained" className={classes.btn1}>
-                            <a target="_blank" style={{ color: "#fff", textDecoration: 'none' }} href={`https://www.google.com/maps/search/?api=1&query=${PropertyDetail?.address?.latitude},${PropertyDetail?.address?.longitude}`} class="location-map">View Map <i class="far fa-map-marker-alt"></i></a>
+                            <a target="_blank" style={{color: "#fff", textDecoration: 'none'}} href={`https://www.google.com/maps/search/?api=1&query=${PropertyDetail?.address?.latitude},${PropertyDetail?.address?.longitude}`} class="location-map">View Map <i class="far fa-map-marker-alt"></i></a>
                           </Button>
 
                         </Typography>
@@ -649,9 +760,9 @@ const HouseDetailPage = (props) => {
                   item
                   xs={12}
                   md={12}
-                  style={{ marginTop: 20, marginBottom: 20 }}
+                  style={{marginTop: 20, marginBottom: 20}}
                 >
-                  <Paper style={{ padding: 20 }}>
+                  <Paper style={{padding: 20}}>
                     <Grid container>
                       <Grid item xs={12} md={12} className={classes.style1}>
                         <Typography className={classes.text4}>
@@ -661,26 +772,26 @@ const HouseDetailPage = (props) => {
                           label="Your Name"
                           fullWidth
                           variant="outlined"
-                          style={{ marginBottom: 15 }}
+                          style={{marginBottom: 15}}
                         ></TextField>
                         <TextField
                           label="Email"
                           fullWidth
                           variant="outlined"
-                          style={{ marginBottom: 15 }}
+                          style={{marginBottom: 15}}
                         ></TextField>
                         <TextField
                           label="Phone"
                           fullWidth
                           variant="outlined"
-                          style={{ marginBottom: 15 }}
+                          style={{marginBottom: 15}}
                         ></TextField>
                         <TextField
                           label="Message"
                           multiline
                           fullWidth
                           variant="outlined"
-                          style={{ marginBottom: 15 }}
+                          style={{marginBottom: 15}}
                         ></TextField>
                         <Typography className={classes.text1}>
                           Request a Site Visit
@@ -709,7 +820,7 @@ const HouseDetailPage = (props) => {
                       </Grid>
                     </Grid>
                   </Paper>
-                  <Paper elevation={1} style={{ padding: 20, marginTop: 20 }} >
+                  <Paper elevation={1} style={{padding: 20, marginTop: 20}} >
                     <Grid container>
                       <Grid item xs={12} md={12} className={classes.style2}>
                         <LocationOnIcon
@@ -724,8 +835,8 @@ const HouseDetailPage = (props) => {
                           {PropertyDetail?.address?.latitude} {PropertyDetail?.address?.longitude}  {PropertyDetail?.address?.address} {PropertyDetail?.address?.city} {PropertyDetail?.address?.State} {PropertyDetail?.address?.pinCode}
                         </Typography>
                       </Grid>
-                      <Grid item xs={12} md={12} className="map-container" style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', overflow: 'hidden' }}>
-                        <MapContainer markers={[{ lat: PropertyDetail?.address?.latitude, lng: PropertyDetail?.address?.longitude }]} />
+                      <Grid item xs={12} md={12} className="map-container" style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', overflow: 'hidden'}}>
+                        <MapContainer markers={[{lat: PropertyDetail?.address?.latitude, lng: PropertyDetail?.address?.longitude}]} />
                       </Grid>
                     </Grid>
                   </Paper>
@@ -742,4 +853,3 @@ const HouseDetailPage = (props) => {
 };
 
 export default withRouter(HouseDetailPage);
-

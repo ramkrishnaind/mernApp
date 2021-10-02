@@ -4,9 +4,10 @@ import './footer.css';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import SendIcon from '@material-ui/icons/Send';
 import TwitterIcon from '@material-ui/icons/Twitter';
-import PinterestIcon from '@material-ui/icons/Pinterest';
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import InstagramIcon from "@material-ui/icons/Instagram";
+import FacebookIcon from "@material-ui/icons/Facebook";
 import YouTubeIcon from '@material-ui/icons/YouTube';
-import LanguageIcon from '@material-ui/icons/Language';
 import Mobilefootermenu from '../footer/footermobile';
 import ApiClient from "../../api-client";
 import './footer.css';
@@ -174,8 +175,19 @@ const Footer = props => {
                     <Grid container>
                         <Grid item style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginTop: 10}}>
                             <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks ? socialLinks.send : ''}>
-                                    <SendIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                                <a href={socialLinks?.facebook}>
+                                    <FacebookIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                                </a>
+                            </Box>
+
+                            <Box className={`${classes.socialBox} social_icon`}>
+                                <a href={socialLinks?.instagram}>
+                                    <InstagramIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                                </a>
+                            </Box>
+                            <Box className={`${classes.socialBox} social_icon`}>
+                                <a href={socialLinks?.linkedin}>
+                                    <LinkedInIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
                                 </a>
                             </Box>
                             <Box className={`${classes.socialBox} social_icon`}>
@@ -183,21 +195,13 @@ const Footer = props => {
                                     <TwitterIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
                                 </a>
                             </Box>
-                            <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks ? socialLinks.pinterest : ''}>
-                                    <PinterestIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
-                                </a>
-                            </Box>
+
                             <Box className={`${classes.socialBox} social_icon`}>
                                 <a href={socialLinks ? socialLinks.youtube : ''}>
                                     <YouTubeIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
                                 </a>
                             </Box>
-                            <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks ? socialLinks.language : ''}>
-                                    <LanguageIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
-                                </a >
-                            </Box>
+
                         </Grid>
                     </Grid>
                 </Grid>
