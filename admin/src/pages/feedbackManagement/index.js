@@ -96,24 +96,18 @@ const FeedbackList = (props) => {
                 return [
                   index + 1,
                   item.name,
-<<<<<<< HEAD
                   item.rating,
                   item.status,
-=======
                   item.message,
                   item.active,
->>>>>>> 210410dd6a2fcf94de1594fea1e25cb56cf4e01e
                   item._id,
                 ];
               })}
               columns={[
                 "SR No.",
                 "Name",
-<<<<<<< HEAD
                 "Rating",
-=======
                 "Message",
->>>>>>> 210410dd6a2fcf94de1594fea1e25cb56cf4e01e
                 {
                   name: "Status",
                   options: {
