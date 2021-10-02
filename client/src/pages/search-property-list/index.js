@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
 import {
   Container,
   Grid,
@@ -157,7 +158,28 @@ const SearchPropertyList = (props) => {
     }
   }, []);
 
+  const params = useParams();
+
+  useEffect(() => {
+    console.log("params changed", params);
+    const type = new URLSearchParams(location.search).get("type");
+
+    if (type == 'Rent' || type == "Sell") {
+      console.log("type is ^^^ ", type);
+      const payload = {
+        type: type,
+        pType: '',
+        minAmount: '',
+        maxAmount: ''
+      };
+      populateProperties(payload);
+    }
+
+
+  }, [params]);
+
   const populateProperties = (payload) => {
+    console.log("property details payload", payload);
     const getData = async () => {
       const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/property/getSearchPropertyList', payload, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
 
