@@ -5,7 +5,7 @@ const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 
 const errorResponseHelper = require('../../../Helper/errorResponse');
 
-function getTeamList(Models, Director) {
+function getTeam(Models, Director) {
     async function List(req, res) {
         try {
             let findData = await Models.TeamDB.find({ isDirector: Director }).sort({ updated: -1 });
@@ -23,4 +23,4 @@ function getTeamList(Models, Director) {
     return List;
 }
 
-module.exports = getTeamList;
+module.exports = getTeam;

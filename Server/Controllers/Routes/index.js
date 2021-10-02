@@ -54,7 +54,7 @@ module.exports = {
     updateTeamMemberStatus: require('./OurTeamModule/updateTeamMemberStatusModule'),
     deleteTeamMember: require('./OurTeamModule/deleteTeamMemberModule'),
     getTeamMemberDetail: require('./OurTeamModule/getTeamMemberDetailModule'),
-    getClientTeamMember: require('./OurTeamModule/getTeamListModule'),
+    getClientTeamMember: require('./OurTeamModule/getTeamDataModule'),
     //////
     createBuilding: require('./BuildingMaterialsModule/createBuildingModule'),
     getBuildingList: require('./BuildingMaterialsModule/getBuildingListModule'),

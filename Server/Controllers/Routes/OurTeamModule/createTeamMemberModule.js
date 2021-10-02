@@ -15,7 +15,7 @@ const moduleSchema = Joi.object({
     linkedin: Joi.string(),
 });
 
-function createTeam(Models) {
+function createTeam(Models, Director) {
     async function create(req, res) {
         try {
 
@@ -26,7 +26,7 @@ function createTeam(Models) {
 
             // pick data from req.body
             let bodyData = _.pick(req.body, ["name", "designation", "shortDescription", "description", "facebook", "twitter", "instagram", "linkedin"]);
-
+            bodyData.isDirector = Director;
             let findData = await Models.TeamDB.findOne({ name: bodyData.name });
 
             if (findData) {

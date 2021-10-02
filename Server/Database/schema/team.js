@@ -6,6 +6,11 @@ let schema = new Schema({
         type: String,
         default: ""
     },
+    isDirector: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     designation: {
         type: String,
         default: ""
