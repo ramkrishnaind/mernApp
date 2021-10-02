@@ -27,11 +27,16 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
+  text: {
+    display: "block",
+    overflow: "hidden",
+    maxHeight: "50px",
+  },
 });
 
 const HomeSliderList = (props) => {
   const dispatch = useDispatch();
-  let { slider } = props;
+  let { slider, classes } = props;
 
   useEffect(() => {
     dispatch(HomeSliderAction.SliderListRequestAsync());
@@ -105,7 +110,20 @@ const HomeSliderList = (props) => {
               columns={[
                 "SR No.",
                 "Name",
-                "Description",
+                {
+                  name: "Description",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      return (
+                        <>
+                          <Typography className={classes.text}>
+                            {tableMeta.rowData[2]}
+                          </Typography>
+                        </>
+                      );
+                    },
+                  },
+                },
                 {
                   name: "Is Disable",
                   options: {

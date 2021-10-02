@@ -25,10 +25,15 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
+  text: {
+    display: "block",
+    overflow: "hidden",
+    maxHeight: "50px",
+  },
 });
 const CareerList = (props) => {
   const dispatch = useDispatch();
-  let { career } = props;
+  let { career, classes } = props;
 
   useEffect(() => {
     dispatch(CareerAction.CareerListRequestAsync());
@@ -109,7 +114,22 @@ const CareerList = (props) => {
                 "SR No.",
                 "Degination",
                 "Department",
-                "Description",
+
+                {
+                  name: "Description",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      return (
+                        <>
+                          <Typography className={classes.text}>
+                            {tableMeta.rowData[2]}
+                          </Typography>
+                        </>
+                      );
+                    },
+                  },
+                },
+
                 "Experiance",
                 "Location",
                 "Vacancy",

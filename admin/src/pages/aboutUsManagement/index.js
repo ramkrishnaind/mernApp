@@ -23,8 +23,8 @@ const styles = (theme) => ({
   },
   text: {
     display: "block",
-    width: "100px",
     overflow: "hidden",
+    maxHeight: "50px",
   },
 });
 
@@ -84,7 +84,7 @@ const AboutUsList = (props) => {
                       return (
                         <>
                           <Typography className={classes.text}>
-                            {tableMeta.rowData[4]}
+                            {tableMeta.rowData[3]}
                           </Typography>
                         </>
                       );
