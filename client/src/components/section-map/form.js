@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-const MapForm = () => {
+const MapForm = ({searchLocation}) => {
     const classes = useStyles();
     // create state variables for each input
     const [search, setSearch] = useState('');
@@ -43,9 +43,18 @@ const MapForm = () => {
     const [state, setState] = useState('');
 
 
+    const clearSearch = () => {
+        setSearch('');
+        setCity('');
+        setState('');
+    };
+
     const handleSubmit = e => {
         e.preventDefault();
-        // handleClose();
+        if (city == '' || state == '') return;
+
+        searchLocation({city, state});
+        clearSearch();
     };
 
     const cities = [
@@ -55,7 +64,7 @@ const MapForm = () => {
             label: '',
         },
         {
-            value: 'Jaipur',
+            value: 'jaipur',
             label: 'Jaipur',
         },
         {
@@ -74,7 +83,7 @@ const MapForm = () => {
             label: '',
         },
         {
-            value: 'Rajesthan',
+            value: 'rajesthan',
             label: 'Rajesthan',
         },
         {
