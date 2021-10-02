@@ -269,18 +269,18 @@ const HouseDetailPage = (props) => {
   let Images = [], imagesData = [], masterPlan = [], floopPlan = [];
 
   if (viewDetails) {
-    let mainImage = PropertyDetail.images?.mainImage;
-    let exteriorView = PropertyDetail.images?.exteriorView;
-    let livingRoom = PropertyDetail.images?.livingRoom;
-    let badrooms = PropertyDetail.images?.badrooms;
-    let bathrooms = PropertyDetail.images?.bathrooms;
-    let kitchen = PropertyDetail.images?.kitchen;
-    let locationMap = PropertyDetail.images?.locationMap;
-    let other = PropertyDetail.images?.other;
+    let mainImage = PropertyDetail?.images?.mainImage || [];
+    let exteriorView = PropertyDetail?.images?.exteriorView || [];
+    let livingRoom = PropertyDetail?.images?.livingRoom || [];
+    let badrooms = PropertyDetail?.images?.badrooms || [];
+    let bathrooms = PropertyDetail?.images?.bathrooms || [];
+    let kitchen = PropertyDetail?.images?.kitchen || [];
+    let locationMap = PropertyDetail?.images?.locationMap || [];
+    let other = PropertyDetail?.images?.other || [];
 
     Images = [...mainImage, ...exteriorView, ...livingRoom, ...badrooms, ...kitchen, ...bathrooms, ...locationMap, ...other];
-    masterPlan = createImagePath(PropertyDetail.images?.masterPlan);
-    floopPlan = createImagePath(PropertyDetail.images?.floorPlan);
+    masterPlan = createImagePath(PropertyDetail?.images?.masterPlan);
+    floopPlan = createImagePath(PropertyDetail?.images?.floorPlan);
     imagesData = createImagePath(Images);
 
   }

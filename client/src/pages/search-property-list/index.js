@@ -148,11 +148,10 @@ const SearchPropertyList = (props) => {
     const type = new URLSearchParams(location.search).get("type");
     if (type) {
       const payload = {
-        "type": type,
-        "keyword": null,
-        "pType": null,
-        "minAmount": null,
-        "maxAmount": null
+        type: type,
+        pType: '',
+        minAmount: '',
+        maxAmount: ''
       };
       populateProperties(payload);
     }
