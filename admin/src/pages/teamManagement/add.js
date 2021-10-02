@@ -83,7 +83,7 @@ const MenuCreateUpdate = (props) => {
       data.append("twitter", twitter);
       data.append("instagram", instagram);
       data.append("linkedin", linkedin);
-      console.log("dsadsd", data);
+      data.append("isDirector", false);
       dispatch(TeamAction.TeamAddRequestAsync(data));
     } else {
       data.append("image", image);
@@ -95,6 +95,7 @@ const MenuCreateUpdate = (props) => {
       data.append("twitter", twitter);
       data.append("instagram", instagram);
       data.append("linkedin", linkedin);
+      data.append("isDirector", false);
       data.append("_id", id);
       dispatch(TeamAction.TeamUpdateRequestAsync(data));
     }

@@ -43,8 +43,7 @@ const AboutUsList = (props) => {
   };
 
   function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/aboutus/edit?id="+data;
-    history.push("/aboutus/add");
+    history.push("/aboutus/add?id=" + data);
     window.location.reload();
   }
 

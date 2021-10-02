@@ -88,6 +88,8 @@ const API_ENDPOINTS = {
   //ABOUT module
   ABOUTUS_LIST_ENDPOINT: "home/homeAbout",
   ABOUTUS_UPDATE_ENDPOINT: "home/updateAboutSection",
+  ABOUTUS_ADD_ENDPOINT: "home/createAboutSection",
+  ABOUTUS_DATA_ENDPOINT: "home/homeAbout",
 
   //slider module
   SLIDER_LIST_ENDPOINT: "slider/getSliderList",

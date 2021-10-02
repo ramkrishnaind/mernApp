@@ -21,7 +21,9 @@ const MenuCreateUpdate = (props) => {
   const [, setRefresh] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(AboutUsAction.AboutUsDataRequestAsync());
+    if (id != null) {
+      dispatch(AboutUsAction.AboutUsDataRequestAsync());
+    }
   }, [id, dispatch]);
 
   useEffect(() => {
@@ -61,17 +63,28 @@ const MenuCreateUpdate = (props) => {
       header,
     } = state;
     var data = new FormData();
-    data.append("header", header);
-    data.append("title", title);
-    data.append("description", description);
-    data.append("metaTitle", metaTitle);
-    data.append("metaKeywords", metaKeywords);
-    data.append("metaDescription", metaDescription);
-    data.append("_id", id);
     state?.image.forEach((item, index) => {
       data.append("aboutImages", item);
     });
-    dispatch(AboutUsAction.AboutUsUpdateRequestAsync(data));
+    if (id == null) {
+      data.append("header", header);
+      data.append("title", title);
+      data.append("description", description);
+      data.append("metaTitle", metaTitle);
+      data.append("metaKeywords", metaKeywords);
+      data.append("metaDescription", metaDescription);
+      dispatch(AboutUsAction.AboutUsAddRequestAsync(data));
+    } else {
+      data.append("header", header);
+      data.append("title", title);
+      data.append("description", description);
+      data.append("metaTitle", metaTitle);
+      data.append("metaKeywords", metaKeywords);
+      data.append("metaDescription", metaDescription);
+      data.append("_id", id);
+
+      dispatch(AboutUsAction.AboutUsUpdateRequestAsync(data));
+    }
   };
 
   function useQuery() {

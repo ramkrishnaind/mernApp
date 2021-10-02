@@ -17,7 +17,11 @@ export const PropertyListService = async (dispatch, data) => {
     dispatch(PropertyAction.PropertyListSuccess(result));
   } catch (error) {
     dispatch(PropertyAction.PropertyListError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -220,7 +224,11 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
     // window.location.reload();
   } catch (error) {
     dispatch(PropertyAction.PropertyAddError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -239,7 +247,11 @@ export const PropertyStatusUpdateService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(PropertyAction.PropertyUpdateStatusError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
 };
 
@@ -439,7 +451,11 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
     window.location.reload();
   } catch (error) {
     dispatch(PropertyAction.PropertyUpdateError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -458,7 +474,11 @@ export const PropertyDeleteService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(PropertyAction.PropertyDeleteError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -476,7 +496,11 @@ export const PropertyDataService = async (dispatch, data) => {
     dispatch(PropertyAction.PropertyDataSuccess(result));
   } catch (error) {
     dispatch(PropertyAction.PropertyDataError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };

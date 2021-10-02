@@ -199,6 +199,11 @@ const items = [
     title: "About Us",
     items: [
       {
+        href: "/aboutus/add",
+        icon: ShoppingBagIcon,
+        title: "Add About Us",
+      },
+      {
         href: "/aboutus",
         icon: ShoppingBagIcon,
         title: "About Us List",

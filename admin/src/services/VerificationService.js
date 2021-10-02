@@ -21,7 +21,11 @@ export const VerificationService = async (dispatch, data) => {
     // window.location.href = "/login";
   } catch (error) {
     dispatch(VerificationError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };

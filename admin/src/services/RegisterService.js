@@ -22,7 +22,11 @@ export const RegisterService = async (dispatch, data) => {
     window.location.href = "/verification?token=" + token[1];
   } catch (error) {
     dispatch(RegisterError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };

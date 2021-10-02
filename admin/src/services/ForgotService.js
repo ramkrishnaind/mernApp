@@ -19,7 +19,11 @@ export const ForgotService = async (dispatch, data) => {
     window.location.href = "/setnewpassword?token=" + token[1];
   } catch (error) {
     dispatch(ForgotError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
