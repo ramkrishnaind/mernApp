@@ -15,7 +15,18 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: 'cover',
     position: "relative",
     backgroundPosition: "center",
-  }, 
+    }, 
+    overlay: {
+      backgroundColor: "rgba(0,0,0,0.6)",     
+      position: 'absolute',
+      left: '0',
+      top: '0',
+      width: "100%",
+      height: "100%",    
+    }, 
+    bannersummery: {
+      position: "relative",
+    }, 
   bannertitle: {
     fontFamily: '"Open Sans",sans-serif',
     color: "#fff",
@@ -54,7 +65,8 @@ const PageBanner = (props) => {
       className={`${classes.bannerContainer}`}
       style={{ backgroundImage: `url(${bgImage}`, }}
     >
-      <Grid container>
+      <div className={classes.overlay}></div>
+      <Grid container className={classes.bannersummery}>
         <Grid item xs={12} md={12}>
           <Typography variant="h1" className={classes.bannertitle}>{title}</Typography>
 
