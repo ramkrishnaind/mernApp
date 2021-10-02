@@ -1,1 +1,4 @@
 /* Css Start Here */
+.bannerContainer::before{
+    content: "";
+}
