@@ -325,6 +325,23 @@ const items = [
       },
     ],
   },
+  {
+    href: "/director",
+    icon: UsersIcon,
+    title: "Director",
+    items: [
+      {
+        href: "/director/add",
+        icon: ShoppingBagIcon,
+        title: "Add Director",
+      },
+      {
+        href: "/director",
+        icon: ShoppingBagIcon,
+        title: "Director List",
+      },
+    ],
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {

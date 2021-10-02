@@ -54,6 +54,9 @@ import Social from "../pages/socialManagement/add";
 import Address from "../pages/addressManagement/add";
 import FeedbackList from "../pages/feedbackManagement";
 import AddFeedback from "../pages/feedbackManagement/add";
+
+import DirectorList from "../pages/directorManagement";
+import AddDirector from "../pages/directorManagement/add";
 const Routes = (props) => {
   const { isAuth } = props;
   const routes = [
@@ -253,6 +256,14 @@ const Routes = (props) => {
         {
           path: "/feedback/add",
           element: isAuth ? <AddFeedback /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/director",
+          element: isAuth ? <DirectorList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/director/add",
+          element: isAuth ? <AddDirector /> : <Navigate to="/login" />,
         },
         {
           path: "404",
