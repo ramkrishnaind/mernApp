@@ -13,9 +13,9 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.post('/createReviewRequest', createReviewRequest(allCollection))
+    router.post('/createReviewRequest', requestAuthMiddleware, createReviewRequest(allCollection))
     router.post('/getReviewRequest', getReviewRequest(allCollection))
     router.post('/updateReviewStatusRequest', userAuthMiddleware, updateReviewStatusRequest(allCollection))
-    
+
     return router;
 };
