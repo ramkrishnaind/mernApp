@@ -28,14 +28,21 @@
     },
     {
         "id": 3,
-        "title": "Sell",
-        "href": "/search-property-details?type=Sell"
+        "title": "Property",
+        "submenu": [
+            {
+                "id": 1,
+                "title": "Sell",
+                "href": "/search-property-details?type=Sell"
+            },
+            {
+                "id": 2,
+                "title": "Rent",
+                "href": "/search-property-details?type=Rent"
+            }
+        ]
     },
-    {
-        "id": 4,
-        "title": "Rent",
-        "href": "/search-property-details?type=Rent"
-    },
+   
     {
         "id": 5,
         "title": "Services",
@@ -62,3 +69,4 @@
         "href": "/blog"
     }
 ]
+

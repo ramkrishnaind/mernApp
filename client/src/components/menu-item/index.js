@@ -135,7 +135,7 @@ const MenuItem = (props) => {
         return _renderAboutUsSubmenu();
       case 5:
         return _renderServicesSubmenu();
-      case 4:
+      case 3:
         return _renderPropertySubmenu();
     }
   };
