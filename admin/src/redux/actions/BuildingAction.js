@@ -107,7 +107,7 @@ export const BuildingStatusUpdateRequestAsync = (data) => {
     dispatch(BuildingUpdateStatusRequest());
     BuildingStatusUpdateService(dispatch, data);
     dispatch(BuildingListRequest());
-    BuildingListService(dispatch, "");
+    BuildingListService(dispatch);
   };
 };
 
@@ -153,7 +153,7 @@ export const BuildingDeleteRequestAsync = (data) => {
     dispatch(BuildingDeleteRequest());
     BuildingDeleteService(dispatch, data);
     dispatch(BuildingListRequest());
-    BuildingListService(dispatch, "");
+    BuildingListService(dispatch);
   };
 };
 
