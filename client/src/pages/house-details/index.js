@@ -327,7 +327,6 @@ const HouseDetailPage = (props) => {
                 </Typography>
               </Grid>
               <Grid item xs={12} md={4} className={classes.style3}>
-                {console.log(typeof PropertyDetail.rating)}
                 <Rating name="half-rating-read" defaultValue={PropertyDetail?.rating} precision={0.5} value={propertyDetail?.rating} readOnly />
               </Grid>
               <Grid item xs={12} md={12} style={{marginTop: 20}}>
