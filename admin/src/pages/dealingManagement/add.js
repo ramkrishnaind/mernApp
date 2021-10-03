@@ -47,7 +47,7 @@ const MenuCreateUpdate = (props) => {
     metaKeywords: dealingData?.metaKeywords,
     metaDescription: dealingData?.metaDescription,
     image: [],
-    video: "",
+    // video: "",
     id: id,
   };
 
@@ -67,7 +67,7 @@ const MenuCreateUpdate = (props) => {
       metaTitle,
       metaKeywords,
       metaDescription,
-      video,
+      // video,
     } = state;
 
     var data = new FormData();
@@ -75,7 +75,7 @@ const MenuCreateUpdate = (props) => {
       data.append("image", item);
     });
     if (id === null) {
-      data.append("video", video);
+      // data.append("video", video);
       data.append("title", title);
       data.append("header", header);
       data.append("description", description);
@@ -85,7 +85,7 @@ const MenuCreateUpdate = (props) => {
 
       dispatch(DealingAction.DealingAddRequestAsync(data));
     } else {
-      data.append("video", video);
+      // data.append("video", video);
       data.append("title", title);
       data.append("header", header);
       data.append("description", description);
@@ -116,11 +116,11 @@ const MenuCreateUpdate = (props) => {
     }
   };
 
-  const handleVideouplaod = (file, status) => {
-    if (status === "done") {
-      setState({ ...state, ["video"]: file.file });
-    }
-  };
+  // const handleVideouplaod = (file, status) => {
+  //   if (status === "done") {
+  //     setState({ ...state, ["video"]: file.file });
+  //   }
+  // };
 
   function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -272,14 +272,14 @@ const MenuCreateUpdate = (props) => {
                     accept="image/*,audio/*,video/*"
                   />
                 </Grid>
-                <Grid className="form-group-item" item xs={12} sm={6} md={5}>
+                {/* <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Video </Typography>
                   <Dropzone
                     maxFiles="1"
                     onChangeStatus={handleVideouplaod}
                     accept="video/*"
                   />
-                </Grid>
+                </Grid> */}
               </Grid>
               <br />
               <Box className="footer">
