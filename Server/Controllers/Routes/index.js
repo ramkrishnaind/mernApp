@@ -30,7 +30,7 @@ module.exports = {
     updatePropertyStatusRequest: require('./PropertyModule/updatePropertyStatusModule'),
     propertyCommonHelper: require('./PropertyModule/propertyCommonHelper'),
     createFeedbackRequest: require('./FeedbackModule/createFeedbackModule'),
-    updateFeedbackRequest: require('./FeedbackModule/updateFeedbackRequest'),
+    updateFeedbackRequest: require('./FeedbackModule/updateFeedbackModule'),
     getFeedbackRequest: require('./FeedbackModule/getFeedbackListModule'),
     getFeedbackForHome: require('./FeedbackModule/getFeedbackForHomeModule'),
     updateFeedbackStatusRequest: require('./FeedbackModule/updateFeedbackStatusModule'),

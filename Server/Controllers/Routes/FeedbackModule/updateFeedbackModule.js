@@ -13,8 +13,8 @@ const moduleSchema = Joi.object({
     message: Joi.string().required()
 });
 
-function createFeedbackRequest(Models) {
-    async function create(req, res) {
+function updateFeedbackRequest(Models) {
+    async function update(req, res) {
         try {
             // console.log(req.sessionID)
             // validate data using joi
@@ -42,13 +42,13 @@ function createFeedbackRequest(Models) {
             }
             let updateModule = await Models.FeedbackDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
-            res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
+            res.send({ status: true, message: CONSTANTSMESSAGE.UPDATE_SUCCESS_MESSAGE });
         }
         catch (e) {
             console.log('saveModule err', e);
             await errorResponseHelper({ res, error: e, defaultMessage: "Error in saveModule" });
         }
     }
-    return create;
+    return update;
 }
-module.exports = createFeedbackRequest;
+module.exports = updateFeedbackRequest;
