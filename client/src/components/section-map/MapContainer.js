@@ -44,7 +44,7 @@ export class MapContainer extends Component {
 
         return (
             <Map google={this.props.google}
-                zoom={14}
+                zoom={1}
                 containerStyle={containerStyle}
                 initialCenter={this.state.markers[0]}
             >
