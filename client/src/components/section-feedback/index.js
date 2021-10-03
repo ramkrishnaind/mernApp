@@ -9,7 +9,7 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import FeedbackCard from "../feedback-card";
 import ApiClient from '../../api-client/index';
-import Rating from '@material-ui/lab/Rating';
+
 
 const useStyles = makeStyles((theme) => ({
 
