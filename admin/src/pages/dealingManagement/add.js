@@ -102,25 +102,25 @@ const MenuCreateUpdate = (props) => {
     setDescription(content);
   };
 
-  const handleImageExteriorView = (file, status) => {
-    let list = state;
-    let data = [];
-    if (status === "done") {
-      if (list.image && list.image.length) {
-        data = list.image;
-        data[list.image.length] = file.file;
-      } else {
-        data["0"] = file.file;
-      }
-      setState({ ...state, ["image"]: data });
-    }
-  };
-
-  // const handleVideouplaod = (file, status) => {
+  // const handleImageExteriorView = (file, status) => {
+  //   let list = state;
+  //   let data = [];
   //   if (status === "done") {
-  //     setState({ ...state, ["video"]: file.file });
+  //     if (list.image && list.image.length) {
+  //       data = list.image;
+  //       data[list.image.length] = file.file;
+  //     } else {
+  //       data["0"] = file.file;
+  //     }
+  //     setState({ ...state, ["image"]: data });
   //   }
   // };
+
+  const handleVideouplaod = (file, status) => {
+    if (status === "done") {
+      setState({ ...state, ["video"]: file.file });
+    }
+  };
 
   function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -265,21 +265,21 @@ const MenuCreateUpdate = (props) => {
               <SubHeading heading={"Upload Image"} />
               <br />
               <Grid container spacing={3} className="FormFildes">
-                <Grid className="form-group-item" item xs={12} sm={6} md={5}>
+                {/* <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Image </Typography>
                   <Dropzone
                     onChangeStatus={handleImageExteriorView}
                     accept="image/*,audio/*,video/*"
                   />
-                </Grid>
-                {/* <Grid className="form-group-item" item xs={12} sm={6} md={5}>
+                </Grid> */}
+                <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Video </Typography>
                   <Dropzone
                     maxFiles="1"
                     onChangeStatus={handleVideouplaod}
                     accept="video/*"
                   />
-                </Grid> */}
+                </Grid>
               </Grid>
               <br />
               <Box className="footer">
