@@ -81,7 +81,7 @@ export default function Carrer() {
                                             </Grid>
                                             <Grid item xs={3}>
                                                 <Box className="ParentButton">
-                                                    <ApplyJobs buttonName={"Apply Now"} Jobsheading={""} />
+                                                    <ApplyJobs buttonName={"Apply Now"} careerId={_id} />
                                                 </Box>
                                             </Grid>
                                         </div>);

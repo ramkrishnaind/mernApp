@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { withStyles } from "@material-ui/core/styles";
+import React, {useEffect, useState} from "react";
+import {withStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
@@ -10,10 +10,10 @@ import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
 import ChatIcon from "@material-ui/icons/Chat";
 import "./apply-jobs.css";
-import { Box, Grid, NativeSelect, TextField } from "@material-ui/core";
+import {Box, Grid, NativeSelect, TextField} from "@material-ui/core";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import ApiClient from "../../api-client";
-import { useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
 import * as Snackbar from "../../redux/actions/SnackbarActions";
 const styles = (theme) => ({
   root: {
@@ -33,7 +33,7 @@ const styles = (theme) => ({
 });
 
 const DialogTitle = withStyles(styles)((props) => {
-  const { children, classes, onClose, ...other } = props;
+  const {children, classes, onClose, ...other} = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
       <Typography variant="h6">{children}</Typography>
@@ -67,7 +67,7 @@ const DialogActions = withStyles((theme) => ({
 
 function ApplyJobs(props) {
   const [open, setOpen] = React.useState(false);
-  const { children, classes, onClose, ...other } = props;
+  const {children, classes, onClose, ...other} = props;
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -96,7 +96,7 @@ function ApplyJobs(props) {
     data.append("qualification", qualification);
     data.append("message", message);
     data.append("resume", resume);
-    data.append("careerID", props.Jobsheading);
+    data.append("careerID", props.careerId);
 
     const getData = async () => {
       try {
@@ -151,7 +151,7 @@ function ApplyJobs(props) {
         <Box className="Inputin">
           <TextField
             className="jobInputs"
-            style={{ marginTop: 15 }}
+            style={{marginTop: 15}}
             variant="outlined"
             label="Your Name"
             value={firstName}
@@ -162,13 +162,13 @@ function ApplyJobs(props) {
               },
             }}
             InputLabelProps={{
-              style: { color: "#000" },
+              style: {color: "#000"},
             }}
             fullWidth
           ></TextField>
           <TextField
             className="jobInputs"
-            style={{ marginTop: 15 }}
+            style={{marginTop: 15}}
             variant="outlined"
             label="Last Name"
             value={lastName}
@@ -179,13 +179,13 @@ function ApplyJobs(props) {
               },
             }}
             InputLabelProps={{
-              style: { color: "#000" },
+              style: {color: "#000"},
             }}
             fullWidth
           ></TextField>
           <TextField
             className="jobInputs"
-            style={{ marginTop: 15 }}
+            style={{marginTop: 15}}
             variant="outlined"
             label="Last Qualification"
             value={qualification}
@@ -196,14 +196,14 @@ function ApplyJobs(props) {
               },
             }}
             InputLabelProps={{
-              style: { color: "#000" },
+              style: {color: "#000"},
             }}
             fullWidth
           ></TextField>
 
           <TextField
             className="jobInputs"
-            style={{ marginTop: 15 }}
+            style={{marginTop: 15}}
             variant="outlined"
             label="Enter Email"
             value={email}
@@ -214,13 +214,13 @@ function ApplyJobs(props) {
               },
             }}
             InputLabelProps={{
-              style: { color: "#000" },
+              style: {color: "#000"},
             }}
             fullWidth
           ></TextField>
           <TextField
             className="jobInputs"
-            style={{ marginTop: 15 }}
+            style={{marginTop: 15}}
             variant="outlined"
             label="Contect Number"
             value={mobile}
@@ -231,7 +231,7 @@ function ApplyJobs(props) {
               },
             }}
             InputLabelProps={{
-              style: { color: "#000" },
+              style: {color: "#000"},
             }}
             fullWidth
           ></TextField>
@@ -249,7 +249,7 @@ function ApplyJobs(props) {
               },
             }}
             InputLabelProps={{
-              style: { color: "#000" },
+              style: {color: "#000"},
             }}
             fullWidth
           ></TextField>
