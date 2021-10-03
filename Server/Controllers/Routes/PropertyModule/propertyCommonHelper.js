@@ -346,6 +346,20 @@ function getSearchTerms(Models) {
     }
     return cities;
 }
+function getsearchMinMax(Models) {
+    async function cities(req, res) {
+        try {
+
+            let data = { minPrice: 500000, maxPrice: 100000000 };
+            res.send({ status: true, message: "Properties Data for Home Page", data });
+        }
+        catch (e) {
+            console.log('Getting list err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Getting list" });
+        }
+    }
+    return cities;
+}
 
 module.exports = {
     getAllProperty,
@@ -353,7 +367,8 @@ module.exports = {
     deleteProperty,
     getHomeAllProperty,
     getPropertyLatLong,
-    getSearchTerms
+    getSearchTerms,
+    getsearchMinMax
     // createUserFunc: createUserHelper,
     // getAllUserFunc: getAllUserHelper,
     // getUserFunc: getUserHelper,

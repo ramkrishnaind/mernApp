@@ -33,6 +33,7 @@ module.exports = {
     getFeedbackRequest: require('./FeedbackModule/getFeedbackListModule'),
     getFeedbackForHome: require('./FeedbackModule/getFeedbackForHomeModule'),
     updateFeedbackStatusRequest: require('./FeedbackModule/updateFeedbackStatusModule'),
+    getFeedbackDetails: require('./FeedbackModule/getFeedbackDetailsModule'),
     exteriorImage: require('./PropertyModule/exteriorImageModule'),
     getUserIdPropertyList: require('./PropertyModule/getUserPropertyListModule'),
     getSearchPropertyList: require('./PropertyModule/searchPropertyModule'),

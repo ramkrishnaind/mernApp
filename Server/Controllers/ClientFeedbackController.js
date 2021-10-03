@@ -25,7 +25,7 @@ let storage = multer.diskStorage({
     }
 });
 let upload = multer({ storage: storage });
-let { createFeedbackRequest, getFeedbackRequest, getFeedbackForHome, updateFeedbackStatusRequest } = require('./Routes');
+let { createFeedbackRequest, getFeedbackRequest, getFeedbackForHome, updateFeedbackStatusRequest, getFeedbackDetails } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
@@ -33,13 +33,21 @@ module.exports = function (conn) {
     const allCollection = require('../Database/getCollections')(conn.MongoDBConnection);
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
-
-    router.post('/createFeedback', userAuthMiddleware, upload.array("image"), createFeedbackRequest(allCollection))
+    const pageMedia = [{
+        name: 'iconImage', maxCount: 1
+    }, {
+        name: 'image', maxCount: 3
+    }
+    ];
+    router.post('/createFeedback', userAuthMiddleware, upload.fields(pageMedia), createFeedbackRequest(allCollection))
+    router.post('/updateFeedback', userAuthMiddleware, upload.fields(pageMedia), updateFeedbackRequest(allCollection))
     router.post('/getFeedbackRequest', requestAuthMiddleware, getFeedbackRequest(allCollection))
     router.post('/getFeedbackForHome', requestAuthMiddleware, getFeedbackForHome(allCollection))
     router.post('/updateFeedbackStatusRequest', userAuthMiddleware, updateFeedbackStatusRequest(allCollection))
     router.post('/updateFeedbackStatus', userAuthMiddleware, updateFeedbackStatusRequest(allCollection))
     router.post('/getFeedbackList', userAuthMiddleware, getFeedbackRequest(allCollection))
+    router.post('/getFeedbackDetails', userAuthMiddleware, getFeedbackDetails(allCollection))
+
 
     return router;
 };

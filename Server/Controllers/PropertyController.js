@@ -56,6 +56,7 @@ module.exports = function (conn) {
     router.post('/getSearchPropertyList', requestAuthMiddleware, getSearchPropertyList(allCollection))
     router.post('/getSearchTerms', requestAuthMiddleware, propertyCommonHelper.getSearchTerms(allCollection))
     router.post('/getPropertyLatLong', requestAuthMiddleware, propertyCommonHelper.getPropertyLatLong(allCollection))
+    router.post('/getsearchMinMax', requestAuthMiddleware, propertyCommonHelper.getsearchMinMax(allCollection))
 
 
     return router;
