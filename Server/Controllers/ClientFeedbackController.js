@@ -25,7 +25,7 @@ let storage = multer.diskStorage({
     }
 });
 let upload = multer({ storage: storage });
-let { createFeedbackRequest, getFeedbackRequest, getFeedbackForHome, updateFeedbackStatusRequest, getFeedbackDetails } = require('./Routes');
+let { createFeedbackRequest, getFeedbackRequest, getFeedbackForHome, updateFeedbackStatusRequest, getFeedbackDetails, updateFeedbackRequest } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
