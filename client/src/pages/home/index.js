@@ -235,7 +235,7 @@ const HomePage = (props) => {
           <Grid container spacing={3} alignItems="center" className="grid-container">
             <Grid className="about-image-column" item xs={12} md={6}>
               {/* <img src={aboutSection.images[0].imageUrl} alt="" style={{height: 490}} /> */}
-              <OwlCarouselSlider images={aboutSection.images || aboutSectionInfo.images} autoplay={true} />
+              <OwlCarouselSlider style={{maxWidth: 500}} images={aboutSection.images || aboutSectionInfo.images} autoplay={true} />
             </Grid>
             <Grid className="about-content-column animate__animated animate__backInRight" item xs={12} md={6}>
               <Grid className="about-content">
