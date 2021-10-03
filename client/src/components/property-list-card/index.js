@@ -412,7 +412,7 @@ const PropertyListCard = (props) => {
                       >
                         <Button variant="contained" className={classes.btn1} component={RouterLink} to={
                           {
-                            pathname: '/house-detail',
+                            pathname: '/home-detail',
                             state: item?._id
                           }}
                         >
