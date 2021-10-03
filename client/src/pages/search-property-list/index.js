@@ -169,7 +169,7 @@ const SearchPropertyList = (props) => {
     console.log("params changed", params);
     const type = new URLSearchParams(location.search).get("type");
 
-    if (type == 'Rent' || type == "Sell") {
+    if (type === 'Rent' || type === "Sell") {
       console.log("type is ^^^ ", type);
       const payload = {
         type: type,
