@@ -1,4 +1,7 @@
-import { NewPasswordSuccess, NewPasswordError } from "../redux/actions/NewPasswordAction";
+import {
+  NewPasswordSuccess,
+  NewPasswordError,
+} from "../redux/actions/NewPasswordAction";
 import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/SnackbarActions";
@@ -18,8 +21,10 @@ export const NewPasswordService = async (dispatch, data) => {
     window.location.href = "/signin";
   } catch (error) {
     dispatch(NewPasswordError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
 };
-
-

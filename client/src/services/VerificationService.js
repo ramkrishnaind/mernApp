@@ -1,4 +1,7 @@
-import { VerificationSuccess, VerificationError } from "../redux/actions/VerificationAction";
+import {
+  VerificationSuccess,
+  VerificationError,
+} from "../redux/actions/VerificationAction";
 import ApiClient from "../api-client";
 import * as Snackbar from "../redux/actions/SnackbarActions";
 import API_ENDPOINTS from "../constants/api-endpoints";
@@ -17,6 +20,10 @@ export const VerificationService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(VerificationError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
 };

@@ -16,12 +16,14 @@ export const ForgotService = async (dispatch, data) => {
     dispatch(ForgotSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
 
-    let token = result.tempAuthenticationLink.split('=')
+    let token = result.tempAuthenticationLink.split("=");
     window.location.href = "/setnewpassword?token=" + token[1];
   } catch (error) {
     dispatch(ForgotError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
 };
-
-
