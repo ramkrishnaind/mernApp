@@ -63,6 +63,19 @@ const SearchBox = (props) => {
         populateCity();
     }, []);
 
+    useEffect(() => {
+        if (props.searchPayload) {
+            const searchDetails = props.searchPayload;
+
+            setType(searchDetails?.type || Type.RENT);
+            setPType(searchDetails?.pType || '');
+            setkeyword(searchDetails?.keyword || '');
+            setMaxBudget(searchDetails?.maxAmount || '');
+            setMinBudget(searchDetails?.minAmount || '');
+        }
+
+    }, [props]);
+
     const populateCity = () => {
         const getData = async () => {
             const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/property/getSearchTerms', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
@@ -165,6 +178,7 @@ const SearchBox = (props) => {
                                     id="city-locality"
                                     variant="filled"
                                     options={cityOptions}
+                                    value={keyword}
                                     onChange={e => setkeyword(cityOptions[e.target.value]?.label)}
                                     // sx={{width: 300}}
                                     renderInput={(params) =>
@@ -172,7 +186,6 @@ const SearchBox = (props) => {
                                             id="city-locality"
                                             variant="filled"
                                             label="City, Locality"
-
                                             InputProps={{
                                                 startAdornment: <InputAdornment position="start" style={{color: "red", marginLeft: -5}}><Icon fontSize="small" style={{color: "#ff7600"}}>room</Icon></InputAdornment>,
                                             }} {...params}

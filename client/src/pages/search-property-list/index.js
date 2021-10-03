@@ -120,6 +120,8 @@ const SearchPropertyList = (props) => {
   let token = query.get('token');
   const [propertyListItems, setPropertyListItem] = useState([]);
   const propertyListItem = useSelector((state) => state.PropertyDetail.data);
+  const [searchPayload, setSearchPayload] = useState(null);
+
   console.log("propertyListItem", propertyListItem);
   if (propertyListItem) {
     if (viewDetails === false) {
@@ -139,8 +141,10 @@ const SearchPropertyList = (props) => {
     //   // propertyId: "6125373540f10f2712e43db5"
     // };
     // dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
-    if (location?.state)
+    if (location?.state) {
       populateProperties(location?.state);
+      setSearchPayload(location?.state);
+    }
   }, [location?.state]);
 
 
@@ -155,6 +159,7 @@ const SearchPropertyList = (props) => {
         maxAmount: ''
       };
       populateProperties(payload);
+      setSearchPayload(payload);
     }
   }, []);
 
@@ -173,6 +178,7 @@ const SearchPropertyList = (props) => {
         maxAmount: ''
       };
       populateProperties(payload);
+      setSearchPayload(payload);
     }
 
 
@@ -199,7 +205,7 @@ const SearchPropertyList = (props) => {
     <div style={{background: '#F7F7F7'}}>
 
       <Box style={{height: 326, width: "100%", backgroundImage: 'url(/about_us.jpeg)'}}>
-        <SearchBox />
+        <SearchBox searchPayload={searchPayload} />
       </Box>
 
       {/* <Gallery /> */}
