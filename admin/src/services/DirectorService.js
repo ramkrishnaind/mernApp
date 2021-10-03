@@ -1,22 +1,22 @@
-import * as TeamAction from "../redux/actions/TeamAction";
+import * as DirectorAction from "../redux/actions/DirectorAction";
 import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/snackbarActions";
 import history from "../components/history";
 import * as Loader from "../redux/actions/LoaderActions";
-export const TeamListService = async (dispatch, data) => {
+export const DirectorListService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.TEAM_LIST_ENDPOINT,
+      API_ENDPOINTS.DIRECTOR_LIST_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(TeamAction.TeamListSuccess(result));
+    dispatch(DirectorAction.DirectorListSuccess(result));
   } catch (error) {
-    dispatch(TeamAction.TeamListError(error));
+    dispatch(DirectorAction.DirectorListError(error));
     dispatch(
       Snackbar.showFailSnackbar(
         error.response.data?.error?.error?.details[0]?.message
@@ -26,22 +26,22 @@ export const TeamListService = async (dispatch, data) => {
   dispatch(Loader.hideLoader(""));
 };
 
-export const TeamAddService = async (dispatch, data) => {
+export const DirectorAddService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.TEAM_ADD_ENDPOINT,
+      API_ENDPOINTS.DIRECTOR_ADD_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(TeamAction.TeamAddSuccess(result));
+    dispatch(DirectorAction.DirectorAddSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
-    history.push("/team");
+    history.push("/Director");
     window.location.reload();
   } catch (error) {
-    dispatch(TeamAction.TeamAddError(error));
+    dispatch(DirectorAction.DirectorAddError(error));
     dispatch(
       Snackbar.showFailSnackbar(
         error.response.data?.error?.error?.details[0]?.message
@@ -51,20 +51,20 @@ export const TeamAddService = async (dispatch, data) => {
   dispatch(Loader.hideLoader(""));
 };
 
-export const TeamStatusUpdateService = async (dispatch, data) => {
+export const DirectorStatusUpdateService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.TEAM_STATUS_UPDATE_ENDPOINT,
+      API_ENDPOINTS.DIRECTOR_STATUS_UPDATE_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(TeamAction.TeamUpdateStatusSuccess(result));
+    dispatch(DirectorAction.DirectorUpdateStatusSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
-    dispatch(TeamAction.TeamUpdateStatusError(error));
+    dispatch(DirectorAction.DirectorUpdateStatusError(error));
     dispatch(
       Snackbar.showFailSnackbar(
         error.response.data?.error?.error?.details[0]?.message
@@ -74,22 +74,22 @@ export const TeamStatusUpdateService = async (dispatch, data) => {
   dispatch(Loader.hideLoader(""));
 };
 
-export const TeamUpdateService = async (dispatch, data) => {
+export const DirectorUpdateService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.TEAM_UPDATE_ENDPOINT,
+      API_ENDPOINTS.DIRECTOR_UPDATE_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(TeamAction.TeamUpdateSuccess(result));
+    dispatch(DirectorAction.DirectorUpdateSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
-    history.push("/team");
+    history.push("/Director");
     window.location.reload();
   } catch (error) {
-    dispatch(TeamAction.TeamUpdateError(error));
+    dispatch(DirectorAction.DirectorUpdateError(error));
     dispatch(
       Snackbar.showFailSnackbar(
         error.response.data?.error?.error?.details[0]?.message
@@ -99,20 +99,20 @@ export const TeamUpdateService = async (dispatch, data) => {
   dispatch(Loader.hideLoader(""));
 };
 
-export const TeamDeleteService = async (dispatch, data) => {
+export const DirectorDeleteService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.TEAM_DELETE_ENDPOINT,
+      API_ENDPOINTS.DIRECTOR_DELETE_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(TeamAction.TeamDeleteSuccess(result));
+    dispatch(DirectorAction.DirectorDeleteSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
-    dispatch(TeamAction.TeamDeleteError(error));
+    dispatch(DirectorAction.DirectorDeleteError(error));
     dispatch(
       Snackbar.showFailSnackbar(
         error.response.data?.error?.error?.details[0]?.message
@@ -122,19 +122,19 @@ export const TeamDeleteService = async (dispatch, data) => {
   dispatch(Loader.hideLoader(""));
 };
 
-export const TeamDataService = async (dispatch, data) => {
+export const DirectorDataService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.TEAM_DATA_ENDPOINT,
+      API_ENDPOINTS.DIRECTOR_DATA_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(TeamAction.TeamDataSuccess(result));
+    dispatch(DirectorAction.DirectorDataSuccess(result));
   } catch (error) {
-    dispatch(TeamAction.TeamDataError(error));
+    dispatch(DirectorAction.DirectorDataError(error));
     dispatch(
       Snackbar.showFailSnackbar(
         error.response.data?.error?.error?.details[0]?.message

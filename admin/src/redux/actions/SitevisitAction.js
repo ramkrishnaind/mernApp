@@ -59,7 +59,7 @@ export const SitevisitStatusUpdateRequestAsync = (data) => {
     dispatch(SitevisitUpdateStatusRequest());
     SitevisitStatusUpdateService(dispatch, data);
     dispatch(SitevisitListRequest());
-    SitevisitListService(dispatch, "");
+    SitevisitListService(dispatch);
   };
 };
 

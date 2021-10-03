@@ -17,7 +17,11 @@ export const PropertyListService = async (dispatch, data) => {
     dispatch(PropertyAction.PropertyListSuccess(result));
   } catch (error) {
     dispatch(PropertyAction.PropertyListError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -160,23 +164,23 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
       );
     }
 
-    if (imageData.locationMap.length > 0) {
-      var locationMap = new FormData();
-      imageData.locationMap.forEach((item, index) => {
-        locationMap.append("image", item);
-      });
-      locationMap.append("imagetype", "locationMap");
-      locationMap.append("propertyId", propertyId);
+    // if (imageData.locationMap.length > 0) {
+    //   var locationMap = new FormData();
+    //   imageData.locationMap.forEach((item, index) => {
+    //     locationMap.append("image", item);
+    //   });
+    //   locationMap.append("imagetype", "locationMap");
+    //   locationMap.append("propertyId", propertyId);
 
-      await ApiClient.call(
-        ApiClient.REQUEST_METHOD.POST,
-        API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        locationMap,
-        null,
-        null,
-        true
-      );
-    }
+    //   await ApiClient.call(
+    //     ApiClient.REQUEST_METHOD.POST,
+    //     API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
+    //     locationMap,
+    //     null,
+    //     null,
+    //     true
+    //   );
+    // }
 
     if (imageData.masterPlan.length > 0) {
       var masterPlan = new FormData();
@@ -220,7 +224,11 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
     // window.location.reload();
   } catch (error) {
     dispatch(PropertyAction.PropertyAddError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -239,7 +247,11 @@ export const PropertyStatusUpdateService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(PropertyAction.PropertyUpdateStatusError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
 };
 
@@ -379,23 +391,23 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
       );
     }
 
-    if (imageData.locationMap.length > 0) {
-      var locationMap = new FormData();
-      imageData.locationMap.forEach((item, index) => {
-        locationMap.append("image", item);
-      });
-      locationMap.append("imagetype", "locationMap");
-      locationMap.append("propertyId", propertyId);
+    // if (imageData.locationMap.length > 0) {
+    //   var locationMap = new FormData();
+    //   imageData.locationMap.forEach((item, index) => {
+    //     locationMap.append("image", item);
+    //   });
+    //   locationMap.append("imagetype", "locationMap");
+    //   locationMap.append("propertyId", propertyId);
 
-      await ApiClient.call(
-        ApiClient.REQUEST_METHOD.POST,
-        API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
-        locationMap,
-        null,
-        null,
-        true
-      );
-    }
+    //   await ApiClient.call(
+    //     ApiClient.REQUEST_METHOD.POST,
+    //     API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
+    //     locationMap,
+    //     null,
+    //     null,
+    //     true
+    //   );
+    // }
 
     if (imageData.masterPlan.length > 0) {
       var masterPlan = new FormData();
@@ -439,7 +451,11 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
     window.location.reload();
   } catch (error) {
     dispatch(PropertyAction.PropertyUpdateError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -458,7 +474,11 @@ export const PropertyDeleteService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(PropertyAction.PropertyDeleteError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -476,7 +496,11 @@ export const PropertyDataService = async (dispatch, data) => {
     dispatch(PropertyAction.PropertyDataSuccess(result));
   } catch (error) {
     dispatch(PropertyAction.PropertyDataError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };

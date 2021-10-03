@@ -62,7 +62,7 @@ const userSchema = new Schema({
         type: String
     },
     active: {
-        type: Boolean,
+        type: Number,
         default: true
     },
     lastLoginTime: {

@@ -22,7 +22,7 @@ const getUserSchema = Joi.object({
 });
 const updateUserStatusSchema = Joi.object({
     _id: Joi.string().trim().required(),
-    status: Joi.boolean().required(),
+    active: Joi.number().required(),
 });
 
 async function prepareTemplateSendMail(data) {
@@ -159,9 +159,9 @@ function updateUserStatusHelper(Models) {
             }
 
 
-            let bodyData = _.pick(req.body, ["status", "_id"]);
+            let bodyData = _.pick(req.body, ["active", "_id"]);
             let setData = {
-                status: bodyData.status,
+                active: bodyData.active,
             }
             let updateModule = await Models.UserDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)

@@ -83,7 +83,6 @@ const MenuCreateUpdate = (props) => {
       data.append("twitter", twitter);
       data.append("instagram", instagram);
       data.append("linkedin", linkedin);
-      console.log("dsadsd", data);
       dispatch(TeamAction.TeamAddRequestAsync(data));
     } else {
       data.append("image", image);

@@ -107,7 +107,7 @@ export const ServiceItemStatusUpdateRequestAsync = (data) => {
     dispatch(ServiceItemUpdateStatusRequest());
     ServiceItemStatusUpdateService(dispatch, data);
     dispatch(ServiceItemListRequest());
-    ServiceItemListService(dispatch, "");
+    ServiceItemListService(dispatch);
   };
 };
 
@@ -153,7 +153,7 @@ export const ServiceItemDeleteRequestAsync = (data) => {
     dispatch(ServiceItemDeleteRequest());
     ServiceItemDeleteService(dispatch, data);
     dispatch(ServiceItemListRequest());
-    ServiceItemListService(dispatch, "");
+    ServiceItemListService(dispatch);
   };
 };
 
@@ -207,7 +207,7 @@ export const ServiceItemDataRequestAsync = (data) => {
  */
 const ServiceItemDataRequest = () => {
   return {
-    type: ACTION_KEYS.SERVICE_DATA_REQUEST,
+    type: ACTION_KEYS.SERVICE_ITEM_DATA_REQUEST,
     payload: null,
   };
 };
@@ -219,7 +219,7 @@ const ServiceItemDataRequest = () => {
  */
 export const ServiceItemDataSuccess = (data) => {
   return {
-    type: ACTION_KEYS.SERVICE_DATA_SUCCESS,
+    type: ACTION_KEYS.SERVICE_ITEM_DATA_SUCCESS,
     payload: data,
   };
 };
@@ -231,7 +231,7 @@ export const ServiceItemDataSuccess = (data) => {
  */
 export const ServiceItemDataError = (data) => {
   return {
-    type: ACTION_KEYS.SERVICE_DATA_ERROR,
+    type: ACTION_KEYS.SERVICE_ITEM_DATA_ERROR,
     payload: { error: data },
   };
 };
@@ -251,7 +251,7 @@ export const ServiceItemUpdateRequestAsync = (data) => {
  */
 const ServiceItemUpdateRequest = () => {
   return {
-    type: ACTION_KEYS.SERVICE_UPDATE_REQUEST,
+    type: ACTION_KEYS.SERVICE_ITEM_UPDATE_REQUEST,
     payload: null,
   };
 };
@@ -263,7 +263,7 @@ const ServiceItemUpdateRequest = () => {
  */
 export const ServiceItemUpdateSuccess = (data) => {
   return {
-    type: ACTION_KEYS.SERVICE_UPDATE_SUCCESS,
+    type: ACTION_KEYS.SERVICE_ITEM_UPDATE_SUCCESS,
     payload: data,
   };
 };
@@ -275,7 +275,7 @@ export const ServiceItemUpdateSuccess = (data) => {
  */
 export const ServiceItemUpdateError = (data) => {
   return {
-    type: ACTION_KEYS.SERVICE_UPDATE_ERROR,
+    type: ACTION_KEYS.SERVICE_ITEM_UPDATE_ERROR,
     payload: { error: data },
   };
 };

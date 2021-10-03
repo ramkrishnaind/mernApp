@@ -23,8 +23,8 @@ const styles = (theme) => ({
   },
   text: {
     display: "block",
-    width: "100px",
     overflow: "hidden",
+    maxHeight: "50px",
   },
 });
 
@@ -43,8 +43,7 @@ const AboutUsList = (props) => {
   };
 
   function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/aboutus/edit?id="+data;
-    history.push("/aboutus/add");
+    history.push("/aboutus/add?id=" + data);
     window.location.reload();
   }
 
@@ -85,7 +84,7 @@ const AboutUsList = (props) => {
                       return (
                         <>
                           <Typography className={classes.text}>
-                            {tableMeta.rowData[4]}
+                            {tableMeta.rowData[3]}
                           </Typography>
                         </>
                       );

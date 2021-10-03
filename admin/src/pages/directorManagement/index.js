@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { Typography, Box } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import * as CareerAction from "../../redux/actions/CareerAction";
+import * as DirectorAction from "../../redux/actions/DirectorAction";
 import { useDispatch } from "react-redux";
+
 import BreadCrumbs from "../../common/bread-crumbs";
 import FormHeader from "../../common/form-header";
 import { connect } from "react-redux";
 import MUIDataTable from "mui-datatables";
+
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -25,18 +27,14 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
-  text: {
-    display: "block",
-    overflow: "hidden",
-    maxHeight: "50px",
-  },
 });
-const CareerList = (props) => {
+
+const DirectorList = (props) => {
   const dispatch = useDispatch();
-  let { career, classes } = props;
+  let { director } = props;
 
   useEffect(() => {
-    dispatch(CareerAction.CareerListRequestAsync());
+    dispatch(DirectorAction.DirectorListRequestAsync());
   }, [dispatch]);
 
   let options = {
@@ -48,16 +46,15 @@ const CareerList = (props) => {
   function onDisable(data, status) {
     let tempdata = {
       _id: data,
-      active: status,
+      isDisable: status,
     };
-    dispatch(CareerAction.CareerStatusUpdateRequestAsync(tempdata));
+    dispatch(DirectorAction.DirectorStatusUpdateRequestAsync(tempdata));
   }
 
   function onDeleteClick(data) {
     let tempdata = {
       _id: data,
     };
-
     confirmAlert({
       title: "Confirm to submit",
       message: "Are you sure to do this.",
@@ -65,7 +62,7 @@ const CareerList = (props) => {
         {
           label: "Yes",
           onClick: () =>
-            dispatch(CareerAction.CareerDeleteRequestAsync(tempdata)),
+            dispatch(DirectorAction.DirectorDeleteRequestAsync(tempdata)),
         },
         {
           label: "No",
@@ -75,8 +72,7 @@ const CareerList = (props) => {
   }
 
   function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/career/edit?id="+data;
-    history.push("/career/add?id=" + data);
+    history.push("/director/add?id=" + data);
     window.location.reload();
   }
 
@@ -84,55 +80,42 @@ const CareerList = (props) => {
     <>
       <Box className="MenuManagement_Data">
         <FormHeader
-          heading1={"Career Module Management"}
-          heading2={"List and Manage Career Here"}
+          heading1={"Director Module Management"}
+          heading2={"List and Manage Director Here"}
         />
         <BreadCrumbs
-          heading1={"CareerManagement"}
-          heading2={"Career Module List"}
+          heading1={"DirectorManagement"}
+          heading2={"Director Module List"}
         />
 
-        {career.list && career.list.length > 0 ? (
+        {director?.list?.list && director.list?.list.length > 0 ? (
           <>
             <MUIDataTable
               className="table-header"
-              title="Career List"
-              data={career.list.map((item, index) => {
+              title="Team List"
+              data={director?.list?.list.map((item, index) => {
                 return [
                   index + 1,
-                  item.degination,
-                  item.department,
-                  item.desctiption,
-                  item.experiance,
-                  item.location,
-                  item.vacancy,
-                  item.active,
+                  item.name,
+                  item.designation,
+                  item.shortDescription,
+                  item.facebook,
+                  item.instagram,
+                  item.linkedin,
+                  item.twitter,
+                  item.isDisable,
                   item._id,
                 ];
               })}
               columns={[
                 "SR No.",
-                "Degination",
-                "Department",
-
-                {
-                  name: "Description",
-                  options: {
-                    customBodyRender: (value, tableMeta, updateValue) => {
-                      return (
-                        <>
-                          <Typography className={classes.text}>
-                            {tableMeta.rowData[2]}
-                          </Typography>
-                        </>
-                      );
-                    },
-                  },
-                },
-
-                "Experiance",
-                "Location",
-                "Vacancy",
+                "Name",
+                "Designation",
+                "Description",
+                "Facebook",
+                "Instagram",
+                "Linkedin",
+                "Twitter",
                 {
                   name: "Status",
                   options: {
@@ -151,15 +134,15 @@ const CareerList = (props) => {
                           <EditIcon
                             style={{ color: "#0069d9", cursor: "pointer" }}
                             onClick={() =>
-                              updatehandleOpenCreateModal(tableMeta.rowData[8])
+                              updatehandleOpenCreateModal(tableMeta.rowData[9])
                             }
                           />
 
-                          {tableMeta.rowData[7] ? (
+                          {tableMeta.rowData[8] ? (
                             <Tooltip title="Active">
                               <Done
                                 onClick={() =>
-                                  onDisable(tableMeta.rowData[8], false)
+                                  onDisable(tableMeta.rowData[9], false)
                                 }
                                 style={{ color: "#1e7e34", cursor: "pointer" }}
                               />
@@ -168,7 +151,7 @@ const CareerList = (props) => {
                             <Tooltip title="Inactive">
                               <ClearIcon
                                 onClick={() =>
-                                  onDisable(tableMeta.rowData[8], true)
+                                  onDisable(tableMeta.rowData[9], true)
                                 }
                                 style={{ color: "#bd2130", cursor: "pointer" }}
                               />
@@ -177,7 +160,7 @@ const CareerList = (props) => {
 
                           <DeleteIcon
                             style={{ color: "#bd2130", cursor: "pointer" }}
-                            onClick={() => onDeleteClick(tableMeta.rowData[8])}
+                            onClick={() => onDeleteClick(tableMeta.rowData[9])}
                           />
                         </>
                       );
@@ -197,9 +180,9 @@ const CareerList = (props) => {
 };
 
 function mapStateToProps(state) {
-  const { career } = state;
+  const { director } = state;
   return {
-    career,
+    director,
   };
 }
-export default connect(mapStateToProps)(withStyles(styles)(CareerList));
+export default connect(mapStateToProps)(withStyles(styles)(DirectorList));

@@ -45,7 +45,14 @@ module.exports = function (conn) {
         name: 'banner', maxCount: 3
     }, {
         name: 'video', maxCount: 1
-    }];
+    }
+    ];
+    const serviceMedia = [{
+        name: 'image', maxCount: 2
+    }, {
+        name: 'banner', maxCount: 3
+    }
+    ];
     const imageVideo = [{
         name: 'image', maxCount: 2
     }, {
@@ -85,8 +92,8 @@ module.exports = function (conn) {
     router.post('/deleteService', userAuthMiddleware, homeFunction.deleteService(db));
     router.post('/updateServiceStatusHelper', userAuthMiddleware, homeFunction.updateServiceStatusHelper(db));
     //
-    router.post('/createServiceItem', userAuthMiddleware, upload.fields(pageMedia), homeFunction.createServiceItem(db));
-    router.post('/updateServiceItem', userAuthMiddleware, upload.fields(pageMedia), homeFunction.updateServiceItem(db));
+    router.post('/createServiceItem', userAuthMiddleware, upload.fields(serviceMedia), homeFunction.createServiceItem(db));
+    router.post('/updateServiceItem', userAuthMiddleware, upload.fields(serviceMedia), homeFunction.updateServiceItem(db));
     router.post('/getServiceItemList', userAuthMiddleware, homeFunction.getServiceItemList(db));
     router.post('/getServiceItem', userAuthMiddleware, homeFunction.getServiceItemDetails(db));
     router.post('/deleteServiceItem', userAuthMiddleware, homeFunction.deleteServiceItem(db));

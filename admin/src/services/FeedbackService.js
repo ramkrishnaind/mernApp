@@ -17,7 +17,11 @@ export const FeedbackListService = async (dispatch, data) => {
     dispatch(FeedbackAction.FeedbackListSuccess(result));
   } catch (error) {
     dispatch(FeedbackAction.FeedbackListError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -38,7 +42,11 @@ export const FeedbackAddService = async (dispatch, data) => {
     window.location.reload();
   } catch (error) {
     dispatch(FeedbackAction.FeedbackAddError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -57,7 +65,11 @@ export const FeedbackStatusUpdateService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(FeedbackAction.FeedbackUpdateStatusError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -78,7 +90,11 @@ export const FeedbackUpdateService = async (dispatch, data) => {
     window.location.reload();
   } catch (error) {
     dispatch(FeedbackAction.FeedbackUpdateError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -97,7 +113,11 @@ export const FeedbackDeleteService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(FeedbackAction.FeedbackDeleteError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };
@@ -115,7 +135,11 @@ export const FeedbackDataService = async (dispatch, data) => {
     dispatch(FeedbackAction.FeedbackDataSuccess(result));
   } catch (error) {
     dispatch(FeedbackAction.FeedbackDataError(error));
-    dispatch(Snackbar.showFailSnackbar(error.response.data.message));
+    dispatch(
+      Snackbar.showFailSnackbar(
+        error.response.data?.error?.error?.details[0]?.message
+      )
+    );
   }
   dispatch(Loader.hideLoader(""));
 };

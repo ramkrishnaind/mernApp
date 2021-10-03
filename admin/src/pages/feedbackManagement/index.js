@@ -98,6 +98,8 @@ const FeedbackList = (props) => {
                   item.name,
                   item.rating,
                   item.status,
+                  item.message,
+                  item.status,
                   item._id,
                 ];
               })}
@@ -105,6 +107,7 @@ const FeedbackList = (props) => {
                 "SR No.",
                 "Name",
                 "Rating",
+                "Message",
                 {
                   name: "Status",
                   options: {

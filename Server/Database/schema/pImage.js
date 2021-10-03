@@ -33,9 +33,6 @@ const schema = new Schema({
     masterPlan: {
         type: Array
     },
-    locationMap: {
-        type: Array
-    },
     other: {
         type: Array
     }

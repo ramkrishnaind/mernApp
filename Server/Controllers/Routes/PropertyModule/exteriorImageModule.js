@@ -38,9 +38,6 @@ function exteriorImage(Models) {
                 case 'masterPlan':
                     bodyData['masterPlan'] = req.files;
                     break;
-                case 'locationMap':
-                    bodyData['locationMap'] = req.files;
-                    break;
                 case 'other':
                     bodyData['other'] = req.files;
                     break;

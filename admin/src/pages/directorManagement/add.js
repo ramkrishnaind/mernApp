@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
-import * as BlogAction from "../../redux/actions/BlogAction";
+import * as DirectorAction from "../../redux/actions/DirectorAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
@@ -17,10 +17,11 @@ import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
 
-const MenuCreateUpdate = (props) => {
+const DirectorCreateUpdate = (props) => {
   let query = useQuery();
   let id = query.get("id");
-  let blogData = props?.blog?.blogData;
+  let directorData = props?.director?.directorData;
+
   const [, setRefresh] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -28,30 +29,29 @@ const MenuCreateUpdate = (props) => {
       _id: id,
     };
     if (id != null) {
-      dispatch(BlogAction.BlogDataRequestAsync(data));
+      dispatch(DirectorAction.DirectorDataRequestAsync(data));
     }
   }, [id, dispatch]);
 
+  const initialState = {
+    name: directorData?.name,
+    shortDescription: directorData?.shortDescription,
+    designation: directorData?.designation,
+    facebook: directorData?.facebook,
+    twitter: directorData?.twitter,
+    instagram: directorData?.instagram,
+    linkedin: directorData?.linkedin,
+    image: "",
+    id: id,
+  };
   useEffect(() => {
-    if (props.blog.success) {
+    if (props.director.success) {
       setRefresh(true);
       setState(initialState);
     }
-  }, [props.blog.success]);
-
-  const initialState = {
-    title: blogData?.title,
-    sortDescription: blogData?.sortDescription,
-    metaTitle: blogData?.metaTitle,
-    metaKeywords: blogData?.metaKeywords,
-    metaDescription: blogData?.metaDescription,
-    image: "",
-    bannerImage: "",
-    id: id,
-  };
-
+  }, [props.director.success]);
   const [state, setState] = useState(initialState);
-  const [description, setDescription] = useState(blogData?.description);
+  const [description, setDescription] = useState(directorData?.description);
 
   const inputChange = (e) => {
     let { name, value } = e.target;
@@ -61,38 +61,42 @@ const MenuCreateUpdate = (props) => {
 
   const handleSubmit = (e) => {
     const {
-      title,
-      sortDescription,
+      name,
+      shortDescription,
       id,
-      metaTitle,
-      metaKeywords,
-      metaDescription,
+      designation,
+      facebook,
+      twitter,
       image,
-      bannerImage,
+      instagram,
+      linkedin,
     } = state;
     var data = new FormData();
-    if (id == null) {
-      // data.append("bannerImage", bannerImage);
-      data.append("blogImage", image);
-      data.append("title", title);
-      data.append("sortDescription", sortDescription);
+    if (id === null) {
+      data.append("image", image);
+      data.append("name", name);
+      data.append("shortDescription", shortDescription);
       data.append("description", description);
-      data.append("metaTitle", metaTitle);
-      data.append("metaKeywords", metaKeywords);
-      data.append("metaDescription", metaDescription);
+      data.append("designation", designation);
+      data.append("facebook", facebook);
+      data.append("twitter", twitter);
+      data.append("instagram", instagram);
+      data.append("linkedin", linkedin);
 
-      dispatch(BlogAction.BlogAddRequestAsync(data));
+      dispatch(DirectorAction.DirectorAddRequestAsync(data));
     } else {
-      // data.append("bannerImage", bannerImage);
-      data.append("blogImage", image);
-      data.append("title", title);
-      data.append("sortDescription", sortDescription);
+      data.append("image", image);
+      data.append("name", name);
+      data.append("shortDescription", shortDescription);
       data.append("description", description);
-      data.append("metaTitle", metaTitle);
-      data.append("metaKeywords", metaKeywords);
-      data.append("metaDescription", metaDescription);
+      data.append("designation", designation);
+      data.append("facebook", facebook);
+      data.append("twitter", twitter);
+      data.append("instagram", instagram);
+      data.append("linkedin", linkedin);
+
       data.append("_id", id);
-      dispatch(BlogAction.BlogUpdateRequestAsync(data));
+      dispatch(DirectorAction.DirectorUpdateRequestAsync(data));
     }
   };
 
@@ -110,41 +114,42 @@ const MenuCreateUpdate = (props) => {
     }
   };
 
-  const handleBlogBannerUpload = (file, status) => {
-    if (status === "done") {
-      setState({ ...state, ["bannerImage"]: file.file });
-    }
-  };
-
   return (
     <Box className="MenuManagement_Data">
       <FormHeader
-        heading1={"Blog Module Management"}
-        heading2={"Create and Update Blog Here"}
+        heading1={"Director Module Management"}
+        heading2={"Create and Update Director Here"}
       />
       {state.id ? (
         <>
           <BreadCrumbs
-            heading1={"BlogManagement"}
-            heading2={"Edit Blog Module"}
+            heading1={"DirectorManagement"}
+            heading2={"Edit Director Module"}
           />
-          <SubHeading heading={"Edit Blog Module"} />
+          <SubHeading heading={"Edit Director Module"} />
         </>
       ) : (
         <>
           <BreadCrumbs
-            heading1={"BlogManagement"}
-            heading2={"Add Blog Module"}
+            heading1={"DirectorManagement"}
+            heading2={"Add Director Module"}
           />
-          <SubHeading heading={"Add Blog Module"} />
+          <SubHeading heading={"Add Director Module"} />
         </>
       )}
       <Grid item xs={12} className="m-5 addUserFormanage">
         <div className="card w-100">
           <div className="card-header d-flex justify-content-between align-items-center">
             <Typography component="h3" variant="h3">
-              {state.id ? "Edit" : "Add"} Blog
+              {state.id ? "Edit" : "Add"} Director
             </Typography>
+            {/* <Button
+                onClick={() => this.props.history.push("menu")}
+                variant="contained"
+                color="primary"
+                type="submit"
+                
+              >Back</Button> */}
           </div>
           <div class="card-body">
             <ValidatorForm onSubmit={handleSubmit}>
@@ -155,12 +160,12 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.title ? state.title : blogData?.title}
+                    value={state.name ? state.name : directorData?.name}
                     onChange={inputChange}
-                    name="title"
-                    id="title"
+                    name="name"
+                    id="name"
                     validators={["required"]}
-                    errorMessages={["title field is required"]}
+                    errorMessages={["name field is required"]}
                   />
                 </Grid>
 
@@ -171,15 +176,15 @@ const MenuCreateUpdate = (props) => {
                     label="Short Description*"
                     fullWidth
                     value={
-                      state.sortDescription
-                        ? state.sortDescription
-                        : blogData?.sortDescription
+                      state.shortDescription
+                        ? state.shortDescription
+                        : directorData?.shortDescription
                     }
                     onChange={inputChange}
-                    name="sortDescription"
-                    id="sortDescription"
+                    name="shortDescription"
+                    id="shortDescription"
                     validators={["required"]}
-                    errorMessages={["sortDescription field is required"]}
+                    errorMessages={["shortDescription field is required"]}
                   />
                 </Grid>
 
@@ -187,14 +192,16 @@ const MenuCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="Meta Title *"
+                    label="Designation"
                     fullWidth
                     value={
-                      state.metaTitle ? state.metaTitle : blogData?.metaTitle
+                      state.designation
+                        ? state.designation
+                        : directorData?.designation
                     }
                     onChange={inputChange}
-                    name="metaTitle"
-                    id="metaTitle"
+                    name="designation"
+                    id="designation"
                   />
                 </Grid>
 
@@ -202,16 +209,14 @@ const MenuCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="Meta Keywords*"
+                    label="Facebook"
                     fullWidth
                     value={
-                      state.metaKeywords
-                        ? state.metaKeywords
-                        : blogData?.metaKeywords
+                      state.facebook ? state.facebook : directorData?.facebook
                     }
                     onChange={inputChange}
-                    name="metaKeywords"
-                    id="metaKeywords"
+                    name="facebook"
+                    id="facebook"
                   />
                 </Grid>
 
@@ -219,26 +224,56 @@ const MenuCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="Meta Description*"
+                    label="Twitter"
                     fullWidth
                     value={
-                      state.metaDescription
-                        ? state.metaDescription
-                        : blogData?.metaDescription
+                      state.twitter ? state.twitter : directorData?.twitter
                     }
                     onChange={inputChange}
-                    name="metaDescription"
-                    id="metaDescription"
+                    name="twitter"
+                    id="twitter"
+                  />
+                </Grid>
+
+                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                  <TextValidator
+                    className="form-control-item"
+                    variant="outlined"
+                    label="Instagram"
+                    fullWidth
+                    value={
+                      state.instagram
+                        ? state.instagram
+                        : directorData?.instagram
+                    }
+                    onChange={inputChange}
+                    name="instagram"
+                    id="instagram"
+                  />
+                </Grid>
+
+                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                  <TextValidator
+                    className="form-control-item"
+                    variant="outlined"
+                    label="Linkedin"
+                    fullWidth
+                    value={
+                      state.linkedin ? state.linkedin : directorData?.linkedin
+                    }
+                    onChange={inputChange}
+                    name="linkedin"
+                    id="linkedin"
                   />
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-                  {blogData?.description != null ? (
+                  {directorData?.description != null ? (
                     <>
                       <ReactQuill
                         onChange={handleChangeTextEditor}
                         value={
-                          description ? description : blogData?.description
+                          description ? description : directorData?.description
                         }
                         placeholder="Enter description"
                         theme="snow"
@@ -267,14 +302,6 @@ const MenuCreateUpdate = (props) => {
                     accept="image/*"
                   />
                 </Grid>
-                <Grid className="form-group-item" item xs={12} sm={6} md={5}>
-                  <Typography>Banner Image </Typography>
-                  <Dropzone
-                    maxFiles="1"
-                    onChangeStatus={handleBlogBannerUpload}
-                    accept="image/*"
-                  />
-                </Grid>
               </Grid>
               <br />
               <Box className="footer">
@@ -288,7 +315,7 @@ const MenuCreateUpdate = (props) => {
                   Save
                 </Button>
 
-                <Link component={RouterLink} to="/blog">
+                <Link component={RouterLink} to="/director">
                   <Button
                     variant="contained"
                     color="primary"
@@ -308,9 +335,9 @@ const MenuCreateUpdate = (props) => {
 };
 
 function mapStateToProps(state) {
-  const { blog } = state;
+  const { director } = state;
   return {
-    blog,
+    director,
   };
 }
-export default connect(mapStateToProps)(MenuCreateUpdate);
+export default connect(mapStateToProps)(DirectorCreateUpdate);
