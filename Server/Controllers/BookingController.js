@@ -25,7 +25,7 @@ let storage = multer.diskStorage({
     }
 });
 let upload = multer({ storage: storage });
-let { createFeedbackRequest, getFeedbackRequest, getFeedbackForHome, updateFeedbackStatusRequest, getFeedbackDetails, updateFeedbackRequest } = require('./Routes');
+let { createBookingRequest, getBookingListRequest, getBookingForHome, updateBookingStatusRequest, getBookingDetails, updateBookingRequest } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
@@ -39,14 +39,15 @@ module.exports = function (conn) {
         name: 'image', maxCount: 3
     }
     ];
-    router.post('/createFeedback', userAuthMiddleware, upload.fields(pageMedia), createFeedbackRequest(allCollection))
-    router.post('/updateFeedback', userAuthMiddleware, upload.fields(pageMedia), updateFeedbackRequest(allCollection))
-    router.post('/getFeedbackRequest', requestAuthMiddleware, getFeedbackRequest(allCollection))
-    router.post('/getFeedbackForHome', requestAuthMiddleware, getFeedbackForHome(allCollection))
-    router.post('/updateFeedbackStatusRequest', userAuthMiddleware, updateFeedbackStatusRequest(allCollection))
-    router.post('/updateFeedbackStatus', userAuthMiddleware, updateFeedbackStatusRequest(allCollection))
-    router.post('/getFeedbackList', userAuthMiddleware, getFeedbackRequest(allCollection))
-    router.post('/getFeedbackDetails', userAuthMiddleware, getFeedbackDetails(allCollection))
+    router.post('/createBooking', requestAuthMiddleware, createBookingRequest(allCollection))
+    router.post('/getBookingList', userAuthMiddleware, getBookingListRequest(allCollection))
+    // router.post('/updateBooking', userAuthMiddleware, upload.fields(pageMedia), updateBookingRequest(allCollection))
+    // router.post('/getBookingRequest', requestAuthMiddleware, getBookingRequest(allCollection))
+    // router.post('/getBookingForHome', requestAuthMiddleware, getBookingForHome(allCollection))
+    // router.post('/updateBookingStatusRequest', userAuthMiddleware, updateBookingStatusRequest(allCollection))
+    // router.post('/updateBookingStatus', userAuthMiddleware, updateBookingStatusRequest(allCollection))
+
+    // router.post('/getBookingDetails', userAuthMiddleware, getBookingDetails(allCollection))
 
 
     return router;

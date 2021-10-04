@@ -48,10 +48,11 @@ const MenuCreateUpdate = (props) => {
 
   const initialState = {
     name: feedbackData?.name,
-    email: feedbackData?.email,
+    city: feedbackData?.city,
     rating: feedbackData?.rating,
     message: feedbackData?.message,
-    image: "",
+    image: [],
+    iconImage: "",
     id: id,
   };
 
@@ -64,19 +65,22 @@ const MenuCreateUpdate = (props) => {
   };
 
   const handleSubmit = (e) => {
-    const { name, email, id, rating, message, image } = state;
+    const { name, city, id, rating, message, iconImage } = state;
     var data = new FormData();
+    state?.image.forEach((item, index) => {
+      data.append("image", item);
+    });
     if (id === null) {
-      data.append("image", image);
+      data.append("iconImage", iconImage);
       data.append("name", name);
-      data.append("email", email);
+      data.append("city", city);
       data.append("rating", rating);
       data.append("message", message);
       dispatch(FeedbackAction.FeedbackAddRequestAsync(data));
     } else {
-      data.append("image", image);
+      data.append("iconImage", iconImage);
       data.append("name", name);
-      data.append("email", email);
+      data.append("city", city);
       data.append("rating", rating);
       data.append("message", message);
       data.append("_id", id);
@@ -88,9 +92,23 @@ const MenuCreateUpdate = (props) => {
     return new URLSearchParams(useLocation().search);
   }
 
-  const handleBannerUpload = (file, status) => {
+  const handleIconUpload = (file, status) => {
     if (status === "done") {
-      setState({ ...state, ["image"]: file.file });
+      setState({ ...state, ["iconImage"]: file.file });
+    }
+  };
+
+  const handleBannerUpload = (file, status) => {
+    let list = state;
+    let data = [];
+    if (status === "done") {
+      if (list.image && list.image.length) {
+        data = list.image;
+        data[list.image.length] = file.file;
+      } else {
+        data["0"] = file.file;
+      }
+      setState({ ...state, ["image"]: data });
     }
   };
 
@@ -146,14 +164,14 @@ const MenuCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="Email*"
+                    label="City*"
                     fullWidth
-                    value={state.email ? state.email : feedbackData?.email}
+                    value={state.city ? state.city : feedbackData?.city}
                     onChange={inputChange}
-                    name="email"
-                    id="email"
+                    name="city"
+                    id="city"
                     validators={["required"]}
-                    errorMessages={["email field is required"]}
+                    errorMessages={["city field is required"]}
                   />
                 </Grid>
 
@@ -186,9 +204,18 @@ const MenuCreateUpdate = (props) => {
               <br />
               <Grid container spacing={3} className="FormFildes">
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
-                  <Typography>Image </Typography>
+                  <Typography>Icon Image </Typography>
                   <Dropzone
                     maxFiles="1"
+                    onChangeStatus={handleIconUpload}
+                    accept="image/*"
+                  />
+                </Grid>
+
+                <Grid className="form-group-item" item xs={12} sm={6} md={5}>
+                  <Typography>Property Image </Typography>
+                  <Dropzone
+                    maxFiles="3"
                     onChangeStatus={handleBannerUpload}
                     accept="image/*"
                   />

@@ -30,9 +30,11 @@ module.exports = {
     updatePropertyStatusRequest: require('./PropertyModule/updatePropertyStatusModule'),
     propertyCommonHelper: require('./PropertyModule/propertyCommonHelper'),
     createFeedbackRequest: require('./FeedbackModule/createFeedbackModule'),
+    updateFeedbackRequest: require('./FeedbackModule/updateFeedbackModule'),
     getFeedbackRequest: require('./FeedbackModule/getFeedbackListModule'),
     getFeedbackForHome: require('./FeedbackModule/getFeedbackForHomeModule'),
     updateFeedbackStatusRequest: require('./FeedbackModule/updateFeedbackStatusModule'),
+    getFeedbackDetails: require('./FeedbackModule/getFeedbackDetailsModule'),
     exteriorImage: require('./PropertyModule/exteriorImageModule'),
     getUserIdPropertyList: require('./PropertyModule/getUserPropertyListModule'),
     getSearchPropertyList: require('./PropertyModule/searchPropertyModule'),
@@ -74,5 +76,10 @@ module.exports = {
     createSiteVisitRequest: require('./SiteVisitModule/createSiteVisitModule'),
     getSiteVisitRequest: require('./SiteVisitModule/getSiteVisitListModule'),
     updateSiteVisitStatusRequest: require('./SiteVisitModule/updateSiteVisitStatusModule'),
+    //////////////////////
+    ///// Booking  ///////
+    //////////////////////
+    createBookingRequest: require('./BookingModule/createBookingModule'),
+    getBookingListRequest: require('./BookingModule/getBookingListModule'),
 
 }

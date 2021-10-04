@@ -47,7 +47,7 @@ const MenuCreateUpdate = (props) => {
     metaKeywords: dealingData?.metaKeywords,
     metaDescription: dealingData?.metaDescription,
     image: [],
-    video: "",
+    // video: "",
     id: id,
   };
 
@@ -67,7 +67,7 @@ const MenuCreateUpdate = (props) => {
       metaTitle,
       metaKeywords,
       metaDescription,
-      video,
+      // video,
     } = state;
 
     var data = new FormData();
@@ -75,7 +75,7 @@ const MenuCreateUpdate = (props) => {
       data.append("image", item);
     });
     if (id === null) {
-      data.append("video", video);
+      // data.append("video", video);
       data.append("title", title);
       data.append("header", header);
       data.append("description", description);
@@ -85,7 +85,7 @@ const MenuCreateUpdate = (props) => {
 
       dispatch(DealingAction.DealingAddRequestAsync(data));
     } else {
-      data.append("video", video);
+      // data.append("video", video);
       data.append("title", title);
       data.append("header", header);
       data.append("description", description);
@@ -102,19 +102,19 @@ const MenuCreateUpdate = (props) => {
     setDescription(content);
   };
 
-  const handleImageExteriorView = (file, status) => {
-    let list = state;
-    let data = [];
-    if (status === "done") {
-      if (list.image && list.image.length) {
-        data = list.image;
-        data[list.image.length] = file.file;
-      } else {
-        data["0"] = file.file;
-      }
-      setState({ ...state, ["image"]: data });
-    }
-  };
+  // const handleImageExteriorView = (file, status) => {
+  //   let list = state;
+  //   let data = [];
+  //   if (status === "done") {
+  //     if (list.image && list.image.length) {
+  //       data = list.image;
+  //       data[list.image.length] = file.file;
+  //     } else {
+  //       data["0"] = file.file;
+  //     }
+  //     setState({ ...state, ["image"]: data });
+  //   }
+  // };
 
   const handleVideouplaod = (file, status) => {
     if (status === "done") {
@@ -265,13 +265,13 @@ const MenuCreateUpdate = (props) => {
               <SubHeading heading={"Upload Image"} />
               <br />
               <Grid container spacing={3} className="FormFildes">
-                <Grid className="form-group-item" item xs={12} sm={6} md={5}>
+                {/* <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Image </Typography>
                   <Dropzone
                     onChangeStatus={handleImageExteriorView}
                     accept="image/*,audio/*,video/*"
                   />
-                </Grid>
+                </Grid> */}
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Video </Typography>
                   <Dropzone

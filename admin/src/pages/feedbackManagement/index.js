@@ -97,7 +97,6 @@ const FeedbackList = (props) => {
                   index + 1,
                   item.name,
                   item.rating,
-                  item.status,
                   item.message,
                   item.status,
                   item._id,
@@ -126,15 +125,15 @@ const FeedbackList = (props) => {
                           <EditIcon
                             style={{ color: "#0069d9", cursor: "pointer" }}
                             onClick={() =>
-                              updatehandleOpenCreateModal(tableMeta.rowData[4])
+                              updatehandleOpenCreateModal(tableMeta.rowData[5])
                             }
                           />
 
-                          {tableMeta.rowData[3] ? (
+                          {tableMeta.rowData[4] ? (
                             <Tooltip title="Active">
                               <Done
                                 onClick={() =>
-                                  onDisable(tableMeta.rowData[4], false)
+                                  onDisable(tableMeta.rowData[5], false)
                                 }
                                 style={{ color: "#1e7e34", cursor: "pointer" }}
                               />
@@ -143,7 +142,7 @@ const FeedbackList = (props) => {
                             <Tooltip title="Inactive">
                               <ClearIcon
                                 onClick={() =>
-                                  onDisable(tableMeta.rowData[4], true)
+                                  onDisable(tableMeta.rowData[5], true)
                                 }
                                 style={{ color: "#bd2130", cursor: "pointer" }}
                               />
@@ -152,7 +151,7 @@ const FeedbackList = (props) => {
 
                           <DeleteIcon
                             style={{ color: "#bd2130", cursor: "pointer" }}
-                            onClick={() => onDeleteClick(tableMeta.rowData[4])}
+                            onClick={() => onDeleteClick(tableMeta.rowData[5])}
                           />
                         </>
                       );

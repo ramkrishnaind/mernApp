@@ -8,16 +8,41 @@ const schema = new Schema({
         required: true,
         trim: true
     },
+    mobile: {
+        type: Number,
+        required: true,
+        trim: true
+    },
+    email: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    country: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    state: {
+        type: String,
+        required: true,
+        trim: true
+    },
     city: {
         type: String,
         required: true,
         trim: true
     },
-    message: {
+    pinCode: {
+        type: Number,
+        required: true,
+        trim: true
+    },
+    panCard: {
         type: String,
         required: true
     },
-    rating: {
+    bookingAmount: {
         type: Number,
         required: true
     },
@@ -26,8 +51,10 @@ const schema = new Schema({
         ref: 'property',
         default: null
     },
-    image: {
-        type: Array
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
+        default: null
     },
     status: {
         type: Boolean,
@@ -48,7 +75,7 @@ const schema = new Schema({
         virtuals: true
     }
 }, {
-    collection: 'feedback'
+    collection: 'booking'
 }
 );
 

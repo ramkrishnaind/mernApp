@@ -336,8 +336,53 @@ function getSearchTerms(Models) {
     async function cities(req, res) {
         try {
 
-            let data = ['jaipur', 'gurugram'];
-            res.send({ status: true, message: "Properties Data for Home Page", data });
+            let data = await Models.PFeaturesDB.distinct("address.city").sort();
+            res.send({ status: true, message: "Cities data for filter", data });
+        }
+        catch (e) {
+            console.log('Getting list err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Getting list" });
+        }
+    }
+    return cities;
+}
+function getsearchMinMax(Models) {
+    async function cities(req, res) {
+        try {
+            let minPrice = await Models.PPriceDB.aggregate(
+                [
+                    {
+                        $group:
+                        {
+                            _id: {},
+                            min: { $min: "$expectedPrice" }
+                        }
+                    }
+                ]
+            );
+            let maxPrice = await Models.PPriceDB.aggregate(
+                [
+                    {
+                        $group:
+                        {
+                            _id: {},
+                            max: { $max: "$expectedPrice" }
+                        }
+                    }
+                ]
+            );
+            let data = await Promise.all([minPrice, maxPrice]).then(values => {
+                console.log(values[1]);
+                let result = {};
+                result.minAmount = values[0][0].min;
+                result.maxAmount = values[1][0].max;
+                console.log('values[0].min', values[0][0].min)
+                console.log('values[1].max', values[1][0].max)
+                console.log('result is', result)
+                return result;
+            });
+
+            res.send({ status: true, message: "Properties Min and Max Values", data });
         }
         catch (e) {
             console.log('Getting list err', e);
@@ -353,7 +398,8 @@ module.exports = {
     deleteProperty,
     getHomeAllProperty,
     getPropertyLatLong,
-    getSearchTerms
+    getSearchTerms,
+    getsearchMinMax
     // createUserFunc: createUserHelper,
     // getAllUserFunc: getAllUserHelper,
     // getUserFunc: getUserHelper,

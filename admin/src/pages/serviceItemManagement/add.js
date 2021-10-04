@@ -48,7 +48,7 @@ const MenuCreateUpdate = (props) => {
     shortDescription: serviceItemData?.shortDescription,
     id: id,
     banner: "",
-    video: "",
+    // video: "",
     image: [],
   };
 
@@ -69,7 +69,7 @@ const MenuCreateUpdate = (props) => {
       shortDescription,
       id,
       banner,
-      video,
+      // video,
     } = state;
 
     var data = new FormData();
@@ -85,7 +85,7 @@ const MenuCreateUpdate = (props) => {
       data.append("shortDescription", shortDescription);
 
       data.append("banner", banner);
-      data.append("video", video);
+      // data.append("video", video);
       dispatch(ServiceItemAction.ServiceItemAddRequestAsync(data));
     } else {
       data.append("title", title);
@@ -96,7 +96,7 @@ const MenuCreateUpdate = (props) => {
       data.append("shortDescription", shortDescription);
 
       data.append("banner", banner);
-      data.append("video", video);
+      // data.append("video", video);
       data.append("_id", id);
       dispatch(ServiceItemAction.ServiceItemUpdateRequestAsync(data));
     }
@@ -120,11 +120,11 @@ const MenuCreateUpdate = (props) => {
     }
   };
 
-  const handleVideouplaod = (file, status) => {
-    if (status === "done") {
-      setState({ ...state, ["video"]: file.file });
-    }
-  };
+  // const handleVideouplaod = (file, status) => {
+  //   if (status === "done") {
+  //     setState({ ...state, ["video"]: file.file });
+  //   }
+  // };
 
   const handleBannerUpload = (file, status) => {
     if (status === "done") {
@@ -299,14 +299,14 @@ const MenuCreateUpdate = (props) => {
                   />
                 </Grid>
 
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                {/* <Grid className="form-group-item" item xs={12} sm={6} md={4}>
                   <Typography>Video </Typography>
                   <Dropzone
                     maxFiles="1"
                     onChangeStatus={handleVideouplaod}
                     accept="video/*"
                   />
-                </Grid>
+                </Grid> */}
               </Grid>
               <br />
               <Box className="footer">

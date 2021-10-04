@@ -29,4 +29,6 @@ module.exports = function (mongoose) {
     mongoose.model('address', require('./schema/address'));
     mongoose.model('socialMedia', require('./schema/socialMedia'));
     mongoose.model('jobApplication', require('./schema/jobApplication'));
+    mongoose.model('newsLetterSubscribers', require('./schema/newsLetterSubscribers'));
+    mongoose.model('booking', require('./schema/booking'));
 }

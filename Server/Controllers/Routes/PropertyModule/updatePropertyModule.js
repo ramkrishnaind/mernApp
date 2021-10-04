@@ -44,7 +44,11 @@ const moduleSchema = Joi.object({
     isPostedByAdmin: Joi.boolean(),
     userId: Joi.objectId(),
     totalArea: Joi.number(),
-    tag: Joi.string()
+    propertyTag: Joi.string(),
+    transactionType: Joi.string(),
+    gaurdRoom: Joi.boolean(),
+    description: Joi.string(),
+    buildYear: Joi.number(),
 });
 
 
@@ -66,7 +70,8 @@ function updatePropertyRequest(Models) {
                 "isCarParkingIncluded", "isClubMemberShipIncluded", "otherCharges", "isStumpDutyRCExcluded",
                 "bookingAmount", "maintenanceCharge", "maintenanceFor", "brokerageCharge", "amenities", "latitude",
                 "longitude", "address", "city", "State", "pinCode", "propertTag", "isPostedByAdmin", "propertyDetails",
-                "userId", "totalArea", "tag"]);
+                "userId", "totalArea", "propertyTag", "description", "gaurdRoom",
+                "buildYear"]);
             // searching email or mobile already exists or not
             // let findData = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
             if (bodyData.isPostedByAdmin) {
@@ -100,6 +105,10 @@ function updatePropertyRequest(Models) {
                 brokerageCharge: bodyData.brokerageCharge,
                 amenities: bodyData.amenities,
                 propertTag: bodyData.propertTag,
+                description: bodyData.description,
+                gaurdRoom: bodyData.gaurdRoom,
+                buildYear: bodyData.buildYear,
+                propertyTag: bodyData.propertyTag,
                 address: {
                     latitude: bodyData.latitude,
                     longitude: bodyData.longitude,
@@ -118,9 +127,20 @@ function updatePropertyRequest(Models) {
                 tag: bodyData.tag,
                 userId: bodyData.userId
             };
+            const priceSchema = {
+                expectedPrice: bodyData.expectedPrice,
+                pricePerSqft: bodyData.pricePerSqFt,
+                otherCharges: bodyData.otherCharges,
+                isStumpDutyRCExcluded: bodyData.isStumpDutyRCExcluded,
+                bookingAmount: bodyData.bookingAmount,
+                maintenanceCharge: bodyData.maintenanceCharge,
+                maintenanceFor: bodyData.maintenanceFor,
+                brokerage: bodyData.brokerageCharge,
+            };
 
-            let saveModule = await new Models.PropertyDB.findOneAndUpdate({ _id: bodyData._id }, { $set: bodyData });
-            let featureSchemaModule = await new Models.PFeaturesDB(moduleFeatureSchema).save();
+            let saveModule = await new Models.PropertyDB.findOneAndUpdate({ _id: bodyData.propertyId }, { $set: bodyData });
+            let featureSchemaModule = await new Models.PFeaturesDB.findOneAndUpdate({ propertyId: bodyData.propertyId }, { $set: moduleFeatureSchema });
+            let priceSchemaModule = await new Models.PPriceDB.findOneAndUpdate({ propertyId: bodyData.propertyId }, { $set: priceSchema });
             console.log('saveModule is', featureSchemaModule)
             res.send({ status: true, propertyId: saveModule._id, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
         }

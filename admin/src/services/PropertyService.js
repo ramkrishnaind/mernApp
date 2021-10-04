@@ -220,8 +220,8 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
 
     dispatch(PropertyAction.PropertyAddSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
-    // history.push("/property");
-    // window.location.reload();
+    history.push("/property");
+    window.location.reload();
   } catch (error) {
     dispatch(PropertyAction.PropertyAddError(error));
     dispatch(

@@ -5,6 +5,7 @@ Joi.objectId = require('joi-objectid')(Joi)
 const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
+    _id: Joi.string().required(),
     name: Joi.string().required(),
     city: Joi.string().required(),
     rating: Joi.number().required(),
@@ -12,8 +13,8 @@ const moduleSchema = Joi.object({
     message: Joi.string().required()
 });
 
-function createFeedbackRequest(Models) {
-    async function create(req, res) {
+function updateFeedbackRequest(Models) {
+    async function update(req, res) {
         try {
             // console.log(req.sessionID)
             // validate data using joi
@@ -24,7 +25,7 @@ function createFeedbackRequest(Models) {
 
             // pick data from req.body
 
-            let bodyData = _.pick(req.body, ["name", "rating", "city", "propertyId", "message"]);
+            let bodyData = _.pick(req.body, ["_id", "name", "rating", "city", "propertyId", "message"]);
             // searching email or mobile already exists or not
             // let findData = await Models.FeedbackDB.findOne({ email: bodyData.email });
             // if (findData) {
@@ -32,15 +33,22 @@ function createFeedbackRequest(Models) {
             //     throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateModule: true, statusCode: 401 };
             // }
             bodyData.image = req.files;
-            let saveModule = await new Models.FeedbackDB(bodyData).save();
-            console.log('saveModule is', saveModule)
-            res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
+            let setData = {
+                name: bodyData.name,
+                rating: bodyData.rating,
+                city: bodyData.city,
+                propertyId: bodyData.propertyId,
+                message: bodyData.message,
+            }
+            let updateModule = await Models.FeedbackDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
+            console.log('updateModule is', updateModule)
+            res.send({ status: true, message: CONSTANTSMESSAGE.UPDATE_SUCCESS_MESSAGE });
         }
         catch (e) {
             console.log('saveModule err', e);
             await errorResponseHelper({ res, error: e, defaultMessage: "Error in saveModule" });
         }
     }
-    return create;
+    return update;
 }
-module.exports = createFeedbackRequest;
+module.exports = updateFeedbackRequest;

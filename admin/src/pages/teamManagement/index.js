@@ -119,8 +119,8 @@ const TeamList = (props) => {
                   name: "Status",
                   options: {
                     customBodyRender: (value, tableMeta, updateValue) => {
-                      if (value === true) return "Active";
-                      else return "Inactive";
+                      if (value === true) return "Inactive";
+                      else return "Active";
                     },
                   },
                 },
@@ -138,21 +138,21 @@ const TeamList = (props) => {
                           />
 
                           {tableMeta.rowData[8] ? (
-                            <Tooltip title="Active">
-                              <Done
-                                onClick={() =>
-                                  onDisable(tableMeta.rowData[9], false)
-                                }
-                                style={{ color: "#1e7e34", cursor: "pointer" }}
-                              />
-                            </Tooltip>
-                          ) : (
                             <Tooltip title="Inactive">
                               <ClearIcon
                                 onClick={() =>
-                                  onDisable(tableMeta.rowData[9], true)
+                                  onDisable(tableMeta.rowData[9], false)
                                 }
                                 style={{ color: "#bd2130", cursor: "pointer" }}
+                              />
+                            </Tooltip>
+                          ) : (
+                            <Tooltip title="Active">
+                              <Done
+                                onClick={() =>
+                                  onDisable(tableMeta.rowData[9], true)
+                                }
+                                style={{ color: "#1e7e34", cursor: "pointer" }}
                               />
                             </Tooltip>
                           )}

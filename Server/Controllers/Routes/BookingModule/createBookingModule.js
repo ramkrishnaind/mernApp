@@ -5,14 +5,21 @@ Joi.objectId = require('joi-objectid')(Joi)
 const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
+    propertyId: Joi.objectId().trim().required(),
     name: Joi.string().required(),
+    email: Joi.string().required(),
+    mobile: Joi.number().required(),
+    panCard: Joi.string().required(),
+    country: Joi.string().required(),
+    state: Joi.string().required(),
     city: Joi.string().required(),
-    rating: Joi.number().required(),
-    propertyId: Joi.string().allow('null'),
-    message: Joi.string().required()
+    pinCode: Joi.number().required(),
+    bookingAmount: Joi.number().required(),
+    userId: Joi.objectId().trim().required(),
+    tandc: Joi.boolean().required().allow(true),
 });
 
-function createFeedbackRequest(Models) {
+function createBookingRequest(Models) {
     async function create(req, res) {
         try {
             // console.log(req.sessionID)
@@ -24,15 +31,9 @@ function createFeedbackRequest(Models) {
 
             // pick data from req.body
 
-            let bodyData = _.pick(req.body, ["name", "rating", "city", "propertyId", "message"]);
-            // searching email or mobile already exists or not
-            // let findData = await Models.FeedbackDB.findOne({ email: bodyData.email });
-            // if (findData) {
-            //     // if data found check 
-            //     throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateModule: true, statusCode: 401 };
-            // }
-            bodyData.image = req.files;
-            let saveModule = await new Models.FeedbackDB(bodyData).save();
+            let bodyData = _.pick(req.body, ["propertyId", "userId", "name", "email", "mobile", "panCard", "country", "state", "city", "pinCode", "bookingAmount"]);
+
+            let saveModule = await new Models.BookingDB(bodyData).save();
             console.log('saveModule is', saveModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
         }
@@ -43,4 +44,4 @@ function createFeedbackRequest(Models) {
     }
     return create;
 }
-module.exports = createFeedbackRequest;
+module.exports = createBookingRequest;
