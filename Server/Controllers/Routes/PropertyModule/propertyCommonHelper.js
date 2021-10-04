@@ -336,8 +336,8 @@ function getSearchTerms(Models) {
     async function cities(req, res) {
         try {
 
-            let data = ['jaipur', 'gurugram'];
-            res.send({ status: true, message: "Properties Data for Home Page", data });
+            let data = await Models.PFeaturesDB.distinct("address.city").sort();
+            res.send({ status: true, message: "Cities data for filter", data });
         }
         catch (e) {
             console.log('Getting list err', e);
