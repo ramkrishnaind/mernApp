@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './login.css';
 import {
   Grid,
@@ -15,8 +15,8 @@ import bannerImage from "../../images/banner-2.jpeg";
 import googleIcon from "../../images/icon-google.png";
 import facebookIcon from "../../images/facebook.png";
 import * as LoginAction from "../../redux/actions/LoginAction";
-import { useDispatch } from "react-redux";
-import { Link as RouterLink } from 'react-router-dom';
+import {useDispatch} from "react-redux";
+import {Link as RouterLink} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   bannerContainer: {
@@ -116,12 +116,12 @@ const LoginPage = props => {
   const [state, setState] = useState(initialState);
 
   const inputChange = (e) => {
-    let { name, value } = e.target;
+    let {name, value} = e.target;
 
-    setState({ ...state, [name]: value });
+    setState({...state, [name]: value});
   };
   const loginSubmit = (e) => {
-    const { email, password } = state;
+    const {email, password} = state;
     let reqData = {
       email: email,
       password: password,
@@ -131,7 +131,7 @@ const LoginPage = props => {
   };
   const handleChange = e => {
     //
-  }
+  };
 
   return (
     <div
@@ -163,7 +163,7 @@ const LoginPage = props => {
                 }
               }}
             />
-            <Box style={{ height: 20 }} />
+            <Box style={{height: 20}} />
             <TextField
               className={classes.textField}
               placeholder="Password"
@@ -202,7 +202,7 @@ const LoginPage = props => {
             <Paper className={classes.iconContainer}>
               <img src={facebookIcon} className={classes.icon} />
             </Paper>
-            <Box style={{ width: 10 }}></Box>
+            <Box style={{width: 10}}></Box>
             <Paper className={classes.iconContainer}>
               <img src={googleIcon} className={classes.icon} />
             </Paper>
@@ -214,6 +214,6 @@ const LoginPage = props => {
       </Paper>
     </div>
   );
-}
+};
 
 export default LoginPage;

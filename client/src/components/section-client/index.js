@@ -60,7 +60,7 @@ const SectionClient = props => {
             <Grid item xs={12} md={6}>
                 <Box className="client-video-block">
                     {
-                        media && (media[0].video[0].length === 0 ?
+                        media && (media[0]?.video[0]?.length === 0 ?
                             <img src={ApiClient.SERVER_ADDRESS + "/" + media[0].image[0].path} alt="" />
                             :
                             <video className="client-video" playsInLine="playsinline" autoPlay="autoplay" muted="muted" loop="loop">

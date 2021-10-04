@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import './register.css';
 import {
   Grid,
@@ -14,12 +14,12 @@ import bannerImage from "../../images/banner-2.jpeg";
 // import FacebookIcon from '@material-ui/icons/Facebook';
 // import googleIcon from "../../images/icon-google.png";
 // import facebookIcon from "../../images/facebook.png";
-import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
 import * as RegisterAction from "../../redux/actions/RegisterAction";
 import * as Snackbar from "../../redux/actions/SnackbarActions";
-import { useDispatch } from "react-redux";
-import { Link as RouterLink } from 'react-router-dom';
+import {useDispatch} from "react-redux";
+import {Link as RouterLink} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   bannerContainer: {
@@ -129,18 +129,18 @@ const RegisterPage = props => {
   const [country, setCountry] = useState("+91");
 
   const handleChange = (event, isChecked) => {
-    let value = event.target.value
-  }
+    let value = event.target.value;
+  };
 
   const inputChange = (e) => {
 
-    let { name, value } = e.target;
-    setState({ ...states, [name]: value });
+    let {name, value} = e.target;
+    setState({...states, [name]: value});
   };
 
   const handleSubmit = (e) => {
 
-    const { email, password, fname, lname, phone, cpassword } = states;
+    const {email, password, fname, lname, phone, cpassword} = states;
     if (password === cpassword) {
       let reqData = {
         firstName: fname,
@@ -191,7 +191,7 @@ const RegisterPage = props => {
                 }
               }}
             />
-            <Box style={{ height: 20 }} />
+            <Box style={{height: 20}} />
             <TextField
               className={classes.textField}
               placeholder="Last name"
@@ -206,7 +206,7 @@ const RegisterPage = props => {
                 }
               }}
             />
-            <Box style={{ height: 20 }} />
+            <Box style={{height: 20}} />
             <TextField
               className={classes.textField}
               placeholder="Email"
@@ -222,7 +222,7 @@ const RegisterPage = props => {
                 }
               }}
             />
-            <Box style={{ height: 20 }} />
+            <Box style={{height: 20}} />
             <TextField
               className={classes.textField}
               placeholder="Password"
@@ -238,7 +238,7 @@ const RegisterPage = props => {
                 }
               }}
             />
-            <Box style={{ height: 20 }} />
+            <Box style={{height: 20}} />
             <TextField
               className={classes.textField}
               placeholder="Confirm Password"
@@ -254,7 +254,7 @@ const RegisterPage = props => {
                 }
               }}
             />
-            <Box style={{ height: 20 }} />
+            <Box style={{height: 20}} />
             <Grid container spacing={1}>
               <Grid item xs={12} sm={2}>
                 <PhoneInput
@@ -289,7 +289,7 @@ const RegisterPage = props => {
           </Grid>
           <Grid item xs={12} md={12}>
             <Checkbox checked={termsOfUsePrivacyPolicy} onChange={handleChange} name="terms_n_conditions" />
-            I accept the <Link className={classes.text3}>Terms of Use</Link> & <Link className={classes.text3}>Privacy Policy</Link>
+            I accept the <Link className={classes.text3} to='/'>Terms of Use</Link> & <Link to='/' className={classes.text3}>Privacy Policy</Link>
           </Grid>
           <Grid item xs={12} md={12}>
             <Button variant="contained" onClick={handleSubmit} className={classes.btn2} >Register</Button>
@@ -301,6 +301,6 @@ const RegisterPage = props => {
       </Paper>
     </div>
   );
-}
+};
 
 export default RegisterPage;
