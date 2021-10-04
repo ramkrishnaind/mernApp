@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 import {
   Grid,
@@ -9,13 +9,13 @@ import {
   Link,
   Checkbox,
 } from "@material-ui/core";
-import { connect } from "react-redux";
-import { withStyles } from "@material-ui/styles";
+import {connect} from "react-redux";
+import {withStyles} from "@material-ui/styles";
 import loginImage from "./adminLogin.jpg";
 import * as RegisterAction from "../../redux/actions/RegisterAction";
 
-import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
 import {Link as RouterLink} from 'react-router-dom';
 
 const styles = (theme) => ({
@@ -96,7 +96,7 @@ const styles = (theme) => ({
   tab: {
     fontWeight: 400,
     fontSize: 18,
-  },  
+  },
   checkbox: {
     position: "relative",
     left: -9,
@@ -201,7 +201,7 @@ const styles = (theme) => ({
     color: "white",
   },
 
-  PhoneInput:{
+  PhoneInput: {
     marginTop: theme.spacing(3),
   },
 
@@ -214,24 +214,24 @@ const Register = (props) => {
   const initialState = {
     email: "",
     password: "",
-    fname:"",
-    lname:"",
-    phone:"",
+    fname: "",
+    lname: "",
+    phone: "",
   };
-  
+
   const [state, setState] = useState(initialState);
   const [country, setCountry] = useState("+91");
-  
-  const inputChange = (e) => {
-    let { name, value } = e.target;
 
-    setState({ ...state, [name]: value });
+  const inputChange = (e) => {
+    let {name, value} = e.target;
+
+    setState({...state, [name]: value});
   };
 
-  
+
   const handleSubmit = (e) => {
-    
-    const { email, password,fname,lname,phone } = state;
+
+    const {email, password, fname, lname, phone} = state;
 
     let reqData = {
       firstName: fname,
@@ -249,7 +249,7 @@ const Register = (props) => {
     // props.dispatch(userActions.login({ fname: email, password }));
   };
 
-  const { classes } = props;
+  const {classes} = props;
   return (
     <Grid container className={classes.container}>
       <div className={classes.formContainer}>
@@ -275,7 +275,7 @@ const Register = (props) => {
               type="text"
               fullWidth
             />
-            
+
             <TextField
               id="lname"
               variant="outlined"
@@ -331,28 +331,28 @@ const Register = (props) => {
                   countryCallingCodeEditable={false}
                   defaultCountry="IN"
                   value={country}
-                  onChange={setCountry}/>
+                  onChange={setCountry} />
               </Grid>
               <Grid item xs={12} sm={10}>
 
-              <TextField
-                id="mobile"
-                variant="outlined"
-                name="phone"
-                className={classes.textField}
-                label="Mobile"
-                value={state.phone}
-                onChange={inputChange}
-                margin="normal"
-                placeholder="Mobile number"
-                type="number"
-                fullWidth
-              />
+                <TextField
+                  id="mobile"
+                  variant="outlined"
+                  name="phone"
+                  className={classes.textField}
+                  label="Mobile"
+                  value={state.phone}
+                  onChange={inputChange}
+                  margin="normal"
+                  placeholder="Mobile number"
+                  type="number"
+                  fullWidth
+                />
               </Grid>
             </Grid>
-            
-{/* Signup k time userRole me Ye Id Send karn hha    60e84c1c8494c904475e827 OKK  */}
-            
+
+            {/* Signup k time userRole me Ye Id Send karn hha    60e84c1c8494c904475e827 OKK  */}
+
 
             <Grid container>
               <Grid item xs>
@@ -360,10 +360,10 @@ const Register = (props) => {
                   <Checkbox
                     className={classes.checkbox}
                     value="checkedA"
-                    inputProps={{ "aria-label": "Checkbox A" }}
+                    inputProps={{"aria-label": "Checkbox A"}}
                   />
                   <Link
-                    href="#"
+                    to="/"
                     variant="body2"
                     className={classes.alignCheckboxHeading}
                   >
@@ -372,7 +372,7 @@ const Register = (props) => {
                 </Grid>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link to="#" variant="body2">
                   Forget password?
                 </Link>
               </Grid>
@@ -398,23 +398,23 @@ const Register = (props) => {
           </React.Fragment>
         </div>
         <Typography color="primary" className={classes.createAccount}>
-        Already have an Account? <Link component={RouterLink} to="/login">Login</Link>
+          Already have an Account? <Link component={RouterLink} to="/login">Login</Link>
         </Typography>
       </div>
 
       <div className={classes.logotypeContainer}>
         {/* <img src={logo} alt="logo" className={classes.logotypeImage} /> */}
       </div>
-      
+
     </Grid>
-    
+
   );
 };
 
 function mapStateToProps(state) {
   console.log("state  ", state);
   // const { loggingIn } = state.authentication;
-  const { users } = state;
+  const {users} = state;
   return {
     // loggingIn,
     users,

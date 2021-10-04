@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 import {
   Grid,
@@ -11,12 +11,12 @@ import {
   Checkbox,
 } from "@material-ui/core";
 
-import { connect } from "react-redux";
-import { withStyles } from "@material-ui/styles";
+import {connect} from "react-redux";
+import {withStyles} from "@material-ui/styles";
 
 import loginImage from "./adminLogin.jpg";
-import { LoginRequestAsync } from "../../redux/actions/LoginAction";
-import { Link as RouterLink } from 'react-router-dom';
+import {LoginRequestAsync} from "../../redux/actions/LoginAction";
+import {Link as RouterLink} from 'react-router-dom';
 
 const styles = (theme) => ({
   container: {
@@ -211,17 +211,17 @@ const Login = (props) => {
   // props.dispatch(LoginAction.logout());
 
   const inputChange = (e) => {
-    let { name, value } = e.target;
+    let {name, value} = e.target;
 
-    setState({ ...state, [name]: value });
+    setState({...state, [name]: value});
   };
   const loginSubmit = (e) => {
-    const { email, password } = state;
-    console.log(state)
-    props.dispatch(LoginRequestAsync({ email: email, password }));
+    const {email, password} = state;
+    console.log(state);
+    props.dispatch(LoginRequestAsync({email: email, password}));
   };
 
-  const { classes } = props;
+  const {classes} = props;
   return (
     <>
       <Grid container className={classes.container}>
@@ -229,10 +229,10 @@ const Login = (props) => {
           <div className={classes.form}>
             <Typography className={classes.mainHeading}>
               Vishal Properties
-          </Typography>
+            </Typography>
             <Typography className={classes.welcomeHeading}>
               Welcome back!
-          </Typography>
+            </Typography>
             <Typography>Happy to see you again!</Typography>
             <React.Fragment>
               <TextField
@@ -272,15 +272,15 @@ const Login = (props) => {
                     <Checkbox
                       className={classes.checkbox}
                       value="checkedA"
-                      inputProps={{ "aria-label": "Checkbox A" }}
+                      inputProps={{"aria-label": "Checkbox A"}}
                     />
                     <Link
-                      href="#"
+                      to="#"
                       variant="body2"
                       className={classes.alignCheckboxHeading}
                     >
                       Keep me signed in
-                  </Link>
+                    </Link>
                   </Grid>
                 </Grid>
                 <Grid item>
@@ -291,19 +291,19 @@ const Login = (props) => {
                 {false ? (
                   <CircularProgress size={26} className={classes.loginLoader} />
                 ) : (
-                    <Button
-                      fullWidth
-                      disabled={
-                        state?.email?.length === 0 || state?.password?.length === 0
-                      }
-                      onClick={loginSubmit}
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                    >
-                      Login
-                    </Button>
-                  )}
+                  <Button
+                    fullWidth
+                    disabled={
+                      state?.email?.length === 0 || state?.password?.length === 0
+                    }
+                    onClick={loginSubmit}
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                  >
+                    Login
+                  </Button>
+                )}
               </div>
             </React.Fragment>
           </div>
@@ -325,7 +325,7 @@ const Login = (props) => {
 function mapStateToProps(state) {
   console.log("state  ", state);
   // const { loggingIn } = state.Login.data;
-  const { users } = state;
+  const {users} = state;
   return {
     // loggingIn,
     users,
