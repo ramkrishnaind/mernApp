@@ -140,7 +140,7 @@ function updatePropertyRequest(Models) {
 
             let saveModule = await new Models.PropertyDB.findOneAndUpdate({ _id: bodyData.propertyId }, { $set: bodyData });
             let featureSchemaModule = await new Models.PFeaturesDB.findOneAndUpdate({ propertyId: bodyData.propertyId }, { $set: moduleFeatureSchema });
-            let featureSchemaModule = await new Models.PPriceDB.findOneAndUpdate({ propertyId: bodyData.propertyId }, { $set: priceSchema });
+            let priceSchemaModule = await new Models.PPriceDB.findOneAndUpdate({ propertyId: bodyData.propertyId }, { $set: priceSchema });
             console.log('saveModule is', featureSchemaModule)
             res.send({ status: true, propertyId: saveModule._id, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
         }

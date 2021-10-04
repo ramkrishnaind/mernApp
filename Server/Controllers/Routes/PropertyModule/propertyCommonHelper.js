@@ -349,9 +349,40 @@ function getSearchTerms(Models) {
 function getsearchMinMax(Models) {
     async function cities(req, res) {
         try {
+            let minPrice = await Models.PPriceDB.aggregate(
+                [
+                    {
+                        $group:
+                        {
+                            _id: {},
+                            min: { $min: "$expectedPrice" }
+                        }
+                    }
+                ]
+            );
+            let maxPrice = await Models.PPriceDB.aggregate(
+                [
+                    {
+                        $group:
+                        {
+                            _id: {},
+                            max: { $max: "$expectedPrice" }
+                        }
+                    }
+                ]
+            );
+            let data = await Promise.all([minPrice, maxPrice]).then(values => {
+                console.log(values[1]);
+                let result = {};
+                result.minAmount = values[0][0].min;
+                result.maxAmount = values[1][0].max;
+                console.log('values[0].min', values[0][0].min)
+                console.log('values[1].max', values[1][0].max)
+                console.log('result is', result)
+                return result;
+            });
 
-            let data = { minPrice: 500000, maxPrice: 100000000 };
-            res.send({ status: true, message: "Properties Data for Home Page", data });
+            res.send({ status: true, message: "Properties Min and Max Values", data });
         }
         catch (e) {
             console.log('Getting list err', e);

@@ -76,5 +76,10 @@ module.exports = {
     createSiteVisitRequest: require('./SiteVisitModule/createSiteVisitModule'),
     getSiteVisitRequest: require('./SiteVisitModule/getSiteVisitListModule'),
     updateSiteVisitStatusRequest: require('./SiteVisitModule/updateSiteVisitStatusModule'),
+    //////////////////////
+    ///// Booking  ///////
+    //////////////////////
+    createBookingRequest: require('./BookingModule/createBookingModule'),
+    getBookingListRequest: require('./BookingModule/getBookingListModule'),
 
 }
