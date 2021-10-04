@@ -21,6 +21,8 @@
 .social_icon:hover {
     animation: flip;
     animation-duration: 2s;
+	height: 21px!important;
+	width: 21px!important;
 }
 .footerSplit{ display: none !important;}
 
@@ -76,18 +78,24 @@
 	bottom: 114px;
 	left: 3px;
 }
-.fixed-social a {
+.fixed-social a,.social_icon a {
 	color: #fff;
 	display: block;
-	height: 40px;
+	height: 40px!important;
 	position: relative;
 	text-align: center;
 	line-height: 40px;
-	width: 40px;
+	width: 40px!important;
 	margin-bottom: 1px;
 	z-index: 2;
 	border-radius: 50%;
 }
+
+.social_icon a i{
+	height: 40px!important;
+	width: 40px!important;
+}
+
 .fixed-social a:hover{
     opacity:0.5;
 } 
@@ -109,6 +117,19 @@
 .fixed-tumblr{
     background-color: #2392fd;
 }
+
+.fixed-youtube{
+    background-color: #ff0300;
+}
+
+.social-media-group{
+	padding-tOp: 20px;
+}
+.social-media-group .social_icon{
+	margin-right: 28px;
+}
+
+
 .animatebtn a {
     animation: dot-pulse-idle 4s cubic-bezier(0.19, 1, 0.22, 1) infinite both;
 }

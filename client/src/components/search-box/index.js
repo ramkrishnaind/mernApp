@@ -50,6 +50,7 @@ const SearchBox = (props) => {
     const [maxAmount, setMaxBudget] = useState('');
     const [keyword, setkeyword] = useState('');
     const [cityOptions, setCityOptions] = useState('');
+    const [budgetList, setBudgetList] = useState([]);
 
 
     const handleSubmit = e => {
@@ -61,7 +62,35 @@ const SearchBox = (props) => {
 
     useEffect(() => {
         populateCity();
+        populateBudgetList();
     }, []);
+
+
+
+    const populateBudgetList = () => {
+
+        const getData = async () => {
+            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/property/getSearchMinMax', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+
+            const minBudget = response?.data?.minAmount || 0;
+            const maxBudget = response?.data?.maxAmount || 0;
+
+            const budgetArr = [];
+
+            for (let value = minBudget; value <= maxBudget; value += 100000) {
+                budgetArr.push({
+                    value: value,
+                    label: value,
+                });
+            }
+
+            setBudgetList(budgetArr);
+            console.log('populateSocialMediaLinks details', response.data);
+            console.log("budgetArr", budgetArr);
+        };
+        getData();
+
+    };
 
     useEffect(() => {
         if (props.searchPayload) {
@@ -85,6 +114,9 @@ const SearchBox = (props) => {
         };
         getData();
     };
+
+
+
 
     const processData = (data) => {
         return data.map((city) => {
@@ -240,7 +272,7 @@ const SearchBox = (props) => {
                                     }}
 
                                 >
-                                    {minBudget.map((option) => (
+                                    {budgetList.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
                                             {option.label}
                                         </MenuItem>
@@ -264,7 +296,7 @@ const SearchBox = (props) => {
                                         </InputAdornment>,
                                     }}
                                 >
-                                    {maxBudget.map((option) => (
+                                    {budgetList.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
                                             {option.label}
                                         </MenuItem>

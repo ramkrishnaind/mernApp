@@ -172,33 +172,39 @@ const Footer = props => {
                         </Grid>
                     </Grid>
                     <Typography className={classes.text2}>Follow us on</Typography>
-                    <Grid container>
-                        <Grid item style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginTop: 10}}>
+                    <Grid container >
+                        <Grid className="social-media-group" item style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginTop: 10}}>
                             <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks?.facebook}>
-                                    <FacebookIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                                <a className="fixed-facebook" target="_blank" href={socialLinks?.facebook}>
+                                    <i class="fab fa-facebook"></i>
+                                    {/* <FacebookIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} /> */}
                                 </a>
                             </Box>
 
                             <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks?.instagram}>
-                                    <InstagramIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                                <a className="fixed-instagrem" target="_blank" href={socialLinks?.instagram}>
+                                    <i class="fab fa-instagram"></i>
+                                    {/* <InstagramIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} /> */}
                                 </a>
                             </Box>
                             <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks?.linkedin}>
-                                    <LinkedInIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                                <a className="fixed-linkedin" target="_blank" href={socialLinks?.linkedin}>
+                                    <i class="fab fa-linkedin"></i>
+                                    {/* <LinkedInIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} /> */}
                                 </a>
                             </Box>
                             <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks ? socialLinks.twitter : ''}>
-                                    <TwitterIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                                <a className="fixed-twitter" target="_blank" href={socialLinks ? socialLinks.twitter : ''}>
+                                    <i class="fab fa-twitter"></i>
+                                    {/* <TwitterIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} /> */}
                                 </a>
                             </Box>
 
                             <Box className={`${classes.socialBox} social_icon`}>
-                                <a href={socialLinks ? socialLinks.youtube : ''}>
-                                    <YouTubeIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                                <a className="fixed-youtube" target="_blank" href={socialLinks ? socialLinks.youtube : ''}>
+                                    <i class="fab fa-youtube"></i>
+
+                                    {/* <YouTubeIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} /> */}
                                 </a>
                             </Box>
 
@@ -238,7 +244,7 @@ const Footer = props => {
             <Box className="projectquick_action genralsticky">
                 <ul>
                     <li id="show-hidden-menu" class="animatebtn social_links"><i class="fas fa-external-link-alt"></i></li>
-                    <Box className="hidden-menu" style={{display: "none"}}>
+                    <Box className="hidden-menu" style={{display: "none"}} >
                         <div class="fixed-social">
                             <a href="#" class="fixed-facebook" target="_blank"><i class="fab fa-facebook"></i></a>
                             <a href="#" class="fixed-twitter" target="_blank"><i class="fab fa-twitter"></i></a>
