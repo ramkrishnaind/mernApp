@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography, Box } from "@material-ui/core";
+import { Button, Typography, Box, Link } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as ServiceItemAction from "../../redux/actions/ServiceItemAction";
 import { useDispatch } from "react-redux";
@@ -18,6 +18,7 @@ import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "./serviceManagement.css";
+import { Link as RouterLink } from "react-router-dom";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -87,7 +88,16 @@ const ServiceItemList = (props) => {
           heading1={"ServiceItemManagement"}
           heading2={"Service Item Module List"}
         />
-
+        <Link component={RouterLink} to="/serviceItem/add">
+          <Button
+            variant="contained"
+            color="primary"
+            type="button"
+            className={"CanceForm"}
+          >
+            Add
+          </Button>
+        </Link>
         {serviceItem?.list && serviceItem?.list?.length > 0 ? (
           <>
             <MUIDataTable

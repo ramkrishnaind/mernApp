@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography, Box } from "@material-ui/core";
+import { Button, Typography, Box, Link } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as FeedbackAction from "../../redux/actions/FeedbackAction";
 import { useDispatch } from "react-redux";
@@ -17,7 +17,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-
+import { Link as RouterLink } from "react-router-dom";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -87,6 +87,16 @@ const FeedbackList = (props) => {
           heading2={"Feedback Module List"}
         />
 
+        <Link component={RouterLink} to="/feedback/add">
+          <Button
+            variant="contained"
+            color="primary"
+            type="button"
+            className={"CanceForm"}
+          >
+            Add
+          </Button>
+        </Link>
         {feedback.list && feedback.list.length > 0 ? (
           <>
             <MUIDataTable

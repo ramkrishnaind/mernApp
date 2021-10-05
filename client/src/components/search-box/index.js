@@ -50,6 +50,7 @@ const SearchBox = (props) => {
     const [maxAmount, setMaxBudget] = useState('');
     const [keyword, setkeyword] = useState('');
     const [cityOptions, setCityOptions] = useState('');
+    const [budgetList, setBudgetList] = useState([]);
 
 
     const handleSubmit = e => {
@@ -61,7 +62,48 @@ const SearchBox = (props) => {
 
     useEffect(() => {
         populateCity();
+        populateBudgetList();
     }, []);
+
+
+
+    const populateBudgetList = () => {
+
+        const getData = async () => {
+            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/property/getSearchMinMax', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+
+            const minBudget = response?.data?.minAmount || 0;
+            const maxBudget = response?.data?.maxAmount || 0;
+
+            const budgetArr = [];
+
+            for (let value = minBudget; value <= maxBudget; value += 100000) {
+                budgetArr.push({
+                    value: value,
+                    label: value,
+                });
+            }
+
+            setBudgetList(budgetArr);
+            console.log('populateSocialMediaLinks details', response.data);
+            console.log("budgetArr", budgetArr);
+        };
+        getData();
+
+    };
+
+    useEffect(() => {
+        if (props.searchPayload) {
+            const searchDetails = props.searchPayload;
+
+            setType(searchDetails?.type || Type.RENT);
+            setPType(searchDetails?.pType || '');
+            setkeyword(searchDetails?.keyword || '');
+            setMaxBudget(searchDetails?.maxAmount || '');
+            setMinBudget(searchDetails?.minAmount || '');
+        }
+
+    }, [props]);
 
     const populateCity = () => {
         const getData = async () => {
@@ -72,6 +114,9 @@ const SearchBox = (props) => {
         };
         getData();
     };
+
+
+
 
     const processData = (data) => {
         return data.map((city) => {
@@ -165,6 +210,7 @@ const SearchBox = (props) => {
                                     id="city-locality"
                                     variant="filled"
                                     options={cityOptions}
+                                    value={keyword}
                                     onChange={e => setkeyword(cityOptions[e.target.value]?.label)}
                                     // sx={{width: 300}}
                                     renderInput={(params) =>
@@ -172,7 +218,6 @@ const SearchBox = (props) => {
                                             id="city-locality"
                                             variant="filled"
                                             label="City, Locality"
-
                                             InputProps={{
                                                 startAdornment: <InputAdornment position="start" style={{color: "red", marginLeft: -5}}><Icon fontSize="small" style={{color: "#ff7600"}}>room</Icon></InputAdornment>,
                                             }} {...params}
@@ -227,7 +272,7 @@ const SearchBox = (props) => {
                                     }}
 
                                 >
-                                    {minBudget.map((option) => (
+                                    {budgetList.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
                                             {option.label}
                                         </MenuItem>
@@ -251,7 +296,7 @@ const SearchBox = (props) => {
                                         </InputAdornment>,
                                     }}
                                 >
-                                    {maxBudget.map((option) => (
+                                    {budgetList.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
                                             {option.label}
                                         </MenuItem>

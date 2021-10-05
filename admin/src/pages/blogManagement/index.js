@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography, Box } from "@material-ui/core";
+import { Button, Typography, Box, Link } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as BlogAction from "../../redux/actions/BlogAction";
 import { useDispatch } from "react-redux";
@@ -17,6 +17,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import { Link as RouterLink } from "react-router-dom";
 
 const styles = (theme) => ({
   root: {
@@ -86,7 +87,16 @@ const BlogList = (props) => {
           heading1={"BlogManagement"}
           heading2={"Blog Module List"}
         />
-
+        <Link component={RouterLink} to="/blog/add">
+          <Button
+            variant="contained"
+            color="primary"
+            type="button"
+            className={"CanceForm"}
+          >
+            Add
+          </Button>
+        </Link>
         {blog.list && blog.list.length > 0 ? (
           <>
             <MUIDataTable

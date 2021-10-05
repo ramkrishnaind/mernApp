@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography, Box } from "@material-ui/core";
+import { Button, Typography, Box, Link } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as CareerAction from "../../redux/actions/CareerAction";
 import { useDispatch } from "react-redux";
@@ -15,7 +15,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-
+import { Link as RouterLink } from "react-router-dom";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -91,7 +91,16 @@ const CareerList = (props) => {
           heading1={"CareerManagement"}
           heading2={"Career Module List"}
         />
-
+        <Link component={RouterLink} to="/career/add">
+          <Button
+            variant="contained"
+            color="primary"
+            type="button"
+            className={"CanceForm"}
+          >
+            Add
+          </Button>
+        </Link>
         {career.list && career.list.length > 0 ? (
           <>
             <MUIDataTable

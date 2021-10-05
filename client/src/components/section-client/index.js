@@ -60,12 +60,29 @@ const SectionClient = props => {
             <Grid item xs={12} md={6}>
                 <Box className="client-video-block">
                     {
-                        media && (media[0].video[0].length === 0 ?
-                            <img src={ApiClient.SERVER_ADDRESS + "/" + media[0].image[0].path} alt="" />
-                            :
-                            <video className="client-video" playsInLine="playsinline" autoPlay="autoplay" muted="muted" loop="loop">
-                                <source src={ApiClient.SERVER_ADDRESS + "/" + media[0].video[0].path} type="video/mp4" ></source>
-                            </video >)
+
+                        () => {
+                            if (media && media.length > 0) {
+                                const mediaZero = media[0];
+                                if (mediaZero.video || mediaZero.video.length > 0) {
+                                    return <video className="client-video" playsInLine="playsinline" autoPlay="autoplay" muted="muted" loop="loop">
+                                        <source src={ApiClient.SERVER_ADDRESS + "/" + media[0].video[0].path} type="video/mp4" ></source>
+                                    </video >;
+                                } else if (mediaZero.image || mediaZero.image.length > 0) {
+                                    return <img src={ApiClient.SERVER_ADDRESS + "/" + media[0].image[0].path} alt="" />;
+                                } else {
+                                    return <img src={'no-image-available-icon-6.png'} alt="" />;
+                                }
+
+                            }
+                        }
+
+                        // media && (media.length > 0 && media[0]?.video[0]?.length === 0 ?
+                        //     <img src={ApiClient.SERVER_ADDRESS + "/" + media[0].image[0].path} alt="" />
+                        //     :
+                        //     <video className="client-video" playsInLine="playsinline" autoPlay="autoplay" muted="muted" loop="loop">
+                        //         <source src={ApiClient.SERVER_ADDRESS + "/" + media[0].video[0].path} type="video/mp4" ></source>
+                        //     </video >)
                     }
                 </Box>
             </Grid>

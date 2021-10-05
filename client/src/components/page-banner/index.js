@@ -1,7 +1,7 @@
 import React from "react";
-import { Breadcrumbs, Grid, Typography, Box, makeStyles, Link } from "@material-ui/core";
+import {Breadcrumbs, Grid, Typography, Box, makeStyles, Link} from "@material-ui/core";
 import PropTypes from "prop-types";
-import { Link as RouterLink } from "react-router-dom";
+import {Link as RouterLink} from "react-router-dom";
 import "./page-slider.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -15,26 +15,26 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: 'cover',
     position: "relative",
     backgroundPosition: "center",
-    }, 
-    overlay: {
-      backgroundColor: "rgba(0,0,0,0.6)",     
-      position: 'absolute',
-      left: '0',
-      top: '0',
-      width: "100%",
-      height: "100%",    
-    }, 
-    bannersummery: {
-      position: "relative",
-    }, 
+  },
+  overlay: {
+    backgroundColor: "rgba(0,0,0,0.6)",
+    position: 'absolute',
+    left: '0',
+    top: '0',
+    width: "100%",
+    height: "100%",
+  },
+  bannersummery: {
+    position: "relative",
+  },
   bannertitle: {
     fontFamily: '"Open Sans",sans-serif',
     color: "#fff",
     fontSize: 40,
     fontWeight: 500,
   },
-  breadcrumbs:{
-    display: "flex",  
+  breadcrumbs: {
+    display: "flex",
     justifyContent: "center",
     marginTop: '10px',
     color: "#fff",
@@ -42,15 +42,15 @@ const useStyles = makeStyles((theme) => ({
   breadcrumbtext: {
     fontFamily: '"Open Sans",sans-serif',
     color: "#fff",
-    fontSize: 14,  
-    fontWeight: 400,  
+    fontSize: 14,
+    fontWeight: 400,
     textDecoration: 'none',
   },
   "@media (max-width: 767px)": {
-    bannerContainer: {     
-      height: 200,    
-    }, 
-    bannertitle: {     
+    bannerContainer: {
+      height: 200,
+    },
+    bannertitle: {
       fontSize: 24,
     },
   }
@@ -58,12 +58,12 @@ const useStyles = makeStyles((theme) => ({
 
 const PageBanner = (props) => {
   const classes = useStyles();
-  const { showSearch = false, bgImage, title, currentPage } = props;
+  const {showSearch = false, bgImage, title, currentPage} = props;
 
   return (
     <div
       className={`${classes.bannerContainer}`}
-      style={{ backgroundImage: `url(${bgImage}`, }}
+      style={{backgroundImage: `url(${bgImage}`, }}
     >
       <div className={classes.overlay}></div>
       <Grid container className={classes.bannersummery}>
@@ -71,7 +71,7 @@ const PageBanner = (props) => {
           <Typography variant="h1" className={classes.bannertitle}>{title}</Typography>
 
           <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbs}>
-            <Link className={classes.breadcrumbtext} color="inherit" underline="hover" href="/">HOME</Link>
+            <Link className={classes.breadcrumbtext} color="inherit" underline="hover" to="/">HOME</Link>
             <Typography className={classes.breadcrumbtext} >{currentPage}</Typography>
           </Breadcrumbs>
 
