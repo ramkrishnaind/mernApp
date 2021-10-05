@@ -342,6 +342,24 @@ const items = [
       },
     ],
   },
+
+  {
+    href: "/construction",
+    icon: UsersIcon,
+    title: "Construction Process",
+    items: [
+      {
+        href: "/construction/add",
+        icon: ShoppingBagIcon,
+        title: "Add Construction Process",
+      },
+      {
+        href: "/construction",
+        icon: ShoppingBagIcon,
+        title: "Construction Process List",
+      },
+    ],
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {

@@ -172,6 +172,16 @@ const API_ENDPOINTS = {
   DIRECTOR_UPDATE_ENDPOINT: "team/updateDirector",
   DIRECTOR_DELETE_ENDPOINT: "team/deleteDirector",
   DIRECTOR_DATA_ENDPOINT: "team/getDirectorDetail",
+
+  //construction module
+  CONSTRUCTION_LIST_ENDPOINT: "constructionProcess/getAllConstructionProcess",
+  CONSTRUCTION_ADD_ENDPOINT: "constructionProcess/createConstructionProcess",
+  CONSTRUCTION_STATUS_UPDATE_ENDPOINT:
+    "constructionProcess/updateConstructionProcessStatus",
+  CONSTRUCTION_UPDATE_ENDPOINT: "constructionProcess/updateConstructionProcess",
+  CONSTRUCTION_DELETE_ENDPOINT: "constructionProcess/deleteConstructionProcess",
+  CONSTRUCTION_DATA_ENDPOINT:
+    "constructionProcess/getConstructionProcessDetail",
 };
 
 export default API_ENDPOINTS;

@@ -1,4 +1,4 @@
-import {useRoutes, Navigate} from "react-router-dom";
+import { useRoutes, Navigate } from "react-router-dom";
 import DashboardLayout from "../components/dashboard-layout";
 import MainLayout from "../components/main-layout";
 
@@ -57,8 +57,11 @@ import AddFeedback from "../pages/feedbackManagement/add";
 
 import DirectorList from "../pages/directorManagement";
 import AddDirector from "../pages/directorManagement/add";
+import ConstructionList from "../pages/constructionManagement";
+import AddConstruction from "../pages/constructionManagement/add";
+
 const Routes = (props) => {
-  const {isAuth} = props;
+  const { isAuth } = props;
   const routes = [
     {
       path: "/",
@@ -264,6 +267,15 @@ const Routes = (props) => {
         {
           path: "/director/add",
           element: isAuth ? <AddDirector /> : <Navigate to="/login" />,
+        },
+
+        {
+          path: "/construction",
+          element: isAuth ? <ConstructionList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/construction/add",
+          element: isAuth ? <AddConstruction /> : <Navigate to="/login" />,
         },
         {
           path: "404",
