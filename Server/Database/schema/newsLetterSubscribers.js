@@ -12,7 +12,8 @@ let newsletterSchema = new Schema({
     },
     status: {
         type: Boolean,
-        required: true
+        required: true,
+        default: true
     }
 }, {
     timestamps: {
