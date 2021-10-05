@@ -29,6 +29,7 @@ import Social from "./socialReducer";
 import Loader from "./loaderReducer";
 import Feedback from "./feedbackReducer";
 import Director from "./directorReducer";
+import Construction from "./constructionReducer";
 const reducers = {
   Login: LoginReducer,
   Register: RegisterReducer,
@@ -61,6 +62,7 @@ const reducers = {
   loader: Loader,
   feedback: Feedback,
   director: Director,
+  construction: Construction,
 };
 
 export default reducers;

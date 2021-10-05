@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
-import * as DealingAction from "../../redux/actions/DealingAction";
+import * as ConstructionAction from "../../redux/actions/ConstructionAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
-import "./dealingManagement.css";
+import "./blogManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
@@ -14,111 +14,76 @@ import { connect } from "react-redux";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
 
-const MenuCreateUpdate = (props) => {
-  const dispatch = useDispatch();
+const ConstructionCreateUpdate = (props) => {
   let query = useQuery();
   let id = query.get("id");
-  let dealingData = props?.dealing?.dealingData;
+  let constructionData = props?.construction?.constructionData;
+  const [, setRefresh] = useState(false);
+  const dispatch = useDispatch();
   useEffect(() => {
     let data = {
       _id: id,
     };
     if (id != null) {
-      dispatch(DealingAction.DealingDataRequestAsync(data));
+      dispatch(ConstructionAction.ConstructionDataRequestAsync(data));
     }
   }, [id, dispatch]);
 
-  const [, setRefresh] = useState(false);
   useEffect(() => {
-    if (props.dealing.success) {
+    if (props.construction.success) {
       setRefresh(true);
       setState(initialState);
     }
-  }, [props.dealing.success]);
+  }, [props.construction.success]);
 
   const initialState = {
-    title: dealingData?.title,
-    header: dealingData?.header,
-    metaTitle: dealingData?.metaTitle,
-    metaKeywords: dealingData?.metaKeywords,
-    metaDescription: dealingData?.metaDescription,
-    image: [],
-    video: "",
+    title: constructionData?.title,
+    metaTitle: constructionData?.metaTitle,
+    metaKeywords: constructionData?.metaKeywords,
+    metaDescription: constructionData?.metaDescription,
+    image: "",
     id: id,
   };
 
   const [state, setState] = useState(initialState);
-  const [description, setDescription] = useState(dealingData?.description);
+  const [description, setDescription] = useState(constructionData?.description);
+
   const inputChange = (e) => {
     let { name, value } = e.target;
-
     setState({ ...state, [name]: value });
   };
 
   const handleSubmit = (e) => {
     const {
       title,
-      header,
       id,
       metaTitle,
       metaKeywords,
       metaDescription,
-      video,
+      image,
     } = state;
-
     var data = new FormData();
-    state?.image.forEach((item, index) => {
-      data.append("image", item);
-    });
-    if (id === null) {
-      data.append("video", video);
+    if (id == null) {
+      data.append("image", image);
       data.append("title", title);
-      data.append("header", header);
       data.append("description", description);
       data.append("metaTitle", metaTitle);
       data.append("metaKeywords", metaKeywords);
       data.append("metaDescription", metaDescription);
 
-      dispatch(DealingAction.DealingAddRequestAsync(data));
+      dispatch(ConstructionAction.ConstructionAddRequestAsync(data));
     } else {
-      data.append("video", video);
+      data.append("image", image);
       data.append("title", title);
-      data.append("header", header);
       data.append("description", description);
       data.append("metaTitle", metaTitle);
       data.append("metaKeywords", metaKeywords);
       data.append("metaDescription", metaDescription);
       data.append("_id", id);
-
-      dispatch(DealingAction.DealingUpdateRequestAsync(data));
-    }
-  };
-
-  const handleChangeTextEditor = (content, editor) => {
-    setDescription(content);
-  };
-
-  // const handleImageExteriorView = (file, status) => {
-  //   let list = state;
-  //   let data = [];
-  //   if (status === "done") {
-  //     if (list.image && list.image.length) {
-  //       data = list.image;
-  //       data[list.image.length] = file.file;
-  //     } else {
-  //       data["0"] = file.file;
-  //     }
-  //     setState({ ...state, ["image"]: data });
-  //   }
-  // };
-
-  const handleVideouplaod = (file, status) => {
-    if (status === "done") {
-      setState({ ...state, ["video"]: file.file });
+      dispatch(ConstructionAction.ConstructionUpdateRequestAsync(data));
     }
   };
 
@@ -126,34 +91,44 @@ const MenuCreateUpdate = (props) => {
     return new URLSearchParams(useLocation().search);
   }
 
+  const handleChangeTextEditor = (content, editor) => {
+    setDescription(content);
+  };
+
+  const handleBannerUpload = (file, status) => {
+    if (status === "done") {
+      setState({ ...state, ["image"]: file.file });
+    }
+  };
+
   return (
     <Box className="MenuManagement_Data">
       <FormHeader
-        heading1={"Dealing Module Management"}
-        heading2={"Create and Update Dealing Here"}
+        heading1={"Construction Module Management"}
+        heading2={"Create and Update Construction Here"}
       />
       {state.id ? (
         <>
           <BreadCrumbs
-            heading1={"DealingManagement"}
-            heading2={"Edit Dealing Module"}
+            heading1={"ConstructionManagement"}
+            heading2={"Edit Construction Module"}
           />
-          <SubHeading heading={"Edit Dealing Module"} />
+          <SubHeading heading={"Edit Construction Module"} />
         </>
       ) : (
         <>
           <BreadCrumbs
-            heading1={"DealingManagement"}
-            heading2={"Add Dealing Module"}
+            heading1={"ConstructionManagement"}
+            heading2={"Add Construction Module"}
           />
-          <SubHeading heading={"Add Dealing Module"} />
+          <SubHeading heading={"Add Construction Module"} />
         </>
       )}
       <Grid item xs={12} className="m-5 addUserFormanage">
         <div className="card w-100">
           <div className="card-header d-flex justify-content-between align-items-center">
             <Typography component="h3" variant="h3">
-              {state.id ? "Edit" : "Add"} Dealing
+              {state.id ? "Edit" : "Add"} Construction
             </Typography>
           </div>
           <div class="card-body">
@@ -163,24 +138,9 @@ const MenuCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="Header*"
-                    fullWidth
-                    value={state.header ? state.header : dealingData?.header}
-                    onChange={inputChange}
-                    name="header"
-                    id="header"
-                    validators={["required"]}
-                    errorMessages={["header field is required"]}
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.title ? state.title : dealingData?.title}
+                    value={state.title ? state.title : constructionData?.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -196,7 +156,9 @@ const MenuCreateUpdate = (props) => {
                     label="Meta Title *"
                     fullWidth
                     value={
-                      state.metaTitle ? state.metaTitle : dealingData?.metaTitle
+                      state.metaTitle
+                        ? state.metaTitle
+                        : constructionData?.metaTitle
                     }
                     onChange={inputChange}
                     name="metaTitle"
@@ -213,7 +175,7 @@ const MenuCreateUpdate = (props) => {
                     value={
                       state.metaKeywords
                         ? state.metaKeywords
-                        : dealingData?.metaKeywords
+                        : constructionData?.metaKeywords
                     }
                     onChange={inputChange}
                     name="metaKeywords"
@@ -230,7 +192,7 @@ const MenuCreateUpdate = (props) => {
                     value={
                       state.metaDescription
                         ? state.metaDescription
-                        : dealingData?.metaDescription
+                        : constructionData?.metaDescription
                     }
                     onChange={inputChange}
                     name="metaDescription"
@@ -239,12 +201,14 @@ const MenuCreateUpdate = (props) => {
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-                  {dealingData?.description != null ? (
+                  {constructionData?.description != null ? (
                     <>
                       <ReactQuill
                         onChange={handleChangeTextEditor}
                         value={
-                          description ? description : dealingData?.description
+                          description
+                            ? description
+                            : constructionData?.description
                         }
                         placeholder="Enter description"
                         theme="snow"
@@ -265,19 +229,12 @@ const MenuCreateUpdate = (props) => {
               <SubHeading heading={"Upload Image"} />
               <br />
               <Grid container spacing={3} className="FormFildes">
-                {/* <Grid className="form-group-item" item xs={12} sm={6} md={5}>
+                <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Image </Typography>
                   <Dropzone
-                    onChangeStatus={handleImageExteriorView}
-                    accept="image/*,audio/*,video/*"
-                  />
-                </Grid> */}
-                <Grid className="form-group-item" item xs={12} sm={6} md={5}>
-                  <Typography>Video </Typography>
-                  <Dropzone
                     maxFiles="1"
-                    onChangeStatus={handleVideouplaod}
-                    accept="video/*"
+                    onChangeStatus={handleBannerUpload}
+                    accept="image/*"
                   />
                 </Grid>
               </Grid>
@@ -293,7 +250,7 @@ const MenuCreateUpdate = (props) => {
                   Save
                 </Button>
 
-                <Link component={RouterLink} to="/dealing">
+                <Link component={RouterLink} to="/construction">
                   <Button
                     variant="contained"
                     color="primary"
@@ -313,9 +270,9 @@ const MenuCreateUpdate = (props) => {
 };
 
 function mapStateToProps(state) {
-  const { dealing } = state;
+  const { construction } = state;
   return {
-    dealing,
+    construction,
   };
 }
-export default connect(mapStateToProps)(MenuCreateUpdate);
+export default connect(mapStateToProps)(ConstructionCreateUpdate);
