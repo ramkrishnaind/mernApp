@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
-import { Typography, Box } from "@material-ui/core";
+import { Button, Typography, Box, Link } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as TeamAction from "../../redux/actions/TeamAction";
 import { useDispatch } from "react-redux";
-
 import BreadCrumbs from "../../common/bread-crumbs";
 import FormHeader from "../../common/form-header";
 import { connect } from "react-redux";
 import MUIDataTable from "mui-datatables";
-
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -17,6 +15,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import { Link as RouterLink } from "react-router-dom";
 
 const styles = (theme) => ({
   root: {
@@ -86,6 +85,16 @@ const TeamList = (props) => {
           heading1={"TeamManagement"}
           heading2={"Team Module List"}
         />
+        <Link component={RouterLink} to="/team/add">
+          <Button
+            variant="contained"
+            color="primary"
+            type="button"
+            className={"CanceForm"}
+          >
+            Add
+          </Button>
+        </Link>
 
         {team?.list?.list && team.list?.list.length > 0 ? (
           <>

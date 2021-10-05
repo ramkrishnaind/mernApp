@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography, Box } from "@material-ui/core";
+import { Button, Typography, Box, Link } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as BuildingAction from "../../redux/actions/BuildingAction";
 import { useDispatch } from "react-redux";
@@ -18,7 +18,7 @@ import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "./blogManagement.css";
-
+import { Link as RouterLink } from "react-router-dom";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -90,7 +90,16 @@ const BuildingList = (props) => {
           heading1={"BuildingManagement"}
           heading2={"Building Module List"}
         />
-
+        <Link component={RouterLink} to="/building/add">
+          <Button
+            variant="contained"
+            color="primary"
+            type="button"
+            className={"CanceForm"}
+          >
+            Add
+          </Button>
+        </Link>
         {building?.list?.list && building?.list?.list.length > 0 ? (
           <>
             <MUIDataTable
