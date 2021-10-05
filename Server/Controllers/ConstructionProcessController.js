@@ -38,9 +38,9 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(db);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(db);
 
-    const pageMedia = {
+    const pageMedia = [{
         name: 'image', maxCount: 1
-    };
+    }];
 
     router.post('/createConstructionProcess', userAuthMiddleware, upload.fields(pageMedia), ConstructionProcessFunction.createConstructionProcessFunc(db));
     router.post('/updateConstructionProcess', userAuthMiddleware, upload.fields(pageMedia), ConstructionProcessFunction.updateConstructionProcessFunc(db));
