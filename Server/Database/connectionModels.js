@@ -31,4 +31,5 @@ module.exports = function (mongoose) {
     mongoose.model('jobApplication', require('./schema/jobApplication'));
     mongoose.model('newsLetterSubscribers', require('./schema/newsLetterSubscribers'));
     mongoose.model('booking', require('./schema/booking'));
+    mongoose.model('constructionProcess', require('./schema/constructionProcess'));
 }
