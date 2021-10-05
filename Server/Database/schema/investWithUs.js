@@ -4,6 +4,16 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const schema = new Schema({
+    header: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    shortDescription: {
+        type: String,
+        required: true,
+        trim: true
+    },
     title: {
         type: String,
         required: true,
@@ -16,6 +26,10 @@ const schema = new Schema({
         type: String,
         required: true,
         trim: true
+    },
+    howToInvest: {
+        type: Array,
+        required: true
     },
     date: {
         type: Date,
@@ -49,7 +63,7 @@ const schema = new Schema({
         virtuals: true
     }
 }, {
-    collection: 'constructionProcess'
+    collection: 'investWithUs'
 }
 );
 
