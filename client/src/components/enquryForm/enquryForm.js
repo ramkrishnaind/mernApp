@@ -15,6 +15,7 @@ import {useDispatch} from "react-redux";
 import * as EnquiryAction from '../../redux/actions/EnquiryAction';
 import {useParams, useLocation} from 'react-router-dom';
 import ApiClient from '../../api-client';
+import * as Snackbar from "../redux/actions/SnackbarActions";
 
 const styles = (theme) => ({
   root: {
@@ -149,25 +150,6 @@ function EnquryForm(props) {
 
   const handleServiceFormSubmit = () => {
 
-    // const formData = {
-    //   name: name,
-    //   email: email,
-    //   mobile: mobile,
-    //   city: city,
-    //   state: state,
-    //   address: address,
-    //   propertyType: type,
-    //   propertyAddress: pAddress,
-    //   image: image,
-    //   propertyCity: pCity,
-    //   propertyState: pState,
-    //   budget: budget,
-    //   totalArea: totalArea,
-    //   floor: floor,
-    //   message: message,
-    //   propertyLocation: pLocation
-    // };
-
     const formData = new FormData();
 
     formData.append('name', name);
@@ -188,6 +170,7 @@ function EnquryForm(props) {
     formData.append('propertyLocation', pLocation);
     console.log("service enquiry form data ", formData);
     submitServiceEnquiry(formData);
+
   };
 
   const submitServiceEnquiry = async (payload) => {
@@ -201,18 +184,42 @@ function EnquryForm(props) {
         // show error
         return;
       }
+      // toast.success('Service Enquiry Submitted successfully', {position: toast.POSITION.TOP_RIGHT, autoClose: 5000});
+      clearFormData();
 
     } catch (e) {
       console.log("error::submitReview::", e);
     }
   };
 
+  const clearFormData = () => {
+
+    setName("");
+    setEmail("");
+    setMobile("");
+    setCity("");
+    setState("");
+    setPropertyType("");
+    setPCity("");
+    setPState("");
+    setFile("");
+    setImage("");
+    setFoor("");
+    setAddress("");
+    setPAddress("");
+    setMessage("");
+    setTotalArea("");
+    setBudget("");
+    setPLocation("");
+
+  };
+
   const constructFloorOptions = () => {
     const comp = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(floorNo => {
-      console.log("floor", floorNo);
+      // console.log("floor", floorNo);
       return <option value={`G+${floorNo}`}>{`G+${floorNo}`}</option>;
     });
-    console.log("comp", comp);
+    // console.log("comp", comp);
     return comp;
   };
 
