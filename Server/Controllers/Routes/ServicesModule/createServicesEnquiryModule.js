@@ -7,7 +7,7 @@ const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
     propertyType: Joi.string().required(),
     name: Joi.string().required(),
-    mobile: Joi.number().required().min(10).max(10),
+    mobile: Joi.number().required(),
     email: Joi.string().required(),
     address: Joi.string().required(),
     city: Joi.string().required(),
