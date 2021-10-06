@@ -15,7 +15,6 @@ import {useDispatch} from "react-redux";
 import * as EnquiryAction from '../../redux/actions/EnquiryAction';
 import {useParams, useLocation} from 'react-router-dom';
 import ApiClient from '../../api-client';
-import * as Snackbar from "../redux/actions/SnackbarActions";
 
 const styles = (theme) => ({
   root: {
