@@ -52,7 +52,7 @@ function createInvestWithUsHelper(Models) {
             if (req.files) {
                 let InvestWithUsImages = req.files;
                 InvestWithUsFormData.image = InvestWithUsImages.image;
-                InvestWithUsFormData.bannerImage = blogMedia.bannerImage;
+                InvestWithUsFormData.bannerImage = InvestWithUsImages.bannerImage;
             }
 
             let saveInvestWithUs = await new Models.InvestWithUsDB(InvestWithUsFormData).save();
@@ -93,7 +93,7 @@ function updateInvestWithUsHelper(Models) {
             if (req.files) {
                 let InvestWithUsImages = req.files;
                 setData.image = InvestWithUsImages.image;
-                setData.bannerImage = blogMedia.bannerImage;
+                setData.bannerImage = InvestWithUsImages.bannerImage;
             }
 
             let updateModule = await Models.InvestWithUsDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
