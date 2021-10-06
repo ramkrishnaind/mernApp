@@ -48,6 +48,11 @@ function createInvestWithUsHelper(Models) {
 
             // pick data from req.body
             let InvestWithUsFormData = _.pick(req.body, ['header', 'title', 'shortDescription', 'description', 'howToInvest', 'metaTitle', 'metaKeywords', 'metaDescription']);
+            let dataExist = await Models.InvestWithUsDB.findOne({ active: true });
+            if (dataExist) {
+                // if data found check verified or not
+                res.send({ status: false, message: "Invest With Us Data Already Exist. Please Edit Existing.", data: findData });
+            }
             InvestWithUsFormData.howToInvest = JSON.parse(InvestWithUsFormData.howToInvest);
             if (req.files) {
                 let InvestWithUsImages = req.files;
@@ -134,7 +139,8 @@ function getActiveInvestWithUsFunc(Models) {
         try {
             // Getting all InvestWithUss from Database
             let findData = await Models.InvestWithUsDB.findOne({ active: true });
-            if (findData.length) {
+            console.log('No Data found for InvestWithUss for client', findData)
+            if (findData) {
                 // if data found check verified or not
                 res.send({ status: true, message: "InvestWithUss For Client", data: findData });
             } else {
