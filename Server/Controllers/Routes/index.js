@@ -86,8 +86,9 @@ module.exports = {
     /////// About Page /////
     ////////////////////////
     createAboutPage: require('./AboutPageModule/createAboutPageModule'),
-    // getAboutPageList: require('./AboutPageModule/getAboutPageListModule'),
-    // updateAboutPage: require('./AboutPageModule/updateAboutPageModule'),
-    // updateAboutPageStatus: require('./AboutPageModule/updateAboutPageStatusModule'),
-    // createAboutPageEnquiry: require('./AboutPageModule/createAboutPageEnquiryModule'),
+    getAboutPageList: require('./AboutPageModule/getAboutPageListModule'),
+    updateAboutPage: require('./AboutPageModule/updateAboutPageModule'),
+    updateAboutPageStatus: require('./AboutPageModule/updateAboutPageStatusModule'),
+    getAboutPageData: require('./AboutPageModule/getAboutPageDataModule'),
+    deleteAboutPageData: require('./AboutPageModule/deleteAboutPageDataModule'),
 }

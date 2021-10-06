@@ -12,15 +12,6 @@ const moduleSchema = Joi.object({
     metaDescription: Joi.string(),
     imagePosition: Joi.string().required()
 });
-const moduleUpdateSchema = Joi.object({
-    _id: Joi.objectId().trim().required(),
-    title: Joi.string().trim().required(),
-    description: Joi.string().required(),
-    metaTitle: Joi.string(),
-    metaKeywords: Joi.string(),
-    metaDescription: Joi.string(),
-    imagePosition: Joi.string().required()
-});
 
 function createServices(Models) {
     async function create(req, res) {
@@ -33,7 +24,7 @@ function createServices(Models) {
 
             // pick data from req.body
             let bodyData = _.pick(req.body, ['title', 'description', "imagePosition", 'metaTitle', 'metaKeywords', 'metaDescription']);
-            let findData = await Models.AboutPageDB.findOne({ name: bodyData.name });
+            let findData = await Models.AboutPageDB.findOne({ title: bodyData.title });
 
             if (findData) {
                 // if data found check 

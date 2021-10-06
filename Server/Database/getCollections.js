@@ -36,6 +36,7 @@ module.exports = function (mongoose) {
     const ConstructionProcessDB = mongoose.model('constructionProcess');
     const InvestWithUsDB = mongoose.model('investWithUs');
     const ServiceEnquiryDB = mongoose.model('serviceEnquiry');
+    const AboutPageDB = mongoose.model('aboutPage');
     return {
         UserDB,
         AuthTokenDB,
@@ -70,6 +71,7 @@ module.exports = function (mongoose) {
         BookingDB,
         ConstructionProcessDB,
         InvestWithUsDB,
-        ServiceEnquiryDB
+        ServiceEnquiryDB,
+        AboutPageDB
     }
 }
