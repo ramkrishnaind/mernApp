@@ -13,7 +13,8 @@ const createConstructionProcessSchema = Joi.object({
     description: Joi.string().required(),
     metaTitle: Joi.string(),
     metaKeywords: Joi.string(),
-    metaDescription: Joi.string()
+    metaDescription: Joi.string(),
+    imagePosition: Joi.string().required()
 });
 const updateConstructionProcessSchema = Joi.object({
     _id: Joi.objectId().trim().required(),
@@ -21,7 +22,8 @@ const updateConstructionProcessSchema = Joi.object({
     description: Joi.string().required(),
     metaTitle: Joi.string(),
     metaKeywords: Joi.string(),
-    metaDescription: Joi.string()
+    metaDescription: Joi.string(),
+    imagePosition: Joi.string().required()
 });
 const getConstructionProcessSchema = Joi.object({
     _id: Joi.string().trim().required()
@@ -41,7 +43,7 @@ function createConstructionProcessHelper(Models) {
             }
 
             // pick data from req.body
-            let ConstructionProcessFormData = _.pick(req.body, ['title', 'description', 'metaTitle', 'metaKeywords', 'metaDescription']);
+            let ConstructionProcessFormData = _.pick(req.body, ['title', 'description', "imagePosition", 'metaTitle', 'metaKeywords', 'metaDescription']);
 
             ConstructionProcessFormData.image = req.files;
             let saveConstructionProcess = await new Models.ConstructionProcessDB(ConstructionProcessFormData).save();
@@ -69,7 +71,7 @@ function updateConstructionProcessHelper(Models) {
 
             // pick data from req.body
 
-            let bodyData = _.pick(req.body, ['title', 'description', 'metaTitle', 'metaKeywords', 'metaDescription']);
+            let bodyData = _.pick(req.body, ['_id', 'title', 'description', "imagePosition", 'metaTitle', 'metaKeywords', 'metaDescription']);
 
 
             let setData = {

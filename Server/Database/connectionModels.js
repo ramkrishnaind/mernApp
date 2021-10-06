@@ -33,4 +33,5 @@ module.exports = function (mongoose) {
     mongoose.model('booking', require('./schema/booking'));
     mongoose.model('constructionProcess', require('./schema/constructionProcess'));
     mongoose.model('investWithUs', require('./schema/investWithUs'));
+    mongoose.model('serviceEnquiry', require('./schema/serviceEnquiry'));
 }

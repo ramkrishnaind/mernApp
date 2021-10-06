@@ -7,7 +7,7 @@ var router = express.Router();
 const multer = require("multer");
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        let fpathId = 'uploads/services';
+        let fpathId = 'uploads/AboutPage';
         try {
             if (!fs.existsSync(fpathId)) {
                 fs.mkdirSync(fpathId, { recursive: true }, (err) => {
@@ -26,7 +26,7 @@ let storage = multer.diskStorage({
     }
 });
 let upload = multer({ storage: storage });
-let { createServices, getServicesList, updateServicesStatus, updateServices, createServicesEnquiry } = require('./Routes');
+let { createAboutPage, getAboutPageList, updateAboutPageStatus, updateAboutPage, createAboutPageEnquiry } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
@@ -35,11 +35,11 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.post('/createServices', upload.array("services"), createServices(allCollection))
-    router.post('/getServicesList', getServicesList(allCollection))
-    router.post('/updateServices', upload.array("services"), updateServices(allCollection))
-    router.post('/updateServicesStatus', updateServicesStatus(allCollection))
-    router.post('/createServicesEnquiry', requestAuthMiddleware, upload.array("image"), createServicesEnquiry(allCollection))
+    router.post('/createAboutPage', userAuthMiddleware, upload.array("image"), createAboutPage(allCollection))
+    router.post('/getAboutPageList', userAuthMiddleware, getAboutPageList(allCollection))
+    router.post('/getAboutPageData', requestAuthMiddleware, getAboutPageData(allCollection))
+    router.post('/updateAboutPage', userAuthMiddleware, upload.array("image"), updateAboutPage(allCollection))
+    router.post('/updateAboutPageStatus', userAuthMiddleware, updateAboutPageStatus(allCollection))
 
     return router;
 };

@@ -13,7 +13,7 @@ const createInvestWithUsSchema = Joi.object({
     title: Joi.string().trim().required(),
     shortDescription: Joi.string().required(),
     description: Joi.string().required(),
-    howToInvest: Joi.array().required(),
+    howToInvest: Joi.string().required(),
     metaTitle: Joi.string(),
     metaKeywords: Joi.string(),
     metaDescription: Joi.string()
@@ -24,7 +24,7 @@ const updateInvestWithUsSchema = Joi.object({
     title: Joi.string().trim().required(),
     shortDescription: Joi.string().required(),
     description: Joi.string().required(),
-    howToInvest: Joi.array().required(),
+    howToInvest: Joi.string().required(),
     metaTitle: Joi.string(),
     metaKeywords: Joi.string(),
     metaDescription: Joi.string()
@@ -48,6 +48,7 @@ function createInvestWithUsHelper(Models) {
 
             // pick data from req.body
             let InvestWithUsFormData = _.pick(req.body, ['header', 'title', 'shortDescription', 'description', 'howToInvest', 'metaTitle', 'metaKeywords', 'metaDescription']);
+            InvestWithUsFormData.howToInvest = JSON.parse(InvestWithUsFormData.howToInvest);
             if (req.files) {
                 let InvestWithUsImages = req.files;
                 InvestWithUsFormData.image = InvestWithUsImages.image;
