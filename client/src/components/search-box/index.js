@@ -203,10 +203,12 @@ const SearchBox = (props) => {
                 <Box id="search-continer" className="search-form">
                     <Box className="search-form-area" >
                         <Grid container spacing={2} >
-                            <Grid item xs={6} md={3}>
-
+                            <Grid className="search-form-item" item xs={6} md={3}>
+                                <Box className="search-form-wrap">
+                                <Box className="form-icon-wrap"><i class="fas fa-map-marker-alt"></i></Box>
                                 <Autocomplete
                                     disablePortal
+                                    className="search-form-group"
                                     id="city-locality"
                                     variant="filled"
                                     options={cityOptions}
@@ -219,7 +221,7 @@ const SearchBox = (props) => {
                                             variant="filled"
                                             label="City, Locality"
                                             InputProps={{
-                                                startAdornment: <InputAdornment position="start" style={{color: "red", marginLeft: -5}}><Icon fontSize="small" style={{color: "#ff7600"}}>room</Icon></InputAdornment>,
+                                                startAdornment: <InputAdornment position="start" ><i class="fas fa-map-marker-alt"></i></InputAdornment>,
                                             }} {...params}
                                         />}
                                 />
@@ -237,9 +239,13 @@ const SearchBox = (props) => {
                                     }}
                                 /> */}
                                 <Divider className="search-form-divider" orientation="vertical" />
+                                </Box>
                             </Grid>
-                            <Grid item xs={6} md={3}>
+                            <Grid className="search-form-item" item xs={6} md={3}>
+                            <Box className="search-form-wrap">
+                                <Box className="form-icon-wrap"><i class="fas fa-home"></i></Box>
                                 <TextField
+                                    className="search-form-group"
                                     id="property-type"
                                     select
                                     label="Property type"
@@ -247,7 +253,7 @@ const SearchBox = (props) => {
                                     variant="filled"
                                     onChange={e => setPType(e.target.value)}
                                     InputProps={{
-                                        startAdornment: <InputAdornment position="start" style={{color: "red", marginLeft: -1}}><Icon fontSize="small" style={{color: "#ff7600"}}>home</Icon></InputAdornment>,
+                                        //startAdornment: <InputAdornment position="start"><i class="fas fa-home"></i></InputAdornment>,
                                     }}
 
                                 >
@@ -258,9 +264,13 @@ const SearchBox = (props) => {
                                     ))}
                                 </TextField>
                                 <Divider className="search-form-divider" orientation="vertical" />
+                                </Box>
                             </Grid>
-                            <Grid item xs={6} md={3}>
+                            <Grid className="search-form-item" item xs={6} md={3}>
+                            <Box className="search-form-wrap">
+                                <Box className="form-icon-wrap"><i class="fas fa-rupee-sign"></i></Box>
                                 <TextField
+                                    className="search-form-group"
                                     id="budget"
                                     select
                                     label="Budget(Min Price)"
@@ -268,7 +278,7 @@ const SearchBox = (props) => {
                                     variant="filled"
                                     onChange={e => setMinBudget(e.target.value)}
                                     InputProps={{
-                                        startAdornment: <InputAdornment position="start" >₹</InputAdornment>,
+                                        //startAdornment: <InputAdornment position="start" ><i class="fas fa-rupee-sign"></i></InputAdornment>,
                                     }}
 
                                 >
@@ -279,9 +289,13 @@ const SearchBox = (props) => {
                                     ))}
                                 </TextField>
                                 <Divider className="search-form-divider" orientation="vertical" />
+                                </Box>
                             </Grid>
-                            <Grid item xs={6} md={3}>
+                            <Grid className="search-form-item" item xs={6} md={3}>
+                            <Box className="search-form-wrap">
+                                <Box className="form-icon-wrap"><i class="fas fa-rupee-sign"></i></Box>
                                 <TextField
+                                    className="search-form-group"
                                     id="budget"
                                     select
                                     label="Budget(Max Price)"
@@ -292,8 +306,7 @@ const SearchBox = (props) => {
                                         console.log("Max budget", e.target.value);
                                     }}
                                     InputProps={{
-                                        startAdornment: <InputAdornment position="start" >₹
-                                        </InputAdornment>,
+                                        //startAdornment: <InputAdornment position="start" ><i class="fas fa-rupee-sign"></i></InputAdornment>,
                                     }}
                                 >
                                     {budgetList.map((option) => (
@@ -302,6 +315,7 @@ const SearchBox = (props) => {
                                         </MenuItem>
                                     ))}
                                 </TextField>
+                                </Box>
                             </Grid>
                         </Grid>
                         <Grid className="search-form-button">

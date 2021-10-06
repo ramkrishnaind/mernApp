@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
-import { Typography, Box } from "@material-ui/core";
+import { Button, Typography, Box, Link } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as DealingItemAction from "../../redux/actions/DealingItemAction";
 import { useDispatch } from "react-redux";
-
 import BreadCrumbs from "../../common/bread-crumbs";
 import FormHeader from "../../common/form-header";
 import { connect } from "react-redux";
 import MUIDataTable from "mui-datatables";
-
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -17,8 +15,8 @@ import ClearIcon from "@material-ui/icons/Clear";
 import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-
 import "./dealingManagement.css";
+import { Link as RouterLink } from "react-router-dom";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -88,6 +86,16 @@ const DealingItemList = (props) => {
           heading1={"DealingItemManagement"}
           heading2={"Dealing Item Module List"}
         />
+        <Link component={RouterLink} to="/dealingItem/add">
+          <Button
+            variant="contained"
+            color="primary"
+            type="button"
+            className={"CanceForm"}
+          >
+            Add
+          </Button>
+        </Link>
 
         {dealingItem.list && dealingItem.list.length > 0 ? (
           <>

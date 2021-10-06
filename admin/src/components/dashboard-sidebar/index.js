@@ -342,6 +342,46 @@ const items = [
       },
     ],
   },
+  {
+    href: "/construction",
+    icon: UsersIcon,
+    title: "Construction Process",
+    items: [
+      {
+        href: "/construction/add",
+        icon: ShoppingBagIcon,
+        title: "Add Construction Process",
+      },
+      {
+        href: "/construction",
+        icon: ShoppingBagIcon,
+        title: "Construction Process List",
+      },
+    ],
+  },
+  {
+    href: "/investwithus",
+    icon: UsersIcon,
+    title: "Invest With Us",
+    items: [
+      {
+        href: "/investwithus/add",
+        icon: ShoppingBagIcon,
+        title: "Add Invest With Us",
+      },
+      {
+        href: "/investwithus",
+        icon: ShoppingBagIcon,
+        title: "Invest With Us List",
+      },
+    ],
+  },
+
+  {
+    href: "/newsletter",
+    icon: UserIcon,
+    title: "News letters",
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {

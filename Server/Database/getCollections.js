@@ -33,6 +33,10 @@ module.exports = function (mongoose) {
     const JobApplicationDB = mongoose.model('jobApplication');
     const NewsLetterSubscribersDB = mongoose.model('newsLetterSubscribers');
     const BookingDB = mongoose.model('booking');
+    const ConstructionProcessDB = mongoose.model('constructionProcess');
+    const InvestWithUsDB = mongoose.model('investWithUs');
+    const ServiceEnquiryDB = mongoose.model('serviceEnquiry');
+    const AboutPageDB = mongoose.model('aboutPage');
     return {
         UserDB,
         AuthTokenDB,
@@ -64,6 +68,10 @@ module.exports = function (mongoose) {
         SocialMediaDB,
         JobApplicationDB,
         NewsLetterSubscribersDB,
-        BookingDB
+        BookingDB,
+        ConstructionProcessDB,
+        InvestWithUsDB,
+        ServiceEnquiryDB,
+        AboutPageDB
     }
 }

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography, Box } from "@material-ui/core";
+import { Button, Typography, Box, Link } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as PropertyAction from "../../redux/actions/PropertyAction";
 import { useDispatch } from "react-redux";
@@ -16,7 +16,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-
+import { Link as RouterLink } from "react-router-dom";
 import history from "../../components/history";
 const styles = (theme) => ({
   root: {
@@ -73,7 +73,6 @@ const PropertyList = (props) => {
   }
 
   function updatehandleOpenCreateModal(data) {
-    // window.location.href = "/property/edit?id="+data;
     history.push("/property/add?id=" + data);
     window.location.reload();
   }
@@ -89,7 +88,16 @@ const PropertyList = (props) => {
           heading1={"PropertyManagement"}
           heading2={"Property Module List"}
         />
-
+        <Link component={RouterLink} to="/property/add">
+          <Button
+            variant="contained"
+            color="primary"
+            type="button"
+            className={"CanceForm"}
+          >
+            Add
+          </Button>
+        </Link>
         {property.list?.list && property.list?.list?.length > 0 ? (
           <>
             <MUIDataTable

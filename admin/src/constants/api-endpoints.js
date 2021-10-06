@@ -172,6 +172,29 @@ const API_ENDPOINTS = {
   DIRECTOR_UPDATE_ENDPOINT: "team/updateDirector",
   DIRECTOR_DELETE_ENDPOINT: "team/deleteDirector",
   DIRECTOR_DATA_ENDPOINT: "team/getDirectorDetail",
+
+  //construction module
+  CONSTRUCTION_LIST_ENDPOINT: "constructionProcess/getAllConstructionProcess",
+  CONSTRUCTION_ADD_ENDPOINT: "constructionProcess/createConstructionProcess",
+  CONSTRUCTION_STATUS_UPDATE_ENDPOINT:
+    "constructionProcess/updateConstructionProcessStatus",
+  CONSTRUCTION_UPDATE_ENDPOINT: "constructionProcess/updateConstructionProcess",
+  CONSTRUCTION_DELETE_ENDPOINT: "constructionProcess/deleteConstructionProcess",
+  CONSTRUCTION_DATA_ENDPOINT:
+    "constructionProcess/getConstructionProcessDetail",
+
+  //investwithus module
+  INVESTWITHUS_LIST_ENDPOINT: "investWithUs/getAllInvestWithUs",
+  INVESTWITHUS_ADD_ENDPOINT: "investWithUs/createInvestWithUs",
+  INVESTWITHUS_STATUS_UPDATE_ENDPOINT: "investWithUs/updateInvestWithUsStatus",
+  INVESTWITHUS_UPDATE_ENDPOINT: "investWithUs/updateInvestWithUs",
+  INVESTWITHUS_DELETE_ENDPOINT: "investWithUs/deleteInvestWithUs",
+  INVESTWITHUS_DATA_ENDPOINT: "investWithUs/getInvestWithUsDetail",
+
+  //news letter module
+  NEWSLETTER_LIST_ENDPOINT: "newsLetter/getAllNewsLetter",
+  NEWSLETTER_STATUS_UPDATE_ENDPOINT: "newsLetter/updateNewsLetterStatus",
+  NEWSLETTER_DELETE_ENDPOINT: "newsLetter/deleteNewsLetter",
 };
 
 export default API_ENDPOINTS;

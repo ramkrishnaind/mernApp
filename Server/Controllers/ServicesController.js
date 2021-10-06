@@ -1,7 +1,8 @@
 
 const express = require('express');
 
-const fs = require('fs')
+const fs = require('fs');
+const path = require('path');
 var router = express.Router();
 const multer = require("multer");
 let storage = multer.diskStorage({
@@ -25,8 +26,7 @@ let storage = multer.diskStorage({
     }
 });
 let upload = multer({ storage: storage });
-const path = require('path');
-let { createServices, getServicesList, updateServicesStatus,updateServices } = require('./Routes');
+let { createServices, getServicesList, updateServicesStatus, updateServices, createServicesEnquiry } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
@@ -39,6 +39,7 @@ module.exports = function (conn) {
     router.post('/getServicesList', getServicesList(allCollection))
     router.post('/updateServices', upload.array("services"), updateServices(allCollection))
     router.post('/updateServicesStatus', updateServicesStatus(allCollection))
-    
+    router.post('/createServicesEnquiry', requestAuthMiddleware, upload.array("image"), createServicesEnquiry(allCollection))
+
     return router;
 };

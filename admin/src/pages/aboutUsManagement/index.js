@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography, Box } from "@material-ui/core";
+import { Button, Typography, Box, Link } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as AboutUsAction from "../../redux/actions/AboutUsAction";
 import { useDispatch } from "react-redux";
@@ -12,6 +12,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 import history from "../../components/history";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import { Link as RouterLink } from "react-router-dom";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -58,6 +59,16 @@ const AboutUsList = (props) => {
           heading1={"AboutUsManagement"}
           heading2={"About Us Module List"}
         />
+        <Link component={RouterLink} to="/aboutus/add">
+          <Button
+            variant="contained"
+            color="primary"
+            type="button"
+            className={"CanceForm"}
+          >
+            Add
+          </Button>
+        </Link>
 
         {aboutus.list && aboutus.list.length > 0 ? (
           <>

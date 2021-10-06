@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography, Box } from "@material-ui/core";
+import { Button, Typography, Box, Link } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as MenuAction from "../../redux/actions/MenuAction";
 import { useDispatch } from "react-redux";
@@ -15,6 +15,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
 
 import history from "../../components/history";
+import { Link as RouterLink } from "react-router-dom";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -64,7 +65,16 @@ const MenuList = (props) => {
           heading1={"MenuManagement"}
           heading2={"Menu Module List"}
         />
-
+        <Link component={RouterLink} to="/menu/add">
+          <Button
+            variant="contained"
+            color="primary"
+            type="button"
+            className={"CanceForm"}
+          >
+            Add
+          </Button>
+        </Link>
         {menu.list && menu.list.length > 0 ? (
           <>
             <MUIDataTable

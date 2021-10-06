@@ -108,3 +108,19 @@ figure {
     -moz-box-shadow: 0 0 1px #000;
     box-shadow: 0 0 1px #000;
 }
+@media only screen and (max-width: 991px) {
+    .portfolio-item figure {       
+        margin: 0;
+    }
+    .portfolio-item .mask {
+        opacity: 1;
+        width: calc(100% - 15px);
+        height: calc(100% - 18px);
+        top: 7px;
+        left: 7px;
+        margin: 0;
+    }
+    .portfolio-item .mask h2 {
+        opacity: 1;
+    }
+}

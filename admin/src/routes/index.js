@@ -1,4 +1,4 @@
-import {useRoutes, Navigate} from "react-router-dom";
+import { useRoutes, Navigate } from "react-router-dom";
 import DashboardLayout from "../components/dashboard-layout";
 import MainLayout from "../components/main-layout";
 
@@ -54,11 +54,16 @@ import Social from "../pages/socialManagement/add";
 import Address from "../pages/addressManagement/add";
 import FeedbackList from "../pages/feedbackManagement";
 import AddFeedback from "../pages/feedbackManagement/add";
-
 import DirectorList from "../pages/directorManagement";
 import AddDirector from "../pages/directorManagement/add";
+import ConstructionList from "../pages/constructionManagement";
+import AddConstruction from "../pages/constructionManagement/add";
+import InvestwithusList from "../pages/investwithusManagement";
+import AddInvestwithusList from "../pages/investwithusManagement/add";
+import NewsletterList from "../pages/newsletterManagement";
+
 const Routes = (props) => {
-  const {isAuth} = props;
+  const { isAuth } = props;
   const routes = [
     {
       path: "/",
@@ -264,6 +269,27 @@ const Routes = (props) => {
         {
           path: "/director/add",
           element: isAuth ? <AddDirector /> : <Navigate to="/login" />,
+        },
+
+        {
+          path: "/construction",
+          element: isAuth ? <ConstructionList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/construction/add",
+          element: isAuth ? <AddConstruction /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/investwithus",
+          element: isAuth ? <InvestwithusList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/investwithus/add",
+          element: isAuth ? <AddInvestwithusList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/newsletter",
+          element: isAuth ? <NewsletterList /> : <Navigate to="/login" />,
         },
         {
           path: "404",

@@ -32,6 +32,10 @@
 	bottom: 30px;
 	color: #fff;		
 }
+.plan-carousel-wrapper{
+	width: 100%;
+	display: block;
+}
 .plan-carousel .owl-nav {
 	position: absolute;
 	top: -42px;
@@ -40,6 +44,11 @@
 }
 .plan-item {
 	position: relative;
+}
+.plan-item img {
+	height: 225px;
+	object-fit: contain;
+	background-color: #f5f5f5;
 }
 .plan-download {
 	background-color: #ef8822;

@@ -47,7 +47,7 @@ const MenuCreateUpdate = (props) => {
     metaKeywords: dealingData?.metaKeywords,
     metaDescription: dealingData?.metaDescription,
     image: [],
-    // video: "",
+    video: "",
     id: id,
   };
 
@@ -67,7 +67,7 @@ const MenuCreateUpdate = (props) => {
       metaTitle,
       metaKeywords,
       metaDescription,
-      // video,
+      video,
     } = state;
 
     var data = new FormData();
@@ -75,7 +75,7 @@ const MenuCreateUpdate = (props) => {
       data.append("image", item);
     });
     if (id === null) {
-      // data.append("video", video);
+      data.append("video", video);
       data.append("title", title);
       data.append("header", header);
       data.append("description", description);
@@ -85,7 +85,7 @@ const MenuCreateUpdate = (props) => {
 
       dispatch(DealingAction.DealingAddRequestAsync(data));
     } else {
-      // data.append("video", video);
+      data.append("video", video);
       data.append("title", title);
       data.append("header", header);
       data.append("description", description);

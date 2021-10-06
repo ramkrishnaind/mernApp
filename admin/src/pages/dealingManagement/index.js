@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography, Box } from "@material-ui/core";
+import { Button, Typography, Box, Link } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as DealingAction from "../../redux/actions/DealingAction";
 import { useDispatch } from "react-redux";
@@ -17,7 +17,7 @@ import history from "../../components/history";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-
+import { Link as RouterLink } from "react-router-dom";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -86,6 +86,16 @@ const DealingList = (props) => {
           heading1={"DealingManagement"}
           heading2={"Dealing Module List"}
         />
+        <Link component={RouterLink} to="/dealing/add">
+          <Button
+            variant="contained"
+            color="primary"
+            type="button"
+            className={"CanceForm"}
+          >
+            Add
+          </Button>
+        </Link>
 
         {dealing.list && dealing.list.length > 0 ? (
           <>

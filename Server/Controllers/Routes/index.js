@@ -69,6 +69,7 @@ module.exports = {
     getServicesList: require('./ServicesModule/getServicesListModule'),
     updateServices: require('./ServicesModule/updateServicesModule'),
     updateServicesStatus: require('./ServicesModule/updateServicesStatusModule'),
+    createServicesEnquiry: require('./ServicesModule/createServicesEnquiryModule'),
     createContactUs: require('./ContactUsModule/createContactUsModule'),
     getContactUsList: require('./ContactUsModule/getContactUsListModule'),
     updateContactUs: require('./ContactUsModule/updateContactUsModule'),
@@ -81,5 +82,13 @@ module.exports = {
     //////////////////////
     createBookingRequest: require('./BookingModule/createBookingModule'),
     getBookingListRequest: require('./BookingModule/getBookingListModule'),
-
+    ////////////////////////
+    /////// About Page /////
+    ////////////////////////
+    createAboutPage: require('./AboutPageModule/createAboutPageModule'),
+    getAboutPageList: require('./AboutPageModule/getAboutPageListModule'),
+    updateAboutPage: require('./AboutPageModule/updateAboutPageModule'),
+    updateAboutPageStatus: require('./AboutPageModule/updateAboutPageStatusModule'),
+    getAboutPageData: require('./AboutPageModule/getAboutPageDataModule'),
+    deleteAboutPageData: require('./AboutPageModule/deleteAboutPageDataModule'),
 }
