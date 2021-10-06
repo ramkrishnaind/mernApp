@@ -30,6 +30,8 @@ import Loader from "./loaderReducer";
 import Feedback from "./feedbackReducer";
 import Director from "./directorReducer";
 import Construction from "./constructionReducer";
+import Investwithus from "./investwithusReducer";
+import Newsletter from "./NewsletterReducer";
 const reducers = {
   Login: LoginReducer,
   Register: RegisterReducer,
@@ -63,6 +65,8 @@ const reducers = {
   feedback: Feedback,
   director: Director,
   construction: Construction,
+  investwithus: Investwithus,
+  newsletter: Newsletter,
 };
 
 export default reducers;
