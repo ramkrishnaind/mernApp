@@ -36,3 +36,8 @@
   border: 1px solid #ccc;
   height: 200px !important;
 }
+
+.react-confirm-alert-overlay {
+  position: absolute;
+  z-index: 9999;
+}
