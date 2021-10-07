@@ -382,6 +382,24 @@ const items = [
     icon: UserIcon,
     title: "News letters",
   },
+
+  {
+    href: "/aboutpage",
+    icon: UsersIcon,
+    title: "About page",
+    items: [
+      {
+        href: "/aboutpage/add",
+        icon: ShoppingBagIcon,
+        title: "Add About page",
+      },
+      {
+        href: "/aboutpage",
+        icon: ShoppingBagIcon,
+        title: "About page List",
+      },
+    ],
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {

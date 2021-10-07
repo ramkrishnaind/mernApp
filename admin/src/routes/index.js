@@ -62,6 +62,8 @@ import InvestwithusList from "../pages/investwithusManagement";
 import AddInvestwithusList from "../pages/investwithusManagement/add";
 import NewsletterList from "../pages/newsletterManagement";
 
+import AboutPageList from "../pages/aboutpageManagement";
+import AddAboutPage from "../pages/aboutpageManagement/add";
 const Routes = (props) => {
   const { isAuth } = props;
   const routes = [
@@ -290,6 +292,14 @@ const Routes = (props) => {
         {
           path: "/newsletter",
           element: isAuth ? <NewsletterList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/aboutpage",
+          element: isAuth ? <AboutPageList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/aboutpage/add",
+          element: isAuth ? <AddAboutPage /> : <Navigate to="/login" />,
         },
         {
           path: "404",
