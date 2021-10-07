@@ -26,7 +26,7 @@ let storage = multer.diskStorage({
     }
 });
 let upload = multer({ storage: storage });
-let { createAboutPage, getAboutPageList, updateAboutPageStatus, updateAboutPage, getAboutPageData, deleteAboutPageData } = require('./Routes');
+let { createAboutPage, getAboutPageList, updateAboutPageStatus, updateAboutPage, getAboutPageData, deleteAboutPageData, getAboutPageDetail } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
@@ -38,6 +38,7 @@ module.exports = function (conn) {
     router.post('/createAboutPage', userAuthMiddleware, upload.array("image"), createAboutPage(allCollection))
     router.post('/getAboutPageList', userAuthMiddleware, getAboutPageList(allCollection))
     router.post('/getAboutPageData', requestAuthMiddleware, getAboutPageData(allCollection))
+    router.post('/getAboutPageDetail', userAuthMiddleware, getAboutPageDetail(allCollection))
     router.post('/updateAboutPage', userAuthMiddleware, upload.array("image"), updateAboutPage(allCollection))
     router.post('/updateAboutPageStatus', userAuthMiddleware, updateAboutPageStatus(allCollection))
     router.post('/deleteAboutPageData', userAuthMiddleware, deleteAboutPageData(allCollection))

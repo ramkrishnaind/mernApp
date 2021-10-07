@@ -91,4 +91,5 @@ module.exports = {
     updateAboutPageStatus: require('./AboutPageModule/updateAboutPageStatusModule'),
     getAboutPageData: require('./AboutPageModule/getAboutPageDataModule'),
     deleteAboutPageData: require('./AboutPageModule/deleteAboutPageDataModule'),
+    getAboutPageDetail: require('./AboutPageModule/getAboutPageDetailModule'),
 }
