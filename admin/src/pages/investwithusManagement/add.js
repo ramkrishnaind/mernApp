@@ -41,7 +41,9 @@ const InvestCreateUpdate = (props) => {
 
   const initialState = {
     header: investwithusData?.header,
-    howToInvest: investwithusData?.howToInvest,
+    howToInvest: investwithusData?.howToInvest
+      ? JSON.stringify(investwithusData?.howToInvest)
+      : "",
     title: investwithusData?.title,
     shortDescription: investwithusData?.shortDescription,
     metaTitle: investwithusData?.metaTitle,
