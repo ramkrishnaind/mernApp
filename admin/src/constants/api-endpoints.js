@@ -195,6 +195,14 @@ const API_ENDPOINTS = {
   NEWSLETTER_LIST_ENDPOINT: "newsLetter/getAllNewsLetter",
   NEWSLETTER_STATUS_UPDATE_ENDPOINT: "newsLetter/updateNewsLetterStatus",
   NEWSLETTER_DELETE_ENDPOINT: "newsLetter/deleteNewsLetter",
+
+  //aboutPage module
+  ABOUTPAGE_LIST_ENDPOINT: "aboutPage/getAboutPageList",
+  ABOUTPAGE_ADD_ENDPOINT: "aboutPage/createAboutPage",
+  ABOUTPAGE_STATUS_UPDATE_ENDPOINT: "aboutPage/updateAboutPageStatus",
+  ABOUTPAGE_UPDATE_ENDPOINT: "aboutPage/updateAboutPage",
+  ABOUTPAGE_DELETE_ENDPOINT: "aboutPage/deleteAboutPageData",
+  ABOUTPAGE_DATA_ENDPOINT: "aboutPage/getAboutPageData",
 };
 
 export default API_ENDPOINTS;

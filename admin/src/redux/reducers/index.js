@@ -32,6 +32,7 @@ import Director from "./directorReducer";
 import Construction from "./constructionReducer";
 import Investwithus from "./investwithusReducer";
 import Newsletter from "./NewsletterReducer";
+import Aboutpage from "./aboutpageReducer";
 const reducers = {
   Login: LoginReducer,
   Register: RegisterReducer,
@@ -67,6 +68,7 @@ const reducers = {
   construction: Construction,
   investwithus: Investwithus,
   newsletter: Newsletter,
+  aboutpage: Aboutpage,
 };
 
 export default reducers;
