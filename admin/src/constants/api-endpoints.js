@@ -202,7 +202,7 @@ const API_ENDPOINTS = {
   ABOUTPAGE_STATUS_UPDATE_ENDPOINT: "aboutPage/updateAboutPageStatus",
   ABOUTPAGE_UPDATE_ENDPOINT: "aboutPage/updateAboutPage",
   ABOUTPAGE_DELETE_ENDPOINT: "aboutPage/deleteAboutPageData",
-  ABOUTPAGE_DATA_ENDPOINT: "aboutPage/getAboutPageData",
+  ABOUTPAGE_DATA_ENDPOINT: "aboutPage/getAboutPageDetail",
 };
 
 export default API_ENDPOINTS;
