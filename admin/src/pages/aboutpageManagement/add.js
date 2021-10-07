@@ -13,6 +13,8 @@ import { connect } from "react-redux";
 // import Link from "next/link";
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const MenuCreateUpdate = (props) => {
   let query = useQuery();
@@ -21,8 +23,11 @@ const MenuCreateUpdate = (props) => {
   const [, setRefresh] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
+    let data = {
+      _id: id,
+    };
     if (id != null) {
-      dispatch(AboutpageAction.AboutpageDataRequestAsync());
+      dispatch(AboutpageAction.AboutpageDataRequestAsync(data));
     }
   }, [id, dispatch]);
 
@@ -36,7 +41,6 @@ const MenuCreateUpdate = (props) => {
   const initialState = {
     imagePosition: aboutpageData?.imagePosition,
     title: aboutpageData?.title,
-    description: aboutpageData?.description,
     metaTitle: aboutpageData?.metaTitle,
     metaKeywords: aboutpageData?.metaKeywords,
     metaDescription: aboutpageData?.metaDescription,
@@ -45,7 +49,7 @@ const MenuCreateUpdate = (props) => {
   };
 
   const [state, setState] = useState(initialState);
-
+  const [description, setDescription] = useState(aboutpageData?.description);
   const inputChange = (e) => {
     let { name, value } = e.target;
 
@@ -55,18 +59,17 @@ const MenuCreateUpdate = (props) => {
   const handleSubmit = (e) => {
     const {
       title,
-      description,
       id,
       metaTitle,
       metaKeywords,
       metaDescription,
       imagePosition,
+      image,
     } = state;
     var data = new FormData();
-    state?.image.forEach((item, index) => {
-      data.append("aboutImages", item);
-    });
-    if (id === null) {
+
+    data.append("image", image);
+    if (id == null) {
       data.append("imagePosition", imagePosition);
       data.append("title", title);
       data.append("description", description);
@@ -91,20 +94,15 @@ const MenuCreateUpdate = (props) => {
     return new URLSearchParams(useLocation().search);
   }
 
-  const handleImageExteriorView = (file, status) => {
-    let list = state;
-    let data = [];
+  const handleBlogBannerUpload = (file, status) => {
     if (status === "done") {
-      if (list.image && list.image.length) {
-        data = list.image;
-        data[list.image.length] = file.file;
-      } else {
-        data["0"] = file.file;
-      }
-      setState({ ...state, ["image"]: data });
+      setState({ ...state, ["image"]: file.file });
     }
   };
 
+  const handleChangeTextEditor = (content, editor) => {
+    setDescription(content);
+  };
   return (
     <Box className="MenuManagement_Data">
       <FormHeader
@@ -150,25 +148,6 @@ const MenuCreateUpdate = (props) => {
                     id="title"
                     validators={["required"]}
                     errorMessages={["title field is required"]}
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Description*"
-                    fullWidth
-                    value={
-                      state.description
-                        ? state.description
-                        : aboutpageData?.description
-                    }
-                    onChange={inputChange}
-                    name="description"
-                    id="description"
-                    validators={["required"]}
-                    errorMessages={["description field is required"]}
                   />
                 </Grid>
 
@@ -241,6 +220,28 @@ const MenuCreateUpdate = (props) => {
                     errorMessages={["imagePosition field is required"]}
                   />
                 </Grid>
+                <Grid className="form-group-item" item xs={12} sm={12} md={12}>
+                  {aboutpageData?.description != null ? (
+                    <>
+                      <ReactQuill
+                        onChange={handleChangeTextEditor}
+                        value={
+                          description ? description : aboutpageData?.description
+                        }
+                        placeholder="Enter description"
+                        theme="snow"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <ReactQuill
+                        onChange={handleChangeTextEditor}
+                        placeholder="Enter description"
+                        theme="snow"
+                      />
+                    </>
+                  )}
+                </Grid>
               </Grid>
               <br />
               <SubHeading heading={"Upload Image"} />
@@ -248,7 +249,8 @@ const MenuCreateUpdate = (props) => {
               <Grid container spacing={3} className="FormFildes">
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Dropzone
-                    onChangeStatus={handleImageExteriorView}
+                    maxFiles="1"
+                    onChangeStatus={handleBlogBannerUpload}
                     accept="image/*,audio/*,video/*"
                   />
                 </Grid>

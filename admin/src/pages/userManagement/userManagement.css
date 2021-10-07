@@ -34,3 +34,8 @@
 .PhoneInput input {
   display: none;
 }
+
+.react-confirm-alert-overlay {
+  position: absolute;
+  z-index: 9999;
+}
