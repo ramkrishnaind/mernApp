@@ -3,7 +3,8 @@ const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi)
 
 const errorResponseHelper = require('../../../Helper/errorResponse');
-const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
+const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage');
+const SendMessage = require('../../../Helper/sendSms');
 const moduleSchema = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().required(),
@@ -33,6 +34,23 @@ function createSiteVisitRequest(Models) {
 
             let saveModule = await new Models.SiteVisitDB(bodyData).save();
             console.log('saveModule is', saveModule)
+            if (saveModule) {
+                let mobile = 7014319191;
+                let message = 'Hello, Vishal Properties \n';
+                message += 'A New Request For Site Visit \n';
+                message += 'Name : ' + bodyData.name + '\n';
+                message += 'Mobile : ' + bodyData.phone + '\n';
+                message += 'Email : ' + bodyData.email + '\n';
+                message += 'Time : ' + bodyData.time + '\n';
+                message += 'Thanks\n';
+                message += 'Message By:- Dzone india.';
+                //let message = 'Hello, Vishal Propertie&nbsp; A New Request For Site Visit&nbsp;Name : ' + bodyData.name + '&nbsp;Mobile : ' + bodyData.phone + '&nbsp;Email : ' + bodyData.email + '&nbsp;Time ' + bodyData.time + 'Message By:- Dzone india.&nbsp;Thanks';
+                console.log('message is', message);
+                SendMessage({
+                    mobile,
+                    message
+                });
+            }
             res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
         }
         catch (e) {

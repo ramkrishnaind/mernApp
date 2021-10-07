@@ -10,6 +10,7 @@ const configrations = {
     }
 }
 async function sendsms(obj) {
+    console.log('i am in send sms')
     let key = process.env.SMS_GATEWAY_KEY;
     let campaign = process.env.SMS_GATEWAY_CAMPAIGN;
     let routeID = process.env.SMS_GATEWAY_ROUTEID;
