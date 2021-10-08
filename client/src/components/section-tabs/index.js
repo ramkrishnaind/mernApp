@@ -23,11 +23,11 @@ const SectionTabs = (props) => {
     setValue(newValue);
   };
 
-  const tabs = () => {
-    return Object.keys(propertyData).map((data, i) => {
-      return <Tab key={i} label={data} />;
-    });
-  };
+  // const tabs = () => {
+  //   return Object.keys(propertyData).map((data, i) => {
+  //     return <Tab key={i} label={data} />;
+  //   });
+  // };
 
   useEffect(() => {
     console.log(document.querySelector('#tab'));
@@ -45,9 +45,11 @@ const SectionTabs = (props) => {
         onChange={handleChange}
         aria-label="simple tabs example"
       >
-        {
+        {/* {
           tabs()
-        }
+        } */}
+        <Tab label={`SELL`} />;
+        <Tab label={`RENT`} />;
       </Tabs>
 
       <SectionTabPanel className="tab-content" value={value} index={0}>
@@ -56,12 +58,12 @@ const SectionTabs = (props) => {
       <SectionTabPanel className="tab-content" value={value} index={1}>
         <OuterCarouselSlider items={rent} />
       </SectionTabPanel>
-      <SectionTabPanel className="tab-content" value={value} index={2}>
+      {/* <SectionTabPanel className="tab-content" value={value} index={2}>
         <OuterCarouselSlider items={construction} />
       </SectionTabPanel>
       <SectionTabPanel className="tab-content" value={value} index={3}>
         <OuterCarouselSlider items={interior} />
-      </SectionTabPanel>
+      </SectionTabPanel> */}
     </div>
   );
 };
