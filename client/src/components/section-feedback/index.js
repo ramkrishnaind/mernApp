@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Typography, Grid, Container, makeStyles, Button, Box} from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { Typography, Grid, Container, makeStyles, Button, Box } from "@material-ui/core";
 import './section-feedback.css';
 import SectionHeader from "../section-header";
 import APP_CONSTANTS from "../../constants/app-constants";
@@ -52,24 +52,24 @@ const options = {
 const SectionFeedback = props => {
     const classes = useStyles();
 
-    const [feedbacks, setFeedbacks] = useState({list: []});
+    const [feedbacks, setFeedbacks] = useState({ list: [] });
     useEffect(() => {
         populateFeedbackInfo();
     }, []);
 
     const populateFeedbackInfo = () => {
         const getData = async () => {
-            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/feedback/getFeedbackRequest', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/feedback/getFeedbackForHome', {}, {}, { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization }, false);
 
             console.log("feedbackin data ", response.obj.list);
-            setFeedbacks(response?.obj || {list: []});
+            setFeedbacks(response?.obj || { list: [] });
         };
         getData();
     };
 
     return (
         <>
-            <SectionHeader title={APP_CONSTANTS.section_feedback_title} subtitle={APP_CONSTANTS.section_feedback_subtitle} style={{color: '#FFFFFF'}} />
+            <SectionHeader title={APP_CONSTANTS.section_feedback_title} subtitle={APP_CONSTANTS.section_feedback_subtitle} style={{ color: '#FFFFFF' }} />
             <div className="feedback-wrapper">
                 <OwlCarousel className='owl-theme' {...options}>
 
