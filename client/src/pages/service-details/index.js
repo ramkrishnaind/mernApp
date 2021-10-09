@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useLocation} from 'react-router-dom';
 import ApiClient from '../../api-client';
 import ReactHtmlParser from 'react-html-parser';
+import EnquryFormService from "../../components/enquryFormService/enquryForm";
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -179,11 +180,19 @@ const ServiceDetailPage = (props) => {
       {viewDetails ? (<Box className="CareerPageText">
         <Container>
           <div className={classes.root} className="headingtext">
-
-            <Box className="middel-content">
-              <h2> <span style={{color: "#00afb8"}}>{ReactHtmlParser(serviceDetail?.title)}</span></h2>
-              <p>{ReactHtmlParser(serviceDetail?.description)}</p>
-            </Box>
+            <Grid container>
+              <Grid item md={6}>
+                <Box className="middel-content">
+                  <h2> <span style={{color: "#00afb8"}}>{ReactHtmlParser(serviceDetail?.title)}</span></h2>
+                  <p>{ReactHtmlParser(serviceDetail?.description)}</p>
+                </Box>
+              </Grid>
+              <Grid item md={6}>
+                <Box className="middel-content">
+                  <EnquryFormService />
+                </Box>
+              </Grid>
+            </Grid>
             <Box className="work-space">
               <h2><span style={{color: "#00afb8"}}>{ReactHtmlParser(serviceDetail?.title)}</span></h2>
               {(images || []).map((img) => {

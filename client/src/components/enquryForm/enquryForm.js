@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {withStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -13,8 +13,6 @@ import './enquryForm.css';
 import {Box, NativeSelect, TextField} from '@material-ui/core';
 import {useDispatch} from "react-redux";
 import * as EnquiryAction from '../../redux/actions/EnquiryAction';
-import {useParams, useLocation} from 'react-router-dom';
-import ApiClient from '../../api-client';
 
 const styles = (theme) => ({
   root: {
@@ -75,30 +73,8 @@ function EnquryForm(props) {
   const [country, setCountry] = useState("");
   const [type, setPropertyType] = useState("");
   const [propertyname, setPropertyName] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [pCity, setPCity] = useState("");
-  const [pAddress, setPAddress] = useState("");
-  const [pState, setPState] = useState("");
-  const [pLocation, setPLocation] = useState("");
-  const [budget, setBudget] = useState("");
-  const [totalArea, setTotalArea] = useState("");
-  const [floor, setFoor] = useState("");
-  const [message, setMessage] = useState("");
-  const [image, setImage] = useState("");
-  const [file, setFile] = useState("");
-  const [address, setAddress] = useState("");
-
-  const [isServicePage, setServicePage] = useState(false);
-  const location = useLocation();
   const dispatch = useDispatch();
   const handleData = (e) => {
-
-    if (isServicePage) {
-      handleServiceFormSubmit();
-      return;
-    }
-
     const formData = {
       name: name,
       email: email,
@@ -124,102 +100,6 @@ function EnquryForm(props) {
   };
   const handleClose = () => {
     setOpen(false);
-  };
-
-
-  const params = useParams();
-
-  useEffect(() => {
-    console.log("pathname changed *** ", location.pathname);
-
-
-    if (location.pathname === '/service-details') {
-      setServicePage(true);
-      console.log("is a service page");
-    } else {
-      setServicePage(false);
-      console.log("not a service page");
-    }
-    // const type = new URLSearchParams(location.search).get("type");
-    // if path is service-details then show some more fields
-
-
-
-  }, [location]);
-
-  const handleServiceFormSubmit = () => {
-
-    const formData = new FormData();
-
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('mobile', mobile);
-    formData.append('city', city);
-    formData.append('state', state);
-    formData.append('address', address);
-    formData.append('propertyType', type);
-    formData.append('propertyAddress', pAddress);
-    formData.append('image', image);
-    formData.append('propertyCity', pCity);
-    formData.append('propertyState', pState);
-    formData.append('budget', budget);
-    formData.append('totalArea', totalArea);
-    formData.append('floor', floor);
-    formData.append('message', message);
-    formData.append('propertyLocation', pLocation);
-    console.log("service enquiry form data ", formData);
-    submitServiceEnquiry(formData);
-
-  };
-
-  const submitServiceEnquiry = async (payload) => {
-
-    try {
-
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/services/createServicesEnquiry', payload, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
-
-      if (!response || response.error) {
-        console.log("error submiting enquiry ", response.message);
-        // show error
-        return;
-      }
-      // toast.success('Service Enquiry Submitted successfully', {position: toast.POSITION.TOP_RIGHT, autoClose: 5000});
-      clearFormData();
-
-    } catch (e) {
-      console.log("error::submitReview::", e);
-    }
-  };
-
-  const clearFormData = () => {
-
-    setName("");
-    setEmail("");
-    setMobile("");
-    setCity("");
-    setState("");
-    setPropertyType("");
-    setPCity("");
-    setPState("");
-    setFile("");
-    setImage("");
-    setFoor("");
-    setAddress("");
-    setPAddress("");
-    setMessage("");
-    setTotalArea("");
-    setBudget("");
-    setPLocation("");
-
-  };
-
-  const constructFloorOptions = () => {
-    const comp = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(floorNo => {
-      // console.log("floor", floorNo);
-      return <option value={`G+${floorNo}`}>{`G+${floorNo}`}</option>;
-    });
-    // console.log("comp", comp);
-    return comp;
   };
 
   return (
@@ -290,7 +170,7 @@ function EnquryForm(props) {
             }}
             fullWidth >
           </TextField>
-          {!isServicePage ? <TextField
+          <TextField
             className="EmiInputs"
             style={{marginTop: 15}}
             variant="outlined"
@@ -308,8 +188,7 @@ function EnquryForm(props) {
               style: {color: '#FFFFFF'}
             }}
             fullWidth >
-          </TextField> : null
-          }
+          </TextField>
           <NativeSelect className="EmiInputs selectInput"
             onChange={(e) => setPropertyType(e.target.value)}
             fullWidth>
@@ -317,271 +196,15 @@ function EnquryForm(props) {
             <option value={20}>Residential</option>
             <option value={30}>Commerical</option>
           </NativeSelect>
-          {!isServicePage ? <NativeSelect className="EmiInputs selectInput"
+          <NativeSelect className="EmiInputs selectInput"
             onChange={(e) => setPropertyName(e.target.value)}
             fullWidth>
             <option value={10}>Select Property Name</option>
             <option value={20}>Villa</option>
             <option value={30}>Flats</option>
             <option value={30}>Plot</option>
-          </NativeSelect> : null
-          }
-          {
-            isServicePage ? <TextField
-              className="EmiInputs"
-              style={{marginTop: 15}}
-              variant="outlined"
-              label="Property Address"
-
-              name="property-address"
-              value={pAddress}
-              onChange={(e) => setPAddress(e.target.value)}
-              InputProps={{
-                classes: {
-                  notchedOutline: classes.notchedOutline
-                }
-              }}
-              InputLabelProps={{
-                style: {color: '#FFFFFF'}
-              }}
-              fullWidth >
-
-            </TextField> : null
-          }
-          {
-            isServicePage ? <TextField
-              className="EmiInputs"
-              style={{marginTop: 15}}
-              variant="outlined"
-              label="Your Address"
-
-              name="address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              InputProps={{
-                classes: {
-                  notchedOutline: classes.notchedOutline
-                }
-              }}
-              InputLabelProps={{
-                style: {color: '#FFFFFF'}
-              }}
-              fullWidth >
-            </TextField> : null
-          }
-          {
-            isServicePage ? <TextField
-              className="EmiInputs"
-              style={{marginTop: 15}}
-              variant="outlined"
-              label="City"
-
-              name="city"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              InputProps={{
-                classes: {
-                  notchedOutline: classes.notchedOutline
-                }
-              }}
-              InputLabelProps={{
-                style: {color: '#FFFFFF'}
-              }}
-              fullWidth >
-            </TextField> : null
-          }
-
-          {
-            isServicePage ? <TextField
-              className="EmiInputs"
-              style={{marginTop: 15}}
-              variant="outlined"
-              label="State"
-
-              name="state"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-              InputProps={{
-                classes: {
-                  notchedOutline: classes.notchedOutline
-                }
-              }}
-              InputLabelProps={{
-                style: {color: '#FFFFFF'}
-              }}
-              fullWidth >
-            </TextField> : null
-          }
-          {
-            isServicePage ? <TextField
-              className="EmiInputs"
-              style={{marginTop: 15}}
-              variant="outlined"
-              label="property City"
-
-              name="property-city"
-              value={pCity}
-              onChange={(e) => setPCity(e.target.value)}
-              InputProps={{
-                classes: {
-                  notchedOutline: classes.notchedOutline
-                }
-              }}
-              InputLabelProps={{
-                style: {color: '#FFFFFF'}
-              }}
-              fullWidth >
-            </TextField> : null
-          }
-
-          {
-            isServicePage ? <TextField
-              className="EmiInputs"
-              style={{marginTop: 15}}
-              variant="outlined"
-              label="property State"
-
-              name="property-state"
-              value={pState}
-              onChange={(e) => setPState(e.target.value)}
-              InputProps={{
-                classes: {
-                  notchedOutline: classes.notchedOutline
-                }
-              }}
-              InputLabelProps={{
-                style: {color: '#FFFFFF'}
-              }}
-              fullWidth >
-            </TextField> : null
-          }
-          {
-            isServicePage ? <TextField
-              className="EmiInputs"
-              style={{marginTop: 15}}
-              variant="outlined"
-              label="Property location"
-
-              name="property-location"
-              value={pLocation}
-              onChange={(e) => setPLocation(e.target.value)}
-              InputProps={{
-                classes: {
-                  notchedOutline: classes.notchedOutline
-                }
-              }}
-              InputLabelProps={{
-                style: {color: '#FFFFFF'}
-              }}
-              fullWidth >
-            </TextField> : null
-          }
-
-          {
-            isServicePage ? <TextField
-              className="EmiInputs"
-              style={{marginTop: 15}}
-              variant="outlined"
-              label="Your Budget"
-              type='number'
-              name="your-budget"
-              value={budget}
-              onChange={(e) => setBudget(e.target.value)}
-              InputProps={{
-                classes: {
-                  notchedOutline: classes.notchedOutline
-                }
-              }}
-              InputLabelProps={{
-                style: {color: '#FFFFFF'}
-              }}
-              fullWidth >
-            </TextField> : null
-          }
-          {
-            isServicePage ? <TextField
-              className="EmiInputs"
-              style={{marginTop: 15}}
-              variant="outlined"
-              label="Total area"
-              type="number"
-              name="total-area"
-              value={totalArea}
-              onChange={(e) => setTotalArea(e.target.value)}
-              InputProps={{
-                classes: {
-                  notchedOutline: classes.notchedOutline
-                }
-              }}
-              InputLabelProps={{
-                style: {color: '#FFFFFF'}
-              }}
-              fullWidth >
-            </TextField> : null
-          }
-          {
-            isServicePage ? <NativeSelect className="EmiInputs selectInput"
-              value={floor}
-              onChange={(e) => setFoor(e.target.value)}
-              fullWidth>
-              <option value={''}>Select Floor</option>
-              {
-                constructFloorOptions()
-              }
-            </NativeSelect> : null
-          }
-
-
-          {
-            isServicePage ? <TextField
-              className="EmiInputs"
-              label="Message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              multiline
-              rows={2}
-              fullWidth
-              defaultValue=""
-              variant="outlined"
-              InputProps={{
-                classes: {
-                  notchedOutline: classes.notchedOutline
-                }
-              }}
-              InputLabelProps={{
-                style: {color: '#FFFFFF'}
-              }}
-            /> : null}
-
-          {
-            isServicePage ? <TextField
-              className="EmiInputs"
-              style={{marginTop: 15}}
-              variant="outlined"
-              label="Upload file"
-              type='file'
-              name="floor"
-              value={file}
-              onChange={(e) => {
-                setImage(e.target.files[0]);
-                setFile(e.target.value);
-              }}
-              InputProps={{
-                classes: {
-                  notchedOutline: classes.notchedOutline
-                }
-              }}
-              InputLabelProps={{
-                style: {color: '#FFFFFF'}
-              }}
-              fullWidth >
-            </TextField> : null
-          }
-
+          </NativeSelect>
         </Box>
-
-
-
         <DialogActions>
           <Box className="ParentButton">
             <Button

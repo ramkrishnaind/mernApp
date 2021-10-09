@@ -5,7 +5,7 @@
 }
 
 .middel-content{
-    text-align: center;
+    text-align: left;
     padding-top: 60px;
 }
 
@@ -18,4 +18,11 @@
     letter-spacing: 1px;
     position: relative;
     margin-bottom: 2rem;
+}
+
+.middel-content p{
+    margin: 0px!important;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-left: 0px;
 }
