@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-
 import * as ConstructionAction from "../../redux/actions/ConstructionAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
@@ -10,12 +9,11 @@ import "./blogManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-// import Link from "next/link";
-
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
+import API_ENDPOINTS from "../../constants/api-endpoints";
 
 const ConstructionCreateUpdate = (props) => {
   let query = useQuery();
@@ -45,6 +43,7 @@ const ConstructionCreateUpdate = (props) => {
     metaKeywords: constructionData?.metaKeywords,
     metaDescription: constructionData?.metaDescription,
     image: "",
+    imagePosition: constructionData?.imagePosition,
     id: id,
   };
 
@@ -64,6 +63,7 @@ const ConstructionCreateUpdate = (props) => {
       metaKeywords,
       metaDescription,
       image,
+      imagePosition,
     } = state;
     var data = new FormData();
     if (id == null) {
@@ -73,6 +73,7 @@ const ConstructionCreateUpdate = (props) => {
       data.append("metaTitle", metaTitle);
       data.append("metaKeywords", metaKeywords);
       data.append("metaDescription", metaDescription);
+      // data.append("imagePosition", imagePosition);
 
       dispatch(ConstructionAction.ConstructionAddRequestAsync(data));
     } else {
@@ -83,6 +84,8 @@ const ConstructionCreateUpdate = (props) => {
       data.append("metaKeywords", metaKeywords);
       data.append("metaDescription", metaDescription);
       data.append("_id", id);
+      // data.append("imagePosition", imagePosition);
+
       dispatch(ConstructionAction.ConstructionUpdateRequestAsync(data));
     }
   };
@@ -200,6 +203,23 @@ const ConstructionCreateUpdate = (props) => {
                   />
                 </Grid>
 
+                {/* <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                  <TextValidator
+                    className="form-control-item"
+                    variant="outlined"
+                    label="Image Position*"
+                    fullWidth
+                    value={
+                      state.imagePosition
+                        ? state.imagePosition
+                        : constructionData?.imagePosition
+                    }
+                    onChange={inputChange}
+                    name="imagePosition"
+                    id="imagePosition"
+                  />
+                </Grid> */}
+
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
                   {constructionData?.description != null ? (
                     <>
@@ -231,6 +251,16 @@ const ConstructionCreateUpdate = (props) => {
               <Grid container spacing={3} className="FormFildes">
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Image </Typography>
+                  {constructionData?.image?.map((item, index) => {
+                    return (
+                      <img
+                        src={API_ENDPOINTS.BASE_URL + item.path}
+                        height="80px"
+                        width="80px"
+                      />
+                    );
+                  })}
+
                   <Dropzone
                     maxFiles="1"
                     onChangeStatus={handleBannerUpload}

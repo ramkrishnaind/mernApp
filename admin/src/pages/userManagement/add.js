@@ -10,7 +10,6 @@ import {
   Link,
 } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-
 import * as UserAction from "../../redux/actions/UserAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
@@ -22,8 +21,7 @@ import PhoneInput from "react-phone-number-input";
 import { connect } from "react-redux";
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
-
-// import Link from "next/link";
+import API_ENDPOINTS from "../../constants/api-endpoints";
 
 const MenuCreateUpdate = (props) => {
   let query = useQuery();
@@ -91,7 +89,7 @@ const MenuCreateUpdate = (props) => {
       data.append("mobile", mobile);
       data.append("userRole", userRole);
       data.append("image", image);
-      data.append("_id", id);
+      // data.append("_id", id);
 
       dispatch(UserAction.UserUpdateRequestAsync(data));
     }
@@ -259,6 +257,15 @@ const MenuCreateUpdate = (props) => {
               <Grid container spacing={3} className="FormFildes">
                 <Grid className="form-group-item" item xs={12} sm={6} md={4}>
                   <Typography>Uplaod Image </Typography>
+                  {userData?.image?.map((item, index) => {
+                    return (
+                      <img
+                        src={API_ENDPOINTS.BASE_URL + item.path}
+                        height="80px"
+                        width="80px"
+                      />
+                    );
+                  })}
                   <Dropzone
                     maxFiles="1"
                     onChangeStatus={handleBannerUpload}
@@ -279,7 +286,7 @@ const MenuCreateUpdate = (props) => {
                   Save
                 </Button>
 
-                <Link component={RouterLink} to="/menu">
+                <Link component={RouterLink} to="/user">
                   <Button
                     // fullWidth
                     variant="contained"

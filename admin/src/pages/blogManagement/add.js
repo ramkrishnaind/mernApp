@@ -16,6 +16,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
+import API_ENDPOINTS from "../../constants/api-endpoints";
 
 const MenuCreateUpdate = (props) => {
   let query = useQuery();
@@ -72,7 +73,7 @@ const MenuCreateUpdate = (props) => {
     } = state;
     var data = new FormData();
     if (id == null) {
-      // data.append("bannerImage", bannerImage);
+      data.append("bannerImage", bannerImage);
       data.append("blogImage", image);
       data.append("title", title);
       data.append("sortDescription", sortDescription);
@@ -83,7 +84,7 @@ const MenuCreateUpdate = (props) => {
 
       dispatch(BlogAction.BlogAddRequestAsync(data));
     } else {
-      // data.append("bannerImage", bannerImage);
+      data.append("bannerImage", bannerImage);
       data.append("blogImage", image);
       data.append("title", title);
       data.append("sortDescription", sortDescription);
@@ -261,6 +262,16 @@ const MenuCreateUpdate = (props) => {
               <Grid container spacing={3} className="FormFildes">
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Image </Typography>
+                  {blogData?.blogImage.map((item, index) => {
+                    return (
+                      <img
+                        src={API_ENDPOINTS.BASE_URL + item.path}
+                        height="80px"
+                        width="80px"
+                      />
+                    );
+                  })}
+
                   <Dropzone
                     maxFiles="1"
                     onChangeStatus={handleBannerUpload}
@@ -269,6 +280,16 @@ const MenuCreateUpdate = (props) => {
                 </Grid>
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Banner Image </Typography>
+                  {blogData?.bannerImage?.map((item, index) => {
+                    return (
+                      <img
+                        src={API_ENDPOINTS.BASE_URL + item.path}
+                        height="80px"
+                        width="80px"
+                      />
+                    );
+                  })}
+
                   <Dropzone
                     maxFiles="1"
                     onChangeStatus={handleBlogBannerUpload}

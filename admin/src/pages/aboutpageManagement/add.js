@@ -10,11 +10,11 @@ import "./aboutUsManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-// import Link from "next/link";
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import API_ENDPOINTS from "../../constants/api-endpoints";
 
 const MenuCreateUpdate = (props) => {
   let query = useQuery();
@@ -44,7 +44,7 @@ const MenuCreateUpdate = (props) => {
     metaTitle: aboutpageData?.metaTitle,
     metaKeywords: aboutpageData?.metaKeywords,
     metaDescription: aboutpageData?.metaDescription,
-    image: [],
+    image: "",
     id: aboutpageData?._id,
   };
 
@@ -248,6 +248,16 @@ const MenuCreateUpdate = (props) => {
               <br />
               <Grid container spacing={3} className="FormFildes">
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
+                  {aboutpageData?.image?.map((item, index) => {
+                    return (
+                      <img
+                        src={API_ENDPOINTS.BASE_URL + item.path}
+                        height="80px"
+                        width="80px"
+                      />
+                    );
+                  })}
+
                   <Dropzone
                     maxFiles="1"
                     onChangeStatus={handleBlogBannerUpload}

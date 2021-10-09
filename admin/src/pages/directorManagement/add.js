@@ -16,7 +16,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
-
+import API_ENDPOINTS from "../../constants/api-endpoints";
 const DirectorCreateUpdate = (props) => {
   let query = useQuery();
   let id = query.get("id");
@@ -296,6 +296,16 @@ const DirectorCreateUpdate = (props) => {
               <Grid container spacing={3} className="FormFildes">
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Image </Typography>
+                  {directorData?.image?.map((item, index) => {
+                    return (
+                      <img
+                        src={API_ENDPOINTS.BASE_URL + item.path}
+                        height="80px"
+                        width="80px"
+                      />
+                    );
+                  })}
+
                   <Dropzone
                     maxFiles="1"
                     onChangeStatus={handleBannerUpload}
