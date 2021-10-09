@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, makeStyles, Box } from '@material-ui/core';
+import React, {useEffect, useState} from 'react';
+import {Container, Grid, Typography, makeStyles, Box} from '@material-ui/core';
 import '../about-us.css';
 import PageBanner from '../../../components/page-banner';
 import DescriptionIcon from '@material-ui/icons/Description';
-
+import ApiClient from '../../../api-client';
+import HtmlParser from 'react-html-parser';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -11,9 +12,29 @@ const useStyles = makeStyles((theme) => ({
 
 const InvestWithUs = (props) => {
   const classes = useStyles();
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    populateInvestWithUsDetails();
+  }, []);
+
+
+  const populateInvestWithUsDetails = () => {
+    const getData = async () => {
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/investWithUs/getActiveInvestWithUs', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+
+      setData(response.data);
+      // console.log('About us details', aboutUsInfo, aboutSection);
+    };
+    getData();
+  };
+  let img = 'no-image-available-icon-6.png';
+  console.log("data", data);
+  if (data)
+    img = data?.image[0]?.path ? ApiClient.SERVER_ADDRESS + '/' + data.image[0].path : 'no-image-available-icon-6.png';
 
   return (
-    <div style={{ background: '#fff' }}>
+    <div style={{background: '#fff'}}>
       <PageBanner
         bgImage={'/about_us.jpeg'}
         title="Invest With Us"
@@ -26,7 +47,7 @@ const InvestWithUs = (props) => {
             <Box className="about-page-content" align="center">
               <Typography variant="h3">Invest Now For Consistent Returns</Typography>
               <Typography>
-                Vishal Construction Company offers an array of reasons to help investors of all experience level gain the maximum return of investment. Our focus always remains on enchanting our invaluable customers and stakeholders.
+                {HtmlParser(data?.shortDescription)}
               </Typography>
             </Box>
           </Box>
@@ -34,21 +55,14 @@ const InvestWithUs = (props) => {
             <Grid container spacing={3}>
               <Grid className="about-page-summery" item xs={12} md={7}>
                 <Box className="about-page-content">
-                  <Typography variant="h3">Let’s have a look at innumerous reasons to invest in real estate in Jaipur</Typography>
+                  <Typography variant="h3"> {HtmlParser(data?.title)}</Typography>
                   <Typography>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    {HtmlParser(data?.description)}
                   </Typography>
-                  <ul>
-                    <li>Jaipur has become the ground for real estate boom and is known to be the eleventh largest city of India.</li>
-                    <li>Jaipur is reckoned to be a mega city by 2025 and will surpass a population of approx. 80 Million people.</li>
-                    <li>Jaipur boasts an International airport which provides availability to all the major destinations.</li>
-                    <li>Over the years it has become the largest center of Gems and Jewelry. Jaipur is known to be amongst the biggest exporters of the same which helps in developing the economy.</li>
-                    <li>Jaipur boasts the best of medical facilities like BMCHRC, EHCC, SDMG, Fortis, SMS Hospital etc., which makes it a reliable destination.</li>
-                  </ul>
                 </Box>
               </Grid>
               <Grid className="about-page-images" item xs={12} md={5} className={classes.style2}>
-                <Box className="about-page-image"><img src="Happy-Family.jpeg" /></Box>
+                <Box className="about-page-image"><img src={img} alt='' /></Box>
               </Grid>
             </Grid>
           </Box>
@@ -62,30 +76,16 @@ const InvestWithUs = (props) => {
           </Box>
           <Box className="invest-items">
             <Grid container spacing={3}>
-              <Grid className="invest-item" item xs={12} md={4}>
-                <Box className="invest-icon">
-                  <DescriptionIcon />
-                </Box>
-                <Typography variant="h4">Customer Experience</Typography>
-                <Typography> We always like our customers to have an unparalleled level of service experience. Our executives are available 24*7 to assist you in case any doubt/question triggers your mind.</Typography>
-              </Grid>
-
-              <Grid className="invest-item" item xs={12} md={4}>
-                <Box className="invest-icon">
-                  <DescriptionIcon />
-                </Box>
-                <Typography variant="h4">Build Your Knowledge</Typography>
-                <Typography>Go through the informational articles provided by Vishal Construction Company to grasp a strong understanding of investment strategies and real estate market trends.</Typography>
-              </Grid>
-
-              <Grid className="invest-item" item xs={12} md={4}>
-                <Box className="invest-icon">
-                  <DescriptionIcon />
-                </Box>
-                <Typography variant="h4">Your Next Step</Typography>
-                <Typography> We always like our customers to have an unparalleled level of service experience. Our executives are available 24*7 to assist you in case any doubt/question triggers your mind.</Typography>
-              </Grid>
-
+              {(data?.howToInvest || []).map((details, i) => {
+                return <Grid className="invest-item" item xs={12} md={4}>
+                  <Box className="client-block-icon">
+                    <i className={`fas ${details.icon}`} style={{color: '#FF7601', fontSize: 40, padding: 0, margin: 20}} aria-hidden="true"></i>
+                  </Box>
+                  <Typography variant="h4">{details.title}</Typography>
+                  <Typography> {details.detail}</Typography>
+                </Grid>;
+              })
+              }
             </Grid>
           </Box>
         </Container>
