@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-
 import * as DealingAction from "../../redux/actions/DealingAction";
 import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
@@ -10,13 +9,11 @@ import "./dealingManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-// import Link from "next/link";
-
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
+import API_ENDPOINTS from "../../constants/api-endpoints";
 
 const MenuCreateUpdate = (props) => {
   const dispatch = useDispatch();
@@ -71,9 +68,9 @@ const MenuCreateUpdate = (props) => {
     } = state;
 
     var data = new FormData();
-    state?.image.forEach((item, index) => {
-      data.append("image", item);
-    });
+    // state?.image.forEach((item, index) => {
+    //   data.append("image", item);
+    // });
     if (id === null) {
       data.append("video", video);
       data.append("title", title);
@@ -274,6 +271,23 @@ const MenuCreateUpdate = (props) => {
                 </Grid> */}
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Video </Typography>
+                  {dealingData?.video?.map((item, index) => {
+                    return (
+                      <>
+                        <video width="320" height="240" controls>
+                          <source
+                            src={API_ENDPOINTS.BASE_URL + item.path}
+                            type="video/mp4"
+                          />
+                          <source
+                            src={API_ENDPOINTS.BASE_URL + item.path}
+                            type="video/ogg"
+                          />
+                        </video>
+                      </>
+                    );
+                  })}
+
                   <Dropzone
                     maxFiles="1"
                     onChangeStatus={handleVideouplaod}

@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Grid,
-  Typography,
-  Box,
-  Link,
-  FormControl,
-  Select,
-  InputLabel,
-} from "@material-ui/core";
+import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 import * as FeedbackAction from "../../redux/actions/FeedbackAction";
@@ -23,6 +14,7 @@ import { connect } from "react-redux";
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
 import Rating from "@mui/material/Rating";
+import API_ENDPOINTS from "../../constants/api-endpoints";
 
 const MenuCreateUpdate = (props) => {
   let query = useQuery();
@@ -205,6 +197,17 @@ const MenuCreateUpdate = (props) => {
               <Grid container spacing={3} className="FormFildes">
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Icon Image </Typography>
+
+                  {feedbackData?.image[0]?.iconImage?.map((item, index) => {
+                    return (
+                      <img
+                        src={API_ENDPOINTS.BASE_URL + item.path}
+                        height="80px"
+                        width="80px"
+                      />
+                    );
+                  })}
+
                   <Dropzone
                     maxFiles="1"
                     onChangeStatus={handleIconUpload}
@@ -214,6 +217,16 @@ const MenuCreateUpdate = (props) => {
 
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Property Image </Typography>
+                  {feedbackData?.image[0]?.image?.map((item, index) => {
+                    return (
+                      <img
+                        src={API_ENDPOINTS.BASE_URL + item.path}
+                        height="80px"
+                        width="80px"
+                      />
+                    );
+                  })}
+
                   <Dropzone
                     maxFiles="3"
                     onChangeStatus={handleBannerUpload}

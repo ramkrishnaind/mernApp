@@ -10,12 +10,11 @@ import "./blogManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-// import Link from "next/link";
-
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
+import API_ENDPOINTS from "../../constants/api-endpoints";
 
 const InvestCreateUpdate = (props) => {
   let query = useQuery();
@@ -303,6 +302,16 @@ const InvestCreateUpdate = (props) => {
               <Grid container spacing={3} className="FormFildes">
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Image </Typography>
+                  {investwithusData?.image[0]?.image?.map((item, index) => {
+                    return (
+                      <img
+                        src={API_ENDPOINTS.BASE_URL + item.path}
+                        height="80px"
+                        width="80px"
+                      />
+                    );
+                  })}
+
                   <Dropzone
                     maxFiles="1"
                     onChangeStatus={handleBannerUpload}
@@ -311,6 +320,15 @@ const InvestCreateUpdate = (props) => {
                 </Grid>
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Banner Image </Typography>
+                  {investwithusData?.image[0]?.banner?.map((item, index) => {
+                    return (
+                      <img
+                        src={API_ENDPOINTS.BASE_URL + item.path}
+                        height="80px"
+                        width="80px"
+                      />
+                    );
+                  })}
                   <Dropzone
                     maxFiles="1"
                     onChangeStatus={handleBlogBannerUpload}

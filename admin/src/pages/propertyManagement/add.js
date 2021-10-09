@@ -35,9 +35,9 @@ import Option from "./components/option";
 import Transaction from "./components/transaction";
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
-
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import API_ENDPOINTS from "../../constants/api-endpoints";
 
 const personal_details_options = ["Owner", "Agent", "Builder"];
 const property_details_options = ["Sell", "Rent"];
@@ -179,6 +179,11 @@ const PropertyCreateUpdate = (props) => {
       setFormFields(formData);
     }
 
+    if (propertyData && propertyData?.images?.mainImage[0]?.path !== "") {
+      setFile(
+        API_ENDPOINTS.BASE_URL + propertyData?.images?.mainImage[0]?.path
+      );
+    }
     // amenities
   }, [state, propertyData]);
 
@@ -1561,6 +1566,17 @@ const PropertyCreateUpdate = (props) => {
                         <Typography variant="subtitle1" gutterBottom>
                           Exterior View
                         </Typography>
+                        {propertyData?.images?.exteriorView?.map(
+                          (item, index) => {
+                            return (
+                              <img
+                                src={API_ENDPOINTS.BASE_URL + item.path}
+                                height="80px"
+                                width="80px"
+                              />
+                            );
+                          }
+                        )}
                         <Dropzone
                           onChangeStatus={handleImageExteriorView}
                           accept="image/*,audio/*,video/*"
@@ -1576,6 +1592,15 @@ const PropertyCreateUpdate = (props) => {
                       <Typography variant="subtitle1" gutterBottom>
                         Living Room
                       </Typography>
+                      {propertyData?.images?.livingRoom?.map((item, index) => {
+                        return (
+                          <img
+                            src={API_ENDPOINTS.BASE_URL + item.path}
+                            height="80px"
+                            width="80px"
+                          />
+                        );
+                      })}
                       <Dropzone
                         onChangeStatus={handleImageLivingRoom}
                         accept="image/*,audio/*,video/*"
@@ -1586,6 +1611,15 @@ const PropertyCreateUpdate = (props) => {
                       <Typography variant="subtitle1" gutterBottom>
                         Badrooms
                       </Typography>
+                      {propertyData?.images?.badrooms?.map((item, index) => {
+                        return (
+                          <img
+                            src={API_ENDPOINTS.BASE_URL + item.path}
+                            height="80px"
+                            width="80px"
+                          />
+                        );
+                      })}
                       <Dropzone
                         onChangeStatus={handleImageBadrooms}
                         accept="image/*,audio/*,video/*"
@@ -1600,6 +1634,15 @@ const PropertyCreateUpdate = (props) => {
                       <Typography variant="subtitle1" gutterBottom>
                         Bathrooms
                       </Typography>
+                      {propertyData?.images?.bathrooms?.map((item, index) => {
+                        return (
+                          <img
+                            src={API_ENDPOINTS.BASE_URL + item.path}
+                            height="80px"
+                            width="80px"
+                          />
+                        );
+                      })}
                       <Dropzone
                         onChangeStatus={handleImageBathrooms}
                         accept="image/*,audio/*,video/*"
@@ -1610,6 +1653,15 @@ const PropertyCreateUpdate = (props) => {
                       <Typography variant="subtitle1" gutterBottom>
                         Kitchen
                       </Typography>
+                      {propertyData?.images?.kitchen?.map((item, index) => {
+                        return (
+                          <img
+                            src={API_ENDPOINTS.BASE_URL + item.path}
+                            height="80px"
+                            width="80px"
+                          />
+                        );
+                      })}
                       <Dropzone
                         onChangeStatus={handleImageKitchen}
                         accept="image/*,audio/*,video/*"
@@ -1624,6 +1676,15 @@ const PropertyCreateUpdate = (props) => {
                       <Typography variant="subtitle1" gutterBottom>
                         Floor Plan
                       </Typography>
+                      {propertyData?.images?.floorPlan?.map((item, index) => {
+                        return (
+                          <img
+                            src={API_ENDPOINTS.BASE_URL + item.path}
+                            height="80px"
+                            width="80px"
+                          />
+                        );
+                      })}
                       <Dropzone
                         onChangeStatus={handleImageFloorPlan}
                         accept="image/*,audio/*,video/*"
@@ -1634,6 +1695,15 @@ const PropertyCreateUpdate = (props) => {
                       <Typography variant="subtitle1" gutterBottom>
                         Master Plan
                       </Typography>
+                      {propertyData?.images?.masterPlan?.map((item, index) => {
+                        return (
+                          <img
+                            src={API_ENDPOINTS.BASE_URL + item.path}
+                            height="80px"
+                            width="80px"
+                          />
+                        );
+                      })}
                       <Dropzone
                         onChangeStatus={handleImageMasterPlan}
                         accept="image/*,audio/*,video/*"
@@ -1658,6 +1728,15 @@ const PropertyCreateUpdate = (props) => {
                       <Typography variant="subtitle1" gutterBottom>
                         Other
                       </Typography>
+                      {propertyData?.images?.other?.map((item, index) => {
+                        return (
+                          <img
+                            src={API_ENDPOINTS.BASE_URL + item.path}
+                            height="80px"
+                            width="80px"
+                          />
+                        );
+                      })}
                       <Dropzone
                         onChangeStatus={handleImageOther}
                         accept="image/*,audio/*,video/*"
