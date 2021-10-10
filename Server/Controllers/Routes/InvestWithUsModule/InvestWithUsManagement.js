@@ -54,6 +54,7 @@ function createInvestWithUsHelper(Models) {
                 res.send({ status: false, message: "Invest With Us Data Already Exist. Please Edit Existing.", data: dataExist });
             }
             console.log('InvestWithUsFormData.howToInvest is',InvestWithUsFormData.howToInvest)
+            console.log('req.files is',req.files)
             InvestWithUsFormData.howToInvest = JSON.parse(InvestWithUsFormData.howToInvest);
             if (req.files) {
                 let InvestWithUsImages = req.files;
