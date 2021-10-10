@@ -39,10 +39,10 @@ const MenuCreateUpdate = (props) => {
   }, [props.feedback.success]);
 
   const initialState = {
-    name: feedbackData?.name,
-    city: feedbackData?.city,
-    rating: feedbackData?.rating,
-    message: feedbackData?.message,
+    name: feedbackData?.name || "",
+    city: feedbackData?.city || "",
+    rating: feedbackData?.rating || "",
+    message: feedbackData?.message || "",
     image: [],
     iconImage: "",
     id: id,
@@ -143,7 +143,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Name*"
                     fullWidth
-                    value={state.name ? state.name : feedbackData?.name}
+                    value={state.name}
                     onChange={inputChange}
                     name="name"
                     id="name"
@@ -158,7 +158,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="City*"
                     fullWidth
-                    value={state.city ? state.city : feedbackData?.city}
+                    value={state.city}
                     onChange={inputChange}
                     name="city"
                     id="city"
@@ -171,7 +171,7 @@ const MenuCreateUpdate = (props) => {
                   <Typography>Rating </Typography>
                   <Rating
                     name="rating"
-                    value={state.rating ? state.rating : feedbackData?.rating}
+                    value={state.rating}
                     onChange={inputChange}
                   />
                 </Grid>
@@ -182,9 +182,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Comment*"
                     fullWidth
-                    value={
-                      state.message ? state.message : feedbackData?.message
-                    }
+                    value={state.message}
                     onChange={inputChange}
                     name="message"
                     id="message"

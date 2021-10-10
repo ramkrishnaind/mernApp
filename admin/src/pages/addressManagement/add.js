@@ -26,13 +26,13 @@ const AddressCreateUpdate = (props) => {
   }, [props.address.success]);
 
   const initialState = {
-    address: addressData?.address,
-    city: addressData?.city,
-    states: addressData?.state,
-    pinCode: addressData?.pinCode,
-    mobile: addressData?.mobile,
-    email: addressData?.email,
-    timming: addressData?.timming,
+    address: addressData?.address || "",
+    city: addressData?.city || "",
+    states: addressData?.state || "",
+    pinCode: addressData?.pinCode || "",
+    mobile: addressData?.mobile || "",
+    email: addressData?.email || "",
+    timming: addressData?.timming || "",
     id: addressData?._id,
   };
 
@@ -120,7 +120,7 @@ const AddressCreateUpdate = (props) => {
                     variant="outlined"
                     label="Address*"
                     fullWidth
-                    value={state.address ? state.address : addressData?.address}
+                    value={state.address}
                     onChange={inputChange}
                     name="address"
                     id="address"
@@ -135,7 +135,7 @@ const AddressCreateUpdate = (props) => {
                     variant="outlined"
                     label="City*"
                     fullWidth
-                    value={state.city ? state.city : addressData?.city}
+                    value={state.city}
                     onChange={inputChange}
                     name="city"
                     id="city"
@@ -150,7 +150,7 @@ const AddressCreateUpdate = (props) => {
                     variant="outlined"
                     label="State"
                     fullWidth
-                    value={state.states ? state.states : addressData?.states}
+                    value={state.states}
                     onChange={inputChange}
                     name="states"
                     id="states"
@@ -165,7 +165,7 @@ const AddressCreateUpdate = (props) => {
                     variant="outlined"
                     label="Pin Code"
                     fullWidth
-                    value={state.pinCode ? state.pinCode : addressData?.pinCode}
+                    value={state.pinCode}
                     onChange={inputChange}
                     name="pinCode"
                     id="pinCode"
@@ -178,7 +178,7 @@ const AddressCreateUpdate = (props) => {
                     variant="outlined"
                     label="Mobile"
                     fullWidth
-                    value={state.mobile ? state.mobile : addressData?.mobile}
+                    value={state.mobile}
                     onChange={inputChange}
                     name="mobile"
                     id="mobile"
@@ -191,7 +191,7 @@ const AddressCreateUpdate = (props) => {
                     variant="outlined"
                     label="Email"
                     fullWidth
-                    value={state.email ? state.email : addressData?.email}
+                    value={state.email}
                     onChange={inputChange}
                     name="email"
                     id="email"
@@ -204,7 +204,7 @@ const AddressCreateUpdate = (props) => {
                     variant="outlined"
                     label="Timming"
                     fullWidth
-                    value={state.timming ? state.timming : addressData?.timming}
+                    value={state.timming}
                     onChange={inputChange}
                     name="timming"
                     id="timming"

@@ -34,13 +34,13 @@ const DirectorCreateUpdate = (props) => {
   }, [id, dispatch]);
 
   const initialState = {
-    name: directorData?.name,
-    shortDescription: directorData?.shortDescription,
-    designation: directorData?.designation,
-    facebook: directorData?.facebook,
-    twitter: directorData?.twitter,
-    instagram: directorData?.instagram,
-    linkedin: directorData?.linkedin,
+    name: directorData?.name || "",
+    shortDescription: directorData?.shortDescription || "",
+    designation: directorData?.designation || "",
+    facebook: directorData?.facebook || "",
+    twitter: directorData?.twitter || "",
+    instagram: directorData?.instagram || "",
+    linkedin: directorData?.linkedin || "",
     image: "",
     id: id,
   };
@@ -160,7 +160,7 @@ const DirectorCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.name ? state.name : directorData?.name}
+                    value={state.name}
                     onChange={inputChange}
                     name="name"
                     id="name"
@@ -175,11 +175,7 @@ const DirectorCreateUpdate = (props) => {
                     variant="outlined"
                     label="Short Description*"
                     fullWidth
-                    value={
-                      state.shortDescription
-                        ? state.shortDescription
-                        : directorData?.shortDescription
-                    }
+                    value={state.shortDescription}
                     onChange={inputChange}
                     name="shortDescription"
                     id="shortDescription"
@@ -194,11 +190,7 @@ const DirectorCreateUpdate = (props) => {
                     variant="outlined"
                     label="Designation"
                     fullWidth
-                    value={
-                      state.designation
-                        ? state.designation
-                        : directorData?.designation
-                    }
+                    value={state.designation}
                     onChange={inputChange}
                     name="designation"
                     id="designation"
@@ -211,9 +203,7 @@ const DirectorCreateUpdate = (props) => {
                     variant="outlined"
                     label="Facebook"
                     fullWidth
-                    value={
-                      state.facebook ? state.facebook : directorData?.facebook
-                    }
+                    value={state.facebook}
                     onChange={inputChange}
                     name="facebook"
                     id="facebook"
@@ -226,9 +216,7 @@ const DirectorCreateUpdate = (props) => {
                     variant="outlined"
                     label="Twitter"
                     fullWidth
-                    value={
-                      state.twitter ? state.twitter : directorData?.twitter
-                    }
+                    value={state.twitter}
                     onChange={inputChange}
                     name="twitter"
                     id="twitter"
@@ -241,11 +229,7 @@ const DirectorCreateUpdate = (props) => {
                     variant="outlined"
                     label="Instagram"
                     fullWidth
-                    value={
-                      state.instagram
-                        ? state.instagram
-                        : directorData?.instagram
-                    }
+                    value={state.instagram}
                     onChange={inputChange}
                     name="instagram"
                     id="instagram"
@@ -258,9 +242,7 @@ const DirectorCreateUpdate = (props) => {
                     variant="outlined"
                     label="Linkedin"
                     fullWidth
-                    value={
-                      state.linkedin ? state.linkedin : directorData?.linkedin
-                    }
+                    value={state.linkedin}
                     onChange={inputChange}
                     name="linkedin"
                     id="linkedin"
@@ -272,9 +254,7 @@ const DirectorCreateUpdate = (props) => {
                     <>
                       <ReactQuill
                         onChange={handleChangeTextEditor}
-                        value={
-                          description ? description : directorData?.description
-                        }
+                        value={description}
                         placeholder="Enter description"
                         theme="snow"
                       />

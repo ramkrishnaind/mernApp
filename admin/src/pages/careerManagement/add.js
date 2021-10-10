@@ -22,16 +22,14 @@ const MenuCreateUpdate = (props) => {
   const [, setRefresh] = useState(false);
 
   const initialState = {
-    degination: careerData?.degination,
-    department: careerData?.department,
-    desctiption: careerData?.desctiption,
-    experiance: careerData?.experiance,
-    location: careerData?.location,
-    vacancy: careerData?.vacancy,
-
+    degination: careerData?.degination || "",
+    department: careerData?.department || "",
+    desctiption: careerData?.desctiption || "",
+    experiance: careerData?.experiance || "",
+    location: careerData?.location || "",
+    vacancy: careerData?.vacancy || "",
     id: id,
   };
-  // console.log('initialState',initialState);
   const [state, setState] = useState(initialState);
 
   useEffect(() => {

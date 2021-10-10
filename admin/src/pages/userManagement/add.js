@@ -31,14 +31,14 @@ const MenuCreateUpdate = (props) => {
   const dispatch = useDispatch();
 
   const initialState = {
-    firstName: userData?.firstName,
-    lastName: userData?.lastName,
-    email: userData?.email,
-    country: userData?.countryCode,
-    mobile: userData?.mobile,
+    firstName: userData?.firstName || "",
+    lastName: userData?.lastName || "",
+    email: userData?.email || "",
+    country: userData?.countryCode || "",
+    mobile: userData?.mobile || "",
     id: id,
-    userRole: userData?.userRole,
-    image: userData?.image,
+    userRole: userData?.userRole || "",
+    image: userData?.image || "",
   };
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const MenuCreateUpdate = (props) => {
   }, [props.user.success]);
 
   const [state, setState] = useState(initialState);
-  const [country, setCountry] = useState("+91");
+  const [country, setCountry] = useState(userData?.countryCode || "+91");
 
   const inputChange = (e) => {
     let { name, value } = e.target;
@@ -134,13 +134,6 @@ const MenuCreateUpdate = (props) => {
             <Typography component="h3" variant="h3">
               {state.id ? "Edit" : "Add"} User
             </Typography>
-            {/* <Button
-                onClick={() => this.props.history.push("menu")}
-                variant="contained"
-                color="primary"
-                type="submit"
-                
-              >Back</Button> */}
           </div>
           <div class="card-body">
             <ValidatorForm onSubmit={handleSubmit}>
@@ -151,9 +144,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="First Name*"
                     fullWidth
-                    value={
-                      state.firstName ? state.firstName : userData?.firstName
-                    }
+                    value={state.firstName}
                     onChange={inputChange}
                     name="firstName"
                     id="firstName"
@@ -168,7 +159,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Last Name*"
                     fullWidth
-                    value={state.lastName ? state.lastName : userData?.lastName}
+                    value={state.lastName}
                     onChange={inputChange}
                     name="lastName"
                     id="lastName"
@@ -183,7 +174,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Email*"
                     fullWidth
-                    value={state.email ? state.email : userData?.email}
+                    value={state.email}
                     onChange={inputChange}
                     name="email"
                     id="email"
@@ -201,7 +192,7 @@ const MenuCreateUpdate = (props) => {
                         international
                         countryCallingCodeEditable={false}
                         defaultCountry="IN"
-                        value={country ? country : userData?.countryCode}
+                        value={country}
                         onChange={setCountry}
                       />
                     </Grid>
@@ -211,7 +202,7 @@ const MenuCreateUpdate = (props) => {
                         variant="outlined"
                         label="Mobile*"
                         fullWidth
-                        value={state.mobile ? state.mobile : userData?.mobile}
+                        value={state.mobile}
                         onChange={inputChange}
                         name="mobile"
                         id="mobile"
@@ -236,9 +227,7 @@ const MenuCreateUpdate = (props) => {
                       label="Role"
                       native
                       name="userRole"
-                      value={
-                        state.userRole ? state.userRole : userData?.userRole
-                      }
+                      value={state.userRole}
                       onChange={inputChange}
                       inputProps={{
                         name: "userRole",
