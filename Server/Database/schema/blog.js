@@ -41,8 +41,8 @@ const schema = new Schema({
     }
 }, {
     timestamps: {
-        createdAt:'createdAt',
-        updatedAt:'updatedAt'
+        createdAt: 'createdAt',
+        updatedAt: 'updatedAt'
     },
     id: false,
     toJSON: {
