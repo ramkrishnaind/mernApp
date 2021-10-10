@@ -38,11 +38,11 @@ const MenuCreateUpdate = (props) => {
   }, [props.dealing.success]);
 
   const initialState = {
-    title: dealingData?.title,
-    header: dealingData?.header,
-    metaTitle: dealingData?.metaTitle,
-    metaKeywords: dealingData?.metaKeywords,
-    metaDescription: dealingData?.metaDescription,
+    title: dealingData?.title || "",
+    header: dealingData?.header || "",
+    metaTitle: dealingData?.metaTitle || "",
+    metaKeywords: dealingData?.metaKeywords || "",
+    metaDescription: dealingData?.metaDescription || "",
     image: [],
     video: "",
     id: id,
@@ -162,7 +162,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Header*"
                     fullWidth
-                    value={state.header ? state.header : dealingData?.header}
+                    value={state.header}
                     onChange={inputChange}
                     name="header"
                     id="header"
@@ -177,7 +177,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.title ? state.title : dealingData?.title}
+                    value={state.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -192,9 +192,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={
-                      state.metaTitle ? state.metaTitle : dealingData?.metaTitle
-                    }
+                    value={state.metaTitle}
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
@@ -207,11 +205,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={
-                      state.metaKeywords
-                        ? state.metaKeywords
-                        : dealingData?.metaKeywords
-                    }
+                    value={state.metaKeywords}
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
@@ -224,11 +218,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={
-                      state.metaDescription
-                        ? state.metaDescription
-                        : dealingData?.metaDescription
-                    }
+                    value={state.metaDescription}
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"
@@ -240,9 +230,7 @@ const MenuCreateUpdate = (props) => {
                     <>
                       <ReactQuill
                         onChange={handleChangeTextEditor}
-                        value={
-                          description ? description : dealingData?.description
-                        }
+                        value={description}
                         placeholder="Enter description"
                         theme="snow"
                       />

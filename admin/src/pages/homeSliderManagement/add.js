@@ -36,12 +36,12 @@ const MenuCreateUpdate = (props) => {
   }, [props.slider.success]);
 
   const initialState = {
-    name: sliderData?.name,
-    sortDescription: sliderData?.sortDescription,
-    metaTitle: sliderData?.metaTitle,
-    metaKeywords: sliderData?.metaKeywords,
-    metaDescription: sliderData?.metaDescription,
-    description: sliderData?.description,
+    name: sliderData?.name || "",
+    sortDescription: sliderData?.sortDescription || "",
+    metaTitle: sliderData?.metaTitle || "",
+    metaKeywords: sliderData?.metaKeywords || "",
+    metaDescription: sliderData?.metaDescription || "",
+    description: sliderData?.description || "",
     image: [],
     id: id,
   };
@@ -134,13 +134,6 @@ const MenuCreateUpdate = (props) => {
             <Typography component="h3" variant="h3">
               {state.id ? "Edit" : "Add"} Home Slider
             </Typography>
-            {/* <Button
-                onClick={() => this.props.history.push("menu")}
-                variant="contained"
-                color="primary"
-                type="submit"
-                
-              >Back</Button> */}
           </div>
           <div class="card-body">
             <ValidatorForm onSubmit={handleSubmit}>
@@ -151,7 +144,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Name*"
                     fullWidth
-                    value={state.name ? state.name : sliderData?.name}
+                    value={state.name}
                     onChange={inputChange}
                     name="name"
                     id="name"
@@ -160,17 +153,13 @@ const MenuCreateUpdate = (props) => {
                   />
                 </Grid>
 
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                <Grid className="form-group-item" item xs={12} sm={12} md={8}>
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
                     label="Description*"
                     fullWidth
-                    value={
-                      state.description
-                        ? state.description
-                        : sliderData?.description
-                    }
+                    value={state.description}
                     onChange={inputChange}
                     name="description"
                     id="description"
@@ -185,9 +174,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={
-                      state.metaTitle ? state.metaTitle : sliderData?.metaTitle
-                    }
+                    value={state.metaTitle}
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
@@ -200,11 +187,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={
-                      state.metaKeywords
-                        ? state.metaKeywords
-                        : sliderData?.metaKeywords
-                    }
+                    value={state.metaKeywords}
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
@@ -217,11 +200,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={
-                      state.metaDescription
-                        ? state.metaDescription
-                        : sliderData?.metaDescription
-                    }
+                    value={state.metaDescription}
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"

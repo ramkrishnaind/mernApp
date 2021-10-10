@@ -38,12 +38,12 @@ const ConstructionCreateUpdate = (props) => {
   }, [props.construction.success]);
 
   const initialState = {
-    title: constructionData?.title,
-    metaTitle: constructionData?.metaTitle,
-    metaKeywords: constructionData?.metaKeywords,
-    metaDescription: constructionData?.metaDescription,
+    title: constructionData?.title || "",
+    metaTitle: constructionData?.metaTitle || "",
+    metaKeywords: constructionData?.metaKeywords || "",
+    metaDescription: constructionData?.metaDescription || "",
     image: "",
-    imagePosition: constructionData?.imagePosition,
+    imagePosition: constructionData?.imagePosition || "",
     id: id,
   };
 
@@ -143,7 +143,7 @@ const ConstructionCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.title ? state.title : constructionData?.title}
+                    value={state.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -158,11 +158,7 @@ const ConstructionCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={
-                      state.metaTitle
-                        ? state.metaTitle
-                        : constructionData?.metaTitle
-                    }
+                    value={state.metaTitle}
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
@@ -175,11 +171,7 @@ const ConstructionCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={
-                      state.metaKeywords
-                        ? state.metaKeywords
-                        : constructionData?.metaKeywords
-                    }
+                    value={state.metaKeywords}
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
@@ -192,11 +184,7 @@ const ConstructionCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={
-                      state.metaDescription
-                        ? state.metaDescription
-                        : constructionData?.metaDescription
-                    }
+                    value={state.metaDescription}
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"
@@ -211,8 +199,6 @@ const ConstructionCreateUpdate = (props) => {
                     fullWidth
                     value={
                       state.imagePosition
-                        ? state.imagePosition
-                        : constructionData?.imagePosition
                     }
                     onChange={inputChange}
                     name="imagePosition"
@@ -225,11 +211,7 @@ const ConstructionCreateUpdate = (props) => {
                     <>
                       <ReactQuill
                         onChange={handleChangeTextEditor}
-                        value={
-                          description
-                            ? description
-                            : constructionData?.description
-                        }
+                        value={description}
                         placeholder="Enter description"
                         theme="snow"
                       />

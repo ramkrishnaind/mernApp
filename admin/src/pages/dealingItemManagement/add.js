@@ -38,14 +38,14 @@ const MenuCreateUpdate = (props) => {
   }, [props.dealingItem.success]);
 
   const initialState = {
-    title: dealingItemData?.title,
-    metaTitle: dealingItemData?.metaTitle,
-    metaKeywords: dealingItemData?.metaKeywords,
-    metaDescription: dealingItemData?.metaDescription,
-    shortDescription: dealingItemData?.shortDescription,
-    icon: dealingItemData?.icon,
-    banner: dealingItemData?.banner,
-    // video: dealingItemData?.video,
+    title: dealingItemData?.title || "",
+    metaTitle: dealingItemData?.metaTitle || "",
+    metaKeywords: dealingItemData?.metaKeywords || "",
+    metaDescription: dealingItemData?.metaDescription || "",
+    shortDescription: dealingItemData?.shortDescription || "",
+    icon: dealingItemData?.icon || "",
+    banner: dealingItemData?.banner || "",
+    // video: dealingItemData?.video || "",
     id: id,
     image: [],
   };
@@ -173,7 +173,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.title ? state.title : dealingItemData?.title}
+                    value={state.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -187,11 +187,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Short Description*"
                     fullWidth
-                    value={
-                      state.shortDescription
-                        ? state.shortDescription
-                        : dealingItemData?.shortDescription
-                    }
+                    value={state.shortDescription}
                     onChange={inputChange}
                     name="shortDescription"
                     id="shortDescription"
@@ -206,7 +202,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="icon*"
                     fullWidth
-                    value={state.icon ? state.icon : dealingItemData?.icon}
+                    value={state.icon}
                     onChange={inputChange}
                     name="icon"
                     id="icon"
@@ -219,11 +215,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={
-                      state.metaTitle
-                        ? state.metaTitle
-                        : dealingItemData?.metaTitle
-                    }
+                    value={state.metaTitle}
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
@@ -236,11 +228,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={
-                      state.metaKeywords
-                        ? state.metaKeywords
-                        : dealingItemData?.metaKeywords
-                    }
+                    value={state.metaKeywords}
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
@@ -253,11 +241,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={
-                      state.metaDescription
-                        ? state.metaDescription
-                        : dealingItemData?.metaDescription
-                    }
+                    value={state.metaDescription}
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"

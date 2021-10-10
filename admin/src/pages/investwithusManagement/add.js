@@ -39,15 +39,15 @@ const InvestCreateUpdate = (props) => {
   }, [props.investwithus.success]);
 
   const initialState = {
-    header: investwithusData?.header,
+    header: investwithusData?.header || "",
     howToInvest: investwithusData?.howToInvest
       ? JSON.stringify(investwithusData?.howToInvest)
       : "",
-    title: investwithusData?.title,
-    shortDescription: investwithusData?.shortDescription,
-    metaTitle: investwithusData?.metaTitle,
-    metaKeywords: investwithusData?.metaKeywords,
-    metaDescription: investwithusData?.metaDescription,
+    title: investwithusData?.title || "",
+    shortDescription: investwithusData?.shortDescription || "",
+    metaTitle: investwithusData?.metaTitle || "",
+    metaKeywords: investwithusData?.metaKeywords || "",
+    metaDescription: investwithusData?.metaDescription || "",
     image: "",
     bannerImage: "",
     id: id,
@@ -164,7 +164,7 @@ const InvestCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.title ? state.title : investwithusData?.title}
+                    value={state.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -178,9 +178,7 @@ const InvestCreateUpdate = (props) => {
                     variant="outlined"
                     label="Header*"
                     fullWidth
-                    value={
-                      state.header ? state.header : investwithusData?.header
-                    }
+                    value={state.header}
                     onChange={inputChange}
                     name="header"
                     id="header"
@@ -194,11 +192,7 @@ const InvestCreateUpdate = (props) => {
                     variant="outlined"
                     label="Short Description*"
                     fullWidth
-                    value={
-                      state.shortDescription
-                        ? state.shortDescription
-                        : investwithusData?.shortDescription
-                    }
+                    value={state.shortDescription}
                     onChange={inputChange}
                     name="shortDescription"
                     id="shortDescription"
@@ -212,11 +206,7 @@ const InvestCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={
-                      state.metaTitle
-                        ? state.metaTitle
-                        : investwithusData?.metaTitle
-                    }
+                    value={state.metaTitle}
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
@@ -228,11 +218,7 @@ const InvestCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={
-                      state.metaKeywords
-                        ? state.metaKeywords
-                        : investwithusData?.metaKeywords
-                    }
+                    value={state.metaKeywords}
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
@@ -244,11 +230,7 @@ const InvestCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={
-                      state.metaDescription
-                        ? state.metaDescription
-                        : investwithusData?.metaDescription
-                    }
+                    value={state.metaDescription}
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"
@@ -260,11 +242,7 @@ const InvestCreateUpdate = (props) => {
                     variant="outlined"
                     label="How To Invest*"
                     fullWidth
-                    value={
-                      state.howToInvest
-                        ? state.howToInvest
-                        : investwithusData?.howToInvest
-                    }
+                    value={state.howToInvest}
                     onChange={inputChange}
                     name="howToInvest"
                     id="howToInvest"
