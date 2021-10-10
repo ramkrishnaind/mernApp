@@ -46,8 +46,7 @@ function createBlogHelper(Models) {
             let blogFormData = _.pick(req.body, ['title', 'sortDescription', 'description', 'metaTitle', 'metaKeywords', 'metaDescription']);
 
             let blogMedia = req.files;
-            blogFormData.blogImage = blogMedia.blogImage;
-            blogFormData.bannerImage = blogMedia.bannerImage;
+            blogFormData.blogMedia = blogMedia;
             let saveBlog = await new Models.BlogDB(blogFormData).save();
             console.log('saveBlog is ', saveBlog)
             saveBlog = saveBlog.toObject();
