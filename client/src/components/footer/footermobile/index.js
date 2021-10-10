@@ -35,6 +35,10 @@ export default function Mobilefootermenu() {
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        console.log("new Value", newValue);
+        if (newValue === "+91-9571647680") {
+            window.open("tel:+1800229933");
+        }
     };
 
     return (
