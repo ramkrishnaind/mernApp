@@ -11,6 +11,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import history from "../history";
+const Idle = require('react-idle').default;
 
 const DashboardNavbar = ({onMobileNavOpen, ...rest}) => {
 
@@ -38,10 +39,21 @@ const DashboardNavbar = ({onMobileNavOpen, ...rest}) => {
             <MenuIcon />
           </IconButton>
         </Hidden>
-        <ExitToAppIcon
-          onClick={() => handlelogout()}
-          className="logoutBtn"
+        <Idle
+          timeout={15 * 60 * 1000}
+          render={({idle}) =>
+            <h1>
+              {idle
+                ? handlelogout()
+                : <ExitToAppIcon
+                  onClick={() => handlelogout()}
+                  className="logoutBtn"
+                />
+              }
+            </h1>
+          }
         />
+
       </Toolbar>
     </AppBar>
   );
