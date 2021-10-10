@@ -56,8 +56,7 @@ function createInvestWithUsHelper(Models) {
                 console.log('InvestWithUsFormData.howToInvest is', InvestWithUsFormData.howToInvest)
                 console.log('req.files is', req.files)
                 InvestWithUsFormData.howToInvest = JSON.parse(InvestWithUsFormData.howToInvest);
-                let InvestWithUsImages = req.files;
-                InvestWithUsFormData.InvestWithUsImages = InvestWithUsImages
+                InvestWithUsFormData.media = req.files;
                 console.log('InvestWithUsFormData is', InvestWithUsFormData)
                 let saveInvestWithUs = await new Models.InvestWithUsDB(InvestWithUsFormData).save();
                 console.log('saveInvestWithUs is ', saveInvestWithUs)
