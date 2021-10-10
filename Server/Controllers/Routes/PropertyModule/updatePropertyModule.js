@@ -122,8 +122,8 @@ function updatePropertyRequest(Models) {
                 pCity: bodyData.city,
                 locality: bodyData.locality,
                 status: bodyData.status,
-                propertyCode: propertyCode,
-                propertyDetails: bodyData.propertyDetails,
+                propertyCode: propertyDetails.propertyCode,
+                propertyDetails: propertyDetails.propertyDetails,
                 tag: bodyData.tag,
                 userId: bodyData.userId
             };
