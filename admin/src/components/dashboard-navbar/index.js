@@ -1,4 +1,4 @@
-import { Link as RouterLink } from "react-router-dom";
+import {Link as RouterLink} from "react-router-dom";
 import PropTypes from "prop-types";
 import {
   AppBar,
@@ -12,12 +12,12 @@ import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import history from "../history";
 
-const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
+const DashboardNavbar = ({onMobileNavOpen, ...rest}) => {
 
   function handlelogout() {
 
-    window.localStorage.removeItem("user")
-    history.push('/login')
+    window.localStorage.removeItem("user");
+    history.push('/login');
     window.location.reload();
   }
 
@@ -27,7 +27,7 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
         <RouterLink to="/">
           <HomeIcon />
         </RouterLink>
-        <Box sx={{ flexGrow: 1 }} />
+        <Box sx={{flexGrow: 1}} />
         <Hidden lgDown>
           <IconButton color="inherit">
             <ExitToAppIcon />
@@ -38,9 +38,9 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
             <MenuIcon />
           </IconButton>
         </Hidden>
-        <ExitToAppIcon 
-          onClick={() => handlelogout()} 
-          className="logoutBtn"        
+        <ExitToAppIcon
+          onClick={() => handlelogout()}
+          className="logoutBtn"
         />
       </Toolbar>
     </AppBar>
@@ -48,7 +48,7 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
 };
 
 DashboardNavbar.propTypes = {
-    onMobileNavOpen: PropTypes.func
-  };
-  
-  export default DashboardNavbar;
+  onMobileNavOpen: PropTypes.func
+};
+
+export default DashboardNavbar;
