@@ -18,22 +18,19 @@ import BreadCrumbs from "../../common/bread-crumbs";
 import "./roleManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
 import { Link as RouterLink, useLocation } from "react-router-dom";
-
 import { connect } from "react-redux";
-// import Link from "next/link";
 
 const MenuCreateUpdate = (props) => {
   let roleData = props?.role?.roleData;
-  // console.log('propss', props);
+
   let query = useQuery();
   let id = query.get("id");
   const dispatch = useDispatch();
-
   const [, setRefresh] = useState(false);
 
   const initialState = {
-    status: roleData?.status,
-    name: roleData?.name,
+    status: roleData?.status || "",
+    name: roleData?.name || "",
     rights: roleData ? roleData?.rights : [],
     id: id,
   };

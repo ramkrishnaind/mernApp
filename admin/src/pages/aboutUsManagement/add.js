@@ -34,12 +34,12 @@ const MenuCreateUpdate = (props) => {
   }, [props.aboutus.success]);
 
   const initialState = {
-    header: aboutusData?.header,
-    title: aboutusData?.title,
-    description: aboutusData?.description,
-    metaTitle: aboutusData?.metaTitle,
-    metaKeywords: aboutusData?.metaKeywords,
-    metaDescription: aboutusData?.metaDescription,
+    header: aboutusData?.header || "",
+    title: aboutusData?.title || "",
+    description: aboutusData?.description || "",
+    metaTitle: aboutusData?.metaTitle || "",
+    metaKeywords: aboutusData?.metaKeywords || "",
+    metaDescription: aboutusData?.metaDescription || "",
     image: [],
     id: aboutusData?._id,
   };
@@ -144,7 +144,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Header*"
                     fullWidth
-                    value={state.header ? state.header : aboutusData?.header}
+                    value={state.header}
                     onChange={inputChange}
                     name="header"
                     id="header"
@@ -158,7 +158,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.title ? state.title : aboutusData?.title}
+                    value={state.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -173,11 +173,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Description*"
                     fullWidth
-                    value={
-                      state.description
-                        ? state.description
-                        : aboutusData?.description
-                    }
+                    value={state.description}
                     onChange={inputChange}
                     name="description"
                     id="description"
@@ -192,9 +188,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={
-                      state.metaTitle ? state.metaTitle : aboutusData?.metaTitle
-                    }
+                    value={state.metaTitle}
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
@@ -207,11 +201,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={
-                      state.metaKeywords
-                        ? state.metaKeywords
-                        : aboutusData?.metaKeywords
-                    }
+                    value={state.metaKeywords}
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
@@ -224,11 +214,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={
-                      state.metaDescription
-                        ? state.metaDescription
-                        : aboutusData?.metaDescription
-                    }
+                    value={state.metaDescription}
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"

@@ -39,11 +39,11 @@ const MenuCreateUpdate = (props) => {
   }, [props.aboutpage.success]);
 
   const initialState = {
-    imagePosition: aboutpageData?.imagePosition,
-    title: aboutpageData?.title,
-    metaTitle: aboutpageData?.metaTitle,
-    metaKeywords: aboutpageData?.metaKeywords,
-    metaDescription: aboutpageData?.metaDescription,
+    imagePosition: aboutpageData?.imagePosition || "",
+    title: aboutpageData?.title || "",
+    metaTitle: aboutpageData?.metaTitle || "",
+    metaKeywords: aboutpageData?.metaKeywords || "",
+    metaDescription: aboutpageData?.metaDescription || "",
     image: "",
     id: aboutpageData?._id,
   };
@@ -142,7 +142,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.title ? state.title : aboutpageData?.title}
+                    value={state.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -157,11 +157,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={
-                      state.metaTitle
-                        ? state.metaTitle
-                        : aboutpageData?.metaTitle
-                    }
+                    value={state.metaTitle}
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
@@ -174,11 +170,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={
-                      state.metaKeywords
-                        ? state.metaKeywords
-                        : aboutpageData?.metaKeywords
-                    }
+                    value={state.metaKeywords}
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
@@ -191,11 +183,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={
-                      state.metaDescription
-                        ? state.metaDescription
-                        : aboutpageData?.metaDescription
-                    }
+                    value={state.metaDescription}
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"
@@ -208,11 +196,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Image position*"
                     fullWidth
-                    value={
-                      state.imagePosition
-                        ? state.imagePosition
-                        : aboutpageData?.imagePosition
-                    }
+                    value={state.imagePosition}
                     onChange={inputChange}
                     name="imagePosition"
                     id="imagePosition"
@@ -225,9 +209,7 @@ const MenuCreateUpdate = (props) => {
                     <>
                       <ReactQuill
                         onChange={handleChangeTextEditor}
-                        value={
-                          description ? description : aboutpageData?.description
-                        }
+                        value={description}
                         placeholder="Enter description"
                         theme="snow"
                       />

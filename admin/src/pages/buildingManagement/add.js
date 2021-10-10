@@ -38,7 +38,7 @@ const BuildingCreateUpdate = (props) => {
   }, [props.building.success]);
 
   const initialState = {
-    name: buildingData?.name,
+    name: buildingData?.name || "",
     image: "",
     id: id,
   };
@@ -116,7 +116,7 @@ const BuildingCreateUpdate = (props) => {
                     variant="outlined"
                     label="Name*"
                     fullWidth
-                    value={state.name ? state.name : buildingData?.name}
+                    value={state.name}
                     onChange={inputChange}
                     name="name"
                     id="name"
