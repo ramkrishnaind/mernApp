@@ -1,8 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import { withRouter, Link as RouterLink } from "react-router-dom";
+import {withRouter, Link as RouterLink} from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -37,7 +37,7 @@ export default function Mobilemenu() {
             return;
         }
 
-        setState({ ...state, [anchor]: open });
+        setState({...state, [anchor]: open});
     };
 
     const list = (anchor) => (
@@ -51,7 +51,7 @@ export default function Mobilemenu() {
         >
             <List>
                 {['Home', 'About', 'Services', 'Sell', 'Rent', 'Careers', 'Finance', 'Contact Us', 'Blog'].map((text, index) => (
-                    <ListItem button key={text}>
+                    <ListItem button key={text} >
                         <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                         <ListItemText primary={text} />
                     </ListItem>

@@ -10,7 +10,6 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import Mobilefootermenu from '../footer/footermobile';
 import ApiClient from "../../api-client";
-import './footer.css';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
@@ -73,6 +72,7 @@ const Footer = props => {
     const classes = useStyles();
     const [footerDetails, setFooterDetails] = useState({});
     const [socialLinks, setSocialLinks] = useState({});
+    const [hide, setHide] = useState(true);
     useEffect(() => {
         const company_detials = localStorage.getItem('company_detials');
         if (!company_detials)
@@ -108,10 +108,9 @@ const Footer = props => {
 
 
 
-    var $btnClick = $("#show-hidden-menu");
-    $btnClick.on("click", function () {
-        $('.hidden-menu').slideToggle("slow");
-    });
+    const btnClick = () => {
+        setHide(!hide);
+    };
 
 
     return (
@@ -241,17 +240,22 @@ const Footer = props => {
             <Grid container style={{marginTop: 40}} spacing={2} className="footerSplit">
                 <Mobilefootermenu />
             </Grid>
-            <Box className="projectquick_action genralsticky">
+            <Box className="projectquick_action genralsticky" onClick={btnClick}>
                 <ul>
                     <li id="show-hidden-menu" class="animatebtn social_links"><i class="fas fa-external-link-alt"></i></li>
-                    <Box className="hidden-menu" style={{display: "none"}} >
+                    <Box className="hidden-menu" style={{
+                        display: hide ? 'none' : 'block'
+                    }}  >
                         <div class="fixed-social">
-                            <a href="#" class="fixed-facebook" target="_blank"><i class="fab fa-facebook"></i></a>
-                            <a href="#" class="fixed-twitter" target="_blank"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="fixed-gplus" target="_blank"><i class="fab fa-google"></i></a>
-                            <a href="#" class="fixed-linkedin" target="_blank"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="fixed-instagrem" target="_blank"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="fixed-tumblr" target="_blank"><i class="fab fa-tumblr"></i></a>
+                            <a href={socialLinks?.facebook} class="fixed-facebook" target="_blank"><i class="fab fa-facebook"></i></a>
+                            <a href={socialLinks ? socialLinks.twitter : ''} class="fixed-twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+                            {/* <a href="#" class="fixed-gplus" target="_blank"><i class="fab fa-google"></i></a> */}
+                            <a href={socialLinks?.linkedin} class="fixed-linkedin" target="_blank"><i class="fab fa-linkedin"></i></a>
+                            <a href={socialLinks?.instagram} class="fixed-instagrem" target="_blank"><i class="fab fa-instagram"></i></a>
+                            {/* <a href="#" class="fixed-tumblr" target="_blank"><i class="fab fa-tumblr"></i></a> */}
+                            <a className="fixed-youtube" target="_blank" href={socialLinks ? socialLinks.youtube : ''}>
+                                <i class="fab fa-youtube"></i>
+                            </a>
                         </div>
                     </Box>
                     <li class="animatebtn"> <a href="tel:+91 9571647680"> <i class="fa fa-phone-alt"></i> </a> </li>

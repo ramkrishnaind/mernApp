@@ -156,3 +156,9 @@
     /* For mobile phones: */
     .footerSplit{ display: block !important;}
   }
+
+
+.hidden-menu.hide{
+	display: none;
+
+}
