@@ -518,9 +518,9 @@ function getDealingInDetails(Models) {
             // Getting Home from Database
             let findData = await Models.DealingInDB.find({ _id: req.body._id });
             console.log('findData is', findData)
-            if (deleteData) {
+            if (findData) {
                 // if data found check verified or not
-                res.send({ status: true, message: "Home DealingIn Data" });
+                res.send({ status: true, message: "Home DealingIn Data", data: findData});
             } else {
                 res.send({ status: true, message: "Home DealingIn not found" });
             }

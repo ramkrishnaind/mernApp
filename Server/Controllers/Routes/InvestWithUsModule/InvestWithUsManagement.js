@@ -51,7 +51,7 @@ function createInvestWithUsHelper(Models) {
             let dataExist = await Models.InvestWithUsDB.findOne({ active: true });
             if (dataExist) {
                 // if data found check verified or not
-                res.send({ status: false, message: "Invest With Us Data Already Exist. Please Edit Existing.", data: findData });
+                res.send({ status: false, message: "Invest With Us Data Already Exist. Please Edit Existing.", data: dataExist });
             }
             InvestWithUsFormData.howToInvest = JSON.parse(InvestWithUsFormData.howToInvest);
             if (req.files) {
