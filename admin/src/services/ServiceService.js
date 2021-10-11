@@ -58,6 +58,15 @@ export const ServiceStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(ServiceAction.ServiceUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.SERVICE_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(ServiceAction.ServiceListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(ServiceAction.ServiceUpdateStatusError(error));
@@ -81,6 +90,15 @@ export const ServiceDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(ServiceAction.ServiceDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.SERVICE_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(ServiceAction.ServiceListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(ServiceAction.ServiceDeleteError(error));

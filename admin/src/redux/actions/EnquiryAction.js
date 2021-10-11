@@ -58,8 +58,6 @@ export const EnquiryStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(EnquiryUpdateStatusRequest());
     EnquiryStatusUpdateService(dispatch, data);
-    dispatch(EnquiryListRequest());
-    EnquiryListService(dispatch);
   };
 };
 

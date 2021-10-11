@@ -38,7 +38,7 @@ export const DealingItemAddService = async (dispatch, data) => {
     );
     dispatch(DealingItemAction.DealingItemAddSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
-    history.push("/DealingItem");
+    history.push("/dealingItem");
     window.location.reload();
   } catch (error) {
     dispatch(DealingItemAction.DealingItemAddError(error));
@@ -62,6 +62,15 @@ export const DealingItemStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(DealingItemAction.DealingItemUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.DEALING_ITEM_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(DealingItemAction.DealingItemListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(DealingItemAction.DealingItemUpdateStatusError(error));
@@ -85,6 +94,15 @@ export const DealingItemDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(DealingItemAction.DealingItemDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.DEALING_ITEM_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(DealingItemAction.DealingItemListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(DealingItemAction.DealingItemDeleteError(error));

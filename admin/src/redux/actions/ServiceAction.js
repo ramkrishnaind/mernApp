@@ -106,8 +106,6 @@ export const ServiceStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(ServiceUpdateStatusRequest());
     ServiceStatusUpdateService(dispatch, data);
-    dispatch(ServiceListRequest());
-    ServiceListService(dispatch);
   };
 };
 
@@ -152,8 +150,6 @@ export const ServiceDeleteRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(ServiceDeleteRequest());
     ServiceDeleteService(dispatch, data);
-    dispatch(ServiceListRequest());
-    ServiceListService(dispatch);
   };
 };
 

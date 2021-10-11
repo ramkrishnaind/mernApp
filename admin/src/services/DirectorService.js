@@ -62,6 +62,15 @@ export const DirectorStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(DirectorAction.DirectorUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.DIRECTOR_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(DirectorAction.DirectorListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(DirectorAction.DirectorUpdateStatusError(error));
@@ -110,6 +119,15 @@ export const DirectorDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(DirectorAction.DirectorDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.DIRECTOR_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(DirectorAction.DirectorListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(DirectorAction.DirectorDeleteError(error));

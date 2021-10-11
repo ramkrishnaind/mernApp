@@ -3,12 +3,10 @@ import { Button, Typography, Box, Link } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as DirectorAction from "../../redux/actions/DirectorAction";
 import { useDispatch } from "react-redux";
-
 import BreadCrumbs from "../../common/bread-crumbs";
 import FormHeader from "../../common/form-header";
 import { connect } from "react-redux";
 import MUIDataTable from "mui-datatables";
-
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -18,6 +16,8 @@ import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Link as RouterLink } from "react-router-dom";
+import ReactHtmlParser from "react-html-parser";
+
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -27,11 +27,16 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
+  text: {
+    display: "block",
+    overflow: "hidden",
+    maxHeight: "50px",
+  },
 });
 
 const DirectorList = (props) => {
   const dispatch = useDispatch();
-  let { director } = props;
+  let { director, classes } = props;
 
   useEffect(() => {
     dispatch(DirectorAction.DirectorListRequestAsync());
@@ -108,7 +113,7 @@ const DirectorList = (props) => {
                   index + 1,
                   item.name,
                   item.designation,
-                  item.shortDescription,
+                  item.description,
                   item.facebook,
                   item.instagram,
                   item.linkedin,
@@ -121,7 +126,20 @@ const DirectorList = (props) => {
                 "SR No.",
                 "Name",
                 "Designation",
-                "Description",
+                {
+                  name: "Description",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      return (
+                        <>
+                          <Typography className={classes.text}>
+                            {ReactHtmlParser(tableMeta.rowData[3])}
+                          </Typography>
+                        </>
+                      );
+                    },
+                  },
+                },
                 "Facebook",
                 "Instagram",
                 "Linkedin",

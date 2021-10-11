@@ -4,6 +4,7 @@ import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/snackbarActions";
 import history from "../components/history";
 import * as Loader from "../redux/actions/LoaderActions";
+
 export const TeamListService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
@@ -62,6 +63,15 @@ export const TeamStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(TeamAction.TeamUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.TEAM_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(TeamAction.TeamListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(TeamAction.TeamUpdateStatusError(error));
@@ -110,6 +120,15 @@ export const TeamDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(TeamAction.TeamDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.TEAM_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(TeamAction.TeamListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(TeamAction.TeamDeleteError(error));

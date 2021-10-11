@@ -4,6 +4,7 @@ import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/snackbarActions";
 import history from "../components/history";
 import * as Loader from "../redux/actions/LoaderActions";
+
 export const ConstructionListService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
@@ -62,6 +63,15 @@ export const ConstructionStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(ConstructionAction.ConstructionUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.CONSTRUCTION_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(ConstructionAction.ConstructionListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(ConstructionAction.ConstructionUpdateStatusError(error));
@@ -110,6 +120,15 @@ export const ConstructionDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(ConstructionAction.ConstructionDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.CONSTRUCTION_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(ConstructionAction.ConstructionListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(ConstructionAction.ConstructionDeleteError(error));

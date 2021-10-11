@@ -230,7 +230,9 @@ const MenuCreateUpdate = (props) => {
                     <>
                       <ReactQuill
                         onChange={handleChangeTextEditor}
-                        value={description}
+                        value={
+                          description ? description : dealingData?.description
+                        }
                         placeholder="Enter description"
                         theme="snow"
                       />
@@ -259,7 +261,7 @@ const MenuCreateUpdate = (props) => {
                 </Grid> */}
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Video </Typography>
-                  {dealingData?.video?.map((item, index) => {
+                  {dealingData?.media[0]?.video?.map((item, index) => {
                     return (
                       <>
                         <video width="320" height="240" controls>

@@ -17,6 +17,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "./serviceManagement.css";
 import { Link as RouterLink } from "react-router-dom";
+import ReactHtmlParser from "react-html-parser";
 
 const styles = (theme) => ({
   root: {
@@ -27,11 +28,16 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
+  text: {
+    display: "block",
+    overflow: "hidden",
+    maxHeight: "50px",
+  },
 });
 
 const ServiceList = (props) => {
   const dispatch = useDispatch();
-  let { service } = props;
+  let { service, classes } = props;
   useEffect(() => {
     dispatch(ServiceAction.ServiceListRequestAsync());
   }, [dispatch]);
@@ -113,7 +119,20 @@ const ServiceList = (props) => {
               columns={[
                 "SR No.",
                 "Title",
-                "Description",
+                {
+                  name: "Description",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      return (
+                        <>
+                          <Typography className={classes.text}>
+                            {ReactHtmlParser(tableMeta.rowData[2])}
+                          </Typography>
+                        </>
+                      );
+                    },
+                  },
+                },
                 {
                   name: "Status",
                   options: {

@@ -36,6 +36,15 @@ export const EnquiryStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(EnquiryAction.EnquiryUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.ENQUIRY_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(EnquiryAction.EnquiryListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(EnquiryAction.EnquiryUpdateStatusError(error));

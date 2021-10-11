@@ -106,8 +106,6 @@ export const DirectorStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(DirectorUpdateStatusRequest());
     DirectorStatusUpdateService(dispatch, data);
-    dispatch(DirectorListRequest());
-    DirectorListService(dispatch);
   };
 };
 
@@ -240,9 +238,6 @@ export const DirectorDeleteRequestAsync = (data) => {
     DirectorDeleteService(dispatch, data);
     dispatch(Loader.showLoader(""));
     dispatch(DirectorDeleteRequest());
-
-    dispatch(DirectorListRequest());
-    DirectorListService(dispatch);
   };
 };
 

@@ -59,8 +59,6 @@ export const NewsletterStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(NewsletterUpdateStatusRequest());
     NewsletterStatusUpdateService(dispatch, data);
-    dispatch(NewsletterListRequest());
-    NewsletterListService(dispatch);
   };
 };
 
@@ -105,8 +103,6 @@ export const NewsletterDeleteRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(NewsletterDeleteRequest());
     NewsletterDeleteService(dispatch, data);
-    dispatch(NewsletterListRequest());
-    NewsletterListService(dispatch);
   };
 };
 
