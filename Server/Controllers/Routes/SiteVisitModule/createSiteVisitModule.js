@@ -11,6 +11,14 @@ const moduleSchema = Joi.object({
     phone: Joi.number().required(),
     time: Joi.string().required()
 });
+const siteMobile = async () => {
+    let result = await new Models.AddressDB.findOne({ active: true })
+    if (result) {
+        return result.mobile;
+    } else {
+        return 9802953333;
+    }
+};
 
 function createSiteVisitRequest(Models) {
     async function create(req, res) {
@@ -35,7 +43,7 @@ function createSiteVisitRequest(Models) {
             let saveModule = await new Models.SiteVisitDB(bodyData).save();
             console.log('saveModule is', saveModule)
             if (saveModule) {
-                let mobile = 7014319191;
+                let mobile = siteMobile();
                 let message = 'Hello, Vishal Properties \n';
                 message += 'A New Request For Site Visit \n';
                 message += 'Name : ' + bodyData.name + '\n';

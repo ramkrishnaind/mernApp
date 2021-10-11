@@ -12,6 +12,9 @@ const propertyLatLongSchema = Joi.object({
     city: Joi.string().required(),
     state: Joi.string().required()
 });
+const propertyByTypeSchema = Joi.object({
+    type: Joi.string().required(),
+});
 
 function getUserIdPropertyList(Models) {
     async function PropertyList(req, res) {
@@ -391,6 +394,30 @@ function getsearchMinMax(Models) {
     }
     return cities;
 }
+function getPropertyByType(Models) {
+    async function Type(req, res) {
+        try {
+            let validateData = propertyByTypeSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: CONSTANTSMESSAGE.INVALID_DATA };
+            }
+
+            // pick data from req.body
+
+            let bodyData = _.pick(req.body, ["type"]);
+            if (bodyData.tpye != "RESIDENTIAL" || bodyData.tpye != "COMMERCIAL") {
+                throw { status: false, error: true, message: "Property type must be \"RESIDENTIAL\" or \"COMMERCIAL\"" };
+            }
+            let data = await Models.PFeaturesDB.find({ pType: bodyData.type }).lean();
+            res.send({ status: true, message: "Property List.", data });
+        }
+        catch (e) {
+            console.log('Getting list err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Getting list" });
+        }
+    }
+    return Type;
+}
 
 module.exports = {
     getAllProperty,
@@ -399,7 +426,8 @@ module.exports = {
     getHomeAllProperty,
     getPropertyLatLong,
     getSearchTerms,
-    getsearchMinMax
+    getsearchMinMax,
+    getPropertyByType
     // createUserFunc: createUserHelper,
     // getAllUserFunc: getAllUserHelper,
     // getUserFunc: getUserHelper,
