@@ -93,4 +93,15 @@ module.exports = {
     getAboutPageData: require('./AboutPageModule/getAboutPageDataModule'),
     deleteAboutPageData: require('./AboutPageModule/deleteAboutPageDataModule'),
     getAboutPageDetail: require('./AboutPageModule/getAboutPageDetailModule'),
+
+    ////////////////////////
+    /////// About Page /////
+    ////////////////////////
+    createFinance: require('./FinanceModule/createFinanceModule'),
+    getFinanceList: require('./FinanceModule/getFinanceListModule'),
+    updateFinance: require('./FinanceModule/updateFinanceModule'),
+    updateFinanceStatus: require('./FinanceModule/updateFinanceStatusModule'),
+    getFinanceData: require('./FinanceModule/getFinanceDataModule'),
+    deleteFinanceData: require('./FinanceModule/deleteFinanceDataModule'),
+    getFinanceDetail: require('./FinanceModule/getFinanceDetailModule'),
 }
