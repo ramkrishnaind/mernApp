@@ -62,6 +62,15 @@ export const BuildingStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(BuildingAction.BuildingUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.BUILDING_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(BuildingAction.BuildingListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(BuildingAction.BuildingUpdateStatusError(error));
@@ -85,6 +94,15 @@ export const BuildingDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(BuildingAction.BuildingDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.BUILDING_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(BuildingAction.BuildingListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(BuildingAction.BuildingDeleteError(error));

@@ -36,6 +36,15 @@ export const ReviewStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(ReviewAction.ReviewUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.REVIEW_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(ReviewAction.ReviewListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(ReviewAction.ReviewUpdateStatusError(error));

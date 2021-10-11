@@ -18,6 +18,7 @@ import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Link as RouterLink } from "react-router-dom";
+import ReactHtmlParser from "react-html-parser";
 
 const styles = (theme) => ({
   root: {
@@ -28,11 +29,16 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
+  text: {
+    display: "block",
+    overflow: "hidden",
+    maxHeight: "50px",
+  },
 });
 
 const ConstructionList = (props) => {
   const dispatch = useDispatch();
-  let { construction } = props;
+  let { construction, classes } = props;
   useEffect(() => {
     dispatch(ConstructionAction.ConstructionListRequestAsync());
   }, [dispatch]);
@@ -116,7 +122,20 @@ const ConstructionList = (props) => {
               columns={[
                 "SR No.",
                 "Title",
-                "Description",
+                {
+                  name: "Description",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      return (
+                        <>
+                          <Typography className={classes.text}>
+                            {ReactHtmlParser(tableMeta.rowData[2])}
+                          </Typography>
+                        </>
+                      );
+                    },
+                  },
+                },
                 {
                   name: "Status",
                   options: {

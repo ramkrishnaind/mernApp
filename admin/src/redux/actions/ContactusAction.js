@@ -58,8 +58,6 @@ export const ContactUsStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(ContactUsUpdateStatusRequest());
     ContactUsStatusUpdateService(dispatch, data);
-    dispatch(ContactUsListRequest());
-    ContactUsListService(dispatch);
   };
 };
 

@@ -39,7 +39,7 @@ const DealingReducer = (state = initialState, action) => {
         ...state,
         isRequesting: false,
         success: true,
-        dealingData: payload.data,
+        dealingData: payload.data[0],
       };
     case ACTION_KEYS.DEALING_DATA_ERROR:
       return {

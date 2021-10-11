@@ -4,6 +4,7 @@ import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/snackbarActions";
 import history from "../components/history";
 import * as Loader from "../redux/actions/LoaderActions";
+
 export const MenuListService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
@@ -62,6 +63,15 @@ export const MenuStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(MenuAction.MenuUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.MENULIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(MenuAction.MenuListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(MenuAction.MenuUpdateStatusError(error));

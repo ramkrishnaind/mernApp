@@ -106,8 +106,6 @@ export const InvestwithusStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(InvestwithusUpdateStatusRequest());
     InvestwithusStatusUpdateService(dispatch, data);
-    dispatch(InvestwithusListRequest());
-    InvestwithusListService(dispatch);
   };
 };
 
@@ -240,8 +238,6 @@ export const InvestwithusDeleteRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(InvestwithusDeleteRequest());
     InvestwithusDeleteService(dispatch, data);
-    dispatch(InvestwithusListRequest());
-    InvestwithusListService(dispatch);
   };
 };
 

@@ -106,8 +106,6 @@ export const TeamStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(TeamUpdateStatusRequest());
     TeamStatusUpdateService(dispatch, data);
-    dispatch(TeamListRequest());
-    TeamListService(dispatch);
   };
 };
 
@@ -240,8 +238,6 @@ export const TeamDeleteRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(TeamDeleteRequest());
     TeamDeleteService(dispatch, data);
-    TeamListService(dispatch, "");
-    dispatch(TeamListRequest());
   };
 };
 

@@ -3,12 +3,10 @@ import { Button, Typography, Box, Link } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as PropertyAction from "../../redux/actions/PropertyAction";
 import { useDispatch } from "react-redux";
-
 import BreadCrumbs from "../../common/bread-crumbs";
 import FormHeader from "../../common/form-header";
 import { connect } from "react-redux";
 import MUIDataTable from "mui-datatables";
-
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";

@@ -62,6 +62,15 @@ export const DealingStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(DealingAction.DealingUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.DEALING_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(DealingAction.DealingListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(DealingAction.DealingUpdateStatusError(error));
@@ -85,6 +94,15 @@ export const DealingDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(DealingAction.DealingDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.DEALING_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(DealingAction.DealingListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(DealingAction.DealingDeleteError(error));

@@ -16,6 +16,7 @@ import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Link as RouterLink } from "react-router-dom";
+import ReactHtmlParser from "react-html-parser";
 
 const styles = (theme) => ({
   root: {
@@ -26,11 +27,16 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
+  text: {
+    display: "block",
+    overflow: "hidden",
+    maxHeight: "50px",
+  },
 });
 
 const TeamList = (props) => {
   const dispatch = useDispatch();
-  let { team } = props;
+  let { team, classes } = props;
 
   useEffect(() => {
     dispatch(TeamAction.TeamListRequestAsync());
@@ -106,7 +112,7 @@ const TeamList = (props) => {
                   index + 1,
                   item.name,
                   item.designation,
-                  item.shortDescription,
+                  item.description,
                   item.facebook,
                   item.instagram,
                   item.linkedin,
@@ -119,7 +125,20 @@ const TeamList = (props) => {
                 "SR No.",
                 "Name",
                 "Designation",
-                "Description",
+                {
+                  name: "Description",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      return (
+                        <>
+                          <Typography className={classes.text}>
+                            {ReactHtmlParser(tableMeta.rowData[3])}
+                          </Typography>
+                        </>
+                      );
+                    },
+                  },
+                },
                 "Facebook",
                 "Instagram",
                 "Linkedin",

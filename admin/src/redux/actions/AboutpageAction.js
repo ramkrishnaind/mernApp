@@ -106,8 +106,6 @@ export const AboutpageStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(AboutpageUpdateStatusRequest());
     AboutpageStatusUpdateService(dispatch, data);
-    dispatch(AboutpageListRequest());
-    AboutpageListService(dispatch);
   };
 };
 
@@ -240,8 +238,6 @@ export const AboutpageDeleteRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(AboutpageDeleteRequest());
     AboutpageDeleteService(dispatch, data);
-    dispatch(AboutpageListRequest());
-    AboutpageListService(dispatch);
   };
 };
 

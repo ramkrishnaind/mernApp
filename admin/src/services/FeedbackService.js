@@ -62,6 +62,15 @@ export const FeedbackStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(FeedbackAction.FeedbackUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.FEEDBACK_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(FeedbackAction.FeedbackListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(FeedbackAction.FeedbackUpdateStatusError(error));
@@ -110,6 +119,15 @@ export const FeedbackDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(FeedbackAction.FeedbackDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.FEEDBACK_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(FeedbackAction.FeedbackListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(FeedbackAction.FeedbackDeleteError(error));

@@ -3,12 +3,10 @@ import { Button, Typography, Box, Link } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as InvestwithusAction from "../../redux/actions/InvestwithusAction";
 import { useDispatch } from "react-redux";
-
 import BreadCrumbs from "../../common/bread-crumbs";
 import FormHeader from "../../common/form-header";
 import { connect } from "react-redux";
 import MUIDataTable from "mui-datatables";
-
 import Done from "@material-ui/icons/Done";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -18,6 +16,7 @@ import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Link as RouterLink } from "react-router-dom";
+import ReactHtmlParser from "react-html-parser";
 
 const styles = (theme) => ({
   root: {
@@ -28,11 +27,16 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
+  text: {
+    display: "block",
+    overflow: "hidden",
+    maxHeight: "50px",
+  },
 });
 
 const InvestwithusList = (props) => {
   const dispatch = useDispatch();
-  let { investwithus } = props;
+  let { investwithus, classes } = props;
   useEffect(() => {
     dispatch(InvestwithusAction.InvestwithusListRequestAsync());
   }, [dispatch]);
@@ -89,7 +93,7 @@ const InvestwithusList = (props) => {
           heading1={"InvestwithusManagement"}
           heading2={"Invest With Us Module List"}
         />
-        <Link component={RouterLink} to="/blog/add">
+        <Link component={RouterLink} to="/investwithus/add">
           <Button
             variant="contained"
             color="primary"
@@ -116,7 +120,20 @@ const InvestwithusList = (props) => {
               columns={[
                 "SR No.",
                 "Title",
-                "Description",
+                {
+                  name: "Description",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      return (
+                        <>
+                          <Typography className={classes.text}>
+                            {ReactHtmlParser(tableMeta.rowData[2])}
+                          </Typography>
+                        </>
+                      );
+                    },
+                  },
+                },
                 {
                   name: "Status",
                   options: {

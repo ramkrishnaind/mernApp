@@ -107,8 +107,6 @@ export const DealingStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(DealingUpdateStatusRequest());
     DealingStatusUpdateService(dispatch, data);
-    dispatch(DealingListRequest());
-    DealingListService(dispatch);
   };
 };
 
@@ -153,8 +151,6 @@ export const DealingDeleteRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(DealingDeleteRequest());
     DealingDeleteService(dispatch, data);
-    dispatch(DealingListRequest());
-    DealingListService(dispatch);
   };
 };
 
@@ -208,7 +204,7 @@ export const DealingDataRequestAsync = (data) => {
  */
 const DealingDataRequest = () => {
   return {
-    type: ACTION_KEYS.DEALING_ITEM_DATA_REQUEST,
+    type: ACTION_KEYS.DEALING_DATA_REQUEST,
     payload: null,
   };
 };
@@ -220,7 +216,7 @@ const DealingDataRequest = () => {
  */
 export const DealingDataSuccess = (data) => {
   return {
-    type: ACTION_KEYS.DEALING_ITEM_DATA_SUCCESS,
+    type: ACTION_KEYS.DEALING_DATA_SUCCESS,
     payload: data,
   };
 };
@@ -232,7 +228,7 @@ export const DealingDataSuccess = (data) => {
  */
 export const DealingDataError = (data) => {
   return {
-    type: ACTION_KEYS.DEALING_ITEM_DATA_ERROR,
+    type: ACTION_KEYS.DEALING_DATA_ERROR,
     payload: { error: data },
   };
 };
@@ -252,7 +248,7 @@ export const DealingUpdateRequestAsync = (data) => {
  */
 const DealingUpdateRequest = () => {
   return {
-    type: ACTION_KEYS.DEALING_ITEM_UPDATE_REQUEST,
+    type: ACTION_KEYS.DEALING_UPDATE_REQUEST,
     payload: null,
   };
 };
@@ -264,7 +260,7 @@ const DealingUpdateRequest = () => {
  */
 export const DealingUpdateSuccess = (data) => {
   return {
-    type: ACTION_KEYS.DEALING_ITEM_UPDATE_SUCCESS,
+    type: ACTION_KEYS.DEALING_UPDATE_SUCCESS,
     payload: data,
   };
 };
@@ -276,7 +272,7 @@ export const DealingUpdateSuccess = (data) => {
  */
 export const DealingUpdateError = (data) => {
   return {
-    type: ACTION_KEYS.DEALING_ITEM_UPDATE_ERROR,
+    type: ACTION_KEYS.DEALING_UPDATE_ERROR,
     payload: { error: data },
   };
 };

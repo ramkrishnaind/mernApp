@@ -58,6 +58,15 @@ export const RoleStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(RoleAction.RoleUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.ROLE_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(RoleAction.RoleListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(RoleAction.RoleUpdateStatusError(error));
@@ -106,6 +115,15 @@ export const RoleDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(RoleAction.RoleDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.ROLE_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(RoleAction.RoleListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(RoleAction.RoleDeleteError(error));

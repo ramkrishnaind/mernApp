@@ -16,8 +16,6 @@ import * as Loader from "./LoaderActions";
 export const FeedbackListRequestAsync = (data) => {
   return (dispatch) => {
     dispatch(Loader.showLoader(""));
-    dispatch(FeedbackListRequest());
-    FeedbackListService(dispatch, data);
   };
 };
 
@@ -106,8 +104,6 @@ export const FeedbackStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(FeedbackUpdateStatusRequest());
     FeedbackStatusUpdateService(dispatch, data);
-    dispatch(FeedbackListRequest());
-    FeedbackListService(dispatch);
   };
 };
 
@@ -240,8 +236,6 @@ export const FeedbackDeleteRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(FeedbackDeleteRequest());
     FeedbackDeleteService(dispatch, data);
-    dispatch(FeedbackListRequest());
-    FeedbackListService(dispatch);
   };
 };
 

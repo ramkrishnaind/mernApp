@@ -63,6 +63,16 @@ export const AboutpageStatusUpdateService = async (dispatch, data) => {
     );
     dispatch(AboutpageAction.AboutpageUpdateStatusSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
+
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.ABOUTPAGE_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(AboutpageAction.AboutpageListSuccess(result1));
   } catch (error) {
     dispatch(AboutpageAction.AboutpageUpdateStatusError(error));
     dispatch(
@@ -110,6 +120,15 @@ export const AboutpageDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(AboutpageAction.AboutpageDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.ABOUTPAGE_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(AboutpageAction.AboutpageListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(AboutpageAction.AboutpageDeleteError(error));

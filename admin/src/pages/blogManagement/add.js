@@ -224,7 +224,9 @@ const MenuCreateUpdate = (props) => {
                     <>
                       <ReactQuill
                         onChange={handleChangeTextEditor}
-                        value={description}
+                        value={
+                          description ? description : blogData?.description
+                        }
                         placeholder="Enter description"
                         theme="snow"
                       />

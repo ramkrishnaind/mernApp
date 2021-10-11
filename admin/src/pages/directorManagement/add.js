@@ -254,7 +254,9 @@ const DirectorCreateUpdate = (props) => {
                     <>
                       <ReactQuill
                         onChange={handleChangeTextEditor}
-                        value={description}
+                        value={
+                          description ? description : directorData?.description
+                        }
                         placeholder="Enter description"
                         theme="snow"
                       />
