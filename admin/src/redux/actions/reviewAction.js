@@ -59,8 +59,6 @@ export const ReviewStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(ReviewUpdateStatusRequest());
     ReviewStatusUpdateService(dispatch, data);
-    dispatch(ReviewListRequest());
-    ReviewListService(dispatch);
   };
 };
 

@@ -36,6 +36,15 @@ export const SitevisitStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(SitevisitAction.SitevisitUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.SITEVISIT_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(SitevisitAction.SitevisitListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(SitevisitAction.SitevisitUpdateStatusError(error));

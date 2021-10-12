@@ -35,4 +35,5 @@ module.exports = function (mongoose) {
     mongoose.model('investWithUs', require('./schema/investWithUs'));
     mongoose.model('serviceEnquiry', require('./schema/serviceEnquiry'));
     mongoose.model('aboutPage', require('./schema/aboutPage'));
+    mongoose.model('finance', require('./schema/finance'));
 }

@@ -38,11 +38,11 @@ const MenuCreateUpdate = (props) => {
   }, [props.service.success]);
 
   const initialState = {
-    title: serviceData?.title,
-    header: serviceData?.header,
-    metaTitle: serviceData?.metaTitle,
-    metaKeywords: serviceData?.metaKeywords,
-    metaDescription: serviceData?.metaDescription,
+    title: serviceData?.title || "",
+    header: serviceData?.header || "",
+    metaTitle: serviceData?.metaTitle || "",
+    metaKeywords: serviceData?.metaKeywords || "",
+    metaDescription: serviceData?.metaDescription || "",
     id: id,
   };
 
@@ -134,7 +134,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Header*"
                     fullWidth
-                    value={state.header ? state.header : serviceData?.header}
+                    value={state.header}
                     onChange={inputChange}
                     name="header"
                     id="header"
@@ -149,7 +149,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.title ? state.title : serviceData?.title}
+                    value={state.title}
                     onChange={inputChange}
                     name="title"
                     id="title"
@@ -164,9 +164,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Title *"
                     fullWidth
-                    value={
-                      state.metaTitle ? state.metaTitle : serviceData?.metaTitle
-                    }
+                    value={state.metaTitle}
                     onChange={inputChange}
                     name="metaTitle"
                     id="metaTitle"
@@ -179,11 +177,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Keywords*"
                     fullWidth
-                    value={
-                      state.metaKeywords
-                        ? state.metaKeywords
-                        : serviceData?.metaKeywords
-                    }
+                    value={state.metaKeywords}
                     onChange={inputChange}
                     name="metaKeywords"
                     id="metaKeywords"
@@ -196,11 +190,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Meta Description*"
                     fullWidth
-                    value={
-                      state.metaDescription
-                        ? state.metaDescription
-                        : serviceData?.metaDescription
-                    }
+                    value={state.metaDescription}
                     onChange={inputChange}
                     name="metaDescription"
                     id="metaDescription"

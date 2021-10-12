@@ -108,8 +108,6 @@ export const CareerStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(CareerUpdateStatusRequest());
     CareerStatusUpdateService(dispatch, data);
-    dispatch(CareerListRequest());
-    CareerListService(dispatch);
   };
 };
 
@@ -242,8 +240,6 @@ export const CareerDeleteRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(CareerDeleteRequest());
     CareerDeleteService(dispatch, data);
-    dispatch(CareerListRequest());
-    CareerListService(dispatch);
   };
 };
 
@@ -336,8 +332,6 @@ export const CareerApplicationStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(CareerApplicationStatusUpdateStatusRequest());
     CareerApplicationStatusUpdateService(dispatch, data);
-    dispatch(CareerApplicationListRequest());
-    CareerApplicationListService(dispatch, "");
   };
 };
 

@@ -19,7 +19,7 @@ const schema = new Schema({
         required: true,
         trim: true
     },
-    image: {
+    media: {
         type: Array
     },
     description: {

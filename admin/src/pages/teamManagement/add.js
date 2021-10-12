@@ -38,13 +38,13 @@ const MenuCreateUpdate = (props) => {
   }, [props.team.success]);
 
   const initialState = {
-    name: teamData?.name,
-    shortDescription: teamData?.shortDescription,
-    designation: teamData?.designation,
-    facebook: teamData?.facebook,
-    twitter: teamData?.twitter,
-    instagram: teamData?.instagram,
-    linkedin: teamData?.linkedin,
+    name: teamData?.name || "",
+    shortDescription: teamData?.shortDescription || "",
+    designation: teamData?.designation || "",
+    facebook: teamData?.facebook || "",
+    twitter: teamData?.twitter || "",
+    instagram: teamData?.instagram || "",
+    linkedin: teamData?.linkedin || "",
     image: "",
     id: id,
   };
@@ -140,13 +140,6 @@ const MenuCreateUpdate = (props) => {
             <Typography component="h3" variant="h3">
               {state.id ? "Edit" : "Add"} Team
             </Typography>
-            {/* <Button
-                onClick={() => this.props.history.push("menu")}
-                variant="contained"
-                color="primary"
-                type="submit"
-                
-              >Back</Button> */}
           </div>
           <div class="card-body">
             <ValidatorForm onSubmit={handleSubmit}>
@@ -157,7 +150,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Title*"
                     fullWidth
-                    value={state.name ? state.name : teamData?.name}
+                    value={state.name}
                     onChange={inputChange}
                     name="name"
                     id="name"
@@ -172,11 +165,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Short Description*"
                     fullWidth
-                    value={
-                      state.shortDescription
-                        ? state.shortDescription
-                        : teamData?.shortDescription
-                    }
+                    value={state.shortDescription}
                     onChange={inputChange}
                     name="shortDescription"
                     id="shortDescription"
@@ -191,11 +180,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Designation"
                     fullWidth
-                    value={
-                      state.designation
-                        ? state.designation
-                        : teamData?.designation
-                    }
+                    value={state.designation}
                     onChange={inputChange}
                     name="designation"
                     id="designation"
@@ -208,7 +193,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Facebook"
                     fullWidth
-                    value={state.facebook ? state.facebook : teamData?.facebook}
+                    value={state.facebook}
                     onChange={inputChange}
                     name="facebook"
                     id="facebook"
@@ -221,7 +206,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Twitter"
                     fullWidth
-                    value={state.twitter ? state.twitter : teamData?.twitter}
+                    value={state.twitter}
                     onChange={inputChange}
                     name="twitter"
                     id="twitter"
@@ -234,9 +219,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Instagram"
                     fullWidth
-                    value={
-                      state.instagram ? state.instagram : teamData?.instagram
-                    }
+                    value={state.instagram}
                     onChange={inputChange}
                     name="instagram"
                     id="instagram"
@@ -249,7 +232,7 @@ const MenuCreateUpdate = (props) => {
                     variant="outlined"
                     label="Linkedin"
                     fullWidth
-                    value={state.linkedin ? state.linkedin : teamData?.linkedin}
+                    value={state.linkedin}
                     onChange={inputChange}
                     name="linkedin"
                     id="linkedin"

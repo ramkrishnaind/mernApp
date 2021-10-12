@@ -30,8 +30,8 @@ const MenuCreateUpdate = (props) => {
   const [, setRefresh] = useState(false);
 
   const initialState = {
-    name: menuData?.name,
-    description: menuData?.description,
+    name: menuData?.name || "",
+    description: menuData?.description || "",
     id: id,
     status: true,
   };
@@ -116,13 +116,6 @@ const MenuCreateUpdate = (props) => {
             <Typography component="h3" variant="h3">
               {state.id ? "Edit" : "Add"} Menu
             </Typography>
-            {/* <Button
-                onClick={() => this.props.history.push("menu")}
-                variant="contained"
-                color="primary"
-                type="submit"
-                
-              >Back</Button> */}
           </div>
           <div class="card-body">
             <ValidatorForm onSubmit={handleSubmit}>

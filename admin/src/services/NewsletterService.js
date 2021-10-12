@@ -37,6 +37,15 @@ export const NewsletterStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(NewsletterAction.NewsletterUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.NEWSLETTER_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(NewsletterAction.NewsletterListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(NewsletterAction.NewsletterUpdateStatusError(error));
@@ -60,6 +69,15 @@ export const NewsletterDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(NewsletterAction.NewsletterDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.NEWSLETTER_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(NewsletterAction.NewsletterListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(NewsletterAction.NewsletterDeleteError(error));

@@ -36,6 +36,15 @@ export const BookingStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(BookingAction.BookingUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.BOOKING_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(BookingAction.BookingListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(BookingAction.BookingUpdateStatusError(error));

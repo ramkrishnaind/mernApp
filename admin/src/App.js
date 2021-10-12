@@ -1,6 +1,6 @@
 import React from "react";
-import { ThemeProvider } from "@material-ui/core";
-import { useSelector, useDispatch } from "react-redux";
+import {ThemeProvider} from "@material-ui/core";
+import {useSelector, useDispatch} from "react-redux";
 import theme from "../src/theme";
 import Routes from "./routes";
 import GlobalStyles from "./components/global-styles";

@@ -62,6 +62,15 @@ export const CareerStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(CareerAction.CareerUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.CAREER_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(CareerAction.CareerListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(CareerAction.CareerUpdateStatusError(error));
@@ -110,6 +119,15 @@ export const CareerDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(CareerAction.CareerDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.CAREER_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(CareerAction.CareerListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(CareerAction.CareerDeleteError(error));
@@ -178,6 +196,15 @@ export const CareerApplicationStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(CareerAction.CareerApplicationUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.CAREER_APPLICATION_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(CareerAction.CareerApplicationListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(CareerAction.CareerApplicationUpdateStatusError(error));

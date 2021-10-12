@@ -58,51 +58,51 @@ const PropertyCreateUpdate = (props) => {
   let id = query.get("id");
 
   const initialState = {
-    iAm: propertyData?.iAm,
-    for: propertyData?.for,
-    pType: propertyData?.pType,
-    postingAs: propertyData?.postingAs,
-    nameOfProject: propertyData?.nameOfProject,
-    Bedrooms: propertyData?.bedrooms,
-    Balconies: propertyData?.balconies,
-    Floor_No_: propertyData?.floorNo,
-    Total_Floors: propertyData?.totalFloors,
-    Furnished_Status: propertyData?.furnishedStatus,
-    Bathrooms: propertyData?.bathrooms,
-    Possession_Status: propertyData?.possessionStatus,
-    longitude: propertyData?.address?.longitude,
-    latitude: propertyData?.address?.latitude,
-    address: propertyData?.address?.address,
-    city: propertyData?.address?.city,
-    State: propertyData?.address?.State,
-    pinCode: propertyData?.address?.pinCode,
+    iAm: propertyData?.iAm || "",
+    for: propertyData?.for || "",
+    pType: propertyData?.pType || "",
+    postingAs: propertyData?.postingAs || "",
+    nameOfProject: propertyData?.nameOfProject || "",
+    Bedrooms: propertyData?.bedrooms || "",
+    Balconies: propertyData?.balconies || "",
+    Floor_No_: propertyData?.floorNo || "",
+    Total_Floors: propertyData?.totalFloors || "",
+    Furnished_Status: propertyData?.furnishedStatus || "",
+    Bathrooms: propertyData?.bathrooms || "",
+    Possession_Status: propertyData?.possessionStatus || "",
+    longitude: propertyData?.address?.longitude || "",
+    latitude: propertyData?.address?.latitude || "",
+    address: propertyData?.address?.address || "",
+    city: propertyData?.address?.city || "",
+    State: propertyData?.address?.State || "",
+    pinCode: propertyData?.address?.pinCode || "",
     Super_Area: {
-      size: propertyData?.superArea,
+      size: propertyData?.superArea || "",
     },
     Carpet_Area: {
-      size: propertyData?.carpetArea,
+      size: propertyData?.carpetArea || "",
     },
     Built_up_Area: {
-      size: propertyData?.builtUpArea,
+      size: propertyData?.builtUpArea || "",
     },
-    available_from_month: propertyData?.availableFromMonth,
-    available_from_year: propertyData?.availableFromYear,
-    gaurdRoom: propertyData?.gaurdRoom,
-    id: id,
-    status: true,
-    Transaction_Type: propertyData?.transactionType,
-    Property_Tag: propertyData?.propertyTag,
+    available_from_month: propertyData?.availableFromMonth || "",
+    available_from_year: propertyData?.availableFromYear || "",
+    gaurdRoom: propertyData?.gaurdRoom || "",
+    id: id || "",
+    status: true || "",
+    Transaction_Type: propertyData?.transactionType || "",
+    Property_Tag: propertyData?.propertyTag || "",
 
-    expected_price: propertyData?.price?.expectedPrice,
-    expected_price_per_sq_ft: propertyData?.price?.pricePerSqft,
-    other_charges: propertyData?.price?.otherCharges,
+    expected_price: propertyData?.price?.expectedPrice || "",
+    expected_price_per_sq_ft: propertyData?.price?.pricePerSqft || "",
+    other_charges: propertyData?.price?.otherCharges || "",
     stamp_duty_registration_charges_excluded:
-      propertyData?.price?.isStumpDutyRCExcluded,
-    booking_token_amount: propertyData?.price?.bookingAmount,
-    maintenance_charges: propertyData?.price?.maintenanceCharge,
-    maintenance_charges_per: propertyData?.price?.maintenanceFor,
-    brokerage: propertyData?.price?.brokerage,
-    build_year: propertyData?.buildYear,
+      propertyData?.price?.isStumpDutyRCExcluded || "",
+    booking_token_amount: propertyData?.price?.bookingAmount || "",
+    maintenance_charges: propertyData?.price?.maintenanceCharge || "",
+    maintenance_charges_per: propertyData?.price?.maintenanceFor || "",
+    brokerage: propertyData?.price?.brokerage || "",
+    build_year: propertyData?.buildYear || "",
   };
 
   const imageState = {
@@ -1501,11 +1501,15 @@ const PropertyCreateUpdate = (props) => {
                     >
                       <FormControlLabel
                         value="true"
+                        aria-label="guardRoom"
+                        name="guardRoom"
                         control={<Radio />}
                         label="Yes"
                       />
                       <FormControlLabel
                         value="false"
+                        aria-label="guardRoom"
+                        name="guardRoom"
                         control={<Radio />}
                         label="No"
                       />

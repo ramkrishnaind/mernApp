@@ -38,7 +38,7 @@ export const InvestwithusAddService = async (dispatch, data) => {
     );
     dispatch(InvestwithusAction.InvestwithusAddSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
-    history.push("/Investwithus");
+    history.push("/investwithus");
     window.location.reload();
   } catch (error) {
     dispatch(InvestwithusAction.InvestwithusAddError(error));
@@ -62,6 +62,15 @@ export const InvestwithusStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(InvestwithusAction.InvestwithusUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.INVESTWITHUS_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(InvestwithusAction.InvestwithusListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(InvestwithusAction.InvestwithusUpdateStatusError(error));
@@ -86,7 +95,7 @@ export const InvestwithusUpdateService = async (dispatch, data) => {
     );
     dispatch(InvestwithusAction.InvestwithusUpdateSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
-    history.push("/Investwithus");
+    history.push("/investwithus");
     window.location.reload();
   } catch (error) {
     dispatch(InvestwithusAction.InvestwithusUpdateError(error));
@@ -110,6 +119,15 @@ export const InvestwithusDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(InvestwithusAction.InvestwithusDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.INVESTWITHUS_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(InvestwithusAction.InvestwithusListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(InvestwithusAction.InvestwithusDeleteError(error));

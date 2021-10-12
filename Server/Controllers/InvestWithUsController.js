@@ -39,7 +39,7 @@ module.exports = function (conn) {
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(db);
 
     const pageMedia = [{
-        name: 'image', maxCount: 1
+        name: 'image', maxCount: 2
     }, {
         name: 'bannerImage', maxCount: 1
     }];
