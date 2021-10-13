@@ -24,7 +24,7 @@ const Finance = (props) => {
                 <Box className="about-block-image"><img src="../images/about-img.jpg" alt='' />
 
                   <div id="form1" class="finance-form-block">
-                    <form className="map-form finance-form">
+                    <form className="form-enquiry finance-form">
                       <TextField
                         className="form-group"
                         label="Loan Amount"
