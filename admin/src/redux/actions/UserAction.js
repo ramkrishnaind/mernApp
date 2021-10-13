@@ -151,8 +151,6 @@ export const UserStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(UserUpdateStatusRequest());
     UserStatusUpdateService(dispatch, data);
-    dispatch(UserListRequest());
-    UserListService(dispatch);
   };
 };
 
@@ -285,8 +283,6 @@ export const UserDeleteRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(UserDeleteRequest());
     UserDeleteService(dispatch, data);
-    dispatch(UserListRequest());
-    UserListService(dispatch);
   };
 };
 

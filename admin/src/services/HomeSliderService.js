@@ -62,6 +62,15 @@ export const SliderStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(HomeSliderAction.SliderUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.SLIDER_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(HomeSliderAction.SliderListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(HomeSliderAction.SliderUpdateStatusError(error));
@@ -110,6 +119,15 @@ export const SliderDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(HomeSliderAction.SliderDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.SLIDER_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(HomeSliderAction.SliderListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(HomeSliderAction.SliderDeleteError(error));

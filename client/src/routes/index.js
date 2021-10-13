@@ -15,15 +15,21 @@ import RegisterPage from "../pages/register";
 import ForgotPage from "../pages/forgot-password";
 import NewPasswordPage from "../pages/new-password";
 import Verification from "../pages/verificationPage";
-import Profile from "../pages/profile";
 import HouseDetailPage from "../pages/house-details/index";
 import AboutUsPage from "../pages/about-us/index";
 import AboutDirectors from "../pages/about-us/about-director/index";
 import InvestWithUs from "../pages/about-us/invest-with-us/index";
 import ConstructionProcess from "../pages/about-us/construction-process/index";
+import Finance from "../pages/finance";
 import ServiceDetailPage from '../pages/service-details/index';
 import DealingInItemDetailPage from '../pages/dealingIn-details/index';
 import SearchPropertyList from "../pages/search-property-list/index";
+import MyAccount from "../pages/my-account";
+import MyProfile from "../pages/my-account/my-profile";
+import MyBooking from "../pages/my-account/my-booking";
+import MyFavorite from "../pages/my-account/my-favorite";
+import MyProperty from "../pages/my-account/my-property";
+
 
 const routes = [
   {
@@ -97,11 +103,7 @@ const routes = [
   {
     path: "/verification",
     render: (props) => <Verification {...props} />,
-  },
-  {
-    path: "/profile",
-    render: (props) => <Profile {...props} />,
-  },
+  }, 
   {
     path: "/home-detail",
     render: (props) => <HouseDetailPage {...props} />,
@@ -123,6 +125,10 @@ const routes = [
     render: (props) => <ConstructionProcess {...props} />,
   },
   {
+    path: "/finance",
+    render: (props) => <Finance {...props} />,
+  },
+  {
     path: "/service-details",
     render: (props) => <ServiceDetailPage {...props} />,
   },
@@ -133,7 +139,27 @@ const routes = [
   {
     path: "/search-property-details",
     render: (props) => <SearchPropertyList {...props} />,
-  }
+  },
+  {
+    path: "/my-account",
+    render: (props) => <MyAccount {...props} />,
+  },
+  {
+    path: "/my-profile",
+    render: (props) => <MyProfile {...props} />,
+  },
+  {
+    path: "/my-booking",
+    render: (props) => <MyBooking {...props} />,
+  },
+  {
+    path: "/my-favorite",
+    render: (props) => <MyFavorite {...props} />,
+  },
+  {
+    path: "/my-property",
+    render: (props) => <MyProperty {...props} />,
+  },
 ];
 
 export default routes;

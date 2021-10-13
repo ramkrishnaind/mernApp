@@ -244,6 +244,15 @@ export const PropertyStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(PropertyAction.PropertyUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.PROPERTY_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(PropertyAction.PropertyListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(PropertyAction.PropertyUpdateStatusError(error));
@@ -471,6 +480,15 @@ export const PropertyDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(PropertyAction.PropertyDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.PROPERTY_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(PropertyAction.PropertyListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(PropertyAction.PropertyDeleteError(error));

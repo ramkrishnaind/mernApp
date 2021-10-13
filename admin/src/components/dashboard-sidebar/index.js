@@ -382,7 +382,6 @@ const items = [
     icon: UserIcon,
     title: "News letters",
   },
-
   {
     href: "/aboutpage",
     icon: UsersIcon,
@@ -397,6 +396,23 @@ const items = [
         href: "/aboutpage",
         icon: ShoppingBagIcon,
         title: "About page List",
+      },
+    ],
+  },
+  {
+    href: "/finance",
+    icon: UsersIcon,
+    title: "Finance",
+    items: [
+      {
+        href: "/finance/add",
+        icon: ShoppingBagIcon,
+        title: "Add Finance",
+      },
+      {
+        href: "/finance",
+        icon: ShoppingBagIcon,
+        title: "Finance List",
       },
     ],
   },

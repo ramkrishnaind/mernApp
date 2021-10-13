@@ -84,6 +84,15 @@ export const UserStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(UserAction.UserUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.USER_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(UserAction.UserListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(UserAction.UserUpdateStatusError(error));
@@ -154,6 +163,15 @@ export const UserDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(UserAction.UserDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.USER_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(UserAction.UserListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(UserAction.UserDeleteError(error));

@@ -101,8 +101,6 @@ export const PropertyStatusUpdateRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(PropertyUpdateStatusRequest());
     PropertyStatusUpdateService(dispatch, data);
-    dispatch(PropertyListRequest());
-    PropertyListService(dispatch);
   };
 };
 
@@ -234,8 +232,6 @@ export const PropertyDeleteRequestAsync = (data) => {
     dispatch(Loader.showLoader(""));
     dispatch(PropertyDeleteRequest());
     PropertyDeleteService(dispatch, data);
-    dispatch(PropertyListRequest());
-    PropertyListService(dispatch);
   };
 };
 

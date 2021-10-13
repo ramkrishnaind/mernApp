@@ -18,6 +18,7 @@ import history from "../../components/history";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Link as RouterLink } from "react-router-dom";
+import ReactHtmlParser from "react-html-parser";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -119,7 +120,20 @@ const AboutpageList = (props) => {
               columns={[
                 "SR No.",
                 "Title",
-                "Description",
+                {
+                  name: "Description",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      return (
+                        <>
+                          <Typography className={classes.text}>
+                            {ReactHtmlParser(tableMeta.rowData[2])}
+                          </Typography>
+                        </>
+                      );
+                    },
+                  },
+                },
                 {
                   name: "Status",
                   options: {

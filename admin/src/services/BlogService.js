@@ -62,6 +62,15 @@ export const BlogStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(BlogAction.BlogUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.BLOG_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(BlogAction.BlogListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(BlogAction.BlogUpdateStatusError(error));
@@ -110,6 +119,15 @@ export const BlogDeleteService = async (dispatch, data) => {
       true
     );
     dispatch(BlogAction.BlogDeleteSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.BLOG_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(BlogAction.BlogListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(BlogAction.BlogDeleteError(error));

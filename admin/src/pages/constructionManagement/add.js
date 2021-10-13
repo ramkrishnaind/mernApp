@@ -211,7 +211,11 @@ const ConstructionCreateUpdate = (props) => {
                     <>
                       <ReactQuill
                         onChange={handleChangeTextEditor}
-                        value={description}
+                        value={
+                          description
+                            ? description
+                            : constructionData?.description
+                        }
                         placeholder="Enter description"
                         theme="snow"
                       />

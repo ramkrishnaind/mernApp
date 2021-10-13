@@ -37,6 +37,15 @@ export const ContactUsStatusUpdateService = async (dispatch, data) => {
       true
     );
     dispatch(ContactusAction.ContactUsUpdateStatusSuccess(result));
+    const result1 = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.CONTACTUS_LIST_ENDPOINT,
+      data,
+      null,
+      null,
+      true
+    );
+    dispatch(ContactusAction.ContactUsListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
     dispatch(ContactusAction.ContactUsUpdateStatusError(error));

@@ -56,7 +56,8 @@
     },
     {
         "id": 7,
-        "title": "Finance"
+        "title": "Finance",
+        "href": "/finance"
     },
     {
         "id": 8,

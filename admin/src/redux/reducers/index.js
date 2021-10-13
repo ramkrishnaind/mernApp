@@ -33,6 +33,7 @@ import Construction from "./constructionReducer";
 import Investwithus from "./investwithusReducer";
 import Newsletter from "./NewsletterReducer";
 import Aboutpage from "./aboutpageReducer";
+import Finance from "./financeReducer";
 const reducers = {
   Login: LoginReducer,
   Register: RegisterReducer,
@@ -69,6 +70,7 @@ const reducers = {
   investwithus: Investwithus,
   newsletter: Newsletter,
   aboutpage: Aboutpage,
+  finance: Finance,
 };
 
 export default reducers;
