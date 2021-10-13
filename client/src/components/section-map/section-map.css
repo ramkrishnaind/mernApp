@@ -8,20 +8,20 @@
 	background-color: #2b2825;
 	padding: 20px;
 }
-.form-group.MuiFormControl-root.MuiTextField-root {
+.form-enquiry .form-group.MuiFormControl-root.MuiTextField-root {
 	background-color: transparent;
 	border-radius: 0;
 	width: 100%;
 	margin: 0 0 20px;
 }
-.form-group.MuiFormControl-root >label {
+.form-enquiry .form-group.MuiFormControl-root >label {
 	color: #fff;
 	position: static;
 	transform: none;
 	margin-bottom: 10px;
 	font-size: 14px;
 }
-.form-group.MuiFormControl-root .MuiFilledInput-input {
+.form-enquiry .form-group.MuiFormControl-root .MuiFilledInput-input {
 	background-color: #fff;
 	border-radius: 10px;
 	box-sizing: border-box;
@@ -29,7 +29,7 @@
 	font-size: 14px;
 	height: 44px;	
 }
-.form-group.MuiFormControl-root .MuiSelect-selectMenu {
+.form-enquiry .form-group.MuiFormControl-root .MuiSelect-selectMenu {
 	background-color: #fff;
 	border-radius: 10px;
 	box-sizing: border-box;
@@ -37,7 +37,7 @@
 	height: 44px;	
 	font-size: 14px;
 }
-.form-group.MuiFormControl-root  .MuiInputBase-formControl fieldset {
+.form-enquiry .form-group.MuiFormControl-root  .MuiInputBase-formControl fieldset {
 	display: none;
 }
 .form-btn {   
