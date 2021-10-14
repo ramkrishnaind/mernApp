@@ -235,7 +235,7 @@ const ConstructionCreateUpdate = (props) => {
               <Grid container spacing={3} className="FormFildes">
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Image </Typography>
-                  {constructionData?.image?.map((item, index) => {
+                  {constructionData?.image[0]?.image?.map((item, index) => {
                     return (
                       <img
                         src={API_ENDPOINTS.BASE_URL + item.path}
