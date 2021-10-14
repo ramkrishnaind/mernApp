@@ -40,7 +40,8 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
     "slick-carousel": "^1.8.1",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "react-material-ui-form-validator": "^2.0.9"
   },
   "scripts": {
     "start": "PORT=9999 react-scripts start",

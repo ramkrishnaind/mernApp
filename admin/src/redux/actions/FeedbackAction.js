@@ -16,6 +16,8 @@ import * as Loader from "./LoaderActions";
 export const FeedbackListRequestAsync = (data) => {
   return (dispatch) => {
     dispatch(Loader.showLoader(""));
+    dispatch(FeedbackListRequest());
+    FeedbackListService(dispatch, data);
   };
 };
 
