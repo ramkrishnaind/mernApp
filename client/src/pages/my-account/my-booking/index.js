@@ -42,7 +42,7 @@ const MyBooking = (props) => {
                     </ul>
                   </Box>
                 </Box>
-              </Box>             
+              </Box>
             </Grid>
             {/* <!-- sidebar-section --> */}
             <Grid item xs={12} md={9} className="content-area">
@@ -50,9 +50,59 @@ const MyBooking = (props) => {
                 <Box className="box-item">
                   <Box className="box-wrap box-border-bottom box-radius">
                     <Box className="box-header"><h5 className="box-title">My Booking Lists</h5></Box>
-                    <Box className="box-body">
-
-
+                    <Box class="box-body">
+                      <Box class="booking-table">
+                        <Box class="tabel-row">
+                          <Box class="table-cell">Booking No.-1010103</Box>
+                          <Box class="table-cell text-right">25 Oct 2021 04:08 PM</Box>
+                        </Box>
+                        <Box class="tabel-row">
+                          <Box class="table-cell booking-img"><a href="#"><img src="images/property_img3.jpeg" width="75" height="75" /></a></Box>
+                          <Box class="table-cell">
+                            <p class="booking-title"><a href="#">Vishal Heavens Property </a></p>
+                            <p class="booking-status booking-process">Booking Processing!</p>
+                          </Box>
+                          <Box class="table-cell text-right booking-total">
+                            <p class="booking-price"><i class="fas fa-rupee-sign"></i> 150000</p>
+                            <p class="booking-view"><a href="#">View</a></p>
+                          </Box>
+                        </Box>
+                      </Box>
+                      <Box class="booking-table">
+                        <Box class="tabel-row">
+                          <Box class="table-cell">Booking No.-1010102</Box>
+                          <Box class="table-cell text-right">20 Oct 2021 11:08 AM</Box>
+                        </Box>
+                        <Box class="tabel-row">
+                          <Box class="table-cell booking-img"><a href="#"><img src="images/property_img3.jpeg" width="75" height="75" /></a></Box>
+                          <Box class="table-cell">
+                            <p class="booking-title"><a href="#">Vishal Heavens Property </a></p>
+                            <p class="booking-status booking-sucess">Booking Sucessfully!</p>
+                          </Box>
+                          <Box class="table-cell text-right booking-total">
+                            <p class="booking-price"><i class="fas fa-rupee-sign"></i> 3200000</p>
+                            <p class="booking-view"><a href="#">View</a></p>
+                          </Box>
+                        </Box>
+                      </Box>
+                      <Box class="booking-table">
+                        <Box class="tabel-row">
+                          <Box class="table-cell">Booking No.-1010101</Box>
+                          <Box class="table-cell text-right">15 Oct 2021 06:08 PM</Box>
+                        </Box>
+                        <Box class="tabel-row">
+                          <Box class="table-cell booking-img"><a href="#"><img src="images/property_img3.jpeg" width="75" height="75" /></a></Box>
+                          <Box class="table-cell">
+                            <p class="booking-title"><a href="#">Vishal Heavens Property </a></p>
+                            <p class="booking-moreitem"><a href="#">+2 More Item</a></p>
+                            <p class="booking-status booking-cancel">Booking Cancelled!</p>
+                          </Box>
+                          <Box class="table-cell text-right booking-total">
+                            <p class="booking-price"><i class="fas fa-rupee-sign"></i> 490000</p>
+                            <p class="booking-view"><a href="#">View</a></p>
+                          </Box>
+                        </Box>
+                      </Box>
                     </Box>
                   </Box>
                 </Box>

@@ -109,10 +109,11 @@
 .property-button {
 	flex-wrap: nowrap;
 }
-.property-button .btn {   
+.property-button .btn {
 	position: relative;
-	display: block;	
+	display: block;
 	width: 50%;
+	border-radius: 0;
 }
 @media only screen and (max-width: 767px) {
 	.property-section .tab-content > .MuiBox-root {

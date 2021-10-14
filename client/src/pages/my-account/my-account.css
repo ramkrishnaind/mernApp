@@ -4,6 +4,9 @@
 .form-control{
     width: 100%;   
 }
+.form-control input {
+	font-size: 14px;
+}
 hr {
 	margin-top: 1rem;
 	margin-bottom: 1rem;
@@ -23,12 +26,12 @@ hr {
 	color: #00b0b8;
 	display: block;
 	border-bottom: 1px solid #e6e6e6;
-	padding: 15px;
+	padding: 12px;
 	margin-bottom: 0;
 	font-size: 14px;
 }
 .box-body {
-	padding: 15px;
+	padding: 12px;
 	position: relative;
 }
 .box-radius {
@@ -156,4 +159,171 @@ hr {
 	align-items: center;
 	justify-content: center;
 	font-size: 14px;	
+}
+.my-property-item .property-wrap {
+	border: 1px solid #e0e0e0;
+	border-radius: 4px;
+	overflow: hidden;
+}
+.my-property-item .property-summery {
+	padding: 5px 10px 0;
+}
+.my-property-item .property-tag {
+	font-size: 12px;
+	margin-bottom: 3px;
+}
+.my-property-item .property-summery .property-title {
+	font-size: 15px;
+	margin-bottom: 10px;
+}
+.my-property-item .property-feature p {
+	font-size: 12px;	
+}
+.my-property-item .property-feature svg {	
+	width: 20px;
+	height: 20px;
+	margin-right: 3px;
+}
+.my-property-item .property-button .btn {
+	width: 100%;
+	padding: 7px 15px;
+}
+.property-favorite-remove {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	z-index: 1;
+}
+.property-favorite-remove a {
+	background-color: #333333;
+	border-radius: 100%;
+	color: #fff;
+	width: 30px;
+	height: 30px;
+	display: block;
+	text-align: center;
+	font-size: 24px;
+	line-height: 28px;
+	text-decoration: none;
+}
+.booking-table {
+	border-bottom: 1px solid #f0f0f0;
+	border-left: 1px solid #f0f0f0;
+	border-top: 1px solid #f0f0f0;
+	font-size: 14px;
+}
+.booking-table + .booking-table{
+	margin-top: 12px;
+}
+.tabel-row {
+	display: table;
+	width: 100%;
+}
+.table-cell {
+	border-bottom: 1px solid #f0f0f0;
+	border-right: 1px solid #f0f0f0;
+	display: table-cell;
+	padding: 7px;
+	vertical-align: middle;
+}
+.table-cell.booking-img {
+	width: 75px;
+}
+.booking-img a {
+	display: block;
+}
+.booking-title {
+	margin-bottom: 5px;
+}
+.booking-title > a {
+	color: #363636;
+	text-decoration: none;
+}
+.booking-title > a > span {
+	color: #888888;
+	font-size: 12px;
+}
+.booking-moreitem{
+	margin-bottom: 5px;
+}
+.booking-moreitem a {
+	color: #000;
+	font-size: 12px;
+	font-style: italic;
+	font-weight: 500;
+}
+.booking-status {
+	color: #676767;
+	font-size: 12px;
+	font-weight: 500;
+	margin-bottom: 0;
+}
+.booking-status.booking-sucess {
+	color: #045431;
+}
+.booking-status.booking-cancel {
+	color: #e52b3a;
+}
+.booking-price {
+	margin-bottom: 5px;
+}
+.booking-total {
+	width: 100px;
+}
+.booking-view {
+	float: right;
+	margin-bottom: 0;
+}
+.booking-view a {
+	border: 1px solid #ff7600;
+	border-radius: 2px;
+	color: #ff7600;
+	display: block;
+	font-size: 12px;
+	line-height: 12px;
+	padding: 4px 5px;
+	text-decoration: none;
+}
+@media only screen and (max-width: 767px) {
+	.box-title {		
+		padding: 10px 15px;		
+		font-size: 14px;
+	}
+	.sidebar-section .box-item:last-child {
+		margin-bottom: 0;
+	}
+	.user-intro {		
+		flex-wrap: nowrap;
+		border-bottom: 1px solid #e0e0e0;
+	}
+	.user-icon {
+		width: 75px;
+		min-width: 75px;
+		height: 75px;
+		margin: 0;
+	}
+	.user-info {
+		text-align: left;
+		padding-left: 10px;
+	}
+	.user-intro h4 {
+		margin-bottom: 3px;
+		font-size: 14px;
+	}
+	.user-intro p {
+		margin-bottom: 0;
+		font-size: 12px;
+	}
+	.booking-table {	
+		font-size: 12px;
+	}
+	.table-cell.booking-img {
+		width: 65px;
+	}
+	.booking-total {
+		width: 90px;
+	}
+	.booking-status {	
+		font-size: 11px;	
+	}
 }
