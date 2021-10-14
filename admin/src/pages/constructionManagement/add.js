@@ -73,7 +73,7 @@ const ConstructionCreateUpdate = (props) => {
       data.append("metaTitle", metaTitle);
       data.append("metaKeywords", metaKeywords);
       data.append("metaDescription", metaDescription);
-      // data.append("imagePosition", imagePosition);
+      data.append("imagePosition", imagePosition);
 
       dispatch(ConstructionAction.ConstructionAddRequestAsync(data));
     } else {
@@ -84,7 +84,7 @@ const ConstructionCreateUpdate = (props) => {
       data.append("metaKeywords", metaKeywords);
       data.append("metaDescription", metaDescription);
       data.append("_id", id);
-      // data.append("imagePosition", imagePosition);
+      data.append("imagePosition", imagePosition);
 
       dispatch(ConstructionAction.ConstructionUpdateRequestAsync(data));
     }
@@ -191,20 +191,18 @@ const ConstructionCreateUpdate = (props) => {
                   />
                 </Grid>
 
-                {/* <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
                     label="Image Position*"
                     fullWidth
-                    value={
-                      state.imagePosition
-                    }
+                    value={state.imagePosition}
                     onChange={inputChange}
                     name="imagePosition"
                     id="imagePosition"
                   />
-                </Grid> */}
+                </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
                   {constructionData?.description != null ? (
