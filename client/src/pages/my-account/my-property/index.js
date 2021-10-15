@@ -2,6 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, makeStyles, Box, TextField, Button } from '@material-ui/core';
 import PageBanner from '../../../components/page-banner';
 import '../my-account.css';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import LocalHotelIcon from '@material-ui/icons/LocalHotel';
+import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
+import BathtubIcon from '@material-ui/icons/Bathtub';
+
+const settings1 = {
+  dots: false,
+  arrows: false,
+  infinite: true,
+  autoplay: true,
+  autoplaySpeed: 2000,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  cssEase: 'linear',
+};
 
 const useStyles = makeStyles((theme) => ({
 
@@ -42,7 +60,7 @@ const MyProperty = (props) => {
                     </ul>
                   </Box>
                 </Box>
-              </Box>             
+              </Box>
             </Grid>
             {/* <!-- sidebar-section --> */}
             <Grid item xs={12} md={9} className="content-area">
@@ -51,8 +69,184 @@ const MyProperty = (props) => {
                   <Box className="box-wrap box-border-bottom box-radius">
                     <Box className="box-header"><h5 className="box-title">My Property Lists</h5></Box>
                     <Box className="box-body">
-
-
+                      <Grid container spacing={2} className="my-property-wrapper">
+                        <Grid item xs={12} sm={6} md={4}>
+                          <Box className="property-item my-property-item">
+                            <Grid contaienr className="property-wrap">
+                              <Grid className="property-image">
+                                <Slider {...settings1}>
+                                  <Box className="property-image-thumb">
+                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                                  </Box>
+                                  <Box className="property-image-thumb">
+                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                                  </Box>
+                                  <Box className="property-image-thumb">
+                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                                  </Box>
+                                </Slider>
+                              </Grid>
+                              <Grid className="property-summery">
+                                <Box component="span" className="property-tag">RESIDENTIAL</Box>
+                                <Typography variant="h3" className="property-title">VISHAL HEAVENS</Typography>
+                                <Grid container className="property-information">
+                                  <Grid item xs={6} md={6} className="property-feature">
+                                    <ZoomOutMapIcon />
+                                    <Typography>1200 Sq-Ft</Typography>
+                                  </Grid>
+                                  <Grid item xs={6} md={6} className="property-feature">
+                                    <LocalHotelIcon />
+                                    <Typography >2 Bedrooms</Typography>
+                                  </Grid>
+                                  <Grid item xs={6} md={6} className="property-feature">
+                                    <LocalHotelIcon />
+                                    <Typography>1 Balconies</Typography>
+                                  </Grid>
+                                  <Grid item xs={6} md={6} className="property-feature">
+                                    <BathtubIcon />
+                                    <Typography>2 Bathroom</Typography>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                              <Grid container className="property-button">
+                                <a className="btn btn-primary" href="/"> MORE DETAIL</a>
+                              </Grid>
+                            </Grid>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={4}>
+                          <Box className="property-item my-property-item">
+                            <Grid contaienr className="property-wrap">
+                              <Grid className="property-image">
+                                <Slider {...settings1}>
+                                  <Box className="property-image-thumb">
+                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                                  </Box>
+                                  <Box className="property-image-thumb">
+                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                                  </Box>
+                                  <Box className="property-image-thumb">
+                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                                  </Box>
+                                </Slider>
+                              </Grid>
+                              <Grid className="property-summery">
+                                <Box component="span" className="property-tag">RESIDENTIAL</Box>
+                                <Typography variant="h3" className="property-title">VISHAL HEAVENS</Typography>
+                                <Grid container className="property-information">
+                                  <Grid item xs={6} md={6} className="property-feature">
+                                    <ZoomOutMapIcon />
+                                    <Typography>1200 Sq-Ft</Typography>
+                                  </Grid>
+                                  <Grid item xs={6} md={6} className="property-feature">
+                                    <LocalHotelIcon />
+                                    <Typography >2 Bedrooms</Typography>
+                                  </Grid>
+                                  <Grid item xs={6} md={6} className="property-feature">
+                                    <LocalHotelIcon />
+                                    <Typography>1 Balconies</Typography>
+                                  </Grid>
+                                  <Grid item xs={6} md={6} className="property-feature">
+                                    <BathtubIcon />
+                                    <Typography>2 Bathroom</Typography>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                              <Grid container className="property-button">
+                                <a className="btn btn-primary" href="/"> MORE DETAIL</a>
+                              </Grid>
+                            </Grid>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={4}>
+                          <Box className="property-item  my-property-item">
+                            <Grid contaienr className="property-wrap">
+                              <Grid className="property-image">
+                                <Slider {...settings1}>
+                                  <Box className="property-image-thumb">
+                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                                  </Box>
+                                  <Box className="property-image-thumb">
+                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                                  </Box>
+                                  <Box className="property-image-thumb">
+                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                                  </Box>
+                                </Slider>
+                              </Grid>
+                              <Grid className="property-summery">
+                                <Box component="span" className="property-tag">RESIDENTIAL</Box>
+                                <Typography variant="h3" className="property-title">VISHAL HEAVENS</Typography>
+                                <Grid container className="property-information">
+                                  <Grid item xs={6} md={6} className="property-feature">
+                                    <ZoomOutMapIcon />
+                                    <Typography>1200 Sq-Ft</Typography>
+                                  </Grid>
+                                  <Grid item xs={6} md={6} className="property-feature">
+                                    <LocalHotelIcon />
+                                    <Typography >2 Bedrooms</Typography>
+                                  </Grid>
+                                  <Grid item xs={6} md={6} className="property-feature">
+                                    <LocalHotelIcon />
+                                    <Typography>1 Balconies</Typography>
+                                  </Grid>
+                                  <Grid item xs={6} md={6} className="property-feature">
+                                    <BathtubIcon />
+                                    <Typography>2 Bathroom</Typography>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                              <Grid container className="property-button">
+                                <a className="btn btn-primary" href="/"> MORE DETAIL</a>
+                              </Grid>
+                            </Grid>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={4}>
+                          <Box className="property-item  my-property-item">
+                            <Grid contaienr className="property-wrap">
+                              <Grid className="property-image">
+                                <Slider {...settings1}>
+                                  <Box className="property-image-thumb">
+                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                                  </Box>
+                                  <Box className="property-image-thumb">
+                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                                  </Box>
+                                  <Box className="property-image-thumb">
+                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
+                                  </Box>
+                                </Slider>
+                              </Grid>
+                              <Grid className="property-summery">
+                                <Box component="span" className="property-tag">RESIDENTIAL</Box>
+                                <Typography variant="h3" className="property-title">VISHAL HEAVENS</Typography>
+                                <Grid container className="property-information">
+                                  <Grid item xs={6} md={6} className="property-feature">
+                                    <ZoomOutMapIcon />
+                                    <Typography>1200 Sq-Ft</Typography>
+                                  </Grid>
+                                  <Grid item xs={6} md={6} className="property-feature">
+                                    <LocalHotelIcon />
+                                    <Typography >2 Bedrooms</Typography>
+                                  </Grid>
+                                  <Grid item xs={6} md={6} className="property-feature">
+                                    <LocalHotelIcon />
+                                    <Typography>1 Balconies</Typography>
+                                  </Grid>
+                                  <Grid item xs={6} md={6} className="property-feature">
+                                    <BathtubIcon />
+                                    <Typography>2 Bathroom</Typography>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                              <Grid container className="property-button">
+                                <a className="btn btn-primary" href="/"> MORE DETAIL</a>
+                              </Grid>
+                            </Grid>
+                          </Box>
+                        </Grid>
+                      </Grid>
                     </Box>
                   </Box>
                 </Box>
