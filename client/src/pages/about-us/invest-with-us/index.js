@@ -29,14 +29,16 @@ const InvestWithUs = (props) => {
     getData();
   };
   let img = 'no-image-available-icon-6.png';
+  let banner = 'no-image-available-icon-6.png';
   console.log("data", data);
-  if (data)
-    img = data?.image[0]?.path ? ApiClient.SERVER_ADDRESS + '/' + data.image[0].path : 'no-image-available-icon-6.png';
-
+  if (data) {
+    img = data?.media[0]?.image[0]?.path ? ApiClient.SERVER_ADDRESS + '/' + data?.media[0]?.image[0]?.path : 'no-image-available-icon-6.png';
+    banner = data?.media[0]?.bannerImage[0]?.path ? ApiClient.SERVER_ADDRESS + '/' + data?.media[0]?.bannerImage[0]?.path : 'no-image-available-icon-6.png';
+  }
   return (
     <div style={{background: '#fff'}}>
       <PageBanner
-        bgImage={'/about_us.jpeg'}
+        bgImage={banner}
         title="Invest With Us"
         currentPage="Invest With Us"
       />
