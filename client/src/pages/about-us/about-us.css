@@ -214,17 +214,10 @@
   .finance-bank-wrap {
 	height: 100px;
 	width: 250px;
-	  margin: 0 20px;
-  }
-
-
-
-
-
-
-
-
-
+	margin: 0 20px;
+	display: flex;
+	align-items: center;
+}
 .fixed-social a:hover{
     opacity:0.5;
 } 
@@ -262,5 +255,10 @@
 		position: static;
 		max-width: 100%;
 		margin-top: 15px;
+	}
+	.finance-bank-wrap {
+		height: 70px;
+		width: 180px;
+		margin: 0 10px;		
 	}
 }
