@@ -18,6 +18,12 @@ const Finance = (props) => {
   const [financeSection, setFinanceSection] = useState([]);
   const [bankImage, setBankImage] = useState([]);
 
+  const [amount, setAmount] = useState("");
+  const [rate, setRate] = useState("");
+  const [tenure, setTenure] = useState("");
+  const [emi, setEmi] = useState("");
+  const [total, setTotal] = useState("");
+
   React.useEffect(() => {
     financeResponse();
   }, []);
@@ -37,7 +43,12 @@ const Finance = (props) => {
     };
     getData();
   };
-  console.log("financeSection", bankImage);
+
+  const handleData = (e) => {
+    let emi = Math.round((amount * rate * tenure) / 12 / 100);
+    setEmi(emi);
+    setTotal(parseFloat(emi) + parseFloat(amount));
+  };
   return (
     <div>
       <PageBanner
@@ -67,7 +78,10 @@ const Finance = (props) => {
                         label="Loan Amount"
                         variant="filled"
                         required
-                        value="100000"
+                        type="number"
+                        name="amount"
+                        onChange={(e) => setAmount(e.target.value)}
+                        value={amount}
                         InputLabelProps={{
                           shrink: true,
                         }}
@@ -77,7 +91,10 @@ const Finance = (props) => {
                         label="Interest Rate"
                         variant="filled"
                         required
-                        value="10.5"
+                        type="number"
+                        name="rate"
+                        onChange={(e) => setRate(e.target.value)}
+                        value={rate}
                         InputLabelProps={{
                           shrink: true,
                         }}
@@ -87,7 +104,10 @@ const Finance = (props) => {
                         label="Loan Tenure"
                         variant="filled"
                         required
-                        value="36"
+                        type="number"
+                        name="tenure"
+                        onChange={(e) => setTenure(e.target.value)}
+                        value={tenure}
                         InputLabelProps={{
                           shrink: true,
                         }}
@@ -95,13 +115,23 @@ const Finance = (props) => {
 
                       <div className="form-btn">
                         <Button
-                          type="submit"
                           className="search-btn"
                           variant="contained"
+                          onClick={(e) => handleData(e)}
                         >
                           Search
                         </Button>
                       </div>
+                      <br></br>
+                      {emi ? (
+                        <>
+                          <Typography>Principal Amount :{amount}</Typography>
+                          <Typography>Interest Amount :{emi}</Typography>
+                          <Typography>Total Value:{total}</Typography>
+                        </>
+                      ) : (
+                        ""
+                      )}
                     </form>
                   </div>
                 </Box>
