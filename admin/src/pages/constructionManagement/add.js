@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  Typography,
+  Box,
+  Link,
+  Select,
+  FormControl,
+  InputLabel,
+} from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import * as ConstructionAction from "../../redux/actions/ConstructionAction";
 import { useDispatch } from "react-redux";
@@ -191,7 +200,7 @@ const ConstructionCreateUpdate = (props) => {
                   />
                 </Grid>
 
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                {/* <Grid className="form-group-item" item xs={12} sm={6} md={4}>
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
@@ -202,6 +211,33 @@ const ConstructionCreateUpdate = (props) => {
                     name="imagePosition"
                     id="imagePosition"
                   />
+                </Grid> */}
+
+                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                  <FormControl variant="outlined" style={{ width: "100%" }}>
+                    <InputLabel
+                      id="demo-simple-select-outlined-label"
+                      htmlFor="age-native-simple"
+                    >
+                      Image position
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-outlined-label"
+                      id="demo-simple-select-outlined-label"
+                      label="Role"
+                      native
+                      name="imagePosition"
+                      value={state.imagePosition}
+                      onChange={inputChange}
+                      inputProps={{
+                        name: "imagePosition",
+                        id: "age-native-simple",
+                      }}
+                    >
+                      <option value="left">Left</option>
+                      <option value="right">Right</option>
+                    </Select>
+                  </FormControl>
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
