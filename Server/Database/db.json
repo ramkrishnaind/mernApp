@@ -1,9 +1,10 @@
 {
     "dbcredentials": {
-        "user": "amitdbuser",
-        "password": "amitdbpassword",
-        "database": "mernApp",
-        "address": "192.46.214.45",
+        "user": "vishalco_adminuser",
+        "password": "jg74jf84jt8tj",
+        "database": "vishalco_admindb",
+        "address": "localhost",
+        "host":"localhost",
         "port": 27017
     }
 
