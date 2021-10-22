@@ -1,22 +1,22 @@
-import * as FeedbackAction from "../redux/actions/FeedbackAction";
+import * as FinanceAction from "../redux/actions/FinanceAction";
 import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/snackbarActions";
 import history from "../components/history";
 import * as Loader from "../redux/actions/LoaderActions";
-export const FeedbackListService = async (dispatch, data) => {
+export const FinanceListService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.FEEDBACK_LIST_ENDPOINT,
+      API_ENDPOINTS.FINANCE_LIST_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(FeedbackAction.FeedbackListSuccess(result));
+    dispatch(FinanceAction.FinanceListSuccess(result));
   } catch (error) {
-    dispatch(FeedbackAction.FeedbackListError(error));
+    dispatch(FinanceAction.FinanceListError(error));
     dispatch(
       Snackbar.showFailSnackbar(
         error.response.data?.error?.error?.details[0]?.message
@@ -26,22 +26,22 @@ export const FeedbackListService = async (dispatch, data) => {
   dispatch(Loader.hideLoader(""));
 };
 
-export const FeedbackAddService = async (dispatch, data) => {
+export const FinanceAddService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.FEEDBACK_ADD_ENDPOINT,
+      API_ENDPOINTS.FINANCE_ADD_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(FeedbackAction.FeedbackAddSuccess(result));
+    dispatch(FinanceAction.FinanceAddSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
-    history.push("/Feedback");
+    history.push("/Finance");
     window.location.reload();
   } catch (error) {
-    dispatch(FeedbackAction.FeedbackAddError(error));
+    dispatch(FinanceAction.FinanceAddError(error));
     dispatch(
       Snackbar.showFailSnackbar(
         error.response.data?.error?.error?.details[0]?.message
@@ -51,29 +51,29 @@ export const FeedbackAddService = async (dispatch, data) => {
   dispatch(Loader.hideLoader(""));
 };
 
-export const FeedbackStatusUpdateService = async (dispatch, data) => {
+export const FinanceStatusUpdateService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.FEEDBACK_STATUS_UPDATE_ENDPOINT,
+      API_ENDPOINTS.FINANCE_STATUS_UPDATE_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(FeedbackAction.FeedbackUpdateStatusSuccess(result));
+    dispatch(FinanceAction.FinanceUpdateStatusSuccess(result));
     const result1 = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.FEEDBACK_LIST_ENDPOINT,
-      "{}",
+      API_ENDPOINTS.FINANCE_LIST_ENDPOINT,
+      data,
       null,
       null,
       true
     );
-    dispatch(FeedbackAction.FeedbackListSuccess(result1));
+    dispatch(FinanceAction.FinanceListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
-    dispatch(FeedbackAction.FeedbackUpdateStatusError(error));
+    dispatch(FinanceAction.FinanceUpdateStatusError(error));
     dispatch(
       Snackbar.showFailSnackbar(
         error.response.data?.error?.error?.details[0]?.message
@@ -83,22 +83,22 @@ export const FeedbackStatusUpdateService = async (dispatch, data) => {
   dispatch(Loader.hideLoader(""));
 };
 
-export const FeedbackUpdateService = async (dispatch, data) => {
+export const FinanceUpdateService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.FEEDBACK_UPDATE_ENDPOINT,
+      API_ENDPOINTS.FINANCE_UPDATE_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(FeedbackAction.FeedbackUpdateSuccess(result));
+    dispatch(FinanceAction.FinanceUpdateSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
-    history.push("/Feedback");
+    history.push("/Finance");
     window.location.reload();
   } catch (error) {
-    dispatch(FeedbackAction.FeedbackUpdateError(error));
+    dispatch(FinanceAction.FinanceUpdateError(error));
     dispatch(
       Snackbar.showFailSnackbar(
         error.response.data?.error?.error?.details[0]?.message
@@ -108,29 +108,29 @@ export const FeedbackUpdateService = async (dispatch, data) => {
   dispatch(Loader.hideLoader(""));
 };
 
-export const FeedbackDeleteService = async (dispatch, data) => {
+export const FinanceDeleteService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.FEEDBACK_DELETE_ENDPOINT,
+      API_ENDPOINTS.FINANCE_DELETE_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(FeedbackAction.FeedbackDeleteSuccess(result));
+    dispatch(FinanceAction.FinanceDeleteSuccess(result));
     const result1 = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.FEEDBACK_LIST_ENDPOINT,
-      "{}",
+      API_ENDPOINTS.FINANCE_LIST_ENDPOINT,
+      data,
       null,
       null,
       true
     );
-    dispatch(FeedbackAction.FeedbackListSuccess(result1));
+    dispatch(FinanceAction.FinanceListSuccess(result1));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
   } catch (error) {
-    dispatch(FeedbackAction.FeedbackDeleteError(error));
+    dispatch(FinanceAction.FinanceDeleteError(error));
     dispatch(
       Snackbar.showFailSnackbar(
         error.response.data?.error?.error?.details[0]?.message
@@ -140,19 +140,19 @@ export const FeedbackDeleteService = async (dispatch, data) => {
   dispatch(Loader.hideLoader(""));
 };
 
-export const FeedbackDataService = async (dispatch, data) => {
+export const FinanceDataService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.FEEDBACK_DATA_ENDPOINT,
+      API_ENDPOINTS.FINANCE_DATA_ENDPOINT,
       data,
       null,
       null,
       true
     );
-    dispatch(FeedbackAction.FeedbackDataSuccess(result));
+    dispatch(FinanceAction.FinanceDataSuccess(result));
   } catch (error) {
-    dispatch(FeedbackAction.FeedbackDataError(error));
+    dispatch(FinanceAction.FinanceDataError(error));
     dispatch(
       Snackbar.showFailSnackbar(
         error.response.data?.error?.error?.details[0]?.message

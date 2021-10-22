@@ -35,8 +35,9 @@
 	margin: 0 0 10px;
 }
 .feedback-property-image img {
-	max-height: 220px;
-	object-fit: cover;
+	max-height: 190px;
+	object-fit: contain;
+	min-height: 190px;
 }
 .feedback-message {
 	font-size: 16px;
@@ -46,6 +47,7 @@
 }
 @media only screen and (max-width: 767px) {
 	.feedback-property-image img {
-		max-height: 175px;	
+		min-height: 160px;
+		max-height: 160px;	
 	}
 }

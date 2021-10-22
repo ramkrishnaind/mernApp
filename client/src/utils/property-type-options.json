@@ -11,93 +11,14 @@
             {
                 "id": 0,
                 "name": "ALL RESIDENTIAL",
-                "value": ""
-            },
-            {
-                "id": 1,
-                "name": "Flat/ Apartment",
-                "value": "Flat/ Apartment"
-            },
-            {
-                "id": 2,
-                "name": "Residential House",
-                "value": "Residential House"
-            },
-            {
-                "id": 3,
-                "name": "Villa",
-                "value": "Villa"
-            },
-            {
-                "id": 4,
-                "name": "Builder Floor Apartment",
-                "value": "Builder Floor Apartment"
-            },
-            {
-                "id": 5,
-                "name": "Residential Land / Plot",
-                "value": "Residential Land / Plot"
-            },
-            {
-                "id": 6,
-                "name": "Penthouse",
-                "value": "Penthouse"
-            },
-            {
-                "id": 7,
-                "name": "Studio Apartment",
-                "value": "Studio Apartment"
+                "value": "Residential"
             },
             {
                 "id": 0,
                 "name": "ALL COMMERCIAL",
-                "value": ""
+                "value": "Commercial"
             },
-            {
-                "id": 8,
-                "name": "Commercial Office Space",
-                "value": "Commercial Office Space"
-            },
-            {
-                "id": 9,
-                "name": "Office in IT Park / SEZ",
-                "value": "Office in IT Park / SEZ"
-            },
-            {
-                "id": 10,
-                "name": "Commercial Shop",
-                "value": "Commercial Shop"
-            },
-            {
-                "id": 11,
-                "name": "Commercial Showroom",
-                "value": "Commercial Showroom"
-            },
-            {
-                "id": 12,
-                "name": "Commercial Land",
-                "value": "Commercial Land"
-            },
-            {
-                "id": 13,
-                "name": "Warehouse / Godown",
-                "value": "Warehouse / Godown"
-            },
-            {
-                "id": 14,
-                "name": "Industrial Land",
-                "value": "Industrial Land"
-            },
-            {
-                "id": 15,
-                "name": "Industrial Building",
-                "value": "Industrial Building"
-            },
-            {
-                "id": 16,
-                "name": "Industrial Shed",
-                "value": "Industrial Shed"
-            },
+           
             {
                 "id": 17,
                 "name": "",

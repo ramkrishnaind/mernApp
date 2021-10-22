@@ -50,14 +50,77 @@ export default function Mobilemenu() {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
-                {['Home', 'About', 'Services', 'Sell', 'Rent', 'Careers', 'Finance', 'Contact Us', 'Blog'].map((text, index) => (
-                    <ListItem button key={text} >
+                {[{
+                    "id": 1,
+                    "title": "Home",
+                    "href": "/"
+                },
+                {
+                    "id": 2,
+                    "title": "About Us",
+                    "href": "/about-us",
+                    "submenu": [
+                        {
+                            "title": "About The Company",
+                            "href": "/about-us"
+                        },
+                        {
+                            "title": "About The Directors",
+                            "href": "/about-directors"
+                        },
+                        {
+                            "title": "Invest With Us",
+                            "href": "/invest-with-us"
+                        },
+                        {
+                            "title": "Construction Process",
+                            "href": "/construction-process"
+                        }
+                    ]
+                }, {
+                    "id": 3,
+                    "title": "Sell",
+                    "href": "/search-property-details?type=Sell"
+                },
+                {
+                    "id": 4,
+                    "title": "Rent",
+                    "href": "/search-property-details?type=Rent"
+                },
+                // {
+                //     "id": 5,
+                //     "title": "Services",
+                //     "image": "",
+                //     "submenu": []
+                // },
+                {
+                    "id": 6,
+                    "title": "Careers",
+                    "href": "/carrer"
+                },
+                {
+                    "id": 7,
+                    "title": "Finance",
+                    "href": "/finance"
+                },
+                {
+                    "id": 8,
+                    "title": "Contact Us",
+                    "href": "/contact-us"
+                },
+                {
+                    "id": 9,
+                    "title": "Blog",
+                    "href": "/blog"
+                }].map(({id, title, href}, index) => (
+                    <ListItem button key={id} component={RouterLink} to={href}>
                         <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
+                        <ListItemText primary={title} />
                     </ListItem>
                 ))}
             </List>
             <Divider />
+
 
         </div>
     );

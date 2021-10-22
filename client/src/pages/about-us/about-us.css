@@ -110,18 +110,23 @@
 	color: #777777;
 	letter-spacing: 0;
 }
-@media only screen and (max-width: 991px) {
-	.about-block-image {	
-		margin-right: 0;
-	}
-	.about-block-left-content .about-block-image {
-		margin-left: 0;		
-	}
-	.invest-items-wrapper {		
-		padding: 30px 0;
-	}
+.finance-form-block {
+	position: absolute;
+	top: 0;
+	margin: auto;
+	left: 0;
+	right: 0;
+	width: 100%;
+	max-width: 360px;
+	bottom: 0;
+	display: flex;
+	align-items: center;
 }
-
+.finance-form{
+	background: rgb(0 0 0 / 77%);
+	padding: 20px 20px 20px;
+	color: #fff
+}    
 .social_links {
 	display: block;
 	width: 45px;
@@ -157,6 +162,62 @@
 	z-index: 2;
 	border-radius: 50%;
 }
+@-webkit-keyframes scroll {
+	0% {
+	  transform: translateX(0);
+	}
+	100% {
+	  transform: translateX(calc(-250px * 7));
+	}
+  }
+  
+  @keyframes scroll {
+	0% {
+	  transform: translateX(0);
+	}
+	100% {
+	  transform: translateX(calc(-250px * 7));
+	}
+  }
+  .finance-bank-section {
+	background: white;
+	box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.125);
+	margin: auto;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	padding: 20px;
+  }
+  .finance-bank-section::before, .finance-bank-section::after {
+	background: linear-gradient(to right, white 0%, rgba(255, 255, 255, 0) 100%);
+	content: "";
+	height: 100px;
+	position: absolute;
+	width: 200px;
+	z-index: 2;
+  }
+  .finance-bank-section::after {
+	right: 0;
+	top: 0;
+	transform: rotateZ(180deg);
+  }
+  .finance-bank-section::before {
+	left: 0;
+	top: 0;
+  }
+  .finance-bank-outer {
+	-webkit-animation: scroll 40s linear infinite;
+			animation: scroll 40s linear infinite;
+	display: flex;
+	width: calc(250px * 14);
+  }
+  .finance-bank-wrap {
+	height: 100px;
+	width: 250px;
+	margin: 0 20px;
+	display: flex;
+	align-items: center;
+}
 .fixed-social a:hover{
     opacity:0.5;
 } 
@@ -177,4 +238,27 @@
 }
 .fixed-tumblr{
     background-color: #2392fd;
+}
+@media only screen and (max-width: 991px) {
+	.about-block-image {	
+		margin-right: 0;
+	}
+	.about-block-left-content .about-block-image {
+		margin-left: 0;		
+	}
+	.invest-items-wrapper {		
+		padding: 30px 0;
+	}
+}
+@media only screen and (max-width: 767px) {
+	.finance-form-block {
+		position: static;
+		max-width: 100%;
+		margin-top: 15px;
+	}
+	.finance-bank-wrap {
+		height: 70px;
+		width: 180px;
+		margin: 0 10px;		
+	}
 }

@@ -205,6 +205,14 @@ const API_ENDPOINTS = {
   ABOUTPAGE_UPDATE_ENDPOINT: "aboutPage/updateAboutPage",
   ABOUTPAGE_DELETE_ENDPOINT: "aboutPage/deleteAboutPageData",
   ABOUTPAGE_DATA_ENDPOINT: "aboutPage/getAboutPageDetail",
+
+  //fiance module
+  FINANCE_LIST_ENDPOINT: "finance/getFinanceList",
+  FINANCE_ADD_ENDPOINT: "finance/createFinance",
+  FINANCE_STATUS_UPDATE_ENDPOINT: "finance/updateFinanceStatus",
+  FINANCE_UPDATE_ENDPOINT: "finance/updateFinance",
+  FINANCE_DELETE_ENDPOINT: "finance/deleteFinanceData",
+  FINANCE_DATA_ENDPOINT: "finance/getFinanceDetail",
 };
 
 export default API_ENDPOINTS;
