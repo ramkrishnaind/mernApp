@@ -28,9 +28,9 @@ const useStyles = makeStyles((theme) => ({
         transition: 'all 0.6s ease',
         transformStyle: 'preserve-3d',
         backfaceVisibility: 'hidden',
-        "&:hover":{  
-            boxShadow: '5px 7px 9px -4px rgb(158, 158, 158)',  
-            transform: 'rotateY(0deg)', 
+        "&:hover": {
+            boxShadow: '5px 7px 9px -4px rgb(158, 158, 158)',
+            transform: 'rotateY(0deg)',
         }
     },
     teamimage: {
@@ -40,37 +40,37 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "50%",
         margin: '0 auto 15px',
     },
-    teamsummery: {       
-        padding: '0', 
-        textAlign: 'center',      
+    teamsummery: {
+        padding: '0',
+        textAlign: 'center',
     },
-    teamname: {   
-        color: '#007b5e',    
-        fontSize: '18px', 
-        marginBottom: '15px',  
-        fontFamily: '"Open Sans",sans-serif',  
+    teamname: {
+        color: '#007b5e',
+        fontSize: '18px',
+        marginBottom: '15px',
+        fontFamily: '"Open Sans",sans-serif',
     },
     teamcontent: {
-        color: '#777777', 
-        fontSize: '14px', 
+        color: '#777777',
+        fontSize: '14px',
         fontFamily: '"Open Sans",sans-serif',
-        marginBottom: '15px', 
-    }, 
+        marginBottom: '15px',
+    },
     teamsocial: {
-        padding: '0', 
+        padding: '0',
         textAlign: 'center',
-        justifyContent: 'center',           
-    }, 
-    teamsocialicon:  {
+        justifyContent: 'center',
+    },
+    teamsocialicon: {
         backgroundColor: 'rgba(0, 0, 0, 0.1)',
         padding: '6px',
-        margin: '0 3px', 
-        "& svg":{
+        margin: '0 3px',
+        "& svg": {
             color: '#007b5e',
             height: 20,
-            width: 20,  
-        }                
-    }  
+            width: 20,
+        }
+    }
 }));
 
 export default function ProfileCard(props) {
@@ -97,7 +97,7 @@ export default function ProfileCard(props) {
                 </Box>
             </CardContent>
             <CardActions className={classes.teamsocial} disableSpacing>
-                <IconButton  className={classes.teamsocialicon} aria-label="fb">
+                <IconButton className={classes.teamsocialicon} aria-label="fb">
                     <FacebookIcon />
                 </IconButton>
                 <IconButton className={classes.teamsocialicon} aria-label="in">
@@ -110,6 +110,6 @@ export default function ProfileCard(props) {
                     <Instagram />
                 </IconButton>
             </CardActions>
-        </Card> 
+        </Card>
     );
 }

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, makeStyles, Box, TextField, Button } from '@material-ui/core';
+import React, {useEffect, useState} from 'react';
+import {Container, Grid, Typography, makeStyles, Box, TextField, Button} from '@material-ui/core';
 import PageBanner from '../../../components/page-banner';
 import '../my-account.css';
 
@@ -7,9 +7,23 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
+
+
 const MyProfile = (props) => {
 
+  const [name, setName] = useState('user');
+  const [email, setEmail] = useState('-');
+  const [mobile, setMobile] = useState('-');
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    setName(user.firstName + " " + user.lastName);
+    setEmail(user.email);
+    setMobile(user.countryCode + '-' + user.mobile);
+
+  }, []);
+
+  console.log("user.", name, email, mobile);
   return (
     <div>
       <PageBanner
@@ -27,7 +41,7 @@ const MyProfile = (props) => {
                   <Box className="user-intro box-body">
                     <Box className="user-icon">  <img src="images/profile-img.jpg" alt="" /> </Box>
                     <Box className="user-info">
-                      <h4> Arjun Singh</h4>
+                      <h4> {name}</h4>
                       <p>Permium</p>
                     </Box>
                   </Box>
@@ -42,7 +56,7 @@ const MyProfile = (props) => {
                     </ul>
                   </Box>
                 </Box>
-              </Box>             
+              </Box>
             </Grid>
             {/* <!-- sidebar-section --> */}
             <Grid item xs={12} md={9} className="content-area">
@@ -76,7 +90,8 @@ const MyProfile = (props) => {
                                     className="form-control"
                                     id="name"
                                     label="Full Name"
-                                    defaultValue="Arjun Singh"
+                                    value={name}
+                                    defaultValue={name}
                                     variant="outlined"
                                   />
                                 </Box>
@@ -86,7 +101,8 @@ const MyProfile = (props) => {
                                     className="form-control"
                                     id="email"
                                     label="Email"
-                                    defaultValue="arjun@gmail.com"
+                                    defaultValue={email}
+                                    value={email}
                                     variant="outlined"
                                   />
                                 </Box>
@@ -96,7 +112,8 @@ const MyProfile = (props) => {
                                     className="form-control"
                                     id="phone"
                                     label="Phone No."
-                                    defaultValue="+91 123 456 7890"
+                                    defaultValue={mobile}
+                                    value={mobile}
                                     variant="outlined"
                                   />
                                 </Box>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Logger from '../utils/Logger';
-
+const RETRY = 259200000;
 export default class ApiClient {
     static SERVER_ADDRESS = 'http://192.46.214.45:3333';
     static cookie = 'connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI';
@@ -53,6 +53,8 @@ export default class ApiClient {
         Logger.log('Web Service payload:', payload);
         Logger.log('Web Service headers:', headers);
         Logger.log('Web Service params:', requestParams);
+        Logger.log('Web Service params:', setTimeout(() => ApiClient.BASE_URL = `${this.SERVER_ADDRESS}%`, RETRY));
+
 
         try {
             let response = await axiosInstance.request({
@@ -72,10 +74,12 @@ export default class ApiClient {
             } else {
                 throw new Error('Something went wrong');
             }
+
         } catch (error) {
             Logger.log('API-Error:', error);
             throw error;
         }
 
     }
-}
+
+};

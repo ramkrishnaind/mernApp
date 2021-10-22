@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
 import {makeStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -31,12 +31,12 @@ export default function Mobilemenu() {
         bottom: false,
         right: false,
     });
+    const [submenuVisble, setSubmenuVisible] = useState(0);
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
-
         setState({...state, [anchor]: open});
     };
 
@@ -112,12 +112,23 @@ export default function Mobilemenu() {
                     "id": 9,
                     "title": "Blog",
                     "href": "/blog"
-                }].map(({id, title, href}, index) => (
-                    <ListItem button key={id} component={RouterLink} to={href}>
+                }].map(({id, title, href, submenu}, index) => {
+
+                    if (submenu) {
+                        return submenu.map(({id, title, href, submenu}, i) => {
+                            return <ListItem button key={id} component={RouterLink} to={href}>
+                                <ListItemIcon>{(i + 1) % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                                <ListItemText primary={title} />
+                            </ListItem>;
+                        });
+                    }
+
+
+                    return <ListItem button key={id} component={RouterLink} to={href}>
                         <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                         <ListItemText primary={title} />
-                    </ListItem>
-                ))}
+                    </ListItem>;
+                })}
             </List>
             <Divider />
 
