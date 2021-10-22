@@ -1,8 +1,8 @@
 {
     "dbcredentials": {
-        "user": "vishalco_adminuser",
-        "password": "jg74jf84jt8tj",
-        "database": "vishalco_admindb",
+        "user": "vishalcon_user",
+        "password": "kfh478Fjf84j",
+        "database": "vishalcon_db",
         "address": "localhost",
         "host":"localhost",
         "port": 27017
