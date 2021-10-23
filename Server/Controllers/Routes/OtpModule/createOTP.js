@@ -26,7 +26,7 @@ function createOTP(Models) {
                 { $set: { "isExpired": true } });
             let dataToSave = {
                 mobile: bodyData.mobile,
-                password: OTP
+                otp: OTP
             }
             let saveModule = await new Models.OtpDB(dataToSave).save();
             if (saveModule) {
