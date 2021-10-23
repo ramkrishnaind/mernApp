@@ -36,4 +36,6 @@ module.exports = function (mongoose) {
     mongoose.model('serviceEnquiry', require('./schema/serviceEnquiry'));
     mongoose.model('aboutPage', require('./schema/aboutPage'));
     mongoose.model('finance', require('./schema/finance'));
+    mongoose.model('wishList', require('./schema/wishList'));
+    mongoose.model('otp', require('./schema/otp'));
 }

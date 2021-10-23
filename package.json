@@ -47,6 +47,7 @@
     "nodemailer": "^6.6.1",
     "nodemon": "^2.0.12",
     "os": "^0.1.1",
+    "otp-generator": "^3.0.0",
     "path": "^0.12.7",
     "prop-types": "^15.7.2",
     "react-html-parser": "^2.0.2",

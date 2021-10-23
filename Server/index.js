@@ -72,6 +72,7 @@ app.use(`${prefix}investWithUs`, require('./Controllers/InvestWithUsController')
 app.use(`${prefix}newsLetter`, require('./Controllers/NewsLetterController')({ MongoDBConnection }));
 app.use(`${prefix}aboutPage`, require('./Controllers/AboutController')({ MongoDBConnection }));
 app.use(`${prefix}finance`, require('./Controllers/FinanceController')({ MongoDBConnection }));
+app.use(`${prefix}otp`, require('./Controllers/OtpController')({ MongoDBConnection }));
 // let reactHTMLPath = process.env.NODE_ENV === 'production' ? "../FX-React/build" : "";
 
 // reactHTMLPath = path.join(__dirname, reactHTMLPath);
