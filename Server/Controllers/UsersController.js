@@ -55,5 +55,8 @@ module.exports = function (conn) {
     router.post('/getAllUser', userAuthMiddleware, userFunction.getAllUserFunc(db));
     router.post('/deleteUser', userAuthMiddleware, userFunction.deleteUserFunc(db));
     router.post('/updateUserStatus', userAuthMiddleware, userFunction.updateUserStatusFun(db));
+    // router.post('/getUserProperties', userAuthMiddleware, userFunction.getUserProperties(db));
+    // router.post('/getUserWishList', userAuthMiddleware, userFunction.getUserWishList(db));
+    // router.post('/getUserBookings', userAuthMiddleware, userFunction.getUserBookings(db));
     return router;
 };

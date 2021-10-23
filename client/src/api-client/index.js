@@ -2,11 +2,11 @@ import axios from 'axios';
 import Logger from '../utils/Logger';
 
 export default class ApiClient {
-    static SERVER_ADDRESS = 'http://192.46.214.45:3333';
+    static SERVER_ADDRESS = 'https://api.vishalconstructioncompany.com/';
     static cookie = 'connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI';
     static authorization = 'Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs';
 
-    static BASE_URL = 'http://192.46.214.45:3333/api';
+    static BASE_URL = 'https://api.vishalconstructioncompany.com/api';
 
     static REQUEST_METHOD = {
         GET: 'GET',
@@ -45,7 +45,7 @@ export default class ApiClient {
         }
 
         // let axiosInstance = axios.create({baseURL: process.env.REACT_APP_BASE_URL});
-        let axiosInstance = axios.create({baseURL: this.BASE_URL});
+        let axiosInstance = axios.create({ baseURL: this.BASE_URL });
 
         // Logger.log('Web Service Url:', `${process.env.REACT_APP_BASE_URL}${url}`);
         Logger.log('Web Service Url:', `${this.BASE_URL}${url}`);
