@@ -45,7 +45,7 @@ export default class ApiClient {
         }
 
         // let axiosInstance = axios.create({baseURL: process.env.REACT_APP_BASE_URL});
-        let axiosInstance = axios.create({baseURL: this.BASE_URL});
+        let axiosInstance = axios.create({ baseURL: this.BASE_URL });
 
         // Logger.log('Web Service Url:', `${process.env.REACT_APP_BASE_URL}${url}`);
         Logger.log('Web Service Url:', `${this.BASE_URL}${url}`);
