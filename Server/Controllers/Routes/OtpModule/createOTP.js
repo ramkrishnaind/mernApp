@@ -7,7 +7,7 @@ const SendMessage = require('../../../Helper/sendSms');
 const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
-    mobile: Joi.number().trim().required()
+    mobile: Joi.number().required()
 });
 
 function createOTP(Models) {

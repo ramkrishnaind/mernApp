@@ -5,8 +5,8 @@ Joi.objectId = require('joi-objectid')(Joi)
 const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
-    mobile: Joi.number().trim().required(),
-    otp: Joi.number().trim().required()
+    mobile: Joi.number().required(),
+    otp: Joi.number().required()
 });
 
 function verifyOTP(Models) {
