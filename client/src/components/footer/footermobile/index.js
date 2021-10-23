@@ -37,7 +37,7 @@ export default function Mobilefootermenu() {
         setValue(newValue);
         console.log("new Value", newValue);
         if (newValue === "+91-9571647680") {
-            window.open("tel:+1800229933");
+            window.open("tel:+91-9571647680");
         }
     };
 

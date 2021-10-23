@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, makeStyles, Box, TextField, Button } from '@material-ui/core';
+import React, {useEffect, useState} from 'react';
+import {Container, Grid, Typography, makeStyles, Box, TextField, Button} from '@material-ui/core';
 import PageBanner from '../../components/page-banner';
 import './my-account.css';
 
@@ -8,6 +8,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MyAccount = (props) => {
+
+  const [name, setName] = useState('user');
+  const [email, setEmail] = useState('-');
+  const [mobile, setMobile] = useState('-');
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    setName(user.firstName + " " + user.lastName);
+    setEmail(user.email);
+    setMobile(user.countryCode + '-' + user.mobile);
+
+  }, []);
 
 
   return (
@@ -27,7 +39,7 @@ const MyAccount = (props) => {
                   <Box className="user-intro box-body">
                     <Box className="user-icon">  <img src="images/profile-img.jpg" alt="" /> </Box>
                     <Box className="user-info">
-                      <h4> Arjun Singh</h4>
+                      <h4> {name}</h4>
                       <p>Permium</p>
                     </Box>
                   </Box>
@@ -42,33 +54,33 @@ const MyAccount = (props) => {
                     </ul>
                   </Box>
                 </Box>
-              </Box>              
+              </Box>
             </Grid>
             {/* <!-- sidebar-section --> */}
             <Grid item xs={12} md={9} className="content-area">
-            <Box className="content-section">
+              <Box className="content-section">
                 <Box className="box-item">
                   <Box className="box-wrap box-border-bottom box-radius">
                     <Box className="box-header"><h5 className="box-title">Profile Information</h5></Box>
                     <Box className="box-body">
-                      <Grid container spacing={3}>                       
+                      <Grid container spacing={3}>
                         <Grid item xs={12} md={4}>
                           <Box className="myaccount-profileimg">
-                            <img src="../images/profile-img.jpg" alt=""/>                            
+                            <img src="../images/profile-img.jpg" alt="" />
                           </Box>
                         </Grid>
                         <Grid item xs={12} md={8}>
-                          <Box className="myccount-content">                        
-                              <p>Hello Arjun!</p>
-                              <p><strong>User Name : </strong>arjun</p>
-                              <p><strong>Your Name : </strong>Arjun Singh</p>
-                              <p><strong>Email : </strong>arjun@gmail.com</p>
-                              <p><strong>Phone : </strong>+91 123 456 7890</p>                                                    
+                          <Box className="myccount-content">
+                            <p>Hello {name}!</p>
+                            <p><strong>User Name : </strong>{name}</p>
+                            <p><strong>Your Name : </strong>{name}</p>
+                            <p><strong>Email : </strong>{email}</p>
+                            <p><strong>Phone : </strong>{mobile}</p>
                           </Box>
                         </Grid>
                       </Grid>
-                      <hr/>    
-                      <Box align="right">           
+                      <hr />
+                      <Box align="right">
                         <a className="btn btn-primary" href="/my-profile">Edit Profile</a>
                       </Box>
                     </Box>

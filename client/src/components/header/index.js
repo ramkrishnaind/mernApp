@@ -214,7 +214,7 @@ const Header = (props) => {
 
   const gotoProfileHandler = () => {
     setAnchorEl(null);
-    window.location.href = "/profile";
+    window.location.href = "/my-profile";
   };
   // Window Scroll Function Start
   $(window).scroll(function () {

@@ -420,7 +420,7 @@ const PropertyListCard = (props) => {
                         </Button>
                         <Box style={{width: 10}}></Box>
                         <Button variant="contained" className={classes.btn2}
-                        // onClick={handleClickOpen}
+                          onClick={handleClickOpen}
                         >
                           Take a tour
                         </Button>
