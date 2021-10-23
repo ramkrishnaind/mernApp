@@ -11,7 +11,7 @@ const schema = new Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
-        default: null
+        required: true,
     },
     name: {
         type: String,
