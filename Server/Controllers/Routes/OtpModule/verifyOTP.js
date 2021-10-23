@@ -27,7 +27,7 @@ function verifyOTP(Models) {
                     { 'isExpired': false },
                 ]
             }
-            let findData = await new Models.OtpDB.findOne(query);
+            let findData = await Models.OtpDB.findOne(query);
             if (findData) {
                 res.send({ status: true, message: 'Verified.' });
             } else {
