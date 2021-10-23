@@ -2,7 +2,7 @@ import axios from 'axios';
 import Logger from '../utils/Logger';
 export default class ApiClient {
 
-    static BASE_URL = 'http://192.46.214.45:3333/api';
+    static BASE_URL = 'https://api.vishalconstructioncompany.com/api';
 
     static REQUEST_METHOD = {
         GET: 'GET',
@@ -36,7 +36,7 @@ export default class ApiClient {
         //TODO: get tokens from reducer or localstorage
         let userData = JSON.parse(window.localStorage.getItem('user'));
         const token = userData?.token;
-        if(isAuthTokenRequired) {
+        if (isAuthTokenRequired) {
             headers["Authorization"] = "Bearer " + token;
             headers["Cookie"] = "connect.sid=s%3Ab5CsaQ8AubwFJarKCp2IKl9-y3y-ZFII.e0rcCZy4JLlhhpqWh68UtPh3AQ6wL%2F7j%2Bl9Z15H9sWE";
 
@@ -44,7 +44,7 @@ export default class ApiClient {
 
         // let axiosInstance = axios.create({baseURL: process.env.REACT_APP_BASE_URL});
         // TODO: Need to rework on .env setup
-        let axiosInstance = axios.create({baseURL: this.BASE_URL});
+        let axiosInstance = axios.create({ baseURL: this.BASE_URL });
 
         // Logger.log('Web Service Url:', `${process.env.REACT_APP_BASE_URL}${url}`);
         Logger.log('Web Service Url:', `${this.BASE_URL}${url}`);
