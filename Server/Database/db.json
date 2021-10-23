@@ -1,10 +1,9 @@
 {
     "dbcredentials": {
-        "user": "vishalcon_user",
-        "password": "kfh478Fjf84j",
-        "database": "vishalcon_db",
-        "address": "localhost",
-        "host":"localhost",
+        "user": "amitdbuser",
+        "password": "amitdbpassword",
+        "database": "mernApp",
+        "address": "192.46.214.45",
         "port": 27017
     }
 
