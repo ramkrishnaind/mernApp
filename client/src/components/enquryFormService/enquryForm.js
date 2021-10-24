@@ -13,10 +13,12 @@ import './enquryForm.css';
 import {Box, NativeSelect, TextField} from '@material-ui/core';
 import {useDispatch} from "react-redux";
 import {useParams, useLocation} from 'react-router-dom';
-import ApiClient from '../../api-client';
-import {EnquirySuccess, EnquiryError} from "../../redux/actions/EnquiryAction";
-import * as Snackbar from "../../redux/actions/SnackbarActions";
 
+import {EnquirySuccess, EnquiryError} from "../../redux/actions/EnquiryAction";
+
+import EditIcon from '@material-ui/icons//Edit';
+import ApiClient from '../../api-client';
+import * as Snackbar from "../../redux/actions/SnackbarActions";
 
 const styles = (theme) => ({
   root: {
@@ -91,6 +93,12 @@ function EnquryFormService(props) {
 
   const [isServicePage, setServicePage] = useState(true);
   const location = useLocation();
+
+  const [enableOtpField, setEnableOtpField] = useState(false);
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [verifyLoader, setVerifyLoader] = useState(false);
+  const [otp, setOtp] = useState("");
+
   const dispatch = useDispatch();
   const handleData = (e) => {
     handleServiceFormSubmit();
@@ -177,6 +185,56 @@ function EnquryFormService(props) {
 
   };
 
+  const otpHandler = async () => {
+    const cookie = 'connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI';
+    const authorization = 'Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs';
+    try {
+      setVerifyLoader(true);
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/createOTP', {mobile: mobile}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      setEnableOtpField(true);
+      setVerifyLoader(false);
+      dispatch(Snackbar.showSuccessSnackbar('Otp sent successfully'));
+    } catch (error) {
+      console.error('this is the error::', error);
+      dispatch(Snackbar.showFailSnackbar('We are facing some issue Please try again later.'));
+      setVerifyLoader(false);
+    }
+
+  };
+
+  const checkOtpValidOrNot = async (value) => {
+    try {
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/verifyOTP', {mobile: mobile, otp: value}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      if (response.status) {
+        setIsOtpVerified(true);
+        dispatch(Snackbar.showSuccessSnackbar('Otp Verified SuccessFully'));
+      } else {
+        setIsOtpVerified(false);
+        dispatch(Snackbar.showFailSnackbar('Please type Valid otp.'));
+      }
+    } catch (error) {
+      setIsOtpVerified(false);
+      dispatch(Snackbar.showFailSnackbar('We are facing some issue Please try again later.'));
+    }
+
+  };
+  const reset = () => {
+    setVerifyLoader(false);
+    setIsOtpVerified(false);
+    setEnableOtpField(false);
+    setMobile('');
+    setOtp('');
+
+  };
+  const inputChange = (e) => {
+
+    let {name, value} = e.target;
+    setOtp(value);
+    if (name === 'otp' && value.length == 6 && !isOtpVerified) {
+      checkOtpValidOrNot(value);
+    }
+  };
+
   const constructFloorOptions = () => {
     const comp = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(floorNo => {
       // console.log("floor", floorNo);
@@ -233,27 +291,61 @@ function EnquryFormService(props) {
             }}
             fullWidth >
           </TextField>
-          <TextField
-            className="EmiInputs"
-            style={{marginTop: 15}}
-            variant="outlined"
-            label="Phone Number"
-            name="Phone"
-            type="number"
-            min="1000000"
-            max="9999999999999999"
-            value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
-            InputProps={{
-              classes: {
-                notchedOutline: classes.notchedOutline
-              }
-            }}
-            InputLabelProps={{
-              style: {color: '#FFFFFF'}
-            }}
-            fullWidth >
-          </TextField>
+          <div style={{display: 'flex'}}>
+            <div style={{display: 'flex', width: "50%"}}>
+              <TextField
+                className="EmiInputs"
+                style={{marginTop: 15}}
+                variant="outlined"
+                label="Phone Number"
+                name="Phone"
+                style={{width: '76%'}}
+                disabled={isOtpVerified}
+                type="number"
+                min="1000000"
+                max="9999999999999999"
+                value={mobile}
+                onChange={(e) => {
+                  if (enableOtpField) {
+                    setEnableOtpField(false);
+                  }
+                  setMobile(e.target.value);
+                }}
+                InputProps={{
+                  classes: {
+                    notchedOutline: classes.notchedOutline
+                  }
+                }}
+                InputLabelProps={{
+                  style: {color: '#FFFFFF'}
+                }}
+                fullWidth >
+              </TextField>
+              {mobile.length === 10 && !enableOtpField ? <Button style={{width: '23%'}} onClick={otpHandler} variant="contained" style={{background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff'}}
+              >Verify</Button> : isOtpVerified && <div onClick={reset}> <EditIcon /> </div>}
+            </div>
+            {enableOtpField && <TextField
+              className="EmiInputs"
+              placeholder="Otp"
+              style={{width: '50%'}}
+
+              fullWidth
+              value={otp}
+              disabled={isOtpVerified}
+              onChange={inputChange}
+              name="otp"
+              type="number"
+              variant="outlined"
+              InputProps={{
+                classes: {
+                  notchedOutline: classes.notchedOutline
+                }
+              }}
+              InputLabelProps={{
+                style: {color: '#FFFFFF'}
+              }}
+            />}
+          </div>
           <NativeSelect className="EmiInputs selectInput"
             onChange={(e) => setPropertyType(e.target.value)}
             fullWidth>

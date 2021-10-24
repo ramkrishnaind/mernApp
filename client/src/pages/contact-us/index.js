@@ -25,6 +25,8 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import {useDispatch} from "react-redux";
 import * as ContactusAction from '../../redux/actions/ContactusAction';
 import ApiClient from "../../api-client";
+import EditIcon from '@material-ui/icons//Edit';
+import * as Snackbar from "../../redux/actions/SnackbarActions";
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -113,6 +115,59 @@ const ContactUsPage = (props) => {
   const [message, setMessage] = useState("");
   const [companyDetails, setCompanyDetails] = useState({});
   const [socialLinks, setSocialLinks] = useState({});
+
+  const [enableOtpField, setEnableOtpField] = useState(false);
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [verifyLoader, setVerifyLoader] = useState(false);
+  const [otp, setOtp] = useState("");
+
+  const otpHandler = async () => {
+    try {
+      setVerifyLoader(true);
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/createOTP', {mobile: mobile}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      setEnableOtpField(true);
+      setVerifyLoader(false);
+      dispatch(Snackbar.showSuccessSnackbar('Otp sent successfully'));
+    } catch (error) {
+      console.error('this is the error::', error);
+      dispatch(Snackbar.showFailSnackbar('We are facing some issue Please try again later.'));
+      setVerifyLoader(false);
+    }
+
+  };
+
+  const checkOtpValidOrNot = async (value) => {
+    try {
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/verifyOTP', {mobile: mobile, otp: value}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      if (response.status) {
+        setIsOtpVerified(true);
+        dispatch(Snackbar.showSuccessSnackbar('Otp Verified SuccessFully'));
+      } else {
+        setIsOtpVerified(false);
+        dispatch(Snackbar.showFailSnackbar('Please type Valid otp.'));
+      }
+    } catch (error) {
+      setIsOtpVerified(false);
+      dispatch(Snackbar.showFailSnackbar('We are facing some issue Please try again later.'));
+    }
+
+  };
+  const reset = () => {
+    setVerifyLoader(false);
+    setIsOtpVerified(false);
+    setEnableOtpField(false);
+    setMobile('');
+    setOtp('');
+
+  };
+  const inputChange = (e) => {
+
+    let {name, value} = e.target;
+    setOtp(value);
+    if (name === 'otp' && value.length == 6 && !isOtpVerified) {
+      checkOtpValidOrNot(value);
+    }
+  };
 
   const dispatch = useDispatch();
   const handleData = (e) => {
@@ -247,24 +302,63 @@ const ContactUsPage = (props) => {
                   style: {color: '#FFFFFF'}
                 }}>
               </TextField>
-              <TextField
-                style={{marginTop: 15}}
-                variant="outlined"
-                label="Phone"
-                name="Phone"
-                type="tel"
-                value={mobile}
-                onChange={(e) => setMobile(e.target.value)}
-                fullWidth
-                InputProps={{
-                  classes: {
-                    notchedOutline: classes.notchedOutline
-                  }
-                }}
-                InputLabelProps={{
-                  style: {color: '#FFFFFF'}
-                }}>
-              </TextField>
+              <div style={{display: 'block', width: '100%', marginTop: 15}}>
+                <div style={{display: 'flex', width: "80%"}}>
+                  <TextField
+                    className="EmiInputs"
+                    style={{marginTop: 15}}
+                    variant="outlined"
+                    label="Phone Number"
+                    name="Phone"
+                    style={{width: '76%'}}
+                    disabled={isOtpVerified}
+                    type="number"
+                    min="1000000"
+                    max="9999999999999999"
+                    value={mobile}
+                    onChange={(e) => {
+                      if (enableOtpField) {
+                        setEnableOtpField(false);
+                      }
+                      setMobile(e.target.value);
+                    }}
+                    InputProps={{
+                      classes: {
+                        notchedOutline: classes.notchedOutline
+                      }
+                    }}
+                    InputLabelProps={{
+                      style: {color: '#FFFFFF'}
+                    }}
+                    fullWidth >
+                  </TextField>
+                  {mobile.length === 10 && !enableOtpField ? <Button style={{width: '20%'}} onClick={otpHandler} variant="contained" style={{background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff'}}
+                  >Verify</Button> : isOtpVerified && <div onClick={reset}> <EditIcon /> </div>}
+                </div>
+                {enableOtpField && <TextField
+                  className="EmiInputs"
+                  placeholder="Otp"
+
+                  style={{width: '100%', marginTop: 15}}
+
+                  fullWidth
+                  value={otp}
+                  disabled={isOtpVerified}
+                  onChange={inputChange}
+                  name="otp"
+                  type="number"
+                  variant="outlined"
+                  InputProps={{
+                    classes: {
+                      notchedOutline: classes.notchedOutline
+                    }
+                  }}
+                  InputLabelProps={{
+                    style: {color: '#FFFFFF'}
+                  }}
+                />}
+              </div>
+
 
               <TextField
                 style={{marginTop: 15}}
