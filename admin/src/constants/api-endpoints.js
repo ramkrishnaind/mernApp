@@ -2,7 +2,7 @@
  * All the API Endpoints should be register here
  */
 const API_ENDPOINTS = {
-  BASE_URL: "http://192.46.214.45:3333/",
+  BASE_URL: "https://api.vishalconstructioncompany.com/",
 
   LOGIN_ENDPOINT: "/users/login",
   REGISTER_ENDPOINT: "/users/signup",

@@ -104,4 +104,10 @@ module.exports = {
     getFinanceData: require('./FinanceModule/getFinanceDataModule'),
     deleteFinanceData: require('./FinanceModule/deleteFinanceDataModule'),
     getFinanceDetail: require('./FinanceModule/getFinanceDetailModule'),
+
+    ////////////////////////
+    /////// OTP /////
+    ////////////////////////
+    createOTP: require('./OtpModule/createOTP'),
+    verifyOTP: require('./OtpModule/verifyOTP'),
 }

@@ -20,6 +20,17 @@ const createUserSchema = Joi.object({
 const getUserSchema = Joi.object({
     _id: Joi.string().trim().required()
 });
+const getUserPropertySchema = Joi.object({
+    userId: Joi.string().trim().required()
+});
+const addUserWishListPropertySchema = Joi.object({
+    userId: Joi.string().trim().required(),
+    propertyId: Joi.string().trim().required()
+});
+const removeWishListPropertySchema = Joi.object({
+    userId: Joi.string().trim().required(),
+    propertyId: Joi.string().trim().required()
+});
 const updateUserStatusSchema = Joi.object({
     _id: Joi.string().trim().required(),
     active: Joi.number().required(),
@@ -204,11 +215,162 @@ function deleteUserHelper(Models) {
     }
     return deleteUser;
 }
+function getUserProperties(Models) {
+    async function userProperties(req, res) {
+        try {
+            let validateData = getUserPropertySchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            // Getting User from Database
+            let Data = await Models.PropertyDB.find({ userId: req.body.userId });
+            console.log('Data is', Data)
+            if (Data) {
+                // if data found check verified or not
+                res.send({ status: true, message: "User Properties List", data: Data });
+            } else {
+                res.send({ status: true, message: "User Properties not found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('createUserHelper err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in SignUp" });
+        }
+    }
+    return userProperties;
+}
+function getUserBookings(Models) {
+    async function userBookings(req, res) {
+        try {
+            let validateData = getUserPropertySchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            // Getting User from Database
+            let Data = await Models.BookingDB.find({ userId: req.body.userId });
+            console.log('Data is', Data)
+            if (Data) {
+                // if data found check verified or not
+                res.send({ status: true, message: "User Booking List", data: Data });
+            } else {
+                res.send({ status: true, message: "User Booking not found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('createUserHelper err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in SignUp" });
+        }
+    }
+    return userBookings;
+}
+function getUserWishList(Models) {
+    async function userWishList(req, res) {
+        try {
+            let validateData = getUserPropertySchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+
+            // Getting User from Database
+            let Data = await Models.WishListDB.find({ userId: req.body.userId });
+            console.log('Data is', Data)
+            if (Data) {
+                // if data found check verified or not
+                res.send({ status: true, message: "User Wish List", data: Data });
+            } else {
+                res.send({ status: true, message: "User WishList not found" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('createUserHelper err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in SignUp" });
+        }
+    }
+    return userWishList;
+}
+function addToWishList(Models) {
+    async function add(req, res) {
+        try {
+            let validateData = addUserWishListPropertySchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+            let WishListData = {
+                propertyId: req.body.propertyId,
+                userId: req.body.userId,
+            }
+            let Data = await new Models.WishListDB(WishListData).save();
+            console.log('Data is', Data)
+            if (Data) {
+                // if data found check verified or not
+                res.send({ status: true, message: "User Wish Created.", data: Data });
+            } else {
+                res.send({ status: true, message: "Error While Creating User WishList" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('createUserHelper err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in SignUp" });
+        }
+    }
+    return add;
+}
+function removeFromWishList(Models) {
+    async function remove(req, res) {
+        try {
+            let validateData = removeWishListPropertySchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+            let query = {
+                $and: [
+                    { 'propertyId': req.body.propertyId },
+                    { 'userId': req.body.userId }
+                ]
+            }
+            let Data = await new Models.WishListDB.remove(query);
+            console.log('Data is', Data)
+            if (Data) {
+                // if data found check verified or not
+                res.send({ status: true, message: "Property Removed From User WishList", data: Data });
+            } else {
+                res.send({ status: true, message: "Error While Property Removing From User WishList" });
+            }
+
+
+        }
+        catch (e) {
+            console.log('createUserHelper err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in SignUp" });
+        }
+    }
+    return remove;
+}
 module.exports = {
     prepareTemplateSendMail,
     createUserFunc: createUserHelper,
     getAllUserFunc: getAllUserHelper,
     getUserFunc: getUserHelper,
     updateUserStatusFun: updateUserStatusHelper,
-    deleteUserFunc: deleteUserHelper
+    deleteUserFunc: deleteUserHelper,
+    getUserProperties,
+    getUserBookings,
+    getUserWishList,
+    addToWishList,
+    removeFromWishList
 };

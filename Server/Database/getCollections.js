@@ -38,6 +38,8 @@ module.exports = function (mongoose) {
     const ServiceEnquiryDB = mongoose.model('serviceEnquiry');
     const AboutPageDB = mongoose.model('aboutPage');
     const FinanceDB = mongoose.model('finance');
+    const WishListDB = mongoose.model('wishList');
+    const OtpDB = mongoose.model('otp');
     return {
         UserDB,
         AuthTokenDB,
@@ -74,6 +76,8 @@ module.exports = function (mongoose) {
         InvestWithUsDB,
         ServiceEnquiryDB,
         AboutPageDB,
-        FinanceDB
+        FinanceDB,
+        WishListDB,
+        OtpDB
     }
 }
