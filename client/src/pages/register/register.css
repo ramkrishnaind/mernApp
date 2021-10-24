@@ -2,3 +2,9 @@
     display: none;
   }
   
+  .verify {
+    background: green;
+    height: 30px;
+    top: 10px;
+    left: 5px;
+  }

@@ -7,9 +7,10 @@ import {
   Box, makeStyles,
   Checkbox,
   TextField,
-  Button,
+  Button , 
   Link
 } from '@material-ui/core';
+
 import bannerImage from "../../images/banner-2.jpeg";
 // import FacebookIcon from '@material-ui/icons/Facebook';
 // import googleIcon from "../../images/icon-google.png";
@@ -20,12 +21,21 @@ import * as RegisterAction from "../../redux/actions/RegisterAction";
 import * as Snackbar from "../../redux/actions/SnackbarActions";
 import {useDispatch} from "react-redux";
 import {Link as RouterLink} from 'react-router-dom';
+import ApiClient from "../../api-client";
+import EditIcon from '@material-ui/icons//Edit';
 
 const useStyles = makeStyles((theme) => ({
   bannerContainer: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+    
+  verify: {
+    background:"green",
+    height:" 30px",
+    top:" 10px",
+    left: "5px",
   },
   text1: {
     fontFamily: '"Open Sans",sans-serif',
@@ -123,11 +133,15 @@ const RegisterPage = props => {
     lname: "",
     phone: "",
     cpassword: "",
+    otp: ""
   };
 
   const [states, setState] = useState(initialState);
   const [country, setCountry] = useState("+91");
-
+  const [enableOtpField , setEnableOtpField] =  useState(false)
+  const [isOtpVerified , setIsOtpVerified] = useState(false);
+  const [verifyLoader , setVerifyLoader] = useState(false);
+ 
   const handleChange = (event, isChecked) => {
     let value = event.target.value;
   };
@@ -135,6 +149,12 @@ const RegisterPage = props => {
   const inputChange = (e) => {
 
     let {name, value} = e.target;
+    if(name === 'otp' && value.length ==6 && !isOtpVerified) {
+      checkOtpValidOrNot(value)
+    }
+    if(name === 'phone' && enableOtpField) {
+      setEnableOtpField(false)
+    }
     setState({...states, [name]: value});
   };
 
@@ -159,6 +179,52 @@ const RegisterPage = props => {
       dispatch(Snackbar.showFailSnackbar('Both password must be same'));
     }
   };
+
+  const otpHandler= async () => {
+    const cookie = 'connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI';
+    const authorization = 'Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs';
+    try {
+      setVerifyLoader(true)
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/createOTP', {mobile: states.phone}, {}, {Cookie: cookie, Authorization: authorization}, false);
+      setEnableOtpField(true)
+      setVerifyLoader(false)
+      dispatch(Snackbar.showSuccessSnackbar('Otp sent successfully'));
+    } catch(error) {
+      console.error('this is the error::' , error)
+      dispatch(Snackbar.showFailSnackbar('We are facing some issue Please try again later.'));
+      setVerifyLoader(false)
+    }
+
+  }
+
+  const checkOtpValidOrNot = async (value) => {
+    const cookie = 'connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI';
+    const authorization = 'Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs';
+    try {
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/verifyOTP', {mobile: states.phone , otp: value}, {}, {Cookie: cookie, Authorization: authorization}, false);
+      if(response.status) {
+        setIsOtpVerified(true)
+        dispatch(Snackbar.showSuccessSnackbar('Otp Verified SuccessFully'));
+      } else {
+        setIsOtpVerified(false)
+        dispatch(Snackbar.showFailSnackbar('Please type Valid otp.'));
+      }
+    } catch(error) {
+      setIsOtpVerified(false)
+      dispatch(Snackbar.showFailSnackbar('We are facing some issue Please try again later.'));
+    }
+
+  }
+  const reset = () =>{
+    setVerifyLoader(false)
+    setIsOtpVerified(false)
+    setEnableOtpField(false)
+    setState({
+      phone: '', 
+      otp: ''
+    })
+    
+  }
 
 
   return (
@@ -266,13 +332,15 @@ const RegisterPage = props => {
                   onChange={setCountry} />
               </Grid>
               <Grid item xs={12} sm={10}>
-
+                <div style ={{display: 'flex'}}>
+            
                 <TextField
                   className={classes.textField}
                   placeholder="Mobile number"
                   variant="outlined"
                   fullWidth
                   value={states.phone}
+                  disabled ={isOtpVerified}
                   onChange={inputChange}
                   name="phone"
                   type="number"
@@ -282,6 +350,26 @@ const RegisterPage = props => {
                     }
                   }}
                 />
+              { states?.phone?.length ==10 && !enableOtpField ?  <Button onClick = {otpHandler} variant="contained" className = {classes.verify}>Verify</Button> : isOtpVerified && <div onClick = {reset}> <EditIcon/> </div> }
+        
+                </div>
+            {  enableOtpField &&   <TextField
+                  className={classes.textField}
+                  placeholder="Otp"
+                  style ={{marginTop: '10px'}}
+                  variant="outlined"
+                  fullWidth
+                  value={states.otp}
+                  disabled = {isOtpVerified}
+                  onChange={inputChange}
+                  name="otp"
+                  type="number"
+                  InputProps={{
+                    classes: {
+                      notchedOutline: classes.notchedOutline
+                    }
+                  }}
+                />}
               </Grid>
             </Grid>
 
@@ -292,7 +380,7 @@ const RegisterPage = props => {
             I accept the <Link className={classes.text3} to='#'>Terms of Use</Link> & <Link to='#' className={classes.text3}>Privacy Policy</Link>
           </Grid>
           <Grid item xs={12} md={12}>
-            <Button variant="contained" onClick={handleSubmit} className={classes.btn2} >Register</Button>
+            <Button variant="contained" onClick={handleSubmit} className={classes.btn2} disabled = {!isOtpVerified} >Register</Button>
           </Grid>
           <Grid item xs={12} md={12} className={classes.gridStyle3}>
             <Link component={RouterLink} to="/signin">Already have account?</Link>
