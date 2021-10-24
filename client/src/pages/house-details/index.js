@@ -40,7 +40,7 @@ import Moment from 'react-moment';
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import { Fancybox } from "@fancyapps/ui";
+import {Fancybox} from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox.css";
 
 const options = {
@@ -589,19 +589,19 @@ const HouseDetailPage = (props) => {
                     </Typography>
                   </Grid>
                   <Grid item xs={12} md={12} className={classes.style4}>
-                  <Box className="plan-carousel-wrapper">
-                    {/* <CarouselSlider images={masterPlan} /> */}
-                    <OwlCarousel className='owl-theme plan-carousel' {...options}>
-                      {(propertyPlan || []).map((plan, i) =>
-                        <div className="plan-item" key={i}>
-                          <a className="plan-download" href={plan.original} download target="_blank"><i class="fa fa-download"></i></a>
-                          <div data-fancybox="dialog" data-src={plan.original}>
-                          <img className="img" src={plan.original} />
+                    <Box className="plan-carousel-wrapper">
+                      {/* <CarouselSlider images={masterPlan} /> */}
+                      <OwlCarousel className='owl-theme plan-carousel' {...options}>
+                        {(propertyPlan || []).map((plan, i) =>
+                          <div className="plan-item" key={i}>
+                            <a className="plan-download" href={plan.original} download target="_blank"><i class="fa fa-download"></i></a>
+                            <div data-fancybox="dialog" data-src={plan.original}>
+                              <img className="img" src={plan.original} />
+                            </div>
+                            <p>{plan.imageFor}</p>
                           </div>
-                          <p>{plan.imageFor}</p>
-                        </div>
-                      )}
-                    </OwlCarousel>   
+                        )}
+                      </OwlCarousel>
                     </Box>
                   </Grid>
                   <Box className="download-all"><button className="btn btn-secondary">Download all</button></Box>

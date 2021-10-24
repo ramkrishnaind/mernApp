@@ -5,6 +5,10 @@ import TextField from '@material-ui/core/TextField';
 import SectionHeader from '../section-header';
 import APP_CONSTANTS from '../../constants/app-constants';
 import {useEffect, useState} from 'react';
+import ApiClient from "../../api-client";
+import {useDispatch} from "react-redux";
+import * as Snackbar from "../../redux/actions/SnackbarActions";
+import EditIcon from '@material-ui/icons//Edit';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,6 +33,61 @@ export default function BookNowForm() {
         pin: '',
         bankingAmount: ''
     });
+    const [mobile, setMobile] = useState(JSON.parse(localStorage.getItem('user')).mobile);
+    const dispatch = useDispatch();
+    const [enableOtpField, setEnableOtpField] = useState(false);
+    const [isOtpVerified, setIsOtpVerified] = useState(false);
+    const [verifyLoader, setVerifyLoader] = useState(false);
+    const [otp, setOtp] = useState("");
+
+    const otpHandler = async () => {
+        try {
+            setVerifyLoader(true);
+            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/createOTP', {mobile: mobile}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+            setEnableOtpField(true);
+            setVerifyLoader(false);
+            dispatch(Snackbar.showSuccessSnackbar('Otp sent successfully'));
+        } catch (error) {
+            console.error('this is the error::', error);
+            dispatch(Snackbar.showFailSnackbar('We are facing some issue Please try again later.'));
+            setVerifyLoader(false);
+        }
+
+    };
+
+    const checkOtpValidOrNot = async (value) => {
+        try {
+            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/verifyOTP', {mobile: mobile, otp: value}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+            if (response.status) {
+                setIsOtpVerified(true);
+                dispatch(Snackbar.showSuccessSnackbar('Otp Verified SuccessFully'));
+            } else {
+                setIsOtpVerified(false);
+                dispatch(Snackbar.showFailSnackbar('Please type Valid otp.'));
+            }
+        } catch (error) {
+            setIsOtpVerified(false);
+            dispatch(Snackbar.showFailSnackbar('We are facing some issue Please try again later.'));
+        }
+
+    };
+    const reset = () => {
+        setVerifyLoader(false);
+        setIsOtpVerified(false);
+        setEnableOtpField(false);
+        setState({...state, phoneno: ''});
+        setOtp('');
+    };
+
+    const inputChange = (e) => {
+
+        let {name, value} = e.target;
+        setOtp(value);
+        if (name === 'otp' && value.length === 6 && !isOtpVerified) {
+            checkOtpValidOrNot(value);
+        }
+    };
+
 
     useEffect(() => {
 
@@ -62,11 +121,7 @@ export default function BookNowForm() {
                                 <TextField id="" className="InnerForm" label="Email" variant="outlined" value={state.email} />
                             </form>
                         </Grid>
-                        <Grid item xs={3} className="TextfildGrid">
-                            <form className={classes.root} className="OutForm" noValidate autoComplete="off">
-                                <TextField id="" className="InnerForm" label="Phone Number" variant="outlined" />
-                            </form>
-                        </Grid>
+
                         <Grid item xs={3} className="TextfildGrid">
                             <form className={classes.root} className="OutForm" noValidate autoComplete="off">
                                 <TextField id="" className="InnerForm" label="Pan Number" variant="outlined" />
@@ -93,6 +148,64 @@ export default function BookNowForm() {
                         <Grid item xs={3} className="TextfildGrid">
                             <form className={classes.root} className="OutForm" noValidate autoComplete="off">
                                 <TextField id="" className="InnerForm" label="banking Amount" variant="outlined" />
+                            </form>
+                        </Grid>
+                        <Grid item xs={12} className="TextfildGrid">
+                            <form className={classes.root} className="OutForm" noValidate autoComplete="off">
+                                <div style={{display: 'block', width: '100%'}}>
+                                    <div style={{display: 'flex', width: "80%"}}>
+                                        <TextField
+                                            className="EmiInputs"
+                                            label="Phone Number"
+                                            name="Phone"
+                                            style={{width: '76%', backgroundColor: '#fff'}}
+                                            disabled={isOtpVerified}
+                                            type="number"
+                                            min="1000000"
+                                            variant="outlined"
+                                            max="9999999999999999"
+                                            value={mobile}
+                                            onChange={(e) => {
+                                                if (enableOtpField) {
+                                                    setEnableOtpField(false);
+                                                }
+                                                setMobile(e.target.value);
+                                            }}
+                                            InputProps={{
+                                                classes: {
+                                                    notchedOutline: classes.notchedOutline
+                                                }
+                                            }}
+                                            InputLabelProps={{
+                                                style: {color: '#FFFFFF'}
+                                            }}
+                                            fullWidth >
+                                        </TextField>
+                                        {mobile.length === 10 && !enableOtpField ? <Button style={{width: '20%'}} onClick={otpHandler} variant="contained" style={{background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff'}}
+                                        >Verify</Button> : isOtpVerified && <div onClick={reset}> <EditIcon /> </div>}
+                                    </div>
+                                    {enableOtpField && <TextField
+                                        className="EmiInputs"
+                                        placeholder="Otp"
+
+                                        style={{width: '100%', marginTop: 15, backgroundColor: '#fff'}}
+                                        variant="outlined"
+                                        fullWidth
+                                        value={otp}
+                                        disabled={isOtpVerified}
+                                        onChange={inputChange}
+                                        name="otp"
+                                        type="number"
+                                        InputProps={{
+                                            classes: {
+                                                notchedOutline: classes.notchedOutline
+                                            }
+                                        }}
+                                        InputLabelProps={{
+                                            style: {color: '#FFFFFF'}
+                                        }}
+                                    />}
+                                </div>
                             </form>
                         </Grid>
                     </Grid>
