@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import clsx from 'clsx';
 import {makeStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -14,6 +14,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import logo from "../../../images/vishal-logo.png";
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
+import ApiClient from '../../../api-client';
 import '../header.css';
 
 const useStyles = makeStyles({
@@ -33,8 +34,25 @@ export default function Mobilemenu() {
         bottom: false,
         right: false,
     });
-    const [submenuVisble, setSubmenuVisible] = useState(0);
+
+
     const [no, setNo] = useState({no: 0, status: false});
+    const [services, setServices] = useState(null);
+
+    const populateServiceInfo = () => {
+        const getData = async () => {
+            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getService', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+
+            // console.log("ServiceInfo ", response);
+            setServices(response?.data?.items);
+        };
+        getData();
+    };
+
+    useEffect(() => {
+        populateServiceInfo();
+    }, []);
+
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -89,12 +107,12 @@ export default function Mobilemenu() {
                     "title": "Rent",
                     "href": "/search-property-details?type=Rent"
                 },
-                // {
-                //     "id": 5,
-                //     "title": "Services",
-                //     "image": "",
-                //     "submenu": []
-                // },
+                {
+                    "id": 5,
+                    "title": "Services",
+                    "image": "",
+                    "submenu": ["services"]
+                },
                 {
                     "id": 6,
                     "title": "Careers",
@@ -125,7 +143,28 @@ export default function Mobilemenu() {
                             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                             <ListItemText primary={title} />
                         </ListItem>
-                        {submenu ? submenu.map(({id, title, href, submenu}, i) => {
+                        {submenu ? submenu.map((sm, i) => {
+
+
+
+                            if (sm == "services") {
+
+
+                                return (services || []).map((sm, idx) => {
+                                    return <ListItem onClick={toggleDrawer(anchor, false)} className={no.no == index && no.status === true ? 'showNav' : 'hideNav'} button key={i} component={RouterLink} to={{pathname: '/service-details', state: sm._id}}>
+                                        <ListItemIcon><DoubleArrowIcon />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b> <ListItemText primary={sm.title} /></b></ListItemIcon>
+
+                                    </ListItem>;
+                                });
+
+                                // return <ListItem onClick={toggleDrawer(anchor, false)} className={no.no == index && no.status === true ? 'showNav' : 'hideNav'} button key={i} component={RouterLink} to={{pathname: '/service-details', state: sm._id}}>
+                                //     <ListItemIcon><DoubleArrowIcon />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b> <ListItemText primary={sm.title} /></b></ListItemIcon>
+
+                                // </ListItem>;
+                            }
+
+                            const {id, title, href, submenu} = sm;
+
                             return <ListItem onClick={toggleDrawer(anchor, false)} className={no.no == index && no.status === true ? 'showNav' : 'hideNav'} button key={id} component={RouterLink} to={href}>
                                 <ListItemIcon><DoubleArrowIcon />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b> <ListItemText primary={title} /></b></ListItemIcon>
 
