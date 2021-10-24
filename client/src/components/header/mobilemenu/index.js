@@ -13,6 +13,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import logo from "../../../images/vishal-logo.png";
+import '../header.css';
 
 const useStyles = makeStyles({
     list: {
@@ -32,6 +33,7 @@ export default function Mobilemenu() {
         right: false,
     });
     const [submenuVisble, setSubmenuVisible] = useState(0);
+    const [no, setNo] = useState({no: 0, status: false});
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -46,7 +48,6 @@ export default function Mobilemenu() {
                 [classes.fullList]: anchor === 'top' || anchor === 'bottom',
             })}
             role="presentation"
-            onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
@@ -58,7 +59,7 @@ export default function Mobilemenu() {
                 {
                     "id": 2,
                     "title": "About Us",
-                    "href": "/about-us",
+                    "href": "",
                     "submenu": [
                         {
                             "title": "About The Company",
@@ -113,21 +114,24 @@ export default function Mobilemenu() {
                     "title": "Blog",
                     "href": "/blog"
                 }].map(({id, title, href, submenu}, index) => {
-
-                    if (submenu) {
-                        return submenu.map(({id, title, href, submenu}, i) => {
-                            return <ListItem button key={id} component={RouterLink} to={href}>
-                                <ListItemIcon>{(i + 1) % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={title} />
+                    return <div onClick={!submenu ? toggleDrawer(anchor, false) : () => { }} >
+                        <ListItem button key={id} onClick={() => {
+                            setNo({
+                                no: index,
+                                status: !no.status
+                            });
+                        }} component={RouterLink} to={href}>
+                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                            <ListItemText primary={title} />
+                        </ListItem>
+                        {submenu ? submenu.map(({id, title, href, submenu}, i) => {
+                            return <ListItem onClick={toggleDrawer(anchor, false)} className={no.no == index && no.status === true ? 'showNav' : 'hideNav'} button key={id} component={RouterLink} to={href}>
+                                {/* >> <ListItemIcon>{(i + 1) % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon> */}
+                                &nbsp; <ListItemText primary={"*   " + title} />
                             </ListItem>;
-                        });
-                    }
-
-
-                    return <ListItem button key={id} component={RouterLink} to={href}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={title} />
-                    </ListItem>;
+                        }) : null
+                        }
+                    </div>;
                 })}
             </List>
             <Divider />

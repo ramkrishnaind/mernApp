@@ -230,3 +230,9 @@
         width: 100%;
     }
 }
+.showNav{
+    display: block!important;
+}
+.hideNav{
+    display: none!important;
+}
