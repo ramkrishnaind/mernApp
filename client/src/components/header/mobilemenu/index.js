@@ -13,6 +13,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import logo from "../../../images/vishal-logo.png";
+import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 import '../header.css';
 
 const useStyles = makeStyles({
@@ -126,8 +127,8 @@ export default function Mobilemenu() {
                         </ListItem>
                         {submenu ? submenu.map(({id, title, href, submenu}, i) => {
                             return <ListItem onClick={toggleDrawer(anchor, false)} className={no.no == index && no.status === true ? 'showNav' : 'hideNav'} button key={id} component={RouterLink} to={href}>
-                                {/* >> <ListItemIcon>{(i + 1) % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon> */}
-                                &nbsp; <ListItemText primary={"*   " + title} />
+                                <ListItemIcon><DoubleArrowIcon />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b> <ListItemText primary={title} /></b></ListItemIcon>
+
                             </ListItem>;
                         }) : null
                         }
