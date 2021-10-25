@@ -11,8 +11,8 @@ package-lock.json
 .pnp.js
 # testing 
 /coverage
-/uploads
-uploads
+#/uploads
+#uploads
 
 # production
 /build
