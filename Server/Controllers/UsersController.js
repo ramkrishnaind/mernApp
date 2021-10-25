@@ -18,12 +18,12 @@ let storage = multer.diskStorage({
                 });
             }
         } catch (err) {
-            console.error(err)
+            console.error(err);
         }
-        cb(null, fpathId)
+        cb(null, fpathId);
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
 let upload = multer({ storage: storage });
