@@ -18,12 +18,12 @@ let storage = multer.diskStorage({
                 });
             }
         } catch (err) {
-            console.error(err)
+            console.error(err);
         }
-        cb(null, fpathId)
+        cb(null, fpathId);
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
 let upload = multer({ storage: storage });
@@ -33,7 +33,7 @@ const userFunction = require('./Routes/UsersModule/UserManagement');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 let { forgotPasswordFunction, loginFunction, verificationFunction, setNewPasswordFunction,
-    getAuthTokenFunction, logoutFunction } = require('./Routes')
+    getAuthTokenFunction, logoutFunction, reSetPasswordHelper } = require('./Routes')
 
 module.exports = function (conn) {
     // console.log(conn)
@@ -50,7 +50,7 @@ module.exports = function (conn) {
     router.get('/logout', logoutFunction(db));
 
     router.post('/createUser', userAuthMiddleware, upload.array('image'), userFunction.createUserFunc(db));
-    router.post('/updateUser', userAuthMiddleware, upload.array('image'), userFunction.createUserFunc(db));
+    router.post('/updateUser', userAuthMiddleware, upload.array('image'), userFunction.updateUserFunc(db));
     router.post('/getUser', userAuthMiddleware, userFunction.getUserFunc(db));
     router.post('/getAllUser', userAuthMiddleware, userFunction.getAllUserFunc(db));
     router.post('/deleteUser', userAuthMiddleware, userFunction.deleteUserFunc(db));
@@ -60,6 +60,8 @@ module.exports = function (conn) {
     router.post('/getUserBookings', userAuthMiddleware, userFunction.getUserBookings(db));
     router.post('/addToWishList', userAuthMiddleware, userFunction.addToWishList(db));
     router.post('/removeFromWishList', userAuthMiddleware, userFunction.removeFromWishList(db));
+    router.post('/reSetPassword', userAuthMiddleware, reSetPasswordHelper(db));
+
 
     return router;
 };

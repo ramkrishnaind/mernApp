@@ -67,6 +67,15 @@ const userSchema = new Schema({
     },
     lastLoginTime: {
         type: Date
+    },
+    address: {
+        type: String,
+    },
+    city: {
+        type: String
+    },
+    state: {
+        type: String
     }
 }, {
     timestamps: {

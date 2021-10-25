@@ -31,10 +31,6 @@ const SectionTabs = (props) => {
 
   useEffect(() => {
     console.log(document.querySelector('#tab'));
-    setTimeout(() => {
-      setValue(1);
-      setValue(0);
-    }, 1);
   }, [propertyData]);
 
   return (

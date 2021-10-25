@@ -17,6 +17,14 @@ const createUserSchema = Joi.object({
     countryCode: Joi.number(),
     userRole: Joi.string().required()
 });
+const updateUserSchema = Joi.object({
+    id: Joi.string().required(),
+    firstName: Joi.string().trim().required(),
+    lastName: Joi.string().trim(),
+    address: Joi.string().trim(),
+    city: Joi.string().trim(),
+    state: Joi.string().trim(),
+});
 const getUserSchema = Joi.object({
     _id: Joi.string().trim().required()
 });
@@ -361,6 +369,36 @@ function removeFromWishList(Models) {
     }
     return remove;
 }
+function updateUserFunc(Models) {
+    async function updateUser(req, res) {
+        try {
+            // console.log(req.sessionID)
+            // validate data using joi
+            let validateData = updateUserSchema.validate(req.body);
+            if (validateData.error) {
+                throw { status: false, error: validateData, message: "Invalid data" };
+            }
+
+            // pick data from req.body
+            let userData = _.pick(req.body, ['id', 'firstName', 'lastName', 'address', 'city', 'state']);
+            setData = {
+                firstName: userData.firstName,
+                lastName: userData.lastName,
+                address: userData.address,
+                city: userData.city,
+                state: userData.state,
+            }
+            let updateModule = await Models.UserDB.findOneAndUpdate({ _id: userData.id }, { $set: setData });
+            console.log('updateModule is', updateModule)
+            res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
+        }
+        catch (e) {
+            console.log('updateUser err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in user Update" });
+        }
+    }
+    return updateUser;
+}
 module.exports = {
     prepareTemplateSendMail,
     createUserFunc: createUserHelper,
@@ -372,5 +410,6 @@ module.exports = {
     getUserBookings,
     getUserWishList,
     addToWishList,
-    removeFromWishList
+    removeFromWishList,
+    updateUserFunc
 };

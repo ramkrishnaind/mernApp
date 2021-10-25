@@ -16,6 +16,5 @@ const reducers = {
     contactus: contactus,
     snackbar: snackbar,
     verification: verification,
-}
-
+};
 export default reducers;
