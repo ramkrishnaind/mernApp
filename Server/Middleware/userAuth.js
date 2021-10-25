@@ -13,17 +13,17 @@ function userAuthMiddleware(Models) {
             let token = tokenArr[1];
 
             if (!token) {
-                throw { status: false, error: true, auth: false, message: "Token is required" };
+                throw {status: false, error: true, auth: false, message: "Token is required"};
             }
-            let userToken = await Models.AuthTokenDB.findOne({ token }).populate('userId').lean();
+            let userToken = await Models.AuthTokenDB.findOne({token}).populate('userId').lean();
             if (!userToken) {
-                throw { status: false, error: true, auth: false, message: "Invalid token" };
+                throw {status: false, error: true, auth: false, message: "Invalid token"};
             }
 
             if (userToken.created_at && new Date(userToken.created_at) < new Date(moment.utc().startOf('day'))) {
                 // token is old delete it
-                let deleteToken = await Models.AuthTokenDB.deleteOne({ token });
-                throw { status: false, error: true, auth: false, message: "Token exipred", exipred: true };
+                let deleteToken = await Models.AuthTokenDB.deleteOne({token});
+                throw {status: false, error: true, auth: false, message: "Token exipred", exipred: true};
             }
 
             req.locals = {
@@ -34,7 +34,7 @@ function userAuthMiddleware(Models) {
         }
         catch (e) {
             console.log('userAuthMiddleware err', e);
-            let err = { status: false, error: true, message: "Error in Auth", auth: false };
+            let err = {status: false, error: true, message: "Error in Auth", auth: false};
             if (e.error) err = e;
 
             return res.send(err);
@@ -48,7 +48,7 @@ function requestAuthMiddleware() {
             let authToken = req.headers.authorization;
 
             if (!authToken) {
-                throw { status: false, error: true, auth: false, message: "Token is required" };
+                throw {status: false, error: true, auth: false, message: "Token is required"};
             }
             let tokenArr = authToken.split(' ');
             let token = tokenArr[1];
@@ -56,15 +56,15 @@ function requestAuthMiddleware() {
             if (decoded == process.env.SECRET) {
                 next();
             } else {
-                console.log('token is ', token)
-                throw { status: false, error: true, auth: false, message: "Invalid token" };
+                console.log('token is ', token);
+                throw {status: false, error: true, auth: false, message: "Invalid token"};
             }
         } catch (error) {
-            console.log('Error is', error)
-            res.send({ status: false, error: true, auth: false, message: error.message });
+            console.log('Error is', error);
+            res.send({status: false, error: true, auth: false, message: error.message});
         }
     }
     return requestAuth;
 }
 
-module.exports = { userAuthMiddleware, requestAuthMiddleware };
+module.exports = {userAuthMiddleware, requestAuthMiddleware};

