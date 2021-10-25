@@ -3,6 +3,7 @@ module.exports = {
     loginFunction: require('./Authentication/login'),
     verificationFunction: require('./Authentication/verification'),
     setNewPasswordFunction: require('./Authentication/setNewPassword'),
+    reSetPasswordHelper: require('./Authentication/reSetPassword'),
     getAuthTokenFunction: require('./Authentication/getAuthToken'),
     logoutFunction: require('./Authentication/logout'),
     getMenuList: require('./MenuModule/getMenuListModule'),
