@@ -16,6 +16,8 @@ import Workspace5 from "../../images/carrer_img/about_carrier6.png";
 import Workspace6 from "../../images/carrer_img/about_carrier7.png";
 import ApplyJobs from '../../components/apply-jobs/apply-jobs';
 import ApiClient from '../../api-client';
+import {useDispatch} from "react-redux";
+import * as Snackbar from "../../redux/actions/SnackbarActions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,6 +33,49 @@ const useStyles = makeStyles((theme) => ({
 export default function Carrer() {
     const classes = useStyles();
     const [allActiveCareer, setAllActiveCareer] = useState([]);
+    const [enableOtpField, setEnableOtpField] = useState(false);
+    const [isOtpVerified, setIsOtpVerified] = useState(false);
+    const [verifyLoader, setVerifyLoader] = useState(false);
+    const [otp, setOtp] = useState("");
+    const dispatch = useDispatch();
+    const otpHandler = async () => {
+        try {
+            setVerifyLoader(true);
+            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/createOTP', {mobile: ''}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+            setEnableOtpField(true);
+            setVerifyLoader(false);
+            dispatch(Snackbar.showSuccessSnackbar('Otp sent successfully'));
+        } catch (error) {
+            console.error('this is the error::', error);
+            dispatch(Snackbar.showFailSnackbar('We are facing some issue Please try again later.'));
+            setVerifyLoader(false);
+        }
+
+    };
+
+    const checkOtpValidOrNot = async (value) => {
+        try {
+            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/verifyOTP', {mobile: '', otp: value}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+            if (response.status) {
+                setIsOtpVerified(true);
+                dispatch(Snackbar.showSuccessSnackbar('Otp Verified SuccessFully'));
+            } else {
+                setIsOtpVerified(false);
+                dispatch(Snackbar.showFailSnackbar('Please type Valid otp.'));
+            }
+        } catch (error) {
+            setIsOtpVerified(false);
+            dispatch(Snackbar.showFailSnackbar('We are facing some issue Please try again later.'));
+        }
+
+    };
+    const reset = () => {
+        setVerifyLoader(false);
+        setIsOtpVerified(false);
+        setEnableOtpField(false);
+        setOtp('');
+
+    };
 
     useEffect(() => {
         populateBlogList();
