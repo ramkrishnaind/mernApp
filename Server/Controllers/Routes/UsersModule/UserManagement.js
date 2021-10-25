@@ -343,7 +343,7 @@ function removeFromWishList(Models) {
                     { 'userId': req.body.userId }
                 ]
             }
-            let Data = await new Models.WishListDB.remove(query);
+            let Data = await Models.WishListDB.remove(query);
             console.log('Data is', Data)
             if (Data) {
                 // if data found check verified or not
