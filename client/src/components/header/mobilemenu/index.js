@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import clsx from 'clsx';
 import {makeStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -13,6 +13,9 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import logo from "../../../images/vishal-logo.png";
+import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
+import ApiClient from '../../../api-client';
+import '../header.css';
 
 const useStyles = makeStyles({
     list: {
@@ -31,7 +34,25 @@ export default function Mobilemenu() {
         bottom: false,
         right: false,
     });
-    const [submenuVisble, setSubmenuVisible] = useState(0);
+
+
+    const [no, setNo] = useState({no: 0, status: false});
+    const [services, setServices] = useState(null);
+
+    const populateServiceInfo = () => {
+        const getData = async () => {
+            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getService', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+
+            // console.log("ServiceInfo ", response);
+            setServices(response?.data?.items);
+        };
+        getData();
+    };
+
+    useEffect(() => {
+        populateServiceInfo();
+    }, []);
+
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -46,7 +67,6 @@ export default function Mobilemenu() {
                 [classes.fullList]: anchor === 'top' || anchor === 'bottom',
             })}
             role="presentation"
-            onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
@@ -58,7 +78,7 @@ export default function Mobilemenu() {
                 {
                     "id": 2,
                     "title": "About Us",
-                    "href": "/about-us",
+                    "href": "",
                     "submenu": [
                         {
                             "title": "About The Company",
@@ -87,12 +107,12 @@ export default function Mobilemenu() {
                     "title": "Rent",
                     "href": "/search-property-details?type=Rent"
                 },
-                // {
-                //     "id": 5,
-                //     "title": "Services",
-                //     "image": "",
-                //     "submenu": []
-                // },
+                {
+                    "id": 5,
+                    "title": "Services",
+                    "image": "",
+                    "submenu": ["services"]
+                },
                 {
                     "id": 6,
                     "title": "Careers",
@@ -113,21 +133,45 @@ export default function Mobilemenu() {
                     "title": "Blog",
                     "href": "/blog"
                 }].map(({id, title, href, submenu}, index) => {
+                    return <div onClick={!submenu ? toggleDrawer(anchor, false) : () => { }} >
+                        <ListItem button key={id} onClick={() => {
+                            setNo({
+                                no: index,
+                                status: !no.status
+                            });
+                        }} component={RouterLink} to={href}>
+                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                            <ListItemText primary={title} />
+                        </ListItem>
+                        {submenu ? submenu.map((sm, i) => {
 
-                    if (submenu) {
-                        return submenu.map(({id, title, href, submenu}, i) => {
-                            return <ListItem button key={id} component={RouterLink} to={href}>
-                                <ListItemIcon>{(i + 1) % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={title} />
+
+
+                            if (sm == "services") {
+
+
+                                return (services || []).map((sm, idx) => {
+                                    return <ListItem onClick={toggleDrawer(anchor, false)} className={no.no == index && no.status === true ? 'showNav' : 'hideNav'} button key={i} component={RouterLink} to={{pathname: '/service-details', state: sm._id}}>
+                                        <ListItemIcon><DoubleArrowIcon />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b> <ListItemText primary={sm.title} /></b></ListItemIcon>
+
+                                    </ListItem>;
+                                });
+
+                                // return <ListItem onClick={toggleDrawer(anchor, false)} className={no.no == index && no.status === true ? 'showNav' : 'hideNav'} button key={i} component={RouterLink} to={{pathname: '/service-details', state: sm._id}}>
+                                //     <ListItemIcon><DoubleArrowIcon />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b> <ListItemText primary={sm.title} /></b></ListItemIcon>
+
+                                // </ListItem>;
+                            }
+
+                            const {id, title, href, submenu} = sm;
+
+                            return <ListItem onClick={toggleDrawer(anchor, false)} className={no.no == index && no.status === true ? 'showNav' : 'hideNav'} button key={id} component={RouterLink} to={href}>
+                                <ListItemIcon><DoubleArrowIcon />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b> <ListItemText primary={title} /></b></ListItemIcon>
+
                             </ListItem>;
-                        });
-                    }
-
-
-                    return <ListItem button key={id} component={RouterLink} to={href}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={title} />
-                    </ListItem>;
+                        }) : null
+                        }
+                    </div>;
                 })}
             </List>
             <Divider />
