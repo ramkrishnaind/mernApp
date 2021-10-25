@@ -390,7 +390,7 @@ function updateUserFunc(Models) {
             }
             let updateModule = await Models.UserDB.findOneAndUpdate({ _id: userData.id }, { $set: setData });
             console.log('updateModule is', updateModule)
-            res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
+            res.send({ status: true, message: 'User Profile Updated Successfully.' });
         }
         catch (e) {
             console.log('updateUser err', e);
