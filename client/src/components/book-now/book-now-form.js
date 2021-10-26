@@ -214,7 +214,7 @@ export default function BookNowForm() {
                             I <input type="text" required /> has paid Rs. <input type="text" required /> (in numbers) as against my expression of interest for Flat No. <input type="text" required /> of Project <input type="text" required /> .
                         </p>
                         <p className="formP">
-                            <input className="checkBox" type="checkbox" required /> I acknowledge that I have read, understood, and agree to all the <Link to="#">Terms & Conditions</Link>  mentioned herewith.terms & conditions.
+                            <input className="checkBox" type="checkbox" required /> I acknowledge that I have read, understood, and agree to all the <a href="#">Terms & Conditions</a>  mentioned herewith.terms & conditions.
                         </p>
                         <Box className="ParentBookButton">
                             <Button className="BookButton">Book Now</Button>
