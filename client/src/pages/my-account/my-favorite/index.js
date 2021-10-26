@@ -51,12 +51,12 @@ const MyFavorite = (props) => {
                   </Box>
                   <Box className="box-body p-0">
                     <ul className="sidebar-account-menu">
-                      <li><a href="/my-account"> <i className="fas fa-house-user"></i>My Account </a> </li>
-                      <li> <a href="/my-profile"> <i className="far fa-user"></i>My Profile </a> </li>
-                      <li> <a href="/my-property"> <i className="fas fa-building"></i>My Property </a> </li>
-                      <li> <a href="/my-booking"> <i className="far fa-list-alt"></i>My Booking </a> </li>
-                      <li className="active"> <a href="my-favorite"> <i className="far fa-heart"></i>My Favorite </a> </li>
-                      <li> <a className="logout" href="#"><i className="fas fa-sign-out-alt"></i>Log out</a> </li>
+                      <li><Link to="/my-account"> <i className="fas fa-house-user"></i>My Account </Link> </li>
+                      <li> <Link to="/my-profile"> <i className="far fa-user"></i>My Profile </Link> </li>
+                      <li> <Link to="/my-property"> <i className="fas fa-building"></i>My Property </Link> </li>
+                      <li> <Link to="/my-booking"> <i className="far fa-list-alt"></i>My Booking </Link> </li>
+                      <li className="active"> <Link to="my-favorite"> <i className="far fa-heart"></i>My Favorite </Link> </li>
+                      <li> <Link className="logout" to="#"><i className="fas fa-sign-out-alt"></i>Log out</Link> </li>
                     </ul>
                   </Box>
                 </Box>
@@ -73,8 +73,8 @@ const MyFavorite = (props) => {
                         <Grid item xs={12} sm={6} md={4}>
                           <Box className="property-item my-property-item">
                             <Grid contaienr className="property-wrap">
-                              <Grid class="property-favorite-remove">                               
-                                  <a href="#" class="remove remove-from-favorite" title="Remove this Property">×</a>
+                              <Grid class="property-favorite-remove">
+                                <Link to="#" class="remove remove-from-favorite" title="Remove this Property">×</Link>
                               </Grid>
                               <Grid className="property-image">
                                 <Slider {...settings1}>
@@ -112,7 +112,7 @@ const MyFavorite = (props) => {
                                 </Grid>
                               </Grid>
                               <Grid container className="property-button">
-                                <a className="btn btn-primary" href="/"> MORE DETAIL</a>
+                                <Link className="btn btn-primary" to="/"> MORE DETAIL</Link>
                               </Grid>
                             </Grid>
                           </Box>
@@ -120,8 +120,8 @@ const MyFavorite = (props) => {
                         <Grid item xs={12} sm={6} md={4}>
                           <Box className="property-item my-property-item">
                             <Grid contaienr className="property-wrap">
-                              <Grid class="property-favorite-remove">                               
-                                  <a href="#" class="remove remove-from-favorite" title="Remove this product">×</a>
+                              <Grid class="property-favorite-remove">
+                                <Link to="#" class="remove remove-from-favorite" title="Remove this product">×</Link>
                               </Grid>
                               <Grid className="property-image">
                                 <Slider {...settings1}>
@@ -159,7 +159,7 @@ const MyFavorite = (props) => {
                                 </Grid>
                               </Grid>
                               <Grid container className="property-button">
-                                <a className="btn btn-primary" href="/"> MORE DETAIL</a>
+                                <Link className="btn btn-primary" to="/"> MORE DETAIL</Link>
                               </Grid>
                             </Grid>
                           </Box>
@@ -167,8 +167,8 @@ const MyFavorite = (props) => {
                         <Grid item xs={12} sm={6} md={4}>
                           <Box className="property-item  my-property-item">
                             <Grid contaienr className="property-wrap">
-                            <Grid class="property-favorite-remove">                               
-                                  <a href="#" class="remove remove-from-favorite" title="Remove this product">×</a>
+                              <Grid class="property-favorite-remove">
+                                <Link to="#" class="remove remove-from-favorite" title="Remove this product">×</Link>
                               </Grid>
                               <Grid className="property-image">
                                 <Slider {...settings1}>
@@ -206,7 +206,7 @@ const MyFavorite = (props) => {
                                 </Grid>
                               </Grid>
                               <Grid container className="property-button">
-                                <a className="btn btn-primary" href="/"> MORE DETAIL</a>
+                                <Link className="btn btn-primary" to="/"> MORE DETAIL</Link>
                               </Grid>
                             </Grid>
                           </Box>
@@ -214,8 +214,8 @@ const MyFavorite = (props) => {
                         <Grid item xs={12} sm={6} md={4}>
                           <Box className="property-item  my-property-item">
                             <Grid contaienr className="property-wrap">
-                            <Grid class="property-favorite-remove">                               
-                                  <a href="#" class="remove remove-from-favorite" title="Remove this product">×</a>
+                              <Grid class="property-favorite-remove">
+                                <Link to="#" class="remove remove-from-favorite" title="Remove this product">×</Link>
                               </Grid>
                               <Grid className="property-image">
                                 <Slider {...settings1}>
@@ -253,7 +253,7 @@ const MyFavorite = (props) => {
                                 </Grid>
                               </Grid>
                               <Grid container className="property-button">
-                                <a className="btn btn-primary" href="/"> MORE DETAIL</a>
+                                <Link to="/" className="btn btn-primary"> MORE DETAIL</Link>
                               </Grid>
                             </Grid>
                           </Box>

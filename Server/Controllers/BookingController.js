@@ -39,7 +39,7 @@ module.exports = function (conn) {
         name: 'image', maxCount: 3
     }
     ];
-    router.post('/createBooking', userAuthMiddleware, createBookingRequest(allCollection))
+    router.post('/createBooking', requestAuthMiddleware, createBookingRequest(allCollection))
     router.post('/getBookingList', userAuthMiddleware, getBookingListRequest(allCollection))
     // router.post('/updateBooking', userAuthMiddleware, upload.fields(pageMedia), updateBookingRequest(allCollection))
     // router.post('/getBookingRequest', requestAuthMiddleware, getBookingRequest(allCollection))

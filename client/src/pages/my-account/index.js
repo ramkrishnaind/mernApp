@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Container, Grid, Typography, makeStyles, Box, TextField, Button} from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Container, Grid, Typography, makeStyles, Box, TextField, Button } from '@material-ui/core';
 import PageBanner from '../../components/page-banner';
 import './my-account.css';
 
@@ -45,12 +45,12 @@ const MyAccount = (props) => {
                   </Box>
                   <Box className="box-body p-0">
                     <ul className="sidebar-account-menu">
-                      <li className="active"><a href="/my-account"> <i className="fas fa-house-user"></i>My Account </a> </li>
-                      <li> <a href="/my-profile"> <i className="far fa-user"></i>My Profile </a> </li>
-                      <li> <a href="/my-property"> <i className="fas fa-building"></i>My Property </a> </li>
-                      <li> <a href="/my-booking"> <i className="far fa-list-alt"></i>My Booking </a> </li>
-                      <li> <a href="my-favorite"> <i className="far fa-heart"></i>My Favorite </a> </li>
-                      <li> <a className="logout" href="#"><i className="fas fa-sign-out-alt"></i>Log out</a> </li>
+                      <li className="active"><Link to="/my-account"> <i className="fas fa-house-user"></i>My Account </Link> </li>
+                      <li> <Link to="/my-profile"> <i className="far fa-user"></i>My Profile </Link> </li>
+                      <li> <Link to="/my-property"> <i className="fas fa-building"></i>My Property </Link> </li>
+                      <li> <Link to="/my-booking"> <i className="far fa-list-alt"></i>My Booking </Link> </li>
+                      <li> <Link to="my-favorite"> <i className="far fa-heart"></i>My Favorite </Link> </li>
+                      <li> <Link className="logout" to="#"><i className="fas fa-sign-out-alt"></i>Log out</Link> </li>
                     </ul>
                   </Box>
                 </Box>

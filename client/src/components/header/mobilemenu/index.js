@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import {withRouter, Link as RouterLink} from "react-router-dom";
+import { withRouter, Link as RouterLink } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -36,12 +36,12 @@ export default function Mobilemenu() {
     });
 
 
-    const [no, setNo] = useState({no: 0, status: false});
+    const [no, setNo] = useState({ no: 0, status: false });
     const [services, setServices] = useState(null);
 
     const populateServiceInfo = () => {
         const getData = async () => {
-            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getService', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getService', {}, {}, { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization }, false);
 
             // console.log("ServiceInfo ", response);
             setServices(response?.data?.items);
@@ -58,7 +58,7 @@ export default function Mobilemenu() {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
-        setState({...state, [anchor]: open});
+        setState({ ...state, [anchor]: open });
     };
 
     const list = (anchor) => (
@@ -132,7 +132,7 @@ export default function Mobilemenu() {
                     "id": 9,
                     "title": "Blog",
                     "href": "/blog"
-                }].map(({id, title, href, submenu}, index) => {
+                }].map(({ id, title, href, submenu }, index) => {
                     return <div onClick={!submenu ? toggleDrawer(anchor, false) : () => { }} >
                         <ListItem button key={id} onClick={() => {
                             setNo({
@@ -151,7 +151,7 @@ export default function Mobilemenu() {
 
 
                                 return (services || []).map((sm, idx) => {
-                                    return <ListItem onClick={toggleDrawer(anchor, false)} className={no.no == index && no.status === true ? 'showNav' : 'hideNav'} button key={i} component={RouterLink} to={{pathname: '/service-details', state: sm._id}}>
+                                    return <ListItem onClick={toggleDrawer(anchor, false)} className={no.no == index && no.status === true ? 'showNav' : 'hideNav'} button key={i} component={RouterLink} to={{ pathname: '/service-details', state: sm._id }}>
                                         <ListItemIcon><DoubleArrowIcon />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b> <ListItemText primary={sm.title} /></b></ListItemIcon>
 
                                     </ListItem>;
@@ -163,7 +163,7 @@ export default function Mobilemenu() {
                                 // </ListItem>;
                             }
 
-                            const {id, title, href, submenu} = sm;
+                            const { id, title, href, submenu } = sm;
 
                             return <ListItem onClick={toggleDrawer(anchor, false)} className={no.no == index && no.status === true ? 'showNav' : 'hideNav'} button key={id} component={RouterLink} to={href}>
                                 <ListItemIcon><DoubleArrowIcon />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b> <ListItemText primary={title} /></b></ListItemIcon>
@@ -186,7 +186,7 @@ export default function Mobilemenu() {
                 <React.Fragment key={anchor}>
                     <div className="fullWidthheader">
                         <div className="blackRowheader PL">
-                            <a href="/"><img src={logo} alt="Logo" className="mobilelogoWidth" /></a>
+                            <Link to="/"><img src={logo} alt="Logo" className="mobilelogoWidth" /></Link>
                             <div className="humbergIcon">
                                 <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
                                 <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>

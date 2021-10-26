@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {Container, Grid, Typography, makeStyles, Box, TextField, Button} from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Container, Grid, Typography, makeStyles, Box, TextField, Button } from '@material-ui/core';
 import PageBanner from '../../../components/page-banner';
 import '../my-account.css';
 import ApiClient from "../../../api-client/index";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import * as Snackbar from "../../../redux/actions/SnackbarActions";
 import EditIcon from '@material-ui/icons//Edit';
 
@@ -24,7 +24,7 @@ const MyProfile = (props) => {
   const otpHandler = async () => {
     try {
       setVerifyLoader(true);
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/createOTP', {mobile: mobile}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/createOTP', { mobile: mobile }, {}, { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization }, false);
       setEnableOtpField(true);
       setVerifyLoader(false);
       dispatch(Snackbar.showSuccessSnackbar('Otp sent successfully'));
@@ -38,7 +38,7 @@ const MyProfile = (props) => {
 
   const checkOtpValidOrNot = async (value) => {
     try {
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/verifyOTP', {mobile: mobile, otp: value}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/verifyOTP', { mobile: mobile, otp: value }, {}, { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization }, false);
       if (response.status) {
         setIsOtpVerified(true);
         dispatch(Snackbar.showSuccessSnackbar('Otp Verified SuccessFully'));
@@ -63,7 +63,7 @@ const MyProfile = (props) => {
 
   const inputChange = (e) => {
 
-    let {name, value} = e.target;
+    let { name, value } = e.target;
     setOtp(value);
     if (name === 'otp' && value.length == 6 && !isOtpVerified) {
       checkOtpValidOrNot(value);
@@ -105,12 +105,12 @@ const MyProfile = (props) => {
                   </Box>
                   <Box className="box-body p-0">
                     <ul className="sidebar-account-menu">
-                      <li><a href="/my-account"> <i className="fas fa-house-user"></i>My Account </a> </li>
-                      <li className="active"> <a href="/my-profile"> <i className="far fa-user"></i>My Profile </a> </li>
-                      <li> <a href="/my-property"> <i className="fas fa-building"></i>My Property </a> </li>
-                      <li> <a href="/my-booking"> <i className="far fa-list-alt"></i>My Booking </a> </li>
-                      <li> <a href="my-favorite"> <i className="far fa-heart"></i>My Favorite </a> </li>
-                      <li> <a className="logout" href="#"><i className="fas fa-sign-out-alt"></i>Log out</a> </li>
+                      <li><Link To="/my-account"> <i className="fas fa-house-user"></i>My Account </Link> </li>
+                      <li className="active"> <Link To="/my-profile"> <i className="far fa-user"></i>My Profile </Link> </li>
+                      <li> <Link To="/my-property"> <i className="fas fa-building"></i>My Property </Link> </li>
+                      <li> <Link To="/my-booking"> <i className="far fa-list-alt"></i>My Booking </Link> </li>
+                      <li> <Link To="my-favorite"> <i className="far fa-heart"></i>My Favorite </Link> </li>
+                      <li> <Link className="logout" to="#"><i className="fas fa-sign-out-alt"></i>Log out</Link> </li>
                     </ul>
                   </Box>
                 </Box>
@@ -165,14 +165,14 @@ const MyProfile = (props) => {
                                   />
                                 </Box>
                                 <Box className="form-group">
-                                  <div style={{display: 'block', width: '100%', marginTop: 15}}>
-                                    <div style={{display: 'flex', width: "80%"}}>
+                                  <div style={{ display: 'block', width: '100%', marginTop: 15 }}>
+                                    <div style={{ display: 'flex', width: "80%" }}>
                                       <TextField
                                         className="form-control"
                                         variant="outlined"
                                         label="Phone Number"
                                         name="Phone"
-                                        style={{width: '76%'}}
+                                        style={{ width: '76%' }}
                                         disabled={isOtpVerified}
                                         type="number"
                                         min="1000000"
@@ -194,14 +194,14 @@ const MyProfile = (props) => {
                                         }}
                                         fullWidth >
                                       </TextField>
-                                      {mobile.length === 10 && !enableOtpField ? <Button style={{width: '20%'}} onClick={otpHandler} variant="contained" style={{background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff'}}
+                                      {mobile.length === 10 && !enableOtpField ? <Button style={{ width: '20%' }} onClick={otpHandler} variant="contained" style={{ background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff' }}
                                       >Verify</Button> : isOtpVerified && <div onClick={reset}> <EditIcon /> </div>}
                                     </div>
                                     {enableOtpField && <TextField
                                       className="EmiInputs"
                                       placeholder="Otp"
 
-                                      style={{width: '100%', marginTop: 15}}
+                                      style={{ width: '100%', marginTop: 15 }}
 
                                       fullWidth
                                       value={otp}
@@ -216,7 +216,7 @@ const MyProfile = (props) => {
                                         }
                                       }}
                                       InputLabelProps={{
-                                        style: {color: '#FFFFFF'}
+                                        style: { color: '#FFFFFF' }
                                       }}
                                     />}
                                   </div>

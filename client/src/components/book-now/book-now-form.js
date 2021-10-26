@@ -1,12 +1,12 @@
 import Grid from '@material-ui/core/Grid';
-import {makeStyles, Button, Box} from '@material-ui/core';
+import { makeStyles, Button, Box } from '@material-ui/core';
 import "./book-now-form.css";
 import TextField from '@material-ui/core/TextField';
 import SectionHeader from '../section-header';
 import APP_CONSTANTS from '../../constants/app-constants';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import ApiClient from "../../api-client";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import * as Snackbar from "../../redux/actions/SnackbarActions";
 import EditIcon from '@material-ui/icons//Edit';
 
@@ -43,7 +43,7 @@ export default function BookNowForm() {
     const otpHandler = async () => {
         try {
             setVerifyLoader(true);
-            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/createOTP', {mobile: mobile}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/createOTP', { mobile: mobile }, {}, { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization }, false);
             setEnableOtpField(true);
             setVerifyLoader(false);
             dispatch(Snackbar.showSuccessSnackbar('Otp sent successfully'));
@@ -57,7 +57,7 @@ export default function BookNowForm() {
 
     const checkOtpValidOrNot = async (value) => {
         try {
-            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/verifyOTP', {mobile: mobile, otp: value}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+            const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/verifyOTP', { mobile: mobile, otp: value }, {}, { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization }, false);
             if (response.status) {
                 setIsOtpVerified(true);
                 dispatch(Snackbar.showSuccessSnackbar('Otp Verified SuccessFully'));
@@ -75,13 +75,13 @@ export default function BookNowForm() {
         setVerifyLoader(false);
         setIsOtpVerified(false);
         setEnableOtpField(false);
-        setState({...state, phoneno: ''});
+        setState({ ...state, phoneno: '' });
         setOtp('');
     };
 
     const inputChange = (e) => {
 
-        let {name, value} = e.target;
+        let { name, value } = e.target;
         setOtp(value);
         if (name === 'otp' && value.length === 6 && !isOtpVerified) {
             checkOtpValidOrNot(value);
@@ -104,7 +104,7 @@ export default function BookNowForm() {
         }
     }, []);
     return (
-        <div class="client-bgform" style={{padding: 20, borderRadius: 20}}>
+        <div class="client-bgform" style={{ padding: 20, borderRadius: 20 }}>
             <div className={classes.root}>
 
                 <SectionHeader title={APP_CONSTANTS.online_form_title} subtitle={APP_CONSTANTS.online_form_subtitles} />
@@ -152,13 +152,13 @@ export default function BookNowForm() {
                         </Grid>
                         <Grid item xs={12} className="TextfildGrid">
                             <form className={classes.root} className="OutForm" noValidate autoComplete="off">
-                                <div style={{display: 'block', width: '100%'}}>
-                                    <div style={{display: 'flex', width: "80%"}}>
+                                <div style={{ display: 'block', width: '100%' }}>
+                                    <div style={{ display: 'flex', width: "80%" }}>
                                         <TextField
                                             className="EmiInputs"
                                             label="Phone Number"
                                             name="Phone"
-                                            style={{width: '76%', backgroundColor: '#fff'}}
+                                            style={{ width: '76%', backgroundColor: '#fff' }}
                                             disabled={isOtpVerified}
                                             type="number"
                                             min="1000000"
@@ -177,18 +177,18 @@ export default function BookNowForm() {
                                                 }
                                             }}
                                             InputLabelProps={{
-                                                style: {color: '#FFFFFF'}
+                                                style: { color: '#FFFFFF' }
                                             }}
                                             fullWidth >
                                         </TextField>
-                                        {mobile.length === 10 && !enableOtpField ? <Button style={{width: '20%'}} onClick={otpHandler} variant="contained" style={{background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff'}}
+                                        {mobile.length === 10 && !enableOtpField ? <Button style={{ width: '20%' }} onClick={otpHandler} variant="contained" style={{ background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff' }}
                                         >Verify</Button> : isOtpVerified && <div onClick={reset}> <EditIcon /> </div>}
                                     </div>
                                     {enableOtpField && <TextField
                                         className="EmiInputs"
                                         placeholder="Otp"
 
-                                        style={{width: '100%', marginTop: 15, backgroundColor: '#fff'}}
+                                        style={{ width: '100%', marginTop: 15, backgroundColor: '#fff' }}
                                         variant="outlined"
                                         fullWidth
                                         value={otp}
@@ -202,7 +202,7 @@ export default function BookNowForm() {
                                             }
                                         }}
                                         InputLabelProps={{
-                                            style: {color: '#FFFFFF'}
+                                            style: { color: '#FFFFFF' }
                                         }}
                                     />}
                                 </div>
@@ -214,7 +214,7 @@ export default function BookNowForm() {
                             I <input type="text" required /> has paid Rs. <input type="text" required /> (in numbers) as against my expression of interest for Flat No. <input type="text" required /> of Project <input type="text" required /> .
                         </p>
                         <p className="formP">
-                            <input className="checkBox" type="checkbox" required /> I acknowledge that I have read, understood, and agree to all the <a href="#">Terms & Conditions</a>  mentioned herewith.terms & conditions.
+                            <input className="checkBox" type="checkbox" required /> I acknowledge that I have read, understood, and agree to all the <Link to="#">Terms & Conditions</Link>  mentioned herewith.terms & conditions.
                         </p>
                         <Box className="ParentBookButton">
                             <Button className="BookButton">Book Now</Button>

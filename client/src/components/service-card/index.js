@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./service-card.css";
-import {makeStyles, Box} from "@material-ui/core";
-import {Link as RouterLink} from "react-router-dom";
+import { makeStyles, Box } from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
 import ApiClient from "../../api-client";
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 const ServiceCard = props => {
     // console.log("segrvice", props);
     const classes = useStyles();
-    const {title, shortDescription, media, _id} = props.service;
+    const { title, shortDescription, media, _id } = props.service;
 
     // console.log("Service card", props.service);
     // console.log("{title, shortDescription}", title, shortDescription, media);
@@ -40,18 +40,18 @@ const ServiceCard = props => {
     return (
         <div className="portfolio-item" >
             <figure>
-                <img className="img pulse" src={img1} alt="" style={{width: '100%', height: 240}} />
+                <img className="img pulse" src={img1} alt="" style={{ width: '100%', height: 240 }} />
                 <div className="mask">
                     <h2>{title}</h2>
                     <p className="portfolio-item-content">{shortDescription}</p>
-                    <Box className={'info'} style={{marginTop: 10}} component={RouterLink} to={
+                    <Box className={'info'} style={{ marginTop: 10 }} component={RouterLink} to={
                         {
                             pathname: '/service-details',
                             state: _id
                         }}>
                         MORE DETAIL
                     </Box>
-                    {/* <a href="/service-details" className="info" style={{marginTop: 10}} >Read More</a> */}
+                    {/* <Link to="/service-details" className="info" style={{marginTop: 10}} >Read More</Link> */}
                 </div>
             </figure>
         </div >

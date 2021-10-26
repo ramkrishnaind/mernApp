@@ -472,7 +472,7 @@ const Footer = (props) => {
               >
                 <i class="fab fa-twitter"></i>
               </a>
-              {/* <a href="#" class="fixed-gplus" target="_blank"><i class="fab fa-google"></i></a> */}
+              {/* <Link to="#" class="fixed-gplus" target="_blank"><i class="fab fa-google"></i></a> */}
               <a
                 href={socialLinks?.linkedin}
                 class="fixed-linkedin"
@@ -487,7 +487,7 @@ const Footer = (props) => {
               >
                 <i class="fab fa-instagram"></i>
               </a>
-              {/* <a href="#" class="fixed-tumblr" target="_blank"><i class="fab fa-tumblr"></i></a> */}
+              {/* <Link to="#" class="fixed-tumblr" target="_blank"><i class="fab fa-tumblr"></i></a> */}
               <a
                 className="fixed-youtube"
                 target="_blank"
@@ -499,10 +499,10 @@ const Footer = (props) => {
           </Box>
           <li class="animatebtn">
             {" "}
-            <a href="tel:+91 9571647680">
+            <Link to="tel:+91 9571647680">
               {" "}
               <i class="fa fa-phone-alt"></i>{" "}
-            </a>{" "}
+            </Link>{" "}
           </li>
         </ul>
       </Box>

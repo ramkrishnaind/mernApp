@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Grid,
@@ -12,7 +12,7 @@ import {
 import "./contact-us.css";
 import PageBanner from "../../components/page-banner";
 import bannerImage from "../../images/contact-us.jpeg";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
@@ -22,7 +22,7 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import FacebookIcon from '@material-ui/icons/Facebook';
 
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import * as ContactusAction from '../../redux/actions/ContactusAction';
 import ApiClient from "../../api-client";
 import EditIcon from '@material-ui/icons//Edit';
@@ -107,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ContactUsPage = (props) => {
   const classes = useStyles();
-  const {item} = props;
+  const { item } = props;
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
@@ -124,7 +124,7 @@ const ContactUsPage = (props) => {
   const otpHandler = async () => {
     try {
       setVerifyLoader(true);
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/createOTP', {mobile: mobile}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/createOTP', { mobile: mobile }, {}, { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization }, false);
       setEnableOtpField(true);
       setVerifyLoader(false);
       dispatch(Snackbar.showSuccessSnackbar('Otp sent successfully'));
@@ -138,7 +138,7 @@ const ContactUsPage = (props) => {
 
   const checkOtpValidOrNot = async (value) => {
     try {
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/verifyOTP', {mobile: mobile, otp: value}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/verifyOTP', { mobile: mobile, otp: value }, {}, { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization }, false);
       if (response.status) {
         setIsOtpVerified(true);
         dispatch(Snackbar.showSuccessSnackbar('Otp Verified SuccessFully'));
@@ -162,7 +162,7 @@ const ContactUsPage = (props) => {
   };
   const inputChange = (e) => {
 
-    let {name, value} = e.target;
+    let { name, value } = e.target;
     setOtp(value);
     if (name === 'otp' && value.length == 6 && !isOtpVerified) {
       checkOtpValidOrNot(value);
@@ -202,73 +202,73 @@ const ContactUsPage = (props) => {
 
 
   return (
-    <div style={{background: "#F7F7F7"}}>
+    <div style={{ background: "#F7F7F7" }}>
       <PageBanner
         bgImage={bannerImage}
         title="Contact Us"
         currentPage="CONTACT US"
       />
-      <Container style={{paddingLeft: '10%', paddingRight: '10%', marginTop: 20, marginBottom: 20}}>
-        <Paper style={{padding: 20}}>
+      <Container style={{ paddingLeft: '10%', paddingRight: '10%', marginTop: 20, marginBottom: 20 }}>
+        <Paper style={{ padding: 20 }}>
           <Grid container spacing={1}>
             <Grid item xs={12} md={6} className={classes.style1}>
               <Typography className={classes.text1}>Let's get in touch</Typography>
               <Typography className={classes.text4}>Contact us with the following details. and fillup the form with the details.</Typography>
               <Grid container>
                 <Grid item xs={12} md={12} className={classes.style2} >
-                  <LocationOnIcon style={{color: "#FF7601", fontSize: 25, padding: 0, marginRight: 8, }} />
+                  <LocationOnIcon style={{ color: "#FF7601", fontSize: 25, padding: 0, marginRight: 8, }} />
                   <Typography className={classes.text3}>{companyDetails?.adress} {companyDetails?.city} {companyDetails?.state} - {companyDetails?.pinCode}</Typography>
                 </Grid>
               </Grid>
               <Grid container>
                 <Grid item xs={12} md={12} className={classes.style2} >
-                  <MailOutlineIcon style={{color: "#FF7601", fontSize: 25, padding: 0, marginRight: 8, }} />
+                  <MailOutlineIcon style={{ color: "#FF7601", fontSize: 25, padding: 0, marginRight: 8, }} />
                   <Typography className={classes.text3}>{companyDetails?.email}</Typography>
                 </Grid>
               </Grid>
               <Grid container>
                 <Grid item xs={12} md={12} className={classes.style2} >
-                  <PhoneIphoneIcon style={{color: "#FF7601", fontSize: 25, padding: 0, marginRight: 8, }} />
+                  <PhoneIphoneIcon style={{ color: "#FF7601", fontSize: 25, padding: 0, marginRight: 8, }} />
                   <Typography className={classes.text3}>{companyDetails?.mobile}</Typography>
                 </Grid>
               </Grid>
               <Grid container>
                 <Grid item xs={12} md={12} className={classes.style2} >
-                  <AccessTimeIcon style={{color: "#FF7601", fontSize: 25, padding: 0, marginRight: 8, }} />
+                  <AccessTimeIcon style={{ color: "#FF7601", fontSize: 25, padding: 0, marginRight: 8, }} />
                   <Typography className={classes.text3}>{companyDetails?.timming}</Typography>
                 </Grid>
               </Grid>
-              <Typography className={classes.text4} style={{marginTop: 30}}>Connect with us :</Typography>
+              <Typography className={classes.text4} style={{ marginTop: 30 }}>Connect with us :</Typography>
               <Grid container>
                 <Grid item xs={12} md={12} className={classes.style2}>
                   <Box className={`${classes.socialBox} social_icon`}>
-                    <a href={socialLinks?.facebook}>
-                      <FacebookIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
-                    </a>
+                    <Link to={socialLinks?.facebook}>
+                      <FacebookIcon style={{ color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                    </Link>
                   </Box>
                   <Box className={`${classes.socialBox} social_icon`}>
-                    <a href={socialLinks?.twitter}>
-                      <TwitterIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
-                    </a>
+                    <Link to={socialLinks?.twitter}>
+                      <TwitterIcon style={{ color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                    </Link>
 
                   </Box>
                   <Box className={`${classes.socialBox} social_icon`}>
-                    <a href={socialLinks?.instagram}>
-                      <InstagramIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
-                    </a>
+                    <Link to={socialLinks?.instagram}>
+                      <InstagramIcon style={{ color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                    </Link>
                   </Box>
                   <Box className={`${classes.socialBox} social_icon`}>
-                    <a href={socialLinks?.linkedin}>
-                      <LinkedInIcon style={{color: '#FFFFFF', fontSize: 20, padding: 0, }} />
-                    </a>
+                    <Link to={socialLinks?.linkedin}>
+                      <LinkedInIcon style={{ color: '#FFFFFF', fontSize: 20, padding: 0, }} />
+                    </Link>
                   </Box>
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} md={6} className={classes.style1} style={{background: '#FF7601', padding: 20}}>
+            <Grid item xs={12} md={6} className={classes.style1} style={{ background: '#FF7601', padding: 20 }}>
               <Typography className={classes.text5}>Contact Us</Typography>
               <TextField
-                style={{marginTop: 15}}
+                style={{ marginTop: 15 }}
                 variant="outlined"
                 label="Name"
                 name="Name"
@@ -281,11 +281,11 @@ const ContactUsPage = (props) => {
                   }
                 }}
                 InputLabelProps={{
-                  style: {color: '#FFFFFF'}
+                  style: { color: '#FFFFFF' }
                 }}>
               </TextField>
               <TextField
-                style={{marginTop: 15}}
+                style={{ marginTop: 15 }}
                 variant="outlined"
                 label="Email"
                 type="email"
@@ -299,18 +299,18 @@ const ContactUsPage = (props) => {
                   }
                 }}
                 InputLabelProps={{
-                  style: {color: '#FFFFFF'}
+                  style: { color: '#FFFFFF' }
                 }}>
               </TextField>
-              <div style={{display: 'block', width: '100%', marginTop: 15}}>
-                <div style={{display: 'flex', width: "80%"}}>
+              <div style={{ display: 'block', width: '100%', marginTop: 15 }}>
+                <div style={{ display: 'flex', width: "80%" }}>
                   <TextField
                     className="EmiInputs"
-                    style={{marginTop: 15}}
+                    style={{ marginTop: 15 }}
                     variant="outlined"
                     label="Phone Number"
                     name="Phone"
-                    style={{width: '76%'}}
+                    style={{ width: '76%' }}
                     disabled={isOtpVerified}
                     type="number"
                     min="1000000"
@@ -328,18 +328,18 @@ const ContactUsPage = (props) => {
                       }
                     }}
                     InputLabelProps={{
-                      style: {color: '#FFFFFF'}
+                      style: { color: '#FFFFFF' }
                     }}
                     fullWidth >
                   </TextField>
-                  {mobile.length === 10 && !enableOtpField ? <Button style={{width: '20%'}} onClick={otpHandler} variant="contained" style={{background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff'}}
+                  {mobile.length === 10 && !enableOtpField ? <Button style={{ width: '20%' }} onClick={otpHandler} variant="contained" style={{ background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff' }}
                   >Verify</Button> : isOtpVerified && <div onClick={reset}> <EditIcon /> </div>}
                 </div>
                 {enableOtpField && <TextField
                   className="EmiInputs"
                   placeholder="Otp"
 
-                  style={{width: '100%', marginTop: 15}}
+                  style={{ width: '100%', marginTop: 15 }}
 
                   fullWidth
                   value={otp}
@@ -354,14 +354,14 @@ const ContactUsPage = (props) => {
                     }
                   }}
                   InputLabelProps={{
-                    style: {color: '#FFFFFF'}
+                    style: { color: '#FFFFFF' }
                   }}
                 />}
               </div>
 
 
               <TextField
-                style={{marginTop: 15}}
+                style={{ marginTop: 15 }}
                 variant="outlined"
                 label="Subject"
                 name="Subject"
@@ -374,12 +374,12 @@ const ContactUsPage = (props) => {
                   }
                 }}
                 InputLabelProps={{
-                  style: {color: '#FFFFFF'}
+                  style: { color: '#FFFFFF' }
                 }}>
               </TextField>
 
               <TextField
-                style={{marginTop: 15}}
+                style={{ marginTop: 15 }}
                 variant="outlined"
                 label="Message"
                 fullWidth
@@ -395,7 +395,7 @@ const ContactUsPage = (props) => {
                   }
                 }}
                 InputLabelProps={{
-                  style: {color: '#FFFFFF'}
+                  style: { color: '#FFFFFF' }
                 }}>
               </TextField>
               <Button className={`${classes.btn1} send-btn`} variant="contained" onClick={(e) => handleData(e)} >Send</Button>

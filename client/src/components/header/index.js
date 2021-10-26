@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./header.css";
 import {
   Grid,
@@ -15,7 +15,7 @@ import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import APP_CONSTANTS from "../../constants/app-constants";
 import MenuItemList from "../menu-item";
 import menuItems from "../../utils/menu.json";
-import {withRouter, Link as RouterLink} from "react-router-dom";
+import { withRouter, Link as RouterLink } from "react-router-dom";
 //import Logo from "../../images/logo.png";
 import Logo from "../../images/vishal-logo.png";
 import Mobilemenu from "./mobilemenu";
@@ -25,7 +25,7 @@ import * as Snackbar from "../../redux/actions/SnackbarActions";
 
 import Dialog from "@material-ui/core/Dialog";
 
-import {withStyles} from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
@@ -36,7 +36,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import BookNowModal from '../book-now/book-now';
 
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import * as SitevisitAction from "../../redux/actions/SitevisitAction";
 
 import ReactDOM from 'react-dom';
@@ -60,7 +60,7 @@ const stylessd = (theme) => ({
 });
 
 const DialogTitle = withStyles(stylessd)((props) => {
-  const {children, classes, onClose, ...other} = props;
+  const { children, classes, onClose, ...other } = props;
 
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
@@ -157,7 +157,7 @@ const Header = (props) => {
     const authorization = 'Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs';
     try {
       setVerifyLoader(true);
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/createOTP', {mobile: mobile}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/createOTP', { mobile: mobile }, {}, { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization }, false);
       setEnableOtpField(true);
       setVerifyLoader(false);
       dispatch(Snackbar.showSuccessSnackbar('Otp sent successfully'));
@@ -171,7 +171,7 @@ const Header = (props) => {
 
   const checkOtpValidOrNot = async (value) => {
     try {
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/verifyOTP', {mobile: mobile, otp: value}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/verifyOTP', { mobile: mobile, otp: value }, {}, { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization }, false);
       if (response.status) {
         setIsOtpVerified(true);
         dispatch(Snackbar.showSuccessSnackbar('Otp Verified SuccessFully'));
@@ -195,7 +195,7 @@ const Header = (props) => {
   };
   const inputChange = (e) => {
 
-    let {name, value} = e.target;
+    let { name, value } = e.target;
     setOtp(value);
     if (name === 'otp' && value.length === 6 && !isOtpVerified) {
       checkOtpValidOrNot(value);
@@ -225,7 +225,7 @@ const Header = (props) => {
 
   const populateOwnerDetails = () => {
     const getData = async () => {
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getFooterAddress', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getFooterAddress', {}, {}, { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization }, false);
       setOwnerDetails(response.data);
       localStorage.setItem('company_detials', JSON.stringify(response.data));
     };
@@ -388,7 +388,7 @@ const Header = (props) => {
             >
               <Box className="logoImage">
                 <div className="logo">
-                  <a href="/"> <img src={Logo} /> </a>
+                  <Link to="/"> <img src={Logo} /> </Link>
                 </div>
               </Box>
               <Grid
@@ -460,7 +460,7 @@ const Header = (props) => {
         <Box className="emiForm">
           <TextField
             className="EmiInputs"
-            style={{marginTop: 15}}
+            style={{ marginTop: 15 }}
             variant="outlined"
             label="Your Name"
             name="Name"
@@ -472,13 +472,13 @@ const Header = (props) => {
               },
             }}
             InputLabelProps={{
-              style: {color: "#FFFFFF"},
+              style: { color: "#FFFFFF" },
             }}
             fullWidth
           ></TextField>
           <TextField
             className="EmiInputs"
-            style={{marginTop: 15}}
+            style={{ marginTop: 15 }}
             variant="outlined"
             label="Email Address"
             type="email"
@@ -491,7 +491,7 @@ const Header = (props) => {
               },
             }}
             InputLabelProps={{
-              style: {color: "#FFFFFF"},
+              style: { color: "#FFFFFF" },
             }}
             fullWidth
           ></TextField>
@@ -515,15 +515,15 @@ const Header = (props) => {
             <option value="6:00 PM">6:00 PM</option>
             <option value="7:00 PM">7:00 PM</option>
           </NativeSelect>
-          <div style={{display: 'flex'}}>
-            <div style={{display: 'flex', width: "50%"}}>
+          <div style={{ display: 'flex' }}>
+            <div style={{ display: 'flex', width: "50%" }}>
               <TextField
                 className="EmiInputs"
                 // style={{marginTop: 15}}
                 variant="outlined"
                 label="Phone Number"
                 name="Phone"
-                style={{width: '76%'}}
+                style={{ width: '76%' }}
                 disabled={isOtpVerified}
                 type="number"
                 min="1000000"
@@ -541,17 +541,17 @@ const Header = (props) => {
                   }
                 }}
                 InputLabelProps={{
-                  style: {color: '#FFFFFF'}
+                  style: { color: '#FFFFFF' }
                 }}
                 fullWidth >
               </TextField>
-              {mobile.length === 10 && !enableOtpField ? <Button style={{width: '23%'}} onClick={otpHandler} variant="contained" style={{background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff'}}
+              {mobile.length === 10 && !enableOtpField ? <Button style={{ width: '23%' }} onClick={otpHandler} variant="contained" style={{ background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff' }}
               >Verify</Button> : isOtpVerified && <div onClick={reset}> <EditIcon /> </div>}
             </div>
             {enableOtpField && <TextField
               className="EmiInputs"
               placeholder="Otp"
-              style={{width: '50%'}}
+              style={{ width: '50%' }}
 
               fullWidth
               value={otp}
@@ -566,7 +566,7 @@ const Header = (props) => {
                 }
               }}
               InputLabelProps={{
-                style: {color: '#FFFFFF'}
+                style: { color: '#FFFFFF' }
               }}
             />}
           </div>

@@ -1,6 +1,6 @@
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import {makeStyles, Container, FormHelperText, Button, Box} from '@material-ui/core';
+import { makeStyles, Container, FormHelperText, Button, Box } from '@material-ui/core';
 import "./online-form.css";
 import FormControl from '@material-ui/core/FormControl';
 // import InputLabel from '@material-ui/core/InputLabel';
@@ -152,7 +152,7 @@ export default function OnlineBooking() {
                                 I <input type="text" required /> has paid Rs. <input type="text" required /> (in numbers) as against my expression of interest for Flat No. <input type="text" required /> of Project <input type="text" required /> .
                             </p>
                             <p className="formP">
-                                <input className="checkBox" type="checkbox" required /> I acknowledge that I have read, understood, and agree to all the <a href="#">Terms & Conditions</a>  mentioned herewith.terms & conditions.
+                                <input className="checkBox" type="checkbox" required /> I acknowledge that I have read, understood, and agree to all the <Link to="#">Terms & Conditions</Link>  mentioned herewith.terms & conditions.
                             </p>
                             <Box className="ParentBookButton">
                                 <Button className="BookButton">Book Now</Button>
