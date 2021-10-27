@@ -261,7 +261,7 @@ function getUserBookings(Models) {
 
 
             // Getting User from Database
-            let Data = await Models.BookingDB.find({ userId: req.body.userId }).populate('property');
+            let Data = await Models.BookingDB.find({ userId: req.body.userId }).populate('propertyId');
             console.log('Data is', Data)
             if (Data) {
                 // if data found check verified or not
