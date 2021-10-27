@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import LocalHotelIcon from '@material-ui/icons/LocalHotel';
 import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
 import BathtubIcon from '@material-ui/icons/Bathtub';
+import { Link } from 'react-router-dom';
 
 const settings1 = {
   dots: false,
