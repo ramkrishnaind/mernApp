@@ -261,11 +261,20 @@ function getUserBookings(Models) {
 
 
             // Getting User from Database
-            let Data = await Models.BookingDB.find({ userId: req.body.userId });
-            console.log('Data is', Data)
-            if (Data) {
+            let Data = await Models.BookingDB.find({ userId: req.body.userId }).populate('propertyId');
+            let result = [];
+            for (let x = 0; x < Data.length; x++) {
+                let item = Data[x].toObject()
+                let propertyId = item.propertyId._id;
+                let imageData = await Models.PImageDB.findOne({ _id: propertyId });
+                let mainImage = imageData ? imageData.mainImage : [];
+                item.images = mainImage;
+                result.push(item)
+            }
+            console.log('Data is', result)
+            if (result) {
                 // if data found check verified or not
-                res.send({ status: true, message: "User Booking List", data: Data });
+                res.send({ status: true, message: "User Booking List", data: result });
             } else {
                 res.send({ status: true, message: "User Booking not found" });
             }
