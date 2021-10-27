@@ -406,10 +406,13 @@ function getPropertyByType(Models) {
 
             let bodyData = _.pick(req.body, ["type"]);
             console.log('bodyData', bodyData)
+            console.log('bodyData.type', bodyData.type)
             if (bodyData.type != "RESIDENTIAL" || bodyData.type != "COMMERCIAL") {
+                console.log('i am in if', bodyData.type)
                 throw { status: false, error: true, message: "Property type must be \"RESIDENTIAL\" or \"COMMERCIAL\"" };
             }
-            let data = await Models.PFeaturesDB.find({ pType: bodyData.type }).lean();
+            console.log('i am in out', bodyData.type)
+            let data = await Models.PropertyDB.find({ pType: bodyData.type }).lean();
             res.send({ status: true, message: "Property List.", data });
         }
         catch (e) {
