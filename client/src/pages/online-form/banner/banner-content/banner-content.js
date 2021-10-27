@@ -1,6 +1,7 @@
 import { Box, Container } from '@material-ui/core';
 import React from 'react';
 import "./banner-content.css"
+import { Link } from 'react-router-dom';
 
 
 function BannerContent() {
