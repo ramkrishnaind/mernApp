@@ -405,6 +405,7 @@ function getPropertyByType(Models) {
             // pick data from req.body
 
             let bodyData = _.pick(req.body, ["type"]);
+            console.log('bodyData', bodyData)
             if (bodyData.type != "RESIDENTIAL" || bodyData.type != "COMMERCIAL") {
                 throw { status: false, error: true, message: "Property type must be \"RESIDENTIAL\" or \"COMMERCIAL\"" };
             }
