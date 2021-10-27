@@ -405,7 +405,7 @@ function getPropertyByType(Models) {
             // pick data from req.body
 
             let bodyData = _.pick(req.body, ["type"]);
-            if (bodyData.tpye != "RESIDENTIAL" || bodyData.tpye != "COMMERCIAL") {
+            if (bodyData.type != "RESIDENTIAL" || bodyData.type != "COMMERCIAL") {
                 throw { status: false, error: true, message: "Property type must be \"RESIDENTIAL\" or \"COMMERCIAL\"" };
             }
             let data = await Models.PFeaturesDB.find({ pType: bodyData.type }).lean();
