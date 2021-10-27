@@ -265,7 +265,7 @@ function getUserBookings(Models) {
             for (let x = 0; x < Data.length; x++) {
                 let propertyId = Data[x].propertyId._id;
                 let imageData = await Models.PImageDB.findOne({ _id: propertyId });
-                let mainImage = imageData.mainImage;
+                let mainImage = imageData ? imageData.mainImage : [];
                 Data[x].images = mainImage;
             }
             console.log('Data is', Data)
