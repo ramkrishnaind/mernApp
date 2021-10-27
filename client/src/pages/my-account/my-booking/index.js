@@ -1,19 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, makeStyles, Box, TextField, Button } from '@material-ui/core';
-import PageBanner from '../../../components/page-banner';
-import '../my-account.css';
+import React, { useEffect, useState } from "react";
+import {
+  Container,
+  Grid,
+  Typography,
+  makeStyles,
+  Box,
+  TextField,
+  Button,
+} from "@material-ui/core";
+import PageBanner from "../../../components/page-banner";
+import "../my-account.css";
+import ApiClient from "../../../api-client";
+import * as Snackbar from "../../../redux/actions/SnackbarActions";
+import { Link as RouterLink } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-
-}));
+const useStyles = makeStyles((theme) => ({}));
 
 const MyBooking = (props) => {
+  const [name, setName] = useState("");
+  const [booking, setBookingList] = useState([]);
 
+  const { classes } = props;
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    setName(user.firstName + " " + user.lastName);
+    populateDirectorDetails();
+  }, []);
+
+  const populateDirectorDetails = () => {
+    const getData = async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        "/users/getUserBookings",
+        { userId: user._id },
+        {},
+        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+        true
+      );
+
+      setBookingList(response?.data || []);
+      // console.log('About us details', aboutUsInfo, aboutSection);
+    };
+    try {
+      getData();
+    } catch (e) {
+      Snackbar.showFailSnackbar(
+        "We are facing some issue Please try again later."
+      );
+      console.log("populateDirectorDetails::e", e);
+    }
+  };
   return (
     <div>
       <PageBanner
-        bgImage={'/about_us.jpeg'}
+        bgImage={"/about_us.jpeg"}
         title="My Booking"
         currentPage="My Booking"
       />
@@ -25,20 +67,57 @@ const MyBooking = (props) => {
               <Box className="box-item">
                 <Box className="box-wrap box-border-bottom box-radius">
                   <Box className="user-intro box-body">
-                    <Box className="user-icon">  <img src="images/profile-img.jpg" alt="" /> </Box>
+                    <Box className="user-icon">
+                      {" "}
+                      <img src="images/profile-img.jpg" alt="" />{" "}
+                    </Box>
                     <Box className="user-info">
-                      <h4> Arjun Singh</h4>
+                      <h4> {name}</h4>
                       <p>Permium</p>
                     </Box>
                   </Box>
                   <Box className="box-body p-0">
                     <ul className="sidebar-account-menu">
-                      <li><a href="/my-account"> <i className="fas fa-house-user"></i>My Account </a> </li>
-                      <li> <a href="/my-profile"> <i className="far fa-user"></i>My Profile </a> </li>
-                      <li> <a href="/my-property"> <i className="fas fa-building"></i>My Property </a> </li>
-                      <li className="active"> <a href="/my-booking"> <i className="far fa-list-alt"></i>My Booking </a> </li>
-                      <li> <a href="my-favorite"> <i className="far fa-heart"></i>My Favorite </a> </li>
-                      <li> <a className="logout" href="#"><i className="fas fa-sign-out-alt"></i>Log out</a> </li>
+                      <li>
+                        <a href="/my-account">
+                          {" "}
+                          <i className="fas fa-house-user"></i>My Account{" "}
+                        </a>{" "}
+                      </li>
+                      <li>
+                        {" "}
+                        <a href="/my-profile">
+                          {" "}
+                          <i className="far fa-user"></i>My Profile{" "}
+                        </a>{" "}
+                      </li>
+                      <li>
+                        {" "}
+                        <a href="/my-property">
+                          {" "}
+                          <i className="fas fa-building"></i>My Property{" "}
+                        </a>{" "}
+                      </li>
+                      <li className="active">
+                        {" "}
+                        <a href="/my-booking">
+                          {" "}
+                          <i className="far fa-list-alt"></i>My Booking{" "}
+                        </a>{" "}
+                      </li>
+                      <li>
+                        {" "}
+                        <a href="my-favorite">
+                          {" "}
+                          <i className="far fa-heart"></i>My Favorite{" "}
+                        </a>{" "}
+                      </li>
+                      <li>
+                        {" "}
+                        <a className="logout" href="#">
+                          <i className="fas fa-sign-out-alt"></i>Log out
+                        </a>{" "}
+                      </li>
                     </ul>
                   </Box>
                 </Box>
@@ -49,60 +128,58 @@ const MyBooking = (props) => {
               <Box className="content-section">
                 <Box className="box-item">
                   <Box className="box-wrap box-border-bottom box-radius">
-                    <Box className="box-header"><h5 className="box-title">My Booking Lists</h5></Box>
+                    <Box className="box-header">
+                      <h5 className="box-title">My Booking Lists</h5>
+                    </Box>
                     <Box class="box-body">
-                      <Box class="booking-table">
-                        <Box class="tabel-row">
-                          <Box class="table-cell">Booking No.-1010103</Box>
-                          <Box class="table-cell text-right">25 Oct 2021 04:08 PM</Box>
-                        </Box>
-                        <Box class="tabel-row">
-                          <Box class="table-cell booking-img"><a href="#"><img src="images/property_img3.jpeg" width="75" height="75" /></a></Box>
-                          <Box class="table-cell">
-                            <p class="booking-title"><a href="#">Vishal Heavens Property </a></p>
-                            <p class="booking-status booking-process">Booking Processing!</p>
+                      {booking?.map((role, index) => (
+                        <Box class="booking-table">
+                          <Box class="tabel-row">
+                            <Box class="table-cell">
+                              Booking No.-{role?._id}
+                            </Box>
+                            <Box class="table-cell text-right">
+                              {role?.created}
+                            </Box>
                           </Box>
-                          <Box class="table-cell text-right booking-total">
-                            <p class="booking-price"><i class="fas fa-rupee-sign"></i> 150000</p>
-                            <p class="booking-view"><a href="#">View</a></p>
-                          </Box>
-                        </Box>
-                      </Box>
-                      <Box class="booking-table">
-                        <Box class="tabel-row">
-                          <Box class="table-cell">Booking No.-1010102</Box>
-                          <Box class="table-cell text-right">20 Oct 2021 11:08 AM</Box>
-                        </Box>
-                        <Box class="tabel-row">
-                          <Box class="table-cell booking-img"><a href="#"><img src="images/property_img3.jpeg" width="75" height="75" /></a></Box>
-                          <Box class="table-cell">
-                            <p class="booking-title"><a href="#">Vishal Heavens Property </a></p>
-                            <p class="booking-status booking-sucess">Booking Sucessfully!</p>
-                          </Box>
-                          <Box class="table-cell text-right booking-total">
-                            <p class="booking-price"><i class="fas fa-rupee-sign"></i> 3200000</p>
-                            <p class="booking-view"><a href="#">View</a></p>
-                          </Box>
-                        </Box>
-                      </Box>
-                      <Box class="booking-table">
-                        <Box class="tabel-row">
-                          <Box class="table-cell">Booking No.-1010101</Box>
-                          <Box class="table-cell text-right">15 Oct 2021 06:08 PM</Box>
-                        </Box>
-                        <Box class="tabel-row">
-                          <Box class="table-cell booking-img"><a href="#"><img src="images/property_img3.jpeg" width="75" height="75" /></a></Box>
-                          <Box class="table-cell">
-                            <p class="booking-title"><a href="#">Vishal Heavens Property </a></p>
-                            <p class="booking-moreitem"><a href="#">+2 More Item</a></p>
-                            <p class="booking-status booking-cancel">Booking Cancelled!</p>
-                          </Box>
-                          <Box class="table-cell text-right booking-total">
-                            <p class="booking-price"><i class="fas fa-rupee-sign"></i> 490000</p>
-                            <p class="booking-view"><a href="#">View</a></p>
+                          <Box class="tabel-row">
+                            <Box class="table-cell booking-img">
+                              <a href="#">
+                                <img
+                                  src="images/property_img3.jpeg"
+                                  width="75"
+                                  height="75"
+                                />
+                              </a>
+                            </Box>
+                            <Box class="table-cell">
+                              <p class="booking-title">
+                                <a href="#">Vishal Heavens Property </a>
+                              </p>
+                              <p class="booking-status booking-sucess">
+                                Booking Sucessfully!
+                              </p>
+                            </Box>
+                            <Box class="table-cell text-right booking-total">
+                              <p class="booking-price">
+                                <i class="fas fa-rupee-sign"></i>{" "}
+                                {role?.bookingAmount}
+                              </p>
+                              <p class="booking-view">
+                                <Button
+                                  component={RouterLink}
+                                  to={{
+                                    pathname: "/home-detail",
+                                    state: role?._id,
+                                  }}
+                                >
+                                  View
+                                </Button>
+                              </p>
+                            </Box>
                           </Box>
                         </Box>
-                      </Box>
+                      ))}
                     </Box>
                   </Box>
                 </Box>
@@ -112,7 +189,6 @@ const MyBooking = (props) => {
           </Grid>
         </Box>
       </Container>
-
     </div>
   );
 };

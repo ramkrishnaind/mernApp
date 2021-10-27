@@ -261,7 +261,14 @@ function getUserBookings(Models) {
 
 
             // Getting User from Database
-            let Data = await Models.BookingDB.find({ userId: req.body.userId }).populate('propertyId');
+            let findData = await Models.BookingDB.find({ userId: req.body.userId }).populate('propertyId');
+            let Data = findData.toObject();
+            for (let x = 0; x < Data.length; x++) {
+                let propertyId = Data[x].propertyId._id;
+                let imageData = await Models.PImageDB.findOne({ _id: propertyId });
+                let mainImage = imageData.mainImage;
+                Data[x].images = mainImage;
+            }
             console.log('Data is', Data)
             if (Data) {
                 // if data found check verified or not
