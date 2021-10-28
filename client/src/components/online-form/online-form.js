@@ -58,7 +58,7 @@ export default function OnlineBooking(props) {
   });
 
   const [mobile, setMobile] = useState(
-    JSON.parse(localStorage.getItem("user")).mobile
+    JSON.parse(localStorage.getItem("user"))?.mobile
   );
 
   const otpHandler = async () => {
@@ -153,7 +153,7 @@ export default function OnlineBooking(props) {
   };
 
   const handleData = async () => {
-    let userDetails = localStorage.getItem("user");
+    let userDetails =  JSON.parse(window.localStorage.getItem("user"));
 
     if (!localStorage.getItem("user")) {
       window.location.href = "/signin";
@@ -165,7 +165,7 @@ export default function OnlineBooking(props) {
         ApiClient.REQUEST_METHOD.POST,
         "/booking/createBooking",
         {
-          userId: userDetails.id,
+          userId: userDetails?._id,
           propertyId: state.propertyId,
           name: state.name,
           email: state.email,
@@ -176,7 +176,7 @@ export default function OnlineBooking(props) {
           panCard: state.pan,
           pinCode: state.pin,
           bookingAmount: state.bankingAmount,
-          tand: true,
+          tandc: true,
         },
         {},
         { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
@@ -440,7 +440,7 @@ export default function OnlineBooking(props) {
                         }}
                         fullWidth
                       ></TextField>
-                      {mobile.length === 10 && !enableOtpField ? (
+                      {mobile?.length === 10 && !enableOtpField ? (
                         <Button
                           style={{ width: "20%" }}
                           onClick={otpHandler}

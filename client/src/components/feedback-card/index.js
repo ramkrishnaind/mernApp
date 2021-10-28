@@ -79,7 +79,7 @@ const FeedbackCard = props => {
     if (tempimg1 != '') {
         img1 = ApiClient.SERVER_ADDRESS + '/' + tempimg1;
     }
-    console.log("img111111", img1);
+
     return (
         <Box className="feedback-wrap">
             <Box className="feedback-image"><img src={img1} /></Box>

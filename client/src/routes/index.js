@@ -34,7 +34,7 @@ import MyProperty from "../pages/my-account/my-property";
 const routes = [
   {
     exact: true,
-    path: "/",
+    path: "/home",
     render: (props) => <HomePage {...props} />,
   },
   {
@@ -89,7 +89,8 @@ const routes = [
     render: (props) => <LoginPage {...props} />,
   },
   {
-    path: "/register",
+    path: "/",
+    exact : 'true',
     render: (props) => <RegisterPage {...props} />,
   },
   {

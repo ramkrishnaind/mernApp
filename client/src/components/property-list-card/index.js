@@ -422,7 +422,7 @@ const PropertyListCard = (props) => {
                         <Button variant="contained" className={classes.btn2}
                           onClick={handleClickOpen}
                         >
-                          Take a tour
+                        Visit Site
                         </Button>
                       </Grid>
                     </Grid>
