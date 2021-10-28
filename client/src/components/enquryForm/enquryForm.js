@@ -208,8 +208,7 @@ function EnquryForm(props) {
             }}
             fullWidth >
           </TextField>
-          <div style={{display: 'flex'}}>
-            <div style={{display: 'flex', width: "50%"}}>
+{/* 
               <TextField
                 className="EmiInputs"
                 style={{marginTop: 15}}
@@ -240,7 +239,6 @@ function EnquryForm(props) {
               </TextField>
               {mobile.length === 10 && !enableOtpField ? <Button style={{width: '23%'}} onClick={otpHandler} variant="contained" style={{background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff'}}
               >Verify</Button> : isOtpVerified && <div onClick={reset}> <EditIcon /> </div>}
-            </div>
             {enableOtpField && <TextField
               className="EmiInputs"
               placeholder="Otp"
@@ -261,13 +259,12 @@ function EnquryForm(props) {
               InputLabelProps={{
                 style: {color: '#FFFFFF'}
               }}
-            />}
-          </div>
+            />} */}
           <TextField
             className="EmiInputs"
             style={{marginTop: 15}}
             variant="outlined"
-            label="Enter Contry"
+            label="Enter Country"
 
             name="Country"
             value={country}
@@ -290,13 +287,65 @@ function EnquryForm(props) {
             <option value={30}>Commerical</option>
           </NativeSelect>
           <NativeSelect className="EmiInputs selectInput"
-            onChange={(e) => setPropertyName(e.target.value)}
-            fullWidth>
+            onChange={(e) => setPropertyName(e.target.value)}>
             <option value={10}>Select Property Name</option>
             <option value={20}>Villa</option>
             <option value={30}>Flats</option>
             <option value={30}>Plot</option>
           </NativeSelect>
+          
+          <TextField
+                className="EmiInputs"
+                style={{marginTop: 15}}
+                variant="outlined"
+                label="Phone Number"
+                name="Phone"
+                // style={{width: '76%'}}
+                disabled={isOtpVerified}
+                type="number"
+                min="1000000"
+                max="9999999999999999"
+                value={mobile}
+                onChange={(e) => {
+                  if (enableOtpField) {
+                    setEnableOtpField(false);
+                  }
+                  setMobile(e.target.value);
+                }}
+                InputProps={{
+                  classes: {
+                    notchedOutline: classes.notchedOutline
+                  }
+                }}
+                InputLabelProps={{
+                  style: {color: '#FFFFFF'}
+                }}
+                fullWidth >
+              </TextField>
+              {mobile.length === 10 && !enableOtpField ? <Button style={{width: '23%'}} onClick={otpHandler} variant="contained" style={{background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff'}}
+              >Verify</Button> : isOtpVerified && <div onClick={reset}> <EditIcon /> </div>}
+            {enableOtpField && <TextField
+              className="EmiInputs"
+              placeholder="Otp"
+              style={{width: '50%'}}
+
+              fullWidth
+              value={otp}
+              disabled={isOtpVerified}
+              onChange={inputChange}
+              name="otp"
+              type="number"
+              variant="outlined"
+              InputProps={{
+                classes: {
+                  notchedOutline: classes.notchedOutline
+                }
+              }}
+              InputLabelProps={{
+                style: {color: '#FFFFFF'}
+              }}
+            />}
+          
         </Box>
         <DialogActions>
           <Box className="ParentButton">

@@ -18,8 +18,10 @@ export const LoginService = async (dispatch, data) => {
     dispatch(Snackbar.showSuccessSnackbar(result.message));
     if (localStorage.getItem("bookNow") == "true") {
       window.location.href = "/home-detail";
+    } else if (localStorage.getItem("postProperty") == "true") {
+      window.location.href = '/post-property'
     } else {
-      window.location.href = "/";
+      window.location.href = "/home";
     }
   } catch (error) {
     console.log("error", error);

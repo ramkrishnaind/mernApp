@@ -182,7 +182,7 @@ const LoginPage = props => {
           </Grid>
           <Grid item xs={12} md={12} className={classes.gridStyle2}>
             <FormControlLabel
-              control={<Checkbox checked={rememberMe} onChange={handleChange} name="remember_me" />}
+              control={<Checkbox checked={rememberMe} onChange={()=> setRememberMe(!rememberMe)} name="remember_me" />}
               label="Remember Me"
             />
             <Link component={RouterLink} to="/forgot-password">Forgot Password?</Link>
@@ -195,7 +195,7 @@ const LoginPage = props => {
               onClick={loginSubmit}
             >Login</Button>
           </Grid>
-          <Grid item xs={12} md={12}>
+          {/* <Grid item xs={12} md={12}>
             <Typography className={classes.text2}>Or login with</Typography>
           </Grid>
           <Grid item xs={12} md={12} className={classes.gridStyle3}>
@@ -206,9 +206,9 @@ const LoginPage = props => {
             <Paper className={classes.iconContainer}>
               <img src={googleIcon} className={classes.icon} />
             </Paper>
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} md={12} className={classes.gridStyle3}>
-            <Link component={RouterLink} to="/register">Create Account?</Link>
+            <Link component={RouterLink} to="/">Create Account?</Link>
           </Grid>
         </Grid>
       </Paper>

@@ -291,8 +291,7 @@ function EnquryFormService(props) {
             }}
             fullWidth >
           </TextField>
-          <div style={{display: 'flex'}}>
-            <div style={{display: 'flex', width: "50%"}}>
+
               <TextField
                 className="EmiInputs"
                 style={{marginTop: 15}}
@@ -323,7 +322,6 @@ function EnquryFormService(props) {
               </TextField>
               {mobile.length === 10 && !enableOtpField ? <Button style={{width: '23%'}} onClick={otpHandler} variant="contained" style={{background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff'}}
               >Verify</Button> : isOtpVerified && <div onClick={reset}> <EditIcon /> </div>}
-            </div>
             {enableOtpField && <TextField
               className="EmiInputs"
               placeholder="Otp"
@@ -345,7 +343,6 @@ function EnquryFormService(props) {
                 style: {color: '#FFFFFF'}
               }}
             />}
-          </div>
           <NativeSelect className="EmiInputs selectInput"
             onChange={(e) => setPropertyType(e.target.value)}
             fullWidth>
