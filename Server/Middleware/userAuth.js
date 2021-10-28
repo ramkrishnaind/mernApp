@@ -52,7 +52,10 @@ function requestAuthMiddleware() {
             }
             let tokenArr = authToken.split(' ');
             let token = tokenArr[1];
-            var decoded = jwt.verify(token, process.env.SESSION_SECRET);
+            var decoded;
+            if (token == process.env.REQUEST_TOKEN) {
+                decoded = jwt.verify(token, process.env.SESSION_SECRET);
+            }
             if (decoded == process.env.SECRET) {
                 next();
             } else {
