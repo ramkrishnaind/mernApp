@@ -69,6 +69,7 @@ function getUserIdPropertyList(Models) {
 function getAllProperty(Models) {
     async function PropertyList(req, res) {
         try {
+            console.log('req is', req)
             let findData = await Models.PropertyDB.aggregate([
                 {
                     $lookup:
