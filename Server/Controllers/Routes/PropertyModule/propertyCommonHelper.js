@@ -98,7 +98,7 @@ function getAllProperty(Models) {
             }
             console.log('myFavorite', myFavorite)
             for (let x = 0; x < findData.length; x++) {
-                let item = findData[x].toObject();
+                let item = findData[x].toObject()
                 let itemId = item._id;
                 for (let y = 0; y < myFavorite.length; y++) {
                     let propertyId = myFavorite[y].propertyId;
