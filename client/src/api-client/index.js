@@ -49,15 +49,15 @@ export default class ApiClient {
     const token =
       "eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs";
 
-    // let userData = JSON.parse(window.localStorage.getItem("user"));
+    let userData = JSON.parse(window.localStorage.getItem("user"));
 
-    if (isAuthTokenRequired) {
-      //   if (userData.token != "") {
-      //     headers["Authorization"] = "Bearer " + userData?.token;
-      //   } else {
-      headers["Authorization"] = "Bearer " + token;
-      //   }
-    }
+
+      if (userData?.token) {
+        headers["Authorization"] = "Bearer " + userData?.token;
+      } else {
+        headers["Authorization"] = "Bearer " + token;
+      }
+
 
     // let axiosInstance = axios.create({baseURL: process.env.REACT_APP_BASE_URL});
     let axiosInstance = axios.create({ baseURL: this.BASE_URL });

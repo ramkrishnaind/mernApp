@@ -263,7 +263,9 @@ const Header = (props) => {
     setAnchorEl(null);
     if (typeof window !== "undefined") {
       localStorage.removeItem("user");
-      window.location.href = "/";
+      localStorage.removeItem('bookNow');
+      localStorage.removeItem('postProperty')
+      window.location.href = "/home";
     }
   };
 
@@ -343,7 +345,15 @@ const Header = (props) => {
                   variant="contained"
                   className={classes.btn2}
                   component={RouterLink}
-                  to="/post-property"
+                  // to="/post-property"
+                  onClick={() => {
+                    if (!localStorage.getItem("user")) {
+                      localStorage.setItem("postProperty", true);
+                      return props.history.push("/signin");
+                    } else {
+                      return props.history.push('/post-property')
+                    }
+                  }}
                 >
                   Post Property
                 </Button>
@@ -496,11 +506,10 @@ const Header = (props) => {
             }}
             fullWidth
           ></TextField>
-
+          <div style={{display: 'flex' , flexWrap: 'wrap'}}>
           <NativeSelect
             className="EmiInputs selectInput"
             onChange={(e) => setTime(e.target.value)}
-            fullWidth
           >
             <option value="">Choose Time</option>
             <option value="8:00 AM">8:00 AM</option>
@@ -516,15 +525,12 @@ const Header = (props) => {
             <option value="6:00 PM">6:00 PM</option>
             <option value="7:00 PM">7:00 PM</option>
           </NativeSelect>
-          <div style={{display: 'flex'}}>
-            <div style={{display: 'flex', width: "50%"}}>
               <TextField
                 className="EmiInputs"
-                // style={{marginTop: 15}}
+                style={{marginTop: 15}}
                 variant="outlined"
                 label="Phone Number"
                 name="Phone"
-                style={{width: '76%'}}
                 disabled={isOtpVerified}
                 type="number"
                 min="1000000"
@@ -548,7 +554,6 @@ const Header = (props) => {
               </TextField>
               {mobile.length === 10 && !enableOtpField ? <Button style={{width: '23%'}} onClick={otpHandler} variant="contained" style={{background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff'}}
               >Verify</Button> : isOtpVerified && <div onClick={reset}> <EditIcon /> </div>}
-            </div>
             {enableOtpField && <TextField
               className="EmiInputs"
               placeholder="Otp"

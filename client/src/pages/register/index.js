@@ -376,7 +376,7 @@ const RegisterPage = props => {
 
           </Grid>
           <Grid item xs={12} md={12}>
-            <Checkbox checked={termsOfUsePrivacyPolicy} onChange={handleChange} name="terms_n_conditions" />
+            <Checkbox checked={termsOfUsePrivacyPolicy} onChange={()=>setTermsOfUsePrivacyPolicy(true)} name="terms_n_conditions" />
             I accept the <Link className={classes.text3} to='#'>Terms of Use</Link> & <Link to='#' className={classes.text3}>Privacy Policy</Link>
           </Grid>
           <Grid item xs={12} md={12}>

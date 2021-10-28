@@ -112,7 +112,7 @@ export default function BookNowForm(props) {
   };
 
   const handleData = async () => {
-    let userDetails = localStorage.getItem("user");
+    let userDetails = JSON.parse(window.localStorage.getItem("user"));
     try {
       setVerifyLoader(true);
       const response = await ApiClient.call(
@@ -130,7 +130,7 @@ export default function BookNowForm(props) {
           panCard: state.pan,
           pinCode: state.pin,
           bookingAmount: state.bankingAmount,
-          tand: true,
+          tandc: true,
         },
         {},
         { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },

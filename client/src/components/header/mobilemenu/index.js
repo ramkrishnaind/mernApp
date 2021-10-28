@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Mobilemenu() {
+export default function Mobilemenu(props) {
     const classes = useStyles();
     const [state, setState] = React.useState({
         top: false,
@@ -73,7 +73,7 @@ export default function Mobilemenu() {
                 {[{
                     "id": 1,
                     "title": "Home",
-                    "href": "/"
+                    "href": "/home"
                 },
                 {
                     "id": 2,
@@ -199,7 +199,15 @@ export default function Mobilemenu() {
                             <div className="headerRight_part">
                                 <Button className="btn_Bookonline" component={RouterLink} to="/book-online"> Book Online</Button> &nbsp;&nbsp;
                                 <Button className="btn_Postonline" component={RouterLink}
-                                    to="/post-property"> Post Property</Button>
+                                                  onClick={() => {
+                                                    if (!localStorage.getItem("user")) {
+                                                      localStorage.setItem("postProperty", true);
+                                                      return props.history.push("/signin");
+                                                    } else {
+                                                            return props.history.push('/post-property')
+                                                    }
+                                                  }}
+                                  > Post Property</Button>
                             </div>
                         </div>
 
