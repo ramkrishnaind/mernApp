@@ -132,21 +132,27 @@ const MyBooking = (props) => {
                       <h5 className="box-title">My Booking Lists</h5>
                     </Box>
                     <Box class="box-body">
-                      {booking?.map((role, index) => (
+                      {booking?.map((item, index) => (
                         <Box class="booking-table">
                           <Box class="tabel-row">
                             <Box class="table-cell">
-                              Booking No.-{role?._id}
+                              Booking No.-{item?._id}
                             </Box>
                             <Box class="table-cell text-right">
-                              {role?.created}
+                              {item?.created}
                             </Box>
                           </Box>
                           <Box class="tabel-row">
                             <Box class="table-cell booking-img">
                               <a href="#">
                                 <img
-                                  src="images/property_img3.jpeg"
+                                  src={
+                                    item?.images[0]?.mainImage[0]?.path
+                                      ? ApiClient.SERVER_ADDRESS +
+                                        "/" +
+                                        item?.images[0]?.mainImage[0]?.path
+                                      : "/no-image-available-icon-6.png"
+                                  }
                                   width="75"
                                   height="75"
                                 />
@@ -154,7 +160,7 @@ const MyBooking = (props) => {
                             </Box>
                             <Box class="table-cell">
                               <p class="booking-title">
-                                <a href="#">Vishal Heavens Property </a>
+                                {item?.propertyId?.nameOfProject}
                               </p>
                               <p class="booking-status booking-sucess">
                                 Booking Sucessfully!
@@ -163,14 +169,14 @@ const MyBooking = (props) => {
                             <Box class="table-cell text-right booking-total">
                               <p class="booking-price">
                                 <i class="fas fa-rupee-sign"></i>{" "}
-                                {role?.bookingAmount}
+                                {item?.bookingAmount}
                               </p>
                               <p class="booking-view">
                                 <Button
                                   component={RouterLink}
                                   to={{
                                     pathname: "/home-detail",
-                                    state: role?._id,
+                                    state: item?._id,
                                   }}
                                 >
                                   View
