@@ -107,8 +107,10 @@ function getAllProperty(Models) {
                     console.log('propertyId is', propertyId)
                     console.log('itemId is', itemId)
                     if (itemId == propertyId) {
+                        console.log('in if', itemId)
                         item.isFavorite = true;
                     } else {
+                        console.log('in else', itemId)
                         item.isFavorite = false;
                     }
                 }
