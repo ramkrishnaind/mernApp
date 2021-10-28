@@ -97,6 +97,7 @@ function getAllProperty(Models) {
                 myFavorite = await Models.WishListDB.find({ userId: LoginUser }).lean();
             }
             console.log('myFavorite', myFavorite)
+            console.log('findData', findData)
             for (let x = 0; x < findData.length; x++) {
                 let item = findData[x].toObject()
                 let itemId = item._id;
