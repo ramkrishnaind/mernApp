@@ -52,7 +52,10 @@ function requestAuthMiddleware(Models) {
             }
             let tokenArr = authToken.split(' ');
             let token = tokenArr[1];
-            var decoded;
+            let decoded;
+            console.log('token is', token)
+            console.log('process.env.REQUEST_TOKEN is', process.env.REQUEST_TOKEN)
+
             if (token == process.env.REQUEST_TOKEN) {
                 decoded = jwt.verify(token, process.env.SESSION_SECRET);
             }
