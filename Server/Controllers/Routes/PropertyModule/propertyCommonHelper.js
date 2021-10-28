@@ -104,6 +104,8 @@ function getAllProperty(Models) {
                 let itemId = item._id;
                 for (let y = 0; y < myFavorite.length; y++) {
                     let propertyId = myFavorite[y].propertyId;
+                    console.log('propertyId is', propertyId)
+                    console.log('itemId is', itemId)
                     if (itemId == propertyId) {
                         item.isFavorite = true;
                     } else {
