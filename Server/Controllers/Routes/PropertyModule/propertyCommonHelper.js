@@ -113,6 +113,7 @@ function getAllProperty(Models) {
                         console.log('in else', itemId)
                         item.isFavorite = true;
                     }
+                    console.log('in else item item', item)
                 }
                 //item.isFavorite = false;
                 allProperties.push(item);
