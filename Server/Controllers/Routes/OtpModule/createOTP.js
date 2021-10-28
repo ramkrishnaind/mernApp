@@ -33,7 +33,6 @@ function createOTP(Models) {
                 let message = 'Hello, \n';
                 message += 'OTP for Vishal Construction Company is : ' + OTP;
                 message += 'Thanks\n';
-                message += 'Message By:- Dzone india.';
                 console.log('message is', message);
                 SendMessage({
                     mobile: bodyData.mobile,
