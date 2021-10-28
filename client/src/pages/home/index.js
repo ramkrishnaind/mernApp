@@ -63,9 +63,9 @@ const HomePage = (props) => {
   const [building_materials, setBuildingMaterials] = useReducer(reducer2, []);
   const [showDealingInDetails, setShowDealingInDetaisl] = useState(false);
 
-  useEffect(() => {
-    dispatch(LoginAction.LoginRequestAsync({}));
-  });
+  // useEffect(() => {
+  //   dispatch(LoginAction.LoginRequestAsync({}));
+  // });
 
   useEffect(() => {
     const cookie = 'connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI';
