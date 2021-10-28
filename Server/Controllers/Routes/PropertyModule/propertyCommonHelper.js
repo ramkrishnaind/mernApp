@@ -69,9 +69,10 @@ function getUserIdPropertyList(Models) {
 function getAllProperty(Models) {
     async function PropertyList(req, res) {
         try {
-            console.log('req is', req)
+            //console.log('req is', req)
             let LoginUser, myFavorite, allProperties;
             LoginUser = req.locals ? req.locals.user._id : '';
+            console.log('LoginUser', LoginUser)
             let findData = await Models.PropertyDB.aggregate([
                 {
                     $lookup:
@@ -95,6 +96,7 @@ function getAllProperty(Models) {
             if (LoginUser && LoginUser != '') {
                 myFavorite = await Models.WishListDB.find({ userId: LoginUser }).lean();
             }
+            console.log('myFavorite', myFavorite)
             if (myFavorite.length) {
                 for (let x = 0; x < findData.length; x++) {
                     let item = findData[x].toObject();
@@ -113,6 +115,7 @@ function getAllProperty(Models) {
             } else {
                 allProperties = findData
             }
+            console.log('allProperties', allProperties)
             let obj = {
                 total: findData.length,
                 list: allProperties
