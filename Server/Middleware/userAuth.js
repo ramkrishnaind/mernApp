@@ -42,7 +42,7 @@ function userAuthMiddleware(Models) {
     }
     return userAuthMiddlewareFunction;
 }
-function requestAuthMiddleware() {
+function requestAuthMiddleware(Models) {
     async function requestAuth(req, res, next) {
         try {
             let authToken = req.headers.authorization;
