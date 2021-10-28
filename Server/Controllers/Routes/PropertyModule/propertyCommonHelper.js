@@ -97,23 +97,19 @@ function getAllProperty(Models) {
                 myFavorite = await Models.WishListDB.find({ userId: LoginUser }).lean();
             }
             console.log('myFavorite', myFavorite)
-            if (myFavorite.length) {
-                for (let x = 0; x < findData.length; x++) {
-                    let item = findData[x].toObject();
-                    let itemId = item._id;
-                    for (let y = 0; y < myFavorite.length; y++) {
-                        let propertyId = myFavorite[y].propertyId;
-                        if (itemId == propertyId) {
-                            item.isFavorite = true;
-                        } else {
-                            item.isFavorite = false;
-                        }
+            for (let x = 0; x < findData.length; x++) {
+                let item = findData[x].toObject();
+                let itemId = item._id;
+                for (let y = 0; y < myFavorite.length; y++) {
+                    let propertyId = myFavorite[y].propertyId;
+                    if (itemId == propertyId) {
+                        item.isFavorite = true;
+                    } else {
+                        item.isFavorite = false;
                     }
-                    item.isFavorite = false;
-                    allProperties.push(item);
                 }
-            } else {
-                allProperties = findData
+                item.isFavorite = false;
+                allProperties.push(item);
             }
             console.log('allProperties', allProperties)
             let obj = {
