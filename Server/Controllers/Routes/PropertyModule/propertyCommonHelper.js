@@ -70,6 +70,8 @@ function getAllProperty(Models) {
     async function PropertyList(req, res) {
         try {
             console.log('req is', req)
+            let LoginUser, myFavorite, allProperties;
+            LoginUser = req.locals ? req.locals.user._id : '';
             let findData = await Models.PropertyDB.aggregate([
                 {
                     $lookup:
@@ -90,9 +92,30 @@ function getAllProperty(Models) {
                     }
                 }
             ]).sort({ updated: -1 });
+            if (LoginUser && LoginUser != '') {
+                myFavorite = await Models.WishListDB.find({ userId: LoginUser }).lean();
+            }
+            if (myFavorite.length) {
+                for (let x = 0; x < findData.length; x++) {
+                    let item = findData[x].toObject();
+                    let itemId = item._id;
+                    for (let y = 0; y < myFavorite.length; y++) {
+                        let propertyId = myFavorite[y].propertyId;
+                        if (itemId == propertyId) {
+                            item.isFavorite = true;
+                        } else {
+                            item.isFavorite = false;
+                        }
+                    }
+                    item.isFavorite = false;
+                    allProperties.push(item);
+                }
+            } else {
+                allProperties = findData
+            }
             let obj = {
                 total: findData.length,
-                list: findData
+                list: allProperties
             }
 
             res.send({ status: true, message: "", data: obj });
