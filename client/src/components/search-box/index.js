@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 const SearchBox = (props) => {
     const classes = useStyles();
     // create state variables for each input
-    const [type, setType] = useState(Type.RENT);
+    const [type, setType] = useState(Type.SELL);
     const [pType, setPType] = useState('');
     const [minAmount, setMinBudget] = useState('');
     const [maxAmount, setMaxBudget] = useState('');
