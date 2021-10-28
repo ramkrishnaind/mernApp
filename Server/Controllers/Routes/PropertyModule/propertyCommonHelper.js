@@ -114,7 +114,7 @@ function getAllProperty(Models) {
                         item.isFavorite = true;
                     }
                 }
-                item.isFavorite = false;
+                //item.isFavorite = false;
                 allProperties.push(item);
             }
             console.log('allProperties', allProperties)
