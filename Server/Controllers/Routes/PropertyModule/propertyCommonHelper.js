@@ -106,12 +106,12 @@ function getAllProperty(Models) {
                     let propertyId = myFavorite[y].propertyId;
                     console.log('propertyId is', propertyId)
                     console.log('itemId is', itemId)
-                    if (itemId == propertyId) {
+                    if (itemId != propertyId) {
                         console.log('in if', itemId)
-                        item.isFavorite = true;
+                        item.isFavorite = false;
                     } else {
                         console.log('in else', itemId)
-                        item.isFavorite = false;
+                        item.isFavorite = true;
                     }
                 }
                 item.isFavorite = false;
