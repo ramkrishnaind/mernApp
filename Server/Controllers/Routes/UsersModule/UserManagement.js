@@ -298,11 +298,21 @@ function getUserWishList(Models) {
 
 
             // Getting User from Database
-            let Data = await Models.WishListDB.find({ userId: req.body.userId });
+            let Data = await Models.WishListDB.find({ userId: req.body.userId }).populate('propertyId');
             console.log('Data is', Data)
-            if (Data) {
+            let result = [];
+            for (let x = 0; x < Data.length; x++) {
+                let item = Data[x].toObject()
+                let propertyId = item.propertyId._id;
+                let imageData = await Models.PImageDB.findOne({ _id: propertyId });
+                let mainImage = imageData ? imageData.mainImage : [];
+                item.images = mainImage;
+                result.push(item)
+            }
+            console.log('Data is', result)
+            if (result) {
                 // if data found check verified or not
-                res.send({ status: true, message: "User Wish List", data: Data });
+                res.send({ status: true, message: "User Wish List", data: result });
             } else {
                 res.send({ status: true, message: "User WishList not found" });
             }

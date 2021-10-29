@@ -361,7 +361,7 @@ const HouseDetailPage = (props) => {
             <Grid container>
               <Grid item xs={12} md={8} className={classes.style2}>
                 <Typography className={classes.text7}>
-                  {PropertyDetail.nameOfProject}
+                  {PropertyDetail?.nameOfProject}
                 </Typography>
                 <Typography
                   style={{
