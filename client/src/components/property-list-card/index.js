@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import {
   Grid,
   Typography,
@@ -8,33 +8,35 @@ import {
   Divider,
   Button,
   Card,
-  Container, TextField, NativeSelect
-
+  Container,
+  TextField,
+  NativeSelect,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
-import {Link as RouterLink} from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import LocalHotelIcon from "@material-ui/icons/LocalHotel";
 import ZoomOutMapIcon from "@material-ui/icons/ZoomOutMap";
 import BathtubIcon from "@material-ui/icons/Bathtub";
 import DriveEtaIcon from "@material-ui/icons/DriveEta";
 import StarIcon from "@material-ui/icons/Star";
-import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 
-import {useDispatch, useSelector} from 'react-redux';
-import '../header/header.css';
-import APP_CONSTANTS from '../../constants/app-constants';
-import Dialog from '@material-ui/core/Dialog';
-import '../enquryForm/enquryForm.css';
-import {withStyles} from '@material-ui/core/styles';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import * as SitevisitAction from '../../redux/actions/SitevisitAction';
-import ApiClient from '../../api-client';
-import '../../components/outer-carousel-slider/featured.css';
+import { useDispatch, useSelector } from "react-redux";
+import "../header/header.css";
+import APP_CONSTANTS from "../../constants/app-constants";
+import Dialog from "@material-ui/core/Dialog";
+import "../enquryForm/enquryForm.css";
+import { withStyles } from "@material-ui/core/styles";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import MuiDialogActions from "@material-ui/core/DialogActions";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import * as SitevisitAction from "../../redux/actions/SitevisitAction";
+import ApiClient from "../../api-client";
+import "../../components/outer-carousel-slider/featured.css";
 
+import * as Snackbar from "../../redux/actions/SnackbarActions";
 const useStyles = makeStyles((theme) => ({
   text1: {
     fontFamily: '"Open Sans",sans-serif',
@@ -63,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: '"Open Sans",sans-serif',
     color: "#FF7601",
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   features: {
     display: "flex",
@@ -79,21 +81,19 @@ const useStyles = makeStyles((theme) => ({
   },
   btn1: {
     borderRadius: 12,
-    color: '#FFFFFF',
-    textTransform: 'none',
+    color: "#FFFFFF",
+    textTransform: "none",
     fontFamily: '"Open Sans",sans-serif',
-    backgroundColor: '#FF7601'
+    backgroundColor: "#FF7601",
   },
   btn2: {
     borderRadius: 12,
-    color: '#666666',
-    textTransform: 'none',
+    color: "#666666",
+    textTransform: "none",
     fontFamily: '"Open Sans",sans-serif',
-    backgroundColor: '#ECECEC'
-  }
+    backgroundColor: "#ECECEC",
+  },
 }));
-
-
 
 const stylessd = (theme) => ({
   root: {
@@ -101,7 +101,7 @@ const stylessd = (theme) => ({
     padding: theme.spacing(2),
   },
   closeButton: {
-    position: 'absolute',
+    position: "absolute",
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
@@ -111,65 +111,67 @@ const stylessd = (theme) => ({
     borderColor: "#FFFFFF !important",
   },
 
-
   contact: {
     padding: 0,
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     marginRight: 10,
-    fontFamily: '"Open Sans",sans-serif'
+    fontFamily: '"Open Sans",sans-serif',
   },
   icon: {
     padding: 0,
-    color: '#FFFFFF',
-    marginRight: 10
+    color: "#FFFFFF",
+    marginRight: 10,
   },
   menu: {
     padding: 0,
-    color: '#000000',
+    color: "#000000",
     marginRight: 10,
     fontFamily: '"Open Sans",sans-serif',
     fontWeight: 400,
-    cursor: 'pointer'
+    cursor: "pointer",
   },
   btn1: {
     borderRadius: 15,
-    color: '#FFFFFF',
-    textTransform: 'none',
+    color: "#FFFFFF",
+    textTransform: "none",
     marginRight: 10,
-    fontFamily: '"Open Sans",sans-serif'
+    fontFamily: '"Open Sans",sans-serif',
   },
   btn2: {
     borderRadius: 15,
-    background: '#FF7601',
-    color: '#FFFFFF',
-    textTransform: 'none',
-    fontFamily: 'Open Sans,sans-serif'
+    background: "#FF7601",
+    color: "#FFFFFF",
+    textTransform: "none",
+    fontFamily: "Open Sans,sans-serif",
   },
   btn3: {
     borderRadius: 15,
-    background: '#ECECEC',
+    background: "#ECECEC",
     marginRight: 10,
-    color: '#000000',
-    textTransform: 'none',
-    fontFamily: '"Open Sans",sans-serif'
+    color: "#000000",
+    textTransform: "none",
+    fontFamily: '"Open Sans",sans-serif',
   },
   btn4: {
     borderRadius: 15,
-    color: '#000000',
-    textTransform: 'none',
-    fontFamily: '"Open Sans",sans-serif'
+    color: "#000000",
+    textTransform: "none",
+    fontFamily: '"Open Sans",sans-serif',
   },
 });
 
 const DialogTitle = withStyles(stylessd)((props) => {
-  const {children, classes, onClose, ...other} = props;
-
+  const { children, classes, onClose, ...other } = props;
 
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
       <Typography variant="h6">{children}</Typography>
       {onClose ? (
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+        <IconButton
+          aria-label="close"
+          className={classes.closeButton}
+          onClick={onClose}
+        >
           <CloseIcon />
         </IconButton>
       ) : null}
@@ -184,9 +186,8 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-
 const PropertyListCard = (props) => {
-  const {item} = props;
+  const { item } = props;
   console.log(item);
 
   const classes = useStyles();
@@ -199,9 +200,8 @@ const PropertyListCard = (props) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
-
   function handleNull(val) {
-    return val || '_ _ ';
+    return val || "_ _ ";
   }
 
   const handleData = (e) => {
@@ -213,16 +213,15 @@ const PropertyListCard = (props) => {
       // type: type,
       // propertyname: propertyname,
     };
-    console.log('formData', formData);
+    console.log("formData", formData);
     dispatch(SitevisitAction.SitevisitRequestAsync(formData));
     // toast.success('Request Sent successfully', { position: toast.POSITION.TOP_RIGHT, autoClose: 5000 })
-    setName('');
-    setMobile('');
-    setEmail('');
-    setTime('');
+    setName("");
+    setMobile("");
+    setEmail("");
+    setTime("");
     setOpen(false);
   };
-
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -231,13 +230,45 @@ const PropertyListCard = (props) => {
     setOpen(false);
   };
 
-  const mainImage = item?.images[0]?.mainImage[0]?.path ? ApiClient.SERVER_ADDRESS + "/" + item?.images[0]?.mainImage[0]?.path : "/no-image-available-icon-6.png";
+  const handleFavourite = async (e) => {
+    let userDetails = localStorage.getItem("user");
+    if (!userDetails) {
+      window.location.href = "/signin";
+    }
+
+    try {
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        "/users/addToWishList",
+        {
+          userId: userDetails?._id,
+          propertyId: e,
+        },
+        {},
+        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+        false
+      );
+
+      dispatch(Snackbar.showSuccessSnackbar(response.message));
+    } catch (error) {
+      console.error("this is the error::", error);
+      dispatch(
+        Snackbar.showFailSnackbar(
+          "We are facing some issue Please try again later."
+        )
+      );
+    }
+  };
+
+  const mainImage = item?.images[0]?.mainImage[0]?.path
+    ? ApiClient.SERVER_ADDRESS + "/" + item?.images[0]?.mainImage[0]?.path
+    : "/no-image-available-icon-6.png";
   console.log("mainImage", mainImage, item?.images[0]);
   const address = item?.features[0]?.address || {};
   const propertTag = item?.propertTag;
   return (
     <>
-      <Paper style={{borderRadius: 0, padding: 0, marginTop: 30}}>
+      <Paper style={{ borderRadius: 0, padding: 0, marginTop: 30 }}>
         <Grid container spacing={0}>
           <Grid
             item
@@ -249,7 +280,7 @@ const PropertyListCard = (props) => {
               justifyContent: "flex-start",
             }}
           >
-            <div style={{position: 'relative'}}>
+            <div style={{ position: "relative" }}>
               {propertTag ? <span class="featured">{propertTag}</span> : null}
               <img
                 className="image"
@@ -265,7 +296,7 @@ const PropertyListCard = (props) => {
             </div>
             {/* <span className="featured">FEATURED</span> */}
           </Grid>
-          <Grid item xs={12} md={8} style={{padding: 30}}>
+          <Grid item xs={12} md={8} style={{ padding: 30 }}>
             <Grid container contaienr spacing={1}>
               <Grid
                 item
@@ -301,30 +332,40 @@ const PropertyListCard = (props) => {
                       }}
                     />
                     <Typography className={classes.text3}>
-
-                      {handleNull(address.latitude)}, {handleNull(address.longitude)} {handleNull(address.address)} {handleNull(address.city)} {handleNull(address.State)} {handleNull(address.pinCode)}
+                      {handleNull(address.latitude)},{" "}
+                      {handleNull(address.longitude)}{" "}
+                      {handleNull(address.address)} {handleNull(address.city)}{" "}
+                      {handleNull(address.State)} {handleNull(address.pinCode)}
                     </Typography>
                   </Grid>
                 </Grid>
                 <Grid container>
                   <Grid item xs={6} md={6} className={classes.features}>
                     <ZoomOutMapIcon className={classes.icon} />
-                    <Typography className={classes.text4}>{handleNull(item?.features[0]?.builtUpArea)} Sq-Ft</Typography>
+                    <Typography className={classes.text4}>
+                      {handleNull(item?.features[0]?.builtUpArea)} Sq-Ft
+                    </Typography>
                   </Grid>
                   <Grid item xs={6} md={6} className={classes.features}>
                     <LocalHotelIcon className={classes.icon} />
-                    <Typography className={classes.text4}>{handleNull(item?.features[0]?.bedrooms)} Bedrooms</Typography>
+                    <Typography className={classes.text4}>
+                      {handleNull(item?.features[0]?.bedrooms)} Bedrooms
+                    </Typography>
                   </Grid>
                   <Grid item xs={6} md={6} className={classes.features}>
                     <DriveEtaIcon className={classes.icon} />
-                    <Typography className={classes.text4}>{handleNull(item?.features[0]?.totalFloors)} TotalFloors</Typography>
+                    <Typography className={classes.text4}>
+                      {handleNull(item?.features[0]?.totalFloors)} TotalFloors
+                    </Typography>
                   </Grid>
                   <Grid item xs={6} md={6} className={classes.features}>
                     <BathtubIcon className={classes.icon} />
-                    <Typography className={classes.text4}>{handleNull(item?.features[0]?.bathrooms)} Bathroom</Typography>
+                    <Typography className={classes.text4}>
+                      {handleNull(item?.features[0]?.bathrooms)} Bathroom
+                    </Typography>
                   </Grid>
                   <Grid item xs={12} md={12}>
-                    <Divider style={{marginTop: 20, marginBottom: 20}} />
+                    <Divider style={{ marginTop: 20, marginBottom: 20 }} />
                   </Grid>
                 </Grid>
               </Grid>
@@ -349,9 +390,22 @@ const PropertyListCard = (props) => {
                       justifyContent: "center",
                     }}
                   >
-                    <Typography className={classes.text3}>Starts From</Typography>
-                    <Box style={{width: 10, paddingRight: 5, paddingLeft: 5, color: '#333333'}}>/</Box>
-                    <Typography className={classes.text5}>Rs. 3250000</Typography>
+                    <Typography className={classes.text3}>
+                      Starts From
+                    </Typography>
+                    <Box
+                      style={{
+                        width: 10,
+                        paddingRight: 5,
+                        paddingLeft: 5,
+                        color: "#333333",
+                      }}
+                    >
+                      /
+                    </Box>
+                    <Typography className={classes.text5}>
+                      Rs. 3250000
+                    </Typography>
                   </Grid>
                 </Grid>
               </Grid>
@@ -371,7 +425,7 @@ const PropertyListCard = (props) => {
                             }}
                           >
                             <EventAvailableIcon className={classes.icon} />
-                            <Box style={{width: 10}}></Box>
+                            <Box style={{ width: 10 }}></Box>
                             <Typography className={classes.text3}>
                               1 day ago
                             </Typography>
@@ -410,19 +464,32 @@ const PropertyListCard = (props) => {
                           justifyContent: "center",
                         }}
                       >
-                        <Button variant="contained" className={classes.btn1} component={RouterLink} to={
-                          {
-                            pathname: '/home-detail',
-                            state: item?._id
+                        <Button
+                          variant="contained"
+                          className={classes.btn1}
+                          component={RouterLink}
+                          to={{
+                            pathname: "/home-detail",
+                            state: item?._id,
                           }}
                         >
                           View Detail
                         </Button>
-                        <Box style={{width: 10}}></Box>
-                        <Button variant="contained" className={classes.btn2}
+                        <Box style={{ width: 10 }}></Box>
+                        <Button
+                          variant="contained"
+                          className={classes.btn2}
                           onClick={handleClickOpen}
                         >
-                        Visit Site
+                          Take a tour
+                        </Button>
+
+                        <Button
+                          variant="contained"
+                          className={classes.btn2}
+                          onClick={() => handleFavourite(item?._id)}
+                        >
+                          + Favourite
                         </Button>
                       </Grid>
                     </Grid>
@@ -434,15 +501,19 @@ const PropertyListCard = (props) => {
         </Grid>
       </Paper>
 
-
-      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} className="EnquryFormData">
+      <Dialog
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+        className="EnquryFormData"
+      >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           {APP_CONSTANTS.titleSiteVisit}
         </DialogTitle>
         <Box className="emiForm">
           <TextField
             className="EmiInputs"
-            style={{marginTop: 15}}
+            style={{ marginTop: 15 }}
             variant="outlined"
             label="Your Name"
             name="Name"
@@ -450,17 +521,17 @@ const PropertyListCard = (props) => {
             onChange={(e) => setName(e.target.value)}
             InputProps={{
               classes: {
-                notchedOutline: classes.notchedOutline
-              }
+                notchedOutline: classes.notchedOutline,
+              },
             }}
             InputLabelProps={{
-              style: {color: '#FFFFFF'}
+              style: { color: "#FFFFFF" },
             }}
-            fullWidth >
-          </TextField>
+            fullWidth
+          ></TextField>
           <TextField
             className="EmiInputs"
-            style={{marginTop: 15}}
+            style={{ marginTop: 15 }}
             variant="outlined"
             label="Email Address"
             type="email"
@@ -469,17 +540,17 @@ const PropertyListCard = (props) => {
             onChange={(e) => setEmail(e.target.value)}
             InputProps={{
               classes: {
-                notchedOutline: classes.notchedOutline
-              }
+                notchedOutline: classes.notchedOutline,
+              },
             }}
             InputLabelProps={{
-              style: {color: '#FFFFFF'}
+              style: { color: "#FFFFFF" },
             }}
-            fullWidth >
-          </TextField>
+            fullWidth
+          ></TextField>
           <TextField
             className="EmiInputs"
-            style={{marginTop: 15}}
+            style={{ marginTop: 15 }}
             variant="outlined"
             label="Phone Number"
             name="Phone"
@@ -488,17 +559,19 @@ const PropertyListCard = (props) => {
             onChange={(e) => setMobile(e.target.value)}
             InputProps={{
               classes: {
-                notchedOutline: classes.notchedOutline
-              }
+                notchedOutline: classes.notchedOutline,
+              },
             }}
             InputLabelProps={{
-              style: {color: '#FFFFFF'}
+              style: { color: "#FFFFFF" },
             }}
-            fullWidth >
-          </TextField>
-          <NativeSelect className="EmiInputs selectInput"
+            fullWidth
+          ></TextField>
+          <NativeSelect
+            className="EmiInputs selectInput"
             onChange={(e) => setTime(e.target.value)}
-            fullWidth>
+            fullWidth
+          >
             <option value="">Choose Time</option>
             <option value="8:00 AM">8:00 AM</option>
             <option value="9:00 AM">9:00 AM</option>
@@ -516,9 +589,7 @@ const PropertyListCard = (props) => {
         </Box>
         <DialogActions>
           <Box className="ParentButton">
-            <Button onClick={(e) => handleData(e)}>
-              Submit
-            </Button>
+            <Button onClick={(e) => handleData(e)}>Submit</Button>
           </Box>
         </DialogActions>
       </Dialog>
