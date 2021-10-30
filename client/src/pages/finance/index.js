@@ -23,7 +23,7 @@ const Finance = (props) => {
   const [tenure, setTenure] = useState("");
   const [emi, setEmi] = useState("");
   const [total, setTotal] = useState("");
-
+  const [year, setyear] = useState("12");
   React.useEffect(() => {
     financeResponse();
   }, []);
@@ -45,7 +45,8 @@ const Finance = (props) => {
   };
 
   const handleData = (e) => {
-    let emi = Math.round((amount * rate * tenure) / 12 / 100);
+    let yr = tenure * year;
+    let emi = Math.round((amount * rate * yr) / 100);
     setEmi(emi);
     setTotal(parseFloat(emi) + parseFloat(amount));
   };
@@ -113,6 +114,42 @@ const Finance = (props) => {
                         }}
                       />
 
+                      <div
+                        class="input-group-append tenure-choice"
+                        data-toggle="buttons"
+                      >
+                        <div
+                          class="btn-group btn-group-toggle"
+                          data-toggle="buttons"
+                        >
+                          <label class="btn btn-secondary active">
+                            <input
+                              type="radio"
+                              name="loantenure"
+                              id="loanyears"
+                              value="12"
+                              tabindex="4"
+                              autocomplete="off"
+                              onChange={(e) => setyear(e.target.value)}
+                            />
+                            Years
+                          </label>
+
+                          <label class="btn btn-secondary ml-2">
+                            <input
+                              type="radio"
+                              name="loantenure"
+                              id="loanmonths"
+                              value="1"
+                              tabindex="5"
+                              autocomplete="off"
+                              onChange={(e) => setyear(e.target.value)}
+                            />
+                            Months
+                          </label>
+                        </div>
+                      </div>
+                      <br />
                       <div className="form-btn">
                         <Button
                           className="search-btn"
