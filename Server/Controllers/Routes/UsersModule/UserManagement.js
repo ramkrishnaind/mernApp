@@ -305,9 +305,11 @@ function getUserWishList(Models) {
                 let item = Data[x].toObject()
                 let propertyId = item.propertyId._id;
                 let imageData = await Models.PImageDB.findOne({ propertyId });
-                let imageData = await Models.PFeaturesDB.findOne({ propertyId });
+                let FeaturesData = await Models.PFeaturesDB.findOne({ propertyId });
                 let mainImage = imageData ? imageData.mainImage : [];
+                let Features = FeaturesData ? FeaturesData : null;
                 item.images = mainImage;
+                temm.Features = Features;
                 result.push(item)
             }
             console.log('Data is', result)
