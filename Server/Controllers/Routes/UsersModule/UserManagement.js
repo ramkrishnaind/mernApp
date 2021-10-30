@@ -309,7 +309,7 @@ function getUserWishList(Models) {
                 let mainImage = imageData ? imageData.mainImage : [];
                 let Features = FeaturesData ? FeaturesData : null;
                 item.images = mainImage;
-                temm.Features = Features;
+                item.Features = Features;
                 result.push(item)
             }
             console.log('Data is', result)
