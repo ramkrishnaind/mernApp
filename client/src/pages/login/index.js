@@ -208,7 +208,7 @@ const LoginPage = props => {
             </Paper>
           </Grid> */}
           <Grid item xs={12} md={12} className={classes.gridStyle3}>
-            <Link component={RouterLink} to="/">Create Account?</Link>
+            <Link component={RouterLink} to="/register">Create Account?</Link>
           </Grid>
         </Grid>
       </Paper>

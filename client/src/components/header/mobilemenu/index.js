@@ -73,7 +73,7 @@ export default function Mobilemenu(props) {
                 {[{
                     "id": 1,
                     "title": "Home",
-                    "href": "/home"
+                    "href": "/"
                 },
                 {
                     "id": 2,
