@@ -59,7 +59,6 @@ const moduleSchema = Joi.object({
     Noofopensides: Joi.number().allow(null),
     Widthofroad: Joi.number().allow(null),
     IsCornerPlot: Joi.boolean(),
-    visitorRoom: Joi.number().allow(null),
 });
 
 
@@ -82,7 +81,7 @@ function createPropertyRequest(Models) {
                 "bookingAmount", "maintenanceCharge", "maintenanceFor", "brokerageCharge", "amenities", "latitude",
                 "longitude", "address", "city", "State", "pinCode", "propertTag", "isPostedByAdmin", "propertyDetails",
                 "userId", "totalArea", "propertyTag", "gaurdRoom", "description", "buildYear", "conferenceRoom", "vistorRoom",
-                "personalWashroom", "noOfSeats", "meetingRooms", "Pantry", "Noofopensides", "Widthofroad", "IsCornerPlot", "visitorRoom"]);
+                "personalWashroom", "noOfSeats", "meetingRooms", "Pantry", "Noofopensides", "Widthofroad", "IsCornerPlot"]);
             // searching email or mobile already exists or not
             let propertiesLength = await Models.PropertyDB.count();
             let code = propertiesLength + 1;
