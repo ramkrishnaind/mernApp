@@ -19,7 +19,7 @@ function deleteCMS(Models) {
             }
             let bodyData = _.pick(req.body, ["_id"]);
             let _id = bodyData._id;
-            let findData = await Models.CMSDB.remove(_id).lean();
+            let findData = await Models.CMSDB.remove({ _id }).lean();
             res.send({ status: true, message: "CMS Deleted.", data: findData });
         }
         catch (e) {
