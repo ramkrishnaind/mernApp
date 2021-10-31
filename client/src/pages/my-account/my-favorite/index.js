@@ -204,30 +204,19 @@ const MyFavorite = (props) => {
                                 </Grid>
                                 <Grid className="property-image">
                                   <Slider {...settings1}>
-                                    <Box className="property-image-thumb">
-                                      <img
-                                        src={
-                                          process.env.PUBLIC_URL +
-                                          "/property_img3.jpeg"
-                                        }
-                                      />
-                                    </Box>
-                                    <Box className="property-image-thumb">
-                                      <img
-                                        src={
-                                          process.env.PUBLIC_URL +
-                                          "/property_img3.jpeg"
-                                        }
-                                      />
-                                    </Box>
-                                    <Box className="property-image-thumb">
-                                      <img
-                                        src={
-                                          process.env.PUBLIC_URL +
-                                          "/property_img3.jpeg"
-                                        }
-                                      />
-                                    </Box>
+                                    {item?.images?.map((img) => (
+                                      <Box className="property-image-thumb">
+                                        <img
+                                          src={
+                                            img?.path
+                                              ? ApiClient.SERVER_ADDRESS +
+                                                "/" +
+                                                img?.path
+                                              : "/no-image-available-icon-6.png"
+                                          }
+                                        />
+                                      </Box>
+                                    ))}
                                   </Slider>
                                 </Grid>
                                 <Grid className="property-summery">
@@ -235,13 +224,13 @@ const MyFavorite = (props) => {
                                     component="span"
                                     className="property-tag"
                                   >
-                                    RESIDENTIAL
+                                    {item?.propertyId?.pType}
                                   </Box>
                                   <Typography
                                     variant="h3"
                                     className="property-title"
                                   >
-                                    VISHAL HEAVENS
+                                    {item?.propertyId?.nameOfProject}
                                   </Typography>
                                   <Grid
                                     container
@@ -254,7 +243,9 @@ const MyFavorite = (props) => {
                                       className="property-feature"
                                     >
                                       <ZoomOutMapIcon />
-                                      <Typography>1200 Sq-Ft</Typography>
+                                      <Typography>
+                                        {item?.Features?.carpetArea}
+                                      </Typography>
                                     </Grid>
                                     <Grid
                                       item
@@ -263,7 +254,9 @@ const MyFavorite = (props) => {
                                       className="property-feature"
                                     >
                                       <LocalHotelIcon />
-                                      <Typography>2 Bedrooms</Typography>
+                                      <Typography>
+                                        {item?.Features?.bedrooms} Bedrooms
+                                      </Typography>
                                     </Grid>
                                     <Grid
                                       item
@@ -272,7 +265,9 @@ const MyFavorite = (props) => {
                                       className="property-feature"
                                     >
                                       <LocalHotelIcon />
-                                      <Typography>1 Balconies</Typography>
+                                      <Typography>
+                                        {item?.Features?.balconies} Balconies
+                                      </Typography>
                                     </Grid>
                                     <Grid
                                       item
@@ -281,7 +276,9 @@ const MyFavorite = (props) => {
                                       className="property-feature"
                                     >
                                       <BathtubIcon />
-                                      <Typography>2 Bathroom</Typography>
+                                      <Typography>
+                                        {item?.Features?.bathrooms} Bathroom
+                                      </Typography>
                                     </Grid>
                                   </Grid>
                                 </Grid>
@@ -295,7 +292,7 @@ const MyFavorite = (props) => {
                                     component={RouterLink}
                                     to={{
                                       pathname: "/home-detail",
-                                      state: item?._id,
+                                      state: item?.Features?.propertyId,
                                     }}
                                   >
                                     MORE DETAIL
