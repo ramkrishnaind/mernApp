@@ -27,7 +27,7 @@ let storage = multer.diskStorage({
 });
 let upload = multer({ storage: storage });
 const path = require('path');
-let { createCMS, getCMSList, updateCMSStatus,updateCMS } = require('./Routes');
+let { createCMS, getCMSList, updateCMSStatus, updateCMS, getCMS, deleteCMS, getCMSPages } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
@@ -36,10 +36,14 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.post('/createCMS', upload.array("cms"), createCMS(allCollection))
-    router.post('/getCMSList', getCMSList(allCollection))
-    router.post('/updateCMS', upload.array("cms"), updateCMS(allCollection))
-    router.post('/updateCMSStatus', updateCMSStatus(allCollection))
-    
+    router.post('/createCMS', userAuthMiddleware, upload.array("cms"), createCMS(allCollection))
+    router.post('/getCMSList', userAuthMiddleware, getCMSList(allCollection))
+    router.post('/getCMSDetail', userAuthMiddleware, getCMS(allCollection))
+    router.post('/deleteCMS', userAuthMiddleware, deleteCMS(allCollection))
+    router.post('/getLocationPages', requestAuthMiddleware, getCMSPages(allCollection, 'Location'))
+    router.post('/getBottomPages', requestAuthMiddleware, getCMSPages(allCollection, 'Bottom'))
+    router.post('/updateCMS', userAuthMiddleware, upload.array("cms"), updateCMS(allCollection))
+    router.post('/updateCMSStatus', userAuthMiddleware, updateCMSStatus(allCollection))
+
     return router;
 };
