@@ -63,7 +63,7 @@ const PropertyCreateUpdate = (props) => {
     pType: propertyData?.pType || "",
     postingAs: propertyData?.postingAs || "",
     nameOfProject: propertyData?.nameOfProject || "",
-    Bedrooms: propertyData?.bedrooms || "",
+    Bedrooms: propertyData?.bedrooms || null,
     Balconies: propertyData?.balconies || "",
     Floor_No_: propertyData?.floorNo || "",
     Total_Floors: propertyData?.totalFloors || "",
@@ -77,7 +77,7 @@ const PropertyCreateUpdate = (props) => {
     State: propertyData?.address?.State || "",
     pinCode: propertyData?.address?.pinCode || "",
     Super_Area: {
-      size: propertyData?.superArea || "",
+      size: propertyData?.superArea || null,
     },
     Carpet_Area: {
       size: propertyData?.carpetArea || "",
@@ -88,7 +88,7 @@ const PropertyCreateUpdate = (props) => {
     available_from_month: propertyData?.availableFromMonth || "",
     available_from_year: propertyData?.availableFromYear || "",
     gaurdRoom: propertyData?.gaurdRoom || "",
-    id: id || "",
+    id: id || " ",
     status: true || "",
     Transaction_Type: propertyData?.transactionType || "",
     Property_Tag: propertyData?.propertyTag || "",
@@ -103,6 +103,24 @@ const PropertyCreateUpdate = (props) => {
     maintenance_charges_per: propertyData?.price?.maintenanceFor || "",
     brokerage: propertyData?.price?.brokerage || "",
     build_year: propertyData?.buildYear || "",
+
+    Visitor_Room: propertyData?.vistorRoom || "",
+    Conference_Room: propertyData?.conferenceRoom || "",
+    // Floors_Allowed_For_Construction:
+    //   propertyData?.floorsAllowedForConstruction || "",
+    // No_Of_Open_Sides: propertyData?.noOfOpenSides || null,
+    // Width_Of_Road_Facing_The_Plot:
+    //   propertyData?.widthOfRoadFacingThePlot || null,
+    // Plot_Length: propertyData?.plotLength || null,
+    // Plot_Breadth: propertyData?.plotBreadth || null,
+    // This_residential_house_is_built_on_a_corner_plot:
+    //   propertyData?.thisResidentialHouseIsBuiltOnACornerPlot || null,
+    // response_from_brokers: propertyData?.responseFromBrokers || null,
+
+    Personal_Washroom: propertyData?.personalWashroom || false,
+    No_Of_Seats: propertyData?.noOfSeats || "",
+    Meeting_Rooms: propertyData?.meetingRooms || "",
+    Pantry: propertyData?.Pantry || false,
   };
 
   const imageState = {
@@ -115,6 +133,9 @@ const PropertyCreateUpdate = (props) => {
     masterPlan: [],
     locationMap: [],
     other: [],
+    roomImage: [],
+    conference: [],
+    visitor: [],
   };
   const [description, setDescription] = useState(
     propertyData?.projectDescription
@@ -222,7 +243,7 @@ const PropertyCreateUpdate = (props) => {
   };
 
   const onFeatureSelect = (feature) => {
-    let name = feature.label.replace(/[^a-zA-Z]/gi, "_");
+    let name = feature?.fieldName?.replace(/[^a-zA-Z]/gi, "_");
     // console.log("-FEATURE--", feature);
     setState({
       ...state,
@@ -267,20 +288,20 @@ const PropertyCreateUpdate = (props) => {
     });
   };
   const handleSubmit = () => {
-    if (state.id == null) {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (state.id == " ") {
       let reqData = {
         iAm: state.iAm,
         for: state.for,
         pType: state.pType,
         postingAs: state.postingAs,
         nameOfProject: state.nameOfProject,
-        bedrooms: state.Bedrooms,
         balconies: state.Balconies,
         floorNo: state.Floor_No_,
         totalFloors: state.Total_Floors,
         furnishedStatus: state.Furnished_Status,
         bathrooms: state.Bathrooms,
-        superArea: state.Super_Area?.size,
         builtUpArea: state.Built_up_Area?.size,
         carpetArea: state.Carpet_Area?.size,
         possessionStatus: state.Possession_Status,
@@ -307,6 +328,22 @@ const PropertyCreateUpdate = (props) => {
         description: description,
         gaurdRoom: state.gaurdRoom,
         buildYear: state.build_year,
+        bedrooms: state.Bedrooms,
+        superArea: state.Super_Area?.size,
+        userId: user?._id,
+        vistorRoom: state.Visitor_Room,
+        conferenceRoom: state.Conference_Room,
+        // floorsAllowedForConstruction: state.Floors_Allowed_For_Construction,
+        // noOfOpenSides: state.No_Of_Open_Sides,
+        // Widthofroad: state.Width_Of_Road_Facing_The_Plot,
+        // plotLength: state.Plot_Length,
+        // plotBreadth: state.Plot_Breadth,
+        // IsCornerPlot: state.This_residential_house_is_built_on_a_corner_plot,
+        responseFromBrokers: state.response_from_brokers,
+        personalWashroom: state.Personal_Washroom,
+        noOfSeats: state.No_Of_Seats,
+        meetingRooms: state.Meeting_Rooms,
+        Pantry: state.Pantry,
       };
 
       let data = {
@@ -320,6 +357,9 @@ const PropertyCreateUpdate = (props) => {
         // locationMap: image.locationMap,
         masterPlan: image.masterPlan,
         other: image.other,
+        roomImage: image.roomImage,
+        conference: image.conference,
+        visitor: image.visitor,
       };
       dispatch(PropertyAction.PropertyAddRequestAsync(reqData, data));
     } else {
@@ -329,13 +369,11 @@ const PropertyCreateUpdate = (props) => {
         pType: state.pType,
         postingAs: state.postingAs,
         nameOfProject: state.nameOfProject,
-        bedrooms: state.Bedrooms,
         balconies: state.Balconies,
         floorNo: state.Floor_No_,
         totalFloors: state.Total_Floors,
         furnishedStatus: state.Furnished_Status,
         bathrooms: state.Bathrooms,
-        superArea: state.Super_Area?.size,
         builtUpArea: state.Built_up_Area?.size,
         carpetArea: state.Carpet_Area?.size,
         possessionStatus: state.Possession_Status,
@@ -359,10 +397,26 @@ const PropertyCreateUpdate = (props) => {
         propertyTag: state.Property_Tag,
         transactionType: state.Transaction_Type,
         propertyDetails: propertyDetail,
-        propertyId: state.id,
         description: description,
         gaurdRoom: state.gaurdRoom,
         buildYear: state.build_year,
+        bedrooms: state.Bedrooms,
+        superArea: state.Super_Area?.size,
+        userId: user?._id,
+        vistorRoom: state.Visitor_Room,
+        conferenceRoom: state.Conference_Room,
+        // floorsAllowedForConstruction: state.Floors_Allowed_For_Construction,
+        // noOfOpenSides: state.No_Of_Open_Sides,
+        // Widthofroad: state.Width_Of_Road_Facing_The_Plot,
+        // plotLength: state.Plot_Length,
+        // plotBreadth: state.Plot_Breadth,
+        // IsCornerPlot: state.This_residential_house_is_built_on_a_corner_plot,
+        responseFromBrokers: state.response_from_brokers,
+        personalWashroom: state.Personal_Washroom,
+        noOfSeats: state.No_Of_Seats,
+        meetingRooms: state.Meeting_Rooms,
+        Pantry: state.Pantry,
+        propertyId: state.id,
       };
 
       let data = {
@@ -376,6 +430,9 @@ const PropertyCreateUpdate = (props) => {
         // locationMap: image.locationMap,
         masterPlan: image.masterPlan,
         other: image.other,
+        roomImage: image.roomImage,
+        conference: image.conference,
+        visitor: image.visitor,
       };
       dispatch(PropertyAction.PropertyUpdateRequestAsync(reqData, data));
     }
@@ -489,9 +546,9 @@ const PropertyCreateUpdate = (props) => {
                     <Select
                       native
                       variant="outlined"
-                      value={state["pType"]}
+                      value={state[fieldName]}
                       onChange={handleChange}
-                      inputProps={{ name: "pType" }}
+                      inputProps={{ name: fieldName }}
                       style={{
                         height: 48,
                         marginRight: 5,
@@ -605,6 +662,35 @@ const PropertyCreateUpdate = (props) => {
                         })}
                       </Select>
                     )}
+                  </Grid>
+                );
+              } else if (type === "textfields") {
+                return (
+                  <Grid
+                    item
+                    xs={12}
+                    md={12}
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "flex-start",
+                    }}
+                    key={index}
+                  >
+                    <TextField
+                      label={label}
+                      placeholder={placeholder}
+                      style={{
+                        width: 400,
+                        marginRight: 15,
+                        marginBottom: 15,
+                      }}
+                      name={label}
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={state[field?.fieldName]}
+                    />
                   </Grid>
                 );
               } else if (type === "checkbox") {
@@ -1024,6 +1110,48 @@ const PropertyCreateUpdate = (props) => {
     }
   };
 
+  const handleImageRooms = (file, status) => {
+    let list = image;
+    let data = [];
+    if (status === "done") {
+      if (list.roomImage && list.roomImage.length) {
+        data = list.roomImage;
+        data[list.roomImage.length] = file.file;
+      } else {
+        data["0"] = file.file;
+      }
+      setImageState({ ...image, ["roomImage"]: data });
+    }
+  };
+
+  const handleImageConference = (file, status) => {
+    let list = image;
+    let data = [];
+    if (status === "done") {
+      if (list.conference && list.conference.length) {
+        data = list.conference;
+        data[list.conference.length] = file.file;
+      } else {
+        data["0"] = file.file;
+      }
+      setImageState({ ...image, ["conference"]: data });
+    }
+  };
+
+  const handleImageVisitor = (file, status) => {
+    let list = image;
+    let data = [];
+    if (status === "done") {
+      if (list.visitor && list.visitor.length) {
+        data = list.visitor;
+        data[list.visitor.length] = file.file;
+      } else {
+        data["0"] = file.file;
+      }
+      setImageState({ ...image, ["visitor"]: data });
+    }
+  };
+
   const handleImageKitchen = (file, status) => {
     let list = image;
     let data = [];
@@ -1104,7 +1232,7 @@ const PropertyCreateUpdate = (props) => {
         heading1={"Property Module Management"}
         heading2={"Create and Update Property Here"}
       />
-      {state?.id ? (
+      {state.id != " " ? (
         <>
           <BreadCrumbs
             heading1={"PropertyManagement"}
@@ -1125,7 +1253,7 @@ const PropertyCreateUpdate = (props) => {
         <div className="card w-100">
           <div className="card-header d-flex justify-content-between align-items-center">
             <Typography component="h3" variant="h3">
-              {state?.id ? "Edit" : "Add"} Property
+              {state.id != " " ? "Edit" : "Add"} Property
             </Typography>
           </div>
           <div className="card-body">
@@ -1367,7 +1495,7 @@ const PropertyCreateUpdate = (props) => {
 
                     <FieldsContainer label="Property Amenities">
                       {amenities.map((x, i) => {
-                        if (state.id == null) {
+                        if (state.id == " ") {
                           return (
                             <Grid item xs={12} md={4}>
                               <TextField
@@ -1501,15 +1629,15 @@ const PropertyCreateUpdate = (props) => {
                     >
                       <FormControlLabel
                         value="true"
-                        aria-label="guardRoom"
-                        name="guardRoom"
+                        aria-label="gaurdRoom"
+                        name="gaurdRoom"
                         control={<Radio />}
                         label="Yes"
                       />
                       <FormControlLabel
                         value="false"
-                        aria-label="guardRoom"
-                        name="guardRoom"
+                        aria-label="gaurdRoom"
+                        name="gaurdRoom"
                         control={<Radio />}
                         label="No"
                       />
@@ -1592,49 +1720,145 @@ const PropertyCreateUpdate = (props) => {
 
                 <Grid item xs={12} sm={12}>
                   <Grid container>
-                    <Grid item xs={12} sm={6} md={6}>
-                      <Typography variant="subtitle1" gutterBottom>
-                        Living Room
-                      </Typography>
-                      {propertyData?.images?.livingRoom?.map((item, index) => {
-                        return (
-                          <img
-                            src={API_ENDPOINTS.BASE_URL + item.path}
-                            height="80px"
-                            width="80px"
+                    {state.pType == "RESIDENTIAL" ? (
+                      <>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <Typography variant="subtitle1" gutterBottom>
+                            Living Room
+                          </Typography>
+                          {propertyData?.images?.livingRoom?.map(
+                            (item, index) => {
+                              return (
+                                <img
+                                  src={API_ENDPOINTS.BASE_URL + item.path}
+                                  height="80px"
+                                  width="80px"
+                                />
+                              );
+                            }
+                          )}
+                          <Dropzone
+                            onChangeStatus={handleImageLivingRoom}
+                            accept="image/*,audio/*,video/*"
                           />
-                        );
-                      })}
-                      <Dropzone
-                        onChangeStatus={handleImageLivingRoom}
-                        accept="image/*,audio/*,video/*"
-                      />
-                    </Grid>
+                        </Grid>
+
+                        <Grid item xs={12} sm={6} md={6}>
+                          <Typography variant="subtitle1" gutterBottom>
+                            Badrooms
+                          </Typography>
+                          {propertyData?.images?.badrooms?.map(
+                            (item, index) => {
+                              return (
+                                <img
+                                  src={API_ENDPOINTS.BASE_URL + item.path}
+                                  height="80px"
+                                  width="80px"
+                                />
+                              );
+                            }
+                          )}
+                          <Dropzone
+                            onChangeStatus={handleImageBadrooms}
+                            accept="image/*,audio/*,video/*"
+                          />
+                        </Grid>
+
+                        <Grid item xs={12} sm={6} md={6}>
+                          <br />
+                          <Typography variant="subtitle1" gutterBottom>
+                            Kitchen
+                          </Typography>
+                          {propertyData?.images?.kitchen?.map((item, index) => {
+                            return (
+                              <img
+                                src={API_ENDPOINTS.BASE_URL + item.path}
+                                height="80px"
+                                width="80px"
+                              />
+                            );
+                          })}
+                          <Dropzone
+                            onChangeStatus={handleImageKitchen}
+                            accept="image/*,audio/*,video/*"
+                          />
+                        </Grid>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                    {state.pType == "COMMERCIAL" ? (
+                      <>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <Typography variant="subtitle1" gutterBottom>
+                            Rooms
+                          </Typography>
+                          {propertyData?.images?.livingRoom?.map(
+                            (item, index) => {
+                              return (
+                                <img
+                                  src={API_ENDPOINTS.BASE_URL + item.path}
+                                  height="80px"
+                                  width="80px"
+                                />
+                              );
+                            }
+                          )}
+                          <Dropzone
+                            onChangeStatus={handleImageRooms}
+                            accept="image/*,audio/*,video/*"
+                          />
+                        </Grid>
+
+                        <Grid item xs={12} sm={6} md={6}>
+                          <Typography variant="subtitle1" gutterBottom>
+                            Visitor Room
+                          </Typography>
+                          {propertyData?.images?.badrooms?.map(
+                            (item, index) => {
+                              return (
+                                <img
+                                  src={API_ENDPOINTS.BASE_URL + item.path}
+                                  height="80px"
+                                  width="80px"
+                                />
+                              );
+                            }
+                          )}
+                          <Dropzone
+                            onChangeStatus={handleImageVisitor}
+                            accept="image/*,audio/*,video/*"
+                          />
+                        </Grid>
+
+                        <Grid item xs={12} sm={6} md={6}>
+                          <br />
+                          <Typography variant="subtitle1" gutterBottom>
+                            Conference Room
+                          </Typography>
+                          {propertyData?.images?.badrooms?.map(
+                            (item, index) => {
+                              return (
+                                <img
+                                  src={API_ENDPOINTS.BASE_URL + item.path}
+                                  height="80px"
+                                  width="80px"
+                                />
+                              );
+                            }
+                          )}
+                          <Dropzone
+                            onChangeStatus={handleImageConference}
+                            accept="image/*,audio/*,video/*"
+                          />
+                        </Grid>
+                      </>
+                    ) : (
+                      ""
+                    )}
 
                     <Grid item xs={12} sm={6} md={6}>
-                      <Typography variant="subtitle1" gutterBottom>
-                        Badrooms
-                      </Typography>
-                      {propertyData?.images?.badrooms?.map((item, index) => {
-                        return (
-                          <img
-                            src={API_ENDPOINTS.BASE_URL + item.path}
-                            height="80px"
-                            width="80px"
-                          />
-                        );
-                      })}
-                      <Dropzone
-                        onChangeStatus={handleImageBadrooms}
-                        accept="image/*,audio/*,video/*"
-                      />
-                    </Grid>
-                  </Grid>
-                </Grid>
-
-                <Grid item xs={12} sm={12}>
-                  <Grid container>
-                    <Grid item xs={12} sm={6} md={6}>
+                      <br />
                       <Typography variant="subtitle1" gutterBottom>
                         Bathrooms
                       </Typography>
@@ -1654,29 +1878,7 @@ const PropertyCreateUpdate = (props) => {
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={6}>
-                      <Typography variant="subtitle1" gutterBottom>
-                        Kitchen
-                      </Typography>
-                      {propertyData?.images?.kitchen?.map((item, index) => {
-                        return (
-                          <img
-                            src={API_ENDPOINTS.BASE_URL + item.path}
-                            height="80px"
-                            width="80px"
-                          />
-                        );
-                      })}
-                      <Dropzone
-                        onChangeStatus={handleImageKitchen}
-                        accept="image/*,audio/*,video/*"
-                      />
-                    </Grid>
-                  </Grid>
-                </Grid>
-
-                <Grid item xs={12} sm={12}>
-                  <Grid container>
-                    <Grid item xs={12} sm={6} md={6}>
+                      <br />
                       <Typography variant="subtitle1" gutterBottom>
                         Floor Plan
                       </Typography>
@@ -1696,6 +1898,7 @@ const PropertyCreateUpdate = (props) => {
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={6}>
+                      <br />
                       <Typography variant="subtitle1" gutterBottom>
                         Master Plan
                       </Typography>
@@ -1713,11 +1916,7 @@ const PropertyCreateUpdate = (props) => {
                         accept="image/*,audio/*,video/*"
                       />
                     </Grid>
-                  </Grid>
-                </Grid>
 
-                <Grid item xs={12} sm={12}>
-                  <Grid container>
                     {/* <Grid item xs={12} sm={6} md={6}>
                       <Typography variant="subtitle1" gutterBottom>
                         Location Map
@@ -1729,6 +1928,7 @@ const PropertyCreateUpdate = (props) => {
                     </Grid> */}
 
                     <Grid item xs={12} sm={6} md={6}>
+                      <br />
                       <Typography variant="subtitle1" gutterBottom>
                         Other
                       </Typography>
