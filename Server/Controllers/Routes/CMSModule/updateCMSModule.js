@@ -16,7 +16,7 @@ const moduleSchema = Joi.object({
     metaDescription: Joi.string().allow(null),
     pageSortDescription: Joi.string().allow(null),
     pageDescription: Joi.string().allow(null),
-    iconImage: Joi.string().allow(null)
+    image: Joi.string().allow(null)
 });
 
 function createCMS(Models) {
@@ -30,11 +30,11 @@ function createCMS(Models) {
             }
 
             // pick data from req.body
-         
-            let bodyData = _.pick(req.body, ["id", "position","pageName","type","pageUrl",
-                                "pageTitle","metaTitle","metaKeywords","metaDescription","pageSortDescription",
-                            "pageDescription","iconImage"]);
-            
+
+            let bodyData = _.pick(req.body, ["id", "position", "pageName", "type", "pageUrl",
+                "pageTitle", "metaTitle", "metaKeywords", "metaDescription", "pageSortDescription",
+                "pageDescription", "iconImage"]);
+
             let setData = {
                 position: bodyData.position,
                 pageName: bodyData.pageName,
@@ -47,12 +47,9 @@ function createCMS(Models) {
                 pageSortDescription: bodyData.pageSortDescription,
                 pageDescription: bodyData.pageDescription
             }
-            if(req.files.length > 0)
-            {
-                bodyData.iconImage = req.files;
-                setData ['iconImage']= bodyData.iconImage
-            }
-            let updateModule = await Models.CMSDB.findOneAndUpdate({ _id: bodyData.id }, { $set: setData});
+            bodyData.image = req.files;
+            setData['image'] = bodyData.image
+            let updateModule = await Models.CMSDB.findOneAndUpdate({ _id: bodyData.id }, { $set: setData });
             console.log('updateModule is', updateModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
         }
