@@ -48,6 +48,18 @@ const moduleSchema = Joi.object({
     propertyTag: Joi.string(),
     gaurdRoom: Joi.boolean(),
     description: Joi.string(),
+
+
+    conferenceRoom: Joi.number(),
+    vistorRoom: Joi.number(),
+    personalWashroom: Joi.boolean(),
+    description: Joi.string(),
+    noOfSeats: Joi.number(),
+    meetingRooms: Joi.number(),
+    Pantry: Joi.boolean(),
+    Noofopensides: Joi.boolean(),
+    Widthofroad: Joi.number(),
+    IsCornerPlot: Joi.boolean(),
 });
 
 

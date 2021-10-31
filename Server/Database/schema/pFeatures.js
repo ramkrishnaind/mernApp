@@ -16,6 +16,12 @@ const schema = new Schema({
     bedrooms: {
         type: Number
     },
+    conferenceRoom: {
+        type: Number
+    },
+    vistorRoom: {
+        type: Number
+    },
     balconies: {
         type: Number
     },
@@ -28,9 +34,6 @@ const schema = new Schema({
     furnishedStatus: {
         type: String
     },
-    washrooms: {
-        type: Number
-    },
     noOfSeats: {
         type: Number
     },
@@ -41,7 +44,7 @@ const schema = new Schema({
         type: Boolean
     },
     Pantry: {
-        type: String
+        type: Boolean
     },
     bathrooms: {
         type: Number
