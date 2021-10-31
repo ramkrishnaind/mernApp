@@ -19,7 +19,7 @@ function getCMS(Models) {
             }
             let bodyData = _.pick(req.body, ["_id"]);
             let _id = bodyData._id;
-            let findData = await Models.CMSDB.findOne(_id).lean();
+            let findData = await Models.CMSDB.findOne({ _id }).lean();
             res.send({ status: true, message: "CMS Details", data: findData });
         }
         catch (e) {
