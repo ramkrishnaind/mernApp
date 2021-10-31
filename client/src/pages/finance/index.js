@@ -23,7 +23,8 @@ const Finance = (props) => {
   const [tenure, setTenure] = useState("");
   const [emi, setEmi] = useState("");
   const [total, setTotal] = useState("");
-  const [year, setyear] = useState("12");
+  const [year, setyear] = useState(12);
+  const [yearSelected , setYearselected] = useState(false)
   React.useEffect(() => {
     financeResponse();
   }, []);
@@ -45,11 +46,29 @@ const Finance = (props) => {
   };
 
   const handleData = (e) => {
-    let yr = tenure * year;
-    let emi = Math.round((amount * rate * yr) / 100);
-    setEmi(emi);
-    setTotal(parseFloat(emi) + parseFloat(amount));
+    let n = tenure * year;
+    if(!yearSelected) {
+      n =  +tenure
+    }
+    const P = +amount;
+    const r = rate/(12*100);
+    // (p*r*(1+r)*n)/ ((1+r)*(n-1))
+
+    let emi =  P*r*(Math.pow(1+r , n)) / (Math.pow(1+r ,n) -1)
+    setEmi(Math.ceil(emi));
+    const interest = P*r/(1-Math.pow((1+r) , -n))
+    setTotal(Math.ceil((emi*n - P)));
+
+
+  
   };
+  const resetData = () => {
+    setEmi('');
+    setTotal('');
+    setAmount('');
+    setTenure("");
+    setRate('');
+  }
   return (
     <div>
       <PageBanner
@@ -129,8 +148,9 @@ const Finance = (props) => {
                               id="loanyears"
                               value="12"
                               tabindex="4"
+                              checked = {yearSelected}
                               autocomplete="off"
-                              onChange={(e) => setyear(e.target.value)}
+                              onChange={(e) => setYearselected(true)}
                             />
                             Years
                           </label>
@@ -143,7 +163,8 @@ const Finance = (props) => {
                               value="1"
                               tabindex="5"
                               autocomplete="off"
-                              onChange={(e) => setyear(e.target.value)}
+                              checked = {!yearSelected}
+                              onChange={(e) => setYearselected(false)}
                             />
                             Months
                           </label>
@@ -156,16 +177,47 @@ const Finance = (props) => {
                           variant="contained"
                           onClick={(e) => handleData(e)}
                         >
-                          Search
+                       <i class="fas fa-calculator" style ={{marginRight: '10px'}}></i>
+
+                          Calculate
+                        </Button>
+                        <Button
+                          className="search-btn"
+                          variant="contained"
+                          onClick={(e) => resetData(e)}
+                        >
+                       <i class="fas fa-trash-restore" style ={{marginRight: '10px'}}></i>
+                          Reset
                         </Button>
                       </div>
+
                       <br></br>
                       {emi ? (
-                        <>
-                          <Typography>Principal Amount :{amount}</Typography>
+                        <div>
+                          {/* <Typography>Principal Amount :{amount}</Typography>
                           <Typography>Interest Amount :{emi}</Typography>
-                          <Typography>Total Value:{total}</Typography>
-                        </>
+                          <Typography>Total Value:{total}</Typography> */}
+                          <div  className = 'emi-container' >
+                            <span>EMI</span>
+                            <span>&#8377; {emi}</span>
+                          </div>
+                          <div className = "emi-details-container"> 
+                            <span className = "d-flex">
+                              <span  className ='color1'>Principal Amount</span>
+                              <span className ='color2'>{amount}</span>
+                            </span>
+                            <span>+</span>
+                            <span  className = "d-flex">
+                              <span  className ='color1'>Interest Payable</span>
+                              <span className ='color2'>{total}</span>
+                              </span>
+                              <span>=</span>
+                              <span  className = "d-flex">
+                              <span className ='color1'>Total Payable</span>
+                              <span  className ='color2'>{+total+(+amount)}</span>
+                              </span>
+                          </div>
+                        </div>
                       ) : (
                         ""
                       )}

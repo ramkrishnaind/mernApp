@@ -1,41 +1,81 @@
-.form-enquiry .form-group{
-    margin-bottom: 26px!important;
+.form-enquiry .form-group {
+    margin-bottom: 26px !important;
     background-color: #fff;
-    border-radius: 10px!important;
+    border-radius: 10px !important;
     /* padding: 18px!important; */
 }
 
-.MuiFilledInput-input{
-    border-radius: 10px!important;
+.MuiFilledInput-input {
+    border-radius: 10px !important;
 }
-.search-btn{
-    background-color: #ff7600!important;
-    color: #fff!important;
-    font-size: 14px!important;
+.search-btn {
+    background-color: #ff7600 !important;
+    color: #fff !important;
+    font-size: 14px !important;
     font-family: "Open Sans", sans-serif;
     text-transform: capitalize;
-    padding: 7px 15px!important;
-    font-weight: 600!important;
+    padding: 7px 15px !important;
+    font-weight: 600 !important;
     position: relative;
     z-index: 1;
-    transition: .2s ease!important;
-    border-radius: 10px!important;
+    transition: 0.2s ease !important;
+    border-radius: 10px !important;
 }
 
 .search-btn:focus {
-    background: #00b0b8!important;
+    background: #00b0b8 !important;
     border: none;
     box-shadow: 0 0 0 0.2rem rgb(38 143 255 / 50%);
     outline: none;
 }
-.map-form>label{
-    color:#fff!important;
-    text-align: left!important;
+.map-form > label {
+    color: #fff !important;
+    text-align: left !important;
     width: 100%;
     margin-bottom: 10px;
-    font-size: 15px!important;
+    font-size: 15px !important;
 }
 
-.map-container >div{
+.map-container > div {
     height: 100%;
+}
+.emi-container {
+    background: #f8eaea;
+    height: 60px;
+    color: #445a3d;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+}
+
+.emi-container span {
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.emi-details-container {
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-around;
+    border-radius: 15px;
+    height: 70px;
+    background: #7fc0c3;
+    padding: 8px;
+    margin-top: 14px;
+}
+.d-flex {
+    display: flex;
+    flex-direction: column;
+}
+.d-flex span {
+    font-size: 13px;
+}
+
+.color1 {
+    color: black;
+}
+.color2 {
+    color: blue
 }

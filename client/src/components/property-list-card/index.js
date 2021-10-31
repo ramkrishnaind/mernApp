@@ -481,7 +481,7 @@ const PropertyListCard = (props) => {
                           className={classes.btn2}
                           onClick={handleClickOpen}
                         >
-                          Take a tour
+                          Visit Site
                         </Button>
 
                         <Button

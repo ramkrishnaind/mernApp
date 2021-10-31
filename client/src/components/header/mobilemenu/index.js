@@ -97,15 +97,23 @@ export default function Mobilemenu(props) {
                             "href": "/construction-process"
                         }
                     ]
-                }, {
-                    "id": 3,
-                    "title": "Sell",
-                    "href": "/search-property-details?type=Sell"
-                },
+                }, 
                 {
-                    "id": 4,
-                    "title": "Rent",
-                    "href": "/search-property-details?type=Rent"
+                    "id": 2,
+                    "title": "Property",
+                    "href": "",
+                    "submenu": [
+                        {
+                            "id": 3,
+                            "title": "Sell",
+                            "href": "/search-property-details?type=Sell"
+                        },
+                        {
+                            "id": 4,
+                            "title": "Rent",
+                            "href": "/search-property-details?type=Rent"
+                        },
+                    ]
                 },
                 {
                     "id": 5,
