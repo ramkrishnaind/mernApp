@@ -35,14 +35,16 @@ module.exports = function (conn) {
     const allCollection = require('../Database/getCollections')(conn.MongoDBConnection);
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
-
-    router.post('/createCMS', userAuthMiddleware, upload.array("cms"), createCMS(allCollection))
+    const pageMedia = [{
+        name: 'image'
+    }];
+    router.post('/createCMS', userAuthMiddleware, upload.fields(pageMedia), createCMS(allCollection))
     router.post('/getCMSList', userAuthMiddleware, getCMSList(allCollection))
     router.post('/getCMSDetail', userAuthMiddleware, getCMS(allCollection))
     router.post('/deleteCMS', userAuthMiddleware, deleteCMS(allCollection))
     router.post('/getLocationPages', requestAuthMiddleware, getCMSPages(allCollection, 'Location'))
     router.post('/getBottomPages', requestAuthMiddleware, getCMSPages(allCollection, 'Bottom'))
-    router.post('/updateCMS', userAuthMiddleware, upload.array("cms"), updateCMS(allCollection))
+    router.post('/updateCMS', userAuthMiddleware, upload.fields(pageMedia), updateCMS(allCollection))
     router.post('/updateCMSStatus', userAuthMiddleware, updateCMSStatus(allCollection))
 
     return router;

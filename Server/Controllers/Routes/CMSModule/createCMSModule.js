@@ -15,7 +15,7 @@ const moduleSchema = Joi.object({
     metaDescription: Joi.string().allow(null),
     pageSortDescription: Joi.string().allow(null),
     pageDescription: Joi.string().allow(null),
-    iconImage: Joi.string()
+    image: Joi.string()
 });
 
 function createCMS(Models) {
@@ -28,18 +28,17 @@ function createCMS(Models) {
             }
 
             // pick data from req.body
-            let bodyData = _.pick(req.body, ["position","pageName","type","pageUrl",
-                                "pageTitle","metaTitle","metaKeywords","metaDescription","pageSortDescription",
-                            "pageDescription","iconImage"]);
+            let bodyData = _.pick(req.body, ["position", "pageName", "type", "pageUrl",
+                "pageTitle", "metaTitle", "metaKeywords", "metaDescription", "pageSortDescription",
+                "pageDescription", "image"]);
             let findData = await Models.CMSDB.findOne({ pageName: bodyData.pageName });
-          
+
             if (findData) {
                 // if data found check 
                 throw { status: false, error: true, message: CONSTANTSMESSAGE.ALREADY_EXIST, duplicateModule: true, statusCode: 401 };
             }
 
-            if(req.files.length > 0)
-                bodyData.iconImage = req.files;
+            bodyData.image = req.files;
 
             let saveModule = await new Models.CMSDB(bodyData).save();
             console.log('saveModule is', saveModule)

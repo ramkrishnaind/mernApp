@@ -29,7 +29,7 @@ let schema = new Schema({
     metaDescription: {
         type: String
     },
-    iconImage: {
+    image: {
         type: Array
     },
     pageSortDescription: {
