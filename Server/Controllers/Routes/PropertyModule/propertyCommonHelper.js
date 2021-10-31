@@ -276,6 +276,14 @@ function propertyDetail(Models) {
                     result.review = propertyReview;
                     result.address = propertyFeatures.address;
                     result.price = propertyPrice;
+                    result.visitorRoom = propertyFeatures.visitorRoom;
+                    result.conferenceRoom = propertyFeatures.conferenceRoom;
+                    result.meetingRooms = propertyFeatures.meetingRooms;
+                    result.personalWashroom = propertyFeatures.personalWashroom;
+                    result.Pantry = propertyFeatures.Pantry;
+                    result.noOfSeats = propertyFeatures.noOfSeats;
+                    result.Widthofroad = propertyFeatures.Widthofroad;
+                    result.Noofopensides = propertyFeatures.Noofopensides;
                     return result;
                 });
                 res.send({ status: true, message: "Property Details", data: property });
