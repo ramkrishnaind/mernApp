@@ -18,7 +18,15 @@ const schema = new Schema({
         type: Number,
         required: true
     },
-    place: {
+    city: {
+        type: String,
+        required: true
+    },
+    location: {
+        type: String,
+        required: true
+    },
+    lookingFor: {
         type: String,
         required: true
     },
