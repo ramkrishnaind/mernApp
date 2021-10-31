@@ -7,13 +7,30 @@
             "section": "Property Features",
             "section_id": "features",
             "fields": [
+
                 {
                     "type": "option",
-                    "label": "Bedrooms",
+                    "label": "Visitor Room",
                     "initial_counts": [1,2,3,4,5,"5+"],
                     "more_counts": [6,7,8,9,10, ">10"],
                     "showMore": true,
-                    "fieldName": "bedrooms"
+                    "fieldName": "Visitor_Room"
+                },
+                {
+                    "type": "option",
+                    "label": "Conference Room",
+                    "initial_counts": [1,2,3,4,5,"5+"],
+                    "more_counts": [6,7,8,9,10, ">10"],
+                    "showMore": true,
+                    "fieldName": "Conference_Room"
+                },
+                {
+                    "type": "option",
+                    "label": "Meeting Rooms",
+                    "initial_counts": [1,2,3,4,5,"5+"],
+                    "more_counts": [6,7,8,9,10, ">10"],
+                    "showMore": true,
+                    "fieldName": "Meeting_Rooms"
                 },
                 {
                     "type": "option",
@@ -21,15 +38,15 @@
                     "initial_counts": [0,1,2,3,"3+"],
                     "more_counts": [4,5,6,7,8,9,10, ">10"],
                     "showMore": true,
-                    "fieldName": "balconies"
+                    "fieldName": "Balconies"
                 },
                 {
                     "type": "option",
                     "label": "Floor No.",
-                    "initial_counts": ["Lower Basement","Upper Basement","Ground",1,2,3,4,5,"5+"],
+                    "initial_counts": [-2,-1,0,1,2,3,4,5,"5+"],
                     "more_counts": [6,7,8,9,10, 11,12],
                     "showMore": true,
-                    "fieldName": "floor_no"
+                    "fieldName": "Floor_No_"
                 },
                 {
                     "type": "option",
@@ -37,41 +54,42 @@
                     "initial_counts": [1,2,3,4,5,6,7,8,9,10,11,12,13,"13+"],
                     "more_counts": [14,15,16,17,18,19,20],
                     "showMore": true,
-                    "fieldName": "total_floors"
+                    "fieldName": "Total_Floors"
                 },
                 {
                     "type": "option",
                     "label": "Furnished Status",
                     "initial_counts": ["Furnished", "Unfrnised", "Semi-Furnished"],
                     "showMore": false,
-                    "fieldName": "furnished_status"
+                    "fieldName": "Furnished_Status"
                 },
                 {
                     "type": "option",
-                    "label": "Bathrooms",
+                    "label": "Washroom",
                     "initial_counts": [1,2,3,"3+"],
                     "more_counts": [4,5,6,7,8,9,10, ">10"],
                     "showMore": true,
-                    "fieldName": "bathrooms"
+                    "fieldName": "Bathrooms"
+                },
+                {
+                    "type": "option",
+                    "label": "No Of Seats",
+                    "initial_counts": [2,4,5,6,7,8,9,10,15,20,25,"25+"],
+                    "more_counts": [30,35,40,50,60,70,80,100],
+                    "showMore": true,
+                    "fieldName": "No_Of_Seats"
                 },
                 {
                     "type": "dropdown",
-                    "label": "Floors Allowed for construction",
-                    "fieldName": "floors_allowed_for_construction",
-                    "values": [1,2,3,4,5,6,7,8,9,10,11,12,13,14, 15, 16, 17, 18, 19, 20,"Total Floors"]
+                    "label": "Personal Washroom",
+                    "fieldName": "Personal_Washroom",
+                    "values": ["true","false"]
                 },
                 {
                     "type": "dropdown",
-                    "label": "No of open sides",
-                    "values": [1,2,3,4],
-                    "fieldName": "number_of_open_sides"
-                },
-                {
-                    "type": "textfield",
-                    "label": "Width of road facing the plot",
-                    "placeholder": "Road with",
-                    "unit": "Meter",
-                    "fieldName": "width_of_road_facing_the_plot_unit"
+                    "label": "Pantry",
+                    "fieldName": "Pantry",
+                    "values": ["true","false"]
                 }
             ]
         },
@@ -81,38 +99,11 @@
             "fields": [
                 {
                     "type": "textfield",
-                    "label": "Covered Area",
-                    "placeholder": "Covered Area",
-                    "defalut_unit": "Sq-ft",
-                    "units": ["Sq-Yrd", "Sq-m", "Acre", "Bigha", "Hectare", "Marla", "Kanal", "Biswa1", "Biswa2", "Ground", "Aankadam", "Rood", "Chatak", "Kottah", "Cent"],
-                    "fieldName": "covered_area"
-                },
-                {
-                    "type": "textfield",
-                    "label": "Plot Area",
+                    "label": "Built-up Area",
                     "placeholder": "Built-up Area",
                     "defalut_unit": "Sq-ft",
                     "units": ["Sq-Yrd", "Sq-m", "Acre", "Bigha", "Hectare", "Marla", "Kanal", "Biswa1", "Biswa2", "Ground", "Aankadam", "Rood", "Chatak", "Kottah", "Cent"],
-                    "fieldName": "plot_area"
-                },
-                {
-                    "type": "textfield",
-                    "label": "Plot Length",
-                    "placeholder": "Plot Length",
-                    "unit": "ft",
-                    "fieldName": "plot_length_unit"
-                },
-                {
-                    "type": "textfield",
-                    "label": "Plot Breadth",
-                    "placeholder": "Plot Breadth",
-                    "unit": "mfteter",
-                    "fieldName": "plot_breadth_unit"
-                },
-                {
-                    "type": "checkbox",
-                    "label": "This residential house is built on a corner plot",
-                    "fieldName": "this_residential_house_built_on_a_corner_plot"
+                    "fieldName": "Built_up_Area"
                 },
                 {
                     "type": "textfield",
@@ -120,7 +111,7 @@
                     "placeholder": "Carpet Area",
                     "defalut_unit": "Sq-ft",
                     "units": ["Sq-Yrd", "Sq-m", "Acre", "Bigha", "Hectare", "Marla", "Kanal", "Biswa1", "Biswa2", "Ground", "Aankadam", "Rood", "Chatak", "Kottah", "Cent"],
-                    "fieldName": "carpet_area"
+                    "fieldName": "Carpet_Area"
                 }
             ]
         },
@@ -129,16 +120,22 @@
             "section_id": "transaction",
             "fields": [
                 {
+                    "label": "Property Tag",
+                    "type": "radio",
+                    "values": ["New", "Most Selling","Featured"],
+                    "fieldName": "Property_Tag"
+                },
+                {
                     "label": "Transaction Type",
                     "type": "radio",
-                    "values": ["New Property", "ReSell"],
-                    "fieldName": "transaction_type"
+                    "values": ["New Property", "ReSell","Rent"],
+                    "fieldName": "Transaction_Type"
                 },
                 {
                     "label": "Possession Status",
                     "type": "radio",
                     "values": ["Under Construction", "Ready to move"],
-                    "fieldName": "possession_status"
+                    "fieldName": "Possession_Status"
                 },
                 {
                     "type": "dropdown",
@@ -154,7 +151,18 @@
                             "fieldName": "available_from_year"
                         }
                     ]
-                }
+                },
+                {
+                    "type": "dropdown",
+                    "label": "Build Year",
+                    "fieldName": "build_year",
+                    "data": [
+                        {
+                            "values": ["2005", "2006", "2007", "2008", "2009", "2010","2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020","2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031"],
+                            "fieldName": "build_year"
+                        }
+                    ]
+                } 
             ]
         },
         {
@@ -173,27 +181,6 @@
                             "placeholder": "",
                             "label": "Price Per Sq-ft:",
                             "fieldName": "expected_price_per_sq_ft"
-                        }
-                    ]
-                },
-                {
-                    "type": "checkbox",
-                    "label": "Price Includes",
-                    "fields": [
-                        {
-                            "label": "PLC",
-                            "value": "plc",
-                            "fieldName": "price_includes_plc"
-                        },
-                        {
-                            "label": "Car Parking",
-                            "value": "car parking",
-                            "fieldName": "price_includes_car_parking"
-                        },
-                        {
-                            "label": "Club Membership",
-                            "value": "club membership",
-                            "fieldName": "price_includes_club_membership"
                         }
                     ]
                 },
@@ -232,20 +219,10 @@
                 {
                     "type": "dropdown",
                     "label": "Brokerage (Brokers only)",
-                    "values": ["Select Brokerage", "No Brokerage", "0.25%", "0.5%", "0.75%", "1%", "1.5%", "2%", "3%", "4%", "5%"],
+                    "values": ["0", "0.25", "0.5", "0.75", "1", "1.5", "2", "3", "4", "5"],
                     "fieldName": "brokerage"
-                },
-                {
-                    "type": "checkbox",
-                    "label": "Response from brokers",
-                    "fields": [
-                        {
-                            "label": "I am not interested in getting response from brokers",
-                            "value": "I am not interested in getting response from brokers",
-                            "fieldName": "response_from_brokers"
-                        }
-                    ]
                 }
+                
             ]
         }
     ]

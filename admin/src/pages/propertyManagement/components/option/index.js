@@ -64,7 +64,7 @@ const Option = (props) => {
   const handleSelectOption = (item, index) => {
     setSelectedOptionIndex(index);
     setSelectedOption("");
-    onSelect && onSelect({ label, item });
+    onSelect && onSelect({ fieldName, item });
   };
 
   const handleClose = () => {
@@ -75,7 +75,7 @@ const Option = (props) => {
     setSelectedOption(item);
     setSelectedOptionIndex(-1);
     setAnchorEl(null);
-    onSelect && onSelect({ label, item });
+    onSelect && onSelect({ fieldName, item });
   };
 
   const handleClick = (event) => {

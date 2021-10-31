@@ -218,6 +218,60 @@ export const PropertyAddService = async (dispatch, data, imageData) => {
       );
     }
 
+    if (imageData.roomImage.length > 0) {
+      var roomImage = new FormData();
+      imageData.roomImage.forEach((item, index) => {
+        roomImage.append("image", item);
+      });
+      roomImage.append("imagetype", "roomImage");
+      roomImage.append("propertyId", propertyId);
+
+      await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
+        roomImage,
+        null,
+        null,
+        true
+      );
+    }
+
+    if (imageData.conference.length > 0) {
+      var conference = new FormData();
+      imageData.conference.forEach((item, index) => {
+        conference.append("image", item);
+      });
+      conference.append("imagetype", "conference");
+      conference.append("propertyId", propertyId);
+
+      await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
+        conference,
+        null,
+        null,
+        true
+      );
+    }
+
+    if (imageData.visitor.length > 0) {
+      var visitor = new FormData();
+      imageData.visitor.forEach((item, index) => {
+        visitor.append("image", item);
+      });
+      visitor.append("imagetype", "visitor");
+      visitor.append("propertyId", propertyId);
+
+      await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
+        visitor,
+        null,
+        null,
+        true
+      );
+    }
+
     dispatch(PropertyAction.PropertyAddSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
     history.push("/property");
@@ -448,6 +502,60 @@ export const PropertyUpdateService = async (dispatch, data, imageData) => {
         ApiClient.REQUEST_METHOD.POST,
         API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
         other,
+        null,
+        null,
+        true
+      );
+    }
+
+    if (imageData.roomImage.length > 0) {
+      var roomImage = new FormData();
+      imageData.roomImage.forEach((item, index) => {
+        roomImage.append("image", item);
+      });
+      roomImage.append("imagetype", "roomImage");
+      roomImage.append("propertyId", propertyId);
+
+      await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
+        roomImage,
+        null,
+        null,
+        true
+      );
+    }
+
+    if (imageData.conference.length > 0) {
+      var conference = new FormData();
+      imageData.conference.forEach((item, index) => {
+        conference.append("image", item);
+      });
+      conference.append("imagetype", "conference");
+      conference.append("propertyId", propertyId);
+
+      await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
+        conference,
+        null,
+        null,
+        true
+      );
+    }
+
+    if (imageData.visitor.length > 0) {
+      var visitor = new FormData();
+      imageData.visitor.forEach((item, index) => {
+        visitor.append("image", item);
+      });
+      visitor.append("imagetype", "visitor");
+      visitor.append("propertyId", propertyId);
+
+      await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        API_ENDPOINTS.PROPERTY_IMAGE_ENDPOINT,
+        visitor,
         null,
         null,
         true
