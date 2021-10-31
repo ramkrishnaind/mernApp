@@ -416,6 +416,24 @@ const items = [
       },
     ],
   },
+
+  {
+    href: "/cms",
+    icon: UsersIcon,
+    title: "CMS",
+    items: [
+      {
+        href: "/cms/add",
+        icon: ShoppingBagIcon,
+        title: "Add CMS",
+      },
+      {
+        href: "/cms",
+        icon: ShoppingBagIcon,
+        title: "CMS List",
+      },
+    ],
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
