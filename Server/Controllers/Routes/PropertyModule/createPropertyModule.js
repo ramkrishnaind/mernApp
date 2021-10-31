@@ -49,7 +49,6 @@ const moduleSchema = Joi.object({
     gaurdRoom: Joi.boolean(),
     description: Joi.string(),
 
-
     conferenceRoom: Joi.number().allow(null),
     vistorRoom: Joi.number().allow(null),
     personalWashroom: Joi.boolean(),
