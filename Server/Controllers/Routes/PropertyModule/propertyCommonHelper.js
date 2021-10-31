@@ -276,7 +276,7 @@ function propertyDetail(Models) {
                     result.review = propertyReview;
                     result.address = propertyFeatures.address;
                     result.price = propertyPrice;
-                    result.visitorRoom = propertyFeatures.visitorRoom;
+                    result.vistorRoom = propertyFeatures.vistorRoom;
                     result.conferenceRoom = propertyFeatures.conferenceRoom;
                     result.meetingRooms = propertyFeatures.meetingRooms;
                     result.personalWashroom = propertyFeatures.personalWashroom;
