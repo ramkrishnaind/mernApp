@@ -53,11 +53,10 @@ const moduleSchema = Joi.object({
     conferenceRoom: Joi.number(),
     vistorRoom: Joi.number(),
     personalWashroom: Joi.boolean(),
-    description: Joi.string(),
     noOfSeats: Joi.number(),
     meetingRooms: Joi.number(),
     Pantry: Joi.boolean(),
-    Noofopensides: Joi.boolean(),
+    Noofopensides: Joi.number(),
     Widthofroad: Joi.number(),
     IsCornerPlot: Joi.boolean(),
 });
@@ -81,7 +80,8 @@ function createPropertyRequest(Models) {
                 "isCarParkingIncluded", "isClubMemberShipIncluded", "otherCharges", "isStumpDutyRCExcluded",
                 "bookingAmount", "maintenanceCharge", "maintenanceFor", "brokerageCharge", "amenities", "latitude",
                 "longitude", "address", "city", "State", "pinCode", "propertTag", "isPostedByAdmin", "propertyDetails",
-                "userId", "totalArea", "propertyTag", "gaurdRoom", "description", "buildYear"]);
+                "userId", "totalArea", "propertyTag", "gaurdRoom", "description", "buildYear", "conferenceRoom", "vistorRoom",
+                "personalWashroom", "noOfSeats", "meetingRooms", "Pantry", "Noofopensides", "Widthofroad", "IsCornerPlot",]);
             // searching email or mobile already exists or not
             let propertiesLength = await Models.PropertyDB.count();
             let code = propertiesLength + 1;
@@ -125,7 +125,16 @@ function createPropertyRequest(Models) {
                 propertyDetails: bodyData.propertyDetails,
                 propertyTag: bodyData.propertyTag,
                 userId: bodyData.userId,
-                gaurdRoom: bodyData.gaurdRoom
+                gaurdRoom: bodyData.gaurdRoom,
+                conferenceRoom: bodyData.conferenceRoom,
+                vistorRoom: bodyData.vistorRoom,
+                personalWashroom: bodyData.personalWashroom,
+                noOfSeats: bodyData.noOfSeats,
+                meetingRooms: bodyData.meetingRooms,
+                Pantry: bodyData.Pantry,
+                Noofopensides: bodyData.Noofopensides,
+                Widthofroad: bodyData.Widthofroad,
+                IsCornerPlot: bodyData.IsCornerPlot
             };
             const priceSchema = {
                 expectedPrice: bodyData.expectedPrice,
