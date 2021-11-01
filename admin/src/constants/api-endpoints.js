@@ -213,6 +213,14 @@ const API_ENDPOINTS = {
   FINANCE_UPDATE_ENDPOINT: "finance/updateFinance",
   FINANCE_DELETE_ENDPOINT: "finance/deleteFinanceData",
   FINANCE_DATA_ENDPOINT: "finance/getFinanceDetail",
+
+  //cms module
+  CMS_LIST_ENDPOINT: "cms/getCMSList",
+  CMS_ADD_ENDPOINT: "cms/createCMS",
+  CMS_STATUS_UPDATE_ENDPOINT: "cms/updateCMSStatus",
+  CMS_UPDATE_ENDPOINT: "cms/updateCMS",
+  CMS_DELETE_ENDPOINT: "cms/deleteCMS",
+  CMS_DATA_ENDPOINT: "cms/getCMSDetail",
 };
 
 export default API_ENDPOINTS;

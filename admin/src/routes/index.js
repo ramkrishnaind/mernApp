@@ -66,6 +66,10 @@ import AboutPageList from "../pages/aboutpageManagement";
 import AddAboutPage from "../pages/aboutpageManagement/add";
 import FinanceList from "../pages/financeManagement";
 import AddFinance from "../pages/financeManagement/add";
+
+import CmsList from "../pages/cmsManagement";
+import AddCms from "../pages/cmsManagement/add";
+
 const Routes = (props) => {
   const { isAuth } = props;
   const routes = [
@@ -310,6 +314,14 @@ const Routes = (props) => {
         {
           path: "/finance/add",
           element: isAuth ? <AddFinance /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/cms",
+          element: isAuth ? <CmsList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/cms/add",
+          element: isAuth ? <AddCms /> : <Navigate to="/login" />,
         },
         {
           path: "404",

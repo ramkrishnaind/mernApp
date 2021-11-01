@@ -34,6 +34,8 @@ import Investwithus from "./investwithusReducer";
 import Newsletter from "./NewsletterReducer";
 import Aboutpage from "./aboutpageReducer";
 import Finance from "./financeReducer";
+import Cms from "./cmsReducer";
+
 const reducers = {
   Login: LoginReducer,
   Register: RegisterReducer,
@@ -71,6 +73,7 @@ const reducers = {
   newsletter: Newsletter,
   aboutpage: Aboutpage,
   finance: Finance,
+  cms: Cms,
 };
 
 export default reducers;
