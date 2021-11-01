@@ -53,7 +53,7 @@ const schema = new Schema({
     },
     status: {
         type: Number,
-        default: false
+        default: 0
     }
 }, {
     timestamps: {
