@@ -6,7 +6,7 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const schema = Joi.object({
     id: Joi.string().required(),
-    status: Joi.boolean().required()
+    status: Joi.number().required()
 });
 
 function updatePropertyStatus(Models) {
@@ -19,12 +19,12 @@ function updatePropertyStatus(Models) {
                 throw { status: false, error: validateData, message: CONSTANTSMESSAGE.INVALID_DATA };
             }
 
-            let bodyData = _.pick(req.body, ["status","id"]);
+            let bodyData = _.pick(req.body, ["status", "id"]);
             let setData = {
                 status: bodyData.status,
-                
+
             }
-            let updateModule = await Models.PropertyDB.findOneAndUpdate({ _id: bodyData.id }, { $set: setData});
+            let updateModule = await Models.PropertyDB.findOneAndUpdate({ _id: bodyData.id }, { $set: setData });
             console.log('updateModule is', updateModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.STATUS_UPDATE_SUCCESS });
         }
