@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Typography, Box, Link } from "@material-ui/core";
+import { Button, Typography, Box, Link, Select } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as PropertyAction from "../../redux/actions/PropertyAction";
 import { useDispatch } from "react-redux";
@@ -44,7 +44,7 @@ const PropertyList = (props) => {
   function onDisable(data, status) {
     let tempdata = {
       id: data,
-      status: status,
+      status: status.target.value,
     };
     dispatch(PropertyAction.PropertyStatusUpdateRequestAsync(tempdata));
   }
@@ -124,8 +124,10 @@ const PropertyList = (props) => {
                   name: "Status",
                   options: {
                     customBodyRender: (value, tableMeta, updateValue) => {
-                      if (value === true) return "Active";
-                      else return "Inactive";
+                      if (value === 0) return "Inactive";
+                      else if (value === 1) return "Active";
+                      else if (value === 2) return "Pending";
+                      else if (value === 3) return "Rejected";
                     },
                   },
                 },
@@ -142,24 +144,49 @@ const PropertyList = (props) => {
                             }
                           />
 
-                          {tableMeta.rowData[3] ? (
-                            <Tooltip title="Active">
-                              <Done
-                                onClick={() =>
-                                  onDisable(tableMeta.rowData[7], false)
-                                }
-                                style={{ color: "#1e7e34", cursor: "pointer" }}
-                              />
-                            </Tooltip>
+                          {tableMeta.rowData[6] === 3 ? (
+                            <Select
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined-label"
+                              label="Role"
+                              native
+                              name="rating"
+                              inputProps={{
+                                name: "rating",
+                                id: "age-native-simple",
+                              }}
+                              onChange={(e) =>
+                                onDisable(tableMeta.rowData[7], e)
+                              }
+                              value={tableMeta.rowData[6]}
+                              disabled
+                            >
+                              <option value="0">Inactive </option>
+                              <option value="1">Active </option>
+                              <option value="2">Pending </option>
+                              <option value="3">Rejected </option>
+                            </Select>
                           ) : (
-                            <Tooltip title="Inactive">
-                              <ClearIcon
-                                onClick={() =>
-                                  onDisable(tableMeta.rowData[7], true)
-                                }
-                                style={{ color: "#bd2130", cursor: "pointer" }}
-                              />
-                            </Tooltip>
+                            <Select
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined-label"
+                              label="Role"
+                              native
+                              name="rating"
+                              inputProps={{
+                                name: "rating",
+                                id: "age-native-simple",
+                              }}
+                              onChange={(e) =>
+                                onDisable(tableMeta.rowData[7], e)
+                              }
+                              value={tableMeta.rowData[6]}
+                            >
+                              <option value="0">Inactive </option>
+                              <option value="1">Active </option>
+                              <option value="2">Pending </option>
+                              <option value="3">Rejected </option>
+                            </Select>
                           )}
 
                           <DeleteIcon
