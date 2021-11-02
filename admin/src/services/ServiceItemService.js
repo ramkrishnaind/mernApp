@@ -38,13 +38,13 @@ export const ServiceItemAddService = async (dispatch, data) => {
     );
     dispatch(ServiceItemAction.ServiceItemAddSuccess(result));
     dispatch(Snackbar.showSuccessSnackbar(result.message));
-    history.push("/ServiceItem");
+    history.push("/serviceItem");
     window.location.reload();
   } catch (error) {
     dispatch(ServiceItemAction.ServiceItemAddError(error));
     dispatch(
       Snackbar.showFailSnackbar(
-        error.response.data?.error?.error?.details[0]?.message
+        error?.response?.data?.error?.error?.details[0]?.message
       )
     );
   }

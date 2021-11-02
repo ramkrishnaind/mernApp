@@ -316,6 +316,7 @@ export const PropertyStatusUpdateService = async (dispatch, data) => {
       )
     );
   }
+  dispatch(Loader.hideLoader(""));
 };
 
 export const PropertyUpdateService = async (dispatch, data, imageData) => {
