@@ -32,12 +32,15 @@ function createOTP(Models) {
             if (saveModule) {
                 let message = 'Hello, \n';
                 message += 'OTP for Vishal Construction Company is : ' + OTP;
-                message += 'Thanks\n';
+                message += 'Thanks. VISHCC';
                 console.log('message is', message);
-                SendMessage({
+                let msgObj = {
+                    senderID: 'VCCOTP',
+                    templateID: '1207163549200843594',
                     mobile: bodyData.mobile,
-                    message
-                });
+                    message: message,
+                };
+                await SendMessage(msgObj);
             }
             console.log('saveModule is', saveModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });

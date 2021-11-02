@@ -2,6 +2,58 @@ const _ = require('lodash');
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi)
 
+const SendMessage = require('../../../Helper/sendSms');
+const siteMobile = async (Models) => {
+    let result = await Models.AddressDB.findOne({ active: true })
+    console.log('result is', result)
+    if (result) {
+        return result.mobile;
+    } else {
+        return 9802953333;
+    }
+};
+const clientMobile = async (Models, bodyData) => {
+    let _id = bodyData.userId;
+    let result = await Models.UserDB.findOne({ _id })
+    console.log('result is', result)
+    if (result) {
+        let user = {
+            mobile: result.mobile,
+            firstName: result.firstName,
+            lastName: result.lastName
+        }
+        return user;
+    } else {
+        return { mobile: 9802953333 };
+    }
+};
+const sendMessageToClient = async (Models, bodyData) => {
+    let clientDetails = await clientMobile(Models, bodyData);
+    console.log('clientDetails is', clientDetails)
+    let clientMessage = 'Hello ' + clientDetails.firstName + ' ' + clientDetails.lastName + ', \n';
+    clientMessage += 'Your Property ' + bodyData.nameOfProject + ', Property Code:- ' + bodyData.propertyCode + ' submitted on Vishal Construction Company for approval, We will verify your request and revert you soon. Regards, Vishal Construction Company VISHCC \n';
+    console.log('clientMessage is', clientMessage);
+    let msgObj = {
+        senderID: 'VCCFLT',
+        templateID: '1207163549248717951',
+        mobile: clientDetails.mobile,
+        message: clientMessage,
+    };
+    await SendMessage(msgObj);
+};
+const sendMessageToAdmin = async (Models, bodyData) => {
+    let mobile = await siteMobile(Models);
+    let message = 'Hello Vishal Properties, \n';
+    message += 'A VCC User ' + bodyData.name + ', want to contact. Subject: ' + bodyData.subject + ' Name : ' + bodyData.name + ' Mobile : ' + bodyData.mobile + ' Email : ' + bodyData.email + ' Message: ' + bodyData.message + ' Thanks VISHCC';
+    console.log('message is', message);
+    await SendMessage({
+        senderID: 'VCCFLT',
+        templateID: '1207163549238877518',
+        mobile,
+        message
+    });
+};
+
 const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
@@ -155,6 +207,10 @@ function createPropertyRequest(Models) {
             let priceSchemaModule = await new Models.PPriceDB(priceSchema).save();
 
             console.log('priceSchemaModule at saving time', priceSchemaModule)
+            if (featureSchemaModule) {
+                //await sendMessageToAdmin(Models, bodyData);
+                await sendMessageToClient(Models, bodyData);
+            }
             res.send({ status: true, propertyId: saveModule._id, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
         }
         catch (e) {

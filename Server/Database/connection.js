@@ -8,16 +8,16 @@ dbString = dbString + ':' + dbconf.dbcredentials.password;
 dbString = dbString + '@' + dbconf.dbcredentials.address;
 dbString = dbString + ':' + dbconf.dbcredentials.port;
 dbString = dbString + '/' + dbconf.dbcredentials.database;
+
+if (process.env.NODE_ENV == "localDevelopment") {
+    dbString = process.env.LOCALDATABASE;
+}
 console.log('dbString is', dbString);
-
-
-
 var conn1 = mongoose.createConnection(dbString, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useFindAndModify', false);
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useCreateIndex', true);
 mongoose.set('debug', true);
-console.log('conn1 is', conn1)
 conn1.on('error', (err) => {
     console.log("Error while connection to Database", err);
 })
