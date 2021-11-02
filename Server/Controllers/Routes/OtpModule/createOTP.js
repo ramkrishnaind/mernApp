@@ -30,9 +30,9 @@ function createOTP(Models) {
             }
             let saveModule = await new Models.OtpDB(dataToSave).save();
             if (saveModule) {
-                let message = 'Hello, \n';
+                let message = 'Hello VCCUSER, \n';
                 message += 'OTP for Vishal Construction Company is : ' + OTP;
-                message += 'Thanks. VISHCC';
+                message += ' Thanks. VISHCC';
                 console.log('message is', message);
                 let msgObj = {
                     senderID: 'VCCOTP',
@@ -42,7 +42,6 @@ function createOTP(Models) {
                 };
                 await SendMessage(msgObj);
             }
-            console.log('saveModule is', saveModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
         }
         catch (e) {
