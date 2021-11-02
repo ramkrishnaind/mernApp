@@ -35,7 +35,7 @@ function createOTP(Models) {
                 message += ' Thanks. VISHCC';
                 console.log('message is', message);
                 let msgObj = {
-                    senderID: 'VCCOTP',
+                    senderID: 'VCCFLT',
                     templateID: '1207163549200843594',
                     mobile: bodyData.mobile,
                     message: message,
