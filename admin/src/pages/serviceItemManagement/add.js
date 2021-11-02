@@ -92,7 +92,9 @@ const MenuCreateUpdate = (props) => {
       data.append("metaDescription", metaDescription);
       data.append("shortDescription", shortDescription);
 
-      data.append("banner", banner);
+      if (banner !== "") {
+        data.append("banner", banner);
+      }
       // data.append("video", video);
       data.append("_id", id);
       dispatch(ServiceItemAction.ServiceItemUpdateRequestAsync(data));
