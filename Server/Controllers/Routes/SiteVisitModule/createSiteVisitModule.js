@@ -21,11 +21,12 @@ const siteMobile = async (Models) => {
         return 9802953333;
     }
 };
-const sendMessageToClient = async (bodyData) => {
+const sendMessageToClient = async (Models, bodyData) => {
     let clientMessage = 'Hello ' + bodyData.name + ', \n';
     let clientMobile = bodyData.phone;
-    clientMessage += 'Your Request Received For Site Visit. We will get back to you at the earliest. Thanks for the patience. \n';
-    clientMessage += 'VISHCC';
+    let mobile = await siteMobile(Models);
+    clientMessage += 'Your Request Received For Site Visit. We will get back to you at the earliest For any query Call ' + mobile + ' \n';
+    clientMessage += 'Regards, Vishal Construction Company VISHCC';
     console.log('clientMessage is', clientMessage);
     await SendMessage({
         senderID: 'VISHCC',
@@ -72,7 +73,7 @@ function createSiteVisitRequest(Models) {
             console.log('saveModule is', saveModule)
             if (saveModule) {
                 await sendMessageToAdmin(Models, bodyData);
-                await sendMessageToClient(bodyData);
+                await sendMessageToClient(Models, bodyData);
             }
             res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
         }
