@@ -76,6 +76,7 @@ function EnquryForm(props) {
   //const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [location, setLocation] = useState("");
+  const [lookingFor, setLookingFor] = useState("");
   const [type, setPropertyType] = useState("");
   const [propertyname, setPropertyName] = useState("");
   const [enableOtpField, setEnableOtpField] = useState(false);
@@ -104,6 +105,7 @@ function EnquryForm(props) {
     setEmail('');
     setCity('');
     setLocation('');
+    setLookingFor('');
     setPropertyType('');
     setPropertyName('');
     setOpen(false);
