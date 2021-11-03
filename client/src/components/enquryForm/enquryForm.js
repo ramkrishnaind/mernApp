@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {withStyles} from '@material-ui/core/styles';
+import React, { useState } from "react";
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -10,8 +10,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import ChatIcon from '@material-ui/icons/Chat';
 import './enquryForm.css';
-import {Box, NativeSelect, TextField} from '@material-ui/core';
-import {useDispatch} from "react-redux";
+import { Box, NativeSelect, TextField } from '@material-ui/core';
+import { useDispatch } from "react-redux";
 import * as EnquiryAction from '../../redux/actions/EnquiryAction';
 import ApiClient from '../../api-client';
 import * as Snackbar from "../../redux/actions/SnackbarActions";
@@ -36,7 +36,7 @@ const styles = (theme) => ({
 
 
 const DialogTitle = withStyles(styles)((props) => {
-  const {children, classes, onClose, ...other} = props;
+  const { children, classes, onClose, ...other } = props;
 
 
   return (
@@ -68,12 +68,14 @@ const DialogActions = withStyles((theme) => ({
 
 function EnquryForm(props) {
   const [open, setOpen] = useState(false);
-  const {children, classes, onClose, ...other} = props;
+  const { children, classes, onClose, ...other } = props;
 
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
-  const [country, setCountry] = useState("");
+  //const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
+  const [location, setLocation] = useState("");
   const [type, setPropertyType] = useState("");
   const [propertyname, setPropertyName] = useState("");
   const [enableOtpField, setEnableOtpField] = useState(false);
@@ -88,7 +90,9 @@ function EnquryForm(props) {
       name: name,
       email: email,
       phone: mobile,
-      place: country,
+      city: city,
+      location: location,
+      lookingFor: lookingFor
       // type: type,
       // propertyname: propertyname,
     };
@@ -98,7 +102,8 @@ function EnquryForm(props) {
     setName('');
     setMobile('');
     setEmail('');
-    setCountry('');
+    setCity('');
+    setLocation('');
     setPropertyType('');
     setPropertyName('');
     setOpen(false);
@@ -109,7 +114,7 @@ function EnquryForm(props) {
     const authorization = 'Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs';
     try {
       setVerifyLoader(true);
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/createOTP', {mobile: mobile}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/createOTP', { mobile: mobile }, {}, { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization }, false);
       setEnableOtpField(true);
       setVerifyLoader(false);
       dispatch(Snackbar.showSuccessSnackbar('Otp sent successfully'));
@@ -123,7 +128,7 @@ function EnquryForm(props) {
 
   const checkOtpValidOrNot = async (value) => {
     try {
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/verifyOTP', {mobile: mobile, otp: value}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/verifyOTP', { mobile: mobile, otp: value }, {}, { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization }, false);
       if (response.status) {
         setIsOtpVerified(true);
         dispatch(Snackbar.showSuccessSnackbar('Otp Verified SuccessFully'));
@@ -147,7 +152,7 @@ function EnquryForm(props) {
   };
   const inputChange = (e) => {
 
-    let {name, value} = e.target;
+    let { name, value } = e.target;
     setOtp(value);
     if (name === 'otp' && value.length == 6 && !isOtpVerified) {
       checkOtpValidOrNot(value);
@@ -173,7 +178,7 @@ function EnquryForm(props) {
         <Box className="emiForm">
           <TextField
             className="EmiInputs"
-            style={{marginTop: 15}}
+            style={{ marginTop: 15 }}
             variant="outlined"
             label="Your Name"
             name="Name"
@@ -185,13 +190,13 @@ function EnquryForm(props) {
               }
             }}
             InputLabelProps={{
-              style: {color: '#FFFFFF'}
+              style: { color: '#FFFFFF' }
             }}
             fullWidth >
           </TextField>
           <TextField
             className="EmiInputs"
-            style={{marginTop: 15}}
+            style={{ marginTop: 15 }}
             variant="outlined"
             label="Email Address"
             type="email"
@@ -204,11 +209,11 @@ function EnquryForm(props) {
               }
             }}
             InputLabelProps={{
-              style: {color: '#FFFFFF'}
+              style: { color: '#FFFFFF' }
             }}
             fullWidth >
           </TextField>
-{/* 
+          {/* 
               <TextField
                 className="EmiInputs"
                 style={{marginTop: 15}}
@@ -260,7 +265,7 @@ function EnquryForm(props) {
                 style: {color: '#FFFFFF'}
               }}
             />} */}
-          <TextField
+          {/* <TextField
             className="EmiInputs"
             style={{marginTop: 15}}
             variant="outlined"
@@ -278,6 +283,44 @@ function EnquryForm(props) {
               style: {color: '#FFFFFF'}
             }}
             fullWidth >
+          </TextField> */}
+          <TextField
+            className="EmiInputs"
+            style={{ marginTop: 15 }}
+            variant="outlined"
+            label="Enter City"
+
+            name="City"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              style: { color: '#FFFFFF' }
+            }}
+            fullWidth >
+          </TextField>
+          <TextField
+            className="EmiInputs"
+            style={{ marginTop: 15 }}
+            variant="outlined"
+            label="Enter Location"
+
+            name="Location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              style: { color: '#FFFFFF' }
+            }}
+            fullWidth >
           </TextField>
           <NativeSelect className="EmiInputs selectInput"
             onChange={(e) => setPropertyType(e.target.value)}
@@ -287,65 +330,66 @@ function EnquryForm(props) {
             <option value={30}>Commerical</option>
           </NativeSelect>
           <NativeSelect className="EmiInputs selectInput"
-            onChange={(e) => setPropertyName(e.target.value)}>
-            <option value={10}>Select Property Name</option>
+            onChange={(e) => setLookingFor(e.target.value)}>
+            <option value={10}>Looking For</option>
             <option value={20}>Villa</option>
             <option value={30}>Flats</option>
             <option value={30}>Plot</option>
+            <option value={50}>Commerical Property</option>
           </NativeSelect>
-          
-          <TextField
-                className="EmiInputs"
-                style={{marginTop: 15}}
-                variant="outlined"
-                label="Phone Number"
-                name="Phone"
-                // style={{width: '76%'}}
-                disabled={isOtpVerified}
-                type="number"
-                min="1000000"
-                max="9999999999999999"
-                value={mobile}
-                onChange={(e) => {
-                  if (enableOtpField) {
-                    setEnableOtpField(false);
-                  }
-                  setMobile(e.target.value);
-                }}
-                InputProps={{
-                  classes: {
-                    notchedOutline: classes.notchedOutline
-                  }
-                }}
-                InputLabelProps={{
-                  style: {color: '#FFFFFF'}
-                }}
-                fullWidth >
-              </TextField>
-              {mobile.length === 10 && !enableOtpField ? <Button style={{width: '23%'}} onClick={otpHandler} variant="contained" style={{background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff'}}
-              >Verify</Button> : isOtpVerified && <div onClick={reset}> <EditIcon /> </div>}
-            {enableOtpField && <TextField
-              className="EmiInputs"
-              placeholder="Otp"
-              style={{width: '50%'}}
 
-              fullWidth
-              value={otp}
-              disabled={isOtpVerified}
-              onChange={inputChange}
-              name="otp"
-              type="number"
-              variant="outlined"
-              InputProps={{
-                classes: {
-                  notchedOutline: classes.notchedOutline
-                }
-              }}
-              InputLabelProps={{
-                style: {color: '#FFFFFF'}
-              }}
-            />}
-          
+          <TextField
+            className="EmiInputs"
+            style={{ marginTop: 15 }}
+            variant="outlined"
+            label="Phone Number"
+            name="Phone"
+            // style={{width: '76%'}}
+            disabled={isOtpVerified}
+            type="number"
+            min="1000000"
+            max="9999999999999999"
+            value={mobile}
+            onChange={(e) => {
+              if (enableOtpField) {
+                setEnableOtpField(false);
+              }
+              setMobile(e.target.value);
+            }}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              style: { color: '#FFFFFF' }
+            }}
+            fullWidth >
+          </TextField>
+          {mobile.length === 10 && !enableOtpField ? <Button style={{ width: '23%' }} onClick={otpHandler} variant="contained" style={{ background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff' }}
+          >Verify</Button> : isOtpVerified && <div onClick={reset}> <EditIcon /> </div>}
+          {enableOtpField && <TextField
+            className="EmiInputs"
+            placeholder="Otp"
+            style={{ width: '50%' }}
+
+            fullWidth
+            value={otp}
+            disabled={isOtpVerified}
+            onChange={inputChange}
+            name="otp"
+            type="number"
+            variant="outlined"
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline
+              }
+            }}
+            InputLabelProps={{
+              style: { color: '#FFFFFF' }
+            }}
+          />}
+
         </Box>
         <DialogActions>
           <Box className="ParentButton">
@@ -353,7 +397,7 @@ function EnquryForm(props) {
               //  onClick={handleClose}
               onClick={(e) => handleData(e)}
             >
-              Save changes
+              Send Enqury
             </Button>
           </Box>
         </DialogActions>
