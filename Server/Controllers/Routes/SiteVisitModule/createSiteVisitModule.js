@@ -30,7 +30,7 @@ const sendMessageToClient = async (Models, bodyData) => {
     console.log('clientMessage is', clientMessage);
     await SendMessage({
         senderID: 'VISHCC',
-        templateID: '1207163549212993086',
+        templateID: '1207163549228584692',
         mobile: clientMobile,
         message: clientMessage,
     });
