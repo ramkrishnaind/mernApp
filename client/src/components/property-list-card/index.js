@@ -227,6 +227,11 @@ const PropertyListCard = (props) => {
     setOpen(true);
   };
   const handleClose = () => {
+    setName('')
+    setMobile('')
+    setEmail('')
+    setTime('')
+    
     setOpen(false);
   };
 
@@ -554,9 +559,12 @@ const PropertyListCard = (props) => {
             variant="outlined"
             label="Phone Number"
             name="Phone"
+            max="9999999999"
             type="tel"
             value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
+            onChange={(e) => {
+              if (e.target.value.length <= 10) setMobile(e.target.value);
+            }}
             InputProps={{
               classes: {
                 notchedOutline: classes.notchedOutline,

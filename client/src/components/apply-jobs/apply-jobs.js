@@ -138,6 +138,11 @@ function ApplyJobs(props) {
   };
 
   const handleClose = () => {
+    
+    setMobile('')
+    setEmail('')
+    
+    
     setOpen(false);
   };
 

@@ -108,6 +108,10 @@ function EnquryFormService(props) {
     setOpen(true);
   };
   const handleClose = () => {
+    setName('')
+    setMobile('')
+    setEmail('')
+    
     setOpen(false);
   };
 

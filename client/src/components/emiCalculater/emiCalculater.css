@@ -36,7 +36,9 @@
 }
 .emiForm{
     padding: 20px;
+    justify-content: center;    
 }
+
 .Emaicalculater .EmiInputs label{
     color: #fff;
 }
