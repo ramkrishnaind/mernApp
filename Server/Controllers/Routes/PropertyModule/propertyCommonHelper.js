@@ -100,6 +100,15 @@ function getAllProperty(Models) {
                         foreignField: 'propertyId',
                         as: 'price'
                     }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'reviews',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'review'
+                    }
                 }
             ]).sort({ updated: -1 });
             if (LoginUser && LoginUser != '') {
