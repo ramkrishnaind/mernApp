@@ -138,6 +138,7 @@ const Header = (props) => {
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
+  const [emailValid, setEmailValid] = useState("");
   const [time, setTime] = useState("");
 
   const [open, setOpen] = useState(false);
@@ -212,7 +213,7 @@ const Header = (props) => {
     setIsOtpVerified(false);
     setEnableOtpField(false);
     setMobile("");
-    setOtp("");   
+    setOtp("");
   };
   const inputChange = (e) => {
     let { name, value } = e.target;
@@ -271,8 +272,8 @@ const Header = (props) => {
     setMobile("");
     setEmail("");
     setTime("");
-    setIsOtpVerified(false)
-    setOtp('')
+    setIsOtpVerified(false);
+    setOtp("");
     setOpen(false);
   };
 
@@ -285,9 +286,10 @@ const Header = (props) => {
     setEmail("");
     setTime("");
     setOpen(false);
-    setIsOtpVerified(false)
-    setOtp('')
-    setEnableOtpField(false)
+    setIsOtpVerified(false);
+    setOtp("");
+    setEnableOtpField(false);
+    setAnchorEl(null);
   };
 
   const logoutHandler = () => {
@@ -533,7 +535,10 @@ const Header = (props) => {
             type="email"
             name="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailValid(e.target.value.includes("@"));
+            }}
             InputProps={{
               classes: {
                 notchedOutline: classes.notchedOutline,
@@ -569,6 +574,7 @@ const Header = (props) => {
               <option value="6:00 PM">6:00 PM</option>
               <option value="7:00 PM">7:00 PM</option>
             </NativeSelect>
+            </div>
             <TextField
               className="EmiInputs"
               style={{ marginTop: 15 }}
@@ -596,54 +602,12 @@ const Header = (props) => {
               }}
               fullWidth
             ></TextField>
-            {mobile.length === 10 && !enableOtpField && (
-              <Button
-                style={{ width: "23%" }}
-                onClick={otpHandler}
-                variant="contained"
-                style={{
-                  background: "green",
-                  height: " 30px",
-                  top: " 10px",
-                  left: "5px",
-                  color: "#fff",
-                }}
-              >
-                Verify
-              </Button>
-            ) 
-            // : (
-            //   isOtpVerified && (
-            //     <div onClick={reset}>
-            //       {" "}
-            //       <EditIcon />{" "}
-            //     </div>
-            //   )
-            // )
-            }
-            {enableOtpField && (
-              <>
-                <TextField
-                  className="EmiInputs"
-                  placeholder="Otp"
-                  style={{ width: "50%" }}
-                  fullWidth
-                  value={otp}
-                  disabled={isOtpVerified}
-                  onChange={inputChange}
-                  name="otp"
-                  type="number"
-                  variant="outlined"
-                  InputProps={{
-                    classes: {
-                      notchedOutline: classes.notchedOutline,
-                    },
-                  }}
-                  InputLabelProps={{
-                    style: { color: "#FFFFFF" },
-                  }}
-                />
-                {!isOtpVerified && (
+            {
+              mobile.length === 10 &&
+                name.length > 0 &&
+                emailValid &&
+                time.length > 0 &&
+                !enableOtpField && (
                   <Button
                     style={{ width: "23%" }}
                     onClick={otpHandler}
@@ -656,16 +620,73 @@ const Header = (props) => {
                       color: "#fff",
                     }}
                   >
-                    Resend OTP
+                    Verify
                   </Button>
-                )}
-              </>
-            )}
-          </div>
+                )
+              // : (
+              //   isOtpVerified && (
+              //     <div onClick={reset}>
+              //       {" "}
+              //       <EditIcon />{" "}
+              //     </div>
+              //   )
+              // )
+            }
+            {enableOtpField &&
+              name.length > 0 &&
+              emailValid &&
+              time.length > 0 && (
+                <>
+                  <TextField
+                    className="EmiInputs"
+                    placeholder="Otp"
+                    style={{ width: "50%" }}
+                    fullWidth
+                    value={otp}
+                    disabled={isOtpVerified}
+                    onChange={inputChange}
+                    name="otp"
+                    type="number"
+                    variant="outlined"
+                    InputProps={{
+                      classes: {
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                    InputLabelProps={{
+                      style: { color: "#FFFFFF" },
+                    }}
+                  />
+                  {!isOtpVerified && (
+                    <Button
+                      style={{ width: "23%" }}
+                      onClick={otpHandler}
+                      variant="contained"
+                      style={{
+                        background: "green",
+                        height: " 30px",
+                        top: " 10px",
+                        left: "5px",
+                        color: "#fff",
+                      }}
+                    >
+                      Resend OTP
+                    </Button>
+                  )}
+                </>
+              )}
         </Box>
         <DialogActions>
           <Box className="ParentButton">
-            <Button disabled={!isOtpVerified} onClick={(e) => handleData(e)}>
+            <Button
+              disabled={
+                !isOtpVerified ||
+                name.length === 0 ||
+                !emailValid ||
+                time.length === 0
+              }
+              onClick={(e) => handleData(e)}
+            >
               Submit
             </Button>
           </Box>
