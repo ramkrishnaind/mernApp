@@ -13,9 +13,9 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.post('/createCallbackRequest', createCallbackRequest(allCollection))
-    router.post('/getCallbackRequest', userAuthMiddleware, getCallbackRequest(allCollection))
+    router.post('/createCallbackRequest', requestAuthMiddleware, createCallbackRequest(allCollection))
+    router.post('/getCallbackRequest', requestAuthMiddleware, userAuthMiddleware, getCallbackRequest(allCollection))
     router.post('/updateCallbackStatusRequest', userAuthMiddleware, updateCallbackStatusRequest(allCollection))
-    
+
     return router;
 };
