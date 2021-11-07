@@ -55,6 +55,15 @@ function getSearchPropertyList(Models) {
                         foreignField: 'propertyId',
                         as: 'images'
                     }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'pprices',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'price'
+                    }
                 }
             ]).sort({ updated: -1 });
             let obj = {
