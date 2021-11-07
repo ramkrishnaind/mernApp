@@ -91,6 +91,15 @@ function getAllProperty(Models) {
                         foreignField: 'propertyId',
                         as: 'images'
                     }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'pprices',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'price'
+                    }
                 }
             ]).sort({ updated: -1 });
             if (LoginUser && LoginUser != '') {
@@ -102,6 +111,7 @@ function getAllProperty(Models) {
                 let item = findData[x];
                 console.log('item is', item)
                 let itemId = item._id;
+                item.isFavorite = false;
                 for (let y = 0; y < myFavorite.length; y++) {
                     let propertyId = myFavorite[y].propertyId;
                     console.log('propertyId is', propertyId)
