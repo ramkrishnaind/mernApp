@@ -36,7 +36,9 @@
 }
 .emiForm{
     padding: 20px;
-    justify-content: center;    
+    justify-content: center;  
+    display: flex;  
+    flex-wrap: wrap;
 }
 
 .Emaicalculater .EmiInputs label{

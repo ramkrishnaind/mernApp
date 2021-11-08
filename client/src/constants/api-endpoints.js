@@ -10,6 +10,7 @@ const API_ENDPOINTS = {
   CONTACTUS_ENDPOINT: "/contactus/createContactUs",
   ENQUIRY_ENDPOINT: "/enquiry/createEnquiryRequest",
   SITEVISIT_ENDPOINT: "sitevisit/createSiteVisitRequest",
+  CALLBACK_REQUEST_ENDPOINT:"callback/createCallbackRequest",
   USER_VERIFICATION_ENDPOINT: "/users/verification",
   ADD_PROPERTY: "/property/createPropertyRequest",
   UPLOAD_IMAGE: "/property/uploadImage",

@@ -12,6 +12,7 @@ import {
   FormControlLabel,
   Radio,
   Button,
+  NativeSelect,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import { useParams } from "react-router";
@@ -42,7 +43,8 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox.css";
-
+import * as Snackbar from "../../redux/actions/SnackbarActions";
+import * as CallbackRequestAction from "../../redux/actions/CallbackRequestAction";
 const options = {
   margin: 10,
   responsiveClass: true,
@@ -174,6 +176,15 @@ function handleNull(val) {
 }
 
 const HouseDetailPage = (props) => {
+  const [nameFeedback, setNameFeedback] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [emailFeedback, setEmailFeedback] = useState("");
+  const [emailValid, setEmailValid] = useState("");
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [verifyLoader, setVerifyLoader] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [enableOtpField, setEnableOtpField] = useState(false);
+  const [open, setOpen] = useState(false);
   const classes = useStyles();
   const location = useLocation();
   const { item } = props;
@@ -185,24 +196,14 @@ const HouseDetailPage = (props) => {
   const propertyListItem = useSelector((state) => state.PropertyDetail.data);
   const [bookNow, setBookNow] = useState(false);
   const [reviews, setReviews] = useState([]);
-
+  
+  const [message, setMessage] = useState("");
+  const [isvisit, setIsvisit] = React.useState('yes');
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
   // console.log("propertyListItem", propertyListItem);
-  if (propertyListItem) {
-    if (viewDetails === false) {
-      console.log(propertyListItem);
-      setViewDetails(true);
-      setPropertyDetail(propertyListItem.data);
-      setReviews(propertyListItem?.data?.review || []);
-      console.log("review ", propertyListItem?.data?.review);
-    }
-  }
-  function useQuery() {
-    return new URLSearchParams(useLocation().search);
-  }
 
   useEffect(() => {
     const isbookNowActive = localStorage.getItem("bookNow");
@@ -223,6 +224,92 @@ const HouseDetailPage = (props) => {
     // console.log('GetPropertyDetailRequestAsync');
     dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
   }, []);
+  const reset = () => {
+    setVerifyLoader(false);
+    setIsOtpVerified(false);
+    setEnableOtpField(false);
+    setMobile("");
+    setOtp("");
+    setNameFeedback("");
+    setEmailFeedback("");
+    setMessage("")
+  };
+  const inputChange = (e) => {
+    let { name, value } = e.target;
+    setOtp(value);
+    if (name === "otp" && value.length === 6 && !isOtpVerified) {
+      checkOtpValidOrNot(value);
+    }
+  };
+  if (propertyListItem) {
+    if (viewDetails === false) {
+      console.log(propertyListItem);
+      setViewDetails(true);
+      setPropertyDetail(propertyListItem.data);
+      setReviews(propertyListItem?.data?.review || []);
+      console.log("review ", propertyListItem?.data?.review);
+    }
+  }
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+
+  const otpHandler = async () => {
+    const cookie =
+      "connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI";
+    const authorization =
+      "Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs";
+    try {
+      setVerifyLoader(true);
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        "/otp/createOTP",
+        { mobile: mobile },
+        {},
+        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+        false
+      );
+      setEnableOtpField(true);
+      setVerifyLoader(false);
+      dispatch(Snackbar.showSuccessSnackbar("Otp sent successfully"));
+    } catch (error) {
+      console.error("this is the error::", error);
+      dispatch(
+        Snackbar.showFailSnackbar(
+          "We are facing some issue Please try again later."
+        )
+      );
+      setVerifyLoader(false);
+    }
+  };
+
+  const checkOtpValidOrNot = async (value) => {
+    try {
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        "/otp/verifyOTP",
+        { mobile: mobile, otp: value },
+        {},
+        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+        false
+      );
+      if (response.status) {
+        setIsOtpVerified(true);
+        dispatch(Snackbar.showSuccessSnackbar("Otp Verified SuccessFully"));
+      } else {
+        setIsOtpVerified(false);
+        dispatch(Snackbar.showFailSnackbar("Please type Valid otp."));
+      }
+    } catch (error) {
+      setIsOtpVerified(false);
+      dispatch(
+        Snackbar.showFailSnackbar(
+          "We are facing some issue Please try again later."
+        )
+      );
+    }
+  };
 
   const setDefaultReview = () => {
     setName("");
@@ -262,7 +349,34 @@ const HouseDetailPage = (props) => {
       console.log("error::submitReview::", e);
     }
   };
-
+  const handleData = (e) => {
+    const formData = {
+      propertyId:PropertyDetail._id,
+      name: nameFeedback,
+      email: emailFeedback,
+      phone: mobile,
+      message: message,
+      isVisit:isvisit==="yes"
+      // type: type,
+      // propertyname: propertyname,
+    };
+    console.log("formData", formData);
+    dispatch(CallbackRequestAction.CallbackRequestRequestAsync(formData));
+    // toast.success('Request Sent successfully', { position: toast.POSITION.TOP_RIGHT, autoClose: 5000 })
+    setNameFeedback("");
+    setMobile("");
+    setEmailFeedback("");
+    // setTime("");
+    setIsOtpVerified(false);
+    setMessage('')
+    setIsvisit("yes")
+    setOtp("");
+    setOpen(false);
+    reset()
+  };
+ const updateSelection=(event) =>{
+  setIsvisit(event.target.value);
+ }
   const onReviewSubmit = async (e) => {
     e.preventDefault();
     if (!name || !email || !comment || !rating) {
@@ -928,26 +1042,32 @@ const HouseDetailPage = (props) => {
                         <TextField
                           label="Your Name"
                           fullWidth
+                          name="Name"
+                          value={nameFeedback}
+                          onChange={(e) => setNameFeedback(e.target.value)}
                           variant="outlined"
                           style={{ marginBottom: 15 }}
                         ></TextField>
                         <TextField
                           label="Email"
                           fullWidth
+                          type="email"
+                          name="Email"
+                          value={emailFeedback}
+                          onChange={(e) => {
+                            setEmailFeedback(e.target.value);
+                            setEmailValid(e.target.value.includes("@"));
+                          }}
                           variant="outlined"
                           style={{ marginBottom: 15 }}
                         ></TextField>
-                        <TextField
-                          label="Phone"
-                          fullWidth
-                          variant="outlined"
-                          style={{ marginBottom: 15 }}
-                        ></TextField>
+
                         <TextField
                           label="Message"
                           multiline
                           fullWidth
                           variant="outlined"
+                          onChange={(e)=>setMessage(e.target.value)}
                           style={{ marginBottom: 15 }}
                         ></TextField>
                         <Typography className={classes.text1}>
@@ -957,8 +1077,8 @@ const HouseDetailPage = (props) => {
                           aria-label="gender"
                           name="gender1"
                           row
-                          value="yes"
-                          onChange={() => {}}
+                          value={isvisit}
+                          onChange={updateSelection}
                         >
                           <FormControlLabel
                             value="yes"
@@ -971,7 +1091,108 @@ const HouseDetailPage = (props) => {
                             label="No"
                           />
                         </RadioGroup>
-                        <Button variant="contained" className={classes.btn1}>
+                        
+                        <TextField
+                          label="Phone"
+                          fullWidth
+                          name="Phone"
+                          disabled={isOtpVerified}
+                          type="number"
+                          min="1000000"
+                          max="9999999999"
+                          value={mobile}
+                          onChange={(e) => {
+                            if (enableOtpField) {
+                              setEnableOtpField(false);
+                            }
+                            if (e.target.value.length <= 10)
+                              setMobile(e.target.value);
+                          }}
+                          variant="outlined"
+                          style={{ marginBottom: 15 }}
+                        ></TextField>
+                        {
+                          mobile.length === 10 &&
+                            nameFeedback.length > 0 &&
+                            emailValid &&
+                            !enableOtpField && (
+                              <Button
+                                style={{ width: "23%" }}
+                                onClick={otpHandler}
+                                variant="contained"
+                                style={{ marginBottom: 15 }}
+                              >
+                                Verify
+                              </Button>
+                            )
+                          // : (
+                          //   isOtpVerified && (
+                          //     <div onClick={reset}>
+                          //       {" "}
+                          //       <EditIcon />{" "}
+                          //     </div>
+                          //   )
+                          // )
+                        }
+                        {enableOtpField &&
+                          nameFeedback.length > 0 &&                          
+                          emailValid && (
+                            <>
+                              <TextField
+                                className="EmiInputs"
+                                placeholder="Otp"
+                                fullWidth
+                                style={{ marginBottom: 15 }}
+                                value={otp}
+                                disabled={isOtpVerified}
+                                onChange={inputChange}
+                                name="otp"
+                                type="number"
+                                variant="outlined"
+                                // InputProps={{
+                                //   classes: {
+                                //     notchedOutline: classes.notchedOutline,
+                                //   },
+                                // }}
+                                // InputLabelProps={{
+                                //   style: { color: "#FFFFFF" },
+                                // }}
+                              />
+                              {!isOtpVerified && (
+                                <Button
+                                  style={{ width: "23%" }}
+                                  onClick={otpHandler}
+                                  variant="contained"
+                                  style={{ marginBottom: 15 }}
+                                >
+                                  Resend OTP
+                                </Button>
+                              )}
+                            </>
+                          )}
+                        {/* <Button
+                          disabled={
+                            !isOtpVerified ||
+                            name.length === 0 ||
+                            !emailValid 
+                            
+                          }
+                          onClick={(e) => handleData(e)}
+                          className={classes.btn1}
+                        >
+                          Submit
+                        </Button> */}
+
+                        <Button
+                          variant="contained"
+                          disabled={
+                            !isOtpVerified ||
+                            nameFeedback.length === 0 ||
+                            !emailValid
+                          }
+                          onClick={(e) => handleData(e)}
+                          className={classes.btn1}
+                        >
                           Submit
                         </Button>
                       </Grid>

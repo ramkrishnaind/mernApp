@@ -15,7 +15,7 @@ import {
   Button,
   NativeSelect,
 } from "@material-ui/core";
-
+import * as Snackbar from "../../../redux/actions/SnackbarActions";
 import { useDispatch } from "react-redux";
 import "../../header/header.css";
 import APP_CONSTANTS from "../../../constants/app-constants";
@@ -27,7 +27,7 @@ import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import * as SitevisitAction from "../../../redux/actions/SitevisitAction";
-
+import ApiClient from "../../../api-client";
 const useStyles = makeStyles((theme) => ({
   text1: {
     fontFamily: '"Open Sans",sans-serif',
@@ -200,15 +200,81 @@ export default function Mobilefootermenu() {
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
+  
+  const [emailValid, setEmailValid] = useState("");
   const [time, setTime] = useState("");
-
+  const [enableOtpField, setEnableOtpField] = useState(false);
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [verifyLoader, setVerifyLoader] = useState(false);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
   function handleNull(val) {
     return val || "_ _ ";
   }
+  const inputChange = (e) => {
+    let { name, value } = e.target;
+    setOtp(value);
+    if (name === "otp" && value.length === 6 && !isOtpVerified) {
+      checkOtpValidOrNot(value);
+    }
+  };
+  const otpHandler = async () => {
+    const cookie =
+      "connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI";
+    const authorization =
+      "Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs";
+    try {
+      setVerifyLoader(true);
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        "/otp/createOTP",
+        { mobile: mobile },
+        {},
+        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+        false
+      );
+      setEnableOtpField(true);
+      setVerifyLoader(false);
+      dispatch(Snackbar.showSuccessSnackbar("Otp sent successfully"));
+    } catch (error) {
+      console.error("this is the error::", error);
+      dispatch(
+        Snackbar.showFailSnackbar(
+          "We are facing some issue Please try again later."
+        )
+      );
+      setVerifyLoader(false);
+    }
+  };
 
+  const checkOtpValidOrNot = async (value) => {
+    try {
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        "/otp/verifyOTP",
+        { mobile: mobile, otp: value },
+        {},
+        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+        false
+      );
+      if (response.status) {
+        setIsOtpVerified(true);
+        dispatch(Snackbar.showSuccessSnackbar("Otp Verified SuccessFully"));
+      } else {
+        setIsOtpVerified(false);
+        dispatch(Snackbar.showFailSnackbar("Please type Valid otp."));
+      }
+    } catch (error) {
+      setIsOtpVerified(false);
+      dispatch(
+        Snackbar.showFailSnackbar(
+          "We are facing some issue Please try again later."
+        )
+      );
+    }
+  };
   const handleData = (e) => {
     const formData = {
       name: name,
@@ -329,28 +395,9 @@ export default function Mobilefootermenu() {
             type="email"
             name="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            InputProps={{
-              classes: {
-                notchedOutline: classes.notchedOutline,
-              },
-            }}
-            InputLabelProps={{
-              style: { color: "#FFFFFF" },
-            }}
-            fullWidth
-          ></TextField>
-          <TextField
-            className="EmiInputs"
-            style={{ marginTop: 15 }}
-            variant="outlined"
-            label="Phone Number"
-            name="Phone"
-            type="tel"
-            max="9999999999"
-            value={mobile}
             onChange={(e) => {
-              if (e.target.value.length <= 10) setMobile(e.target.value);
+              setEmail(e.target.value);
+              setEmailValid(e.target.value.includes("@"));
             }}
             InputProps={{
               classes: {
@@ -362,6 +409,7 @@ export default function Mobilefootermenu() {
             }}
             fullWidth
           ></TextField>
+          
           <NativeSelect
             className="EmiInputs selectInput"
             onChange={(e) => setTime(e.target.value)}
@@ -381,10 +429,103 @@ export default function Mobilefootermenu() {
             <option value="6:00 PM">6:00 PM</option>
             <option value="7:00 PM">7:00 PM</option>
           </NativeSelect>
+
+          <TextField
+            className="EmiInputs"
+            style={{ marginTop: 15 }}
+            variant="outlined"
+            label="Phone Number"
+            name="Phone"
+            type="number"
+            max="9999999999"
+            value={mobile}
+            onChange={(e) => {
+              if (e.target.value.length <= 10) setMobile(e.target.value);
+            }}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline,
+              },
+            }}
+            InputLabelProps={{
+              style: { color: "#FFFFFF" },
+            }}
+            fullWidth
+          ></TextField>
+          {mobile.length === 10 &&
+            name.length > 0 &&
+            emailValid &&
+            time.length > 0 &&
+            !enableOtpField && (
+              <Button
+                style={{ width: "23%" }}
+                onClick={otpHandler}
+                variant="contained"
+                style={{
+                  background: "green",
+                  height: " 30px",
+                  top: " 10px",
+                  left: "5px",
+                  color: "#fff",
+                }}
+              >
+                Verify
+              </Button>
+            )}
+          {enableOtpField && name.length > 0 && emailValid && time.length > 0 && (
+            <>
+              <TextField
+                className="EmiInputs"
+                placeholder="Otp"
+                style={{ width: "50%" }}
+                fullWidth
+                value={otp}
+                disabled={isOtpVerified}
+                onChange={inputChange}
+                name="otp"
+                type="number"
+                variant="outlined"
+                InputProps={{
+                  classes: {
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+                InputLabelProps={{
+                  style: { color: "#FFFFFF" },
+                }}
+              />
+              {!isOtpVerified && (
+                <Button
+                  style={{ width: "23%" }}
+                  onClick={otpHandler}
+                  variant="contained"
+                  style={{
+                    background: "green",
+                    height: " 30px",
+                    top: " 10px",
+                    left: "5px",
+                    color: "#fff",
+                  }}
+                >
+                  Resend OTP
+                </Button>
+              )}
+            </>
+          )}
         </Box>
         <DialogActions>
           <Box className="ParentButton">
-            <Button onClick={(e) => handleData(e)}>Submit</Button>
+            <Button
+              disabled={
+                !isOtpVerified ||
+                name.length === 0 ||
+                !emailValid ||
+                time.length === 0
+              }
+              onClick={(e) => handleData(e)}
+            >
+              Submit
+            </Button>
           </Box>
         </DialogActions>
       </Dialog>
