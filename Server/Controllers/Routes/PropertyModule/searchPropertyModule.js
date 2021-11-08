@@ -22,7 +22,7 @@ function getSearchPropertyList(Models) {
             }
 
             // pick data from req.body
-            let LoginUser, myFavorite, allProperties = [];
+            let LoginUser, myFavorite = [], allProperties = [];
             LoginUser = req.locals ? req.locals.user._id : '';
             let bodyData = _.pick(req.body, ["type", "keyword", "pType", "minAmount", "maxAmount"]);
             let Obj = [{ for: bodyData.type }]
@@ -76,6 +76,9 @@ function getSearchPropertyList(Models) {
                     }
                 }
             ]).sort({ updated: -1 });
+            if (LoginUser && LoginUser != '') {
+                myFavorite = await Models.WishListDB.find({ userId: LoginUser }).lean();
+            }
             for (let x = 0; x < findData.length; x++) {
                 let item = findData[x];
                 console.log('item is', item)

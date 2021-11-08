@@ -70,7 +70,7 @@ function getAllProperty(Models) {
     async function PropertyList(req, res) {
         try {
             //console.log('req is', req)
-            let LoginUser, myFavorite, allProperties = [];
+            let LoginUser, myFavorite = [], allProperties = [];
             LoginUser = req.locals ? req.locals.user._id : '';
             console.log('LoginUser', LoginUser)
             let findData = await Models.PropertyDB.aggregate([
