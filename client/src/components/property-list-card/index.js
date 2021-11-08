@@ -704,7 +704,9 @@ const PropertyListCard = (props) => {
               classes: {
                 notchedOutline: classes.notchedOutline,
               },
+              style: { color: "#FFFFFF" },
             }}
+
             InputLabelProps={{
               style: { color: "#FFFFFF" },
             }}
@@ -726,6 +728,7 @@ const PropertyListCard = (props) => {
               classes: {
                 notchedOutline: classes.notchedOutline,
               },
+              style: { color: "#FFFFFF" },
             }}
             InputLabelProps={{
               style: { color: "#FFFFFF" },
@@ -767,6 +770,7 @@ const PropertyListCard = (props) => {
               classes: {
                 notchedOutline: classes.notchedOutline,
               },
+              style: { color: "#FFFFFF" },
             }}
             InputLabelProps={{
               style: { color: "#FFFFFF" },
@@ -823,6 +827,7 @@ const PropertyListCard = (props) => {
                     classes: {
                       notchedOutline: classes.notchedOutline,
                     },
+                    style: { color: "#FFFFFF" },
                   }}
                   InputLabelProps={{
                     style: { color: "#FFFFFF" },

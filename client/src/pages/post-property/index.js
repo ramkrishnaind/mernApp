@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from "react";
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import {useSelector} from "react-redux";
+import axios from "axios";
 import {
   Container,
   Grid,
@@ -14,7 +15,6 @@ import {
   Box,
   Radio,
   RadioGroup,
-
 } from "@material-ui/core";
 import "./post-property.css";
 import FieldsContainer from "./components/fields-container";
@@ -24,17 +24,17 @@ import Option from "./components/option";
 import PropertyOptionManager from "./utils/PropertyOptionManager";
 import Transaction from "./components/transaction";
 import APP_CONSTANTS from "../../utils/constants";
-import {useDispatch} from 'react-redux';
+import { useDispatch } from "react-redux";
 import * as PropertyAction from "../../redux/actions/PropertyAction";
-import HorizontalLinearStepper from './stepper';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import {ValidatorForm, TextValidator} from "react-material-ui-form-validator";
+import HorizontalLinearStepper from "./stepper";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: "100%",
   },
   button: {
     marginRight: theme.spacing(1),
@@ -133,11 +133,19 @@ const property_details_options = ["Sell", "Rent"];
 const PostPropertyPage = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
+  const postProperty = useSelector((state) => state.PostProperty);
   const [isOwner, setIsOnwer] = React.useState(false);
   const [step, setStep] = React.useState(true);
   const [state, setState] = React.useState({});
-  const [file, setFile] = React.useState({});
+  const [mainImage, setMainImage] = React.useState();
+  const [exteriorViewImage, setExteriorViewImage] = React.useState([]);
+  const [livingroom, setLivingRoom] = React.useState([]);
+  const [bedrooms, setBedRooms] = React.useState([]);
+  const [bathrooms, setBathRooms] = React.useState([]);
+  const [kitchen, setKitchen] = React.useState([]);
+  const [floorplan, setFloorPlan] = React.useState([]);
+  const [masterplan, setMasterPlan] = React.useState([]);
+  const [other, setOther] = React.useState([]);
   const [propertyFor, setPropertyFor] = React.useState("");
   const [propertyOptions, setPropertyOptions] = React.useState(
     propertyTypeOptions[0]
@@ -154,27 +162,46 @@ const PostPropertyPage = (props) => {
   // stepper items
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
-  const steps = ['Basic Details', 'Property Details', 'Upload Files'];
+  const steps = ["Basic Details", "Property Details", "Upload Files"];
   const [propertyDetail, setPropertyDetail] = useState([
-    {key: "", Value: ""},
+    { key: "", Value: "" },
   ]);
-  const [amenities, setAmenities] = useState([{0: ""}]);
-
-
+  const [amenities, setAmenities] = useState([{ 0: "" }]);
 
   const isStepOptional = (step) => {
     // return step === 1;
     return false;
   };
-
+  console.log("postProperty",postProperty)
   const isStepSkipped = (step) => {
     return skipped.has(step);
   };
-
+  const validateStep0 = () => {
+    if (
+      !state.nameOfProject ||
+      (state.nameOfProject && state.nameOfProject.trim().length === 0) ||
+      !state.pCity ||
+      (state.pCity && state.pCity.trim().length === 0) ||
+      !state.property_location ||
+      (state.property_location && state.property_location.trim().length === 0)
+    )
+      return false;
+    else return true;
+  };
+  const validateStep1 = () => {
+    if (!state.pType || (state.pType && state.pType.trim().length === 0))
+      return false;
+    else return true;
+  };
   const handleNext = () => {
-
+    debugger;
+    if (activeStep === 0) {
+      // Submit Form Detials
+      if (!validateStep0()) return;
+    }
 
     if (activeStep === 1) {
+      if (!validateStep1()) return;
       // Submit Form Detials
       submitData();
     }
@@ -249,15 +276,123 @@ const PostPropertyPage = (props) => {
     });
   };
 
-  const handleimage = (event) => {
+  const handleMainimage = (event) => {
     event.preventDefault();
     console.log("-HandleChange-", event);
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
-      setFile({'exteriorView': URL.createObjectURL(img), 'productId': 1});
+      setMainImage({ mainImage: URL.createObjectURL(img), productId: 1 });
     }
   };
-
+  const handleExteriorViewimage = (event) => {
+    event.preventDefault();
+    console.log("-HandleChange-", event);
+    const files = [];
+    if (event.target.files && event.target.files.length > 0) {
+      event.target.files.forEach((file, index) => {
+        files.push({
+          exteriorView: URL.createObjectURL(file),
+          productId: index + 1,
+        });
+      });
+      setExteriorViewImage(files);
+    }
+  };
+  const handleLivingRoomimage = (event) => {
+    event.preventDefault();
+    console.log("-HandleChange-", event);
+    const files = [];
+    if (event.target.files && event.target.files.length > 0) {
+      event.target.files.forEach((file, index) => {
+        files.push({
+          livingRoom: URL.createObjectURL(file),
+          productId: index + 1,
+        });
+      });
+      setLivingRoom(files);
+    }
+  };
+  const handleBedRoomimage = (event) => {
+    event.preventDefault();
+    console.log("-HandleChange-", event);
+    const files = [];
+    if (event.target.files && event.target.files.length > 0) {
+      event.target.files.forEach((file, index) => {
+        files.push({
+          badrooms: URL.createObjectURL(file),
+          productId: index + 1,
+        });
+      });
+      setBedRooms(files);
+    }
+  };
+  const handleBathRoomimage = (event) => {
+    event.preventDefault();
+    console.log("-HandleChange-", event);
+    const files = [];
+    if (event.target.files && event.target.files.length > 0) {
+      event.target.files.forEach((file, index) => {
+        files.push({
+          bathrooms: URL.createObjectURL(file),
+          productId: index + 1,
+        });
+      });
+      setBathRooms(files);
+    }
+  };
+  const handleKitchenimage = (event) => {
+    event.preventDefault();
+    console.log("-HandleChange-", event);
+    const files = [];
+    if (event.target.files && event.target.files.length > 0) {
+      event.target.files.forEach((file, index) => {
+        files.push({
+          kitchen: URL.createObjectURL(file),
+          productId: index + 1,
+        });
+      });
+      setKitchen(files);
+    }
+  };
+  const handleFloorPlanimage = (event) => {
+    event.preventDefault();
+    console.log("-HandleChange-", event);
+    const files = [];
+    if (event.target.files && event.target.files.length > 0) {
+      event.target.files.forEach((file, index) => {
+        files.push({
+          floorPlan: URL.createObjectURL(file),
+          productId: index + 1,
+        });
+      });
+      setFloorPlan(files);
+    }
+  };
+  const handleMasterPlanimage = (event) => {
+    event.preventDefault();
+    console.log("-HandleChange-", event);
+    const files = [];
+    if (event.target.files && event.target.files.length > 0) {
+      event.target.files.forEach((file, index) => {
+        files.push({
+          masterPlan: URL.createObjectURL(file),
+          productId: index + 1,
+        });
+      });
+      setMasterPlan(files);
+    }
+  };
+  const handleOtherimage = (event) => {
+    event.preventDefault();
+    console.log("-HandleChange-", event);
+    const files = [];
+    if (event.target.files && event.target.files.length > 0) {
+      event.target.files.forEach((file, index) => {
+        files.push({ other: URL.createObjectURL(file), productId: index + 1 });
+      });
+      setOther(files);
+    }
+  };
   const handleAreaUnitChange = (event) => {
     event.preventDefault();
     const fieldUnit = event.target.value;
@@ -283,7 +418,7 @@ const PostPropertyPage = (props) => {
     e.preventDefault();
     const fieldName = e.target.name;
     const fieldValue = e.target.value;
-    setCurrentAreaField({fieldName, fieldValue});
+    setCurrentAreaField({ fieldName, fieldValue });
   };
 
   const handleCheckboxStateChange = (event) => {
@@ -313,14 +448,14 @@ const PostPropertyPage = (props) => {
   useEffect(() => {
     setState({
       ...state,
-      amenities: amenities
+      amenities: amenities,
     });
   }, [amenities]);
 
   useEffect(() => {
     setState({
       ...state,
-      propertyDetail: propertyDetail
+      propertyDetail: propertyDetail,
     });
   }, [propertyDetail]);
 
@@ -331,15 +466,90 @@ const PostPropertyPage = (props) => {
   };
 
   const submitFile = () => {
-    const formData = new FormData();
-    formData.append('image', file);
-    formData.append('imagetype', 'livingRoom');
-    formData.append('propertyId', '61155a4f37c57504a11628ce');
-    dispatch(PropertyAction.UploadPropertyImageRequestAsync(formData));
+    let formData
+    if (mainImage) {
+      formData = new FormData();
+      formData.append("mainImage", mainImage);
+      formData.append("imagetype", "mainImage");
+      formData.append("propertyId", "61155a4f37c57504a11628ce");
+      dispatch(PropertyAction.UploadPropertyImageRequestAsync(formData));
+    }
+    if (exteriorViewImage.length > 0) {
+      formData = new FormData();
+      for (const file of exteriorViewImage) {
+        formData.append("exteriorView", file);
+      }
+      formData.append("imagetype", "exteriorView");
+      formData.append("propertyId", "61155a4f37c57504a11628ce");
+      dispatch(PropertyAction.UploadPropertyImageRequestAsync(formData));
+    }
+    if (livingroom.length > 0) {
+      formData = new FormData();
+      for (const file of livingroom) {
+        formData.append("livingRoom", file);
+      }
+      formData.append("imagetype", "livingRoom");
+      formData.append("propertyId", "61155a4f37c57504a11628ce");
+      dispatch(PropertyAction.UploadPropertyImageRequestAsync(formData));
+    }
+    if (bedrooms.length > 0) {
+      formData = new FormData();
+      for (const file of bedrooms) {
+        formData.append("badrooms", file);
+      }
+      formData.append("imagetype", "badrooms");
+      formData.append("propertyId", "61155a4f37c57504a11628ce");
+      dispatch(PropertyAction.UploadPropertyImageRequestAsync(formData));
+    }
+    if (bathrooms.length > 0) {
+      formData = new FormData();
+      for (const file of bathrooms) {
+        formData.append("bathrooms", file);
+      }
+      formData.append("imagetype", "bathrooms");
+      formData.append("propertyId", "61155a4f37c57504a11628ce");
+      dispatch(PropertyAction.UploadPropertyImageRequestAsync(formData));
+    }
+    if (kitchen.length > 0) {
+      formData = new FormData();
+      for (const file of kitchen) {
+        formData.append("kitchen", file);
+      }
+      formData.append("imagetype", "kitchen");
+      formData.append("propertyId", "61155a4f37c57504a11628ce");
+      dispatch(PropertyAction.UploadPropertyImageRequestAsync(formData));
+    }
+    if (floorplan.length > 0) {
+      formData = new FormData();
+      for (const file of floorplan) {
+        formData.append("floorPlan", file);
+      }
+      formData.append("imagetype", "floorPlan");
+      formData.append("propertyId", "61155a4f37c57504a11628ce");
+      dispatch(PropertyAction.UploadPropertyImageRequestAsync(formData));
+    }
+    if (masterplan.length > 0) {
+      formData = new FormData();
+      for (const file of masterplan) {
+        formData.append("masterPlan", file);
+      }
+      formData.append("imagetype", "masterPlan");
+      formData.append("propertyId", "61155a4f37c57504a11628ce");
+      dispatch(PropertyAction.UploadPropertyImageRequestAsync(formData));
+    }
+    if (other.length > 0) {
+      formData = new FormData();
+      for (const file of other) {
+        formData.append("other", file);
+      }
+      formData.append("imagetype", "other");
+      formData.append("propertyId", "61155a4f37c57504a11628ce");
+      dispatch(PropertyAction.UploadPropertyImageRequestAsync(formData));
+    }
   };
 
   const fileUpload = (event) => {
-    setFile({'exteriorView': event.target.files[0], 'productId': 1});
+    // setFile({ exteriorView: event.target.files[0], productId: 1 });
   };
   const _renderOwnerBlock = () => {
     if (isOwner) {
@@ -348,7 +558,7 @@ const PostPropertyPage = (props) => {
           <Grid item xs={12} md={12} className={classes.style1}>
             <TextField
               label="Name"
-              style={{width: "25%"}}
+              style={{ width: "25%" }}
               name="owner_name"
               onChange={handleChange}
             ></TextField>
@@ -358,15 +568,15 @@ const PostPropertyPage = (props) => {
                   native
                   value={state["country_code"]}
                   onChange={handleChange}
-                  inputProps={{name: "country_code"}}
-                  style={{height: 48, marginRight: 5}}
+                  inputProps={{ name: "country_code" }}
+                  style={{ height: 48, marginRight: 5 }}
                 >
                   <option value={10}>IND +91</option>
                   <option value={20}>PAK +92</option>
                 </Select>
                 <TextField
                   label="Mobile"
-                  style={{width: "17.5%"}}
+                  style={{ width: "17.5%" }}
                   name="mobile_number"
                   onChange={handleChange}
                 ></TextField>
@@ -374,7 +584,7 @@ const PostPropertyPage = (props) => {
             </Grid>
             <TextField
               label="Email"
-              style={{width: "25%"}}
+              style={{ width: "25%" }}
               onChange={handleChange}
               name="owner_email"
             ></TextField>
@@ -401,7 +611,7 @@ const PostPropertyPage = (props) => {
    */
   const _renderFeaturesSection = (section) => {
     // console.log('--SECTION FEATURES--', section);
-    const {fields, section: sectionName} = section || {};
+    const { fields, section: sectionName } = section || {};
     return (
       <FieldsContainer label={sectionName}>
         <Grid container>
@@ -446,7 +656,7 @@ const PostPropertyPage = (props) => {
                     native
                     value={state["pType"]}
                     onChange={handleChange}
-                    inputProps={{name: "pType"}}
+                    inputProps={{ name: "pType" }}
                     style={{
                       height: 48,
                       marginRight: 5,
@@ -498,7 +708,7 @@ const PostPropertyPage = (props) => {
    */
   const _renderAreaSection = (section) => {
     // console.log('--SECTION AREA--', section);
-    const {fields, section: sectionName} = section || {};
+    const { fields, section: sectionName } = section || {};
     return (
       <FieldsContainer label={sectionName}>
         <Grid container>
@@ -531,7 +741,7 @@ const PostPropertyPage = (props) => {
                   <TextField
                     label={label}
                     placeholder={placeholder}
-                    style={{width: 400}}
+                    style={{ width: 400 }}
                     name={label}
                     onChange={onAreaFieldSelect}
                   />
@@ -543,7 +753,7 @@ const PostPropertyPage = (props) => {
                       inputProps={{
                         name: "area-unit",
                       }}
-                      style={{height: 48, marginRight: 5, maxHeight: 200}}
+                      style={{ height: 48, marginRight: 5, maxHeight: 200 }}
                     >
                       {units?.map((item, index) => {
                         return (
@@ -582,12 +792,12 @@ const PostPropertyPage = (props) => {
    */
   const _renderTransactionSection = (section) => {
     // console.log("--SECTION TRANSACTION--", section);
-    const {fields, section: sectionName} = section || {};
+    const { fields, section: sectionName } = section || {};
     return (
       <FieldsContainer label={sectionName}>
         <Grid container>
           {fields?.map((field, index) => {
-            const {label, type, values, unit, units, placeholder, data} =
+            const { label, type, values, unit, units, placeholder, data } =
               field || {};
             if (type === "radio") {
               return (
@@ -596,7 +806,7 @@ const PostPropertyPage = (props) => {
                   xs={12}
                   md={12}
                   key={index}
-                  style={{display: "flex", flexDirection: "column"}}
+                  style={{ display: "flex", flexDirection: "column" }}
                 >
                   <Transaction
                     title={label}
@@ -656,7 +866,7 @@ const PostPropertyPage = (props) => {
    */
   const _renderPriceSection = (section) => {
     // console.log("--SECTION PRICE--", section);
-    const {fields, section: sectionName} = section || {};
+    const { fields, section: sectionName } = section || {};
     return (
       <FieldsContainer label={sectionName}>
         <Grid container>
@@ -680,7 +890,7 @@ const PostPropertyPage = (props) => {
                       placeholder={e.placeholder}
                       onChange={handleChange}
                       name={fieldName}
-                    // style={{ width: 400 }}
+                      // style={{ width: 400 }}
                     />
                   </Grid>
                 );
@@ -692,7 +902,7 @@ const PostPropertyPage = (props) => {
                     label={label}
                     placeholder={placeholder}
                     onChange={handleChange}
-                    style={{width: 300}}
+                    style={{ width: 300 }}
                     name={fieldName}
                   />
                 </Grid>
@@ -707,7 +917,7 @@ const PostPropertyPage = (props) => {
                         name={e.fieldName}
                         onChange={handleChange}
                         placeholder={e.placeholder}
-                        style={{width: 300}}
+                        style={{ width: 300 }}
                       />
                     </Grid>
                   );
@@ -781,7 +991,7 @@ const PostPropertyPage = (props) => {
                     justifyContent: "flex-start",
                   }}
                 >
-                  <Typography style={{marginRight: 10}}>{label}</Typography>
+                  <Typography style={{ marginRight: 10 }}>{label}</Typography>
                   <FormGroup row>
                     {field?.fields?.map((e, i) => {
                       return (
@@ -835,7 +1045,7 @@ const PostPropertyPage = (props) => {
 
   // handle input change
   const handleDetailChange = (e, index) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     // if(name == 'key'){
     //   const arr = e.target.value.split(" ");
     //   for (var i = 0; i < arr.length; i++) {
@@ -856,7 +1066,7 @@ const PostPropertyPage = (props) => {
   };
 
   const handleDetailAddClick = () => {
-    setPropertyDetail([...propertyDetail, {key: "", Value: ""}]);
+    setPropertyDetail([...propertyDetail, { key: "", Value: "" }]);
   };
 
   const handleRemoveAmenitiesClick = (index) => {
@@ -865,7 +1075,7 @@ const PostPropertyPage = (props) => {
     setAmenities(list);
   };
   const handleAminitiesInputChange = (e, index) => {
-    const {value} = e.target;
+    const { value } = e.target;
     const list = [...amenities];
     list[index] = value;
     setAmenities(list);
@@ -873,148 +1083,145 @@ const PostPropertyPage = (props) => {
 
   // handle click event of the Add button
   const handleAddAminitiesClick = () => {
-    setAmenities([...amenities, {amenities: ""}]);
+    setAmenities([...amenities, { amenities: "" }]);
   };
 
   const getStepOne = () => {
-    return <Grid container>
-      {/* <Grid item xs={12} md={12}>
+    return (
+      <Grid container>
+        {/* <Grid item xs={12} md={12}>
         <Typography className={classes.text1}>
           Sell or Rent your Property
         </Typography>
       </Grid> */}
 
-      <Grid item xs={12} md={12}>
-        <FieldsContainer label="Property Details">
-          <Grid container>
-            <Grid item xs={12} md={12}>
+        <Grid item xs={12} md={12}>
+          <FieldsContainer label="Property Details">
+            <Grid container>
+              <Grid item xs={12} md={12}>
+                <Detail
+                  title="For"
+                  options={property_details_options}
+                  onOptionSelectListener={onOptionPropertyForSelectListener}
+                />
+              </Grid>
+              <Grid item xs={12} md={12}>
+                <Select
+                  native
+                  value={state["pType"]}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "pType",
+                    id: "pType",
+                  }}
+                  style={{ height: 48, marginRight: 5, maxHeight: 200 }}
+                >
+                  {propertyOptions.items.map((item, index) => {
+                    return (
+                      <option key={index} value={item.value}>
+                        {item.name}
+                      </option>
+                    );
+                  })}
+                </Select>
+              </Grid>
+            </Grid>
+          </FieldsContainer>
+        </Grid>
+
+        <Grid item xs={12} md={12}>
+          {formFields?.sections?.map((section) => {
+            switch (section?.section_id) {
+              case APP_CONSTANTS.section_features:
+                return _renderFeaturesSection(section);
+              case APP_CONSTANTS.section_area:
+                return _renderAreaSection(section);
+              case APP_CONSTANTS.section_transaction:
+                return _renderTransactionSection(section);
+              case APP_CONSTANTS.section_price:
+                return _renderPriceSection(section);
+            }
+          })}
+        </Grid>
+        {/* <Button variant="contained" onClick={submitData} color="primary">Save</Button> */}
+      </Grid>
+    );
+  };
+
+  const getStepZero = () => {
+    return (
+      <Grid container>
+        <Grid item xs={12} sm={6} md={4}>
+          <FieldsContainer label="Personal Details ">
+            <Grid item xs={12} md={11}>
               <Detail
-                title="For"
-                options={property_details_options}
-                onOptionSelectListener={onOptionPropertyForSelectListener}
+                title="I am"
+                options={personal_details_options}
+                onOptionSelectListener={onOptionSelectListener}
               />
             </Grid>
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={11}>
               <Select
                 native
-                value={state["pType"]}
+                value={state["iAm"]}
+                variant="outlined"
                 onChange={handleChange}
                 inputProps={{
-                  name: "pType",
-                  id: "pType",
+                  name: "iAm",
+                  id: "iAm",
                 }}
-                style={{height: 48, marginRight: 5, maxHeight: 200}}
+                fullWidth
+                style={{ height: 48, marginRight: 5, maxHeight: 200 }}
               >
-                {propertyOptions.items.map((item, index) => {
+                {personal_details_options.map((item, index) => {
                   return (
-                    <option key={index} value={item.value}>
-                      {item.name}
+                    <option key={index} value={item}>
+                      {item}
                     </option>
                   );
                 })}
               </Select>
             </Grid>
-          </Grid>
-        </FieldsContainer>
-      </Grid>
+          </FieldsContainer>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <FieldsContainer label="Property Location">
+            <Grid item xs={12} md={11} className={classes.style1}>
+              <TextField
+                label="City"
+                placeholder="Enter City"
+                variant="outlined"
+                // style={{width: "25%"}}
+                onChange={handleChange}
+                name="pCity"
+                fullWidth
+              />
+              <TextField
+                label="Locality"
+                variant="outlined"
+                placeholder="Enter Locality"
+                style={{ marginTop: 20 }}
+                onChange={handleChange}
+                name="property_location"
+                fullWidth
+              />
+            </Grid>
+          </FieldsContainer>
+        </Grid>
 
-      <Grid item xs={12} md={12}>
-        {formFields?.sections?.map((section) => {
-          switch (section?.section_id) {
-            case APP_CONSTANTS.section_features:
-              return _renderFeaturesSection(section);
-            case APP_CONSTANTS.section_area:
-              return _renderAreaSection(section);
-            case APP_CONSTANTS.section_transaction:
-              return _renderTransactionSection(section);
-            case APP_CONSTANTS.section_price:
-              return _renderPriceSection(section);
-          }
-        })}
-      </Grid>
-      {/* <Button variant="contained" onClick={submitData} color="primary">Save</Button> */}
-    </Grid>;
-  };
-
-  const getStepZero = () => {
-    return <Grid container>
-      <Grid item xs={12} sm={6} md={4}>
-        <FieldsContainer label="Personal Details ">
-
-          <Grid item xs={12} md={11}>
-            <Detail
-              title="I am"
-              options={personal_details_options}
-              onOptionSelectListener={onOptionSelectListener}
-            />
-          </Grid>
-          <Grid item xs={12} md={11}>
-            <Select
-              native
-              value={state["iAm"]}
-              variant="outlined"
-              onChange={handleChange}
-              inputProps={{
-                name: "iAm",
-                id: "iAm",
-              }}
-              fullWidth
-              style={{height: 48, marginRight: 5, maxHeight: 200}}
-            >
-              {personal_details_options.map((item, index) => {
-                return (
-                  <option key={index} value={item}>
-                    {item}
-                  </option>
-                );
-              })}
-            </Select>
-          </Grid>
-
-        </FieldsContainer>
-      </Grid>
-      <Grid item xs={12} sm={6} md={4}>
-        <FieldsContainer label="Property Location">
-          <Grid item xs={12} md={11} className={classes.style1}>
-            <TextField
-              label="City"
-              placeholder="Enter City"
-              variant="outlined"
-              // style={{width: "25%"}}
-              onChange={handleChange}
-              name="pCity"
-              fullWidth
-            />
-            <TextField
-              label="Locality"
-              variant="outlined"
-              placeholder="Enter Locality"
-              style={{marginTop: 20}}
-              onChange={handleChange}
-              name="property_location"
-              fullWidth
-            />
-          </Grid>
-
-        </FieldsContainer>
-      </Grid>
-
-
-      <Grid item xs={12} sm={6} md={4}>
-        <FieldsContainer label="Project Name">
-
-          <Grid item xs={12} md={11}>
-            <TextField
-              label="Project Name"
-              variant="outlined"
-              placeholder="Enter Project Name"
-              // style={{width: "100%"}}
-              onChange={handleChange}
-              name="nameOfProject"
-              fullWidth
-
-            ></TextField>
-            {/* <TextValidator
+        <Grid item xs={12} sm={6} md={4}>
+          <FieldsContainer label="Project Name">
+            <Grid item xs={12} md={11}>
+              <TextField
+                label="Project Name"
+                variant="outlined"
+                placeholder="Enter Project Name"
+                // style={{width: "100%"}}
+                onChange={handleChange}
+                name="nameOfProject"
+                fullWidth
+              ></TextField>
+              {/* <TextValidator
                   label="Project Name"
                   variant="outlined"
                   placeholder="Enter Project Name"
@@ -1025,191 +1232,284 @@ const PostPropertyPage = (props) => {
                   validators={["required"]}
                   errorMessages={["nameOfProject field is required"]}
                 /> */}
+              <Box mt={2} />
+            </Grid>
+          </FieldsContainer>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={4}>
+          <FieldsContainer label="Property Details">
             <Box mt={2} />
-          </Grid>
-
-
-        </FieldsContainer>
-      </Grid>
-
-
-      <Grid item xs={12} sm={6} md={4}>
-        <FieldsContainer label="Property Details">
-          <Box mt={2} />
-          {propertyDetail.map((x, i) => {
-            return (
-              <>
-                <Grid container style={{marginTop: 20, marginBottom: 20}}>
-                  <Grid item xs={12} md={7} >
-                    <TextField
-                      label="Key"
-                      variant="outlined"
-                      placeholder="Enter Key"
-                      style={{width: "100%"}}
-                      onChange={(e) => handleDetailChange(e, i)}
-                      name="key"
-                      value={x.key}
-                    ></TextField>
-                  </Grid>
-                  <Grid item xs={12} md={4} >
-                    <TextField
-                      label="Value"
-                      variant="outlined"
-                      placeholder="Enter Value"
-                      style={{width: "100%"}}
-                      onChange={(e) => handleDetailChange(e, i)}
-                      name="Value"
-                      value={x.Value}
-                    ></TextField>
-                  </Grid>
-                  <div className="RemoveBtn" style={{marginTop: 20, marginBottom: 20}}>
-                    {propertyDetail.length !== 1 && (
-                      <Button
-                        variant="contained"
-                        type="button"
-                        color="primary"
-                        className={"CanceForm"}
-                        style={{marginRight: 20}}
-                        onClick={() => handleDetailRemoveClick(i)}
-                      >
-                        Remove
-                      </Button>
-                    )}
-                    {propertyDetail.length - 1 === i && (
-                      <Button
-                        variant="contained"
-                        type="button"
-                        color="primary"
-                        className={"SaveData"}
-                        onClick={handleDetailAddClick}
-                      >
-                        Add More
-                      </Button>
-                    )}
-                  </div>
-                </Grid>
-              </>
-            );
-          })}
-        </FieldsContainer>
-      </Grid>
-
-      <Grid item xs={12} sm={6} md={4}>
-        <FieldsContainer label="Property Amenities">
-          <Grid item xs={12} md={11}>
-            {amenities.map((x, i) => {
-              if (state.id == null) {
-                return (
-                  <Grid item xs={12} md={12} style={{marginTop: 20}}>
-                    <TextField
-                      label="Amenities"
-                      variant="outlined"
-                      placeholder="Enter Amenities"
-                      style={{width: "100%"}}
-                      onChange={(e) =>
-                        handleAminitiesInputChange(e, i)
-                      }
-                      name="amenities"
-                    // value={x}
-                    ></TextField>
-
-                    <div className="RemoveBtn" style={{marginTop: 20}}>
-                      {amenities.length !== 1 && (
+            {propertyDetail.map((x, i) => {
+              return (
+                <>
+                  <Grid container style={{ marginTop: 20, marginBottom: 20 }}>
+                    <Grid item xs={12} md={7}>
+                      <TextField
+                        label="Key"
+                        variant="outlined"
+                        placeholder="Enter Key"
+                        style={{ width: "100%" }}
+                        onChange={(e) => handleDetailChange(e, i)}
+                        name="key"
+                        value={x.key}
+                      ></TextField>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <TextField
+                        label="Value"
+                        variant="outlined"
+                        placeholder="Enter Value"
+                        style={{ width: "100%" }}
+                        onChange={(e) => handleDetailChange(e, i)}
+                        name="Value"
+                        value={x.Value}
+                      ></TextField>
+                    </Grid>
+                    <div
+                      className="RemoveBtn"
+                      style={{ marginTop: 20, marginBottom: 20 }}
+                    >
+                      {propertyDetail.length !== 1 && (
                         <Button
                           variant="contained"
                           type="button"
                           color="primary"
                           className={"CanceForm"}
-                          style={{marginRight: 20}}
-                          onClick={() =>
-                            handleRemoveAmenitiesClick(i)
-                          }
+                          style={{ marginRight: 20 }}
+                          onClick={() => handleDetailRemoveClick(i)}
                         >
                           Remove
                         </Button>
                       )}
-                      {amenities.length - 1 === i && (
+                      {propertyDetail.length - 1 === i && (
                         <Button
                           variant="contained"
                           type="button"
                           color="primary"
                           className={"SaveData"}
-                          onClick={handleAddAminitiesClick}
+                          onClick={handleDetailAddClick}
                         >
-                          Add more
+                          Add More
                         </Button>
                       )}
                     </div>
                   </Grid>
-                );
-              } else {
-                return (
-                  <Grid item xs={12} md={8} style={{marginTop: 20}}>
-                    <TextField
-                      label="Amenities"
-                      variant="outlined"
-                      placeholder="Enter Amenities"
-                      style={{width: "100%"}}
-                      onChange={(e) =>
-                        handleAminitiesInputChange(e, i)
-                      }
-                      name="amenities"
-                      value={x}
-                    ></TextField>
-
-                    <div className="RemoveBtn" style={{marginTop: 20}}>
-                      {amenities.length !== 1 && (
-                        <Button
-                          variant="contained"
-                          type="button"
-                          color="primary"
-                          className={"CanceForm"}
-                          style={{marginRight: 20}}
-                          onClick={() =>
-                            handleRemoveAmenitiesClick(i)
-                          }
-                        >
-                          Remove
-                        </Button>
-                      )}
-                      {amenities.length - 1 === i && (
-                        <Button
-                          variant="contained"
-                          type="button"
-                          color="primary"
-                          className={"SaveData"}
-                          onClick={handleAddAminitiesClick}
-                        >
-                          Add more
-                        </Button>
-                      )}
-                    </div>
-                  </Grid>
-                );
-              }
+                </>
+              );
             })}
-          </Grid>
+          </FieldsContainer>
+        </Grid>
 
-        </FieldsContainer>
+        <Grid item xs={12} sm={6} md={4}>
+          <FieldsContainer label="Property Amenities">
+            <Grid item xs={12} md={11}>
+              {amenities.map((x, i) => {
+                if (state.id == null) {
+                  return (
+                    <Grid item xs={12} md={12} style={{ marginTop: 20 }}>
+                      <TextField
+                        label="Amenities"
+                        variant="outlined"
+                        placeholder="Enter Amenities"
+                        style={{ width: "100%" }}
+                        onChange={(e) => handleAminitiesInputChange(e, i)}
+                        name="amenities"
+                        // value={x}
+                      ></TextField>
+
+                      <div className="RemoveBtn" style={{ marginTop: 20 }}>
+                        {amenities.length !== 1 && (
+                          <Button
+                            variant="contained"
+                            type="button"
+                            color="primary"
+                            className={"CanceForm"}
+                            style={{ marginRight: 20 }}
+                            onClick={() => handleRemoveAmenitiesClick(i)}
+                          >
+                            Remove
+                          </Button>
+                        )}
+                        {amenities.length - 1 === i && (
+                          <Button
+                            variant="contained"
+                            type="button"
+                            color="primary"
+                            className={"SaveData"}
+                            onClick={handleAddAminitiesClick}
+                          >
+                            Add more
+                          </Button>
+                        )}
+                      </div>
+                    </Grid>
+                  );
+                } else {
+                  return (
+                    <Grid item xs={12} md={8} style={{ marginTop: 20 }}>
+                      <TextField
+                        label="Amenities"
+                        variant="outlined"
+                        placeholder="Enter Amenities"
+                        style={{ width: "100%" }}
+                        onChange={(e) => handleAminitiesInputChange(e, i)}
+                        name="amenities"
+                        value={x}
+                      ></TextField>
+
+                      <div className="RemoveBtn" style={{ marginTop: 20 }}>
+                        {amenities.length !== 1 && (
+                          <Button
+                            variant="contained"
+                            type="button"
+                            color="primary"
+                            className={"CanceForm"}
+                            style={{ marginRight: 20 }}
+                            onClick={() => handleRemoveAmenitiesClick(i)}
+                          >
+                            Remove
+                          </Button>
+                        )}
+                        {amenities.length - 1 === i && (
+                          <Button
+                            variant="contained"
+                            type="button"
+                            color="primary"
+                            className={"SaveData"}
+                            onClick={handleAddAminitiesClick}
+                          >
+                            Add more
+                          </Button>
+                        )}
+                      </div>
+                    </Grid>
+                  );
+                }
+              })}
+            </Grid>
+          </FieldsContainer>
+        </Grid>
       </Grid>
-    </Grid >;
+    );
   };
 
   const getStepTwo = () => {
-    return <Grid container>
-      <Grid item xs={12} md={12}>
-        <FieldsContainer label="Images">
-          <Grid container>
-            <Grid item xs={6} md={6}>
-              <p>Upload Images</p>
+    return (
+      <Grid container>
+        <Grid item xs={12} md={12}>
+          <FieldsContainer label="Images">
+            <Grid container>
+              <Grid item xs={6} md={6}>
+                <p>Main Image</p>
+              </Grid>
+              <Grid item xs={6} md={6}>
+                <input type="file" onChange={handleMainimage} />
+              </Grid>
             </Grid>
-            <Grid item xs={6} md={6}>
-              <input type="file" multiple onChange={handleimage} />
+          </FieldsContainer>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <FieldsContainer label="Images">
+            <Grid container>
+              <Grid item xs={6} md={6}>
+                <p>Exterior View</p>
+              </Grid>
+              <Grid item xs={6} md={6}>
+                <input
+                  type="file"
+                  multiple
+                  onChange={handleExteriorViewimage}
+                />
+              </Grid>
             </Grid>
-          </Grid>
-        </FieldsContainer>
-      </Grid>
-      {/* <Grid item xs={12} md={12}>
+          </FieldsContainer>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <FieldsContainer label="Images">
+            <Grid container>
+              <Grid item xs={6} md={6}>
+                <p>Living Room</p>
+              </Grid>
+              <Grid item xs={6} md={6}>
+                <input type="file" multiple onChange={handleLivingRoomimage} />
+              </Grid>
+            </Grid>
+          </FieldsContainer>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <FieldsContainer label="Images">
+            <Grid container>
+              <Grid item xs={6} md={6}>
+                <p>Bed Room</p>
+              </Grid>
+              <Grid item xs={6} md={6}>
+                <input type="file" multiple onChange={handleBedRoomimage} />
+              </Grid>
+            </Grid>
+          </FieldsContainer>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <FieldsContainer label="Images">
+            <Grid container>
+              <Grid item xs={6} md={6}>
+                <p>Bath Room</p>
+              </Grid>
+              <Grid item xs={6} md={6}>
+                <input type="file" multiple onChange={handleBathRoomimage} />
+              </Grid>
+            </Grid>
+          </FieldsContainer>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <FieldsContainer label="Images">
+            <Grid container>
+              <Grid item xs={6} md={6}>
+                <p>kitchen</p>
+              </Grid>
+              <Grid item xs={6} md={6}>
+                <input type="file" multiple onChange={handleKitchenimage} />
+              </Grid>
+            </Grid>
+          </FieldsContainer>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <FieldsContainer label="Images">
+            <Grid container>
+              <Grid item xs={6} md={6}>
+                <p>Floor Plan</p>
+              </Grid>
+              <Grid item xs={6} md={6}>
+                <input type="file" multiple onChange={handleFloorPlanimage} />
+              </Grid>
+            </Grid>
+          </FieldsContainer>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <FieldsContainer label="Images">
+            <Grid container>
+              <Grid item xs={6} md={6}>
+                <p>Master Plan</p>
+              </Grid>
+              <Grid item xs={6} md={6}>
+                <input type="file" multiple onChange={handleMasterPlanimage} />
+              </Grid>
+            </Grid>
+          </FieldsContainer>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <FieldsContainer label="Images">
+            <Grid container>
+              <Grid item xs={6} md={6}>
+                <p>Other</p>
+              </Grid>
+              <Grid item xs={6} md={6}>
+                <input type="file" multiple onChange={handleOtherimage} />
+              </Grid>
+            </Grid>
+          </FieldsContainer>
+        </Grid>
+        {/* <Grid item xs={12} md={12}>
       <FieldsContainer label="Videos">
         <Grid container>
           <Grid item xs={6} md={6}>
@@ -1221,8 +1521,9 @@ const PostPropertyPage = (props) => {
         </Grid>
       </FieldsContainer>
     </Grid> */}
-      {/* <Button variant="contained" onClick={submitFile} color="primary">Save</Button> */}
-    </Grid>;
+        {/* <Button variant="contained" onClick={submitFile} color="primary">Save</Button> */}
+      </Grid>
+    );
   };
 
   const getStepContent = (step) => {
@@ -1235,30 +1536,32 @@ const PostPropertyPage = (props) => {
         return getStepTwo();
       default:
         console.log(step);
-        return 'Unknown step';
+        return "Unknown step";
     }
   };
 
   const getStepButtonText = (activeStep) => {
-
     switch (activeStep) {
       case 0:
-        return 'Next';
+        return "Next";
       case 1:
-        return 'Save Details';
+        return "Save Details";
       case 2:
-        return 'Finish';
+        return "Finish";
       default:
         console.log(activeStep);
-        return 'Unknown step';
+        return "Unknown step";
     }
-
   };
 
   return (
-    <Container style={{marginTop: 60, marginBottom: 60}}>
-      <Grid item xs={12} md={12} >
-        <Typography className={classes.text1} mt={3} style={{textAlign: 'center'}}>
+    <Container style={{ marginTop: 60, marginBottom: 60 }}>
+      <Grid item xs={12} md={12}>
+        <Typography
+          className={classes.text1}
+          mt={3}
+          style={{ textAlign: "center" }}
+        >
           Sell or Rent your Property
         </Typography>
       </Grid>
@@ -1268,7 +1571,9 @@ const PostPropertyPage = (props) => {
             const stepProps = {};
             const labelProps = {};
             if (isStepOptional(index)) {
-              labelProps.optional = <Typography variant="caption">Optional</Typography>;
+              labelProps.optional = (
+                <Typography variant="caption">Optional</Typography>
+              );
             }
             if (isStepSkipped(index)) {
               stepProps.completed = false;
@@ -1280,7 +1585,7 @@ const PostPropertyPage = (props) => {
             );
           })}
         </Stepper>
-        <Grid contianer style={{paddingLeft: 40}}>
+        <Grid contianer style={{ paddingLeft: 40 }}>
           {activeStep === steps.length ? (
             <div>
               <Typography className={classes.instructions}>
@@ -1292,13 +1597,21 @@ const PostPropertyPage = (props) => {
             </div>
           ) : (
             <div>
-              <Typography className={classes.instructions}>{
-                getStepContent(activeStep)
-              }</Typography>
+              <Typography className={classes.instructions}>
+                {getStepContent(activeStep)}
+              </Typography>
               <div>
-                {/* <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                  Back
-                </Button> */}
+                {activeStep !== 0 && (
+                  <Button
+                    onClick={handleBack}
+                    style={{ marginTop: 20 }}
+                    className={classes.button}
+                    variant="contained"
+                    color="primary"
+                  >
+                    Back
+                  </Button>
+                )}
                 {/* {isStepOptional(activeStep) && (
                                 <Button
                                     variant="contained"
@@ -1314,12 +1627,10 @@ const PostPropertyPage = (props) => {
                   variant="contained"
                   color="primary"
                   onClick={handleNext}
-                  style={{marginTop: 20}}
+                  style={{ marginTop: 20 }}
                   className={classes.button}
                 >
-                  {
-                    getStepButtonText(activeStep)
-                  }
+                  {getStepButtonText(activeStep)}
                   {/* {activeStep === steps.length - 1 ? 'Finish' : 'Next'} */}
                 </Button>
               </div>
