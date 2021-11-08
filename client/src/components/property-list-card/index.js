@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import {
   Grid,
   Typography,
@@ -13,6 +14,7 @@ import {
   NativeSelect,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
+import Rating from "@material-ui/lab/Rating";
 import { Link as RouterLink } from "react-router-dom";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import LocalHotelIcon from "@material-ui/icons/LocalHotel";
@@ -188,22 +190,122 @@ const DialogActions = withStyles((theme) => ({
 
 const PropertyListCard = (props) => {
   const { item } = props;
-  console.log(item);
-
+  console.log("item", item);
+  console.log("item?.favorite", item.favorite);
   const classes = useStyles();
-
+  const [timeAgo, setTimeAgo] = useState("");
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [time, setTime] = useState("");
+  const [enableOtpField, setEnableOtpField] = useState(false);
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [verifyLoader, setVerifyLoader] = useState(false);
+  const [emailValid, setEmailValid] = useState("");
+  const [otp, setOtp] = useState("");
 
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-
+  const history = useHistory();
   function handleNull(val) {
     return val || "_ _ ";
   }
+  const otpHandler = async () => {
+    const cookie =
+      "connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI";
+    const authorization =
+      "Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs";
+    try {
+      setVerifyLoader(true);
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        "/otp/createOTP",
+        { mobile: mobile },
+        {},
+        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+        false
+      );
+      setEnableOtpField(true);
+      setVerifyLoader(false);
+      dispatch(Snackbar.showSuccessSnackbar("Otp sent successfully"));
+    } catch (error) {
+      console.error("this is the error::", error);
+      dispatch(
+        Snackbar.showFailSnackbar(
+          "We are facing some issue Please try again later."
+        )
+      );
+      setVerifyLoader(false);
+    }
+  };
 
+  const checkOtpValidOrNot = async (value) => {
+    try {
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        "/otp/verifyOTP",
+        { mobile: mobile, otp: value },
+        {},
+        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+        false
+      );
+      if (response.status) {
+        setIsOtpVerified(true);
+        dispatch(Snackbar.showSuccessSnackbar("Otp Verified SuccessFully"));
+      } else {
+        setIsOtpVerified(false);
+        dispatch(Snackbar.showFailSnackbar("Please type Valid otp."));
+      }
+    } catch (error) {
+      setIsOtpVerified(false);
+      dispatch(
+        Snackbar.showFailSnackbar(
+          "We are facing some issue Please try again later."
+        )
+      );
+    }
+  };
+  const inputChange = (e) => {
+    let { name, value } = e.target;
+    setOtp(value);
+    if (name === "otp" && value.length === 6 && !isOtpVerified) {
+      checkOtpValidOrNot(value);
+    }
+  };
+  function monthDiff(d1, d2) {
+    var months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth();
+    months += d2.getMonth();
+    return months <= 0 ? 0 : months;
+  }
+  useEffect(() => {
+    let dt = new Date(item.created);
+    const years = new Date(new Date() - new Date(dt)).getFullYear() - 1970;
+    if (years > 1) {
+      setTimeAgo(`${years} years ago`);
+      return;
+    } else if (years === 1) {
+      setTimeAgo(`${years} year ago`);
+      return;
+    }
+    const months = monthDiff(dt, new Date());
+    if (months > 1) {
+      setTimeAgo(`${months} months ago`);
+      return;
+    }
+    if (months === 1) {
+      setTimeAgo(`${months} month ago`);
+      return;
+    }
+    const days = Math.round((new Date() - dt) / (1000 * 60 * 60 * 24));
+    if (days === 1) {
+      setTimeAgo(`${days} day ago`);
+      return;
+    } else {
+      setTimeAgo(`${days} days ago`);
+    }
+  }, [item]);
   const handleData = (e) => {
     const formData = {
       name: name,
@@ -222,32 +324,39 @@ const PropertyListCard = (props) => {
     setTime("");
     setOpen(false);
   };
-
-  const handleClickOpen = () => {
+  const contentClickHandler = (item) => {
+    history.push({
+      pathname: "/home-detail",
+      state: item?._id,
+    });
+  };
+  const handleClickOpen = (e) => {
     setOpen(true);
   };
   const handleClose = () => {
-    setName('')
-    setMobile('')
-    setEmail('')
-    setTime('')
-    
+    setName("");
+    setMobile("");
+    setEmail("");
+    setTime("");
+
     setOpen(false);
   };
 
-  const handleFavourite = async (e) => {
+  const handleFavourite = async (itemId, e) => {
+    e.stopPropagation();
+    console.log(e);
     let userDetails = localStorage.getItem("user");
     if (!userDetails) {
       window.location.href = "/signin";
     }
-
+    const endPoint=item.favorite?"removeFromWishList": "addToWishList";
     try {
       const response = await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
-        "/users/addToWishList",
+        `/users/${endPoint}`,
         {
           userId: userDetails?._id,
-          propertyId: e,
+          propertyId: itemId,
         },
         {},
         { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
@@ -272,7 +381,7 @@ const PropertyListCard = (props) => {
   const address = item?.features[0]?.address || {};
   const propertTag = item?.propertTag;
   return (
-    <>
+    <div>
       <Paper style={{ borderRadius: 0, padding: 0, marginTop: 30 }}>
         <Grid container spacing={0}>
           <Grid
@@ -285,7 +394,10 @@ const PropertyListCard = (props) => {
               justifyContent: "flex-start",
             }}
           >
-            <div style={{ position: "relative" }}>
+            <div
+              onClick={contentClickHandler.bind(null, item)}
+              style={{ position: "relative", cursor: "pointer" }}
+            >
               {propertTag ? <span class="featured">{propertTag}</span> : null}
               <img
                 className="image"
@@ -307,11 +419,13 @@ const PropertyListCard = (props) => {
                 item
                 xs={12}
                 md={8}
+                onClick={contentClickHandler.bind(null, item)}
                 style={{
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "flex-start",
                   justifyContent: "flex-start",
+                  cursor: "pointer",
                 }}
               >
                 <Typography className={classes.text2}>
@@ -378,11 +492,14 @@ const PropertyListCard = (props) => {
                 item
                 xs={12}
                 md={4}
+                onClick={contentClickHandler.bind(null, item)}
                 style={{
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "center",
+                  cursor: "pointer",
+                  position: "relative",
                 }}
               >
                 <Grid contaienr>
@@ -395,6 +512,50 @@ const PropertyListCard = (props) => {
                       justifyContent: "center",
                     }}
                   >
+                    <div
+                      class="fs-2 mb-3"
+                      onClick={(e) => handleFavourite(item?._id, e)}
+                    >
+                      {!item.favorite && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="44"
+                          height="44"
+                          fill="red"
+                          class="bi bi-heart"
+                          style={{
+                            position: "absolute",
+                            right: "0",
+                            top: "0",
+                            cursor: "pointer",
+                          }}
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                        </svg>
+                      )}
+                      {item.favorite && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="44"
+                          height="44"
+                          fill="red"
+                          class="bi bi-heart-fill"
+                          viewBox="0 0 16 16"
+                          style={{
+                            position: "absolute",
+                            right: "0",
+                            top: "0",
+                            cursor: "pointer",
+                          }}
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+                          ></path>
+                        </svg>
+                      )}
+                    </div>
                     <Typography className={classes.text3}>
                       Starts From
                     </Typography>
@@ -432,7 +593,7 @@ const PropertyListCard = (props) => {
                             <EventAvailableIcon className={classes.icon} />
                             <Box style={{ width: 10 }}></Box>
                             <Typography className={classes.text3}>
-                              1 day ago
+                              {timeAgo}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -448,11 +609,22 @@ const PropertyListCard = (props) => {
                               justifyContent: "flex-end",
                             }}
                           >
+                            <Rating
+                              name="review-rating"
+                              // onChange={(event, newValue) =>
+                              //   setRating(newValue)
+                              // }
+                              readOnly
+                              style={{ marginBottom: 15 }}
+                              precision={0.5}
+                              value={item?.rating}
+                            />
+
+                            {/* <StarIcon className={classes.icon} />
                             <StarIcon className={classes.icon} />
                             <StarIcon className={classes.icon} />
                             <StarIcon className={classes.icon} />
-                            <StarIcon className={classes.icon} />
-                            <StarIcon className={classes.icon} />
+                            <StarIcon className={classes.icon} /> */}
                           </Grid>
                         </Grid>
                       </Grid>
@@ -484,18 +656,22 @@ const PropertyListCard = (props) => {
                         <Button
                           variant="contained"
                           className={classes.btn2}
-                          onClick={handleClickOpen}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            handleClickOpen();
+                          }}
                         >
                           Visit Site
                         </Button>
 
-                        <Button
+                        {/* <Button
                           variant="contained"
                           className={classes.btn2}
                           onClick={() => handleFavourite(item?._id)}
                         >
                           + Favourite
-                        </Button>
+                        </Button> */}
                       </Grid>
                     </Grid>
                   </Grid>
@@ -542,28 +718,9 @@ const PropertyListCard = (props) => {
             type="email"
             name="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            InputProps={{
-              classes: {
-                notchedOutline: classes.notchedOutline,
-              },
-            }}
-            InputLabelProps={{
-              style: { color: "#FFFFFF" },
-            }}
-            fullWidth
-          ></TextField>
-          <TextField
-            className="EmiInputs"
-            style={{ marginTop: 15 }}
-            variant="outlined"
-            label="Phone Number"
-            name="Phone"
-            max="9999999999"
-            type="tel"
-            value={mobile}
             onChange={(e) => {
-              if (e.target.value.length <= 10) setMobile(e.target.value);
+              setEmail(e.target.value);
+              setEmailValid(e.target.value.includes("@"));
             }}
             InputProps={{
               classes: {
@@ -594,14 +751,119 @@ const PropertyListCard = (props) => {
             <option value="6:00 PM">6:00 PM</option>
             <option value="7:00 PM">7:00 PM</option>
           </NativeSelect>
+          <TextField
+            className="EmiInputs"
+            style={{ marginTop: 15 }}
+            variant="outlined"
+            label="Phone Number"
+            name="Phone"
+            max="9999999999"
+            type="tel"
+            value={mobile}
+            onChange={(e) => {
+              if (e.target.value.length <= 10) setMobile(e.target.value);
+            }}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline,
+              },
+            }}
+            InputLabelProps={{
+              style: { color: "#FFFFFF" },
+            }}
+            fullWidth
+          ></TextField>
+          {
+            mobile.length === 10 &&
+              name.length > 0 &&
+              emailValid &&
+              time.length > 0 &&
+              !enableOtpField && (
+                <Button
+                  style={{ width: "23%" }}
+                  onClick={otpHandler}
+                  variant="contained"
+                  style={{
+                    background: "green",
+                    height: " 30px",
+                    top: " 10px",
+                    left: "5px",
+                    color: "#fff",
+                  }}
+                >
+                  Verify
+                </Button>
+              )
+            // : (
+            //   isOtpVerified && (
+            //     <div onClick={reset}>
+            //       {" "}
+            //       <EditIcon />{" "}
+            //     </div>
+            //   )
+            // )
+          }
+          {enableOtpField &&
+            name.length > 0 &&
+            emailValid &&
+            time.length > 0 && (
+              <>
+                <TextField
+                  className="EmiInputs"
+                  placeholder="Otp"
+                  style={{ width: "50%" }}
+                  fullWidth
+                  value={otp}
+                  disabled={isOtpVerified}
+                  onChange={inputChange}
+                  name="otp"
+                  type="number"
+                  variant="outlined"
+                  InputProps={{
+                    classes: {
+                      notchedOutline: classes.notchedOutline,
+                    },
+                  }}
+                  InputLabelProps={{
+                    style: { color: "#FFFFFF" },
+                  }}
+                />
+                {!isOtpVerified && (
+                  <Button
+                    style={{ width: "23%" }}
+                    onClick={otpHandler}
+                    variant="contained"
+                    style={{
+                      background: "green",
+                      height: " 30px",
+                      top: " 10px",
+                      left: "5px",
+                      color: "#fff",
+                    }}
+                  >
+                    Resend OTP
+                  </Button>
+                )}
+              </>
+            )}
         </Box>
         <DialogActions>
           <Box className="ParentButton">
-            <Button onClick={(e) => handleData(e)}>Submit</Button>
+            <Button
+              disabled={
+                !isOtpVerified ||
+                name.length === 0 ||
+                !emailValid ||
+                time.length === 0
+              }
+              onClick={(e) => handleData(e)}
+            >
+              Submit
+            </Button>
           </Box>
         </DialogActions>
       </Dialog>
-    </>
+    </div>
   );
 };
 
