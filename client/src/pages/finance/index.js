@@ -24,7 +24,7 @@ const Finance = (props) => {
   const [emi, setEmi] = useState("");
   const [total, setTotal] = useState("");
   const [year, setyear] = useState(12);
-  const [yearSelected , setYearselected] = useState(false)
+  const [yearSelected, setYearselected] = useState(false);
   React.useEffect(() => {
     financeResponse();
   }, []);
@@ -47,28 +47,25 @@ const Finance = (props) => {
 
   const handleData = (e) => {
     let n = tenure * year;
-    if(!yearSelected) {
-      n =  +tenure
+    if (!yearSelected) {
+      n = +tenure;
     }
     const P = +amount;
-    const r = rate/(12*100);
+    const r = rate / (12 * 100);
     // (p*r*(1+r)*n)/ ((1+r)*(n-1))
 
-    let emi =  P*r*(Math.pow(1+r , n)) / (Math.pow(1+r ,n) -1)
+    let emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
     setEmi(Math.ceil(emi));
-    const interest = P*r/(1-Math.pow((1+r) , -n))
-    setTotal(Math.ceil((emi*n - P)));
-
-
-  
+    const interest = (P * r) / (1 - Math.pow(1 + r, -n));
+    setTotal(Math.ceil(emi * n - P));
   };
   const resetData = () => {
-    setEmi('');
-    setTotal('');
-    setAmount('');
+    setEmi("");
+    setTotal("");
+    setAmount("");
     setTenure("");
-    setRate('');
-  }
+    setRate("");
+  };
   return (
     <div>
       <PageBanner
@@ -119,55 +116,60 @@ const Finance = (props) => {
                           shrink: true,
                         }}
                       />
-                      <TextField
-                        className="form-group"
-                        label="Loan Tenure"
-                        variant="filled"
-                        required
-                        type="number"
-                        name="tenure"
-                        onChange={(e) => setTenure(e.target.value)}
-                        value={tenure}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                      />
+                      <div style={{display:"flex",justifyContent:"space-between"}}>
+                        <TextField
+                          className="form-group"
+                          label="Loan Tenure"
+                          variant="filled"
+                          required
+                          type="number"
+                          name="tenure"
+                          style={{ width: "50%" }}
+                          onChange={(e) => setTenure(e.target.value)}
+                          value={tenure}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                        />
 
-                      <div
-                        class="input-group-append tenure-choice"
-                        data-toggle="buttons"
-                      >
                         <div
-                          class="btn-group btn-group-toggle"
+                          class="input-group-append tenure-choice"
                           data-toggle="buttons"
+                          
                         >
-                          <label class="btn btn-secondary active">
-                            <input
-                              type="radio"
-                              name="loantenure"
-                              id="loanyears"
-                              value="12"
-                              tabindex="4"
-                              checked = {yearSelected}
-                              autocomplete="off"
-                              onChange={(e) => setYearselected(true)}
-                            />
-                            Years
-                          </label>
+                          <div
+                            class="btn-group btn-group-toggle"
+                            data-toggle="buttons"
+                            style={{display:"flex",flexDirection:"column", justifyContent:"center",alignItems:"flex-start"}}  
+                          >
+                            <label class="btn btn-secondary active">
+                              <input
+                                type="radio"
+                                name="loantenure"
+                                id="loanyears"
+                                value="12"
+                                tabindex="4"
+                                checked={yearSelected}
+                                autocomplete="off"
+                                onChange={(e) => setYearselected(true)}
+                              />
+                              Years
+                            </label>
 
-                          <label class="btn btn-secondary ml-2">
-                            <input
-                              type="radio"
-                              name="loantenure"
-                              id="loanmonths"
-                              value="1"
-                              tabindex="5"
-                              autocomplete="off"
-                              checked = {!yearSelected}
-                              onChange={(e) => setYearselected(false)}
-                            />
-                            Months
-                          </label>
+                            <label class="btn btn-secondary ml-2">
+                              <input
+                                type="radio"
+                                name="loantenure"
+                                id="loanmonths"
+                                value="1"
+                                tabindex="5"
+                                autocomplete="off"
+                                checked={!yearSelected}
+                                onChange={(e) => setYearselected(false)}
+                              />
+                              Months
+                            </label>
+                          </div>
                         </div>
                       </div>
                       <br />
@@ -177,8 +179,10 @@ const Finance = (props) => {
                           variant="contained"
                           onClick={(e) => handleData(e)}
                         >
-                       <i class="fas fa-calculator" style ={{marginRight: '10px'}}></i>
-
+                          <i
+                            class="fas fa-calculator"
+                            style={{ marginRight: "10px" }}
+                          ></i>
                           Calculate
                         </Button>
                         <Button
@@ -186,7 +190,10 @@ const Finance = (props) => {
                           variant="contained"
                           onClick={(e) => resetData(e)}
                         >
-                       <i class="fas fa-trash-restore" style ={{marginRight: '10px'}}></i>
+                          <i
+                            class="fas fa-trash-restore"
+                            style={{ marginRight: "10px" }}
+                          ></i>
                           Reset
                         </Button>
                       </div>
@@ -197,25 +204,25 @@ const Finance = (props) => {
                           {/* <Typography>Principal Amount :{amount}</Typography>
                           <Typography>Interest Amount :{emi}</Typography>
                           <Typography>Total Value:{total}</Typography> */}
-                          <div  className = 'emi-container' >
+                          <div className="emi-container">
                             <span>EMI</span>
                             <span>&#8377; {emi}</span>
                           </div>
-                          <div className = "emi-details-container"> 
-                            <span className = "d-flex">
-                              <span  className ='color1'>Principal Amount</span>
-                              <span className ='color2'>{amount}</span>
+                          <div className="emi-details-container">
+                            <span className="d-flex">
+                              <span className="color1">Principal Amount</span>
+                              <span className="color2">{amount}</span>
                             </span>
                             <span>+</span>
-                            <span  className = "d-flex">
-                              <span  className ='color1'>Interest Payable</span>
-                              <span className ='color2'>{total}</span>
-                              </span>
-                              <span>=</span>
-                              <span  className = "d-flex">
-                              <span className ='color1'>Total Payable</span>
-                              <span  className ='color2'>{+total+(+amount)}</span>
-                              </span>
+                            <span className="d-flex">
+                              <span className="color1">Interest Payable</span>
+                              <span className="color2">{total}</span>
+                            </span>
+                            <span mr={2}>=</span>
+                            <span className="d-flex">
+                              <span className="color1">Total Payable</span>
+                              <span className="color2">{+total + +amount}</span>
+                            </span>
                           </div>
                         </div>
                       ) : (

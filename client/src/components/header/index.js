@@ -511,7 +511,7 @@ const Header = (props) => {
         <Box className={`emiForm`}>
           <TextField
             className="EmiInputs"
-            style={{ marginTop: 15 }}
+            style={{ marginTop: 15,color: "#FFFFFF" }}
             variant="outlined"
             label="Your Name"
             name="Name"
@@ -521,6 +521,7 @@ const Header = (props) => {
               classes: {
                 notchedOutline: classes.notchedOutline,
               },
+              style: { color: "#FFFFFF" }
             }}
             InputLabelProps={{
               style: { color: "#FFFFFF" },
@@ -529,7 +530,7 @@ const Header = (props) => {
           ></TextField>
           <TextField
             className="EmiInputs"
-            style={{ marginTop: 15 }}
+            style={{ marginTop: 15,color: "#FFFFFF"}}
             variant="outlined"
             label="Email Address"
             type="email"
@@ -543,21 +544,24 @@ const Header = (props) => {
               classes: {
                 notchedOutline: classes.notchedOutline,
               },
+              style: { color: "#FFFFFF" }
             }}
             InputLabelProps={{
               style: { color: "#FFFFFF" },
             }}
             fullWidth
           ></TextField>
-          <div
+          {/* <div
             style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
+              // display: "flex",
+              // flexWrap: "wrap",              
+              // justifyContent: "center",
+              width:"100%"
             }}
-          >
+          > */}
             <NativeSelect
               className="EmiInputs selectInput"
+              style={{width:"48%",boxSizing:"border-box"}}
               onChange={(e) => setTime(e.target.value)}
             >
               <option value="">Choose Time</option>
@@ -574,10 +578,10 @@ const Header = (props) => {
               <option value="6:00 PM">6:00 PM</option>
               <option value="7:00 PM">7:00 PM</option>
             </NativeSelect>
-            </div>
+            {/* </div> */}
             <TextField
               className="EmiInputs"
-              style={{ marginTop: 15 }}
+              style={{ marginTop: 15,width:"48%" ,color: "#FFFFFF"}}
               variant="outlined"
               label="Phone Number"
               name="Phone"
@@ -596,11 +600,12 @@ const Header = (props) => {
                 classes: {
                   notchedOutline: classes.notchedOutline,
                 },
+                style: { color: "#FFFFFF" }
               }}
               InputLabelProps={{
                 style: { color: "#FFFFFF" },
               }}
-              fullWidth
+              // fullWidth
             ></TextField>
             {
               mobile.length === 10 &&
@@ -640,7 +645,7 @@ const Header = (props) => {
                   <TextField
                     className="EmiInputs"
                     placeholder="Otp"
-                    style={{ width: "50%" }}
+                    style={{ width: "50%",color: "#FFFFFF" }}
                     fullWidth
                     value={otp}
                     disabled={isOtpVerified}
@@ -652,6 +657,7 @@ const Header = (props) => {
                       classes: {
                         notchedOutline: classes.notchedOutline,
                       },
+                      style: { color: "#FFFFFF" }
                     }}
                     InputLabelProps={{
                       style: { color: "#FFFFFF" },
