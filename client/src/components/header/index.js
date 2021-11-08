@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./header.css";
 import {
   Grid,
@@ -15,17 +15,17 @@ import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import APP_CONSTANTS from "../../constants/app-constants";
 import MenuItemList from "../menu-item";
 import menuItems from "../../utils/menu.json";
-import {withRouter, Link as RouterLink} from "react-router-dom";
+import { withRouter, Link as RouterLink } from "react-router-dom";
 //import Logo from "../../images/logo.png";
 import Logo from "../../images/vishal-logo.png";
 import Mobilemenu from "./mobilemenu";
 import ApiClient from "../../api-client";
-import EditIcon from '@material-ui/icons//Edit';
+import EditIcon from "@material-ui/icons//Edit";
 import * as Snackbar from "../../redux/actions/SnackbarActions";
 
 import Dialog from "@material-ui/core/Dialog";
 
-import {withStyles} from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
@@ -34,13 +34,13 @@ import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import "../enquryForm/enquryForm.css";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import BookNowModal from '../book-now/book-now';
+import BookNowModal from "../book-now/book-now";
 
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import * as SitevisitAction from "../../redux/actions/SitevisitAction";
 
-import ReactDOM from 'react-dom';
-import $ from 'jquery';
+import ReactDOM from "react-dom";
+import $ from "jquery";
 
 const stylessd = (theme) => ({
   root: {
@@ -60,7 +60,7 @@ const stylessd = (theme) => ({
 });
 
 const DialogTitle = withStyles(stylessd)((props) => {
-  const {children, classes, onClose, ...other} = props;
+  const { children, classes, onClose, ...other } = props;
 
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
@@ -153,56 +153,74 @@ const Header = (props) => {
   const [otp, setOtp] = useState("");
 
   const otpHandler = async () => {
-    const cookie = 'connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI';
-    const authorization = 'Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs';
+    const cookie =
+      "connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI";
+    const authorization =
+      "Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs";
     try {
       setVerifyLoader(true);
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/createOTP', {mobile: mobile}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        "/otp/createOTP",
+        { mobile: mobile },
+        {},
+        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+        false
+      );
       setEnableOtpField(true);
       setVerifyLoader(false);
-      dispatch(Snackbar.showSuccessSnackbar('Otp sent successfully'));
+      dispatch(Snackbar.showSuccessSnackbar("Otp sent successfully"));
     } catch (error) {
-      console.error('this is the error::', error);
-      dispatch(Snackbar.showFailSnackbar('We are facing some issue Please try again later.'));
+      console.error("this is the error::", error);
+      dispatch(
+        Snackbar.showFailSnackbar(
+          "We are facing some issue Please try again later."
+        )
+      );
       setVerifyLoader(false);
     }
-
   };
 
   const checkOtpValidOrNot = async (value) => {
     try {
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/otp/verifyOTP', {mobile: mobile, otp: value}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        "/otp/verifyOTP",
+        { mobile: mobile, otp: value },
+        {},
+        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+        false
+      );
       if (response.status) {
         setIsOtpVerified(true);
-        dispatch(Snackbar.showSuccessSnackbar('Otp Verified SuccessFully'));
+        dispatch(Snackbar.showSuccessSnackbar("Otp Verified SuccessFully"));
       } else {
         setIsOtpVerified(false);
-        dispatch(Snackbar.showFailSnackbar('Please type Valid otp.'));
+        dispatch(Snackbar.showFailSnackbar("Please type Valid otp."));
       }
     } catch (error) {
       setIsOtpVerified(false);
-      dispatch(Snackbar.showFailSnackbar('We are facing some issue Please try again later.'));
+      dispatch(
+        Snackbar.showFailSnackbar(
+          "We are facing some issue Please try again later."
+        )
+      );
     }
-
   };
   const reset = () => {
     setVerifyLoader(false);
     setIsOtpVerified(false);
     setEnableOtpField(false);
-    setMobile('');
-    setOtp('');
-
+    setMobile("");
+    setOtp("");   
   };
   const inputChange = (e) => {
-
-    let {name, value} = e.target;
+    let { name, value } = e.target;
     setOtp(value);
-    if (name === 'otp' && value.length === 6 && !isOtpVerified) {
+    if (name === "otp" && value.length === 6 && !isOtpVerified) {
       checkOtpValidOrNot(value);
     }
   };
-
-
 
   useEffect(() => {
     let userdata = localStorage.getItem("user");
@@ -211,13 +229,11 @@ const Header = (props) => {
     } else {
       setUserdata(false);
     }
-
   });
 
   useEffect(() => {
-    const company_detials = localStorage.getItem('company_detials');
-    if (!company_detials)
-      populateOwnerDetails();
+    const company_detials = localStorage.getItem("company_detials");
+    if (!company_detials) populateOwnerDetails();
     else {
       setOwnerDetails(JSON.parse(company_detials));
     }
@@ -225,13 +241,19 @@ const Header = (props) => {
 
   const populateOwnerDetails = () => {
     const getData = async () => {
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getFooterAddress', {}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        "/home/getFooterAddress",
+        {},
+        {},
+        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+        false
+      );
       setOwnerDetails(response.data);
-      localStorage.setItem('company_detials', JSON.stringify(response.data));
+      localStorage.setItem("company_detials", JSON.stringify(response.data));
     };
     getData();
   };
-
 
   const handleData = (e) => {
     const formData = {
@@ -249,6 +271,8 @@ const Header = (props) => {
     setMobile("");
     setEmail("");
     setTime("");
+    setIsOtpVerified(false)
+    setOtp('')
     setOpen(false);
   };
 
@@ -256,15 +280,22 @@ const Header = (props) => {
     setOpen(true);
   };
   const handleClose = () => {
+    setName("");
+    setMobile("");
+    setEmail("");
+    setTime("");
     setOpen(false);
+    setIsOtpVerified(false)
+    setOtp('')
+    setEnableOtpField(false)
   };
 
   const logoutHandler = () => {
     setAnchorEl(null);
     if (typeof window !== "undefined") {
       localStorage.removeItem("user");
-      localStorage.removeItem('bookNow');
-      localStorage.removeItem('postProperty')
+      localStorage.removeItem("bookNow");
+      localStorage.removeItem("postProperty");
       window.location.href = "/home";
     }
   };
@@ -273,24 +304,23 @@ const Header = (props) => {
     setAnchorEl(event.currentTarget);
   };
 
-
   const gotoProfileHandler = () => {
     setAnchorEl(null);
     // window.location.href = "/my-profile";
-    props.history.push('/my-profile');
+    props.history.push("/my-profile");
   };
   // Window Scroll Function Start
   $(window).scroll(function () {
-    var sticky = $('#HeaderonScroll'),
+    var sticky = $("#HeaderonScroll"),
       scroll = $(window).scrollTop();
 
-    if (scroll >= 100) sticky.addClass('Headerfixed');
-    else sticky.removeClass('Headerfixed');
+    if (scroll >= 100) sticky.addClass("Headerfixed");
+    else sticky.removeClass("Headerfixed");
   });
   // Window Scroll Function End
 
   const handleNull = (val) => {
-    return val || '-';
+    return val || "-";
   };
 
   return (
@@ -337,7 +367,12 @@ const Header = (props) => {
                   justifyContent: "center",
                 }}
               >
-                <Button variant="contained" className={`${classes.btn1} btn-book-online`} component={RouterLink} to="/book-online">
+                <Button
+                  variant="contained"
+                  className={`${classes.btn1} btn-book-online`}
+                  component={RouterLink}
+                  to="/book-online"
+                >
                   {APP_CONSTANTS.btnBookOnlineText}
                 </Button>
 
@@ -351,7 +386,7 @@ const Header = (props) => {
                       localStorage.setItem("postProperty", true);
                       return props.history.push("/signin");
                     } else {
-                      return props.history.push('/post-property')
+                      return props.history.push("/post-property");
                     }
                   }}
                 >
@@ -399,7 +434,10 @@ const Header = (props) => {
             >
               <Box className="logoImage">
                 <div className="logo">
-                  <a href="/"> <img src={Logo} /> </a>
+                  <a href="/">
+                    {" "}
+                    <img src={Logo} />{" "}
+                  </a>
                 </div>
               </Box>
               <Grid
@@ -468,10 +506,10 @@ const Header = (props) => {
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           {APP_CONSTANTS.titleSiteVisit}
         </DialogTitle>
-        <Box className="emiForm">
+        <Box className={`emiForm`}>
           <TextField
             className="EmiInputs"
-            style={{marginTop: 15}}
+            style={{ marginTop: 15 }}
             variant="outlined"
             label="Your Name"
             name="Name"
@@ -483,13 +521,13 @@ const Header = (props) => {
               },
             }}
             InputLabelProps={{
-              style: {color: "#FFFFFF"},
+              style: { color: "#FFFFFF" },
             }}
             fullWidth
           ></TextField>
           <TextField
             className="EmiInputs"
-            style={{marginTop: 15}}
+            style={{ marginTop: 15 }}
             variant="outlined"
             label="Email Address"
             type="email"
@@ -502,84 +540,134 @@ const Header = (props) => {
               },
             }}
             InputLabelProps={{
-              style: {color: "#FFFFFF"},
+              style: { color: "#FFFFFF" },
             }}
             fullWidth
           ></TextField>
-          <div style={{display: 'flex' , flexWrap: 'wrap'}}>
-          <NativeSelect
-            className="EmiInputs selectInput"
-            onChange={(e) => setTime(e.target.value)}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
           >
-            <option value="">Choose Time</option>
-            <option value="8:00 AM">8:00 AM</option>
-            <option value="9:00 AM">9:00 AM</option>
-            <option value="10:00 AM">10:00 AM</option>
-            <option value="11:00 AM">11:00 AM</option>
-            <option value="12:00 AM">12:00 AM</option>
-            <option value="1:00 PM">1:00 PM</option>
-            <option value="2:00 PM">2:00 PM</option>
-            <option value="3:00 PM">3:00 PM</option>
-            <option value="4:00 PM">4:00 PM</option>
-            <option value="5:00 PM">5:00 PM</option>
-            <option value="6:00 PM">6:00 PM</option>
-            <option value="7:00 PM">7:00 PM</option>
-          </NativeSelect>
-              <TextField
-                className="EmiInputs"
-                style={{marginTop: 15}}
-                variant="outlined"
-                label="Phone Number"
-                name="Phone"
-                disabled={isOtpVerified}
-                type="number"
-                min="1000000"
-                max="9999999999999999"
-                value={mobile}
-                onChange={(e) => {
-                  if (enableOtpField) {
-                    setEnableOtpField(false);
-                  }
-                  setMobile(e.target.value);
-                }}
-                InputProps={{
-                  classes: {
-                    notchedOutline: classes.notchedOutline
-                  }
-                }}
-                InputLabelProps={{
-                  style: {color: '#FFFFFF'}
-                }}
-                fullWidth >
-              </TextField>
-              {mobile.length === 10 && !enableOtpField ? <Button style={{width: '23%'}} onClick={otpHandler} variant="contained" style={{background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff'}}
-              >Verify</Button> : isOtpVerified && <div onClick={reset}> <EditIcon /> </div>}
-            {enableOtpField && <TextField
+            <NativeSelect
+              className="EmiInputs selectInput"
+              onChange={(e) => setTime(e.target.value)}
+            >
+              <option value="">Choose Time</option>
+              <option value="8:00 AM">8:00 AM</option>
+              <option value="9:00 AM">9:00 AM</option>
+              <option value="10:00 AM">10:00 AM</option>
+              <option value="11:00 AM">11:00 AM</option>
+              <option value="12:00 AM">12:00 AM</option>
+              <option value="1:00 PM">1:00 PM</option>
+              <option value="2:00 PM">2:00 PM</option>
+              <option value="3:00 PM">3:00 PM</option>
+              <option value="4:00 PM">4:00 PM</option>
+              <option value="5:00 PM">5:00 PM</option>
+              <option value="6:00 PM">6:00 PM</option>
+              <option value="7:00 PM">7:00 PM</option>
+            </NativeSelect>
+            <TextField
               className="EmiInputs"
-              placeholder="Otp"
-              style={{width: '50%'}}
-
-              fullWidth
-              value={otp}
-              disabled={isOtpVerified}
-              onChange={inputChange}
-              name="otp"
-              type="number"
+              style={{ marginTop: 15 }}
               variant="outlined"
+              label="Phone Number"
+              name="Phone"
+              disabled={isOtpVerified}
+              type="number"
+              min="1000000"
+              max="9999999999"
+              value={mobile}
+              onChange={(e) => {
+                if (enableOtpField) {
+                  setEnableOtpField(false);
+                }
+                if (e.target.value.length <= 10) setMobile(e.target.value);
+              }}
               InputProps={{
                 classes: {
-                  notchedOutline: classes.notchedOutline
-                }
+                  notchedOutline: classes.notchedOutline,
+                },
               }}
               InputLabelProps={{
-                style: {color: '#FFFFFF'}
+                style: { color: "#FFFFFF" },
               }}
-            />}
+              fullWidth
+            ></TextField>
+            {mobile.length === 10 && !enableOtpField && (
+              <Button
+                style={{ width: "23%" }}
+                onClick={otpHandler}
+                variant="contained"
+                style={{
+                  background: "green",
+                  height: " 30px",
+                  top: " 10px",
+                  left: "5px",
+                  color: "#fff",
+                }}
+              >
+                Verify
+              </Button>
+            ) 
+            // : (
+            //   isOtpVerified && (
+            //     <div onClick={reset}>
+            //       {" "}
+            //       <EditIcon />{" "}
+            //     </div>
+            //   )
+            // )
+            }
+            {enableOtpField && (
+              <>
+                <TextField
+                  className="EmiInputs"
+                  placeholder="Otp"
+                  style={{ width: "50%" }}
+                  fullWidth
+                  value={otp}
+                  disabled={isOtpVerified}
+                  onChange={inputChange}
+                  name="otp"
+                  type="number"
+                  variant="outlined"
+                  InputProps={{
+                    classes: {
+                      notchedOutline: classes.notchedOutline,
+                    },
+                  }}
+                  InputLabelProps={{
+                    style: { color: "#FFFFFF" },
+                  }}
+                />
+                {!isOtpVerified && (
+                  <Button
+                    style={{ width: "23%" }}
+                    onClick={otpHandler}
+                    variant="contained"
+                    style={{
+                      background: "green",
+                      height: " 30px",
+                      top: " 10px",
+                      left: "5px",
+                      color: "#fff",
+                    }}
+                  >
+                    Resend OTP
+                  </Button>
+                )}
+              </>
+            )}
           </div>
         </Box>
         <DialogActions>
           <Box className="ParentButton">
-            <Button onClick={(e) => handleData(e)}>Submit</Button>
+            <Button disabled={!isOtpVerified} onClick={(e) => handleData(e)}>
+              Submit
+            </Button>
           </Box>
         </DialogActions>
       </Dialog>
