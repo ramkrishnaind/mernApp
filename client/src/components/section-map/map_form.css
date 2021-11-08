@@ -58,19 +58,23 @@
 .emi-details-container {
     display: flex; 
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     border-radius: 15px;
     height: 70px;
     background: #7fc0c3;
     padding: 8px;
     margin-top: 14px;
+    column-gap: 10px;
 }
 .d-flex {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .d-flex span {
     font-size: 13px;
+    text-align: center;
 }
 
 .color1 {

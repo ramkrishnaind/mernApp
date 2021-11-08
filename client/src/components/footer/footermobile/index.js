@@ -381,6 +381,7 @@ export default function Mobilefootermenu() {
               classes: {
                 notchedOutline: classes.notchedOutline,
               },
+              style: { color: "#FFFFFF" },
             }}
             InputLabelProps={{
               style: { color: "#FFFFFF" },
@@ -403,6 +404,7 @@ export default function Mobilefootermenu() {
               classes: {
                 notchedOutline: classes.notchedOutline,
               },
+              style: { color: "#FFFFFF" },
             }}
             InputLabelProps={{
               style: { color: "#FFFFFF" },
@@ -446,6 +448,7 @@ export default function Mobilefootermenu() {
               classes: {
                 notchedOutline: classes.notchedOutline,
               },
+              style: { color: "#FFFFFF" },
             }}
             InputLabelProps={{
               style: { color: "#FFFFFF" },
@@ -489,6 +492,7 @@ export default function Mobilefootermenu() {
                   classes: {
                     notchedOutline: classes.notchedOutline,
                   },
+                  style: { color: "#FFFFFF" },
                 }}
                 InputLabelProps={{
                   style: { color: "#FFFFFF" },
