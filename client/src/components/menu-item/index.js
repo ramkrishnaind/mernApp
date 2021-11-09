@@ -94,7 +94,7 @@ const MenuItem = (props) => {
         <Grid item md={12} className="services-submenu-bg1">
           {(services || []).map((sm, idx) => {
             const mStyle = idx === activeIndex ? {fontFamily: '"Open Sans",sans-serif'} : {fontFamily: '"Open Sans",sans-serif'};
-            return <DropdownMenu style={mStyle} component={RouterLink} to={{pathname: '/service-details', state: sm._id}} >{sm.title}</DropdownMenu>;
+            return <DropdownMenu onClick={() => handleClose(sm)} style={mStyle} component={RouterLink} to={{pathname: '/service-details', state: sm._id}} >{sm.title}</DropdownMenu>;
           })}
         </Grid>
         {/* <Grid item md={6} style={{padding: 10}}>
@@ -153,7 +153,7 @@ const MenuItem = (props) => {
 
   const onMenuClickListener = (event) => {
     setAnchorEl(event.currentTarget);
-    setIsOpen(!isOpen);
+    setIsOpen(!isOpen);    
   };
 
   const handleClose = (menu) => {

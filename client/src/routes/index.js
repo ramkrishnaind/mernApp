@@ -22,6 +22,7 @@ import InvestWithUs from "../pages/about-us/invest-with-us/index";
 import ConstructionProcess from "../pages/about-us/construction-process/index";
 import Finance from "../pages/finance";
 import ServiceDetailPage from '../pages/service-details/index';
+import SupplierFormPage from '../pages/supplier-form/index';
 import DealingInItemDetailPage from '../pages/dealingIn-details/index';
 import SearchPropertyList from "../pages/search-property-list/index";
 import MyAccount from "../pages/my-account";
@@ -132,6 +133,11 @@ const routes = [
   {
     path: "/service-details",
     render: (props) => <ServiceDetailPage {...props} />,
+  }
+  ,
+  {
+    path: "/supplier-form",
+    render: (props) => <SupplierFormPage {...props} />,
   },
   {
     path: "/dealingInItem-details",

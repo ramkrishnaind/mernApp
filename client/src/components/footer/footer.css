@@ -81,7 +81,6 @@
 .fixed-social a,.social_icon a {
 	color: #fff;
 	display: block;
-	height: 40px!important;
 	position: relative;
 	text-align: center;
 	line-height: 40px;
@@ -89,6 +88,14 @@
 	margin-bottom: 1px;
 	z-index: 2;
 	border-radius: 50%;
+}
+.social_icon a 
+{
+	height: 40px!important;
+	top:5px;
+}
+.fixed-social a{
+	height: 30px!important;
 }
 
 .social_icon a i{
