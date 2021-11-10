@@ -8,7 +8,7 @@ const schema = Joi.object({
     _id: Joi.string().trim().required()
 });
 
-function getSupplierItem(Models) {
+function getSupplierDetail(Models) {
     async function Details(req, res) {
         try {
             let validateData = schema.validate(req.body);
@@ -27,4 +27,4 @@ function getSupplierItem(Models) {
     return Details;
 }
 
-module.exports = getSupplier;
+module.exports = getSupplierDetail;

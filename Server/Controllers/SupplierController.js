@@ -26,7 +26,7 @@ let storage = multer.diskStorage({
 });
 let upload = multer({ storage: storage });
 const path = require('path');
-let { createSupplier, getSupplierList, getSupplierMaterials, updateSupplierStatus, updateSupplier, getSupplierItem, deleteSupplierItem } = require('./Routes');
+let { createSupplier, getSupplierList, getSupplierDetail, updateSupplierStatus, updateSupplier, deleteSupplier } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
@@ -37,11 +37,10 @@ module.exports = function (conn) {
 
     router.post('/createSupplier', requestAuthMiddleware, createSupplier(allCollection))
     router.post('/getSupplierList', userAuthMiddleware, getSupplierList(allCollection))
-    router.post('/getSupplierMaterials', requestAuthMiddleware, getSupplierMaterials(allCollection))
-    router.post('/updateSupplier', userAuthMiddleware, upload.array("image"), updateSupplier(allCollection))
+    router.post('/getSupplierDetail', userAuthMiddleware, getSupplierDetail(allCollection))
+    router.post('/updateSupplier', requestAuthMiddleware, updateSupplier(allCollection))
     router.post('/updateSupplierStatus', userAuthMiddleware, updateSupplierStatus(allCollection))
-    router.post('/getSupplierItem', userAuthMiddleware, getSupplierItem(allCollection))
-    router.post('/deleteSupplierItem', userAuthMiddleware, deleteSupplierItem(allCollection))
+    router.post('/deleteSupplier', userAuthMiddleware, deleteSupplier(allCollection))
 
     return router;
 };

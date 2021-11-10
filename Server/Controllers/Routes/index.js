@@ -114,4 +114,15 @@ module.exports = {
     ////////////////////////
     createOTP: require('./OtpModule/createOTP'),
     verifyOTP: require('./OtpModule/verifyOTP'),
+    ////////////////////
+    ///// Supplier ////
+    ////////////////////
+    createSupplier: require('./SupplierModule/createSupplierModule'),
+    getSupplierList: require('./SupplierModule/getSupplierListModule'),
+    getSupplierDetail: require('./SupplierModule/getSupplierModule'),
+    updateSupplier: require('./SupplierModule/updateSupplierModule'),
+    updateSupplierStatus: require('./SupplierModule/updateSupplierStatusModule'),
+    //getSupplier: require('./SupplierModule/getSupplierModule'),
+    deleteSupplier: require('./SupplierModule/deleteSupplierModule'),
+
 }
