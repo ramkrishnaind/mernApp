@@ -434,6 +434,23 @@ const items = [
       },
     ],
   },
+  {
+    href: "/supplier",
+    icon: UsersIcon,
+    title: "Supplier",
+    items: [
+      {
+        href: "/supplier/add",
+        icon: ShoppingBagIcon,
+        title: "Add Supplier",
+      },
+      {
+        href: "/supplier",
+        icon: ShoppingBagIcon,
+        title: "Supplier List",
+      },
+    ],
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
