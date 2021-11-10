@@ -27,10 +27,10 @@ app.use(helmet({
 //     methods: ['GET', 'POST', 'PUT', 'DELETE'],
 //     credentials: true
 // }));
-app.use(cors({origin: '*'}));
+app.use(cors({ origin: '*' }));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
     secret: 'VikramJeetSinwal',
     resave: false,
@@ -49,31 +49,32 @@ var prefix = '/api/';
 
 //app.use('/api/pricing', require('./controllers/pricing.controller')({ MongoDBConnection }));
 console.log();
-app.use(`${prefix}users`, require('./Controllers/UsersController')({MongoDBConnection}));
-app.use(`${prefix}menuModule`, require('./Controllers/MenuModuleController')({MongoDBConnection}));
-app.use(`${prefix}role`, require('./Controllers/RoleController')({MongoDBConnection}));
-app.use(`${prefix}callback`, require('./Controllers/CallbackController')({MongoDBConnection}));
-app.use(`${prefix}enquiry`, require('./Controllers/EnquiryController')({MongoDBConnection}));
-app.use(`${prefix}review`, require('./Controllers/ReviewController')({MongoDBConnection}));
-app.use(`${prefix}property`, require('./Controllers/PropertyController')({MongoDBConnection}));
-app.use(`${prefix}feedback`, require('./Controllers/ClientFeedbackController')({MongoDBConnection}));
-app.use(`${prefix}cms`, require('./Controllers/CMSController')({MongoDBConnection}));
-app.use(`${prefix}slider`, require('./Controllers/SliderController')({MongoDBConnection}));
-app.use(`${prefix}builder`, require('./Controllers/BuildingMaterialsController')({MongoDBConnection}));
-app.use(`${prefix}services`, require('./Controllers/ServicesController')({MongoDBConnection}));
-app.use(`${prefix}contactus`, require('./Controllers/ContactUsController')({MongoDBConnection}));
-app.use(`${prefix}sitevisit`, require('./Controllers/siteVisitController')({MongoDBConnection}));
-app.use(`${prefix}career`, require('./Controllers/CareerController')({MongoDBConnection}));
-app.use(`${prefix}blog`, require('./Controllers/BlogController')({MongoDBConnection}));
-app.use(`${prefix}home`, require('./Controllers/HomeController')({MongoDBConnection}));
-app.use(`${prefix}team`, require('./Controllers/OurTeamController')({MongoDBConnection}));
-app.use(`${prefix}booking`, require('./Controllers/BookingController')({MongoDBConnection}));
-app.use(`${prefix}constructionProcess`, require('./Controllers/ConstructionProcessController')({MongoDBConnection}));
-app.use(`${prefix}investWithUs`, require('./Controllers/InvestWithUsController')({MongoDBConnection}));
-app.use(`${prefix}newsLetter`, require('./Controllers/NewsLetterController')({MongoDBConnection}));
-app.use(`${prefix}aboutPage`, require('./Controllers/AboutController')({MongoDBConnection}));
-app.use(`${prefix}finance`, require('./Controllers/FinanceController')({MongoDBConnection}));
-app.use(`${prefix}otp`, require('./Controllers/OtpController')({MongoDBConnection}));
+app.use(`${prefix}users`, require('./Controllers/UsersController')({ MongoDBConnection }));
+app.use(`${prefix}menuModule`, require('./Controllers/MenuModuleController')({ MongoDBConnection }));
+app.use(`${prefix}role`, require('./Controllers/RoleController')({ MongoDBConnection }));
+app.use(`${prefix}callback`, require('./Controllers/CallbackController')({ MongoDBConnection }));
+app.use(`${prefix}enquiry`, require('./Controllers/EnquiryController')({ MongoDBConnection }));
+app.use(`${prefix}review`, require('./Controllers/ReviewController')({ MongoDBConnection }));
+app.use(`${prefix}property`, require('./Controllers/PropertyController')({ MongoDBConnection }));
+app.use(`${prefix}feedback`, require('./Controllers/ClientFeedbackController')({ MongoDBConnection }));
+app.use(`${prefix}cms`, require('./Controllers/CMSController')({ MongoDBConnection }));
+app.use(`${prefix}slider`, require('./Controllers/SliderController')({ MongoDBConnection }));
+app.use(`${prefix}builder`, require('./Controllers/BuildingMaterialsController')({ MongoDBConnection }));
+app.use(`${prefix}services`, require('./Controllers/ServicesController')({ MongoDBConnection }));
+app.use(`${prefix}contactus`, require('./Controllers/ContactUsController')({ MongoDBConnection }));
+app.use(`${prefix}sitevisit`, require('./Controllers/siteVisitController')({ MongoDBConnection }));
+app.use(`${prefix}career`, require('./Controllers/CareerController')({ MongoDBConnection }));
+app.use(`${prefix}blog`, require('./Controllers/BlogController')({ MongoDBConnection }));
+app.use(`${prefix}home`, require('./Controllers/HomeController')({ MongoDBConnection }));
+app.use(`${prefix}team`, require('./Controllers/OurTeamController')({ MongoDBConnection }));
+app.use(`${prefix}booking`, require('./Controllers/BookingController')({ MongoDBConnection }));
+app.use(`${prefix}constructionProcess`, require('./Controllers/ConstructionProcessController')({ MongoDBConnection }));
+app.use(`${prefix}investWithUs`, require('./Controllers/InvestWithUsController')({ MongoDBConnection }));
+app.use(`${prefix}newsLetter`, require('./Controllers/NewsLetterController')({ MongoDBConnection }));
+app.use(`${prefix}aboutPage`, require('./Controllers/AboutController')({ MongoDBConnection }));
+app.use(`${prefix}finance`, require('./Controllers/FinanceController')({ MongoDBConnection }));
+app.use(`${prefix}otp`, require('./Controllers/OtpController')({ MongoDBConnection }));
+app.use(`${prefix}supplier`, require('./Controllers/SupplierController')({ MongoDBConnection }));
 // let reactHTMLPath = process.env.NODE_ENV === 'production' ? "../FX-React/build" : "";
 
 // reactHTMLPath = path.join(__dirname, reactHTMLPath);
