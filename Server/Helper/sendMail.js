@@ -18,7 +18,7 @@ async function sendMail({ from = `<${process.env.SUPPORT_EMAIL}>`, to, bcc, subj
             throw { error: true, status: false, message: "Support email and password required", adminError: true };
         }
         let auth = { user, pass };
-
+        console.log('auth is', auth)
         let smtpTrans = nodemailer.createTransport({
             service: 'gmail',
             auth

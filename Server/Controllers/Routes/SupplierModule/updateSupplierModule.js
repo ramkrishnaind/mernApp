@@ -14,6 +14,7 @@ const moduleSchema = Joi.object({
     location: Joi.string().required(),
     city: Joi.string().required(),
     supplierOf: Joi.string().required(),
+    message: Joi.string()
 });
 
 function createSupplier(Models) {
@@ -28,7 +29,7 @@ function createSupplier(Models) {
 
             // pick data from req.body
 
-            let bodyData = _.pick(req.body, ["_id", "name", "companyName", "role", "mobile", "email", "location", "city", "supplierOf"]);
+            let bodyData = _.pick(req.body, ["_id", "name", "companyName", "role", "mobile", "email", "location", "city", "supplierOf", "message"]);
 
             let setData = {
                 name: bodyData.name,
@@ -38,7 +39,8 @@ function createSupplier(Models) {
                 email: bodyData.email,
                 location: bodyData.location,
                 city: bodyData.city,
-                supplierOf: bodyData.supplierOf
+                supplierOf: bodyData.supplierOf,
+                message: bodyData.message
             }
             let updateModule = await Models.SupplierDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
