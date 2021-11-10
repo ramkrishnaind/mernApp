@@ -13,7 +13,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useLocation} from 'react-router-dom';
 import ApiClient from '../../api-client';
 import ReactHtmlParser from 'react-html-parser';
-import EnquryFormService from "../../components/enquryFormService/enquryForm";
+import SupplierFormService from "../../components/SupplierFormService";
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -185,12 +185,12 @@ const SupplierFormPage = (props) => {
               <Grid item md={6}>
                 <Box className="middel-content">
                   <h2> <span style={{color: "#00afb8"}}>Supplier Form</span></h2>
-                  <p>A form to fill suuplier details</p>
+                  <p>A form to fill supplier details</p>
                 </Box>
               </Grid>
               <Grid item md={6}>
                 <Box className="middel-content">
-                  <EnquryFormService />
+                  <SupplierFormService />
                 </Box>
               </Grid>
             </Grid>
