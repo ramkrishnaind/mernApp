@@ -6,7 +6,7 @@ var router = express.Router();
 const multer = require("multer");
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        let fpathId = 'uploads/builder';
+        let fpathId = 'uploads/suppliers';
         try {
             if (!fs.existsSync(fpathId)) {
                 fs.mkdirSync(fpathId, { recursive: true }, (err) => {
@@ -35,10 +35,10 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(allCollection);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
 
-    router.post('/createSupplier', requestAuthMiddleware, createSupplier(allCollection))
+    router.post('/createSupplier', requestAuthMiddleware, upload.array("file"), createSupplier(allCollection))
     router.post('/getSupplierList', userAuthMiddleware, getSupplierList(allCollection))
     router.post('/getSupplierDetail', userAuthMiddleware, getSupplierDetail(allCollection))
-    router.post('/updateSupplier', requestAuthMiddleware, updateSupplier(allCollection))
+    router.post('/updateSupplier', userAuthMiddleware, upload.array("file"), updateSupplier(allCollection))
     router.post('/updateSupplierStatus', userAuthMiddleware, updateSupplierStatus(allCollection))
     router.post('/deleteSupplier', userAuthMiddleware, deleteSupplier(allCollection))
 

@@ -108,6 +108,7 @@ const SupplierCreateUpdate = (props) => {
         location: location,
         city: city,
         supplierOf: supplierOf,
+        message: message,
       };
       dispatch(SupplierAction.SupplierAddRequestAsync(reqData));
     } else {
@@ -121,6 +122,7 @@ const SupplierCreateUpdate = (props) => {
         location: location,
         city: city,
         supplierOf: supplierOf,
+        message: message,
         _id: id,
       };
 
@@ -249,6 +251,7 @@ const SupplierCreateUpdate = (props) => {
                     onChange={inputChange}
                     name="mobile"
                     id="mobile"
+                    type="number"
                     validators={["required"]}
                     errorMessages={["mobile field is required"]}
                   />
@@ -258,7 +261,7 @@ const SupplierCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="Email Id *"
+                    label="Email Id"
                     fullWidth
                     value={state.email}
                     onChange={inputChange}
@@ -271,12 +274,14 @@ const SupplierCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="city *"
+                    label="City*"
                     fullWidth
                     value={state.city}
                     onChange={inputChange}
                     name="city"
                     id="city"
+                    validators={["required"]}
+                    errorMessages={["city field is required"]}
                   />
                 </Grid>
 
@@ -284,12 +289,14 @@ const SupplierCreateUpdate = (props) => {
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="Location *"
+                    label="Location*"
                     fullWidth
                     value={state.location}
                     onChange={inputChange}
                     name="location"
                     id="location"
+                    validators={["required"]}
+                    errorMessages={["location field is required"]}
                   />
                 </Grid>
 
@@ -314,350 +321,62 @@ const SupplierCreateUpdate = (props) => {
                         id: "age-native-simple",
                       }}
                     >
-                      <option value="owner">Top</option>
-                      <option value="manager">Bottom</option>
+                      <option value="Marble">Marble</option>
+                      <option value="Tiles">Tiles</option>
+                      <option value="Bricks">Bricks</option>
+                      <option value="Decorative Items">Decorative Items</option>
+                      <option value="Sand">Sand</option>
+                      <option value="Cement">Cement</option>
+                      <option value="Electrical Items">Electrical Items</option>
+                      <option value="Furniture">Furniture</option>
+                      <option value="Furniture Hardware">
+                        Furniture Hardware
+                      </option>
+                      <option value="Paint">Paint</option>
+                      <option value="Security Services">
+                        Security Services
+                      </option>
+                      <option value="Still Equipments">Still Equipments</option>
+                      <option value="Sanitary Hardware">
+                        Sanitary Hardware
+                      </option>
+                      <option value="Ro Services">Ro Services</option>
+                      <option value="Electronic Item">Electronic Item</option>
+                      <option value="Electrical services">
+                        Electrical services
+                      </option>
+                      <option value="Safety Guards">Safety Guards</option>
+                      <option value="Building Material">
+                        Building Material
+                      </option>
+                      <option value="Glass House">Glass House</option>
+                      <option value="Fabrication">Fabrication</option>
+                      <option value="JVNL services">JVNL services</option>
+                      <option value="JDA Work ">JDA Work </option>
+                      <option value="Solar Equipments">Solar Equipments</option>
+                      <option value="Manpower Supplier">
+                        Manpower Supplier
+                      </option>
+                      <option value="Construction Hardware">
+                        Construction Hardware
+                      </option>
                     </Select>
                   </FormControl>
                 </Grid>
-
-                {/* <Grid className="form-group-item" item xs={12} sm={6} md={4}>
+                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
                   <TextValidator
                     className="form-control-item"
                     variant="outlined"
-                    label="Message *"
+                    label="Message"
                     fullWidth
                     value={state.message}
                     onChange={inputChange}
                     name="message"
                     id="message"
+                    validators={["required"]}
+                    errorMessages={["message field is required"]}
                   />
                 </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Marble*"
-                    fullWidth
-                    value={state.marble}
-                    onChange={inputChange}
-                    name="marble"
-                    id="marble"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Tiles*"
-                    fullWidth
-                    value={state.tiles}
-                    onChange={inputChange}
-                    name="tiles"
-                    id="tiles"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Bricks*"
-                    fullWidth
-                    value={state.brick}
-                    onChange={inputChange}
-                    name="brick"
-                    id="brick"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Decorative Items*"
-                    fullWidth
-                    value={state.decorative_items}
-                    onChange={inputChange}
-                    name="decorative_items"
-                    id="decorative_items"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Sand*"
-                    fullWidth
-                    value={state.sand}
-                    onChange={inputChange}
-                    name="sand"
-                    id="sand"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Cement*"
-                    fullWidth
-                    value={state.cement}
-                    onChange={inputChange}
-                    name="cement"
-                    id="cement"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Electrical Items*"
-                    fullWidth
-                    value={state.electrical_items}
-                    onChange={inputChange}
-                    name="electrical_items"
-                    id="electrical_items"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Furniture*"
-                    fullWidth
-                    value={state.furniture}
-                    onChange={inputChange}
-                    name="furniture"
-                    id="furniture"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Furniture Hardware*"
-                    fullWidth
-                    value={state.furniture_hardware}
-                    onChange={inputChange}
-                    name="furniture_hardware"
-                    id="furniture_hardware"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Paint*"
-                    fullWidth
-                    value={state.paint}
-                    onChange={inputChange}
-                    name="paint"
-                    id="paint"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Security Services*"
-                    fullWidth
-                    value={state.security_services}
-                    onChange={inputChange}
-                    name="security_services"
-                    id="security_services"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Still Equipments*"
-                    fullWidth
-                    value={state.still_equipments}
-                    onChange={inputChange}
-                    name="still_equipments"
-                    id="still_equipments"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Sanitary Hardware*"
-                    fullWidth
-                    value={state.sanitary_hardware}
-                    onChange={inputChange}
-                    name="sanitary_hardware"
-                    id="sanitary_hardware"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Ro Services*"
-                    fullWidth
-                    value={state.ro_services}
-                    onChange={inputChange}
-                    name="ro_services"
-                    id="ro_services"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Electronic Item*"
-                    fullWidth
-                    value={state.electronic_item}
-                    onChange={inputChange}
-                    name="electronic_item"
-                    id="electronic_item"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Electrical services*"
-                    fullWidth
-                    value={state.electrical_services}
-                    onChange={inputChange}
-                    name="electrical_services"
-                    id="electrical_services"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Safety Guards*"
-                    fullWidth
-                    value={state.safety_guards}
-                    onChange={inputChange}
-                    name="safety_guards"
-                    id="safety_guards"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Building Material*"
-                    fullWidth
-                    value={state.building_material}
-                    onChange={inputChange}
-                    name="building_material"
-                    id="building_material"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Glass House*"
-                    fullWidth
-                    value={state.glass_house}
-                    onChange={inputChange}
-                    name="glass_house"
-                    id="glass_house"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Fabrication*"
-                    fullWidth
-                    value={state.fabrication}
-                    onChange={inputChange}
-                    name="fabrication"
-                    id="fabrication"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="JVNL services*"
-                    fullWidth
-                    value={state.jvnl_services}
-                    onChange={inputChange}
-                    name="jvnl_services"
-                    id="jvnl_services"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="JDA Work*"
-                    fullWidth
-                    value={state.jda_work}
-                    onChange={inputChange}
-                    name="jda_work"
-                    id="jda_work"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Solar Equipments*"
-                    fullWidth
-                    value={state.solar_equipments}
-                    onChange={inputChange}
-                    name="solar_equipments"
-                    id="solar_equipments"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Manpower Supplier*"
-                    fullWidth
-                    value={state.manpower_Supplier}
-                    onChange={inputChange}
-                    name="manpower_Supplier"
-                    id="manpower_Supplier"
-                  />
-                </Grid>
-
-                <Grid className="form-group-item" item xs={12} sm={6} md={4}>
-                  <TextValidator
-                    className="form-control-item"
-                    variant="outlined"
-                    label="Construction Hardware *"
-                    fullWidth
-                    value={state.Construction}
-                    onChange={inputChange}
-                    name="Construction"
-                    id="Construction"
-                  />
-                </Grid>
-               */}
               </Grid>
               <br />
               <Box className="footer">

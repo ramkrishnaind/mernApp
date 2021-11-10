@@ -42,6 +42,11 @@ function createSupplier(Models) {
                 supplierOf: bodyData.supplierOf,
                 message: bodyData.message
             }
+
+            if (req.files.length > 0)
+                setData.file = req.files;
+
+
             let updateModule = await Models.SupplierDB.findOneAndUpdate({ _id: bodyData._id }, { $set: setData });
             console.log('updateModule is', updateModule)
             res.send({ status: true, message: "Supplier Info updated." });

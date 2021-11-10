@@ -28,6 +28,9 @@ function createSupplier(Models) {
             // pick data from req.body
             let bodyData = _.pick(req.body, ["name", "companyName", "role", "mobile", "email", "location", "city", "supplierOf", "message"]);
 
+            if (req.files.length > 0)
+                bodyData.file = req.files;
+
             let saveModule = await new Models.SupplierDB(bodyData).save();
             console.log('saveModule is', saveModule)
             res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
