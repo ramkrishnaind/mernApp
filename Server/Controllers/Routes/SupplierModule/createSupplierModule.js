@@ -13,6 +13,7 @@ const moduleSchema = Joi.object({
     location: Joi.string().required(),
     city: Joi.string().required(),
     supplierOf: Joi.string().required(),
+    message: Joi.string()
 });
 
 function createSupplier(Models) {
@@ -25,7 +26,7 @@ function createSupplier(Models) {
             }
 
             // pick data from req.body
-            let bodyData = _.pick(req.body, ["name", "companyName", "role", "mobile", "email", "location", "city", "supplierOf"]);
+            let bodyData = _.pick(req.body, ["name", "companyName", "role", "mobile", "email", "location", "city", "supplierOf", "message"]);
 
             let saveModule = await new Models.SupplierDB(bodyData).save();
             console.log('saveModule is', saveModule)

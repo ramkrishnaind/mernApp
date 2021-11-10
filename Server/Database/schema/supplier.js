@@ -29,6 +29,9 @@ let schema = new Schema({
         type: String,
         required: true
     },
+    message: {
+        type: String
+    },
     supplierOf: {
         type: String,
         required: true
