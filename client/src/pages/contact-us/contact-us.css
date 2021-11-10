@@ -22,3 +22,11 @@
     background: #ff7600;
     color: #FFFFFF;
 }
+.grid1 .send-btn:disabled {
+    background-color: #aeb2b3;
+    color: rgb(17, 16, 16);
+    margin-top: 1rem;
+    border-radius: 4px;
+    padding: 5px 20px;
+    text-align: right;
+}

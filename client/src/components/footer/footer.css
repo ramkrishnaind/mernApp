@@ -95,7 +95,7 @@
 	top:5px;
 }
 .fixed-social a{
-	height: 30px!important;
+	height: 40px!important;
 }
 
 .social_icon a i{
@@ -139,6 +139,9 @@
 
 .animatebtn a {
     animation: dot-pulse-idle 4s cubic-bezier(0.19, 1, 0.22, 1) infinite both;
+}
+a{
+	text-decoration: none;
 }
 @keyframes dot-pulse-idle{
 0% {

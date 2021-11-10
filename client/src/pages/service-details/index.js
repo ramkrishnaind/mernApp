@@ -195,7 +195,7 @@ const ServiceDetailPage = (props) => {
               </Grid>
             </Grid>
             <Box className="work-space">
-              <h2><span style={{color: "#00afb8"}}>{ReactHtmlParser(serviceDetail?.title)}</span></h2>
+              <h2 style={{textAlign:"left"}}><span style={{color: "#00afb8"}}>COMPLETED PROJECTS</span></h2>
               {(images || []).map((img) => {
                 return <Grid container spacing={3}>
                   <Grid item xs={4} className="workSpaceImgaes">

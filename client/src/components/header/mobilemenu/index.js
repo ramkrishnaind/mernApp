@@ -138,8 +138,8 @@ export default function Mobilemenu(props) {
                 },
                 {
                     "id": 9,
-                    "title": "Blog",
-                    "href": "/blog"
+                    "title": "Supplier Form",
+                    "href": "/supplier-form"
                 }].map(({id, title, href, submenu}, index) => {
                     return <div onClick={!submenu ? toggleDrawer(anchor, false) : () => { }} >
                         <ListItem button key={id} onClick={() => {
