@@ -36,6 +36,9 @@ let schema = new Schema({
         type: String,
         required: true
     },
+    file: {
+        type: Array
+    },
     isActive: {
         type: Boolean,
         default: false
