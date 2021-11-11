@@ -381,16 +381,19 @@ function SupplierForm(props) {
           <option value={"Manpower Supplier"}>Manpower Supplier</option>
           <option value={"Construction Hardware"}>Construction Hardware</option>
         </NativeSelect>
+        <br/>
         <TextField
           className="EmiInputs"
           label="Message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           multiline
-          rows={2}
+          rows={3}
           fullWidth
           defaultValue=""
           variant="outlined"
+          style={{
+            width: "100%"}}
           InputProps={{
             classes: {
               notchedOutline: classes.notchedOutline,
@@ -408,6 +411,7 @@ function SupplierForm(props) {
             color: "#fff",
             border: "2px solid #fff",
             display:"flex",
+            flexDirection:"column",
             justifyContent:"space-around",
             alignItems:"center",
             marginBottom: "30px",
@@ -421,7 +425,7 @@ function SupplierForm(props) {
             className="EmiInputs"
             style={{
               marginTop: "30px",
-              marginleft: "30px",
+              marginLeft: "30px",
               textAlign: "right",
               color: "#fff",
             }}
@@ -606,7 +610,7 @@ function SupplierForm(props) {
           }
           onClick={(e) => handleData(e)}
         >
-          Add Supplier
+          Submit now
         </Button>
       </Box>
     </div>
