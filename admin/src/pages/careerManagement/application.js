@@ -99,7 +99,6 @@ const CareerList = (props) => {
                     },
                   },
                 },
-
                 {
                   name: "Resume",
                   options: {
@@ -124,10 +123,11 @@ const CareerList = (props) => {
                   name: "Status",
                   options: {
                     customBodyRender: (value, tableMeta, updateValue) => {
-                      if (value === 1) return "Applied";
-                      else if (value === 2) return "Selected For Interview";
-                      else if (value === 3) return "Selected";
-                      else if (value === 4) return "Rejected";
+                      if (tableMeta.rowData[7] === 1) return "Applied";
+                      else if (tableMeta.rowData[7] === 2)
+                        return "Selected For Interview";
+                      else if (tableMeta.rowData[7] === 3) return "Selected";
+                      else if (tableMeta.rowData[7] === 4) return "Rejected";
                     },
                   },
                 },
