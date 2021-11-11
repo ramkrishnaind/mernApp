@@ -89,7 +89,7 @@ const SupplierCreateUpdate = (props) => {
 
     var data = new FormData();
     state?.image?.forEach((item) => {
-      data.append("image", item);
+      data.append("file", item);
     });
 
     if (id === null || id === undefined) {
@@ -367,12 +367,13 @@ const SupplierCreateUpdate = (props) => {
                 </Grid>
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Banner </Typography>
-                  {supplierData?.media[0]?.banner?.map((item, index) => {
+                  {supplierData?.file?.map((item, index) => {
                     return (
-                      <img
+                      <embed
                         src={API_ENDPOINTS.BASE_URL + item.path}
-                        height="80px"
+                        type={item.mimetype}
                         width="80px"
+                        height="80px"
                       />
                     );
                   })}
