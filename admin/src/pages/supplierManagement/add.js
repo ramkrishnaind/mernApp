@@ -23,9 +23,9 @@ import { connect } from "react-redux";
 
 // import ReactQuill from "react-quill";
 // import "react-quill/dist/quill.snow.css";
-// import Dropzone from "react-dropzone-uploader";
-// import "react-dropzone-uploader/dist/styles.css";
-// import API_ENDPOINTS from "../../constants/api-endpoints";
+import Dropzone from "react-dropzone-uploader";
+import "react-dropzone-uploader/dist/styles.css";
+import API_ENDPOINTS from "../../constants/api-endpoints";
 
 const SupplierCreateUpdate = (props) => {
   let query = useQuery();
@@ -54,16 +54,13 @@ const SupplierCreateUpdate = (props) => {
     companyName: supplierData?.companyName || "",
     email: supplierData?.email || "",
     mobile: supplierData?.mobile || "",
-
     role: supplierData?.role || "",
     location: supplierData?.location || "",
     city: supplierData?.city || "",
     supplierOf: supplierData?.supplierOf || "",
-
     message: supplierData?.message || "",
     marble: supplierData?.marble || "",
-    image: "",
-    bannerImage: "",
+    image: [],
     id: id,
   };
 
@@ -82,51 +79,44 @@ const SupplierCreateUpdate = (props) => {
       companyName,
       id,
       email,
-
       mobile,
       role,
       location,
       city,
       supplierOf,
-
       message,
-      marble,
-      image,
-      bannerImage,
     } = state;
 
     var data = new FormData();
+    state?.image?.forEach((item) => {
+      data.append("image", item);
+    });
 
     if (id === null || id === undefined) {
-      let reqData = {
-        name: name,
-        companyName: companyName,
-        email: email,
-        role: role,
+      data.append("name", name);
+      data.append("companyName", companyName);
+      data.append("email", email);
+      data.append("role", role);
+      data.append("mobile", mobile);
+      data.append("location", location);
+      data.append("city", city);
+      data.append("supplierOf", supplierOf);
+      data.append("message", message);
 
-        mobile: mobile,
-        location: location,
-        city: city,
-        supplierOf: supplierOf,
-        message: message,
-      };
-      dispatch(SupplierAction.SupplierAddRequestAsync(reqData));
+      dispatch(SupplierAction.SupplierAddRequestAsync(data));
     } else {
-      let reqData = {
-        name: name,
-        companyName: companyName,
-        email: email,
-        role: role,
+      data.append("name", name);
+      data.append("companyName", companyName);
+      data.append("email", email);
+      data.append("role", role);
+      data.append("mobile", mobile);
+      data.append("location", location);
+      data.append("city", city);
+      data.append("supplierOf", supplierOf);
+      data.append("message", message);
+      data.append("_id", id);
 
-        mobile: mobile,
-        location: location,
-        city: city,
-        supplierOf: supplierOf,
-        message: message,
-        _id: id,
-      };
-
-      dispatch(SupplierAction.SupplierUpdateRequestAsync(reqData));
+      dispatch(SupplierAction.SupplierUpdateRequestAsync(data));
     }
   };
 
@@ -134,19 +124,17 @@ const SupplierCreateUpdate = (props) => {
     return new URLSearchParams(useLocation().search);
   }
 
-  const handleChangeTextEditor = (content, editor) => {
-    setDescription(content);
-  };
-
   const handleBannerUpload = (file, status) => {
+    let list = state;
+    let data = [];
     if (status === "done") {
-      setState({ ...state, ["image"]: file.file });
-    }
-  };
-
-  const handleBlogBannerUpload = (file, status) => {
-    if (status === "done") {
-      setState({ ...state, ["bannerImage"]: file.file });
+      if (list.image && list.image.length) {
+        data = list.image;
+        data[list.image.length] = file.file;
+      } else {
+        data["0"] = file.file;
+      }
+      setState({ ...state, ["image"]: data });
     }
   };
 
@@ -376,6 +364,19 @@ const SupplierCreateUpdate = (props) => {
                     validators={["required"]}
                     errorMessages={["message field is required"]}
                   />
+                </Grid>
+                <Grid className="form-group-item" item xs={12} sm={6} md={5}>
+                  <Typography>Banner </Typography>
+                  {supplierData?.media[0]?.banner?.map((item, index) => {
+                    return (
+                      <img
+                        src={API_ENDPOINTS.BASE_URL + item.path}
+                        height="80px"
+                        width="80px"
+                      />
+                    );
+                  })}
+                  <Dropzone onChangeStatus={handleBannerUpload} />
                 </Grid>
               </Grid>
               <br />
