@@ -1,10 +1,10 @@
-import React, {useEffect} from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import React, { useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import SectionTabPanel from "../section-tab-panel";
 import OuterCarouselSlider from "../outer-carousel-slider";
-import './section-tabs.css';
+import "./section-tabs.css";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -12,9 +12,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SectionTabs = (props) => {
-  const {propertyData} = props;
+  const { propertyData } = props;
   // console.log("propertyData", props, propertyData);
-  const {sell, rent, construction, interior} = propertyData;
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -30,8 +29,10 @@ const SectionTabs = (props) => {
   // };
 
   useEffect(() => {
-    console.log(document.querySelector('#tab'));
+    console.log(document.querySelector("#tab"));
   }, [propertyData]);
+  
+  const { sell, rent, construction, interior } = propertyData;
 
   return (
     <div className={classes.root}>

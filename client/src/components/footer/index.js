@@ -9,6 +9,7 @@ import {
   TextField,
   IconButton,
 } from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
 import "./footer.css";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import SendIcon from "@material-ui/icons/Send";
@@ -248,7 +249,15 @@ const Footer = (props) => {
               <Typography className={`${classes.text3} links`}>
                 Careers
               </Typography>
+
               <Typography className={`${classes.text3} links`}>Blog</Typography>
+              <Typography
+              className={`${classes.text3} links`}
+                component={RouterLink}
+                to={{
+                  pathname: "/supplier-form",
+                }}
+              >Supplier Form</Typography>
               <Typography className={`${classes.text3} links`}>
                 Contact
               </Typography>

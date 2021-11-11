@@ -11,30 +11,30 @@
     border: none;
     z-index: 100;
 }
-#ServicesEnquiryForm .MuiBackdrop-root{
+#SupplierForm .MuiBackdrop-root{
     display: none!important;
 }
 
-#ServicesEnquiryForm .MuiDialog-container div:nth-child(1){
+#SupplierForm .MuiDialog-container div:nth-child(1){
     background: #00afb8;
     color: #fff;
 }
-#ServicesEnquiryForm .divider{
+#SupplierForm .divider{
     border-color: #fff;
 }
 
-#ServicesEnquiryForm .ParentButton button{
+#SupplierForm .ParentButton button{
     background-color: #ef8822;
     color: #fff;
     margin: 0rem 1rem 2rem;
     border-radius: 4px;
     padding: 12px 20px;
 }
-#ServicesEnquiryForm .ParentButton button:hover{
+#SupplierForm .ParentButton button:hover{
     background-color: #ef8822;
     color: #fff;
 }  
-#ServicesEnquiryForm .EmiInputs{
+#SupplierForm .EmiInputs{
     width: 48%;
     margin-right: 2%;
     margin-bottom: 2rem;
@@ -54,28 +54,28 @@
     color: #fff;
 }
 
-#ServicesEnquiryForm .selectInput select{
+#SupplierForm .selectInput select{
     margin-top: 1rem;
     border: 1px solid #fff;
     padding: 15px;
     border-radius: 4px;
     color: #fff;
 }
-#ServicesEnquiryForm .selectInput select option{
+#SupplierForm .selectInput select option{
     color: #000;
 }
-#ServicesEnquiryForm .MuiInput-underline:before, #ServicesEnquiryForm .MuiInput-underline:hover, #ServicesEnquiryForm .MuiInput-underline:active{
+#SupplierForm .MuiInput-underline:before, #SupplierForm .MuiInput-underline:hover, #SupplierForm .MuiInput-underline:active{
     content: '';
     border-bottom:0px;
     position: relative;
 }
 
 
-#ServicesEnquiryForm{
+#SupplierForm{
     background-color: #03b2cb;
     padding:20px;
 }
-#ServicesEnquiryForm .ParentButton button:disabled{
+#SupplierForm .ParentButton button:disabled{
     background-color: #aeb2b3;
     color: rgb(17, 16, 16);
     margin-top: 1rem;

@@ -20,7 +20,8 @@ const API_ENDPOINTS = {
   PROPERTY_DETAIL_ENDPOINT: "property/propertyDetail",
   UPDATE_PROPERTY_STATUS_ENDPOINT: "property/updatePropertyStatusRequest",
   USER_PROPERTY_LIST_ENDPOINT: "property/getUserIdPropertyRequest",
-  GET_SEARCH_PROPERTY_LIST: "/property/getSearchPropertyList"
+  GET_SEARCH_PROPERTY_LIST: "/property/getSearchPropertyList",
+  CREATE_SUPPLIER: "/supplier/createSupplier"
 };
 
 export default API_ENDPOINTS;

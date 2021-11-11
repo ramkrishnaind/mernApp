@@ -345,7 +345,7 @@ const ContactUsPage = (props) => {
               item
               xs={12}
               md={6}
-              className={classes.style1}
+              className={`${classes.style1} grid1`}
               style={{ background: "#FF7601", padding: 20 }}
             >
               <Typography className={classes.text5}>Contact Us</Typography>
@@ -361,6 +361,7 @@ const ContactUsPage = (props) => {
                   classes: {
                     notchedOutline: classes.notchedOutline,
                   },
+                  style:{ color: "#FFFFFF"}
                 }}
                 InputLabelProps={{
                   style: { color: "#FFFFFF" },
@@ -382,6 +383,7 @@ const ContactUsPage = (props) => {
                   classes: {
                     notchedOutline: classes.notchedOutline,
                   },
+                  style:{ color: "#FFFFFF"}
                 }}
                 InputLabelProps={{
                   style: { color: "#FFFFFF" },
@@ -400,6 +402,7 @@ const ContactUsPage = (props) => {
                   classes: {
                     notchedOutline: classes.notchedOutline,
                   },
+                  style:{ color: "#FFFFFF"}
                 }}
                 InputLabelProps={{
                   style: { color: "#FFFFFF" },
@@ -421,6 +424,7 @@ const ContactUsPage = (props) => {
                   classes: {
                     notchedOutline: classes.notchedOutline,
                   },
+                  style:{ color: "#FFFFFF"}
                 }}
                 InputLabelProps={{
                   style: { color: "#FFFFFF" },
@@ -450,6 +454,7 @@ const ContactUsPage = (props) => {
                       classes: {
                         notchedOutline: classes.notchedOutline,
                       },
+                      style:{ color: "#FFFFFF"}
                     }}
                     InputLabelProps={{
                       style: { color: "#FFFFFF" },
@@ -492,21 +497,29 @@ const ContactUsPage = (props) => {
                       name="otp"
                       type="number"
                       variant="outlined"
-                      // InputProps={{
-                      //   classes: {
-                      //     notchedOutline: classes.notchedOutline,
-                      //   },
-                      // }}
-                      // InputLabelProps={{
-                      //   style: { color: "#FFFFFF" },
-                      // }}
+                      InputProps={{
+                        classes: {
+                          notchedOutline: classes.notchedOutline,
+                        },
+                        style: { color: "#FFFFFF" },
+                      }}
+                      InputLabelProps={{
+                        style: { color: "#FFFFFF" },
+                      }}
                     />
                     {!isOtpVerified && (
                       <Button
-                        style={{ width: "23%", marginTop: "15px" }}
                         onClick={otpHandler}
                         variant="contained"
-                        style={{ marginBottom: 15 }}
+                        style={{
+                          background: "green",
+                          height: " 30px",
+                          top: " 10px",
+                          left: "5px",
+                          color: "#fff",
+                          marginTop: 15 
+                        }}
+                      
                     >
                         Resend OTP
                       </Button>
@@ -517,8 +530,7 @@ const ContactUsPage = (props) => {
 
               <Button
                 className={`${classes.btn1} send-btn`}
-                classes={{
-                disabled: classes.disabled}}
+                style={{ marginTop: 15 }}
                 disabled={!isOtpVerified || name.length === 0 || !emailValid}
                 variant="contained"
                 onClick={(e) => handleData(e)}

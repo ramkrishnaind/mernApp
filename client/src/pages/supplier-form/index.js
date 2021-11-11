@@ -7,13 +7,13 @@ import {
   Box,
   Paper,
 } from '@material-ui/core';
-import './service-details.css';
+import './supplier-form.css';
 import PageBanner from '../../components/page-banner';
 import {useDispatch, useSelector} from 'react-redux';
 import {useLocation} from 'react-router-dom';
 import ApiClient from '../../api-client';
 import ReactHtmlParser from 'react-html-parser';
-import EnquryFormService from "../../components/enquryFormService/enquryForm";
+import SupplierFormService from "../../components/SupplierFormService";
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -107,15 +107,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ServiceDetailPage = (props) => {
+const SupplierFormPage = (props) => {
   const classes = useStyles();
   const location = useLocation();
   const {item} = props;
   const dispatch = useDispatch();
   let query = useQuery();
-  const [viewDetails, setViewDetails] = React.useState(true);
-  const [serviceDetail, setServiceDetail] = React.useState({});
-
+//   const [viewDetails, setViewDetails] = React.useState(true);
+//   const [serviceDetail, setServiceDetail] = React.useState({});
   let token = query.get('token');
 
   // const propertyListItem = useSelector((state) => state.PropertyDetail.data);
@@ -131,71 +130,72 @@ const ServiceDetailPage = (props) => {
     return new URLSearchParams(useLocation().search);
   }
 
-  React.useEffect(() => {
+//   React.useEffect(() => {
     // let reqData = {
     //   // serviceId: location?.state,
 
     // };
-    const serviceId = location?.state;
-    fetchServiceDetails(serviceId);
+//     const serviceId = location?.state;
+//     fetchServiceDetails(serviceId);
 
 
-  }, [location?.state]);
+//   }, [location?.state]);
 
-  const fetchServiceDetails = (serviceId) => {
+//   const fetchServiceDetails = (serviceId) => {
 
-    const getData = async () => {
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getServiceDetails', {_id: serviceId}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+//     const getData = async () => {
+//       const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getServiceDetails', {_id: serviceId}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
 
-      console.log("Service Details Info ", response.data);
-      setServiceDetail(response.data);
-      setViewDetails(true);
-    };
-    getData();
-  };
+//       console.log("Service Details Info ", response.data);
+//       setServiceDetail(response.data);
+//       setViewDetails(true);
+//     };
+//     getData();
+//   };
 
   let img1 = '/property_img3.jpeg';
   let banner = '/about_us.jpeg';
   let images = [];
-  if (serviceDetail !== {} && serviceDetail.media && serviceDetail.media.length > 0 && serviceDetail.media[0].image && serviceDetail.media[0].image.length > 0) {
-    // img1 = ApiClient.SERVER_ADDRESS + "/" + serviceDetail.media[0].image[0].path;
+//   if (serviceDetail !== {} && serviceDetail.media && serviceDetail.media.length > 0 && serviceDetail.media[0].image && serviceDetail.media[0].image.length > 0) {
+//     // img1 = ApiClient.SERVER_ADDRESS + "/" + serviceDetail.media[0].image[0].path;
 
-    images = serviceDetail.media[0].image.map((imgInfo) => {
-      return ApiClient.SERVER_ADDRESS + "/" + imgInfo.path;
-    });
+//     images = serviceDetail.media[0].image.map((imgInfo) => {
+//       return ApiClient.SERVER_ADDRESS + "/" + imgInfo.path;
+//     });
 
-    console.log(" imag ***x", img1);
-    banner = ApiClient.SERVER_ADDRESS + "/" + serviceDetail.media[0].banner[0].path;
-    console.log("banner", banner);
-  }
+//     console.log(" imag ***x", img1);
+//     banner = ApiClient.SERVER_ADDRESS + "/" + serviceDetail.media[0].banner[0].path;
+//     console.log("banner", banner);
+//   }
 
 
   return (
     <div style={{background: '#F7F7F7'}}>
       <PageBanner
         bgImage={banner}
-        title="Service details"
-        currentPage="SERVICE DETAILS"
+        title="Supplier Form"
+        currentPage="SUPPLIER FORM"
       />
       {/* <Gallery /> */}
-      {viewDetails ? (<Box className="CareerPageText">
+      {/* {viewDetails ?  */}
+      (<Box className="CareerPageText">
         <Container>
           <div className={classes.root} className="headingtext">
             <Grid container>
               <Grid item md={6}>
                 <Box className="middel-content">
-                  <h2> <span style={{color: "#00afb8"}}>{ReactHtmlParser(serviceDetail?.title)}</span></h2>
-                  <p>{ReactHtmlParser(serviceDetail?.description)}</p>
+                  <h2> <span style={{color: "#00afb8"}}>Supplier Form</span></h2>
+                  <p>A form to fill supplier details</p>
                 </Box>
               </Grid>
               <Grid item md={6}>
                 <Box className="middel-content">
-                  <EnquryFormService />
+                  <SupplierFormService />
                 </Box>
               </Grid>
             </Grid>
             <Box className="work-space">
-              <h2 style={{textAlign:"left"}}><span style={{color: "#00afb8"}}>COMPLETED PROJECTS</span></h2>
+              {/* <h2><span style={{color: "#00afb8"}}>Supplier Form</span></h2> */}
               {(images || []).map((img) => {
                 return <Grid container spacing={3}>
                   <Grid item xs={4} className="workSpaceImgaes">
@@ -206,7 +206,8 @@ const ServiceDetailPage = (props) => {
             </Box>
           </div>
         </Container>
-      </Box>) : null}
+      </Box>)
+      {/* : null} */}
       {/* // <Container> */}
 
       {/* <Paper elevation={0} style={{padding: 20, marginTop: 20}}>
@@ -246,5 +247,5 @@ const ServiceDetailPage = (props) => {
   );
 };
 
-export default ServiceDetailPage;
+export default SupplierFormPage;
 
