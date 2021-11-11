@@ -1,5 +1,8 @@
+// import { ThemeProvider } from '@material-ui/styles';
+// import { createMuiTheme } from '@material-ui/core';
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {
   Grid,
   Typography,
@@ -39,6 +42,7 @@ import ApiClient from "../../api-client";
 import "../../components/outer-carousel-slider/featured.css";
 
 import * as Snackbar from "../../redux/actions/SnackbarActions";
+// const baseTheme = createMuiTheme();
 const useStyles = makeStyles((theme) => ({
   text1: {
     fontFamily: '"Open Sans",sans-serif',
@@ -189,6 +193,8 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 const PropertyListCard = (props) => {
+  // const largeScreen = useMediaQuery(theme => theme.breakpoints.up('sm'));
+
   const { item } = props;
   console.log("item", item);
   console.log("item?.favorite", item.favorite);
@@ -381,6 +387,7 @@ const PropertyListCard = (props) => {
   const address = item?.features[0]?.address || {};
   const propertTag = item?.propertTag;
   return (
+    // <ThemeProvider theme={baseTheme}>
     <div>
       <Paper style={{ borderRadius: 0, padding: 0, marginTop: 30 }}>
         <Grid container spacing={0}>
@@ -556,10 +563,11 @@ const PropertyListCard = (props) => {
                         </svg>
                       )}
                     </div>
+                    <Grid container className='starts-from' style={{display:"flex",flexDirection:"column"}}>
                     <Typography className={classes.text3}>
                       Starts From
                     </Typography>
-                    <Box
+                    {/* <Typography
                       style={{
                         width: 10,
                         paddingRight: 5,
@@ -568,10 +576,12 @@ const PropertyListCard = (props) => {
                       }}
                     >
                       /
-                    </Box>
+                    </Typography> */}
+                    
                     <Typography className={classes.text5}>
                       Rs. 3250000
                     </Typography>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
@@ -869,6 +879,7 @@ const PropertyListCard = (props) => {
         </DialogActions>
       </Dialog>
     </div>
+    // </ThemeProvider>
   );
 };
 
