@@ -115,3 +115,6 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+.MuiInput-underline:after{
+  border-bottom: none!important;
+}
