@@ -1,9 +1,12 @@
 const _ = require('lodash');
 const Joi = require('joi');
+const path = require('path');
 Joi.objectId = require('joi-objectid')(Joi)
 
 const errorResponseHelper = require('../../../Helper/errorResponse');
-const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
+const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage');
+const sendSupplierMailHelper = require('../../../Helper/sendSupplierMailHelper');
+
 const moduleSchema = Joi.object({
     name: Joi.string().required(),
     companyName: Joi.string().required(),
@@ -15,6 +18,28 @@ const moduleSchema = Joi.object({
     supplierOf: Joi.string().required(),
     message: Joi.string()
 });
+async function prepareTemplateSendMail(data) {
+    try {
+        let filePath = path.join(__dirname, '/../../../Template/suppliersMail.html');
+        let replacements = {
+            name: `${_.capitalize(data.name)}`,
+            companyName: `${_.capitalize(data.companyName)}`,
+            role: `${_.capitalize(data.role)}`,
+            mobile: data.mobile,
+            email: data.email,
+            location: `${_.capitalize(data.location)}`,
+            city: `${_.capitalize(data.city)}`,
+            supplierOf: `${_.capitalize(data.supplierOf)}`,
+            message: data.message
+        }
+        //let info = await prepareTemplateAndMailHelper({ filePath, replacements, to: data.email, subject: "New Supplier Request For VCC" });
+        let info = await sendSupplierMailHelper({ filePath, replacements, to: "info@vishalconstructioncompany.com", subject: "New Supplier Request For VCC" });
+        return info;
+    }
+    catch (e) {
+        console.log('error', e);
+    }
+}
 
 function createSupplier(Models) {
     async function create(req, res) {
@@ -33,6 +58,7 @@ function createSupplier(Models) {
 
             let saveModule = await new Models.SupplierDB(bodyData).save();
             console.log('saveModule is', saveModule)
+            await prepareTemplateSendMail(bodyData);
             res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
         }
         catch (e) {

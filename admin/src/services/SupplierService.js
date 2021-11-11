@@ -155,7 +155,7 @@ export const SupplierDataService = async (dispatch, data) => {
     dispatch(SupplierAction.SupplierDataError(error));
     dispatch(
       Snackbar.showFailSnackbar(
-        error.response.data?.error?.error?.details[0]?.message
+        error.response?.data?.error?.error?.details[0]?.message
       )
     );
   }

@@ -7,6 +7,8 @@ import BreadCrumbs from "../../common/bread-crumbs";
 import FormHeader from "../../common/form-header";
 import { connect } from "react-redux";
 import MUIDataTable from "mui-datatables";
+import ReactHtmlParser from "react-html-parser";
+import API_ENDPOINTS from "../../constants/api-endpoints";
 
 const styles = (theme) => ({
   root: {
@@ -17,10 +19,15 @@ const styles = (theme) => ({
   table: {
     minWidth: 650,
   },
+  text: {
+    display: "block",
+    overflow: "hidden",
+    maxHeight: "50px",
+  },
 });
 const CareerList = (props) => {
   const dispatch = useDispatch();
-  let { career } = props;
+  let { career, classes } = props;
 
   useEffect(() => {
     dispatch(CareerAction.CareerApplicationListRequestAsync());
@@ -68,6 +75,7 @@ const CareerList = (props) => {
                   item?.message,
                   item?.status,
                   item?._id,
+                  item?.resume,
                 ];
               })}
               columns={[
@@ -77,15 +85,49 @@ const CareerList = (props) => {
                 "Last Name",
                 "Mobile",
                 "Qualification",
-                "Message",
+                {
+                  name: "Message",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      return (
+                        <>
+                          <Typography className={classes.text}>
+                            {ReactHtmlParser(tableMeta.rowData[6])}
+                          </Typography>
+                        </>
+                      );
+                    },
+                  },
+                },
+                {
+                  name: "Resume",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      return (
+                        <>
+                          <a
+                            href={
+                              API_ENDPOINTS.BASE_URL +
+                              tableMeta.rowData[9][0]?.path
+                            }
+                            target="_blank"
+                          >
+                            view
+                          </a>
+                        </>
+                      );
+                    },
+                  },
+                },
                 {
                   name: "Status",
                   options: {
                     customBodyRender: (value, tableMeta, updateValue) => {
-                      if (value === 1) return "Applied";
-                      else if (value === 2) return "Selected For Interview";
-                      else if (value === 3) return "Selected";
-                      else if (value === 4) return "Rejected";
+                      if (tableMeta.rowData[7] === 1) return "Applied";
+                      else if (tableMeta.rowData[7] === 2)
+                        return "Selected For Interview";
+                      else if (tableMeta.rowData[7] === 3) return "Selected";
+                      else if (tableMeta.rowData[7] === 4) return "Rejected";
                     },
                   },
                 },
