@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import "./SupplierForm.css";
 import { Box, NativeSelect, TextField } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import * as EnquiryAction from "../../redux/actions/EnquiryAction";
+import * as SupplierAction from "../../redux/actions/SupplierFormActions";
 import ApiClient from "../../api-client";
 import * as Snackbar from "../../redux/actions/SnackbarActions";
 import EditIcon from "@material-ui/icons//Edit";
@@ -75,6 +75,8 @@ function SupplierForm(props) {
   const [company, setCompany] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
+  const [files, setFiles] = useState([]);
+  const [message, setMessage] = useState("");
   //const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [location, setLocation] = useState("");
@@ -85,21 +87,40 @@ function SupplierForm(props) {
   const [otp, setOtp] = useState("");
   const [emailValid, setEmailValid] = useState("");
   const [supplierOf, setSupplierOf] = useState("");
-
+  const fileInputRef=useRef();
   const dispatch = useDispatch();
   const handleData = (e) => {
-    const formData = {
-      name: name,
-      email: email,
-      phone: mobile,
-      supplierOf: supplierOf,
-      company: company,
-      positionJobRole: positionJobRole,
-      city: city,
-      location: location,
-      // type: type,
-      // propertyname: propertyname,
-    };
+    debugger;
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("mobile", mobile);
+    formData.append("supplierOf", supplierOf);
+    formData.append("companyName", company);
+    formData.append("message", message);
+    formData.append("role", positionJobRole);
+    formData.append("city", city);
+    formData.append("location", location);
+    for (const file of files) {
+      formData.append("file", file);
+    }
+
+    dispatch(SupplierAction.SupplierRequestAsync(formData));
+
+    // const formData = {
+    //   name: name,
+    //   email: email,
+    //   mobile: mobile,
+    //   supplierOf: supplierOf,
+    //   companyName: company,
+    //   message: message,
+    //   role: positionJobRole,
+    //   city: city,
+    //   location: location,
+    //   // type: type,
+    //   // propertyname: propertyname,
+    // };
+
     console.log("formData", formData);
     // dispatch(EnquiryAction.EnquiryRequestAsync(formData));
     // toast.success('Request Sent successfully', { position: toast.POSITION.TOP_RIGHT, autoClose: 5000 })
@@ -107,10 +128,15 @@ function SupplierForm(props) {
     setCompany("");
     setMobile("");
     setEmail("");
+    setMessage("");
     setCity("");
     setLocation("");
-    setSupplierOf("");
     setPositionJobRole("");
+    fileInputRef.current.value=[]
+    setFiles([]);
+    setSupplierOf("");
+    setOtp("");
+    setIsOtpVerified(false);
     setOpen(false);
   };
 
@@ -175,6 +201,7 @@ function SupplierForm(props) {
     setEnableOtpField(false);
     setMobile("");
     setOtp("");
+    setFiles([]);
   };
   const inputChange = (e) => {
     let { name, value } = e.target;
@@ -192,13 +219,16 @@ function SupplierForm(props) {
     setMobile("");
     setCompany("");
     setEmail("");
+    setMessage("");
     setCity("");
     setSupplierOf("");
+    setPositionJobRole("");
     setLocation("");
     setPositionJobRole("");
+    setFiles([]);
     setOpen(false);
   };
-
+  debugger;
   return (
     <div className="SupplierForm" id="SupplierForm">
       <Box
@@ -248,13 +278,14 @@ function SupplierForm(props) {
         ></TextField>
         <NativeSelect
           className="EmiInputs selectInput"
+          value={positionJobRole}
           onChange={(e) => setPositionJobRole(e.target.value)}
           fullWidth
         >
-          <option value={10}>Select Position/Job Role</option>
-          <option value={20}>Owner</option>
-          <option value={30}>Manager</option>
-          <option value={40}>Staff</option>
+          <option value={""}>Select Position/Job Role</option>
+          <option value={"Owner"}>Owner</option>
+          <option value={"Manager"}>Manager</option>
+          <option value={"Staff"}>Staff</option>
         </NativeSelect>
         <TextField
           className="EmiInputs"
@@ -319,42 +350,107 @@ function SupplierForm(props) {
         ></TextField>
         <NativeSelect
           className="EmiInputs selectInput"
+          value={supplierOf}
           onChange={(e) => setSupplierOf(e.target.value)}
           fullWidth
         >
-          <option value={10}>Select Supplier of</option>
-          <option value={20}>Marble</option>
-          <option value={30}>Tiles</option>
-          <option value={40}>Bricks</option>
-          <option value={50}>Decorative Items</option>
-          <option value={60}>Sand</option>
-          <option value={70}>cement</option>
-          <option value={80}>Electrical Items</option>
-          <option value={90}>Furniture</option>
-          <option value={100}>Furniture Hardware</option>
-          <option value={110}>Paint</option>
-          <option value={120}>Security Services</option>
-          <option value={130}>Still Equipments</option>
-          <option value={140}>Sanitary Hardware</option>
-          <option value={150}>Ro Services</option>
-          <option value={160}>Electronic Item</option>
-          <option value={170}>Electrical services</option>
-          <option value={180}>Safety Guards</option>
-          <option value={190}>Building Material</option>
-          <option value={200}>Glass House</option>
-          <option value={210}>Fabrication</option>
-          <option value={220}>JVNL services</option>
-          <option value={230}>JDA Work</option>
-          <option value={240}>Solar Equipments</option>
-          <option value={250}>Manpower Supplier</option>
-          <option value={260}>Construction Hardware</option>
+          <option value={""}>Select Supplier of</option>
+          <option value={"Marble"}>Marble</option>
+          <option value={"Tiles"}>Tiles</option>
+          <option value={"Bricks"}>Bricks</option>
+          <option value={"Decorative Items"}>Decorative Items</option>
+          <option value={"Sand"}>Sand</option>
+          <option value={"cement"}>cement</option>
+          <option value={"Electrical Items"}>Electrical Items</option>
+          <option value={"Furniture"}>Furniture</option>
+          <option value={"Furniture Hardware"}>Furniture Hardware</option>
+          <option value={"Paint"}>Paint</option>
+          <option value={"Security Services"}>Security Services</option>
+          <option value={"Still Equipments"}>Still Equipments</option>
+          <option value={"Sanitary Hardware"}>Sanitary Hardware</option>
+          <option value={"Ro Services"}>Ro Services</option>
+          <option value={"Electronic Item"}>Electronic Item</option>
+          <option value={"Electrical services"}>Electrical services</option>
+          <option value={"Safety Guards"}>Safety Guards</option>
+          <option value={"Building Material"}>Building Material</option>
+          <option value={"Glass House"}>Glass House</option>
+          <option value={"Fabrication"}>Fabrication</option>
+          <option value={"JVNL services"}>JVNL services</option>
+          <option value={"JDA Work"}>JDA Work</option>
+          <option value={"Solar Equipments"}>Solar Equipments</option>
+          <option value={"Manpower Supplier"}>Manpower Supplier</option>
+          <option value={"Construction Hardware"}>Construction Hardware</option>
         </NativeSelect>
+        <TextField
+          className="EmiInputs"
+          label="Message"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          multiline
+          rows={2}
+          fullWidth
+          defaultValue=""
+          variant="outlined"
+          InputProps={{
+            classes: {
+              notchedOutline: classes.notchedOutline,
+            },
+            style: { color: "#FFFFFF" },
+          }}
+          InputLabelProps={{
+            style: { color: "#FFFFFF" },
+          }}
+        />
+        <div
+          style={{
+            width: "100%",
+            textAlign: "center",
+            color: "#fff",
+            border: "2px solid #fff",
+            display:"flex",
+            justifyContent:"space-around",
+            alignItems:"center",
+            marginBottom: "30px",
+          }}
+        >
+          <label htmlFor="file" style={{ color: "#FFF" }}>
+            Price list/ Quotation:
+          </label>
 
+          <input
+            className="EmiInputs"
+            style={{
+              marginTop: "30px",
+              marginleft: "30px",
+              textAlign: "right",
+              color: "#fff",
+            }}
+            // label="Price list/ Quotation"
+            type="file"
+            name="file"
+            id="file"
+            multiple            
+            accept=".png,.jpeg,.pdf"
+            ref={fileInputRef}
+            onChange={(event) => {
+              // setImage(e.target.files[0]);
+              debugger;
+              event.preventDefault();
+              const filesUpl = [];
+              if (event.target.files && event.target.files.length > 0) {
+                for (const file of event.target.files) {
+                  filesUpl.push(file);
+                }
+                setFiles(filesUpl);
+              }
+            }}
+          />
+        </div>
         <TextField
           className="EmiInputs"
           variant="outlined"
           label="Phone Number"
-          style={{ marginTop: 15 }}
+          // style={{ marginTop: 15 }}
           name="Phone"
           // style={{width: '76%'}}
           disabled={isOtpVerified}
@@ -403,15 +499,77 @@ function SupplierForm(props) {
             }}
           />} */}
         {
-          mobile.length === 10 && name.length > 0 && (email
-            ? emailValid
-            : true ) &&
-              supplierOf > 10 &&
-              positionJobRole > 10 &&
+          mobile.length === 10 &&
+            name.length > 0 &&
+            email.length > 0 &&
+            (email ? emailValid : true) &&
+            files.length > 0 &&
+            message.trim().length > 0 &&
+            positionJobRole.trim().length > 0 &&
+            supplierOf.trim().length > 0 &&
               location.trim().length > 0 &&
-              city.trim().length > 0 &&
-              company.trim().length > 0 &&
-              !enableOtpField && (
+            city.trim().length > 0 &&
+            company.trim().length > 0 &&
+            !enableOtpField && (
+              <Button
+                style={{ width: "23%", marginTop: "15px" }}
+                onClick={otpHandler}
+                variant="contained"
+                style={{
+                  background: "green",
+                  height: " 30px",
+                  top: " 10px",
+                  left: "5px",
+                  color: "#fff",
+                }}
+              >
+                Verify
+              </Button>
+            )
+          // : (
+          //   isOtpVerified && (
+          //     <div onClick={reset}>
+          //       {" "}
+          //       <EditIcon />{" "}
+          //     </div>
+          //   )
+          // )
+        }
+        {enableOtpField &&
+          name.length > 0 &&
+          email.length > 0 &&
+          (email ? emailValid : true) &&
+          files.length > 0 &&
+          positionJobRole.trim().length > 0 &&
+          message.trim().length > 0 &&
+          positionJobRole.trim().length > 0 &&
+          supplierOf.trim().length > 0 &&
+          location.trim().length > 0 &&
+          city.trim().length > 0 &&
+          company.trim().length > 0 && (
+            <>
+              <TextField
+                className="EmiInputs"
+                placeholder="Otp"
+                style={{ width: "50%", color: "#FFFFFF" }}
+                fullWidth
+                value={otp}
+                disabled={isOtpVerified}
+                onChange={inputChange}
+                name="otp"
+                type="number"
+                variant="outlined"
+                InputProps={{
+                  classes: {
+                    notchedOutline: classes.notchedOutline,
+                  },
+                  style: { color: "#FFFFFF" },
+                }}
+                InputLabelProps={{
+                  style: { color: "#FFFFFF" },
+                }}
+              />
+              {!isOtpVerified && (
                 <Button
                   style={{ width: "23%" }}
                   onClick={otpHandler}
@@ -424,78 +582,26 @@ function SupplierForm(props) {
                     color: "#fff",
                   }}
                 >
-                  Verify
+                  Resend OTP
                 </Button>
-              )
-          // : (
-          //   isOtpVerified && (
-          //     <div onClick={reset}>
-          //       {" "}
-          //       <EditIcon />{" "}
-          //     </div>
-          //   )
-          // )
-        }
-        {enableOtpField && name.length > 0 &&( email
-          ? emailValid
-          : true )&&
-            supplierOf > 10 &&
-            positionJobRole > 10 &&
-            location.trim().length > 0 &&
-            city.trim().length > 0 &&
-            company.trim().length > 0 && (
-              <>
-                <TextField
-                  className="EmiInputs"
-                  placeholder="Otp"
-                  style={{ width: "50%", color: "#FFFFFF" }}
-                  fullWidth
-                  value={otp}
-                  disabled={isOtpVerified}
-                  onChange={inputChange}
-                  name="otp"
-                  type="number"
-                  variant="outlined"
-                  InputProps={{
-                    classes: {
-                      notchedOutline: classes.notchedOutline,
-                    },
-                    style: { color: "#FFFFFF" },
-                  }}
-                  InputLabelProps={{
-                    style: { color: "#FFFFFF" },
-                  }}
-                />
-                {!isOtpVerified && (
-                  <Button
-                    style={{ width: "23%" }}
-                    onClick={otpHandler}
-                    variant="contained"
-                    style={{
-                      background: "green",
-                      height: " 30px",
-                      top: " 10px",
-                      left: "5px",
-                      color: "#fff",
-                    }}
-                  >
-                    Resend OTP
-                  </Button>
-                )}
-              </>
-            )}
+              )}
+            </>
+          )}
       </Box>
       <Box className="ParentButton">
         <Button
           //  onClick={handleClose}
           disabled={
             !isOtpVerified ||
+            files.length === 0 ||
+            name.length === 0 ||
             name.length === 0 ||
             (email && !emailValid) ||
-            supplierOf === 10 ||
-            positionJobRole === 10 ||
+            supplierOf.trim().length === 0 ||
+            positionJobRole.trim().length === 0 ||
             location.trim().length === 0 ||
             city.trim().length === 0 ||
+            message.trim().length === 0 ||
             company.trim().length === 0
           }
           onClick={(e) => handleData(e)}
