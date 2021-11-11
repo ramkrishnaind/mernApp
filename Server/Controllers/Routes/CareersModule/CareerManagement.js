@@ -269,7 +269,7 @@ function getAllApplication(Models) {
     async function getAllData(req, res) {
         try {
             // Getting all Careers from Database
-            let findData = await Models.JobApplicationDB.find();
+            let findData = await Models.JobApplicationDB.find().populate('careerID');
             if (findData.length) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Application List", data: findData });
