@@ -31,7 +31,7 @@ const SectionTabs = (props) => {
   useEffect(() => {
     console.log(document.querySelector("#tab"));
   }, [propertyData]);
-  if (!propertyData) return null;
+  
   const { sell, rent, construction, interior } = propertyData;
 
   return (
