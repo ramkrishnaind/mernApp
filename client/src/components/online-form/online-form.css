@@ -1,17 +1,24 @@
 .client-bgform{
     width: 100%;
-    background: #fff;
+    background:#00afb8;
     margin-bottom: 7rem;
     padding-top: 7rem;
 }
 .onlineFormControl .FormControl{
-    background: #fff;
+    /* background: #fff; */
+    background:#00afb8;
     width: 100%;
     border-radius: 4px;
 }
 .onlineFormControl .FormControl .SelectBox{
     margin: 0;
     padding: 11px;
+    color: #fff;
+    border: 1px solid #fff;
+}
+.onlineFormControl .FormControl .SelectBox option
+{
+    color:#00afb8;
 }
 .FormControl .BoxTitle{
     padding-left: 20px;
@@ -21,8 +28,15 @@
 }
 .TextfildGrid .OutForm .InnerForm{
     width: 100%;
-    background: #fff;
+    background:#00afb8;
+    /* background: #fff; */
     border-radius: 4px;
+}
+.OutForm input{
+    background: #00afb8; 
+    color: #fff;
+    border:none;
+    border-bottom:1px solid #fff
 }
 .WholeCont{
     background: #00afb8;
@@ -37,7 +51,11 @@
 .OutformP .formP input{
     width: 100%;
     max-width: 93px;
-    border: none;
+    outline: none;
+    background: #00afb8; 
+    color: #fff;
+    border:none;
+    border-bottom:1px solid #fff
 }
 .OutformP .formP .checkBox{
     width: 100%;
