@@ -216,6 +216,7 @@ export default function OnlineBooking(props) {
           <SectionHeader
             title={APP_CONSTANTS.online_form_title}
             subtitle={APP_CONSTANTS.online_form_subtitles}
+            style={{marginTop:"30px"}}
           />
           {/* <SectionTabs tabItems={propertieslist} /> */}
           {/* <Box className="FormHeader">
