@@ -153,7 +153,7 @@ export default function OnlineBooking(props) {
   };
 
   const handleData = async () => {
-    let userDetails =  JSON.parse(window.localStorage.getItem("user"));
+    let userDetails = JSON.parse(window.localStorage.getItem("user"));
 
     if (!localStorage.getItem("user")) {
       window.location.href = "/signin";
@@ -216,6 +216,7 @@ export default function OnlineBooking(props) {
           <SectionHeader
             title={APP_CONSTANTS.online_form_title}
             subtitle={APP_CONSTANTS.online_form_subtitles}
+            style={{marginTop:"30px"}}
           />
           {/* <SectionTabs tabItems={propertieslist} /> */}
           {/* <Box className="FormHeader">
@@ -232,6 +233,16 @@ export default function OnlineBooking(props) {
                     className="SelectBox"
                     id="demo-customized-select-native"
                     onChange={optionHandler}
+                    InputProps={{
+                      classes: {
+                        notchedOutline: classes.notchedOutline,
+                      },
+                      style: { color: "#FFFFFF" },
+                    }}
+                    InputLabelProps={{
+                      style: { color: "#FFFFFF" },
+                    }}
+
                     // input={<BootstrapInput />}
                   >
                     <option value="">Select Property Type</option>
@@ -249,6 +260,15 @@ export default function OnlineBooking(props) {
                     value={state.propertyId}
                     name="propertyId"
                     onChange={inputChange}
+                    InputProps={{
+                      classes: {
+                        notchedOutline: classes.notchedOutline,
+                      },
+                      style: { color: "#FFFFFF" },
+                    }}
+                    InputLabelProps={{
+                      style: { color: "#FFFFFF" },
+                    }}
                   >
                     <option value={10}>Select Property Name</option>
                     {propertyOptions?.map((role, index) => (
@@ -273,6 +293,15 @@ export default function OnlineBooking(props) {
                     value={state.name}
                     name="name"
                     onChange={inputChange}
+                    InputProps={{
+                      classes: {
+                        notchedOutline: classes.notchedOutline,
+                      },
+                      style: { color: "#FFFFFF" },
+                    }}
+                    InputLabelProps={{
+                      style: { color: "#FFFFFF" },
+                    }}
                   />
                 </form>
               </Grid>
@@ -291,6 +320,15 @@ export default function OnlineBooking(props) {
                     value={state.email}
                     name="email"
                     onChange={inputChange}
+                    InputProps={{
+                      classes: {
+                        notchedOutline: classes.notchedOutline,
+                      },
+                      style: { color: "#FFFFFF" },
+                    }}
+                    InputLabelProps={{
+                      style: { color: "#FFFFFF" },
+                    }}
                   />
                 </form>
               </Grid>
@@ -309,6 +347,15 @@ export default function OnlineBooking(props) {
                     value={state.pan}
                     name="pan"
                     onChange={inputChange}
+                    InputProps={{
+                      classes: {
+                        notchedOutline: classes.notchedOutline,
+                      },
+                      style: { color: "#FFFFFF" },
+                    }}
+                    InputLabelProps={{
+                      style: { color: "#FFFFFF" },
+                    }}
                   />
                 </form>
               </Grid>
@@ -327,6 +374,15 @@ export default function OnlineBooking(props) {
                     value={state.country}
                     name="country"
                     onChange={inputChange}
+                    InputProps={{
+                      classes: {
+                        notchedOutline: classes.notchedOutline,
+                      },
+                      style: { color: "#FFFFFF" },
+                    }}
+                    InputLabelProps={{
+                      style: { color: "#FFFFFF" },
+                    }}
                   />
                 </form>
               </Grid>
@@ -346,6 +402,15 @@ export default function OnlineBooking(props) {
                     value={state.states}
                     name="states"
                     onChange={inputChange}
+                    InputProps={{
+                      classes: {
+                        notchedOutline: classes.notchedOutline,
+                      },
+                      style: { color: "#FFFFFF" },
+                    }}
+                    InputLabelProps={{
+                      style: { color: "#FFFFFF" },
+                    }}
                   />
                 </form>
               </Grid>
@@ -365,6 +430,15 @@ export default function OnlineBooking(props) {
                     value={state.city}
                     name="city"
                     onChange={inputChange}
+                    InputProps={{
+                      classes: {
+                        notchedOutline: classes.notchedOutline,
+                      },
+                      style: { color: "#FFFFFF" },
+                    }}
+                    InputLabelProps={{
+                      style: { color: "#FFFFFF" },
+                    }}
                   />
                 </form>
               </Grid>
@@ -383,6 +457,15 @@ export default function OnlineBooking(props) {
                     value={state.pin}
                     name="pin"
                     onChange={inputChange}
+                    InputProps={{
+                      classes: {
+                        notchedOutline: classes.notchedOutline,
+                      },
+                      style: { color: "#FFFFFF" },
+                    }}
+                    InputLabelProps={{
+                      style: { color: "#FFFFFF" },
+                    }}
                   />
                 </form>
               </Grid>
@@ -401,6 +484,15 @@ export default function OnlineBooking(props) {
                     value={state.bankingAmount}
                     name="bankingAmount"
                     onChange={inputChange}
+                    InputProps={{
+                      classes: {
+                        notchedOutline: classes.notchedOutline,
+                      },
+                      style: { color: "#FFFFFF" },
+                    }}
+                    InputLabelProps={{
+                      style: { color: "#FFFFFF" },
+                    }}
                   />
                 </form>
               </Grid>
@@ -414,10 +506,9 @@ export default function OnlineBooking(props) {
                   <div style={{ display: "block", width: "100%" }}>
                     <div style={{ display: "flex", width: "90%" }}>
                       <TextField
-                        className="EmiInputs"
+                        className="InnerForm"
                         label="Phone Number"
                         name="Phone"
-                        style={{ backgroundColor: "#fff" }}
                         disabled={isOtpVerified}
                         type="number"
                         min="1000000"
@@ -434,11 +525,12 @@ export default function OnlineBooking(props) {
                           classes: {
                             notchedOutline: classes.notchedOutline,
                           },
+                          style: { color: "#FFFFFF" }
                         }}
                         InputLabelProps={{
                           style: { color: "#FFFFFF" },
                         }}
-                        fullWidth
+                            fullWidth
                       ></TextField>
                       {mobile?.length === 10 && !enableOtpField ? (
                         <Button
@@ -475,7 +567,6 @@ export default function OnlineBooking(props) {
                     placeholder="Otp"
                     style={{
                       width: "100%",
-                      backgroundColor: "#fff",
                     }}
                     variant="outlined"
                     fullWidth

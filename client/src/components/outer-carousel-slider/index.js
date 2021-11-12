@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./outer-carousel-slider.css";
+import CircularProgress from "@mui/material/CircularProgress";
 import PropertyViewCard from "../property-view-card";
 import {
   Typography,
@@ -122,10 +123,7 @@ const OuterCarouselSlider = (props) => {
             }
 
             return (
-              <Box
-                key={i}
-                className="property-item"
-              >
+              <Box key={i} className="property-item">
                 <Grid contaienr className="property-wrap">
                   {/* <InnerCarouselSlider /> */}
                   <Grid
@@ -193,7 +191,15 @@ const OuterCarouselSlider = (props) => {
                         MORE DETAIL
                       </Box>
                       <Box className="btn btn-secondary">
-                        <a href="tel:+91 9571647680" style={{textDecoration:"none","color":"ActiveCaption"}}>CALL NOW</a>
+                        <a
+                          href="tel:+91 9571647680"
+                          style={{
+                            textDecoration: "none",
+                            color: "ActiveCaption",
+                          }}
+                        >
+                          CALL NOW
+                        </a>
                       </Box>
                     </Grid>
                   </Grid>
@@ -210,7 +216,10 @@ const OuterCarouselSlider = (props) => {
           })}
         </Slider>
       ) : (
-        <CustomNoRowsOverlay />
+        // <CustomNoRowsOverlay />
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <CircularProgress />
+        </Box>
       )}
     </div>
   );
