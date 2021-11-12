@@ -99,7 +99,7 @@ function getAllConstructionProcessHelper(Models) {
     async function getAllConstructionProcess(req, res) {
         try {
             // Getting all ConstructionProcesss from Database
-            let findData = await Models.ConstructionProcessDB.find();
+            let findData = await Models.ConstructionProcessDB.find().sort({ _id: -1 });
             if (findData.length) {
                 // if data found check verified or not
                 res.send({ status: true, message: "ConstructionProcesss List", data: findData });
@@ -120,7 +120,7 @@ function getAllActiveConstructionProcessFunc(Models) {
     async function getAllActiveConstructionProcess(req, res) {
         try {
             // Getting all ConstructionProcesss from Database
-            let findData = await Models.ConstructionProcessDB.find({ active: true });
+            let findData = await Models.ConstructionProcessDB.find({ active: true }).sort({ _id: -1 });
             if (findData.length) {
                 // if data found check verified or not
                 res.send({ status: true, message: "ConstructionProcesss For Client", data: findData });

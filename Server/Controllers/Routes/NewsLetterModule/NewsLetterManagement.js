@@ -46,7 +46,7 @@ function getAllNewsLetterHelper(Models) {
     async function getAllNewsLetter(req, res) {
         try {
             // Getting all NewsLetters from Database
-            let findData = await Models.NewsLetterSubscribersDB.find();
+            let findData = await Models.NewsLetterSubscribersDB.find().sort({ _id: -1 });
             if (findData.length) {
                 // if data found check verified or not
                 res.send({ status: true, message: "NewsLetters List", data: findData });
@@ -67,7 +67,7 @@ function getActiveNewsLetterFunc(Models) {
     async function getActiveNewsLetter(req, res) {
         try {
             // Getting all NewsLetters from Database
-            let findData = await Models.NewsLetterSubscribersDB.findOne({ active: true });
+            let findData = await Models.NewsLetterSubscribersDB.findOne({ active: true }).sort({ _id: -1 });
             if (findData.length) {
                 // if data found check verified or not
                 res.send({ status: true, message: "NewsLetters For Client", data: findData });

@@ -460,7 +460,7 @@ function getDealingList(Models) {
     async function DealingIn(req, res) {
         try {
             // Getting Home from Database
-            let findData = await Models.DealingInDB.find().lean();
+            let findData = await Models.DealingInDB.find().sort({ _id: -1 }).lean();
             console.log('findData is', findData)
             if (findData) {
                 // if data found check verified or not
@@ -520,7 +520,7 @@ function getDealingInDetails(Models) {
             console.log('findData is', findData)
             if (findData) {
                 // if data found check verified or not
-                res.send({ status: true, message: "Home DealingIn Data", data: findData});
+                res.send({ status: true, message: "Home DealingIn Data", data: findData });
             } else {
                 res.send({ status: true, message: "Home DealingIn not found" });
             }
@@ -638,7 +638,7 @@ function getDealingItemList(Models) {
     async function DealingIn(req, res) {
         try {
             // Getting Home from Database
-            let findData = await Models.DealingInItemDB.find().lean();
+            let findData = await Models.DealingInItemDB.find().sort({ _id: -1 }).lean();
             console.log('findData is', findData)
             if (findData) {
                 // if data found check verified or not
@@ -841,7 +841,7 @@ function getServiceList(Models) {
     async function DealingIn(req, res) {
         try {
             // Getting Home from Database
-            let findData = await Models.ServiceDB.find().lean();
+            let findData = await Models.ServiceDB.find().sort({ _id: -1 }).lean();
             console.log('findData is', findData)
             if (findData) {
                 // if data found check verified or not
@@ -987,7 +987,7 @@ function getServiceItemList(Models) {
     async function DealingIn(req, res) {
         try {
             // Getting Home from Database
-            let findData = await Models.ServiceItemDB.find().lean();
+            let findData = await Models.ServiceItemDB.find().sort({ _id: -1 }).lean();
             console.log('findData is', findData)
             if (findData) {
                 // if data found check verified or not

@@ -110,7 +110,7 @@ function getAllProperty(Models) {
                         as: 'review'
                     }
                 }
-            ]).sort({ updated: -1 });
+            ]).sort({ _id: -1 });
             if (LoginUser && LoginUser != '') {
                 myFavorite = await Models.WishListDB.find({ userId: LoginUser }).lean();
             }
@@ -173,7 +173,7 @@ function getHomeAllProperty(Models) {
                         as: 'images'
                     }
                 }
-            ])
+            ]).sort({ _id: -1 });
             console.log('findData is', findData)
             let rentData = findData.filter(function (item) {
                 return item.for === "Rent";
@@ -240,7 +240,7 @@ function propertyDetail(Models) {
                 let propertyFeaturesResponse = await Models.PFeaturesDB.findOne({ propertyId: findData._id }).lean();
                 let propertyImagesResponse = await Models.PImageDB.findOne({ propertyId: findData._id }).lean();
                 let propertyPriceResponse = await Models.PPriceDB.findOne({ propertyId: findData._id }).lean();
-                let propertyReviewResponse = await Models.ReviewDB.find({ propertyId: findData._id }).lean();
+                let propertyReviewResponse = await Models.ReviewDB.find({ propertyId: findData._id }).sort({ _id: -1 }).lean();
 
                 property = await Promise.all([propertyFeaturesResponse, propertyImagesResponse, propertyPriceResponse, propertyReviewResponse]).then(values => {
                     console.log(values);
@@ -466,7 +466,7 @@ function getPropertyByType(Models) {
             console.log('bodyData.type', bodyData.type)
             if (bodyData.type == "RESIDENTIAL" || bodyData.type == "COMMERCIAL") {
                 console.log('i am in out', bodyData.type)
-                let data = await Models.PropertyDB.find({ pType: bodyData.type }).lean();
+                let data = await Models.PropertyDB.find({ pType: bodyData.type }).sort({ _id: -1 }).lean();
                 res.send({ status: true, message: "Property List.", data });
             } else {
                 console.log('i am in if', bodyData.type)

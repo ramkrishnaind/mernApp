@@ -5,16 +5,15 @@ const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 
 const errorResponseHelper = require('../../../Helper/errorResponse');
 
-function getBuildingList(Models)
-{
+function getBuildingList(Models) {
     async function List(req, res) {
         try {
-            let findData = await Models.BuildingDB.find({}).sort({ updated: -1 });            
+            let findData = await Models.BuildingDB.find({}).sort({ _id: -1 });
             let obj = {
                 total: findData.length,
-                list:findData
+                list: findData
             }
-            res.send({ status: true, message: "", data:obj });
+            res.send({ status: true, message: "", data: obj });
         }
         catch (e) {
             console.log('Getting list err', e);

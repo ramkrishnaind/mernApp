@@ -102,7 +102,7 @@ function getAllBlogHelper(Models) {
     async function getAllBlog(req, res) {
         try {
             // Getting all Blogs from Database
-            let findData = await Models.BlogDB.find();
+            let findData = await Models.BlogDB.find().sort({ _id: -1 });
             if (findData.length) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Blogs List", data: findData });

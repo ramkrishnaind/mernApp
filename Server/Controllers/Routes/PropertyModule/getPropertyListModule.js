@@ -27,7 +27,7 @@ function getPropertyList(Models) {
             as: 'images'
           }
         }
-      ]).sort({ updated: -1 });
+      ]).sort({ _id: -1 });
       let obj = {
         total: findData.length,
         list: findData
