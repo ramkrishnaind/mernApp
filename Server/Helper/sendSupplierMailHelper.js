@@ -31,6 +31,7 @@ async function sendSupplierMail({ filePath, replacements, to, subject, bcc }) {
             attachments: [
                 {   // use URL as an attachment
                     filename: 'logo.png',
+                    contentType:'image/png:',
                     path: 'https://vishalconstructioncompany.com/static/media/vishal-logo.1dccbda9.png'
                 }
             ]
