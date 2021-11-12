@@ -235,32 +235,83 @@ const Footer = (props) => {
             style={{ width: "100%", display: "flex", marginTop: 10 }}
           >
             <Grid item xs={6} md={6}>
-              <Box>
-                <Typography className={`${classes.text3} links`}>
+              <Box style={{lineHeight:"30px"}}>
+                <Typography
+                  className={`${classes.text3} links`}
+                  component={RouterLink}
+                  to={{
+                    pathname: "/",
+                  }}
+                >
                   Home
                 </Typography>
               </Box>
-              <Typography className={`${classes.text3} links`}>
-                About Us
-              </Typography>
-              <Typography className={`${classes.text3} links`}>
-                Properties
-              </Typography>
-              <Typography className={`${classes.text3} links`}>
-                Careers
-              </Typography>
-
-              <Typography className={`${classes.text3} links`}>Blog</Typography>
-              <Typography
-              className={`${classes.text3} links`}
-                component={RouterLink}
-                to={{
-                  pathname: "/supplier-form",
-                }}
-              >Supplier Form</Typography>
-              <Typography className={`${classes.text3} links`}>
-                Contact
-              </Typography>
+              <Box style={{lineHeight:"30px"}}>
+                <Typography
+                  className={`${classes.text3} links`}
+                  component={RouterLink}
+                  to={{
+                    pathname: "/about-us",
+                  }}
+                >
+                  About Us
+                </Typography>
+              </Box>
+              <Box style={{lineHeight:"30px"}}>
+                <Typography
+                  className={`${classes.text3} links`}
+                  component={RouterLink}
+                  to={{
+                    pathname: "search-property-details?type=Sell",
+                  }}
+                >
+                  Properties
+                </Typography>
+              </Box>
+              <Box style={{lineHeight:"30px"}}>
+                <Typography
+                  className={`${classes.text3} links`}
+                  component={RouterLink}
+                  to={{
+                    pathname: "carrer",
+                  }}
+                >
+                  Careers
+                </Typography>
+              </Box>
+              <Box style={{lineHeight:"30px"}}>
+                <Typography
+                  className={`${classes.text3} links`}
+                  component={RouterLink}
+                  to={{
+                    pathname: "blog",
+                  }}
+                >
+                  Blog
+                </Typography>
+              </Box>
+              <Box style={{lineHeight:"30px"}}>
+                <Typography
+                  className={`${classes.text3} links`}
+                  component={RouterLink}
+                  to={{
+                    pathname: "/supplier-form",
+                  }}
+                >
+                  Supplier Form
+                </Typography>
+              </Box>
+              <Box style={{lineHeight:"30px"}}>
+                <Typography
+                  className={`${classes.text3} links`}
+                  component={RouterLink}
+                  to={{
+                    pathname: "/contact-us",
+                  }}
+                >
+                  Contact
+                </Typography>
+              </Box>
             </Grid>
             <Grid item xs={6} md={6}>
               <Typography className={`${classes.text3} links`}>
