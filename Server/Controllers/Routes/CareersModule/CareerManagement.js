@@ -117,7 +117,7 @@ function getAllCareerHelper(Models) {
     async function getAllCareer(req, res) {
         try {
             // Getting all Careers from Database
-            let findData = await Models.CareerDB.find();
+            let findData = await Models.CareerDB.find().sort({ _id: -1 });
             if (findData.length) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Careers List", data: findData });
@@ -144,7 +144,7 @@ function getCareerHelper(Models) {
 
 
             // Getting Career from Database
-            let findData = await Models.CareerDB.findOne({ _id: req.body._id });
+            let findData = await Models.CareerDB.findOne({ _id: req.body._id }).sort({ _id: -1 });
             console.log('findData is', findData)
             if (findData) {
                 // if data found check verified or not
@@ -269,7 +269,7 @@ function getAllApplication(Models) {
     async function getAllData(req, res) {
         try {
             // Getting all Careers from Database
-            let findData = await Models.JobApplicationDB.find().populate('careerID');
+            let findData = await Models.JobApplicationDB.find().populate('careerID').sort({ _id: -1 });
             if (findData.length) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Application List", data: findData });

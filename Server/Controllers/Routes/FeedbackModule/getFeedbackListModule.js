@@ -24,7 +24,7 @@ function getFeedbackList(Models) {
                 query = { 'name': { '$regex': bodyData.keyWord, '$options': 'i' } };
             }
             let findData = await Models.FeedbackDB.find(query).skip(bodyData.size * (bodyData.pageNo - 1))
-                .limit(bodyData.size).sort({ updated: -1 }).populate("propertyId");
+                .limit(bodyData.size).sort({ _id: -1 }).populate("propertyId");
 
             let obj = {
                 total: findData.length,

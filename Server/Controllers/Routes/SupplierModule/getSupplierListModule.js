@@ -8,7 +8,7 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 function getSupplierList(Models) {
     async function List(req, res) {
         try {
-            let findData = await Models.SupplierDB.find({}).sort({ updated: -1 });
+            let findData = await Models.SupplierDB.find({}).sort({ _id: -1 });
             let obj = {
                 total: findData.length,
                 list: findData

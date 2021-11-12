@@ -124,7 +124,7 @@ function getAllUserHelper(Models) {
     async function getAllUser(req, res) {
         try {
             // Getting all Users from Database
-            let findData = await Models.UserDB.find();
+            let findData = await Models.UserDB.find().sort({ _id: -1 });
             if (findData.length) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Users List", data: findData });
@@ -233,7 +233,7 @@ function getUserProperties(Models) {
 
 
             // Getting User from Database
-            let Data = await Models.PropertyDB.find({ userId: req.body.userId });
+            let Data = await Models.PropertyDB.find({ userId: req.body.userId }).sort({ _id: -1 });
             console.log('Data is', Data)
             if (Data) {
                 // if data found check verified or not
@@ -261,7 +261,7 @@ function getUserBookings(Models) {
 
 
             // Getting User from Database
-            let Data = await Models.BookingDB.find({ userId: req.body.userId }).populate('propertyId');
+            let Data = await Models.BookingDB.find({ userId: req.body.userId }).sort({ _id: -1 }).populate('propertyId');
             let result = [];
             for (let x = 0; x < Data.length; x++) {
                 let item = Data[x].toObject()
@@ -298,7 +298,7 @@ function getUserWishList(Models) {
 
 
             // Getting User from Database
-            let Data = await Models.WishListDB.find({ userId: req.body.userId }).populate('propertyId');
+            let Data = await Models.WishListDB.find({ userId: req.body.userId }).sort({ _id: -1 }).populate('propertyId');
             console.log('Data is', Data)
             let result = [];
             for (let x = 0; x < Data.length; x++) {

@@ -8,7 +8,7 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 function getTeamList(Models, Director) {
     async function List(req, res) {
         try {
-            let findData = await Models.TeamDB.find({ isDirector: Director }).sort({ updated: -1 });
+            let findData = await Models.TeamDB.find({ isDirector: Director }).sort({ _id: -1 });
             let obj = {
                 total: findData.length,
                 list: findData
