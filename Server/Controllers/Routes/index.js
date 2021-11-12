@@ -1,6 +1,7 @@
 module.exports = {
     forgotPasswordFunction: require('./Authentication/forgotPassword'),
     loginFunction: require('./Authentication/login'),
+    mobileLoginFunction: require('./Authentication/mobileLogin'),
     verificationFunction: require('./Authentication/verification'),
     setNewPasswordFunction: require('./Authentication/setNewPassword'),
     reSetPasswordHelper: require('./Authentication/reSetPassword'),
