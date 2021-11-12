@@ -1067,6 +1067,7 @@ const HouseDetailPage = (props) => {
                           multiline
                           fullWidth
                           variant="outlined"
+                          value={message}
                           onChange={(e)=>setMessage(e.target.value)}
                           style={{ marginBottom: 15 }}
                         ></TextField>

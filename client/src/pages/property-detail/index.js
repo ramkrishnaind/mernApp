@@ -125,6 +125,7 @@ const PropertyDetailPage = (props) => {
   const [PropertyDetail, setPropertyDetail] = React.useState({});
   const propertyListItem = useSelector(state => state.PropertyDetail.data);
   console.log("propertyListItem", propertyListItem);
+  console.log("PropertyDetail",PropertyDetail);
   if (propertyListItem) {
     if (viewDetails === false) {
       console.log(propertyListItem);

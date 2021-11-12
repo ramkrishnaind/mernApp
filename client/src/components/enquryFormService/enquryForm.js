@@ -134,7 +134,8 @@ function EnquryFormService(props) {
     formData.append("address", address);
     formData.append("propertyType", type);
     formData.append("propertyAddress", pAddress);
-    formData.append("image", image);
+    if(image)
+      formData.append("image", image);
     formData.append("propertyCity", pCity);
     formData.append("propertyState", pState);
     formData.append("budget", budget);
@@ -269,6 +270,7 @@ function EnquryFormService(props) {
       return <option value={`G+${floorNo}`}>{`G+${floorNo}`}</option>;
     });
     // console.log("comp", comp);
+    comp.unshift(<option value={`Ground floor`}>{`Ground floor`}</option>);
     return comp;
   };
 
@@ -715,7 +717,7 @@ function EnquryFormService(props) {
             //  onClick={handleClose}
             onClick={(e) => handleData(e)}
           >
-            Save changes
+            Submit now
           </Button>
         </Box>
       </form>
