@@ -217,13 +217,16 @@ const HouseDetailPage = (props) => {
   }, []);
 
   useEffect(() => {
+    reset()
     let reqData = {
-      propertyId: location?.state || localStorage.getItem("pid"),
+      propertyId: location?.state 
+      // || localStorage.getItem("pid")
+      ,
       // propertyId: "6125373540f10f2712e43db5"
     };
     // console.log('GetPropertyDetailRequestAsync');
     dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
-  }, []);
+  }, [propertyListItem]);
   const reset = () => {
     setVerifyLoader(false);
     setIsOtpVerified(false);
@@ -233,6 +236,7 @@ const HouseDetailPage = (props) => {
     setNameFeedback("");
     setEmailFeedback("");
     setMessage("")
+    setViewDetails(false)
   };
   const inputChange = (e) => {
     let { name, value } = e.target;
@@ -1067,6 +1071,7 @@ const HouseDetailPage = (props) => {
                           multiline
                           fullWidth
                           variant="outlined"
+                          value={message}
                           onChange={(e)=>setMessage(e.target.value)}
                           style={{ marginBottom: 15 }}
                         ></TextField>

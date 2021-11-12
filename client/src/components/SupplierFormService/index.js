@@ -507,7 +507,6 @@ function SupplierForm(props) {
             name.length > 0 &&
             email.length > 0 &&
             (email ? emailValid : true) &&
-            files.length > 0 &&
             message.trim().length > 0 &&
             positionJobRole.trim().length > 0 &&
             supplierOf.trim().length > 0 &&
@@ -543,7 +542,6 @@ function SupplierForm(props) {
           name.length > 0 &&
           email.length > 0 &&
           (email ? emailValid : true) &&
-          files.length > 0 &&
           positionJobRole.trim().length > 0 &&
           message.trim().length > 0 &&
           positionJobRole.trim().length > 0 &&
@@ -597,7 +595,6 @@ function SupplierForm(props) {
           //  onClick={handleClose}
           disabled={
             !isOtpVerified ||
-            files.length === 0 ||
             name.length === 0 ||
             name.length === 0 ||
             (email && !emailValid) ||

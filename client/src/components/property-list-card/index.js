@@ -579,7 +579,7 @@ const PropertyListCard = (props) => {
                     </Typography> */}
                     
                     <Typography className={classes.text5}>
-                      Rs. 3250000
+                      Rs. {item.price[0].expectedPrice}
                     </Typography>
                     </Grid>
                   </Grid>
