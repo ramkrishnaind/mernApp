@@ -30,7 +30,7 @@ async function sendSupplierMail({ filePath, replacements, to, subject, bcc }) {
         let info;
         fs.readFile(filePath, { encoding: "utf-8" }, function (err, data) {
             if (!err) {
-                console.log('i am inside error', err)
+                console.log('i am inside data', data)
                 let obj = {
                     to,
                     subject: subject || "Mail",
@@ -43,11 +43,10 @@ async function sendSupplierMail({ filePath, replacements, to, subject, bcc }) {
                         },
                     ],
                 };
-                console.log("Sending Mail", process.env.NODE_ENV);
+                console.log("Sending Mail", obj, '    env is', process.env.NODE_ENV);
                 info = sendMailFunc(obj);
                 console.log("Email Function response", info);
             } else {
-                console.log('i am inside data', data)
                 console.log('error is ', err);
                 let obj = {
                     to,
