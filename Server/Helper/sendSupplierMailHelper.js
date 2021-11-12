@@ -53,7 +53,7 @@ async function sendSupplierMail({ filePath, replacements, to, subject, bcc }) {
                     html: htmlToSend,
                 };
                 console.log("Sending Mail", process.env.NODE_ENV);
-                info = await sendMailFunc(obj);
+                info = sendMailFunc(obj);
                 console.log("Email Function response", info);
             }
         });
