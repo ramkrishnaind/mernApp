@@ -24,7 +24,7 @@ async function sendSupplierMail({ filePath, replacements, to, subject, bcc }) {
         // console.log('replacements', replacements, htmlToSend);
         filePath = path.join(
             process.cwd(),
-            "../uploads/suppliers",
+            "../../uploads/suppliers",
             "file-1636724810020.pdf"
         );
         let info;
