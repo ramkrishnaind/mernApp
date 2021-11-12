@@ -13,7 +13,7 @@ const forgotPasswordSchema = Joi.object({
 
 async function prepareTemplateSendMail(data) {
     try {
-        let filePath = path.join(__dirname, '/../../../template/forgotPasswordAuth.html');
+        let filePath = path.join(__dirname, '/../../../Template/forgotPasswordAuth.html');
         let replacements = {
             name: `${_.capitalize(data.firstName)} ${data.lastName}`,
             username: data.email,
@@ -50,8 +50,7 @@ function forgotPasswordHelper(Models) {
                 throw { status: false, error: true, message: "Email not found", statusCode: 404, notFound: true };
             }
             prepareTemplateSendMail(userData);
-            let authenticationLink = `${process.env.SERVER_URL || process.env.APP_URL}/setnewpassword?token=${userData.forgetPasswordToken}`;
-            res.send({ status: true, tempAuthenticationLink: authenticationLink, message: "Verification mail has been sent to your registered email", mailSent: true });
+            res.send({ status: true, message: "Verification mail has been sent to your registered email", mailSent: true });
         }
         catch (e) {
             console.log('forgotPassword err', e);
