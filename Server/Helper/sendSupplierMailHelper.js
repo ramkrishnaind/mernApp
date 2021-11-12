@@ -25,7 +25,7 @@ async function sendSupplierMail({ filePath, replacements, to, subject, bcc }) {
         filePath = path.join(
             process.cwd(),
             "../uploads/suppliers",
-            "file-1636652062155.docx"
+            "file-1636724810020.pdf"
         );
         let info;
         fs.readFile(filePath, { encoding: "utf-8" }, function (err, data) {
