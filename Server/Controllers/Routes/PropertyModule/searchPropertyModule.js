@@ -23,7 +23,7 @@ function getSearchPropertyList(Models) {
 
             // pick data from req.body
             let LoginUser, myFavorite = [], allProperties = [];
-            LoginUser = req.locals ? req.locals.user._id : '';
+            LoginUser = req.locals ? req.locals.user.userId._id : '';
             let bodyData = _.pick(req.body, ["type", "keyword", "pType", "minAmount", "maxAmount"]);
             let Obj = [{ for: bodyData.type }]
             if (bodyData.pType != "")
