@@ -28,7 +28,7 @@ function readHTMLFile(path) {
         });
     });
 }
-async function sendSupplierMail({ filePath, replacements, to, subject, attachments }) {
+async function sendSupplierMail({ filePath, replacements, to, subject, attachments, from }) {
     try {
         let htmlFile = await readHTMLFile(filePath);
         // console.log('html',filePath);
@@ -39,7 +39,7 @@ async function sendSupplierMail({ filePath, replacements, to, subject, attachmen
         let files = [];
         console.log('attachments is', attachments)
         var templateSender = {
-            from: "info@vishalconstructioncompany.com",
+            from,
             to,
             subject,
             html: htmlToSend,
