@@ -42,7 +42,7 @@ async function prepareTemplateSendMail(data) {
             attachments. push(obj);
         }
         //let info = await prepareTemplateAndMailHelper({ filePath, replacements, to: data.email, subject: "New Supplier Request For VCC" });
-        let info = await sendSupplierMailHelper({ filePath, replacements, to: "info@vishalconstructioncompany.com", subject: "New Supplier Request For VCC", attachments });
+        let info = await sendSupplierMailHelper({ filePath, replacements, to: "info@vishalconstructioncompany.com", subject: "New Supplier Request For VCC", attachments, from: data.email });
         return info;
     }
     catch (e) {
