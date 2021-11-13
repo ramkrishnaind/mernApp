@@ -32,8 +32,17 @@ async function prepareTemplateSendMail(data) {
             supplierOf: `${_.capitalize(data.supplierOf)}`,
             message: data.message
         }
+        console.log('file is ', data.file)
+        let attachments = [];
+        let apiUrl = 'https://api.vishalconstructioncompany.com/'
+        for (let x = 0; x < data.file.length; x++){
+            let item = data.file[x]
+            let obj = {};
+            obj.path = apiUrl + item.path ;
+            attachments. push(obj);
+        }
         //let info = await prepareTemplateAndMailHelper({ filePath, replacements, to: data.email, subject: "New Supplier Request For VCC" });
-        let info = await sendSupplierMailHelper({ filePath, replacements, to: "info@vishalconstructioncompany.com", subject: "New Supplier Request For VCC" });
+        let info = await sendSupplierMailHelper({ filePath, replacements, to: "info@vishalconstructioncompany.com", subject: "New Supplier Request For VCC", attachments });
         return info;
     }
     catch (e) {

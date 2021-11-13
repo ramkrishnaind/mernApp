@@ -2,8 +2,21 @@
 // for user authentication on signup or forget password
 
 const handlebars = require("handlebars");
-const fs = require("fs");
+var nodemailer = require("nodemailer");
 const path = require("path");
+const fs = require("fs");
+var smtpTransport = require("nodemailer-smtp-transport");
+
+var transporter = nodemailer.createTransport(
+  smtpTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    auth: {
+      user: "info@vishalconstructioncompany.com",
+      pass: "Dzone@4422",
+    },
+  })
+);
 
 const sendMailFunc = require("./sendMail");
 
@@ -15,56 +28,33 @@ function readHTMLFile(path) {
         });
     });
 }
-async function sendSupplierMail({ filePath, replacements, to, subject, bcc }) {
+async function sendSupplierMail({ filePath, replacements, to, subject, attachments }) {
     try {
         let htmlFile = await readHTMLFile(filePath);
         // console.log('html',filePath);
         let template = handlebars.compile(htmlFile);
         var htmlToSend = template(replacements);
         // console.log('replacements', replacements, htmlToSend);
-        filePath = path.join(
-            process.cwd(),
-            "uploads/suppliers",
-            "file-1636724810020.pdf"
-        );
-        let info;
-        fs.readFile(filePath, { encoding: "utf-8" }, function (err, data) {
-            if (!err) {
-                console.log('i am inside data', data)
-                let obj = {
-                    to,
-                    subject: subject || "Mail",
-                    html: htmlToSend,
-                    attachments: [
-                        {
-                            // use URL as an attachment
-                            filename: "supplier.docx",
-                            content: data,
-                        },
-                    ],
-                };
-                console.log("Sending Mail", obj, '    env is', process.env.NODE_ENV);
-                info = sendMailFunc(obj);
-                console.log("Email Function response", info);
-            } else {
-                console.log('error is ', err);
-                let obj = {
-                    to,
-                    subject: subject || "Mail",
-                    html: htmlToSend,
-                };
-                console.log("Sending Mail", process.env.NODE_ENV);
-                info = sendMailFunc(obj);
-                console.log("Email Function response", info);
+        
+        let files = [];
+        console.log('attachments is', attachments)
+        var templateSender = {
+            from: "info@vishalconstructioncompany.com",
+            to,
+            subject,
+            html: htmlToSend,
+            attachments,
+        };
+        console.log("Sending Mail", templateSender, '    env is', process.env.NODE_ENV);
+        transporter.sendMail(templateSender, function (error, success) {
+            if (error) {
+                return console.log(error);
             }
+            else {
+                console.log("Email sent: " + success.response);
+            }
+            transporter.close();
         });
-        // if deployment dont send mail
-        if (process.env && process.env.NODE_ENV === "development") {
-            console.log("Dev server, not sending mail", process.env.NODE_ENV);
-            return;
-        }
-
-        return info;
     } catch (e) {
         console.log("error", e);
     }
