@@ -241,6 +241,18 @@ Authorization: {{token}}
    "pType":"Flat/Apartment"
 }
 
+################# getUserIdPropertyRequest ################
+
+POST {{ip}}property/getAllProperty HTTP/1.1
+Content-type: application/json
+Authorization: {{token}}
+
+{
+   "type": "Rent",
+   "keyword":"Bangalore",
+   "pType":"Flat/Apartment"
+}
+
 ################# updatePropertyStatus ################
 
 POST {{ip}}property/updatePropertyStatusRequest HTTP/1.1

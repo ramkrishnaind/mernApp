@@ -71,7 +71,7 @@ function getAllProperty(Models) {
         try {
             //console.log('req is', req)
             let LoginUser, myFavorite = [], allProperties = [];
-            LoginUser = req.locals ? req.locals.user._id : '';
+            LoginUser = req.locals ? req.locals.user.userId._id : '';
             console.log('LoginUser', LoginUser)
             let findData = await Models.PropertyDB.aggregate([
                 {
@@ -111,33 +111,37 @@ function getAllProperty(Models) {
                     }
                 }
             ]).sort({ _id: -1 });
+            console.log('LoginUser is ',LoginUser )
             if (LoginUser && LoginUser != '') {
                 myFavorite = await Models.WishListDB.find({ userId: LoginUser }).lean();
             }
             console.log('myFavorite', myFavorite)
-            console.log('findData', findData)
+            //console.log('findData', findData)
             for (let x = 0; x < findData.length; x++) {
                 let item = findData[x];
-                console.log('item is', item)
+                //console.log('item is', item)
                 let itemId = item._id;
                 item.isFavorite = false;
+                console.log('myFavorite is ', myFavorite.length, myFavorite)
                 for (let y = 0; y < myFavorite.length; y++) {
-                    let propertyId = myFavorite[y].propertyId;
+                    let favItem = myFavorite[y];
+                    let propertyId = favItem.propertyId;
                     console.log('propertyId is', propertyId)
                     console.log('itemId is', itemId)
-                    if (itemId != propertyId) {
+
+                    if (itemId.toString() != propertyId.toString()) {
                         console.log('in if', itemId)
                         item.isFavorite = false;
                     } else {
                         console.log('in else', itemId)
                         item.isFavorite = true;
                     }
-                    console.log('in else item item', item)
+                    //console.log('in else item item', item)
                 }
                 //item.isFavorite = false;
                 allProperties.push(item);
             }
-            console.log('allProperties', allProperties)
+            //console.log('allProperties', allProperties)
             let obj = {
                 total: findData.length,
                 list: allProperties
