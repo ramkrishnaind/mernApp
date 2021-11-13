@@ -295,7 +295,7 @@ async function sendJobApplicationToMail(data, Models) {
         let replacements = {
             name: `${_.capitalize(data.firstName)}` +' '+ `${_.capitalize(data.lastName)}`,
             qualification: `${_.capitalize(data.qualification)}`,
-            appliedFor: careerData,
+            appliedFor: careerData.degination,
             mobile: data.mobile,
             email: data.email,
             message: data.message
