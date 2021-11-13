@@ -104,8 +104,8 @@ const PropertyCreateUpdate = (props) => {
     brokerage: propertyData?.price?.brokerage || "",
     build_year: propertyData?.buildYear || "",
 
-    Visitor_Room: propertyData?.vistorRoom || "",
-    Conference_Room: propertyData?.conferenceRoom || "",
+    Visitor_Room: propertyData?.vistorRoom || "0",
+    Conference_Room: propertyData?.conferenceRoom || "0",
     // Floors_Allowed_For_Construction:
     //   propertyData?.floorsAllowedForConstruction || "",
     // No_Of_Open_Sides: propertyData?.noOfOpenSides || null,
@@ -118,24 +118,24 @@ const PropertyCreateUpdate = (props) => {
     // response_from_brokers: propertyData?.responseFromBrokers || null,
 
     Personal_Washroom: propertyData?.personalWashroom || false,
-    No_Of_Seats: propertyData?.noOfSeats || "",
-    Meeting_Rooms: propertyData?.meetingRooms || "",
+    No_Of_Seats: propertyData?.noOfSeats || "0",
+    Meeting_Rooms: propertyData?.meetingRooms || "0",
     Pantry: propertyData?.Pantry || false,
   };
 
   const imageState = {
-    exteriorView: [],
-    livingRoom: [],
-    badrooms: [],
-    bathrooms: [],
-    kitchen: [],
-    floorPlan: [],
-    masterPlan: [],
-    locationMap: [],
-    other: [],
-    roomImage: [],
-    conference: [],
-    visitor: [],
+    exteriorView: propertyData?.images?.exteriorView || [],
+    livingRoom: propertyData?.images?.livingRoom || [],
+    badrooms: propertyData?.images?.badrooms || [],
+    bathrooms: propertyData?.images?.bathrooms || [],
+    kitchen: propertyData?.images?.kitchen || [],
+    floorPlan: propertyData?.images?.floorPlan || [],
+    masterPlan: propertyData?.images?.masterPlan || [],
+    locationMap: propertyData?.images?.locationMap || [],
+    other: propertyData?.images?.other || [],
+    roomImage: propertyData?.images?.roomImage || [],
+    conference: propertyData?.images?.conference || [],
+    visitor: propertyData?.images?.visitor || [],
   };
   const [description, setDescription] = useState(
     propertyData?.projectDescription
