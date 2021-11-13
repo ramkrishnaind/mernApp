@@ -230,7 +230,6 @@ function applyForJob(Models) {
             jobFormData.resume = req.files;
             let saveJob = await new Models.JobApplicationDB(jobFormData).save();
             saveJob = saveJob.toObject();
-            console.log('saveModule is', saveModule)
             await sendJobApplicationToMail(saveJob);
             res.send({ status: true, message: "Applied successfully.!" });
         }
