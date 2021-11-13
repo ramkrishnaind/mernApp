@@ -88,11 +88,8 @@ function getSearchPropertyList(Models) {
                     let propertyId = myFavorite[y].propertyId;
                     console.log('propertyId is', propertyId)
                     console.log('itemId is', itemId)
-                    if (itemId.toString() != propertyId.toString()) {
+                    if (itemId.toString() == propertyId.toString()) {
                         console.log('in if', itemId)
-                        item.isFavorite = false;
-                    } else {
-                        console.log('in else', itemId)
                         item.isFavorite = true;
                     }
                     console.log('in else item item', item)
