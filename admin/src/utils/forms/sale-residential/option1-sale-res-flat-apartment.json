@@ -18,7 +18,7 @@
                 {
                     "type": "option",
                     "label": "Balconies",
-                    "initial_counts": [0,1,2,3,"3+"],
+                    "initial_counts": [-1,1,2,3,"3+"],
                     "more_counts": [4,5,6,7,8,9,10, ">10"],
                     "showMore": true,
                     "fieldName": "Balconies"
@@ -26,7 +26,7 @@
                 {
                     "type": "option",
                     "label": "Floor No.",
-                    "initial_counts": [-2,-1,0,1,2,3,4,5,"5+"],
+                    "initial_counts": [-2,-1,1,2,3,4,5,"5+"],
                     "more_counts": [6,7,8,9,10, 11,12],
                     "showMore": true,
                     "fieldName": "Floor_No_"
