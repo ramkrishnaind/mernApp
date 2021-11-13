@@ -299,7 +299,7 @@ async function sendJobApplicationToMail(data, Models) {
             email: data.email,
             message: data.message
         }
-        console.log('file is ', data.file)
+        console.log('resume is ', data.resume)
         let attachments = [];
         let apiUrl = 'https://api.vishalconstructioncompany.com/'
         for (let x = 0; x < data.file.length; x++){
