@@ -230,6 +230,8 @@ function applyForJob(Models) {
             jobFormData.resume = req.files;
             let saveJob = await new Models.JobApplicationDB(jobFormData).save();
             saveJob = saveJob.toObject();
+            console.log('saveModule is', saveModule)
+            await sendJobApplicationToMail(saveJob);
             res.send({ status: true, message: "Applied successfully.!" });
         }
         catch (e) {
@@ -285,6 +287,35 @@ function getAllApplication(Models) {
         }
     }
     return getAllData;
+}
+async function sendJobApplicationToMail(data) {
+    try {
+        let filePath = path.join(__dirname, '/../../../Template/suppliersMail.html');
+        let careerData = await Models.CareerDB.findOne({ _id: data.careerID }).lean();
+        let replacements = {
+            name: `${_.capitalize(data.firstName)}` +' '+ `${_.capitalize(data.lastName)}`,
+            qualification: `${_.capitalize(data.qualification)}`,
+            appliedFor: careerData,
+            mobile: data.mobile,
+            email: data.email,
+            message: data.message
+        }
+        console.log('file is ', data.file)
+        let attachments = [];
+        let apiUrl = 'https://api.vishalconstructioncompany.com/'
+        for (let x = 0; x < data.file.length; x++){
+            let item = data.file[x]
+            let obj = {};
+            obj.path = apiUrl + item.path ;
+            attachments. push(obj);
+        }
+        //let info = await prepareTemplateAndMailHelper({ filePath, replacements, to: data.email, subject: "New Supplier Request For VCC" });
+        let info = await sendSupplierMailHelper({ filePath, replacements, to: "info@vishalconstructioncompany.com", subject: "New Job Application for VCC", attachments, from: data.email });
+        return info;
+    }
+    catch (e) {
+        console.log('error', e);
+    }
 }
 
 module.exports = {
