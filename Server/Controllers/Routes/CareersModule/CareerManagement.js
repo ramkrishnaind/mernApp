@@ -7,6 +7,7 @@ const createTokenFunction = require('../../../Helper/createUniqueToken');
 const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const { nanoid } = require('nanoid');
+const sendSupplierMailHelper = require('../../../Helper/sendSupplierMailHelper');
 
 const createCareerSchema = Joi.object({
     degination: Joi.string().trim().required(),
