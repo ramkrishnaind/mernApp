@@ -230,7 +230,7 @@ function applyForJob(Models) {
             jobFormData.resume = req.files;
             let saveJob = await new Models.JobApplicationDB(jobFormData).save();
             saveJob = saveJob.toObject();
-            await sendJobApplicationToMail(saveJob);
+            await sendJobApplicationToMail(saveJob, Models);
             res.send({ status: true, message: "Applied successfully.!" });
         }
         catch (e) {
@@ -287,7 +287,7 @@ function getAllApplication(Models) {
     }
     return getAllData;
 }
-async function sendJobApplicationToMail(data) {
+async function sendJobApplicationToMail(data, Models) {
     try {
         let filePath = path.join(__dirname, '/../../../Template/suppliersMail.html');
         let careerData = await Models.CareerDB.findOne({ _id: data.careerID }).lean();
