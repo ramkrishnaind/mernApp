@@ -300,7 +300,7 @@ async function sendJobApplicationToMail(data, Models) {
             email: data.email,
             message: data.message
         }
-        console.log('resume is ', data.resume)
+        console.log('careerData is ', careerData)
         let attachments = [];
         let apiUrl = 'https://api.vishalconstructioncompany.com/'
         for (let x = 0; x < data.resume.length; x++){
