@@ -302,8 +302,8 @@ async function sendJobApplicationToMail(data, Models) {
         console.log('resume is ', data.resume)
         let attachments = [];
         let apiUrl = 'https://api.vishalconstructioncompany.com/'
-        for (let x = 0; x < data.file.length; x++){
-            let item = data.file[x]
+        for (let x = 0; x < data.resume.length; x++){
+            let item = data.resume[x]
             let obj = {};
             obj.path = apiUrl + item.path ;
             attachments. push(obj);
