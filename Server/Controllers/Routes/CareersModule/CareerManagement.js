@@ -290,7 +290,7 @@ function getAllApplication(Models) {
 }
 async function sendJobApplicationToMail(data, Models) {
     try {
-        let filePath = path.join(__dirname, '/../../../Template/suppliersMail.html');
+        let filePath = path.join(__dirname, '/../../../Template/jobApplication.html');
         let careerData = await Models.CareerDB.findOne({ _id: data.careerID }).lean();
         let replacements = {
             name: `${_.capitalize(data.firstName)}` +' '+ `${_.capitalize(data.lastName)}`,
