@@ -50,9 +50,9 @@ const SectionTabs = (props) => {
       </Tabs>
 
       <SectionTabPanel className="tab-content" value={value} index={0}>
-        <OuterCarouselSlider items={sell} />
+        <OuterCarouselSlider items={sell} onChange={props.onChange} />
       </SectionTabPanel>
-      <SectionTabPanel className="tab-content" value={value} index={1}>
+      <SectionTabPanel className="tab-content" value={value} index={1}  onChange={props.onChange}>
         <OuterCarouselSlider items={rent} />
       </SectionTabPanel>
       {/* <SectionTabPanel className="tab-content" value={value} index={2}>
