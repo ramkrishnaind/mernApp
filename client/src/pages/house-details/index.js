@@ -203,9 +203,10 @@ const HouseDetailPage = (props) => {
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
-  // console.log("propertyListItem", propertyListItem);
+   console.log("item", item);
 
   useEffect(() => {
+    
     const isbookNowActive = localStorage.getItem("bookNow");
     // console.log("isBookNow", typeof isbookNowActive, isbookNowActive);
     let userDetails = localStorage.getItem("user");
