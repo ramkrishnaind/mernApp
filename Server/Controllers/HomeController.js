@@ -40,23 +40,23 @@ module.exports = function (conn) {
     const userAuthMiddleware = userAuthMiddlewareFunction.userAuthMiddleware(db);
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(db);
     const pageMedia = [{
-        name: 'image', maxCount: 2
+        name: 'image'
     }, {
-        name: 'banner', maxCount: 3
+        name: 'banner'
     }, {
-        name: 'video', maxCount: 1
+        name: 'video'
     }
     ];
     const serviceMedia = [{
-        name: 'image', maxCount: 2
+        name: 'image'
     }, {
-        name: 'banner', maxCount: 3
+        name: 'banner'
     }
     ];
     const imageVideo = [{
-        name: 'image', maxCount: 2
+        name: 'image'
     }, {
-        name: 'video', maxCount: 1
+        name: 'video'
     }];
     router.post('/createAboutSection', userAuthMiddleware, upload.array("aboutImages"), homeFunction.createAboutSection(db));
     router.post('/updateAboutSection', userAuthMiddleware, upload.array("aboutImages"), homeFunction.updateAboutSection(db));
