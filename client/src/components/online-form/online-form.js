@@ -31,20 +31,17 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: theme.palette.text.secondary,
   },
+  notchedOutline: {
+    borderWidth: "1px",
+    borderColor: "#fff !important",
+  },
 }));
 
 export default function OnlineBooking(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-
-  const [propertyOptions, setproprttyOption] = useState([]);
-
-  const [enableOtpField, setEnableOtpField] = useState(false);
-  const [isOtpVerified, setIsOtpVerified] = useState(false);
-  const [verifyLoader, setVerifyLoader] = useState(true);
-  const [otp, setOtp] = useState("");
-
-  const [state, setState] = useState({
+  const initialState={
+    acknowledge:"",
     name: "",
     email: "",
     mobile: "",
@@ -55,7 +52,16 @@ export default function OnlineBooking(props) {
     pin: "",
     bankingAmount: "",
     propertyId: "",
-  });
+    flatNumber: "",
+  }
+  const [propertyOptions, setproprttyOption] = useState([]);
+
+  const [enableOtpField, setEnableOtpField] = useState(false);
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [verifyLoader, setVerifyLoader] = useState(true);
+  const [otp, setOtp] = useState("");
+  const [emailValid, setEmailValid] = useState("");
+  const [state, setState] = useState(initialState);
 
   const [mobile, setMobile] = useState(
     JSON.parse(localStorage.getItem("user"))?.mobile
@@ -67,7 +73,7 @@ export default function OnlineBooking(props) {
       const response = await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         "/otp/createOTP",
-        { mobile: mobile },
+        { mobile: state.mobile },
         {},
         { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
         false
@@ -91,7 +97,7 @@ export default function OnlineBooking(props) {
       const response = await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         "/otp/verifyOTP",
-        { mobile: mobile, otp: value },
+        { mobile: state.mobile, otp: value },
         {},
         { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
         false
@@ -116,7 +122,7 @@ export default function OnlineBooking(props) {
     setVerifyLoader(false);
     setIsOtpVerified(false);
     setEnableOtpField(false);
-    setState({ ...state, mobile: "" });
+    setState(initialState);
     setOtp("");
   };
 
@@ -142,9 +148,17 @@ export default function OnlineBooking(props) {
       );
     }
   };
-
+  const getProjectName = () => {
+    const project = propertyOptions.find((p) => p._id === state.propertyId);
+    if (project) return project.nameOfProject;
+    return "";
+  };
   const inputChange = (e) => {
+    debugger
     let { name, value } = e.target;
+    if(e.target.name==="acknowledge"){
+      value=!!!state.acknowledge
+    }
     setOtp(value);
     if (name === "otp" && value.length === 6 && !isOtpVerified) {
       checkOtpValidOrNot(value);
@@ -175,6 +189,7 @@ export default function OnlineBooking(props) {
           state: state.states,
           panCard: state.pan,
           pinCode: state.pin,
+          flatNumber: state.flatNumber,
           bookingAmount: state.bankingAmount,
           tandc: true,
         },
@@ -184,6 +199,7 @@ export default function OnlineBooking(props) {
       );
       setVerifyLoader(false);
       dispatch(Snackbar.showSuccessSnackbar(response.message));
+      reset()
     } catch (error) {
       console.error("this is the error::", error);
       dispatch(
@@ -208,7 +224,8 @@ export default function OnlineBooking(props) {
       console.log("form state", state);
     }
   }, []);
-
+console.log("state",state)
+console.log("emailValid",emailValid)
   return (
     <div class="client-bgform">
       <div className={classes.root}>
@@ -216,7 +233,7 @@ export default function OnlineBooking(props) {
           <SectionHeader
             title={APP_CONSTANTS.online_form_title}
             subtitle={APP_CONSTANTS.online_form_subtitles}
-            style={{marginTop:"30px"}}
+            style={{ marginTop: "30px" }}
           />
           {/* <SectionTabs tabItems={propertieslist} /> */}
           {/* <Box className="FormHeader">
@@ -237,7 +254,7 @@ export default function OnlineBooking(props) {
                       classes: {
                         notchedOutline: classes.notchedOutline,
                       },
-                      style: { color: "#FFFFFF" },
+                      style: { color: "#FFFFFF", border: "1px solid #fff" },
                     }}
                     InputLabelProps={{
                       style: { color: "#FFFFFF" },
@@ -264,7 +281,7 @@ export default function OnlineBooking(props) {
                       classes: {
                         notchedOutline: classes.notchedOutline,
                       },
-                      style: { color: "#FFFFFF" },
+                      style: { color: "#FFFFFF", border: "1px solid #fff" },
                     }}
                     InputLabelProps={{
                       style: { color: "#FFFFFF" },
@@ -297,7 +314,7 @@ export default function OnlineBooking(props) {
                       classes: {
                         notchedOutline: classes.notchedOutline,
                       },
-                      style: { color: "#FFFFFF" },
+                      style: { color: "#FFFFFF", border: "1px solid #fff" },
                     }}
                     InputLabelProps={{
                       style: { color: "#FFFFFF" },
@@ -319,12 +336,15 @@ export default function OnlineBooking(props) {
                     variant="outlined"
                     value={state.email}
                     name="email"
-                    onChange={inputChange}
+                    onChange={(e) => {
+                      setEmailValid(e.target.value.includes("@"));
+                      inputChange(e);
+                    }}
                     InputProps={{
                       classes: {
                         notchedOutline: classes.notchedOutline,
                       },
-                      style: { color: "#FFFFFF" },
+                      style: { color: "#FFFFFF", border: "1px solid #fff" },
                     }}
                     InputLabelProps={{
                       style: { color: "#FFFFFF" },
@@ -351,7 +371,7 @@ export default function OnlineBooking(props) {
                       classes: {
                         notchedOutline: classes.notchedOutline,
                       },
-                      style: { color: "#FFFFFF" },
+                      style: { color: "#FFFFFF", border: "1px solid #fff" },
                     }}
                     InputLabelProps={{
                       style: { color: "#FFFFFF" },
@@ -378,7 +398,7 @@ export default function OnlineBooking(props) {
                       classes: {
                         notchedOutline: classes.notchedOutline,
                       },
-                      style: { color: "#FFFFFF" },
+                      style: { color: "#FFFFFF", border: "1px solid #fff" },
                     }}
                     InputLabelProps={{
                       style: { color: "#FFFFFF" },
@@ -406,7 +426,7 @@ export default function OnlineBooking(props) {
                       classes: {
                         notchedOutline: classes.notchedOutline,
                       },
-                      style: { color: "#FFFFFF" },
+                      style: { color: "#FFFFFF", border: "1px solid #fff" },
                     }}
                     InputLabelProps={{
                       style: { color: "#FFFFFF" },
@@ -434,7 +454,7 @@ export default function OnlineBooking(props) {
                       classes: {
                         notchedOutline: classes.notchedOutline,
                       },
-                      style: { color: "#FFFFFF" },
+                      style: { color: "#FFFFFF", border: "1px solid #fff" },
                     }}
                     InputLabelProps={{
                       style: { color: "#FFFFFF" },
@@ -455,13 +475,14 @@ export default function OnlineBooking(props) {
                     label="Pin Code"
                     variant="outlined"
                     value={state.pin}
+                    type="number"
                     name="pin"
                     onChange={inputChange}
                     InputProps={{
                       classes: {
                         notchedOutline: classes.notchedOutline,
                       },
-                      style: { color: "#FFFFFF" },
+                      style: { color: "#FFFFFF", border: "1px solid #fff" },
                     }}
                     InputLabelProps={{
                       style: { color: "#FFFFFF" },
@@ -479,16 +500,17 @@ export default function OnlineBooking(props) {
                   <TextField
                     id=""
                     className="InnerForm"
-                    label="banking Amount"
+                    label="Booking Amount"
                     variant="outlined"
                     value={state.bankingAmount}
                     name="bankingAmount"
+                    type="number"
                     onChange={inputChange}
                     InputProps={{
                       classes: {
                         notchedOutline: classes.notchedOutline,
                       },
-                      style: { color: "#FFFFFF" },
+                      style: { color: "#FFFFFF", border: "1px solid #fff" },
                     }}
                     InputLabelProps={{
                       style: { color: "#FFFFFF" },
@@ -508,33 +530,111 @@ export default function OnlineBooking(props) {
                       <TextField
                         className="InnerForm"
                         label="Phone Number"
-                        name="Phone"
+                        name="mobile"
                         disabled={isOtpVerified}
                         type="number"
                         min="1000000"
                         variant="outlined"
                         max="9999999999999999"
-                        value={mobile}
+                        value={state.mobile}
                         onChange={(e) => {
+                          debugger
                           if (enableOtpField) {
                             setEnableOtpField(false);
                           }
-                          setMobile(e.target.value);
+                          if (e.target.value.length <= 10)
+                          inputChange(e);
                         }}
                         InputProps={{
                           classes: {
                             notchedOutline: classes.notchedOutline,
                           },
-                          style: { color: "#FFFFFF" }
+                          style: { color: "#FFFFFF", border: "1px solid #fff" },
                         }}
                         InputLabelProps={{
                           style: { color: "#FFFFFF" },
                         }}
-                            fullWidth
+                        fullWidth
                       ></TextField>
-                      {mobile?.length === 10 && !enableOtpField ? (
+                      {!enableOtpField &&
+                        state.email.length > 0 &&
+                        state.email.includes("@") &&
+                        state.name.length > 0 &&
+                        // state.flatNumber.length > 0 &&
+                        state.pan.length > 0 &&
+                        state.mobile.length === 10 &&
+                        state.city.length > 0 &&
+                        state.states.length > 0 &&
+                        state.pin.length > 0 &&
+                        state.bankingAmount.length > 0 &&
+                        propertyOptions.length > 0 &&
+                        state.country.length > 0 &&
+                        state.propertyId.length > 0 && (
+                          <Button
+                            style={{ width: "20%" }}
+                            onClick={otpHandler}
+                            variant="contained"
+                            style={{
+                              background: "green",
+                              height: " 30px",
+                              top: " 10px",
+                              left: "5px",
+                              color: "#fff",
+                            }}
+                          >
+                            Verify
+                          </Button>
+                        )}
+                    </div>
+                  </div>
+                </form>
+              </Grid>
+
+              <Grid item xs={3} className="TextfildGrid">
+                {enableOtpField &&
+                  state.email.length > 0 &&
+                  state.email.includes("@") &&
+                  state.name.length > 0 &&
+                  state.pan.length > 0 &&
+                  state.mobile.length === 10 &&
+                  state.city.length > 0 &&
+                  state.states.length > 0 &&
+                  // state.flatNumber.length > 0 &&
+                  state.pin.length > 0 &&
+                  state.bankingAmount.length > 0 &&
+                  propertyOptions.length > 0 &&
+                  state.country.length > 0 &&
+                  state.propertyId.length > 0 && (
+                    <>
+                      <TextField
+                        className="InnerForm"
+                        placeholder="Otp"
+                        style={{
+                          width: "100%",
+                        }}
+                        variant="outlined"
+                        fullWidth
+                        value={state.otp}
+                        disabled={isOtpVerified}
+                        onChange={inputChange}
+                        name="otp"
+                        type="number"
+                        InputProps={{
+                          classes: {
+                            notchedOutline: classes.notchedOutline,
+                          },
+                          style: {
+                            color: "#FFFFFF",
+                            border: "1px solid #fff",
+                          },
+                        }}
+                        InputLabelProps={{
+                          style: { color: "#FFFFFF" },
+                        }}
+                      />
+                      {!isOtpVerified && (
                         <Button
-                          style={{ width: "20%" }}
+                          style={{ width: "23%" }}
                           onClick={otpHandler}
                           variant="contained"
                           style={{
@@ -545,65 +645,55 @@ export default function OnlineBooking(props) {
                             color: "#fff",
                           }}
                         >
-                          Verify
+                          Resend OTP
                         </Button>
-                      ) : (
-                        isOtpVerified && (
-                          <div onClick={reset}>
-                            {" "}
-                            <EditIcon />{" "}
-                          </div>
-                        )
                       )}
-                    </div>
-                  </div>
-                </form>
-              </Grid>
-
-              <Grid item xs={3} className="TextfildGrid">
-                {enableOtpField && (
-                  <TextField
-                    className="EmiInputs"
-                    placeholder="Otp"
-                    style={{
-                      width: "100%",
-                    }}
-                    variant="outlined"
-                    fullWidth
-                    value={otp}
-                    disabled={isOtpVerified}
-                    onChange={inputChange}
-                    name="otp"
-                    type="number"
-                    InputProps={{
-                      classes: {
-                        notchedOutline: classes.notchedOutline,
-                      },
-                    }}
-                    InputLabelProps={{
-                      style: { color: "#FFFFFF" },
-                    }}
-                  />
-                )}
+                    </>
+                  )}
               </Grid>
             </Grid>
 
             <div className="OutformP">
               <p className="formP">
-                I <input type="text" required /> has paid Rs.{" "}
-                <input type="text" required /> (in numbers) as against my
-                expression of interest for Flat No.{" "}
-                <input type="text" required /> of Project{" "}
-                <input type="text" required /> .
+                I {state.name} has paid Rs. {state.bankingAmount}
+                (in numbers) as against my expression of interest for Flat No.{" "}
+                <input
+                  type="text"
+                  onChange={inputChange}
+                  name="flatNumber"
+                  required
+                />{" "}
+                of Project {getProjectName()}.
               </p>
+              <br />
+              <input className="checkBox" onChange={inputChange} type="checkbox" name="acknowledge" required />{" "}
               <p className="formP">
-                <input className="checkBox" type="checkbox" required /> I
-                acknowledge that I have read, understood, and agree to all the{" "}
+                I acknowledge that I have read, understood, and agree to all the{" "}
                 <a href="#">Terms & Conditions</a> mentioned herewith.terms &
                 conditions.
               </p>
               <Box className="ParentBookButton">
-                <Button className="BookButton" onClick={(e) => handleData(e)}>
+                <Button
+                  className="BookButton"
+                  disabled={!isOtpVerified ||
+                    state.email.length === 0 ||
+                    !state.email.includes("@") ||
+                    state.name.length === 0 ||
+                    state.pan.length === 0 ||
+                    state.flatNumber.length === 0 ||
+                    state.mobile.length !== 10 ||
+                    state.city.length === 0 ||
+                    state.states.length === 0 ||
+                    state.pin.length === 0 ||
+                    state.bankingAmount.length === 0 ||
+                    propertyOptions.length === 0 ||
+                    state.country.length === 0 ||
+                    state.propertyId.length === 0 ||
+                    state.acknowledge!==true
+
+                  }
+                  onClick={(e) => handleData(e)}
+                >
                   Book Now
                 </Button>
               </Box>

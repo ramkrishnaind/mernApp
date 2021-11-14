@@ -88,7 +88,15 @@ const HomePage = (props) => {
     populateBuildingMaterialInfo(cookie, authorization);
 
   }, []);
-
+  const onChangeHandler=()=>{
+    const cookie = 'connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI';
+    const authorization = 'Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs';
+    const getData = async () => {
+      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/property/getAllPropertyForHome', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
+      setPropertyData(response.data);
+    };
+    getData();
+  }
   const populateBuildingMaterialInfo = (cookie, authorization) => {
     const getData = async () => {
       const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/builder/getBuildingMaterials', {}, {}, {Cookie: cookie, Authorization: authorization}, false);
@@ -197,7 +205,7 @@ const HomePage = (props) => {
   const showPropertyData = () => {
     if (propertyData !== {}) {
       // console.log("propertyData!={}", propertyData);
-      return <SectionTabs propertyData={propertyData} />;
+      return <SectionTabs propertyData={propertyData} onChange={onChangeHandler} />;
     } else {
       return null;
     }

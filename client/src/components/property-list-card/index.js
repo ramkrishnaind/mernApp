@@ -2,7 +2,7 @@
 // import { createMuiTheme } from '@material-ui/core';
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import {
   Grid,
   Typography,
@@ -196,8 +196,8 @@ const PropertyListCard = (props) => {
   // const largeScreen = useMediaQuery(theme => theme.breakpoints.up('sm'));
 
   const { item } = props;
-  console.log("item", item);
-  console.log("item?.favorite", item.favorite);
+  // console.log("item", item);
+  // console.log("item?.favorite", item.favorite);
   const classes = useStyles();
   const [timeAgo, setTimeAgo] = useState("");
   const [name, setName] = useState("");
@@ -216,6 +216,8 @@ const PropertyListCard = (props) => {
   function handleNull(val) {
     return val || "_ _ ";
   }
+  // item.isFavorite=true
+  console.log("item",item)
   const otpHandler = async () => {
     const cookie =
       "connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI";
@@ -355,21 +357,24 @@ const PropertyListCard = (props) => {
     if (!userDetails) {
       window.location.href = "/signin";
     }
-    const endPoint=item.favorite?"removeFromWishList": "addToWishList";
+    const endPoint = item.isFavorite ? "removeFromWishList" : "addToWishList";
     try {
+      userDetails=JSON.parse(userDetails)
+      const body = {
+        userId: userDetails._id,
+        propertyId: itemId,
+      };
       const response = await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         `/users/${endPoint}`,
-        {
-          userId: userDetails?._id,
-          propertyId: itemId,
-        },
+        body,
         {},
         { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
         false
       );
 
       dispatch(Snackbar.showSuccessSnackbar(response.message));
+      props.onChange()
     } catch (error) {
       console.error("this is the error::", error);
       dispatch(
@@ -383,7 +388,7 @@ const PropertyListCard = (props) => {
   const mainImage = item?.images[0]?.mainImage[0]?.path
     ? ApiClient.SERVER_ADDRESS + "/" + item?.images[0]?.mainImage[0]?.path
     : "/no-image-available-icon-6.png";
-  console.log("mainImage", mainImage, item?.images[0]);
+  // console.log("mainImage", mainImage, item?.images[0]);
   const address = item?.features[0]?.address || {};
   const propertTag = item?.propertTag;
   return (
@@ -523,7 +528,7 @@ const PropertyListCard = (props) => {
                       class="fs-2 mb-3"
                       onClick={(e) => handleFavourite(item?._id, e)}
                     >
-                      {!item.favorite && (
+                      {!item.isFavorite && (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="44"
@@ -541,7 +546,7 @@ const PropertyListCard = (props) => {
                           <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
                         </svg>
                       )}
-                      {item.favorite && (
+                      {item.isFavorite && (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="44"
@@ -563,11 +568,15 @@ const PropertyListCard = (props) => {
                         </svg>
                       )}
                     </div>
-                    <Grid container className='starts-from' style={{display:"flex",flexDirection:"column"}}>
-                    <Typography className={classes.text3}>
-                      Starts From
-                    </Typography>
-                    {/* <Typography
+                    <Grid
+                      container
+                      className="starts-from"
+                      style={{ display: "flex", flexDirection: "column" }}
+                    >
+                      <Typography className={classes.text3}>
+                        Starts From
+                      </Typography>
+                      {/* <Typography
                       style={{
                         width: 10,
                         paddingRight: 5,
@@ -577,10 +586,10 @@ const PropertyListCard = (props) => {
                     >
                       /
                     </Typography> */}
-                    
-                    <Typography className={classes.text5}>
-                      Rs. {item.price[0].expectedPrice}
-                    </Typography>
+
+                      <Typography className={classes.text5}>
+                        Rs. {item.price[0].expectedPrice}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -716,7 +725,6 @@ const PropertyListCard = (props) => {
               },
               style: { color: "#FFFFFF" },
             }}
-
             InputLabelProps={{
               style: { color: "#FFFFFF" },
             }}
@@ -817,50 +825,47 @@ const PropertyListCard = (props) => {
             //   )
             // )
           }
-          {enableOtpField &&
-            name.length > 0 &&
-            emailValid &&
-            time.length > 0 && (
-              <>
-                <TextField
-                  className="EmiInputs"
-                  placeholder="Otp"
-                  style={{ width: "50%" }}
-                  fullWidth
-                  value={otp}
-                  disabled={isOtpVerified}
-                  onChange={inputChange}
-                  name="otp"
-                  type="number"
-                  variant="outlined"
-                  InputProps={{
-                    classes: {
-                      notchedOutline: classes.notchedOutline,
-                    },
-                    style: { color: "#FFFFFF" },
+          {enableOtpField && name.length > 0 && emailValid && time.length > 0 && (
+            <>
+              <TextField
+                className="EmiInputs"
+                placeholder="Otp"
+                style={{ width: "50%" }}
+                fullWidth
+                value={otp}
+                disabled={isOtpVerified}
+                onChange={inputChange}
+                name="otp"
+                type="number"
+                variant="outlined"
+                InputProps={{
+                  classes: {
+                    notchedOutline: classes.notchedOutline,
+                  },
+                  style: { color: "#FFFFFF" },
+                }}
+                InputLabelProps={{
+                  style: { color: "#FFFFFF" },
+                }}
+              />
+              {!isOtpVerified && (
+                <Button
+                  style={{ width: "23%" }}
+                  onClick={otpHandler}
+                  variant="contained"
+                  style={{
+                    background: "green",
+                    height: " 30px",
+                    top: " 10px",
+                    left: "5px",
+                    color: "#fff",
                   }}
-                  InputLabelProps={{
-                    style: { color: "#FFFFFF" },
-                  }}
-                />
-                {!isOtpVerified && (
-                  <Button
-                    style={{ width: "23%" }}
-                    onClick={otpHandler}
-                    variant="contained"
-                    style={{
-                      background: "green",
-                      height: " 30px",
-                      top: " 10px",
-                      left: "5px",
-                      color: "#fff",
-                    }}
-                  >
-                    Resend OTP
-                  </Button>
-                )}
-              </>
-            )}
+                >
+                  Resend OTP
+                </Button>
+              )}
+            </>
+          )}
         </Box>
         <DialogActions>
           <Box className="ParentButton">

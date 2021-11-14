@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./outer-carousel-slider.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import PropertyViewCard from "../property-view-card";
+import {useDispatch} from "react-redux";
 import {
   Typography,
   Grid,
@@ -25,7 +26,7 @@ import { CustomNoRowsOverlay } from "../../components/no-data-found/no-data-foun
 import ApiClient from "../../api-client";
 import "./featured.css";
 import { map } from "jquery";
-
+import * as Snackbar from "../../redux/actions/SnackbarActions";
 const useStyles = makeStyles((theme) => ({}));
 
 const settings = {
@@ -75,14 +76,50 @@ const settings1 = {
 
 const OuterCarouselSlider = (props) => {
   // console.log("property props", props);
+  const dispatch = useDispatch();
   let total = 0;
   let data = [];
   if (props && props.items) {
     total = props.items.total;
     data = props.items.data;
   }
+  console.log("data",data)
   const classes = useStyles();
+  const handleFavourite = async (itemId,isFavorite, e) => {
+    debugger
+    e.stopPropagation();
+    console.log(e);
+    let userDetails = localStorage.getItem("user");
+    if (!userDetails) {
+      window.location.href = "/signin";
+    }
+    const endPoint = isFavorite ? "removeFromWishList" : "addToWishList";
+    try {
+      userDetails=JSON.parse(userDetails)
+      const body = {
+        userId: userDetails._id,
+        propertyId: itemId,
+      };
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        `/users/${endPoint}`,
+        body,
+        {},
+        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+        false
+      );
 
+      dispatch(Snackbar.showSuccessSnackbar(response.message));
+      props.onChange()
+    } catch (error) {
+      console.error("this is the error::", error);
+      dispatch(
+        Snackbar.showFailSnackbar(
+          "We are facing some issue Please try again later."
+        )
+      );
+    }
+  };
   return (
     <div>
       {total > 0 ? (
@@ -107,6 +144,7 @@ const OuterCarouselSlider = (props) => {
               __v,
               features,
               images,
+              isFavorite
             } = item;
             // const img = images && images[0]?.mainImage && images[0]?.mainImage[0]?.path ? ApiClient.SERVER_ADDRESS + "/" + images[0]?.mainImage[0]?.path : 'no-image-available-icon-6.png';
             // console.log("img path", img, images);
@@ -123,7 +161,13 @@ const OuterCarouselSlider = (props) => {
             }
 
             return (
-              <Box key={i} className="property-item">
+              <Box key={i} className="property-item" component={RouterLink}
+              to={{
+                pathname: "/home-detail",
+                state: _id,
+              }}
+              style={{cursor:"pointer"}}
+              >
                 <Grid contaienr className="property-wrap">
                   {/* <InnerCarouselSlider /> */}
                   <Grid
@@ -138,11 +182,57 @@ const OuterCarouselSlider = (props) => {
                       {imgs.map((imgPath) => {
                         return (
                           <Box className="property-image-thumb">
-                            <img src={imgPath} alt="" />
+                            <img src={imgPath} alt="" style={{cursor:"pointer"}} />
                           </Box>
                         );
                       })}
                     </Slider>
+                    <div
+                      class="fs-2 mb-3"
+                      onClick={(e) => handleFavourite(_id,isFavorite, e)}
+                    >
+                      {!isFavorite && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="44"
+                          height="44"
+                          fill="red"
+                          class="bi bi-heart"
+                          style={{
+                            position: "absolute",
+                            right: "5",
+                            top: "5",
+                            cursor: "pointer",
+                            
+                          }}
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                        </svg>
+                      )}
+                      {isFavorite && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="44"
+                          height="44"
+                          fill="red"
+                          class="bi bi-heart-fill"
+                          viewBox="0 0 16 16"
+                          style={{
+                            position: "absolute",
+                            right: "5",
+                            top: "5",
+                            cursor: "pointer",
+                            
+                          }}
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+                          ></path>
+                        </svg>
+                      )}
+                    </div>
                   </Grid>
 
                   <Grid className="property-summery">
@@ -192,7 +282,8 @@ const OuterCarouselSlider = (props) => {
                       </Box>
                       <Box className="btn btn-secondary">
                         <a
-                          href="tel:+91 9571647680"
+                          // href="tel:+91 9571647680"
+                          onClick={e=>{e.preventDefault(); e.stopPropagation();window.location.href ="tel:+91 9571647680";}}
                           style={{
                             textDecoration: "none",
                             color: "ActiveCaption",

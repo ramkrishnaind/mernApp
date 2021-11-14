@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Mobilemenu(props) {
+export default withRouter( function Mobilemenu(props) {
     const classes = useStyles();
     const [state, setState] = React.useState({
         top: false,
@@ -228,4 +228,4 @@ export default function Mobilemenu(props) {
             ))}
         </div>
     );
-}
+})

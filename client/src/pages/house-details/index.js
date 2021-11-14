@@ -45,6 +45,7 @@ import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox.css";
 import * as Snackbar from "../../redux/actions/SnackbarActions";
 import * as CallbackRequestAction from "../../redux/actions/CallbackRequestAction";
+// import * as Snackbar from "../../redux/actions/SnackbarActions";
 const options = {
   margin: 10,
   responsiveClass: true,
@@ -196,14 +197,14 @@ const HouseDetailPage = (props) => {
   const propertyListItem = useSelector((state) => state.PropertyDetail.data);
   const [bookNow, setBookNow] = useState(false);
   const [reviews, setReviews] = useState([]);
-  
+
   const [message, setMessage] = useState("");
-  const [isvisit, setIsvisit] = React.useState('yes');
+  const [isvisit, setIsvisit] = React.useState("yes");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
-  // console.log("propertyListItem", propertyListItem);
+  console.log("PropertyDetail", PropertyDetail);
 
   useEffect(() => {
     const isbookNowActive = localStorage.getItem("bookNow");
@@ -217,16 +218,15 @@ const HouseDetailPage = (props) => {
   }, []);
 
   useEffect(() => {
-    reset()
+    reset();
     let reqData = {
-      propertyId: location?.state 
+      propertyId: location?.state,
       // || localStorage.getItem("pid")
-      ,
       // propertyId: "6125373540f10f2712e43db5"
     };
     // console.log('GetPropertyDetailRequestAsync');
     dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
-  }, [propertyListItem]);
+  }, [PropertyDetail]);
   const reset = () => {
     setVerifyLoader(false);
     setIsOtpVerified(false);
@@ -235,8 +235,8 @@ const HouseDetailPage = (props) => {
     setOtp("");
     setNameFeedback("");
     setEmailFeedback("");
-    setMessage("")
-    setViewDetails(false)
+    setMessage("");
+    setViewDetails(false);
   };
   const inputChange = (e) => {
     let { name, value } = e.target;
@@ -355,12 +355,12 @@ const HouseDetailPage = (props) => {
   };
   const handleData = (e) => {
     const formData = {
-      propertyId:PropertyDetail._id,
+      propertyId: PropertyDetail._id,
       name: nameFeedback,
       email: emailFeedback,
       phone: mobile,
       message: message,
-      isVisit:isvisit==="yes"
+      isVisit: isvisit === "yes",
       // type: type,
       // propertyname: propertyname,
     };
@@ -372,15 +372,15 @@ const HouseDetailPage = (props) => {
     setEmailFeedback("");
     // setTime("");
     setIsOtpVerified(false);
-    setMessage('')
-    setIsvisit("yes")
+    setMessage("");
+    setIsvisit("yes");
     setOtp("");
     setOpen(false);
-    reset()
+    reset();
   };
- const updateSelection=(event) =>{
-  setIsvisit(event.target.value);
- }
+  const updateSelection = (event) => {
+    setIsvisit(event.target.value);
+  };
   const onReviewSubmit = async (e) => {
     e.preventDefault();
     if (!name || !email || !comment || !rating) {
@@ -463,7 +463,48 @@ const HouseDetailPage = (props) => {
     imagesData = createImagePath({ imgs: Images, value: null });
     propertyPlan = [...masterPlan, ...floorPlan];
   }
+  const handleFavourite = async (itemId,isFavorite, e) => {
+    debugger
+    e.stopPropagation();
+    console.log(e);
+    let userDetails = localStorage.getItem("user");
+    if (!userDetails) {
+      window.location.href = "/signin";
+    }
+    const endPoint = isFavorite ? "removeFromWishList" : "addToWishList";
+    try {
+      userDetails=JSON.parse(userDetails)
+      const body = {
+        userId: userDetails._id,
+        propertyId: itemId,
+      };
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        `/users/${endPoint}`,
+        body,
+        {},
+        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+        false
+      );
 
+      dispatch(Snackbar.showSuccessSnackbar(response.message));
+      let reqData = {
+        propertyId: location?.state,
+        // || localStorage.getItem("pid")
+        // propertyId: "6125373540f10f2712e43db5"
+      };
+      // console.log('GetPropertyDetailRequestAsync');
+      dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
+  
+    } catch (error) {
+      console.error("this is the error::", error);
+      dispatch(
+        Snackbar.showFailSnackbar(
+          "We are facing some issue Please try again later."
+        )
+      );
+    }
+  };
   console.log("property details *** ", PropertyDetail);
   return (
     <div style={{ background: "#F7F7F7" }}>
@@ -521,7 +562,57 @@ const HouseDetailPage = (props) => {
                   {PropertyDetail?.address?.pinCode}
                 </Typography>
               </Grid>
-              <Grid item xs={12} md={4} className={classes.style3}>
+              <Grid item xs={12} md={4} className={classes.style3} style={{flexDirection:"column",alignItems:"flex-end"}}>
+                <div
+                  class="fs-2 mb-3"
+                  onClick={(e) =>
+                    handleFavourite(
+                      PropertyDetail?._id,
+                      PropertyDetail?.isFavorite,
+                      e
+                    )
+                  }
+                >
+                  {!PropertyDetail?.isFavorite && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="44"
+                      height="44"
+                      fill="red"
+                      class="bi bi-heart"
+                      style={{
+                        position: "relative",
+                        right: "5",
+                        top: "5",
+                        cursor: "pointer",
+                      }}
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                    </svg>
+                  )}
+                  {PropertyDetail?.isFavorite && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="44"
+                      height="44"
+                      fill="red"
+                      class="bi bi-heart-fill"
+                      viewBox="0 0 16 16"
+                      style={{
+                        position: "relative",
+                        right: "5",
+                        top: "5",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+                      ></path>
+                    </svg>
+                  )}
+                </div><br/>
                 <Rating
                   name="half-rating-read"
                   defaultValue={PropertyDetail?.rating}
@@ -1072,7 +1163,7 @@ const HouseDetailPage = (props) => {
                           fullWidth
                           variant="outlined"
                           value={message}
-                          onChange={(e)=>setMessage(e.target.value)}
+                          onChange={(e) => setMessage(e.target.value)}
                           style={{ marginBottom: 15 }}
                         ></TextField>
                         <Typography className={classes.text1}>
@@ -1096,7 +1187,7 @@ const HouseDetailPage = (props) => {
                             label="No"
                           />
                         </RadioGroup>
-                        
+
                         <TextField
                           label="Phone"
                           fullWidth
@@ -1140,7 +1231,7 @@ const HouseDetailPage = (props) => {
                           // )
                         }
                         {enableOtpField &&
-                          nameFeedback.length > 0 &&                          
+                          nameFeedback.length > 0 &&
                           emailValid && (
                             <>
                               <TextField
