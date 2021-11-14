@@ -17,6 +17,7 @@ import { useLocation } from "react-router-dom";
 import ApiClient from "../../api-client";
 import PropertyListCard from "../../components/property-list-card";
 import { CustomNoRowsOverlay } from "../../components/no-data-found/no-data-found";
+import { DoubleArrowIcon } from '@material-ui/icons/DoubleArrow';
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -122,10 +123,10 @@ const SearchPropertyList = (props) => {
   const propertyListItem = useSelector((state) => state.PropertyDetail.data);
   const [searchPayload, setSearchPayload] = useState(null);
 
-  console.log("propertyListItem", propertyListItem);
+  // console.log("propertyListItem", propertyListItem);
   if (propertyListItem) {
     if (viewDetails === false) {
-      console.log(propertyListItem);
+      // console.log(propertyListItem);
       setViewDetails(true);
       setPropertyListItem(propertyListItem.data.list);
     }
@@ -135,7 +136,7 @@ const SearchPropertyList = (props) => {
   }
 
   useEffect(() => {
-    console.log("Search location?.state", location?.state);
+    // console.log("Search location?.state", location?.state);
     // let reqData = {
     //   propertyId: location?.state,
     //   // propertyId: "6125373540f10f2712e43db5"
@@ -164,11 +165,11 @@ const SearchPropertyList = (props) => {
   const params = useParams();
 
   useEffect(() => {
-    console.log("params changed", params);
+    // console.log("params changed", params);
     const type = new URLSearchParams(location.search).get("type");
 
     if (type === "Rent" || type === "Sell") {
-      console.log("type is ^^^ ", type);
+      // console.log("type is ^^^ ", type);
       const payload = {
         type: type,
         pType: "",
@@ -179,9 +180,24 @@ const SearchPropertyList = (props) => {
       setSearchPayload(payload);
     }
   }, [params]);
+const changeHandler=()=>{
+  // console.log("params changed", params);
+  const type = new URLSearchParams(location.search).get("type");
 
+  if (type === "Rent" || type === "Sell") {
+    // console.log("type is ^^^ ", type);
+    const payload = {
+      type: type,
+      pType: "",
+      minAmount: "",
+      maxAmount: "",
+    };
+    populateProperties(payload);
+    setSearchPayload(payload);
+  }
+}
   const populateProperties = (payload) => {
-    console.log("property details payload", payload);
+    // console.log("property details payload", payload);
     const getData = async () => {
       const response = await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
@@ -199,9 +215,9 @@ const SearchPropertyList = (props) => {
     getData();
   };
 
-  console.log("view Details", viewDetails);
-  console.log("property details *** ", propertyListItem);
-
+  // console.log("view Details", viewDetails);
+  // console.log("property details *** ", propertyListItem);
+  
   return (
     <div style={{ background: "#F7F7F7" }}>
       <Box
@@ -215,13 +231,14 @@ const SearchPropertyList = (props) => {
       </Box>
 
       {/* <Gallery /> */}
+      
       {viewDetails ? (
         <Container>
           <Paper elevation={0}>
             <Grid item xs={12} md={12} style={{ padding: 20, marginTop: 20 }}>
               <Container style={{ paddingBottom: 40 }}>
                 {propertyListItems.length > 0 ? (
-                  propertyListItems.map((pl) => <PropertyListCard item={pl} />)
+                  propertyListItems.map((pl) => <PropertyListCard item={pl} onChange={changeHandler}/>)
                 ) : (
                   // <CustomNoRowsOverlay />
                   <Box sx={{ display: "flex",justifyContent:"center"}}>

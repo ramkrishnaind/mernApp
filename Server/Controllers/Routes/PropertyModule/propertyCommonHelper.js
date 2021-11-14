@@ -156,6 +156,8 @@ function getAllProperty(Models) {
 function getHomeAllProperty(Models) {
     async function PropertyList(req, res) {
         try {
+            let LoginUser, myFavorite = [], allProperties = [];
+            LoginUser = req.locals ? req.locals.user.userId._id : '';
             let findData = await Models.PropertyDB.aggregate([
                 {
                     $lookup: {
@@ -176,22 +178,50 @@ function getHomeAllProperty(Models) {
                 }
             ]).sort({ _id: -1 });
             console.log('findData is', findData)
-            let rentData = findData.filter(function (item) {
+            if (LoginUser && LoginUser != '') {
+                myFavorite = await Models.WishListDB.find({ userId: LoginUser }).lean();
+            }
+            console.log('myFavorite', myFavorite)
+            //console.log('findData', findData)
+            for (let x = 0; x < findData.length; x++) {
+                let item = findData[x];
+                //console.log('item is', item)
+                let itemId = item._id;
+                item.isFavorite = false;
+                console.log('myFavorite is ', myFavorite.length, myFavorite)
+                for (let y = 0; y < myFavorite.length; y++) {
+                    let favItem = myFavorite[y];
+                    let propertyId = favItem.propertyId;
+                    console.log('propertyId is', propertyId)
+                    console.log('itemId is', itemId)
+
+                    if (itemId.toString() == propertyId.toString()) {
+                        console.log('in if', itemId)
+                        item.isFavorite = true;
+                    }
+                    //console.log('in else item item', item)
+                }
+                //item.isFavorite = false;
+                allProperties.push(item);
+            }
+            //console.log('allProperties', allProperties)
+            
+            let rentData = allProperties.filter(function (item) {
                 return item.for === "Rent";
             });
             let totalForRent = rentData.length;
 
-            let sellData = findData.filter(function (item) {
+            let sellData = allProperties.filter(function (item) {
                 return item.for === "Sell";
             });
             let totalForSell = sellData.length;
 
-            let constructionData = findData.filter(function (item) {
+            let constructionData = allProperties.filter(function (item) {
                 return item.for === "Construction";
             });
             let totalForConstruction = constructionData.length;
 
-            let interiorData = findData.filter(function (item) {
+            let interiorData = allProperties.filter(function (item) {
                 return item.for === "Interior";
             });
             let totalForInterior = interiorData.length;
@@ -226,13 +256,15 @@ function getHomeAllProperty(Models) {
 function propertyDetail(Models) {
     async function propertyDetailFun(req, res) {
         try {
+            let LoginUser = req.locals ? req.locals.user.userId._id : '';
+            
             let validateData = singlePropertyModuleSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: CONSTANTSMESSAGE.INVALID_DATA };
             }
 
             // pick data from req.body
-            let property;
+            let property, isFavorite = false, isFavoriteData;
             let bodyData = _.pick(req.body, ["propertyId"]);
             let _id = bodyData.propertyId;
             let findData = await Models.PropertyDB.findOne({ _id }).lean();
@@ -242,14 +274,25 @@ function propertyDetail(Models) {
                 let propertyImagesResponse = await Models.PImageDB.findOne({ propertyId: findData._id }).lean();
                 let propertyPriceResponse = await Models.PPriceDB.findOne({ propertyId: findData._id }).lean();
                 let propertyReviewResponse = await Models.ReviewDB.find({ propertyId: findData._id }).sort({ _id: -1 }).lean();
-
-                property = await Promise.all([propertyFeaturesResponse, propertyImagesResponse, propertyPriceResponse, propertyReviewResponse]).then(values => {
+                if (LoginUser && LoginUser != '') {
+                    let favQuery = { $and: [
+                    {'userId': LoginUser},
+                    {'propertyId': findData._id}
+                ]};
+                    isFavoriteData = await Models.WishListDB.find(favQuery).lean();
+                }
+                property = await Promise.all([propertyFeaturesResponse, propertyImagesResponse, propertyPriceResponse, propertyReviewResponse, isFavorite]).then(values => {
                     console.log(values);
                     let result = {};
                     let propertyFeatures = values[0];
                     let propertyImages = values[1];
                     let propertyPrice = values[2];
                     let propertyReview = values[3];
+                    let favValue = values[4];
+                    if(favValue){
+                        isFavorite = true;
+                    }
+
                     console.log("propertyFeatures is", propertyFeatures)
                     console.log("propertyImages is", propertyImages)
                     console.log("propertyPrice is", propertyPrice)
@@ -304,6 +347,7 @@ function propertyDetail(Models) {
                     result.noOfSeats = propertyFeatures.noOfSeats;
                     result.Widthofroad = propertyFeatures.Widthofroad;
                     result.Noofopensides = propertyFeatures.Noofopensides;
+                    result.isFavorite = isFavorite;
                     return result;
                 });
                 res.send({ status: true, message: "Property Details", data: property });

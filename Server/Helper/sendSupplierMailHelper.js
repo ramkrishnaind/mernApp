@@ -33,7 +33,7 @@ async function sendSupplierMail({ filePath, replacements, to, subject, attachmen
         let htmlFile = await readHTMLFile(filePath);
         // console.log('html',filePath);
         let template = handlebars.compile(htmlFile);
-        var htmlToSend = template(replacements);
+        let htmlToSend = template(replacements);
         // console.log('replacements', replacements, htmlToSend);
         
         let files = [];
