@@ -233,7 +233,6 @@ export const ServiceItemDataError = (data) => {
 };
 
 export const ServiceItemUpdateRequestAsync = (data) => {
-  // console.log('data',data);
   return (dispatch) => {
     dispatch(Loader.showLoader(""));
     dispatch(ServiceItemUpdateRequest());

@@ -66,8 +66,8 @@ const API_ENDPOINTS = {
   ROLE_DATA_ENDPOINT: "role/userRoleDetails",
 
   //BOOKING module
-  BOOKING_LIST_ENDPOINT: "menuModule/getAllMenuList",
-  BOOKING_STATUS_UPDATE_ENDPOINT: "menuModule/updateMenuStatus",
+  BOOKING_LIST_ENDPOINT: "booking/getBookingList",
+  BOOKING_STATUS_UPDATE_ENDPOINT: "booking/updateBookingStatus",
 
   //Site visit
   SITEVISIT_LIST_ENDPOINT: "sitevisit/getSiteVisitRequest",
