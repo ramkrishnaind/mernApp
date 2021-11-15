@@ -189,7 +189,8 @@ const OuterCarouselSlider = (props) => {
                     </Slider>
                     <div
                       class="fs-2 mb-3"
-                      onClick={(e) => handleFavourite(_id,isFavorite, e)}
+                      onClick={e=>{e.preventDefault(); e.stopPropagation();handleFavourite(_id,isFavorite, e)}}
+                      // onClick={(e) => handleFavourite(_id,isFavorite, e)}
                     >
                       {!isFavorite && (
                         <svg

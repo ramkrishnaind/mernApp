@@ -92,6 +92,15 @@ export default class ApiClient {
         throw new Error("Something went wrong");
       }
     } catch (error) {
+      if(error.message==="Token exipred"){
+        localStorage.removeItem("user")
+        localStorage.removeItem("bookNow");
+        localStorage.removeItem("postProperty");
+        localStorage.removeItem("social-links");
+        localStorage.removeItem("company_detials");
+        window.location.href = "/";  
+        return;
+      }
       Logger.log("API-Error:", error);
       throw error;
     }

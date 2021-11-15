@@ -3,11 +3,11 @@ import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
 import * as Snackbar from "../redux/actions/SnackbarActions";
 
-export const LoginService = async (dispatch, data) => {
+export const LoginMobileService = async (dispatch, data) => {
   try {
     const result = await ApiClient.call(
       ApiClient.REQUEST_METHOD.POST,
-      API_ENDPOINTS.LOGIN_ENDPOINT,
+      API_ENDPOINTS.LOGIN_MOBILE_ENDPOINT,
       data,
       null,
       null,

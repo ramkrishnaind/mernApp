@@ -298,7 +298,7 @@ const Header = (props) => {
       localStorage.removeItem("user");
       localStorage.removeItem("bookNow");
       localStorage.removeItem("postProperty");
-      window.location.href = "/home";
+      window.location.href = "/";
     }
   };
 
