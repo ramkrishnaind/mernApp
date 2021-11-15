@@ -13,7 +13,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useLocation} from 'react-router-dom';
 import ApiClient from '../../api-client';
 import ReactHtmlParser from 'react-html-parser';
-import {NoDataAvailable} from '../../components/no-details-available/no-details-available';
+// import {NoDataAvailable} from '../../components/no-details-available/no-details-available';
+import CircularProgress from "@mui/material/CircularProgress";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -207,7 +208,10 @@ const DealingInItemDetailPage = (props) => {
             </Grid>
           </Paper> */}
         </Container>
-      ) : NoDataAvailable('No Data Available')}
+      ) : 
+      // NoDataAvailable('No Data Available')
+      <CircularProgress />
+      }
     </div>
   );
 };

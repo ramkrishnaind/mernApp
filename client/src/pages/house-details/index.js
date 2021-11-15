@@ -34,7 +34,8 @@ import { Link as RouterLink, useLocation } from "react-router-dom";
 import propertyDetail from "../property-detail";
 import MapContainer from "../../components/section-map/MapContainer";
 import BookNowModal from "../../components/book-now/book-now";
-import { NoDataAvailable } from "../../components/no-details-available/no-details-available";
+// import { NoDataAvailable } from "../../components/no-details-available/no-details-available";
+import CircularProgress from "@mui/material/CircularProgress";
 import ApiClient from "../../api-client";
 import HtmlParser from "react-html-parser";
 import Moment from "react-moment";
@@ -1344,7 +1345,8 @@ const HouseDetailPage = (props) => {
           </Grid>
         </Container>
       ) : (
-        NoDataAvailable("Details Unavailable")
+        // NoDataAvailable("Details Unavailable")
+        <CircularProgress />
       )}
       <BookNowModal
         open={bookNow}
