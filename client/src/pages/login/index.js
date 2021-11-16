@@ -134,9 +134,10 @@ const LoginPage = (props) => {
     let { name, value } = e.target;
     
     setOtp(value);
-    if (name === "otp" && value.length === 6 && !isOtpVerified) {
-      checkOtpValidOrNot(value);
-    }
+    // if (name === "otp" && value.length === 6 && !isOtpVerified) {
+    //   checkOtpValidOrNot(value);
+    // }
+    
     if (name === "email") {
       if (!isNaN(value) && value !== "") {
         currState = { ...state, mobile: value };
@@ -146,6 +147,10 @@ const LoginPage = (props) => {
       }
     }
     currState = { ...currState, [name]: value };
+    if(currState.mobile.length===10 && name === "email")
+    {
+      otpHandler()
+    }
     setState(currState);
   };
   const otpHandler = async () => {
@@ -176,32 +181,32 @@ const LoginPage = (props) => {
       setVerifyLoader(false);
     }
   };
-  const checkOtpValidOrNot = async (value) => {
-    try {
-      const response = await ApiClient.call(
-        ApiClient.REQUEST_METHOD.POST,
-        "/otp/verifyOTP",
-        { mobile: state.mobile, otp: value },
-        {},
-        null,
-        false
-      );
-      if (response.status) {
-        setIsOtpVerified(true);
-        dispatch(Snackbar.showSuccessSnackbar("Otp Verified SuccessFully"));
-      } else {
-        setIsOtpVerified(false);
-        dispatch(Snackbar.showFailSnackbar("Please type Valid otp."));
-      }
-    } catch (error) {
-      setIsOtpVerified(false);
-      dispatch(
-        Snackbar.showFailSnackbar(
-          "We are facing some issue Please try again later."
-        )
-      );
-    }
-  };
+  // const checkOtpValidOrNot = async (value) => {
+  //   try {
+  //     const response = await ApiClient.call(
+  //       ApiClient.REQUEST_METHOD.POST,
+  //       "/otp/verifyOTP",
+  //       { mobile: state.mobile, otp: value },
+  //       {},
+  //       null,
+  //       false
+  //     );
+  //     if (response.status) {
+  //       setIsOtpVerified(true);
+  //       dispatch(Snackbar.showSuccessSnackbar("Otp Verified SuccessFully"));
+  //     } else {
+  //       setIsOtpVerified(false);
+  //       dispatch(Snackbar.showFailSnackbar("Please type Valid otp."));
+  //     }
+  //   } catch (error) {
+  //     setIsOtpVerified(false);
+  //     dispatch(
+  //       Snackbar.showFailSnackbar(
+  //         "We are facing some issue Please try again later."
+  //       )
+  //     );
+  //   }
+  // };
   const loginSubmit = (e) => {
     debugger;
     const { email, password, mobile, otp } = state;
@@ -268,7 +273,7 @@ const LoginPage = (props) => {
                 },
               }}
             />
-            {
+            {/* {
               state.mobile?.length === 10 && !enableOtpField && (
                 <Button
                   style={{ width: "23%" }}
@@ -284,8 +289,8 @@ const LoginPage = (props) => {
                 >
                   Verify
                 </Button>
-              )
-              // : (
+              ) */}
+              {/* // : (
               //   isOtpVerified && (
               //     <div onClick={reset}>
               //       {" "}
@@ -293,9 +298,9 @@ const LoginPage = (props) => {
               //     </div>
               //   )
               // )
-            }
+            } */}
             <Box style={{ height: 20 }} />
-            {enableOtpField && state.mobile?.length === 10 && (
+            {state.mobile?.length === 10 && (
               <>
                 <TextField
                   className="EmiInputs"
@@ -314,22 +319,6 @@ const LoginPage = (props) => {
                     },
                   }}
                 />
-                {!isOtpVerified && (
-                  <Button
-                    style={{ width: "23%" }}
-                    onClick={otpHandler}
-                    variant="contained"
-                    style={{
-                      background: "green",
-                      height: " 30px",
-                      top: " 10px",
-                      left: "5px",
-                      color: "#fff",
-                    }}
-                  >
-                    Resend OTP
-                  </Button>
-                )}
               </>
             )}
 

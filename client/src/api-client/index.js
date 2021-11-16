@@ -82,17 +82,20 @@ export default class ApiClient {
         headers: headers,
       });
       Logger.log("Web Service Response:", response);
+      debugger
       if (response.status === 200) {
-        if (response.data != null) {
+        if (response.data != null && !response.data.error) {
           return response.data;
-        } else {
+        } else if(response.data.error){
+          throw new Error(response.data.message);
+        }else{
           throw new Error("Something went wrong");
         }
       } else {
         throw new Error("Something went wrong");
       }
     } catch (error) {
-      if(error.message==="Token exipred"){
+      if(error.message==="Token exipred"||error.message==="Invalid token"){
         localStorage.removeItem("user")
         localStorage.removeItem("bookNow");
         localStorage.removeItem("postProperty");

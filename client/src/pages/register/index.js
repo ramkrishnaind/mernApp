@@ -436,7 +436,12 @@ states.cpassword.length !== 0
                       onClick={otpHandler}
                       variant="contained"
                       className={classes.verify}
-                    >
+                      style={{
+                        background: "green",
+                        height: "30px",
+                        color: "#fff",
+                      }}
+                >
                       Verify
                     </Button>
                   ) : (
