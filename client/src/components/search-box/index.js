@@ -63,6 +63,7 @@ const SearchBox = (props) => {
   const populateBudgetList = () => {
     const getData = async () => {
       const minmaxvalues = [
+        "",
         "10000",
         "50000",
         "100000",
@@ -80,6 +81,7 @@ const SearchBox = (props) => {
         "2 Crores",
         "more than 2 Crores",
       ];
+      const budgetArr = [];
       minmaxvalues.forEach((value) =>
         budgetArr.push({
           value: value,
@@ -99,7 +101,7 @@ const SearchBox = (props) => {
       // }
 
       setBudgetList(budgetArr);
-      console.log("populateSocialMediaLinks details", response.data);
+    //   console.log("populateSocialMediaLinks details", response.data);
       console.log("budgetArr", budgetArr);
     };
     getData();
@@ -384,7 +386,7 @@ const SearchBox = (props) => {
                 component={RouterLink}
                 to={{
                   pathname: "/search-property-details",
-                  state: { keyword, pType, maxAmount, minAmount, type },
+                  state: { keyword, pType, maxAmount:maxAmount===""?0:+maxAmount,minAmount: minAmount===""?0:+minAmount, type },
                 }}
                 variant="contained"
                 color="primary"

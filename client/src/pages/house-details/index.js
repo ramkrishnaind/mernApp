@@ -738,11 +738,18 @@ const HouseDetailPage = (props) => {
                     item
                     xs={12}
                     md={4}
-                    style={{ display: "flex", flexDirection: "column" }}
+                    style={{ display: "flex", flexDirection: "row" }}
                   >
                     <Typography className={classes.text1}>
                       Property Code : {handleNull(PropertyDetail?.propertyCode)}
                     </Typography>
+                    </Grid>
+                    <Grid
+                    item
+                    xs={12}
+                    md={4}
+                    style={{ display: "flex", flexDirection: "row" }}
+                  >
                     <Typography className={classes.text1}>
                       Property Price :{" "}
                       {handleNull(PropertyDetail?.price?.expectedPrice)}
@@ -752,7 +759,7 @@ const HouseDetailPage = (props) => {
                     item
                     xs={12}
                     md={4}
-                    style={{ display: "flex", flexDirection: "column" }}
+                    style={{ display: "flex", flexDirection: "row" }}
                   >
                     <Typography className={classes.text1}>
                       Guard Room:{" "}
@@ -766,12 +773,26 @@ const HouseDetailPage = (props) => {
                     item
                     xs={12}
                     md={4}
-                    style={{ display: "flex", flexDirection: "column" }}
+                    style={{ display: "flex", flexDirection: "row" }}
                   >
                     <Typography className={classes.text1}>
                       Property status : For {handleNull(PropertyDetail?.for)}
                     </Typography>
                   </Grid>
+                  {PropertyDetail.propertyDetails.map(prop=>{
+                    return  <Grid
+                    key={prop.key}
+                    item
+                    xs={12}
+                    md={4}
+                    style={{ display: "flex", flexDirection: "row" }}
+                  >
+                    <Typography className={classes.text1}>
+                      {prop.key} : {prop.Value}
+                    </Typography>
+                  </Grid>
+
+                  })}
                 </Grid>
               </InfoCard>
 
