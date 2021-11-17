@@ -26,7 +26,7 @@ let storage = multer.diskStorage({
     }
 });
 let upload = multer({ storage: storage });
-let { createServices, getServicesList, updateServicesStatus, updateServices, createServicesEnquiry } = require('./Routes');
+let { createServices, getServicesList, updateServicesStatus, updateServices, createServicesEnquiry, getServicesEnquiry, deleteServicesEnquiry, getServicesEnquiryList, updateServicesEnquiryStatus } = require('./Routes');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
 
 module.exports = function (conn) {
@@ -39,7 +39,12 @@ module.exports = function (conn) {
     router.post('/getServicesList', getServicesList(allCollection))
     router.post('/updateServices', upload.array("services"), updateServices(allCollection))
     router.post('/updateServicesStatus', updateServicesStatus(allCollection))
+
     router.post('/createServicesEnquiry', requestAuthMiddleware, upload.array("image"), createServicesEnquiry(allCollection))
+    router.post('/getServicesEnquiry', requestAuthMiddleware, getServicesEnquiry(allCollection))
+    router.post('/deleteServicesEnquiry', requestAuthMiddleware, deleteServicesEnquiry(allCollection))
+    router.post('/getServicesEnquiryList', requestAuthMiddleware, getServicesEnquiryList(allCollection))
+    router.post('/updateServicesEnquiryStatus', requestAuthMiddleware, updateServicesEnquiryStatus(allCollection))
 
     return router;
 };
