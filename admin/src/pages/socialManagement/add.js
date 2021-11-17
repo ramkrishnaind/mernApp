@@ -27,12 +27,12 @@ const SocialCreateUpdate = (props) => {
   }, [props.social.success]);
 
   const initialState = {
-    facebook: socialData?.facebook,
-    twitter: socialData?.twitter,
-    instagram: socialData?.state,
-    linkedin: socialData?.linkedin,
-    youtube: socialData?.youtube,
-    id: socialData?._id,
+    facebook: socialData?.facebook || "",
+    twitter: socialData?.twitter || "",
+    instagram: socialData?.state || "",
+    linkedin: socialData?.linkedin || "",
+    youtube: socialData?.youtube || "",
+    id: socialData?._id || "",
   };
 
   const [state, setState] = useState(initialState);

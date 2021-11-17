@@ -71,34 +71,29 @@ const BookingList = (props) => {
               data={booking.list.map((item, index) => {
                 return [
                   index + 1,
+                  item?.propertyId?.nameOfProject,
                   item.name,
-                  item.name,
-                  item.name,
-                  item.description,
+                  item.email,
+                  item.mobile,
+                  item.status,
                   item._id,
                 ];
               })}
               columns={[
                 "SR No.",
+                "Property Name",
                 "Name",
                 "Email",
                 "Phone",
-                "Description",
-                // {
-                //   name: "Status",
-                //   options: {
-                //     customBodyRender: (value, tableMeta, updateValue) => {
-                //       if (value === true)
-                //         return (
-                //           'Active'
-                //         );
-                //       else
-                //         return (
-                //           'Inactive'
-                //         );
-                //     }
-                //   }
-                // },
+                {
+                  name: "Status",
+                  options: {
+                    customBodyRender: (value, tableMeta, updateValue) => {
+                      if (value === true) return "Active";
+                      else return "Inactive";
+                    },
+                  },
+                },
                 {
                   name: "Actions",
                   options: {
@@ -107,11 +102,11 @@ const BookingList = (props) => {
                         <>
                           {/* <EditIcon style={{ color: "#0069d9", cursor:"pointer" }} onClick={() => updatehandleOpenCreateModal(tableMeta.rowData[4])}/> */}
 
-                          {tableMeta.rowData[3] ? (
+                          {tableMeta.rowData[5] ? (
                             <Tooltip title="Active">
                               <Done
                                 onClick={() =>
-                                  onDisable(tableMeta.rowData[4], false)
+                                  onDisable(tableMeta.rowData[6], false)
                                 }
                                 style={{ color: "#1e7e34", cursor: "pointer" }}
                               />
@@ -120,7 +115,7 @@ const BookingList = (props) => {
                             <Tooltip title="Inactive">
                               <ClearIcon
                                 onClick={() =>
-                                  onDisable(tableMeta.rowData[4], true)
+                                  onDisable(tableMeta.rowData[6], true)
                                 }
                                 style={{ color: "#bd2130", cursor: "pointer" }}
                               />
@@ -129,7 +124,7 @@ const BookingList = (props) => {
 
                           <DeleteIcon
                             style={{ color: "#bd2130", cursor: "pointer" }}
-                            onClick={() => onDeleteClick(tableMeta.rowData[4])}
+                            onClick={() => onDeleteClick(tableMeta.rowData[6])}
                           />
                         </>
                       );
