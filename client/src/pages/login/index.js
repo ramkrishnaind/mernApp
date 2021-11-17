@@ -61,7 +61,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
+    marginBottom:"10px"
   },
   gridStyle3: {
     display: "flex",
@@ -113,7 +114,7 @@ const LoginPage = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [emailValid, setEmailValid] = useState(false);
-  const [rememberMe, setRememberMe] = React.useState(false);
+  // const [rememberMe, setRememberMe] = React.useState(false);
   const [enableOtpField, setEnableOtpField] = useState(false);
   const [verifyLoader, setVerifyLoader] = useState(false);
   const [isOtpVerified, setIsOtpVerified] = useState(false);
@@ -341,7 +342,7 @@ const LoginPage = (props) => {
             )}
           </Grid>
           <Grid item xs={12} md={12} className={classes.gridStyle2}>
-            <FormControlLabel
+            {/* <FormControlLabel
               control={
                 <Checkbox
                   checked={rememberMe}
@@ -350,7 +351,7 @@ const LoginPage = (props) => {
                 />
               }
               label="Remember Me"
-            />
+            /> */}
             <Link component={RouterLink} to="/forgot-password">
               Forgot Password?
             </Link>
