@@ -17,6 +17,25 @@ import {
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
   Users as UsersIcon,
+  Menu as MenuIcon,
+  Briefcase as WorkIcon,
+  FileText as FilesIcon,
+  Sliders as SliderIcon,
+  Phone as PhoneIcon,
+  Navigation as NavIcon,
+  MessageSquare as MessageIcon,
+  PhoneIncoming as CallbackIcon,
+  Star as StarIcon,
+  Calendar as CalendarIcon,
+  Home as HomeIcon,
+  Settings as SettingIcon,
+  Facebook as FbIcon,
+  MessageCircle as FeedbackIcon,
+  Tool as ToolIcon,
+  DollarSign as InvestIcon,
+  Trello as AboutIcon,
+  File as CMSIcon,
+  Truck as SupplierIcon,
 } from "react-feather";
 import { useSelector } from "react-redux";
 import Logger from "../../utils/Logger";
@@ -36,17 +55,17 @@ const items = [
 
   {
     href: "/menu",
-    icon: UsersIcon,
+    icon: MenuIcon,
     title: "Menu",
     items: [
       {
         href: "/menu/add",
-        icon: ShoppingBagIcon,
+        icon: MenuIcon,
         title: "Add Menu",
       },
       {
         href: "/menu",
-        icon: ShoppingBagIcon,
+        icon: MenuIcon,
         title: "Menu List",
       },
     ],
@@ -58,12 +77,12 @@ const items = [
     items: [
       {
         href: "/role/add",
-        icon: ShoppingBagIcon,
+        icon: UsersIcon,
         title: " Add Role",
       },
       {
         href: "/role",
-        icon: ShoppingBagIcon,
+        icon: UsersIcon,
         title: "Role List",
       },
     ],
@@ -75,100 +94,100 @@ const items = [
     items: [
       {
         href: "/user/add",
-        icon: ShoppingBagIcon,
+        icon: UsersIcon,
         title: "Add User",
       },
       {
         href: "/user",
-        icon: ShoppingBagIcon,
+        icon: UsersIcon,
         title: "User List",
       },
     ],
   },
   {
     href: "/career",
-    icon: UsersIcon,
+    icon: WorkIcon,
     title: "Career",
     items: [
       {
         href: "/career/add",
-        icon: ShoppingBagIcon,
+        icon: WorkIcon,
         title: "Add Career",
       },
       {
         href: "/career",
-        icon: ShoppingBagIcon,
+        icon: WorkIcon,
         title: "Career List",
       },
       {
         href: "/career/applied",
-        icon: ShoppingBagIcon,
+        icon: WorkIcon,
         title: "Job Application List ",
       },
     ],
   },
   {
     href: "/blog",
-    icon: UsersIcon,
+    icon: FilesIcon,
     title: "Blog",
     items: [
       {
         href: "/blog/add",
-        icon: ShoppingBagIcon,
+        icon: FilesIcon,
         title: "Add Blog",
       },
       {
         href: "/blog",
-        icon: ShoppingBagIcon,
+        icon: FilesIcon,
         title: "Blog List",
       },
     ],
   },
   {
     href: "/slider",
-    icon: UsersIcon,
+    icon: SliderIcon,
     title: "Slider",
     items: [
       {
         href: "/slider/add",
-        icon: ShoppingBagIcon,
+        icon: SliderIcon,
         title: "Add Slider",
       },
       {
         href: "/slider",
-        icon: ShoppingBagIcon,
+        icon: SliderIcon,
         title: "Slider List",
       },
     ],
   },
   {
     href: "/contactus",
-    icon: UserIcon,
+    icon: PhoneIcon,
     title: "Contact Us",
   },
   {
     href: "/site-visit",
-    icon: UserIcon,
+    icon: NavIcon,
     title: "Site Visit",
   },
   {
     href: "/enquiry",
-    icon: UserIcon,
+    icon: MessageIcon,
     title: "Enquirys",
   },
   {
     href: "/callback",
-    icon: UserIcon,
+    icon: CallbackIcon,
     title: "Callback",
   },
   {
     href: "/review",
-    icon: UserIcon,
+    icon: StarIcon,
     title: "Review",
   },
   {
     href: "/booking",
-    icon: UserIcon,
+    icon: CalendarIcon,
     title: "Bookings",
   },
   {
@@ -178,17 +197,17 @@ const items = [
   },
   {
     href: "/property",
-    icon: UsersIcon,
+    icon: HomeIcon,
     title: "Property",
     items: [
       {
         href: "/property/add",
-        icon: ShoppingBagIcon,
+        icon: HomeIcon,
         title: "Add Property",
       },
       {
         href: "/property",
-        icon: ShoppingBagIcon,
+        icon: HomeIcon,
         title: "Property List",
       },
     ],
@@ -239,44 +258,44 @@ const items = [
   },
   {
     href: "/service",
-    icon: UsersIcon,
+    icon: SettingIcon,
     title: "Service",
     items: [
       {
         href: "/service/add",
-        icon: ShoppingBagIcon,
+        icon: SettingIcon,
         title: "Add Service",
       },
       {
         href: "/service",
-        icon: ShoppingBagIcon,
+        icon: SettingIcon,
         title: "Service List",
       },
       {
         href: "/serviceItem/add",
-        icon: ShoppingBagIcon,
+        icon: SettingIcon,
         title: "Add Service Item",
       },
       {
         href: "/serviceItem",
-        icon: ShoppingBagIcon,
+        icon: SettingIcon,
         title: "Service Item List",
       },
     ],
   },
   {
     href: "/building",
-    icon: UsersIcon,
+    icon: HomeIcon,
     title: "Building",
     items: [
       {
         href: "/building/add",
-        icon: ShoppingBagIcon,
+        icon: HomeIcon,
         title: "Add Building",
       },
       {
         href: "/building",
-        icon: ShoppingBagIcon,
+        icon: HomeIcon,
         title: "Building List",
       },
     ],
@@ -300,137 +319,152 @@ const items = [
   },
   {
     href: "/address",
-    icon: UserIcon,
+    icon: PhoneIcon,
     title: "Site Address",
   },
   {
     href: "/social",
-    icon: UserIcon,
+    icon: FbIcon,
     title: "Social Media",
   },
   {
     href: "/feedback",
-    icon: UsersIcon,
+    icon: FeedbackIcon,
     title: "Feedback",
     items: [
       {
         href: "/feedback/add",
-        icon: ShoppingBagIcon,
+        icon: FeedbackIcon,
         title: " Add Feedback",
       },
       {
         href: "/feedback",
-        icon: ShoppingBagIcon,
+        icon: FeedbackIcon,
         title: "Feedback List",
       },
     ],
   },
   {
     href: "/director",
-    icon: UsersIcon,
+    icon: UserIcon,
     title: "Director",
     items: [
       {
         href: "/director/add",
-        icon: ShoppingBagIcon,
+        icon: UserIcon,
         title: "Add Director",
       },
       {
         href: "/director",
-        icon: ShoppingBagIcon,
+        icon: UserIcon,
         title: "Director List",
       },
     ],
   },
   {
     href: "/construction",
-    icon: UsersIcon,
+    icon: ToolIcon,
     title: "Construction Process",
     items: [
       {
         href: "/construction/add",
-        icon: ShoppingBagIcon,
+        icon: ToolIcon,
         title: "Add Construction Process",
       },
       {
         href: "/construction",
-        icon: ShoppingBagIcon,
+        icon: ToolIcon,
         title: "Construction Process List",
       },
     ],
   },
   {
     href: "/investwithus",
-    icon: UsersIcon,
+    icon: InvestIcon,
     title: "Invest With Us",
     items: [
       {
         href: "/investwithus/add",
-        icon: ShoppingBagIcon,
+        icon: InvestIcon,
         title: "Add Invest With Us",
       },
       {
         href: "/investwithus",
-        icon: ShoppingBagIcon,
+        icon: InvestIcon,
         title: "Invest With Us List",
       },
     ],
   },
-
   {
     href: "/newsletter",
-    icon: UserIcon,
+    icon: FilesIcon,
     title: "News letters",
   },
   {
     href: "/aboutpage",
-    icon: UsersIcon,
+    icon: AboutIcon,
     title: "About page",
     items: [
       {
         href: "/aboutpage/add",
-        icon: ShoppingBagIcon,
+        icon: AboutIcon,
         title: "Add About page",
       },
       {
         href: "/aboutpage",
-        icon: ShoppingBagIcon,
+        icon: AboutIcon,
         title: "About page List",
       },
     ],
   },
   {
     href: "/finance",
-    icon: UsersIcon,
+    icon: InvestIcon,
     title: "Finance",
     items: [
       {
         href: "/finance/add",
-        icon: ShoppingBagIcon,
+        icon: InvestIcon,
         title: "Add Finance",
       },
       {
         href: "/finance",
-        icon: ShoppingBagIcon,
+        icon: InvestIcon,
         title: "Finance List",
       },
     ],
   },
-
   {
     href: "/cms",
-    icon: UsersIcon,
+    icon: CMSIcon,
     title: "CMS",
     items: [
       {
         href: "/cms/add",
-        icon: ShoppingBagIcon,
+        icon: CMSIcon,
         title: "Add CMS",
       },
       {
         href: "/cms",
-        icon: ShoppingBagIcon,
+        icon: CMSIcon,
         title: "CMS List",
+      },
+    ],
+  },
+  {
+    href: "/supplier",
+    icon: SupplierIcon,
+    title: "Supplier",
+    items: [
+      {
+        href: "/supplier/add",
+        icon: SupplierIcon,
+        title: "Add Supplier",
+      },
+      {
+        href: "/supplier",
+        icon: SupplierIcon,
+        title: "Supplier List",
       },
     ],
   },

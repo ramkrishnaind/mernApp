@@ -1,6 +1,7 @@
 module.exports = {
     forgotPasswordFunction: require('./Authentication/forgotPassword'),
     loginFunction: require('./Authentication/login'),
+    mobileLoginFunction: require('./Authentication/mobileLogin'),
     verificationFunction: require('./Authentication/verification'),
     setNewPasswordFunction: require('./Authentication/setNewPassword'),
     reSetPasswordHelper: require('./Authentication/reSetPassword'),
@@ -114,4 +115,15 @@ module.exports = {
     ////////////////////////
     createOTP: require('./OtpModule/createOTP'),
     verifyOTP: require('./OtpModule/verifyOTP'),
+    ////////////////////
+    ///// Supplier ////
+    ////////////////////
+    createSupplier: require('./SupplierModule/createSupplierModule'),
+    getSupplierList: require('./SupplierModule/getSupplierListModule'),
+    getSupplierDetail: require('./SupplierModule/getSupplierModule'),
+    updateSupplier: require('./SupplierModule/updateSupplierModule'),
+    updateSupplierStatus: require('./SupplierModule/updateSupplierStatusModule'),
+    //getSupplier: require('./SupplierModule/getSupplierModule'),
+    deleteSupplier: require('./SupplierModule/deleteSupplierModule'),
+
 }

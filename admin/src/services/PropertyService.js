@@ -625,7 +625,7 @@ export const PropertyDataService = async (dispatch, data) => {
     dispatch(PropertyAction.PropertyDataError(error));
     dispatch(
       Snackbar.showFailSnackbar(
-        error.response.data?.error?.error?.details[0]?.message
+        error.response?.data?.error?.error?.details[0]?.message
       )
     );
   }

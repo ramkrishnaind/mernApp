@@ -7,6 +7,7 @@ const createTokenFunction = require('../../../Helper/createUniqueToken');
 const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const { nanoid } = require('nanoid');
+const sendSupplierMailHelper = require('../../../Helper/sendSupplierMailHelper');
 
 const createCareerSchema = Joi.object({
     degination: Joi.string().trim().required(),
@@ -117,7 +118,7 @@ function getAllCareerHelper(Models) {
     async function getAllCareer(req, res) {
         try {
             // Getting all Careers from Database
-            let findData = await Models.CareerDB.find();
+            let findData = await Models.CareerDB.find().sort({ _id: -1 });
             if (findData.length) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Careers List", data: findData });
@@ -144,7 +145,7 @@ function getCareerHelper(Models) {
 
 
             // Getting Career from Database
-            let findData = await Models.CareerDB.findOne({ _id: req.body._id });
+            let findData = await Models.CareerDB.findOne({ _id: req.body._id }).sort({ _id: -1 });
             console.log('findData is', findData)
             if (findData) {
                 // if data found check verified or not
@@ -230,6 +231,7 @@ function applyForJob(Models) {
             jobFormData.resume = req.files;
             let saveJob = await new Models.JobApplicationDB(jobFormData).save();
             saveJob = saveJob.toObject();
+            await sendJobApplicationToMail(saveJob, Models);
             res.send({ status: true, message: "Applied successfully.!" });
         }
         catch (e) {
@@ -269,7 +271,7 @@ function getAllApplication(Models) {
     async function getAllData(req, res) {
         try {
             // Getting all Careers from Database
-            let findData = await Models.JobApplicationDB.find();
+            let findData = await Models.JobApplicationDB.find().populate('careerID').sort({ _id: -1 });
             if (findData.length) {
                 // if data found check verified or not
                 res.send({ status: true, message: "Application List", data: findData });
@@ -285,6 +287,35 @@ function getAllApplication(Models) {
         }
     }
     return getAllData;
+}
+async function sendJobApplicationToMail(data, Models) {
+    try {
+        let filePath = path.join(__dirname, '/../../../Template/jobApplication.html');
+        let careerData = await Models.CareerDB.findOne({ _id: data.careerID }).lean();
+        let replacements = {
+            name: `${_.capitalize(data.firstName)}` +' '+ `${_.capitalize(data.lastName)}`,
+            qualification: `${_.capitalize(data.qualification)}`,
+            appliedFor: careerData.degination,
+            mobile: data.mobile,
+            email: data.email,
+            message: data.message
+        }
+        console.log('careerData is ', careerData)
+        let attachments = [];
+        let apiUrl = 'https://api.vishalconstructioncompany.com/'
+        for (let x = 0; x < data.resume.length; x++){
+            let item = data.resume[x]
+            let obj = {};
+            obj.path = apiUrl + item.path ;
+            attachments. push(obj);
+        }
+        //let info = await prepareTemplateAndMailHelper({ filePath, replacements, to: data.email, subject: "New Supplier Request For VCC" });
+        let info = await sendSupplierMailHelper({ filePath, replacements, to: "info@vishalconstructioncompany.com", subject: "New Job Application for VCC", attachments, from: data.email });
+        return info;
+    }
+    catch (e) {
+        console.log('error', e);
+    }
 }
 
 module.exports = {

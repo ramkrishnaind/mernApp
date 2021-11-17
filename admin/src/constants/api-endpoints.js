@@ -66,8 +66,8 @@ const API_ENDPOINTS = {
   ROLE_DATA_ENDPOINT: "role/userRoleDetails",
 
   //BOOKING module
-  BOOKING_LIST_ENDPOINT: "menuModule/getAllMenuList",
-  BOOKING_STATUS_UPDATE_ENDPOINT: "menuModule/updateMenuStatus",
+  BOOKING_LIST_ENDPOINT: "booking/getBookingList",
+  BOOKING_STATUS_UPDATE_ENDPOINT: "booking/updateBookingStatus",
 
   //Site visit
   SITEVISIT_LIST_ENDPOINT: "sitevisit/getSiteVisitRequest",
@@ -221,6 +221,15 @@ const API_ENDPOINTS = {
   CMS_UPDATE_ENDPOINT: "cms/updateCMS",
   CMS_DELETE_ENDPOINT: "cms/deleteCMS",
   CMS_DATA_ENDPOINT: "cms/getCMSDetail",
+
+  // SUPPLIER module
+
+  SUPPLIER_LIST_ENDPOINT: "supplier/getSupplierList",
+  SUPPLIER_ADD_ENDPOINT: "supplier/createSupplier",
+  SUPPLIER_STATUS_UPDATE_ENDPOINT: "supplier/updateSupplierStatus",
+  SUPPLIER_UPDATE_ENDPOINT: "supplier/updateSupplier",
+  SUPPLIER_DELETE_ENDPOINT: "supplier/deleteSupplier",
+  SUPPLIER_DATA_ENDPOINT: "supplier/getSupplierDetail",
 };
 
 export default API_ENDPOINTS;

@@ -11,7 +11,7 @@ function getFeedbackForHomeModule(Models) {
         try {
             let query = {};
             query = { status: true };
-            let findData = await Models.FeedbackDB.find(query).sort({ updated: -1 }).populate("propertyId");
+            let findData = await Models.FeedbackDB.find(query).sort({ _id: -1 }).populate("propertyId");
             if (findData.length) {
                 res.send({ status: true, message: "Client Feedbacks", data: findData });
             } else {

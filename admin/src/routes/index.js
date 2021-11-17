@@ -69,6 +69,8 @@ import AddFinance from "../pages/financeManagement/add";
 
 import CmsList from "../pages/cmsManagement";
 import AddCms from "../pages/cmsManagement/add";
+import SupplierList from "../pages/supplierManagement";
+import AddSupplier from "../pages/supplierManagement/add";
 
 const Routes = (props) => {
   const { isAuth } = props;
@@ -322,6 +324,14 @@ const Routes = (props) => {
         {
           path: "/cms/add",
           element: isAuth ? <AddCms /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/supplier/add",
+          element: isAuth ? <AddSupplier /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/supplier",
+          element: isAuth ? <SupplierList /> : <Navigate to="/login" />,
         },
         {
           path: "404",

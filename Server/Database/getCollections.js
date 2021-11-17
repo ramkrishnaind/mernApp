@@ -40,6 +40,7 @@ module.exports = function (mongoose) {
     const FinanceDB = mongoose.model('finance');
     const WishListDB = mongoose.model('wishList');
     const OtpDB = mongoose.model('otp');
+    const SupplierDB = mongoose.model('supplier');
     return {
         UserDB,
         AuthTokenDB,
@@ -78,6 +79,7 @@ module.exports = function (mongoose) {
         AboutPageDB,
         FinanceDB,
         WishListDB,
-        OtpDB
+        OtpDB,
+        SupplierDB
     }
 }

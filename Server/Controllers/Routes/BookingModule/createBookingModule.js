@@ -15,6 +15,7 @@ const moduleSchema = Joi.object({
     city: Joi.string().required(),
     pinCode: Joi.number().required(),
     bookingAmount: Joi.number().required(),
+    flatNumber: Joi.string().required(),
     userId: Joi.objectId().trim().required(),
     tandc: Joi.boolean().required().allow(true),
 });
@@ -31,7 +32,7 @@ function createBookingRequest(Models) {
 
             // pick data from req.body
 
-            let bodyData = _.pick(req.body, ["propertyId", "userId", "name", "email", "mobile", "panCard", "country", "state", "city", "pinCode", "bookingAmount"]);
+            let bodyData = _.pick(req.body, ["propertyId", "userId", "name", "email", "mobile", "panCard", "country", "state", "city", "pinCode","flatNumber", "bookingAmount"]);
 
             let saveModule = await new Models.BookingDB(bodyData).save();
             console.log('saveModule is', saveModule)

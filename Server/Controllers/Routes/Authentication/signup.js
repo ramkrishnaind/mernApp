@@ -79,7 +79,7 @@ function signUpHelper(Models) {
             // now send mail 
             prepareTemplateSendMail(saveUser);
             let authenticationLink = `${process.env.SERVER_URL || process.env.APP_URL}/verification?token=${saveUser.verificationToken}`;
-            res.send({ status: true, tempAuthenticationLink: authenticationLink, message: "Verification mail has been sent to your registered email", mailSent: true });
+            res.send({ status: true, message: "Verification mail has been sent to your registered email", mailSent: true });
         }
         catch (e) {
             console.log('signUpHelper err', e);

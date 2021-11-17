@@ -10,7 +10,7 @@ function getFinanceData(Models) {
     async function List(req, res) {
         try {
             let query = { active: true };
-            let findData = await Models.FinanceDB.find(query);
+            let findData = await Models.FinanceDB.find(query).sort({ _id: -1 });
 
             res.send({ status: true, message: "", data: findData });
         }

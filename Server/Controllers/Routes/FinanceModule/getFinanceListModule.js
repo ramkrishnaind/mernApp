@@ -9,7 +9,7 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 function getFinanceData(Models) {
     async function List(req, res) {
         try {
-            let findData = await Models.FinanceDB.find().sort({ createdAt: -1 });
+            let findData = await Models.FinanceDB.find().sort({ _id: -1 });
 
             res.send({ status: true, message: "", data: findData });
         }

@@ -85,9 +85,9 @@ const PropertyCreateUpdate = (props) => {
     Built_up_Area: {
       size: propertyData?.builtUpArea || "",
     },
-    available_from_month: propertyData?.availableFromMonth || "",
-    available_from_year: propertyData?.availableFromYear || "",
-    gaurdRoom: propertyData?.gaurdRoom || "",
+    available_from_month: propertyData?.availableFromMonth || "1",
+    available_from_year: propertyData?.availableFromYear || "2021",
+    gaurdRoom: propertyData?.gaurdRoom || "true",
     id: id || " ",
     status: true || "",
     Transaction_Type: propertyData?.transactionType || "",
@@ -102,10 +102,10 @@ const PropertyCreateUpdate = (props) => {
     maintenance_charges: propertyData?.price?.maintenanceCharge || "",
     maintenance_charges_per: propertyData?.price?.maintenanceFor || "",
     brokerage: propertyData?.price?.brokerage || "",
-    build_year: propertyData?.buildYear || "",
+    build_year: propertyData?.buildYear || "2005",
 
-    Visitor_Room: propertyData?.vistorRoom || "",
-    Conference_Room: propertyData?.conferenceRoom || "",
+    Visitor_Room: propertyData?.vistorRoom || "0",
+    Conference_Room: propertyData?.conferenceRoom || "0",
     // Floors_Allowed_For_Construction:
     //   propertyData?.floorsAllowedForConstruction || "",
     // No_Of_Open_Sides: propertyData?.noOfOpenSides || null,
@@ -118,24 +118,24 @@ const PropertyCreateUpdate = (props) => {
     // response_from_brokers: propertyData?.responseFromBrokers || null,
 
     Personal_Washroom: propertyData?.personalWashroom || false,
-    No_Of_Seats: propertyData?.noOfSeats || "",
-    Meeting_Rooms: propertyData?.meetingRooms || "",
+    No_Of_Seats: propertyData?.noOfSeats || "0",
+    Meeting_Rooms: propertyData?.meetingRooms || "0",
     Pantry: propertyData?.Pantry || false,
   };
 
   const imageState = {
-    exteriorView: [],
-    livingRoom: [],
-    badrooms: [],
-    bathrooms: [],
-    kitchen: [],
-    floorPlan: [],
-    masterPlan: [],
-    locationMap: [],
-    other: [],
-    roomImage: [],
-    conference: [],
-    visitor: [],
+    exteriorView: propertyData?.images?.exteriorView || [],
+    livingRoom: propertyData?.images?.livingRoom || [],
+    badrooms: propertyData?.images?.badrooms || [],
+    bathrooms: propertyData?.images?.bathrooms || [],
+    kitchen: propertyData?.images?.kitchen || [],
+    floorPlan: propertyData?.images?.floorPlan || [],
+    masterPlan: propertyData?.images?.masterPlan || [],
+    locationMap: propertyData?.images?.locationMap || [],
+    other: propertyData?.images?.other || [],
+    roomImage: propertyData?.images?.roomImage || [],
+    conference: propertyData?.images?.conference || [],
+    visitor: propertyData?.images?.visitor || [],
   };
   const [description, setDescription] = useState(
     propertyData?.projectDescription
@@ -221,7 +221,8 @@ const PropertyCreateUpdate = (props) => {
     });
   };
 
-  const onOptionPropertyForSelectListener = (option) => {
+  const onOptionPropertyForSelectListener = (event) => {
+    let option = event.target.value;
     const clonePropertyTypeOptions = _.cloneDeep(propertyTypeOptions);
     if (option === "Sell") {
       clonePropertyTypeOptions.splice(1, 1);
@@ -231,15 +232,6 @@ const PropertyCreateUpdate = (props) => {
     setPropertyOptions(clonePropertyTypeOptions[0]);
 
     setState({ ...state, ["for"]: option });
-  };
-
-  const onOptionSelectListener = (option) => {
-    if (option === "Owner") {
-      setIsOwner(true);
-    } else {
-      setIsOwner(false);
-    }
-    setState({ ...state, ["iAm"]: option });
   };
 
   const onFeatureSelect = (feature) => {
@@ -1262,14 +1254,44 @@ const PropertyCreateUpdate = (props) => {
                 <Grid item xs={12} sm={6} md={4}>
                   <FieldsContainer label="Personal Details">
                     <Grid container>
-                      <Grid item xs={12} md={12}>
+                      {/* <Grid item xs={12} md={12}>
                         <Detail
                           title="I am"
                           options={personal_details_options}
                           onOptionSelectListener={onOptionSelectListener}
                           values={state.iAm}
                         />
+                      </Grid> */}
+
+                      <Grid item xs={12} md={12}>
+                        <Typography>I am</Typography>
+                        <Select
+                          native
+                          variant="outlined"
+                          value={state["iAm"]}
+                          onChange={handleChange}
+                          inputProps={{
+                            name: "iAm",
+                            id: "iAm",
+                          }}
+                          style={{
+                            height: 48,
+                            marginRight: 5,
+                            maxHeight: 200,
+                            width: "100%",
+                          }}
+                        >
+                          {personal_details_options?.length > 0 &&
+                            personal_details_options?.map((item, index) => {
+                              return (
+                                <option key={index} value={item}>
+                                  {item}
+                                </option>
+                              );
+                            })}
+                        </Select>
                       </Grid>
+
                       {/* {isOwner && (
                         <Grid item xs={12} md={12}>
                           {_renderOwnerBlock()}
@@ -1277,6 +1299,34 @@ const PropertyCreateUpdate = (props) => {
                       )} */}
 
                       <Grid item xs={12} md={12}>
+                        <Typography>For</Typography>
+                        <Select
+                          native
+                          variant="outlined"
+                          value={state["for"]}
+                          onChange={onOptionPropertyForSelectListener}
+                          inputProps={{
+                            name: "for",
+                            id: "for",
+                          }}
+                          style={{
+                            height: 48,
+                            marginRight: 5,
+                            maxHeight: 200,
+                            width: "100%",
+                          }}
+                        >
+                          {property_details_options?.length > 0 &&
+                            property_details_options?.map((item, index) => {
+                              return (
+                                <option key={index} value={item}>
+                                  {item}
+                                </option>
+                              );
+                            })}
+                        </Select>
+                      </Grid>
+                      {/* <Grid item xs={12} md={12}>
                         <Detail
                           title="For"
                           options={property_details_options}
@@ -1285,8 +1335,9 @@ const PropertyCreateUpdate = (props) => {
                             onOptionPropertyForSelectListener
                           }
                         />
-                      </Grid>
+                      </Grid> */}
                       <Grid item xs={12} md={12}>
+                        <Typography>Property Type</Typography>
                         <Select
                           native
                           variant="outlined"

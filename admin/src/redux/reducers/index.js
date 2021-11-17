@@ -35,6 +35,7 @@ import Newsletter from "./NewsletterReducer";
 import Aboutpage from "./aboutpageReducer";
 import Finance from "./financeReducer";
 import Cms from "./cmsReducer";
+import Supplier from "./supplierReducer";
 
 const reducers = {
   Login: LoginReducer,
@@ -74,6 +75,7 @@ const reducers = {
   aboutpage: Aboutpage,
   finance: Finance,
   cms: Cms,
+  supplier: Supplier,
 };
 
 export default reducers;

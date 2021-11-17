@@ -15,8 +15,8 @@ function getAboutPageData(Models) {
             if (validateData.error) {
                 throw { status: false, error: validateData, message: "Invalid data" };
             }
-            let findData = await Models.AboutPageDB.find({ _id: req.body._id });
-            findData.image = findData.image[0];
+            let findData = await Models.AboutPageDB.findOne({ _id: req.body._id });
+            //findData.image = findData.image[0];
 
             res.send({ status: true, message: "", data: findData });
         }

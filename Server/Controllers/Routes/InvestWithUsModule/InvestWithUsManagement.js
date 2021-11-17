@@ -116,7 +116,7 @@ function getAllInvestWithUsHelper(Models) {
     async function getAllInvestWithUs(req, res) {
         try {
             // Getting all InvestWithUss from Database
-            let findData = await Models.InvestWithUsDB.find();
+            let findData = await Models.InvestWithUsDB.find().sort({ _id: -1 });
             if (findData.length) {
                 // if data found check verified or not
                 res.send({ status: true, message: "InvestWithUss List", data: findData });

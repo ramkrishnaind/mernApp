@@ -22,7 +22,8 @@ function getSearchPropertyList(Models) {
             }
 
             // pick data from req.body
-
+            let LoginUser, myFavorite = [], allProperties = [];
+            LoginUser = req.locals ? req.locals.user.userId._id : '';
             let bodyData = _.pick(req.body, ["type", "keyword", "pType", "minAmount", "maxAmount"]);
             let Obj = [{ for: bodyData.type }]
             if (bodyData.pType != "")
@@ -55,11 +56,51 @@ function getSearchPropertyList(Models) {
                         foreignField: 'propertyId',
                         as: 'images'
                     }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'pprices',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'price'
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'reviews',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'review'
+                    }
                 }
             ]).sort({ updated: -1 });
+            if (LoginUser && LoginUser != '') {
+                myFavorite = await Models.WishListDB.find({ userId: LoginUser }).lean();
+            }
+            for (let x = 0; x < findData.length; x++) {
+                let item = findData[x];
+                console.log('item is', item)
+                let itemId = item._id;
+                item.isFavorite = false;
+                for (let y = 0; y < myFavorite.length; y++) {
+                    let propertyId = myFavorite[y].propertyId;
+                    console.log('propertyId is', propertyId)
+                    console.log('itemId is', itemId)
+                    if (itemId.toString() == propertyId.toString()) {
+                        console.log('in if', itemId)
+                        item.isFavorite = true;
+                    }
+                    console.log('in else item item', item)
+                }
+                //item.isFavorite = false;
+                allProperties.push(item);
+            }
+            console.log('allProperties', allProperties)
             let obj = {
                 total: findData.length,
-                list: findData
+                list: allProperties
             }
 
             res.send({ status: true, message: "Search Result", data: obj });

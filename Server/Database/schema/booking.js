@@ -46,6 +46,10 @@ const schema = new Schema({
         type: Number,
         required: true
     },
+    flatNumber: {
+        type: Number,
+        required: true
+    },
     propertyId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'property',
