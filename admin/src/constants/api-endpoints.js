@@ -230,6 +230,11 @@ const API_ENDPOINTS = {
   SUPPLIER_UPDATE_ENDPOINT: "supplier/updateSupplier",
   SUPPLIER_DELETE_ENDPOINT: "supplier/deleteSupplier",
   SUPPLIER_DATA_ENDPOINT: "supplier/getSupplierDetail",
+
+  SERVICE_INQUIRY_LIST_ENDPOINT: "services/getServicesEnquiryList",
+  SERVICE_INQUIRY_STATUS_UPDATE_ENDPOINT:
+    "services/updateServicesEnquiryStatus",
+  SERVICE_INQUIRY_DELETE_ENDPOINT: "services/deleteServicesEnquiry",
 };
 
 export default API_ENDPOINTS;
