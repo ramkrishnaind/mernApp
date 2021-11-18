@@ -292,7 +292,7 @@ function propertyDetail(Models) {
                     let propertyPrice = values[2];
                     let propertyReview = values[3];
                     let favValue = values[4];
-                    console.log('favValue is',)
+                    console.log('favValue is', favValue)
                     if (favValue) {
                         isFavorite = true;
                     }
