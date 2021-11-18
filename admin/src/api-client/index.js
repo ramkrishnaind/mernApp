@@ -68,21 +68,42 @@ export default class ApiClient {
         headers: headers,
       });
       Logger.log("Web Service Response:", response);
+      // debugger
+      // response.data={
+      //   ...response.data,
+      //   error:true,
+      //   message:"Invalid token"
+      // }
       if (response.status === 200) {
-        if (response.data != null) {
-          if (response.data?.message === "Invalid token") {
-            window.localStorage.removeItem("user");
-            history.push("/login");
-            window.location.reload();
-          }
+        if (response.data != null && !response.data.error) {
           return response.data;
-        } else {
+        } else if(response.data.error){
+          throw new Error(response.data.message);
+        }else{
           throw new Error("Something went wrong");
         }
+        //   if (response.data?.message === "Invalid token") {
+        //     window.localStorage.removeItem("user");
+        //     history.push("/login");
+        //     window.location.reload();
+        //   }
+        //   return response.data;
+        // } else {
+        //   throw new Error("Something went wrong");
+        // }
       } else {
         throw new Error("Something went wrong");
       }
     } catch (error) {
+      if(error.message==="Token exipred"||error.message==="Invalid token"){
+        localStorage.removeItem("user")
+        localStorage.removeItem("bookNow");
+        localStorage.removeItem("postProperty");
+        localStorage.removeItem("social-links");
+        localStorage.removeItem("company_detials");
+        history.replace("/login");;  
+        return;
+      }
       Logger.log("API-Error:", error);
       throw error;
     }

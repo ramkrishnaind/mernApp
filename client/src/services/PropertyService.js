@@ -5,6 +5,7 @@ import {
   GetPropertyDetailError,
   PostPropertySuccess,
   PostPropertyError,
+  RestPostPropertySuccess
 } from "../redux/actions/PropertyAction";
 import ApiClient from "../api-client";
 import API_ENDPOINTS from "../constants/api-endpoints";
@@ -42,6 +43,14 @@ export const PropertyDetailService = async (dispatch, data) => {
     dispatch(GetPropertyDetailSuccess(result));
   } catch (error) {
     dispatch(GetPropertyDetailError(error));
+  }
+};
+
+export const ResetPostPropertySuccessService = async (dispatch) => {
+  try {
+    dispatch(RestPostPropertySuccess());
+  } catch (error) {
+    dispatch(PostPropertyError(error));
   }
 };
 

@@ -31,6 +31,7 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { ResetPostPropertySuccessService } from './../../services/PropertyService';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -166,8 +167,15 @@ const PostPropertyPage = (props) => {
   const [propertyDetail, setPropertyDetail] = useState([
     { key: "", Value: "" },
   ]);
+  const {isPostSuccess}=postProperty
   const [amenities, setAmenities] = useState([{ 0: "" }]);
-
+  useEffect(()=>{
+    if(isPostSuccess)
+    {
+      submitFile();
+      dispatch(PropertyAction.RestPostPropertySuccess());
+    }
+  },[isPostSuccess])
   const isStepOptional = (step) => {
     // return step === 1;
     return false;
@@ -189,7 +197,31 @@ const PostPropertyPage = (props) => {
     else return true;
   };
   const validateStep1 = () => {
-    if (!state.pType || (state.pType && state.pType.trim().length === 0))
+    debugger
+    console.log("propertyFeatures",propertyFeatures)
+    console.log("currentAreaField",currentAreaField)
+
+    if (!state.pType || (state.pType && state.pType.trim().length === 0 )||
+    !state.hasOwnProperty("Possession Status") ||
+    !state.hasOwnProperty("Transaction Type") ||
+    !state.hasOwnProperty("booking_token_amount") ||
+    !state.hasOwnProperty("brokerage") ||
+    !state.hasOwnProperty("maintenance_charges") ||
+    !state.hasOwnProperty("other_charges") ||
+    // !state.hasOwnProperty("response_from_brokers") ||
+    !state.hasOwnProperty("maintenance_charges_per") || 
+    // !state.hasOwnProperty("price_includes_car_parking") || 
+    // !state.hasOwnProperty("price_includes_plc") || 
+    // !state.hasOwnProperty("price_includes_club_membership") ||    
+    !propertyFeatures.hasOwnProperty("Balconies") ||
+    !propertyFeatures.hasOwnProperty("Bathrooms") ||
+    !propertyFeatures.hasOwnProperty("Bedrooms") ||
+    !propertyFeatures.hasOwnProperty("Floor No") ||
+    !propertyFeatures.hasOwnProperty("Total Floors") ||
+    !propertyFeatures.hasOwnProperty("Furnished Status") ||
+    !currentAreaField.hasOwnProperty("fieldName")||
+    !currentAreaField.hasOwnProperty("fieldValue")
+    )
       return false;
     else return true;
   };
@@ -203,12 +235,13 @@ const PostPropertyPage = (props) => {
     if (activeStep === 1) {
       if (!validateStep1()) return;
       // Submit Form Detials
-      submitData();
+      // submitData();
     }
 
     if (activeStep === 2) {
+      submitData();
       // Submit Image
-      submitFile();
+      
     }
 
     let newSkipped = skipped;

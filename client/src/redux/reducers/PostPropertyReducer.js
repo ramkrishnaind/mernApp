@@ -5,6 +5,7 @@ const initialState = {
   success: false,
   error: null,
   data: null,
+  isPostSuccess: false,
 };
 
 const PostPropertyReducer = (state = initialState, action) => {
@@ -21,12 +22,19 @@ const PostPropertyReducer = (state = initialState, action) => {
         ...state,
         isRequesting: false,
         data: payload,
+        isPostSuccess: false,
       };
     case ACTION_KEYS.POST_PROPERTY_ERROR:
       return {
         ...state,
         isRequesting: false,
         error: payload.error,
+        isPostSuccess: false,
+      };
+    case ACTION_KEYS.RESET_POST_PROPERTY_SUCCESS_REQUEST:
+      return {
+        ...state,
+        isPostSuccess: false,
       };
     case ACTION_KEYS.RESET_POST_PROPERTY_RESULT:
       return {
@@ -34,7 +42,7 @@ const PostPropertyReducer = (state = initialState, action) => {
         success: false,
         error: null,
         data: null,
-      }
+      };
     default:
       return state;
   }

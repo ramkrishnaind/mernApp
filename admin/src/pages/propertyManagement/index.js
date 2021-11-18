@@ -136,7 +136,7 @@ const PropertyList = (props) => {
                   options: {
                     customBodyRender: (value, tableMeta, updateValue) => {
                       return (
-                        <>
+                        <div style={{display:"flex"}}>
                           <EditIcon
                             style={{ color: "#0069d9", cursor: "pointer" }}
                             onClick={() =>
@@ -148,6 +148,7 @@ const PropertyList = (props) => {
                             <Select
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined-label"
+                              style={{minWidth:"30px"}}                              
                               label="Role"
                               native
                               name="rating"
@@ -193,7 +194,7 @@ const PropertyList = (props) => {
                             style={{ color: "#bd2130", cursor: "pointer" }}
                             onClick={() => onDeleteClick(tableMeta.rowData[7])}
                           />
-                        </>
+                        </div>
                       );
                     },
                   },

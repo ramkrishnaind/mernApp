@@ -115,3 +115,8 @@ export const RestPostPropertyResult = () => {
         type: ACTION_KEYS.RESET_POST_PROPERTY_RESULT
     }
 }
+export const RestPostPropertySuccess = () => {
+    return {
+        type: ACTION_KEYS.RESET_POST_PROPERTY_SUCCESS_REQUEST
+    }
+}

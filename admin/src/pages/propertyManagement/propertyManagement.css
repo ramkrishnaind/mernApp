@@ -39,6 +39,27 @@
   position: absolute;
   z-index: 9999;
 }
+.dzu-dropzone{
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.dzu-dropzone .dzu-previewImage{
+  flex-basis: 80%;
+  height: 100px;
+
+}
+.pillsContainer .MuiGrid-item{
+  flex-wrap: wrap;
+}
+.pillsContainer .MuiGrid-item button{
+  margin-bottom: 10px;
+}
+.dzu-previewContainer{
+  flex-basis: 50%;
+}
 img {
   margin: 3px;
+}
+.MuiSelect-select.MuiSelect-select{
+  min-width: 65px;
 }
