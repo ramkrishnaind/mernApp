@@ -35,10 +35,28 @@ function getSearchPropertyList(Models) {
             //         { 'locality': { '$regex': bodyData.keyword, '$options': 'i' } }]
             //     })
 
+
+            let agQuery;
+            console.log('min is ', bodyData.minAmount, ' max is', bodyData.maxAmount)
+            if (bodyData.minAmount == 0 && bodyData.maxAmount == 0) {
+                console.log('i am in if')
+                agQuery = {
+                    $match: { $and: Obj },
+                }
+            } else {
+                console.log('i am in else')
+                let pPriceQuery = { expectedPrice: { $gte: bodyData.minAmount, $lte: bodyData.maxAmount } };
+                let propertyInRange = await Models.PPriceDB.find(pPriceQuery, {
+                    propertyId: 1
+                });
+                const PropertyIds = propertyInRange.map((item) => item.propertyId);
+                agQuery = {
+                    $match: { $and: Obj, _id: { $in: PropertyIds } },
+                }
+            }
+            //console.log('propertyInRange is', propertyInRange, PropertyIds)
             let findData = await Models.PropertyDB.aggregate([
-                {
-                    $match: { $and: Obj }
-                },
+                agQuery,
                 {
                     $lookup:
                     {

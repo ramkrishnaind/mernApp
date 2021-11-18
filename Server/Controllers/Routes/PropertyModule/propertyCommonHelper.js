@@ -111,7 +111,7 @@ function getAllProperty(Models) {
                     }
                 }
             ]).sort({ _id: -1 });
-            console.log('LoginUser is ',LoginUser )
+            console.log('LoginUser is ', LoginUser)
             if (LoginUser && LoginUser != '') {
                 myFavorite = await Models.WishListDB.find({ userId: LoginUser }).lean();
             }
@@ -205,7 +205,7 @@ function getHomeAllProperty(Models) {
                 allProperties.push(item);
             }
             //console.log('allProperties', allProperties)
-            
+
             let rentData = allProperties.filter(function (item) {
                 return item.for === "Rent";
             });
@@ -257,7 +257,7 @@ function propertyDetail(Models) {
     async function propertyDetailFun(req, res) {
         try {
             let LoginUser = req.locals ? req.locals.user.userId._id : '';
-            
+
             let validateData = singlePropertyModuleSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: CONSTANTSMESSAGE.INVALID_DATA };
@@ -275,13 +275,16 @@ function propertyDetail(Models) {
                 let propertyPriceResponse = await Models.PPriceDB.findOne({ propertyId: findData._id }).lean();
                 let propertyReviewResponse = await Models.ReviewDB.find({ propertyId: findData._id }).sort({ _id: -1 }).lean();
                 if (LoginUser && LoginUser != '') {
-                    let favQuery = { $and: [
-                    {'userId': LoginUser},
-                    {'propertyId': findData._id}
-                ]};
+                    let favQuery = {
+                        $and: [
+                            { 'userId': LoginUser },
+                            { 'propertyId': findData._id }
+                        ]
+                    };
                     isFavoriteData = await Models.WishListDB.find(favQuery).lean();
                 }
-                property = await Promise.all([propertyFeaturesResponse, propertyImagesResponse, propertyPriceResponse, propertyReviewResponse, isFavorite]).then(values => {
+
+                property = await Promise.all([propertyFeaturesResponse, propertyImagesResponse, propertyPriceResponse, propertyReviewResponse, isFavoriteData]).then(values => {
                     console.log(values);
                     let result = {};
                     let propertyFeatures = values[0];
@@ -289,7 +292,8 @@ function propertyDetail(Models) {
                     let propertyPrice = values[2];
                     let propertyReview = values[3];
                     let favValue = values[4];
-                    if(favValue){
+                    console.log('favValue is',)
+                    if (favValue) {
                         isFavorite = true;
                     }
 
