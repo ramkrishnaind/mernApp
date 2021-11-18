@@ -71,6 +71,7 @@ import CmsList from "../pages/cmsManagement";
 import AddCms from "../pages/cmsManagement/add";
 import SupplierList from "../pages/supplierManagement";
 import AddSupplier from "../pages/supplierManagement/add";
+import ServiceInquiryList from "../pages/serviceInquiryManagement";
 
 const Routes = (props) => {
   const { isAuth } = props;
@@ -332,6 +333,10 @@ const Routes = (props) => {
         {
           path: "/supplier",
           element: isAuth ? <SupplierList /> : <Navigate to="/login" />,
+        },
+        {
+          path: "/serviceInquiry",
+          element: isAuth ? <ServiceInquiryList /> : <Navigate to="/login" />,
         },
         {
           path: "404",

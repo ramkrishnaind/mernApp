@@ -5,6 +5,7 @@ const API_ENDPOINTS = {
   FORGOT_PASSWORD_ENDPOINT: "/users/forgotPassword",
   NEW_PASSWORD_ENDPOINT: "/users/setNewPassword",
   LOGIN_ENDPOINT: "/users/login",
+  LOGIN_MOBILE_ENDPOINT: "/users/mobileLogin",
   REGISTER_ENDPOINT: "/users/signup",
   POST_PROPERTY_ENDPOINT: '/post-property',
   CONTACTUS_ENDPOINT: "/contactus/createContactUs",

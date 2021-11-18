@@ -171,7 +171,7 @@ const styles = (theme) => ({
   },
   formButtons: {
     width: "100%",
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(2),
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -266,8 +266,8 @@ const Login = (props) => {
                 type="password"
                 fullWidth
               />
-              <Grid container>
-                <Grid item xs>
+              <Grid container  style={{justifyContent:"center"}}>
+                {/* <Grid item xs>
                   <Grid item xs>
                     <Checkbox
                       className={classes.checkbox}
@@ -282,7 +282,7 @@ const Login = (props) => {
                       Keep me signed in
                     </Link>
                   </Grid>
-                </Grid>
+                </Grid> */}
                 <Grid item>
                   <Link component={RouterLink} to="/forgot">Forget password?</Link>
                 </Grid>
