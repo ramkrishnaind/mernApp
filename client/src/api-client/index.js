@@ -97,10 +97,10 @@ export default class ApiClient {
     } catch (error) {
       if(error.message==="Token exipred"||error.message==="Invalid token"){
         localStorage.removeItem("user")
-        localStorage.removeItem("bookNow");
-        localStorage.removeItem("postProperty");
-        localStorage.removeItem("social-links");
-        localStorage.removeItem("company_detials");
+        // localStorage.removeItem("bookNow");
+        // localStorage.removeItem("postProperty");
+        // localStorage.removeItem("social-links");
+        // localStorage.removeItem("company_detials");
         window.location.href = "/";  
         return;
       }
