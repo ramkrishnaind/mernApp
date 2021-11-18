@@ -293,7 +293,7 @@ function propertyDetail(Models) {
                     let propertyReview = values[3];
                     let favValue = values[4];
                     console.log('favValue is', favValue)
-                    if (favValue) {
+                    if (favValue.length) {
                         isFavorite = true;
                     }
 
