@@ -18,12 +18,12 @@ import saleOption15 from "../../../utils/forms/sale-commercial/option8-sale-com-
 class PropertyOptionManager {
   static getFormFieldsBySelectedPropertyType(propertyTypeId = 0) {
     let option;
-    const id = parseInt(propertyTypeId);
+    const id = propertyTypeId;
     switch (id) {
-      case 1:
+      case "RESIDENTIAL":
         option = saleOption1;
         break;
-      case 2:
+      case "COMMERCIAL":
         option = saleOption2;
         break;
       case 3:

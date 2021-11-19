@@ -13,23 +13,23 @@
                     "initial_counts": [1,2,3,4,5,"5+"],
                     "more_counts": [6,7,8,9,10, ">10"],
                     "showMore": true,
-                    "fieldName": "bedrooms"
+                    "fieldName": "Bedrooms"
                 },
                 {
                     "type": "option",
                     "label": "Balconies",
-                    "initial_counts": [0,1,2,3,"3+"],
+                    "initial_counts": [-1,1,2,3,"3+"],
                     "more_counts": [4,5,6,7,8,9,10, ">10"],
                     "showMore": true,
-                    "fieldName": "balconies"
+                    "fieldName": "Balconies"
                 },
                 {
                     "type": "option",
                     "label": "Floor No.",
-                    "initial_counts": ["Lower Basement","Upper Basement","Ground",1,2,3,4,5,"5+"],
+                    "initial_counts": [-2,-1,1,2,3,4,5,"5+"],
                     "more_counts": [6,7,8,9,10, 11,12],
                     "showMore": true,
-                    "fieldName": "floor_no"
+                    "fieldName": "Floor_No_"
                 },
                 {
                     "type": "option",
@@ -37,14 +37,15 @@
                     "initial_counts": [1,2,3,4,5,6,7,8,9,10,11,12,13,"13+"],
                     "more_counts": [14,15,16,17,18,19,20],
                     "showMore": true,
-                    "fieldName": "total_floors"
+                    "fieldName": "Total_Floors"
                 },
                 {
                     "type": "option",
                     "label": "Furnished Status",
-                    "initial_counts": ["Furnished", "Unfurnished", "Semi-Furnished"],
-                    "showMore": false,
-                    "fieldName": "furnished_status"
+                    "initial_counts": ["Furnished", "Unfrnised", "more+"],
+                    "more_counts": ["Semi-Furnished"],
+                    "showMore": true,
+                    "fieldName": "Furnished_Status"
                 },
                 {
                     "type": "option",
@@ -52,8 +53,9 @@
                     "initial_counts": [1,2,3,"3+"],
                     "more_counts": [4,5,6,7,8,9,10, ">10"],
                     "showMore": true,
-                    "fieldName": "bathrooms"
+                    "fieldName": "Bathrooms"
                 }
+                            
             ]
         },
         {
@@ -66,7 +68,7 @@
                     "placeholder": "Super Area",
                     "defalut_unit": "Sq-ft",
                     "units": ["Sq-Yrd", "Sq-m", "Acre", "Bigha", "Hectare", "Marla", "Kanal", "Biswa1", "Biswa2", "Ground", "Aankadam", "Rood", "Chatak", "Kottah", "Cent"],
-                    "fieldName": "super_area"
+                    "fieldName": "Super_Area"
                 },
                 {
                     "type": "textfield",
@@ -74,7 +76,7 @@
                     "placeholder": "Built-up Area",
                     "defalut_unit": "Sq-ft",
                     "units": ["Sq-Yrd", "Sq-m", "Acre", "Bigha", "Hectare", "Marla", "Kanal", "Biswa1", "Biswa2", "Ground", "Aankadam", "Rood", "Chatak", "Kottah", "Cent"],
-                    "fieldName": "built_up_area"
+                    "fieldName": "Built_up_Area"
                 },
                 {
                     "type": "textfield",
@@ -82,7 +84,7 @@
                     "placeholder": "Carpet Area",
                     "defalut_unit": "Sq-ft",
                     "units": ["Sq-Yrd", "Sq-m", "Acre", "Bigha", "Hectare", "Marla", "Kanal", "Biswa1", "Biswa2", "Ground", "Aankadam", "Rood", "Chatak", "Kottah", "Cent"],
-                    "fieldName": "carpet_area"
+                    "fieldName": "Carpet_Area"
                 }
             ]
         },
@@ -91,16 +93,22 @@
             "section_id": "transaction",
             "fields": [
                 {
+                    "label": "Property Tag",
+                    "type": "radio",
+                    "values": ["New", "Most Selling","Featured"],
+                    "fieldName": "Property_Tag"
+                },
+                {
                     "label": "Transaction Type",
                     "type": "radio",
-                    "values": ["New Property", "ReSell"],
-                    "fieldName": "transaction_type"
+                    "values": ["New Property", "ReSell","Rent"],
+                    "fieldName": "Transaction_Type"
                 },
                 {
                     "label": "Possession Status",
                     "type": "radio",
-                    "values": ["Under Construction", "Ready to move"],
-                    "fieldName": "possession_status"
+                    "values": ["Under Construction", "Ready to Move","Sold Out"],
+                    "fieldName": "Possession_Status"
                 },
                 {
                     "type": "dropdown",
@@ -116,7 +124,18 @@
                             "fieldName": "available_from_year"
                         }
                     ]
-                }
+                },
+                {
+                    "type": "dropdown",
+                    "label": "Build Year",
+                    "fieldName": "build_year",
+                    "data": [
+                        {
+                            "values": ["2005", "2006", "2007", "2008", "2009", "2010","2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020","2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031"],
+                            "fieldName": "build_year"
+                        }
+                    ]
+                }               
             ]
         },
         {
@@ -135,28 +154,6 @@
                             "placeholder": "",
                             "label": "Price Per Sq-ft:",
                             "fieldName": "expected_price_per_sq_ft"
-                        }
-                    ]
-                },
-                {
-                    "type": "checkbox",
-                    "label": "Price Includes",
-                    "fieldName": "price_includes",
-                    "fields": [
-                        {
-                            "label": "PLC",
-                            "value": "plc",
-                            "fieldName": "price_includes_plc"
-                        },
-                        {
-                            "label": "Car Parking",
-                            "value": "car parking",
-                            "fieldName": "price_includes_car_parking"
-                        },
-                        {
-                            "label": "Club Membership",
-                            "value": "club membership",
-                            "fieldName": "price_includes_club_membership"
                         }
                     ]
                 },
@@ -186,7 +183,7 @@
                         },
                         {
                             "type": "dropdown",
-                            "label": "Per",
+                            "label": "",
                             "values": ["Monthly", "Quarterly", "Yearly", "One-Time", "Per Sq. Unit Monthly"],
                             "fieldName": "maintenance_charges_per"
                         }
@@ -194,20 +191,9 @@
                 },
                 {
                     "type": "dropdown",
-                    "label": "Brokerage (Brokers only)",
-                    "values": ["Select Brokerage", "No Brokerage", "0.25%", "0.5%", "0.75%", "1%", "1.5%", "2%", "3%", "4%", "5%"],
+                    "label": "Brokerage in Percentage(Brokers only)",
+                    "values": ["0", "0.25", "0.5", "0.75", "1", "1.5", "2", "3", "4", "5"],
                     "fieldName": "brokerage"
-                },
-                {
-                    "type": "checkbox",
-                    "label": "Response from brokers",
-                    "fields": [
-                        {
-                            "label": "I am not interested in getting response from brokers",
-                            "value": "I am not interested in getting response from brokers",
-                            "fieldName": "response_from_brokers"
-                        }
-                    ]
                 }
             ]
         }

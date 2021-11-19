@@ -17,10 +17,12 @@ const API_ENDPOINTS = {
   UPLOAD_IMAGE: "/property/uploadImage",
   PROPERTY_LIST_CLIENT: "/property/getAllPropertyForClient",
   PROPERTY_DETAIL: "/property/propertyDetail",
-  PROPERTY_LIST_ENDPOINT: "property/getPropertyRequest",
-  PROPERTY_DETAIL_ENDPOINT: "property/propertyDetail",
-  UPDATE_PROPERTY_STATUS_ENDPOINT: "property/updatePropertyStatusRequest",
-  USER_PROPERTY_LIST_ENDPOINT: "property/getUserIdPropertyRequest",
+  PROPERTY_ADD_ENDPOINT: "/property/createPropertyRequest",
+  PROPERTY_IMAGE_ENDPOINT: "/property/uploadImage",
+  PROPERTY_LIST_ENDPOINT: "/property/getPropertyRequest",
+  // PROPERTY_DETAIL_ENDPOINT: "/property/propertyDetail",
+  UPDATE_PROPERTY_STATUS_ENDPOINT: "/property/updatePropertyStatusRequest",
+  USER_PROPERTY_LIST_ENDPOINT: "/property/getUserIdPropertyRequest",
   GET_SEARCH_PROPERTY_LIST: "/property/getSearchPropertyList",
   CREATE_SUPPLIER: "/supplier/createSupplier"
 };

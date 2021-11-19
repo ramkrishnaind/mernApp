@@ -34,7 +34,7 @@ import { Link as RouterLink, useLocation } from "react-router-dom";
 import propertyDetail from "../property-detail";
 import MapContainer from "../../components/section-map/MapContainer";
 import BookNowModal from "../../components/book-now/book-now";
-// import { NoDataAvailable } from "../../components/no-details-available/no-details-available";
+import { NoDataAvailable } from "../../components/no-details-available/no-details-available";
 import CircularProgress from "@mui/material/CircularProgress";
 import ApiClient from "../../api-client";
 import HtmlParser from "react-html-parser";
@@ -206,7 +206,7 @@ const HouseDetailPage = (props) => {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
   console.log("PropertyDetail", PropertyDetail);
-
+  console.log("item",item)
   useEffect(() => {
     const isbookNowActive = localStorage.getItem("bookNow");
     // console.log("isBookNow", typeof isbookNowActive, isbookNowActive);
@@ -219,6 +219,7 @@ const HouseDetailPage = (props) => {
   }, []);
 
   useEffect(() => {
+    debugger
     reset();
     let reqData = {
       propertyId: location?.state,
@@ -1366,8 +1367,8 @@ const HouseDetailPage = (props) => {
           </Grid>
         </Container>
       ) : (
-        // NoDataAvailable("Details Unavailable")
-        <CircularProgress />
+        NoDataAvailable("Details Unavailable")
+        // <CircularProgress />
       )}
       <BookNowModal
         open={bookNow}
