@@ -13,6 +13,10 @@ module.exports = {
     updateMenuStatus: require('./MenuModule/updateMenuStatus'),
     updateMenu: require('./MenuModule/updateMenuModule'),
     getMenuData: require('./MenuModule/getMenuData'),
+
+    //////////
+    dashBoardFunction: require('./HomeModule/dashBoardModule'),
+
     createUserRoleFunction: require('./RoleModule/createRoleModule'),
     updateStatusUserRoleFunction: require('./RoleModule/updateStatusRole'),
     userRoleListFunction: require('./RoleModule/userRoleList'),
