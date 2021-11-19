@@ -56,7 +56,7 @@ const PropertyCreateUpdate = (props) => {
   let propertyData = props?.property?.propertyData;
   let query = useQuery();
   let id = query.get("id");
-  debugger
+  debugger;
   if (!id) propertyData = null;
   const initialState = {
     iAm: propertyData?.iAm || "",
@@ -74,7 +74,8 @@ const PropertyCreateUpdate = (props) => {
     longitude: propertyData?.address?.longitude || "",
     latitude: propertyData?.address?.latitude || "",
     address: propertyData?.address?.address || "",
-    propertyDescription:propertyData?.propertyDescription?.propertyDescription || "",
+    propertyDescription:
+      propertyData?.propertyDescription?.propertyDescription || "",
     city: propertyData?.address?.city || "",
     State: propertyData?.address?.State || "",
     pinCode: propertyData?.address?.pinCode || "",
@@ -148,22 +149,20 @@ const PropertyCreateUpdate = (props) => {
     { key: "", Value: "" },
   ]);
   const [file, setFile] = useState("");
-  
+
   const [image, setImageState] = useState(imageState);
-  useEffect(()=>{
+  useEffect(() => {
     setState(initialState);
     setImageState(imageState);
-    setPropertyOptions([[]])
-    setFormFields(null)
-    setPropertyDetail([
-      { key: "", Value: "" },
-    ])
-    setAmenities([{ 0: "" }])
-    setFile("")
-    setDescription("")
-    setCurrentAreaField({})
+    setPropertyOptions([[]]);
+    setFormFields(null);
+    setPropertyDetail([{ key: "", Value: "" }]);
+    setAmenities([{ 0: "" }]);
+    setFile("");
+    setDescription("");
+    setCurrentAreaField({});
     // if (!id) propertyData = null;
-  },[id])
+  }, [id]);
   // Life cycle hooks
   useEffect(() => {
     let data = {
@@ -522,12 +521,17 @@ const PropertyCreateUpdate = (props) => {
                 fieldName,
                 unit,
               } = field || {};
-              debugger
+              debugger;
               if (type === "option") {
                 return (
-                  <Grid item xs={12} md={12} key={fieldIndex} className="pillsContainer" >
+                  <Grid
+                    item
+                    xs={12}
+                    md={12}
+                    key={fieldIndex}
+                    className="pillsContainer"
+                  >
                     <Option
-                      
                       label={label}
                       items={initial_counts}
                       moreOptions={more_counts}
@@ -549,7 +553,7 @@ const PropertyCreateUpdate = (props) => {
                       flexDirection: "column",
                       alignItems: "flex-start",
                       justifyContent: "flex-start",
-                      flexWrap:"wrap",
+                      flexWrap: "wrap",
                       marginTop: 10,
                     }}
                   >
@@ -588,7 +592,7 @@ const PropertyCreateUpdate = (props) => {
                       flexDirection: "row",
                       alignItems: "center",
                       justifyContent: "flex-start",
-                      flexWrap:"wrap"
+                      flexWrap: "wrap",
                     }}
                   >
                     <TextField
@@ -831,6 +835,8 @@ const PropertyCreateUpdate = (props) => {
           {fields?.map((field) => {
             const { label, type, values, placeholder, data, fieldName } =
               field || {};
+            let brokerageValue=""
+            debugger;
             if (type === "textfield" && data) {
               return data.map((e, index) => {
                 return (
@@ -913,12 +919,18 @@ const PropertyCreateUpdate = (props) => {
                 }
               });
             } else if (type === "dropdown") {
+              if (fieldName === "brokerage") {
+                brokerageValue=state[fieldName]
+                if(!brokerageValue)
+                brokerageValue="0"
+                debugger;
+              }
               return (
                 <Grid item xs={12} md={12}>
                   <Typography className={classes.text3}>{label}</Typography>
                   <Select
                     native
-                    value={state[fieldName]}
+                    value={fieldName==="brokerage"?brokerageValue: state[fieldName]}
                     onChange={handleChange}
                     name={fieldName}
                     variant="outlined"
@@ -1676,9 +1688,7 @@ const PropertyCreateUpdate = (props) => {
                   ) : (
                     <>
                       <ReactQuill
-                        value={
-                          description                         
-                        }
+                        value={description}
                         onChange={handleChangeTextEditor}
                         placeholder="Enter description"
                         theme="snow"
@@ -1813,7 +1823,9 @@ const PropertyCreateUpdate = (props) => {
                             }
                           )}
                           <Dropzone
-                            xs={12} sm={6} md={6}
+                            xs={12}
+                            sm={6}
+                            md={6}
                             onChangeStatus={handleImageLivingRoom}
                             accept="image/*,audio/*,video/*"
                           />
