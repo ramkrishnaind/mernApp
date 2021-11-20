@@ -76,7 +76,9 @@ function getAllProperty(Models, reqFrom) {
                     $match: { $and: [{ status: 1 }] },
                 }
             } else {
-                qry = {}
+                qry = {
+                    $match: { $and: [{ status: [0, 1, 2, 3] }] }
+                }
             }
             let LoginUser, myFavorite = [], allProperties = [];
             LoginUser = req.locals ? req.locals.user.userId._id : '';
