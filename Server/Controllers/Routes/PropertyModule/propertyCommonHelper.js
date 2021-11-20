@@ -66,25 +66,105 @@ function getUserIdPropertyList(Models) {
     }
     return PropertyList;
 }
-function getAllProperty(Models, reqFrom) {
+function getAllPropertyForAdmin(Models) {
     async function PropertyList(req, res) {
         try {
             //console.log('req is', req)
-            let qry;
-            if (reqFrom == 'client') {
-                qry = {
-                    $match: { $and: [{ status: 1 }] },
-                }
-            } else {
-                qry = {
-                    $match: { $and: [{ status: [0, 1, 2, 3] }] }
-                }
-            }
             let LoginUser, myFavorite = [], allProperties = [];
             LoginUser = req.locals ? req.locals.user.userId._id : '';
             console.log('LoginUser', LoginUser)
             let findData = await Models.PropertyDB.aggregate([
-                qry,
+                {
+                    $lookup:
+                    {
+                        from: 'pfeatures',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'features'
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'pimages',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'images'
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'pprices',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'price'
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'reviews',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'review'
+                    }
+                }
+            ]).sort({ _id: -1 });
+            console.log('LoginUser is ', LoginUser)
+            if (LoginUser && LoginUser != '') {
+                myFavorite = await Models.WishListDB.find({ userId: LoginUser }).lean();
+            }
+            console.log('myFavorite', myFavorite)
+            //console.log('findData', findData)
+            for (let x = 0; x < findData.length; x++) {
+                let item = findData[x];
+                //console.log('item is', item)
+                let itemId = item._id;
+                item.isFavorite = false;
+                console.log('myFavorite is ', myFavorite.length, myFavorite)
+                for (let y = 0; y < myFavorite.length; y++) {
+                    let favItem = myFavorite[y];
+                    let propertyId = favItem.propertyId;
+                    console.log('propertyId is', propertyId)
+                    console.log('itemId is', itemId)
+
+                    if (itemId.toString() == propertyId.toString()) {
+                        console.log('in if', itemId)
+                        item.isFavorite = true;
+                    }
+                    //console.log('in else item item', item)
+                }
+                //item.isFavorite = false;
+                allProperties.push(item);
+            }
+            //console.log('allProperties', allProperties)
+            let obj = {
+                total: allProperties.length,
+                list: allProperties
+            }
+
+            res.send({ status: true, message: "", data: obj });
+        }
+        catch (e) {
+            console.log('Getting list err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Getting list" });
+        }
+    }
+    return PropertyList;
+}
+function getAllProperty(Models) {
+    async function PropertyList(req, res) {
+        try {
+            //console.log('req is', req)
+
+            let LoginUser, myFavorite = [], allProperties = [];
+            LoginUser = req.locals ? req.locals.user.userId._id : '';
+            console.log('LoginUser', LoginUser)
+            let findData = await Models.PropertyDB.aggregate([
+                {
+                    $match: { $and: [{ status: 1 }] },
+                },
                 {
                     $lookup:
                     {
@@ -572,7 +652,8 @@ module.exports = {
     getPropertyLatLong,
     getSearchTerms,
     getsearchMinMax,
-    getPropertyByType
+    getPropertyByType,
+    getAllPropertyForAdmin
     // createUserFunc: createUserHelper,
     // getAllUserFunc: getAllUserHelper,
     // getUserFunc: getUserHelper,
