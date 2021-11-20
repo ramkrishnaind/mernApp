@@ -45,7 +45,7 @@ module.exports = function (conn) {
     router.post('/deleteProperty', userAuthMiddleware, propertyCommonHelper.deleteProperty(allCollection))
     router.post('/propertyDetail', requestAuthMiddleware, propertyCommonHelper.propertyDetail(allCollection))
     router.post('/getPropertyDetail', userAuthMiddleware, propertyCommonHelper.propertyDetail(allCollection))
-    router.post('/getAllProperty', userAuthMiddleware, propertyCommonHelper.getAllProperty(allCollection, 'admin'))
+    router.post('/getAllProperty', userAuthMiddleware, propertyCommonHelper.getAllPropertyForAdmin(allCollection))
     router.post('/getAllPropertyForClient', requestAuthMiddleware, propertyCommonHelper.getAllProperty(allCollection, 'client'))
     router.post('/getAllPropertyForHome', requestAuthMiddleware, propertyCommonHelper.getHomeAllProperty(allCollection))
     router.post('/getPropertyRequest', requestAuthMiddleware, getPropertyRequest(allCollection))
