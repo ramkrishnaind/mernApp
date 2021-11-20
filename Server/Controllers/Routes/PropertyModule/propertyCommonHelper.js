@@ -75,6 +75,8 @@ function getAllProperty(Models, reqFrom) {
                 qry = {
                     $match: { $and: [{ status: 1 }] },
                 }
+            } else {
+                qry = {}
             }
             let LoginUser, myFavorite = [], allProperties = [];
             LoginUser = req.locals ? req.locals.user.userId._id : '';
@@ -147,7 +149,7 @@ function getAllProperty(Models, reqFrom) {
             }
             //console.log('allProperties', allProperties)
             let obj = {
-                total: findData.length,
+                total: allProperties.length,
                 list: allProperties
             }
 
@@ -445,8 +447,7 @@ function getPropertyLatLong(Models) {
                 $or: [
                     { "address.city": queryCity },
                     { "address.state": queryState }
-                ],
-                $and: [{ status: 1 }]
+                ]
             };
             let data = await Models.PFeaturesDB.find(query).lean();
             console.log('data is', data)
