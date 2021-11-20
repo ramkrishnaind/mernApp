@@ -66,14 +66,21 @@ function getUserIdPropertyList(Models) {
     }
     return PropertyList;
 }
-function getAllProperty(Models) {
+function getAllProperty(Models, reqFrom) {
     async function PropertyList(req, res) {
         try {
             //console.log('req is', req)
+            let qry;
+            if (reqFrom == 'client') {
+                qry = {
+                    $match: { $and: [{ status: 1 }] },
+                }
+            }
             let LoginUser, myFavorite = [], allProperties = [];
             LoginUser = req.locals ? req.locals.user.userId._id : '';
             console.log('LoginUser', LoginUser)
             let findData = await Models.PropertyDB.aggregate([
+                qry,
                 {
                     $lookup:
                     {
@@ -160,6 +167,9 @@ function getHomeAllProperty(Models) {
             LoginUser = req.locals ? req.locals.user.userId._id : '';
             let findData = await Models.PropertyDB.aggregate([
                 {
+                    $match: { $and: [{ status: 1 }] },
+                },
+                {
                     $lookup: {
                         from: "pfeatures",
                         localField: "_id",
@@ -174,6 +184,24 @@ function getHomeAllProperty(Models) {
                         localField: '_id',
                         foreignField: 'propertyId',
                         as: 'images'
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'pprices',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'price'
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'reviews',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'review'
                     }
                 }
             ]).sort({ _id: -1 });
@@ -417,7 +445,8 @@ function getPropertyLatLong(Models) {
                 $or: [
                     { "address.city": queryCity },
                     { "address.state": queryState }
-                ]
+                ],
+                $and: [{ status: 1 }]
             };
             let data = await Models.PFeaturesDB.find(query).lean();
             console.log('data is', data)
@@ -515,7 +544,9 @@ function getPropertyByType(Models) {
             console.log('bodyData.type', bodyData.type)
             if (bodyData.type == "RESIDENTIAL" || bodyData.type == "COMMERCIAL") {
                 console.log('i am in out', bodyData.type)
-                let data = await Models.PropertyDB.find({ pType: bodyData.type }).sort({ _id: -1 }).lean();
+                let data = await Models.PropertyDB.find({
+                    $match: { $and: [{ status: 1 }, { pType: bodyData.type }] },
+                }).sort({ _id: -1 }).lean();
                 res.send({ status: true, message: "Property List.", data });
             } else {
                 console.log('i am in if', bodyData.type)

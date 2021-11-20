@@ -195,6 +195,7 @@ const HouseDetailPage = (props) => {
   const [viewDetails, setViewDetails] = React.useState(false);
   let token = query.get("token");
   const [PropertyDetail, setPropertyDetail] = React.useState({});
+  debugger
   const propertyListItem = useSelector((state) => state.PropertyDetail.data);
   const [bookNow, setBookNow] = useState(false);
   const [reviews, setReviews] = useState([]);
@@ -205,6 +206,7 @@ const HouseDetailPage = (props) => {
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
+  
   console.log("PropertyDetail", PropertyDetail);
   console.log("item",item)
   useEffect(() => {
@@ -216,8 +218,9 @@ const HouseDetailPage = (props) => {
       // console.log('setBookNow(true);', bookNow);
       localStorage.setItem("bookNow", false);
     }
+    dispatch(PropertyAction.ResetPropertyDetail())
   }, []);
-
+  const pId=location?.state
   useEffect(() => {
     debugger
     reset();
@@ -228,7 +231,7 @@ const HouseDetailPage = (props) => {
     };
     // console.log('GetPropertyDetailRequestAsync');
     dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
-  }, [PropertyDetail]);
+  }, [propertyDetail,pId]);
   const reset = () => {
     setVerifyLoader(false);
     setIsOtpVerified(false);
@@ -239,6 +242,7 @@ const HouseDetailPage = (props) => {
     setEmailFeedback("");
     setMessage("");
     setViewDetails(false);
+    setPropertyDetail({})
   };
   const inputChange = (e) => {
     let { name, value } = e.target;
@@ -805,7 +809,7 @@ const HouseDetailPage = (props) => {
                         <Aminities
                           icon={""}
                           title={
-                            amenities[0].toUpperCase() + amenities.slice(1)
+                            amenities[0]?.toUpperCase() + amenities[0]? amenities.slice(1):""
                           }
                         />
                       </Grid>
@@ -1072,32 +1076,12 @@ const HouseDetailPage = (props) => {
                 <Grid item item xs={12} md={12} style={{ marginTop: 20 }}>
                   <Paper style={{ padding: 20 }}>
                     <Grid container>
-                      <Grid item xs={12} md={6} className={classes.style1}>
-                        <Typography className={classes.text4}>
+                      <Grid item xs={12} md={12} className={classes.style1}>
+                      <Box item xs={12} md={12} className={classes.box1} style={{display:"flex",justifyContent:"space-between",width:"100%"}}>
+                      <Typography  >
                           Location
                         </Typography>
-                        <Typography className={classes.text1}>
-                          Address :
-                        </Typography>
-                        <Typography className={classes.text1}>
-                          State/county :
-                        </Typography>
-                        {/* <Typography className={classes.text1}>
-                          Neighborhood
-                        </Typography> */}
-                        <Typography className={classes.text1}>
-                          Zip/Postal Code :
-                        </Typography>
-                        {/* <Typography className={classes.text1}>
-                          Country
-                        </Typography> */}
-                        <Typography className={classes.text1}>
-                          City :
-                        </Typography>
-                      </Grid>
-
-                      <Grid item xs={12} md={6} className={classes.style1}>
-                        <Typography className={classes.text4}>
+                        <Typography >
                           <Button variant="contained" className={classes.btn1}>
                             <a
                               target="_blank"
@@ -1109,25 +1093,48 @@ const HouseDetailPage = (props) => {
                             </a>
                           </Button>
                         </Typography>
-                        <Typography className={classes.text1}>
+                      </Box>
+                      <Box item  className={classes.box1}  style={{display:"flex",justifyContent:"space-between",width:"100%"}}>
+                        
+                        <Typography xs={6} md={6} className={classes.text1}>
+                          Address :
+                        </Typography>
+                        <Typography xs={6} md={6} className={classes.text1}>
                           {handleNull(PropertyDetail?.address?.address)}
                         </Typography>
-                        <Typography className={classes.text1}>
+                        </Box>
+                        <Box item  className={classes.box1} style={{display:"flex",justifyContent:"space-between",width:"100%"}}>
+                        <Typography  xs={6} md={6}  className={classes.text1}>
+                          State/county :
+                        </Typography>
+                        <Typography  xs={6} md={6}  className={classes.text1}>
                           {handleNull(PropertyDetail?.address?.State)}
                         </Typography>
+                        </Box>
                         {/* <Typography className={classes.text1}>
-                          Andersonville
+                          Neighborhood
                         </Typography> */}
-                        <Typography className={classes.text1}>
+                        <Box item  className={classes.box1} style={{display:"flex",justifyContent:"space-between",width:"100%"}}>
+                        <Typography xs={6} md={6} className={classes.text1}>
+                          Zip/Postal Code :
+                        </Typography>
+                        <Typography xs={6} md={6} className={classes.text1}>
                           {handleNull(PropertyDetail?.address?.pinCode)}
                         </Typography>
+                        </Box>
                         {/* <Typography className={classes.text1}>
-                          United States
+                          Country
                         </Typography> */}
-                        <Typography className={classes.text1}>
+                        <Box item  className={classes.box1} style={{display:"flex",justifyContent:"space-between",width:"100%"}}>
+                        <Typography xs={6} md={6} className={classes.text1}>
+                          City :
+                        </Typography>
+                        <Typography xs={6} md={6} className={classes.text1}>
                           {handleNull(PropertyDetail?.address?.city)}
                         </Typography>
+                        </Box>
                       </Grid>
+
                     </Grid>
                   </Paper>
                 </Grid>
