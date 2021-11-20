@@ -11,6 +11,11 @@ const PropertyDetailReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case ACTION_KEYS.PROPERTY_CLEAR_DATA:
+      return {
+        ...state,
+        data: null,
+      };
     case ACTION_KEYS.GET_PROPERTY_DETAIL_REQUEST:
       return {
         ...state,

@@ -1,11 +1,16 @@
 import ACTION_KEYS from "../../constants/action-keys";
-import { PropertyListService, PropertyDetailService, PostPropertyService, AddPropertyService,UploadPropertyImageService,PropertyAddService,PropertyDataRequest,PropertyDataService } from "../../services/PropertyService";
+import { PropertyListService, PropertyDetailService, PostPropertyService, AddPropertyService,UploadPropertyImageService,PropertyAddService,PropertyDataRequest,PropertyDataService} from "../../services/PropertyService";
 export const PropertyAddError = (data) => {
     return {
       type: ACTION_KEYS.PROPERTY_ADD_ERROR,
       payload: { error: data },
     };
   };
+  export const ResetPropertyDetail=()=>{
+    return {
+      type: ACTION_KEYS.PROPERTY_CLEAR_DATA,      
+    };
+  }
   export const PropertyAddSuccess = (data) => {
     return {
       type: ACTION_KEYS.PROPERTY_ADD_SUCCESS,
