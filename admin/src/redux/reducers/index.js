@@ -4,6 +4,7 @@ import PropertyReducer from "./PropertyReducer";
 import SideMenuListReducer from "./SideMenuListReducer";
 import menu from "./MenuReducer";
 import ModuleReducer from "./ModuleRightsReducer";
+import Dashboard from "./DashboardReducer";
 import user from "./UserReducer";
 import enquiry from "./EnquiryReducer";
 import callback from "./CallbackReducer";
@@ -78,6 +79,7 @@ const reducers = {
   cms: Cms,
   supplier: Supplier,
   serviceInquiry: ServiceInquiry,
+  dashboard: Dashboard
 };
 
 export default reducers;
