@@ -56,7 +56,6 @@ const PropertyCreateUpdate = (props) => {
   let propertyData = props?.property?.propertyData;
   let query = useQuery();
   let id = query.get("id");
-  debugger;
   if (!id) propertyData = null;
   const initialState = {
     iAm: propertyData?.iAm || "",
@@ -144,7 +143,7 @@ const PropertyCreateUpdate = (props) => {
     propertyData?.projectDescription
   );
   const [state, setState] = useState(initialState);
-  const [amenities, setAmenities] = useState([{ 0: "" }]);
+  const [amenities, setAmenities] = useState([""]);
   const [propertyDetail, setPropertyDetail] = useState([
     { key: "", Value: "" },
   ]);
@@ -220,6 +219,7 @@ const PropertyCreateUpdate = (props) => {
         API_ENDPOINTS.BASE_URL + propertyData?.images?.mainImage[0]?.path
       );
     }
+
     // amenities
   }, [state, propertyData]);
 
@@ -332,7 +332,7 @@ const PropertyCreateUpdate = (props) => {
         propertyTag: state.Property_Tag,
         transactionType: state.Transaction_Type,
         propertyDetails: propertyDetail,
-        description: description,
+        description: description||propertyData.description,
         gaurdRoom: state.gaurdRoom,
         buildYear: state.build_year,
         bedrooms: state.Bedrooms,
@@ -404,7 +404,7 @@ const PropertyCreateUpdate = (props) => {
         propertyTag: state.Property_Tag,
         transactionType: state.Transaction_Type,
         propertyDetails: propertyDetail,
-        description: description,
+        description: description||propertyData.description,
         gaurdRoom: state.gaurdRoom,
         buildYear: state.build_year,
         bedrooms: state.Bedrooms,
@@ -521,7 +521,6 @@ const PropertyCreateUpdate = (props) => {
                 fieldName,
                 unit,
               } = field || {};
-              debugger;
               if (type === "option") {
                 return (
                   <Grid
@@ -835,8 +834,7 @@ const PropertyCreateUpdate = (props) => {
           {fields?.map((field) => {
             const { label, type, values, placeholder, data, fieldName } =
               field || {};
-            let brokerageValue=""
-            debugger;
+            let brokerageValue = "";
             if (type === "textfield" && data) {
               return data.map((e, index) => {
                 return (
@@ -920,17 +918,24 @@ const PropertyCreateUpdate = (props) => {
               });
             } else if (type === "dropdown") {
               if (fieldName === "brokerage") {
-                brokerageValue=state[fieldName]
-                if(!brokerageValue)
-                brokerageValue="0"
-                debugger;
+                brokerageValue = state[fieldName];
+                if (!brokerageValue) {
+                  setState((prevState) => {
+                    return { ...prevState, brokerage: "0" };
+                  });
+                }
+                brokerageValue = "0";
               }
               return (
                 <Grid item xs={12} md={12}>
                   <Typography className={classes.text3}>{label}</Typography>
                   <Select
                     native
-                    value={fieldName==="brokerage"?brokerageValue: state[fieldName]}
+                    value={
+                      fieldName === "brokerage"
+                        ? brokerageValue
+                        : state[fieldName]
+                    }
                     onChange={handleChange}
                     name={fieldName}
                     variant="outlined"
@@ -1040,7 +1045,7 @@ const PropertyCreateUpdate = (props) => {
 
   // handle click event of the Add button
   const handleAddAminitiesClick = () => {
-    setAmenities([...amenities, { amenities: "" }]);
+    setAmenities([...amenities, "" ]);
   };
 
   // handle input change
@@ -1057,6 +1062,9 @@ const PropertyCreateUpdate = (props) => {
     const list = [...propertyDetail];
     list[index][name] = value;
     setPropertyDetail(list);
+    // setState((prevState) => {
+    //   return { ...prevState, propertyDetails: list };
+    // });
   };
 
   // handle click event of the Remove button
@@ -1064,11 +1072,20 @@ const PropertyCreateUpdate = (props) => {
     const list = [...propertyDetail];
     list.splice(index, 1);
     setPropertyDetail(list);
+    // setState((prevState) => {
+    //   return { ...prevState, propertyDetails: list };
+    // });
   };
 
   // handle click event of the Add button
   const handleDetailAddClick = () => {
+    debugger
+    const list = [...propertyDetail];
+    // list.push({ key: "", Value: "" });
     setPropertyDetail([...propertyDetail, { key: "", Value: "" }]);
+    // setState((prevState) => {
+    //   return { ...prevState, propertyDetails: [...list, { key: "", Value: "" }] };
+    // });
   };
 
   const handleMainImageChange = (event) => {
@@ -1406,6 +1423,7 @@ const PropertyCreateUpdate = (props) => {
                   <FieldsContainer label="Property Details">
                     <Box mt={2} />
                     {propertyDetail.map((x, i) => {
+                      debugger
                       return (
                         <>
                           <Grid container>
@@ -2044,6 +2062,7 @@ const PropertyCreateUpdate = (props) => {
                   color="primary"
                   type="submit"
                   className={"SaveData"}
+                  onClick={handleSubmit}
                 >
                   Save
                 </Button>
