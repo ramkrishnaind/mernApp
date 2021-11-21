@@ -32,6 +32,7 @@ let bannerUpload = multer({ storage: storage });
 const homeFunction = require('./Routes/HomeModule/HomeManagement');
 const footerFunction = require('./Routes/HomeModule/FooterManagement');
 const userAuthMiddlewareFunction = require('../Middleware/userAuth');
+let { dashBoardFunction } = require('./Routes');
 
 
 module.exports = function (conn) {
@@ -98,6 +99,10 @@ module.exports = function (conn) {
     router.post('/getServiceItem', userAuthMiddleware, homeFunction.getServiceItemDetails(db));
     router.post('/deleteServiceItem', userAuthMiddleware, homeFunction.deleteServiceItem(db));
     router.post('/updateServiceItemStatus', userAuthMiddleware, homeFunction.updateServiceItemStatusHelper(db));
+
+
+    // Dashboard 
+    router.post('/dashboard', userAuthMiddleware, dashBoardFunction(db));
 
 
 

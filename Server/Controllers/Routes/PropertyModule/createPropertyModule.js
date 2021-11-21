@@ -140,7 +140,7 @@ function createPropertyRequest(Models) {
             if (bodyData.isPostedByAdmin) {
                 bodyData.status = 1;
             } else {
-                bodyData.status = 2;
+                bodyData.status = 5;
             }
             const moduleFeatureSchema = {
                 bedrooms: bodyData.bathrooms,

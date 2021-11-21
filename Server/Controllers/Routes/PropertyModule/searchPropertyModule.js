@@ -25,7 +25,7 @@ function getSearchPropertyList(Models) {
             let LoginUser, myFavorite = [], allProperties = [];
             LoginUser = req.locals ? req.locals.user.userId._id : '';
             let bodyData = _.pick(req.body, ["type", "keyword", "pType", "minAmount", "maxAmount"]);
-            let Obj = [{ for: bodyData.type }]
+            let Obj = [{ for: bodyData.type }, { status: 1 }]
             if (bodyData.pType != "")
                 Obj.push({ pType: bodyData.pType })
             // if (bodyData.keyword != "")
@@ -35,10 +35,28 @@ function getSearchPropertyList(Models) {
             //         { 'locality': { '$regex': bodyData.keyword, '$options': 'i' } }]
             //     })
 
+
+            let agQuery;
+            console.log('min is ', bodyData.minAmount, ' max is', bodyData.maxAmount)
+            if (bodyData.minAmount == 0 && bodyData.maxAmount == 0) {
+                console.log('i am in if')
+                agQuery = {
+                    $match: { $and: Obj },
+                }
+            } else {
+                console.log('i am in else')
+                let pPriceQuery = { expectedPrice: { $gte: bodyData.minAmount, $lte: bodyData.maxAmount } };
+                let propertyInRange = await Models.PPriceDB.find(pPriceQuery, {
+                    propertyId: 1
+                });
+                const PropertyIds = propertyInRange.map((item) => item.propertyId);
+                agQuery = {
+                    $match: { $and: Obj, _id: { $in: PropertyIds } },
+                }
+            }
+            //console.log('propertyInRange is', propertyInRange, PropertyIds)
             let findData = await Models.PropertyDB.aggregate([
-                {
-                    $match: { $and: Obj }
-                },
+                agQuery,
                 {
                     $lookup:
                     {

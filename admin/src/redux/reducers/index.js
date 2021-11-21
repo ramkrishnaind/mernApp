@@ -37,6 +37,7 @@ import Aboutpage from "./aboutpageReducer";
 import Finance from "./financeReducer";
 import Cms from "./cmsReducer";
 import Supplier from "./supplierReducer";
+import ServiceInquiry from "./serviceInquiryReducer";
 
 const reducers = {
   Login: LoginReducer,
@@ -77,7 +78,8 @@ const reducers = {
   finance: Finance,
   cms: Cms,
   supplier: Supplier,
-  dashboard:Dashboard
+  serviceInquiry: ServiceInquiry,
+  dashboard: Dashboard
 };
 
 export default reducers;

@@ -66,7 +66,7 @@ function getUserIdPropertyList(Models) {
     }
     return PropertyList;
 }
-function getAllProperty(Models) {
+function getAllPropertyForAdmin(Models) {
     async function PropertyList(req, res) {
         try {
             //console.log('req is', req)
@@ -111,7 +111,7 @@ function getAllProperty(Models) {
                     }
                 }
             ]).sort({ _id: -1 });
-            console.log('LoginUser is ',LoginUser )
+            console.log('LoginUser is ', LoginUser)
             if (LoginUser && LoginUser != '') {
                 myFavorite = await Models.WishListDB.find({ userId: LoginUser }).lean();
             }
@@ -140,7 +140,98 @@ function getAllProperty(Models) {
             }
             //console.log('allProperties', allProperties)
             let obj = {
-                total: findData.length,
+                total: allProperties.length,
+                list: allProperties
+            }
+
+            res.send({ status: true, message: "", data: obj });
+        }
+        catch (e) {
+            console.log('Getting list err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Getting list" });
+        }
+    }
+    return PropertyList;
+}
+function getAllProperty(Models) {
+    async function PropertyList(req, res) {
+        try {
+            //console.log('req is', req)
+
+            let LoginUser, myFavorite = [], allProperties = [];
+            LoginUser = req.locals ? req.locals.user.userId._id : '';
+            console.log('LoginUser', LoginUser)
+            let findData = await Models.PropertyDB.aggregate([
+                {
+                    $match: { $and: [{ status: 1 }] },
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'pfeatures',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'features'
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'pimages',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'images'
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'pprices',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'price'
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'reviews',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'review'
+                    }
+                }
+            ]).sort({ _id: -1 });
+            console.log('LoginUser is ', LoginUser)
+            if (LoginUser && LoginUser != '') {
+                myFavorite = await Models.WishListDB.find({ userId: LoginUser }).lean();
+            }
+            console.log('myFavorite', myFavorite)
+            //console.log('findData', findData)
+            for (let x = 0; x < findData.length; x++) {
+                let item = findData[x];
+                //console.log('item is', item)
+                let itemId = item._id;
+                item.isFavorite = false;
+                console.log('myFavorite is ', myFavorite.length, myFavorite)
+                for (let y = 0; y < myFavorite.length; y++) {
+                    let favItem = myFavorite[y];
+                    let propertyId = favItem.propertyId;
+                    console.log('propertyId is', propertyId)
+                    console.log('itemId is', itemId)
+
+                    if (itemId.toString() == propertyId.toString()) {
+                        console.log('in if', itemId)
+                        item.isFavorite = true;
+                    }
+                    //console.log('in else item item', item)
+                }
+                //item.isFavorite = false;
+                allProperties.push(item);
+            }
+            //console.log('allProperties', allProperties)
+            let obj = {
+                total: allProperties.length,
                 list: allProperties
             }
 
@@ -160,6 +251,9 @@ function getHomeAllProperty(Models) {
             LoginUser = req.locals ? req.locals.user.userId._id : '';
             let findData = await Models.PropertyDB.aggregate([
                 {
+                    $match: { $and: [{ status: 1 }] },
+                },
+                {
                     $lookup: {
                         from: "pfeatures",
                         localField: "_id",
@@ -174,6 +268,24 @@ function getHomeAllProperty(Models) {
                         localField: '_id',
                         foreignField: 'propertyId',
                         as: 'images'
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'pprices',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'price'
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'reviews',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'review'
                     }
                 }
             ]).sort({ _id: -1 });
@@ -205,7 +317,7 @@ function getHomeAllProperty(Models) {
                 allProperties.push(item);
             }
             //console.log('allProperties', allProperties)
-            
+
             let rentData = allProperties.filter(function (item) {
                 return item.for === "Rent";
             });
@@ -257,7 +369,7 @@ function propertyDetail(Models) {
     async function propertyDetailFun(req, res) {
         try {
             let LoginUser = req.locals ? req.locals.user.userId._id : '';
-            
+
             let validateData = singlePropertyModuleSchema.validate(req.body);
             if (validateData.error) {
                 throw { status: false, error: validateData, message: CONSTANTSMESSAGE.INVALID_DATA };
@@ -275,13 +387,16 @@ function propertyDetail(Models) {
                 let propertyPriceResponse = await Models.PPriceDB.findOne({ propertyId: findData._id }).lean();
                 let propertyReviewResponse = await Models.ReviewDB.find({ propertyId: findData._id }).sort({ _id: -1 }).lean();
                 if (LoginUser && LoginUser != '') {
-                    let favQuery = { $and: [
-                    {'userId': LoginUser},
-                    {'propertyId': findData._id}
-                ]};
+                    let favQuery = {
+                        $and: [
+                            { 'userId': LoginUser },
+                            { 'propertyId': findData._id }
+                        ]
+                    };
                     isFavoriteData = await Models.WishListDB.find(favQuery).lean();
                 }
-                property = await Promise.all([propertyFeaturesResponse, propertyImagesResponse, propertyPriceResponse, propertyReviewResponse, isFavorite]).then(values => {
+
+                property = await Promise.all([propertyFeaturesResponse, propertyImagesResponse, propertyPriceResponse, propertyReviewResponse, isFavoriteData]).then(values => {
                     console.log(values);
                     let result = {};
                     let propertyFeatures = values[0];
@@ -289,7 +404,8 @@ function propertyDetail(Models) {
                     let propertyPrice = values[2];
                     let propertyReview = values[3];
                     let favValue = values[4];
-                    if(favValue){
+                    console.log('favValue is', favValue)
+                    if (favValue && favValue.length) {
                         isFavorite = true;
                     }
 
@@ -511,7 +627,9 @@ function getPropertyByType(Models) {
             console.log('bodyData.type', bodyData.type)
             if (bodyData.type == "RESIDENTIAL" || bodyData.type == "COMMERCIAL") {
                 console.log('i am in out', bodyData.type)
-                let data = await Models.PropertyDB.find({ pType: bodyData.type }).sort({ _id: -1 }).lean();
+                let data = await Models.PropertyDB.find({
+                    $match: { $and: [{ status: 1 }, { pType: bodyData.type }] },
+                }).sort({ _id: -1 }).lean();
                 res.send({ status: true, message: "Property List.", data });
             } else {
                 console.log('i am in if', bodyData.type)
@@ -534,7 +652,8 @@ module.exports = {
     getPropertyLatLong,
     getSearchTerms,
     getsearchMinMax,
-    getPropertyByType
+    getPropertyByType,
+    getAllPropertyForAdmin
     // createUserFunc: createUserHelper,
     // getAllUserFunc: getAllUserHelper,
     // getUserFunc: getUserHelper,

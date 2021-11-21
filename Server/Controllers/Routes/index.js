@@ -13,6 +13,10 @@ module.exports = {
     updateMenuStatus: require('./MenuModule/updateMenuStatus'),
     updateMenu: require('./MenuModule/updateMenuModule'),
     getMenuData: require('./MenuModule/getMenuData'),
+
+    //////////
+    dashBoardFunction: require('./HomeModule/dashBoardModule'),
+
     createUserRoleFunction: require('./RoleModule/createRoleModule'),
     updateStatusUserRoleFunction: require('./RoleModule/updateStatusRole'),
     userRoleListFunction: require('./RoleModule/userRoleList'),
@@ -75,7 +79,13 @@ module.exports = {
     getServicesList: require('./ServicesModule/getServicesListModule'),
     updateServices: require('./ServicesModule/updateServicesModule'),
     updateServicesStatus: require('./ServicesModule/updateServicesStatusModule'),
+
     createServicesEnquiry: require('./ServicesModule/createServicesEnquiryModule'),
+    getServicesEnquiry: require('./ServicesModule/getServicesEnquiryModule'),
+    deleteServicesEnquiry: require('./ServicesModule/deleteServicesEnquiryModule'),
+    getServicesEnquiryList: require('./ServicesModule/getServicesEnquiryListModule'),
+    updateServicesEnquiryStatus: require('./ServicesModule/updateServicesEnquiryStatusModule'),
+
     createContactUs: require('./ContactUsModule/createContactUsModule'),
     getContactUsList: require('./ContactUsModule/getContactUsListModule'),
     updateContactUs: require('./ContactUsModule/updateContactUsModule'),

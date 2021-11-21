@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Grid,
@@ -6,117 +6,124 @@ import {
   makeStyles,
   Box,
   Paper,
-} from '@material-ui/core';
-import './service-details.css';
-import PageBanner from '../../components/page-banner';
-import {useDispatch, useSelector} from 'react-redux';
-import {useLocation} from 'react-router-dom';
-import ApiClient from '../../api-client';
-import ReactHtmlParser from 'react-html-parser';
+} from "@material-ui/core";
+import "./service-details.css";
+import PageBanner from "../../components/page-banner";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import ApiClient from "../../api-client";
+import ReactHtmlParser from "react-html-parser";
 import EnquryFormService from "../../components/enquryFormService/enquryForm";
+// import Zoom from "react-medium-image-zoom";
+// import "react-medium-image-zoom/dist/styles.css";
+
+import "photoswipe/dist/photoswipe.css";
+import "photoswipe/dist/default-skin/default-skin.css";
+
+import { Gallery, Item } from "react-photoswipe-gallery";
 
 const useStyles = makeStyles((theme) => ({
   text1: {
     fontFamily: '"Open Sans",sans-serif',
-    color: '#777777',
+    color: "#777777",
     fontSize: 13,
     marginTop: 10,
     marginBottom: 10,
   },
   text3: {
     fontFamily: '"Open Sans",sans-serif',
-    color: '#666666',
+    color: "#666666",
     fontSize: 14,
   },
   text4: {
     fontFamily: '"Open Sans",sans-serif',
-    color: '#333333',
+    color: "#333333",
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   text5: {
     fontFamily: '"Open Sans",sans-serif',
-    color: '#FF7601',
+    color: "#FF7601",
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   text6: {
     fontFamily: '"Open Sans",sans-serif',
-    color: '#888888',
+    color: "#888888",
     fontSize: 15,
     fontWeight: 400,
     lineHeight: 1.8,
   },
   text7: {
     fontFamily: '"Open Sans",sans-serif',
-    color: '#333333',
+    color: "#333333",
     fontSize: 25,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginRight: 10,
   },
   text8: {
     fontFamily: '"Open Sans",sans-serif',
-    color: '#fff',
+    color: "#fff",
     fontSize: 25,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginRight: 10,
   },
   icon: {
-    color: '#FF7601',
+    color: "#FF7601",
     fontSize: 20,
     paddingRight: 10,
   },
   style1: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
   },
   btn1: {
     borderRadius: 8,
-    color: '#FFFFFF',
-    textTransform: 'none',
+    color: "#FFFFFF",
+    textTransform: "none",
     fontFamily: '"Open Sans",sans-serif',
-    backgroundColor: '#FF7601',
+    backgroundColor: "#FF7601",
   },
   btn2: {
     borderRadius: 15,
-    color: '#FFFFFF',
-    textTransform: 'none',
+    color: "#FFFFFF",
+    textTransform: "none",
     marginRight: 10,
     fontFamily: '"Open Sans",sans-serif',
   },
   style2: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
   },
   style3: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
   },
   box1: {
     width: 10,
     paddingRight: 5,
     paddingLeft: 5,
-    color: '#333333',
+    color: "#333333",
   },
 }));
 
 const ServiceDetailPage = (props) => {
   const classes = useStyles();
   const location = useLocation();
-  const {item} = props;
+  const { item } = props;
   const dispatch = useDispatch();
   let query = useQuery();
   const [viewDetails, setViewDetails] = React.useState(true);
   const [serviceDetail, setServiceDetail] = React.useState({});
 
-  let token = query.get('token');
+  let token = query.get("token");
 
   // const propertyListItem = useSelector((state) => state.PropertyDetail.data);
   // console.log("propertyListItem", propertyListItem);
@@ -138,14 +145,18 @@ const ServiceDetailPage = (props) => {
     // };
     const serviceId = location?.state;
     fetchServiceDetails(serviceId);
-
-
   }, [location?.state]);
 
   const fetchServiceDetails = (serviceId) => {
-
     const getData = async () => {
-      const response = await ApiClient.call(ApiClient.REQUEST_METHOD.POST, '/home/getServiceDetails', {_id: serviceId}, {}, {Cookie: ApiClient.cookie, Authorization: ApiClient.authorization}, false);
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        "/home/getServiceDetails",
+        { _id: serviceId },
+        {},
+        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+        false
+      );
 
       console.log("Service Details Info ", response.data);
       setServiceDetail(response.data);
@@ -154,10 +165,16 @@ const ServiceDetailPage = (props) => {
     getData();
   };
 
-  let img1 = '/property_img3.jpeg';
-  let banner = '/about_us.jpeg';
+  let img1 = "/property_img3.jpeg";
+  let banner = "/about_us.jpeg";
   let images = [];
-  if (serviceDetail !== {} && serviceDetail.media && serviceDetail.media.length > 0 && serviceDetail.media[0].image && serviceDetail.media[0].image.length > 0) {
+  if (
+    serviceDetail !== {} &&
+    serviceDetail.media &&
+    serviceDetail.media.length > 0 &&
+    serviceDetail.media[0].image &&
+    serviceDetail.media[0].image.length > 0
+  ) {
     // img1 = ApiClient.SERVER_ADDRESS + "/" + serviceDetail.media[0].image[0].path;
 
     images = serviceDetail.media[0].image.map((imgInfo) => {
@@ -165,50 +182,71 @@ const ServiceDetailPage = (props) => {
     });
 
     console.log(" imag ***x", img1);
-    banner = ApiClient.SERVER_ADDRESS + "/" + serviceDetail.media[0].banner[0].path;
+    banner =
+      ApiClient.SERVER_ADDRESS + "/" + serviceDetail.media[0].banner[0].path;
     console.log("banner", banner);
   }
 
-
   return (
-    <div style={{background: '#F7F7F7'}}>
+    <div style={{ background: "#F7F7F7" }}>
       <PageBanner
         bgImage={banner}
         title="Service details"
         currentPage="SERVICE DETAILS"
       />
       {/* <Gallery /> */}
-      {viewDetails ? (<Box className="CareerPageText">
-        <Container>
-          <div className={classes.root} className="headingtext">
-            <Grid container>
-              <Grid item md={6}>
-                <Box className="middel-content">
-                  <h2> <span style={{color: "#00afb8"}}>{ReactHtmlParser(serviceDetail?.title)}</span></h2>
-                  <p>{ReactHtmlParser(serviceDetail?.description)}</p>
-                </Box>
+      {viewDetails ? (
+        <Box className="CareerPageText">
+          <Container>
+            <div className={classes.root} className="headingtext">
+              <Grid container>
+                <Grid item md={6}>
+                  <Box className="middel-content">
+                    <h2>
+                      {" "}
+                      <span style={{ color: "#00afb8" }}>
+                        {ReactHtmlParser(serviceDetail?.title)}
+                      </span>
+                    </h2>
+                    <p>{ReactHtmlParser(serviceDetail?.description)}</p>
+                  </Box>
+                </Grid>
+                <Grid item md={6}>
+                  <Box className="middel-content">
+                    <EnquryFormService />
+                  </Box>
+                </Grid>
               </Grid>
-              <Grid item md={6}>
-                <Box className="middel-content">
-                  <EnquryFormService />
-                </Box>
-              </Grid>
-            </Grid>
-            <Box className="work-space">
-              <h2 style={{textAlign:"left"}}><span style={{color: "#00afb8"}}>COMPLETED PROJECTS</span></h2>
-              {(images || []).map((img) => {
-                return <Grid container spacing={3}>
-                  <Grid item xs={4} className="workSpaceImgaes">
-                    <img src={img} alt='' />
-                  </Grid>
-                </Grid>;
-              })}
-            </Box>
-          </div>
-        </Container>
-      </Box>) : null}
+              <Box className="work-space">
+                <h2 style={{ textAlign: "left" }}>
+                  <span style={{ color: "#00afb8" }}>COMPLETED PROJECTS</span>
+                </h2>
+                <Grid container spacing={3}>
+                  <Gallery>
+                    {(images || []).map((img) => {
+                      return (
+                        <Grid item xs={4} className="workSpaceImgaes">
+                          <Item
+                            original={img}
+                            thumbnail={img}
+                            width="1024"
+                            height="768"
+                          >
+                            {({ ref, open }) => (
+                              <img ref={ref} onClick={open} src={img} />
+                            )}
+                          </Item>
+                        </Grid>
+                      );
+                    })}
+                  </Gallery>
+                </Grid>
+              </Box>
+            </div>
+          </Container>
+        </Box>
+      ) : null}
       {/* // <Container> */}
-
       {/* <Paper elevation={0} style={{padding: 20, marginTop: 20}}>
 
             <Grid container>
@@ -222,7 +260,8 @@ const ServiceDetailPage = (props) => {
                 </Typography>
               </Grid>
             </Grid>
-          </Paper> */};
+          </Paper> */}
+      ;
       {/* <Paper elevation={0} style={{padding: 20, marginTop: 20, marginBottom: 20}}>
 
             <Grid container style={{marginBottom: 20}}>
@@ -241,10 +280,8 @@ const ServiceDetailPage = (props) => {
             </Grid>
           </Paper> */}
       {/* // </Container> */}
-
-    </div >
+    </div>
   );
 };
 
 export default ServiceDetailPage;
-

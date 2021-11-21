@@ -281,6 +281,11 @@ const items = [
         icon: SettingIcon,
         title: "Service Item List",
       },
+      {
+        href: "/serviceInquiry",
+        icon: SettingIcon,
+        title: "Service Inquiry List",
+      },
     ],
   },
   {
