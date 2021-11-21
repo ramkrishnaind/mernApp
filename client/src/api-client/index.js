@@ -51,13 +51,11 @@ export default class ApiClient {
 
     let userData = JSON.parse(window.localStorage.getItem("user"));
 
-
-      if (userData?.token) {
-        headers["Authorization"] = "Bearer " + userData?.token;
-      } else {
-        headers["Authorization"] = "Bearer " + token;
-      }
-
+    if (userData?.token) {
+      headers["Authorization"] = "Bearer " + userData?.token;
+    } else {
+      headers["Authorization"] = "Bearer " + token;
+    }
 
     // let axiosInstance = axios.create({baseURL: process.env.REACT_APP_BASE_URL});
     let axiosInstance = axios.create({ baseURL: this.BASE_URL });
@@ -81,27 +79,30 @@ export default class ApiClient {
         params: requestParams,
         headers: headers,
       });
-      Logger.log("Web Service Response:", response);
-      debugger
+      // Logger.log("Web Service Response:", response);
+      // debugger
       if (response.status === 200) {
         if (response.data != null && !response.data.error) {
           return response.data;
-        } else if(response.data.error){
+        } else if (response.data.error) {
           throw new Error(response.data.message);
-        }else{
+        } else {
           throw new Error("Something went wrong");
         }
       } else {
         throw new Error("Something went wrong");
       }
     } catch (error) {
-      if(error.message==="Token exipred"||error.message==="Invalid token"){
-        localStorage.removeItem("user")
+      if (
+        error.message === "Token exipred" ||
+        error.message === "Invalid token"
+      ) {
+        localStorage.removeItem("user");
         // localStorage.removeItem("bookNow");
         // localStorage.removeItem("postProperty");
         // localStorage.removeItem("social-links");
         // localStorage.removeItem("company_detials");
-        window.location.href = "/";  
+        window.location.href = "/";
         return;
       }
       Logger.log("API-Error:", error);
