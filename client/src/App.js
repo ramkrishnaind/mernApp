@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {Container} from "@material-ui/core";
 import routes from "../src/routes";
@@ -10,6 +10,9 @@ import EnquryForm from "./components/enquryForm/enquryForm";
 import Snackbar from "./components/snackbar/Snackbar";
 
 const App = () => {
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
   const isAuth = useSelector((state) => state.Login.isAuth);
 
   return (

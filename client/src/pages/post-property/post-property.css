@@ -1,0 +1,12 @@
+.quill{
+    min-height:40vh;
+    display: flex;
+    flex-direction: column;    
+}
+.ql-container{
+    flex: 1;
+}
+.RemoveBtn{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

@@ -60,13 +60,24 @@ export default class ApiClient {
     Logger.log("Web Service params:", requestParams);
 
     try {
-      let response = await axiosInstance.request({
-        method: method,
-        url: url,
-        data: payload,
-        params: requestParams,
-        headers: headers,
-      });
+      let response;
+      if(payload)
+      {
+        response = await axiosInstance.request({
+          method: method,
+          url: url,
+          data: payload,
+          params: requestParams,
+          headers: headers,
+        });
+      }else{
+        response = await axiosInstance.request({
+          method: method,
+          url: url,          
+          params: requestParams,
+          headers: headers,
+        });
+      }
       Logger.log("Web Service Response:", response);
       // debugger
       // response.data={

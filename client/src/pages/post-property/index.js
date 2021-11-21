@@ -46,9 +46,6 @@ const property_details_options = ["Sell", "Rent"];
 
 const PropertyCreateUpdate = () => {
   
-  const [pType, setPType] = useState(false);
-  const [iAm, setIAm] = useState(false);
-  const [For, setFor] = useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
   const steps = ["Basic Details", "Property Details", "Upload Files"];
@@ -176,12 +173,12 @@ const PropertyCreateUpdate = () => {
     pType: propertyData?.pType || "",
     postingAs: propertyData?.postingAs || "",
     nameOfProject: propertyData?.nameOfProject || "",
-    Bedrooms: propertyData?.bedrooms || "0",
-    Balconies: propertyData?.balconies || "0",
-    Floor_No_: propertyData?.floorNo || "0",
-    Total_Floors: propertyData?.totalFloors || "0",
+    Bedrooms: propertyData?.bedrooms || "",
+    Balconies: propertyData?.balconies || "",
+    Floor_No_: propertyData?.floorNo || "",
+    Total_Floors: propertyData?.totalFloors || "",
     Furnished_Status: propertyData?.furnishedStatus || false,
-    Bathrooms: propertyData?.bathrooms || "0",
+    Bathrooms: propertyData?.bathrooms || "",
     Possession_Status: propertyData?.possessionStatus || "",
     longitude: propertyData?.address?.longitude || "",
     latitude: propertyData?.address?.latitude || "",
@@ -208,22 +205,22 @@ const PropertyCreateUpdate = () => {
     Transaction_Type: propertyData?.transactionType || "",
     Property_Tag: propertyData?.propertyTag || "",
 
-    expected_price: propertyData?.price?.expectedPrice || "0",
-    expected_price_per_sq_ft: propertyData?.price?.pricePerSqft || "0",
-    other_charges: propertyData?.price?.otherCharges || "0",
+    expected_price: propertyData?.price?.expectedPrice || "",
+    expected_price_per_sq_ft: propertyData?.price?.pricePerSqft || "",
+    other_charges: propertyData?.price?.otherCharges || "",
     stamp_duty_registration_charges_excluded:
       propertyData?.price?.isStumpDutyRCExcluded || false,
-    booking_token_amount: propertyData?.price?.bookingAmount || "0",
-    maintenance_charges: propertyData?.price?.maintenanceCharge || "0",
+    booking_token_amount: propertyData?.price?.bookingAmount || "",
+    maintenance_charges: propertyData?.price?.maintenanceCharge || "",
     maintenance_charges_per: propertyData?.price?.maintenanceFor || "",
-    brokerage: propertyData?.price?.brokerage || "0",
+    brokerage: propertyData?.price?.brokerage || "",
     build_year: propertyData?.buildYear || "2005",
 
-    Visitor_Room: propertyData?.vistorRoom || "0",
-    Conference_Room: propertyData?.conferenceRoom || "0",
+    Visitor_Room: propertyData?.vistorRoom || "",
+    Conference_Room: propertyData?.conferenceRoom || "",
     Personal_Washroom: propertyData?.personalWashroom || false,
-    No_Of_Seats: propertyData?.noOfSeats || "0",
-    Meeting_Rooms: propertyData?.meetingRooms || "0",
+    No_Of_Seats: propertyData?.noOfSeats || "",
+    Meeting_Rooms: propertyData?.meetingRooms || "",
     Pantry: propertyData?.Pantry || false,
   };
 
@@ -281,12 +278,6 @@ const PropertyCreateUpdate = () => {
     // debugger;
     event.preventDefault();
     const name = event.target.name.replace(/[^a-zA-Z]/gi, "_");
-    if (name === "pType") {
-      setPType(!!event.target.value);
-    }
-    if (name === "iAm") {
-      setIAm(!!event.target.value);
-    }
     setState({
       ...state,
       [name]:
@@ -305,17 +296,17 @@ const PropertyCreateUpdate = () => {
       clonePropertyTypeOptions.splice(0, 1);
     }
     setPropertyOptions(clonePropertyTypeOptions[0]);
-    setFor(!!option);
+    
 
     setState({ ...state, ["for"]: option });
   };
 
   const onFeatureSelect = (feature) => {
     debugger;
-
-    let name = (
-      !feature?.fieldName ? feature?.label : feature?.fieldName
-    )?.replace(/[^a-zA-Z]/gi, "_");
+    let name = feature?.fieldName?.replace(/[^a-zA-Z]/gi, "_");
+    // let name = (
+    //   !feature?.fieldName ? feature?.label : feature?.fieldName
+    // )?.replace(/[^a-zA-Z]/gi, "_");
     setState({
       ...state,
       [name]: feature.item,
@@ -437,7 +428,7 @@ const PropertyCreateUpdate = () => {
   };
   const _renderFeaturesSection = (section, sectionIndex) => {
     const { fields, section: sectionName } = section || {};
-    return (
+    return (<>
       <FieldsContainer label={sectionName} key={sectionIndex}>
         <Grid container>
           {fields?.length > 0 &&
@@ -551,7 +542,7 @@ const PropertyCreateUpdate = () => {
             }}
           ></Grid>
         </Grid>
-      </FieldsContainer>
+      </FieldsContainer></>
     );
   };
 
@@ -561,7 +552,7 @@ const PropertyCreateUpdate = () => {
    */
   const _renderAreaSection = (section) => {
     const { fields, section: sectionName } = section || {};
-    return (
+    return (<>
       <FieldsContainer label={sectionName}>
         <Grid container>
           {fields?.length > 0 &&
@@ -672,7 +663,8 @@ const PropertyCreateUpdate = () => {
               }
             })}
         </Grid>
-      </FieldsContainer>
+      </FieldsContainer><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
+      </>
     );
   };
 
@@ -682,7 +674,7 @@ const PropertyCreateUpdate = () => {
    */
   const _renderTransactionSection = (section) => {
     const { fields, section: sectionName } = section || {};
-    return (
+    return (<>
       <FieldsContainer label={sectionName}>
         <Grid container>
           {fields?.map((field, index) => {
@@ -714,7 +706,7 @@ const PropertyCreateUpdate = () => {
                     </Grid>
                     {data?.map((d) => {
                       return (
-                        <Grid item xs={12} md={3}>
+                        <Grid item xs={12} md={3}  style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
                           <Select
                             native
                             value={state[d.fieldName]}
@@ -743,6 +735,8 @@ const PropertyCreateUpdate = () => {
                               );
                             })}
                           </Select>
+                          {" "}
+                  <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
                         </Grid>
                       );
                     })}
@@ -751,7 +745,7 @@ const PropertyCreateUpdate = () => {
               );
             } else if (type === "textfield") {
               return (
-                <Grid item xs={12} md={12}>
+                <Grid item xs={12} md={12} style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
                   <Box mt={2} />
                   <TextField
                     label={label}
@@ -761,12 +755,16 @@ const PropertyCreateUpdate = () => {
                     style={{ width: 300, marginBottom: 15 }}
                     name={fieldName}
                   />
+                  {" "}
+                  <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
                 </Grid>
               );
             }
           })}
         </Grid>
       </FieldsContainer>
+      <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
+      </>
     );
   };
 
@@ -777,6 +775,7 @@ const PropertyCreateUpdate = () => {
   const _renderPriceSection = (section) => {
     const { fields, section: sectionName } = section || {};
     return (
+      <>
       <FieldsContainer label={sectionName}>
         <Grid container>
           {fields?.map((field) => {
@@ -785,7 +784,7 @@ const PropertyCreateUpdate = () => {
             if (type === "textfield" && data) {
               return data.map((e, index) => {
                 return (
-                  <Grid item xs={12} md={3} key={index}>
+                  <Grid item xs={12} md={3} key={index} style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
                     <TextField
                       label={e.label}
                       variant="outlined"
@@ -794,13 +793,14 @@ const PropertyCreateUpdate = () => {
                       name={e.fieldName}
                       style={{ marginBottom: 15 }}
                       value={state[e.fieldName]}
-                    />
+                    /> {" "}
+                    <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
                   </Grid>
                 );
               });
             } else if (type === "textfield") {
               return (
-                <Grid item xs={12} md={12}>
+                <Grid item xs={12} md={12} style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
                   <TextField
                     label={label}
                     variant="outlined"
@@ -809,14 +809,15 @@ const PropertyCreateUpdate = () => {
                     style={{ width: 300, marginBottom: 15 }}
                     name={fieldName}
                     value={state[fieldName]}
-                  />
+                  />{" "}
+                  <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
                 </Grid>
               );
             } else if (type === "text-dropdown" && field.data) {
               return field?.data?.map((e, i) => {
                 if (e.type === "textfield") {
                   return (
-                    <Grid item xs={12} md={4} key={i}>
+                    <Grid item xs={12} md={4} key={i} style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
                       <TextField
                         label={e.label}
                         variant="outlined"
@@ -825,14 +826,15 @@ const PropertyCreateUpdate = () => {
                         placeholder={e.placeholder}
                         style={{ width: 300, marginBottom: 15 }}
                         value={state[e.fieldName]}
-                      />
+                      />{" "}
+                      <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
                     </Grid>
                   );
                 } else if (e.type === "dropdown") {
                   return (
                     <Grid item xs={12} md={4} key={i}>
                       <Typography className={classes.text3}>
-                        {e.label}
+                        {e.label} 
                       </Typography>
                       <Select
                         native
@@ -858,7 +860,8 @@ const PropertyCreateUpdate = () => {
                               </option>
                             );
                           })}
-                      </Select>
+                      </Select>{" "}
+                      <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
                     </Grid>
                   );
                 }
@@ -892,7 +895,8 @@ const PropertyCreateUpdate = () => {
                           </option>
                         );
                       })}
-                  </Select>
+                  </Select>{" "}
+                  <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
                 </Grid>
               );
             } else if (type === "checkbox" && field?.fields) {
@@ -958,6 +962,8 @@ const PropertyCreateUpdate = () => {
           })}
         </Grid>
       </FieldsContainer>
+      
+      </>
     );
   };
 
@@ -1178,6 +1184,7 @@ const PropertyCreateUpdate = () => {
     return skipped.has(step);
   };
   const validateStep0 = () => {
+    
     if (
       !state.iAm ||
       !state.for ||
@@ -1220,6 +1227,7 @@ const PropertyCreateUpdate = () => {
     else return true;
   };
   const handleNext = () => {
+
     debugger;
     if (activeStep === 0) {
       // Submit Form Detials
@@ -1246,10 +1254,12 @@ const PropertyCreateUpdate = () => {
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
+    window.scrollTo(0, 0);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    window.scrollTo(0, 0);
   };
 
   const handleSkip = () => {
@@ -1273,9 +1283,9 @@ const PropertyCreateUpdate = () => {
 
   const getStepOne = () => {
     return (
-      <>
+      <div >
         <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-          <FieldsContainer label="Property Amenities">
+          <FieldsContainer label="Property Amenities" style={{display:"flex",flexDirection:"column"}}>
             {amenities.map((x, i) => {
               // debugger;
               if (state.id == " ") {
@@ -1290,13 +1300,14 @@ const PropertyCreateUpdate = () => {
                       name="amenities"
                       value={x}
                     ></TextField>
-
+                    <Box mt={2} mb={2}/>
                     <div className="RemoveBtn">
                       {amenities.length !== 1 && (
                         <Button
                           variant="contained"
                           type="button"
                           color="primary"
+                          style={{marginRight:"10px"}}
                           className={"CanceForm"}
                           onClick={() => handleRemoveAmenitiesClick(i)}
                         >
@@ -1315,6 +1326,7 @@ const PropertyCreateUpdate = () => {
                         </Button>
                       )}
                     </div>
+                    <Box mt={2} />
                   </Grid>
                 );
               } else {
@@ -1329,13 +1341,14 @@ const PropertyCreateUpdate = () => {
                       name="amenities"
                       value={x}
                     ></TextField>
-
+                    <Box mt={2} />
                     <div className="RemoveBtn">
                       {amenities.length !== 1 && (
                         <Button
                           variant="contained"
                           type="button"
                           color="primary"
+                          style={{marginRight:"10px"}}
                           className={"CanceForm"}
                           onClick={() => handleRemoveAmenitiesClick(i)}
                         >
@@ -1354,6 +1367,7 @@ const PropertyCreateUpdate = () => {
                         </Button>
                       )}
                     </div>
+                    <Box mt={2} />
                   </Grid>
                 );
               }
@@ -1361,9 +1375,11 @@ const PropertyCreateUpdate = () => {
           </FieldsContainer>
         </Grid>
 
-        <Grid className="form-group-item" item xs={12} sm={12} md={12}>
+        <Grid className="form-group-item" item xs={12} sm={12} md={12} style={{minHeight:"40vh"}}>
+        <Typography>Description <span style={{color:"red",fontSize:"1.2rem"}}>*</span></Typography>
           {propertyData?.projectDescription != null ? (
             <>
+
               <ReactQuill
                 onChange={handleChangeTextEditor}
                 value={
@@ -1381,13 +1397,13 @@ const PropertyCreateUpdate = () => {
                 value={description || ""}
                 onChange={handleChangeTextEditor}
                 placeholder="Enter description"
-                theme="snow"
+                theme="snow"                
               />
             </>
           )}
         </Grid>
 
-        <Box mt={2} />
+        <Box style={{marginTop:"10px"}} />
         <Grid item xs={12} md={12}>
           <FormControl component="fieldset">
             <FormLabel component="legend">Gaurd Room</FormLabel>
@@ -1435,7 +1451,7 @@ const PropertyCreateUpdate = () => {
               })}
           </Grid>
         </Grid>
-      </>
+      </div>
     );
   };
 
@@ -1462,7 +1478,7 @@ const PropertyCreateUpdate = () => {
                     height: 48,
                     marginRight: 5,
                     maxHeight: 200,
-                    width: "100%",
+                    width: "95%",
                   }}
                 >
                   <option value={null}>Select iAm</option>
@@ -1475,11 +1491,7 @@ const PropertyCreateUpdate = () => {
                       );
                     })}
                 </Select>
-                {!iAm && (
-                  <FormHelperText style={{ color: "red" }}>
-                    iAm is required!
-                  </FormHelperText>
-                )}
+                <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
               </Grid>
               <Grid item xs={12} md={12}>
                 <Typography>For</Typography>
@@ -1496,7 +1508,7 @@ const PropertyCreateUpdate = () => {
                     height: 48,
                     marginRight: 5,
                     maxHeight: 200,
-                    width: "100%",
+                    width: "95%",
                   }}
                 >
                   <option value={null}>Select For</option>
@@ -1509,11 +1521,7 @@ const PropertyCreateUpdate = () => {
                       );
                     })}
                 </Select>
-                {!For && (
-                  <FormHelperText style={{ color: "red" }}>
-                    For is required!
-                  </FormHelperText>
-                )}
+                <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
               </Grid>
               <Grid item xs={12} md={12}>
                 <Typography>Property Type</Typography>
@@ -1530,7 +1538,7 @@ const PropertyCreateUpdate = () => {
                     height: 48,
                     marginRight: 5,
                     maxHeight: 200,
-                    width: "100%",
+                    width: "95%",
                   }}
                 >
                   <option value={null}>Select Property Type</option>
@@ -1544,11 +1552,7 @@ const PropertyCreateUpdate = () => {
                       );
                     })}
                 </Select>
-                {!pType && (
-                  <FormHelperText style={{ color: "red" }}>
-                    Property Type is required!
-                  </FormHelperText>
-                )}
+                <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
               </Grid>
             </Grid>
           </FieldsContainer>
@@ -1569,7 +1573,7 @@ const PropertyCreateUpdate = () => {
                         onChange={(e) => handleDetailChange(e, i)}
                         name="key"
                         value={x.key}
-                      ></TextField>
+                      />
                     </Grid>
                     <Grid item xs={12} md={4}>
                       <TextField
@@ -1582,6 +1586,7 @@ const PropertyCreateUpdate = () => {
                         value={x.Value}
                       ></TextField>
                     </Grid>
+                    <Box mt={2}/>
                     <div className="RemoveBtn">
                       {propertyDetail.length !== 1 && (
                         <Button
@@ -1589,6 +1594,7 @@ const PropertyCreateUpdate = () => {
                           type="button"
                           color="primary"
                           className={"CanceForm"}
+                          style={{marginRight:"10px"}}
                           onClick={() => handleDetailRemoveClick(i)}
                         >
                           Remove
@@ -1606,6 +1612,7 @@ const PropertyCreateUpdate = () => {
                         </Button>
                       )}
                     </div>
+                    <Box mt={2} />
                   </Grid>
                 </>
               );
@@ -1616,30 +1623,38 @@ const PropertyCreateUpdate = () => {
           <FieldsContainer label="Property Location">
             <Grid container>
               <Grid item xs={12} md={12} className={classes.style1}>
+                <Box style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
                 <TextValidator
                   label="Longitude"
                   variant="outlined"
                   placeholder="Enter Longitude"
-                  style={{ width: "100%" }}
                   onChange={handleChange}
                   name="longitude"
+                  style={{width:"95%"}}
                   value={state.longitude}
+                  type="number"
                   validators={["required"]}
-                  errorMessages={["longitude field is required"]}
-                />
+                  errorMessages={["longitude field is required"]}                  
+                /><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
+                </Box>
                 <Box mt={2} />
+                <Box style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
                 <TextValidator
                   label="Latitude"
                   variant="outlined"
                   placeholder="Enter Latitude"
+                  type="number"
                   style={{ width: "100%" }}
                   onChange={handleChange}
+                  style={{width:"95%"}}
                   name="latitude"
                   value={state.latitude}
                   validators={["required"]}
                   errorMessages={["latitude field is required"]}
-                />
+                /><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
+                </Box>
                 <Box mt={2} />
+                <Box style={{display:"flex",flexDirection:"row",alignItems:"center"}}>                
                 <TextValidator
                   label="Address"
                   variant="outlined"
@@ -1648,10 +1663,13 @@ const PropertyCreateUpdate = () => {
                   onChange={handleChange}
                   name="address"
                   value={state.address}
+                  style={{width:"95%"}}
                   validators={["required"]}
                   errorMessages={["address field is required"]}
-                />
+                /><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
+                </Box>
                 <Box mt={2} />
+                <Box style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
                 <TextValidator
                   label="City"
                   variant="outlined"
@@ -1659,11 +1677,14 @@ const PropertyCreateUpdate = () => {
                   style={{ width: "100%" }}
                   onChange={handleChange}
                   name="city"
+                  style={{width:"95%"}}
                   value={state.city}
                   validators={["required"]}
                   errorMessages={["city field is required"]}
-                />
+                /><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
+                </Box>
                 <Box mt={2} />
+                <Box style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
                 <TextValidator
                   label="State"
                   variant="outlined"
@@ -1671,22 +1692,28 @@ const PropertyCreateUpdate = () => {
                   style={{ width: "100%" }}
                   onChange={handleChange}
                   name="State"
+                  style={{width:"95%"}}
                   value={state.State}
                   validators={["required"]}
                   errorMessages={["State field is required"]}
-                />
+                /><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
+                </Box>
                 <Box mt={2} />
+                <Box style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
                 <TextValidator
                   label="PinCode"
                   variant="outlined"
+                  type="number"
                   placeholder="Enter PinCode"
                   style={{ width: "100%" }}
                   onChange={handleChange}
                   name="pinCode"
+                  style={{width:"95%"}}
                   value={state.pinCode}
                   validators={["required"]}
                   errorMessages={["pinCode field is required"]}
-                />
+                /><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
+                </Box>
               </Grid>
             </Grid>
           </FieldsContainer>
@@ -1695,7 +1722,7 @@ const PropertyCreateUpdate = () => {
         <Grid item xs={12} md={12}>
           <FieldsContainer label="Project Name">
             <Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4} style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
                 <TextValidator
                   label="Project Name"
                   variant="outlined"
@@ -1703,16 +1730,17 @@ const PropertyCreateUpdate = () => {
                   style={{ width: "100%" }}
                   onChange={handleChange}
                   name="nameOfProject"
+                  style={{width:"95%"}}
                   value={state.nameOfProject}
                   validators={["required"]}
                   errorMessages={["nameOfProject field is required"]}
-                />
+                /><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
                 <Box mt={2} />
               </Grid>
             </Grid>
-
+            <Box mt={2} />
             <Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4} style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
                 <TextValidator
                   label="Posting As"
                   variant="outlined"
@@ -1720,10 +1748,11 @@ const PropertyCreateUpdate = () => {
                   style={{ width: "100%" }}
                   onChange={handleChange}
                   name="postingAs"
+                  style={{width:"95%"}}
                   value={state.postingAs}
                   validators={["required"]}
                   errorMessages={["postingAs field is required"]}
-                />
+                /><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
                 <Box mt={2} />
               </Grid>
             </Grid>
