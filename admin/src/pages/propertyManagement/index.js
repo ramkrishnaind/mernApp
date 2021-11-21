@@ -136,7 +136,7 @@ const PropertyList = (props) => {
                   options: {
                     customBodyRender: (value, tableMeta, updateValue) => {
                       return (
-                        <div style={{display:"flex"}}>
+                        <div style={{ display: "flex" }}>
                           <EditIcon
                             style={{ color: "#0069d9", cursor: "pointer" }}
                             onClick={() =>
@@ -144,11 +144,11 @@ const PropertyList = (props) => {
                             }
                           />
 
-                          {tableMeta.rowData[6] === 3 ? (
+                          {tableMeta.rowData[6] === 5 ? (
                             <Select
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined-label"
-                              style={{minWidth:"30px"}}                              
+                              style={{ minWidth: "30px" }}
                               label="Role"
                               native
                               name="rating"
