@@ -7,6 +7,15 @@ import { withStyles } from "@material-ui/core/styles";
 import * as DashboardAction from "../../redux/actions/DashboardAction";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+const colors=["#FFCA03","#630000","#FF87CA","#396EB0","#009DAE","#D06224","#E6CCA9"]
+let counter=0
+const getNextColor=()=>{
+  
+  counter=counter%colors.length
+  const col=colors[counter]
+  counter++
+  return col
+}
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -60,6 +69,51 @@ const HomePage = withStyles(styles)((props) => {
   const dashboard = useSelector((state) => state.dashboard.list);
   console.log("dashboard", dashboard);
   const dispatch = useDispatch();
+// Declare an object
+// let ob = {
+// 	Company: "GeeksforGeeks",
+// 	Address: "Noida",
+// 	contact: +91-999999999,
+// 	mentor: {
+// 		HTML: "GFG",
+// 		CSS: "GFG",
+// 		JavaScript: "GFG"
+// 	}
+// };
+
+// Declare a flatten function that takes
+// object as parameter and returns the
+// flatten object
+const flattenObj = (ob) => {
+
+	// The object which contains the
+	// final result
+	let result = {};
+
+	// loop through the object "ob"
+	for (const i in ob) {
+
+		// We check the type of the i using
+		// typeof() function and recursively
+		// call the function again
+		if ((typeof ob[i]) === 'object' && !Array.isArray(ob[i])) {
+			const temp = flattenObj(ob[i]);
+			for (const j in temp) {
+
+				// Store temp in result
+				result[i + '.' + j] = temp[j];
+			}
+		}
+
+		// Else store ob[i] in result directly
+		else {
+			result[i] = ob[i];
+		}
+	}
+	return result;
+};
+
+// console.log(flattenObj(ob));
 
   useEffect(() => {
     dispatch(DashboardAction.DashboardRequestAsync());
@@ -67,7 +121,7 @@ const HomePage = withStyles(styles)((props) => {
   // return null
   const content = (title, key, value,index) => (
     <>
-      <Card style={{flexBasis:"46%",cursor:"default",marginLeft:"2%",marginRight:"2%",marginBottom:"2%",marginTop:"2%"}} key={index}>
+      <Card style={{flexBasis:"46%",backgroundColor:getNextColor(), cursor:"default",marginLeft:"2%",marginRight:"2%",marginBottom:"2%",marginTop:"2%"}} key={index}>
         <CardActionArea style={{height:"100%",cursor:"default"}} key={index}>
           <CardContent style={{padding:"10px"}}>            
             {body(key, value)}
@@ -79,14 +133,14 @@ const HomePage = withStyles(styles)((props) => {
   const body = (key, value) => (
     <Grid item style={{display:"flex",flexDirection:"column",cursor:"default",justifyContent:"center"}}>
       <Grid>
-        <Typography variant="h6" style={{textTransform:"capitalize",textAlign:"center"}}>{key}</Typography>
+        <Typography variant="h6" style={{textTransform:"capitalize",textAlign:"center",color:"white"}}>{key}</Typography>
       </Grid>
       <Grid>
-        <Typography style={{textAlign:"center"}} variant="h6">{value || ""}</Typography>
+        <Typography style={{textAlign:"center",color:"white"}} variant="h6">{value || ""}</Typography>
       </Grid>
     </Grid>
   );
-  const getDisplay = (dashObj = dashboard, prevKey = "Dashboard details",isEvenLevel=false,index="0") => {
+  const getDisplay = (dashObj = flattenObj( dashboard), prevKey = "Dashboard details",isEvenLevel=false,index="0") => {
     debugger;
     const keys = Object.keys(dashObj);
     let container = (
@@ -96,11 +150,11 @@ const HomePage = withStyles(styles)((props) => {
         key={index}
         >
           <CardActionArea >
-            <CardContent style={{display:"flex",border:"1px solid black",flexDirection:"column",justifyContent:"center"}}>
-              <Typography gutterBottom variant="h2" component="div" style={{textTransform:"capitalize",cursor:"default"}}>
+            <CardContent style={{display:"flex",border:"1px solid black",flexDirection:"column",justifyContent:"center",backgroundColor:"#D4B499"}}>
+              <Typography gutterBottom variant="h2" component="div" style={{textTransform:"capitalize",cursor:"default",color:"white"}}>
                 {prevKey}
               </Typography>
-              <Grid style={{display:"flex",border:"1px solid black",flexWrap:"wrap",justifyContent:"center"}}>  
+              <Grid style={{display:"flex",border:"1px solid black",flexWrap:"wrap",justifyContent:"center",backgroundColor:"#fcfcfc"}}>  
               {keys.map((k,ind) =>
                 typeof dashObj[k] === "object" && dashObj[k] !== null
                   ? getDisplay(dashObj[k], k,!isEvenLevel,index+k+ind)
