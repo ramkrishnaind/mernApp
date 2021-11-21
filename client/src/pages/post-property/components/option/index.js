@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Box,
   makeStyles,
   Grid,
   Typography,
@@ -42,12 +41,20 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
   },
   selectedOptionStyle: {
-      backgroundColor: '#FBE9E8',
-  }
+    backgroundColor: "#FBE9E8",
+  },
 }));
 
 const Option = (props) => {
-  const { items, label, onSelect, moreOptions, showMore = true} = props;
+  const {
+    items,
+    label,
+    onSelect,
+    moreOptions,
+    value,
+    fieldName,
+    showMore = true,
+  } = props;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const allItemsExceptLast = items.slice(0, -1);
@@ -55,36 +62,56 @@ const Option = (props) => {
   const [selectedOptionIndex, setSelectedOptionIndex] = React.useState(-1);
 
   const handleSelectOption = (item, index) => {
-      setSelectedOptionIndex(index);
-      onSelect && onSelect({label, item});
-  }
-
+    setSelectedOptionIndex(index);
+    setSelectedOption("");
+    onSelect && onSelect({ fieldName, item });
+  };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const handleOptionSelection = item => {
+  const handleOptionSelection = (item) => {
     setSelectedOption(item);
     setSelectedOptionIndex(-1);
     setAnchorEl(null);
-    onSelect && onSelect({label, item});
-  }
+    onSelect && onSelect({ fieldName, item });
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const extraStyleSelectedOption = selectedOption ? classes.selectedOptionStyle : null; 
-
+  const extraStyleSelectedOption = selectedOption
+    ? classes.selectedOptionStyle
+    : null;
   return (
     <>
-      <Grid container style={{ marginTop: 20, }}>
-        <Grid item xs={12} md={12}>
+      <Grid container style={{ marginTop: 20 }}>
+        <Grid item xs={12} md={12} style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
           <Typography className={classes.text2}>{label}</Typography>
+          {" "}
+          <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
+
         </Grid>
         <Grid item xs={12} md={12} className={classes.style2}>
           {allItemsExceptLast?.map((item, index) => {
-            const extraStyle = index === selectedOptionIndex ? classes.selectedOptionStyle : null; 
+            const extraStyle =
+              index === selectedOptionIndex
+                ? classes.selectedOptionStyle
+                : null;
+            if (value[fieldName] && item === value[fieldName]) {
+              return (
+                <Button
+                  key={index}
+                  variant="outlined"
+                  onClick={() => handleSelectOption(item, index)}
+                  className={`${classes.style1} ${extraStyle} ${classes.selectedOptionStyle}`}
+                  style={{ borderColor: "#606060", color: "#606060" }}
+                >
+                  {item}
+                </Button>
+              );
+            } else {
               return (
                 <Button
                   key={index}
@@ -95,7 +122,8 @@ const Option = (props) => {
                 >
                   {item}
                 </Button>
-              )
+              );
+            }
           })}
           <Button
             aria-controls="simple-menu"
@@ -105,17 +133,28 @@ const Option = (props) => {
             style={{ borderColor: "#606060", color: "#606060" }}
             className={`${classes.style1} ${extraStyleSelectedOption}`}
           >
-            {showMore && selectedOption ? selectedOption : items[items.length-1]}
+            {showMore && selectedOption
+              ? selectedOption
+              : items[items.length - 1]}
           </Button>
-          {showMore && <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-              {moreOptions?.map((item, index) => <MenuItem key={index} onClick={() => handleOptionSelection(item)}>{item}</MenuItem>)}
-          </Menu>}
+          {showMore && (
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              {moreOptions?.map((item, index) => (
+                <MenuItem
+                  key={index}
+                  onClick={() => handleOptionSelection(item)}
+                >
+                  {item}
+                </MenuItem>
+              ))}
+            </Menu>
+          )}
         </Grid>
       </Grid>
     </>

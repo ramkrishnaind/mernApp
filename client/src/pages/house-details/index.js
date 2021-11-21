@@ -209,6 +209,9 @@ const HouseDetailPage = (props) => {
   
   console.log("PropertyDetail", PropertyDetail);
   console.log("item",item)
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
   useEffect(() => {
     const isbookNowActive = localStorage.getItem("bookNow");
     // console.log("isBookNow", typeof isbookNowActive, isbookNowActive);
@@ -804,12 +807,13 @@ const HouseDetailPage = (props) => {
               <InfoCard item={{ title: "Amenities" }}>
                 <Grid container>
                   {(PropertyDetail?.amenities || []).map((amenities) => {
+                    debugger
                     return (
                       <Grid item xs={12} md={4}>
                         <Aminities
                           icon={""}
                           title={
-                            amenities[0]?.toUpperCase() + amenities[0]? amenities.slice(1):""
+                            amenities[0]?.toUpperCase() + (amenities[0]? amenities.slice(1):"")
                           }
                         />
                       </Grid>
@@ -1094,17 +1098,17 @@ const HouseDetailPage = (props) => {
                           </Button>
                         </Typography>
                       </Box>
-                      <Box item  className={classes.box1}  style={{display:"flex",justifyContent:"space-between",width:"100%"}}>
+                      <Box item  className={classes.box1}  style={{display:"flex",width:"100%"}}>
                         
-                        <Typography xs={6} md={6} className={classes.text1}>
+                        <Typography xs={6} md={6} style={{flexBasis:"20%"}} className={classes.text1}>
                           Address :
                         </Typography>
                         <Typography xs={6} md={6} className={classes.text1}>
                           {handleNull(PropertyDetail?.address?.address)}
                         </Typography>
                         </Box>
-                        <Box item  className={classes.box1} style={{display:"flex",justifyContent:"space-between",width:"100%"}}>
-                        <Typography  xs={6} md={6}  className={classes.text1}>
+                        <Box item  className={classes.box1} style={{display:"flex",width:"100%"}}>
+                        <Typography style={{flexBasis:"25%"}}  xs={6} md={6}  className={classes.text1}>
                           State/county :
                         </Typography>
                         <Typography  xs={6} md={6}  className={classes.text1}>
@@ -1114,8 +1118,8 @@ const HouseDetailPage = (props) => {
                         {/* <Typography className={classes.text1}>
                           Neighborhood
                         </Typography> */}
-                        <Box item  className={classes.box1} style={{display:"flex",justifyContent:"space-between",width:"100%"}}>
-                        <Typography xs={6} md={6} className={classes.text1}>
+                        <Box item  className={classes.box1} style={{display:"flex",width:"100%"}}>
+                        <Typography style={{flexBasis:"32%"}} xs={6} md={6} className={classes.text1}>
                           Zip/Postal Code :
                         </Typography>
                         <Typography xs={6} md={6} className={classes.text1}>
@@ -1125,8 +1129,8 @@ const HouseDetailPage = (props) => {
                         {/* <Typography className={classes.text1}>
                           Country
                         </Typography> */}
-                        <Box item  className={classes.box1} style={{display:"flex",justifyContent:"space-between",width:"100%"}}>
-                        <Typography xs={6} md={6} className={classes.text1}>
+                        <Box item  className={classes.box1} style={{display:"flex",width:"100%"}}>
+                        <Typography style={{flexBasis:"10%"}} xs={6} md={6} className={classes.text1}>
                           City :
                         </Typography>
                         <Typography xs={6} md={6} className={classes.text1}>

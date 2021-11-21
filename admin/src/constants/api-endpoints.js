@@ -57,6 +57,8 @@ const API_ENDPOINTS = {
   BLOG_DELETE_ENDPOINT: "blog/deleteBlog",
   BLOG_DATA_ENDPOINT: "blog/getBlogDetail",
 
+  //Dashboard module
+  DASHBOARD_DATA_ENDPOINT:"home/dashboard",
   //Role module
   ROLE_ADD_ENDPOINT: "role/createUserRole",
   ROLE_LIST_ENDPOINT: "role/userRoleList",

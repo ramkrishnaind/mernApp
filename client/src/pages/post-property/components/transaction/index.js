@@ -107,8 +107,8 @@ const Transaction = (props) => {
     const classes = useStyles();
 
     return (
-        <FormControl component="fieldset">
-          <FormLabel component="legend">{title}</FormLabel>
+        <FormControl component="fieldset" >
+          <FormLabel component="legend">{title} &nbsp;&nbsp;<span style={{color:"red",fontSize:"1.2rem"}}>*</span></FormLabel>
           <RadioGroup aria-label="personal-info" name="personal-info" value={value} onChange={handleChange} row>
               {options.map(option => <FormControlLabel value={option} control={<Radio />} label={option} />)}
           </RadioGroup>
