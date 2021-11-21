@@ -1252,7 +1252,7 @@ const PropertyCreateUpdate = () => {
     return skipped.has(step);
   };
   const validateStep0 = () => {
-    return true
+    
     if (
       !state.iAm ||
       !state.for ||
@@ -1271,7 +1271,7 @@ const PropertyCreateUpdate = () => {
   };
   const validateStep1 = () => {
     debugger;
-    return true
+    
     // console.log("propertyFeatures", propertyFeatures);
     console.log("currentAreaField", currentAreaField);
     debugger;
