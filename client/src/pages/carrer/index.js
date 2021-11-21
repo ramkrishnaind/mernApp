@@ -18,8 +18,13 @@ import ApiClient from "../../api-client";
 import { useDispatch } from "react-redux";
 import * as Snackbar from "../../redux/actions/SnackbarActions";
 
-import Zoom from "react-medium-image-zoom";
-import "react-medium-image-zoom/dist/styles.css";
+// import Zoom from "react-medium-image-zoom";
+// import "react-medium-image-zoom/dist/styles.css";
+
+import "photoswipe/dist/photoswipe.css";
+import "photoswipe/dist/default-skin/default-skin.css";
+
+import { Gallery, Item } from "react-photoswipe-gallery";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -227,16 +232,31 @@ export default function Carrer() {
                 Vishal <span style={{ color: "#00afb8" }}>Work Space</span>
               </h2>
               <Grid container spacing={3}>
-                {(images || []).map((img) => {
-                  //   {workSpaceDetail?.media[0]?.image?.map((imgInfo) => {
-                  return (
-                    <Grid item xs={4} className="workSpaceImgaes">
-                      <Zoom>
-                        <img src={img} alt="" />
-                      </Zoom>
-                    </Grid>
-                  );
-                })}
+                <Gallery>
+                  {(images || []).map((img) => {
+                    //   {workSpaceDetail?.media[0]?.image?.map((imgInfo) => {
+                    return (
+                      <Grid item xs={4} className="workSpaceImgaes">
+                        <Item
+                          original={img}
+                          thumbnail={img}
+                          width="1024"
+                          height="768"
+                        >
+                          {({ ref, open }) => (
+                            <img ref={ref} onClick={open} src={img} />
+                          )}
+                        </Item>
+                      </Grid>
+
+                      // <Grid item xs={4} className="workSpaceImgaes">
+                      //   <Zoom>
+                      //     <img src={img} alt="" />
+                      //   </Zoom>
+                      // </Grid>
+                    );
+                  })}
+                </Gallery>
               </Grid>
               {/* <Grid container spacing={3}>
                 <Grid item xs={4} className="workSpaceImgaes">
