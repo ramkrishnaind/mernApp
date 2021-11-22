@@ -296,7 +296,7 @@ const PropertyCreateUpdate = (props) => {
   };
   const handleSubmit = () => {
     const user = JSON.parse(localStorage.getItem("user"));
-
+    
     if (state.id == " ") {
       let reqData = {
         iAm: state.iAm,
@@ -919,12 +919,12 @@ const PropertyCreateUpdate = (props) => {
             } else if (type === "dropdown") {
               if (fieldName === "brokerage") {
                 brokerageValue = state[fieldName];
-                if (!brokerageValue) {
+                if (brokerageValue==="") {
                   setState((prevState) => {
                     return { ...prevState, brokerage: "0" };
                   });
-                }
-                brokerageValue = "0";
+                  brokerageValue = "0";
+                }                
               }
               return (
                 <Grid item xs={12} md={12}>
