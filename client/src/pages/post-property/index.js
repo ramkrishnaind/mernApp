@@ -45,7 +45,6 @@ const personal_details_options = ["Owner", "Agent", "Builder"];
 const property_details_options = ["Sell", "Rent"];
 
 const PropertyCreateUpdate = () => {
-  
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
   const steps = ["Basic Details", "Property Details", "Upload Files"];
@@ -165,7 +164,7 @@ const PropertyCreateUpdate = () => {
   const [propertyDetail, setPropertyDetail] = useState([
     { key: "", Value: "" },
   ]);
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState("https://api.vishalconstructioncompany.com/uploads/slider/image-1633167715119.jpeg");
   console.log("propertyData", propertyData);
   const initialState = {
     iAm: propertyData?.iAm || "",
@@ -296,7 +295,6 @@ const PropertyCreateUpdate = () => {
       clonePropertyTypeOptions.splice(0, 1);
     }
     setPropertyOptions(clonePropertyTypeOptions[0]);
-    
 
     setState({ ...state, ["for"]: option });
   };
@@ -362,11 +360,11 @@ const PropertyCreateUpdate = () => {
       pType: state.pType,
       postingAs: state.postingAs,
       nameOfProject: state.nameOfProject,
-      balconies: state.Balconies || 0,
-      floorNo: state.Floor_No_ || 0,
-      totalFloors: state.Total_Floors || 0,
+      balconies: state.Balconies || "0",
+      floorNo: state.Floor_No_ || "0",
+      totalFloors: state.Total_Floors || "0",
       furnishedStatus: state.Furnished_Status ? state.Furnished_Status : false,
-      bathrooms: state.Bathrooms || 0,
+      bathrooms: state.Bathrooms || "0",
       builtUpArea: state.Built_up_Area?.size,
       carpetArea: state.Carpet_Area?.size,
       possessionStatus: state.Possession_Status,
@@ -380,7 +378,7 @@ const PropertyCreateUpdate = () => {
       bookingAmount: state.booking_token_amount,
       maintenanceCharge: state.maintenance_charges,
       maintenanceFor: state.maintenance_charges_per,
-      brokerageCharge: state.brokerage,
+      brokerageCharge: state.brokerage||"0",
       amenities: amenities,
       longitude: state.longitude,
       latitude: state.latitude,
@@ -392,18 +390,18 @@ const PropertyCreateUpdate = () => {
       transactionType: state.Transaction_Type,
       propertyDetails: propertyDetail,
       description: description,
-      gaurdRoom: state.gaurdRoom,
-      buildYear: state.build_year,
-      bedrooms: state.Bedrooms,
+      gaurdRoom: state.gaurdRoom||"0",
+      buildYear: state.build_year||"0",
+      bedrooms: state.Bedrooms||"0",
       superArea: state.Super_Area?.size,
       userId: user?._id,
-      vistorRoom: state.Visitor_Room,
-      conferenceRoom: state.Conference_Room,
+      vistorRoom: state.Visitor_Room||"0",
+      conferenceRoom: state.Conference_Room||"0",
       responseFromBrokers: state.response_from_brokers,
-      personalWashroom: state.Personal_Washroom,
-      noOfSeats: state.No_Of_Seats,
-      meetingRooms: state.Meeting_Rooms,
-      Pantry: state.Pantry,
+      personalWashroom: state.Personal_Washroom||false,
+      noOfSeats: state.No_Of_Seats||"0",
+      meetingRooms: state.Meeting_Rooms||"0",
+      Pantry: state.Pantry||false,
     };
 
     let data = {
@@ -428,121 +426,123 @@ const PropertyCreateUpdate = () => {
   };
   const _renderFeaturesSection = (section, sectionIndex) => {
     const { fields, section: sectionName } = section || {};
-    return (<>
-      <FieldsContainer label={sectionName} key={sectionIndex}>
-        <Grid container>
-          {fields?.length > 0 &&
-            fields?.map((field, fieldIndex) => {
-              const {
-                label,
-                initial_counts,
-                more_counts,
-                showMore,
-                type,
-                values,
-                fieldName,
-                unit,
-              } = field || {};
-              // debugger;
-              if (type === "option") {
-                return (
-                  <Grid
-                    item
-                    xs={12}
-                    md={12}
-                    key={fieldIndex}
-                    className="pillsContainer"
-                  >
-                    <Option
-                      label={label}
-                      items={initial_counts}
-                      moreOptions={more_counts}
-                      showMore={showMore}
-                      onSelect={onFeatureSelect}
-                      value={state}
-                      fieldName={fieldName}
-                    ></Option>
-                  </Grid>
-                );
-              } else if (type === "dropdown") {
-                return (
-                  <Grid
-                    item
-                    xs={12}
-                    md={12}
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "flex-start",
-                      justifyContent: "flex-start",
-                      flexWrap: "wrap",
-                      marginTop: 10,
-                    }}
-                  >
-                    <Typography className={classes.text3}>{label}</Typography>
-                    <Select
-                      native
-                      variant="outlined"
-                      value={state[fieldName]}
-                      onChange={handleChange}
-                      inputProps={{ name: fieldName }}
+    return (
+      <>
+        <FieldsContainer label={sectionName} key={sectionIndex}>
+          <Grid container>
+            {fields?.length > 0 &&
+              fields?.map((field, fieldIndex) => {
+                const {
+                  label,
+                  initial_counts,
+                  more_counts,
+                  showMore,
+                  type,
+                  values,
+                  fieldName,
+                  unit,
+                } = field || {};
+                // debugger;
+                if (type === "option") {
+                  return (
+                    <Grid
+                      item
+                      xs={12}
+                      md={12}
+                      key={fieldIndex}
+                      className="pillsContainer"
+                    >
+                      <Option
+                        label={label}
+                        items={initial_counts}
+                        moreOptions={more_counts}
+                        showMore={showMore}
+                        onSelect={onFeatureSelect}
+                        value={state}
+                        fieldName={fieldName}
+                      ></Option>
+                    </Grid>
+                  );
+                } else if (type === "dropdown") {
+                  return (
+                    <Grid
+                      item
+                      xs={12}
+                      md={12}
                       style={{
-                        height: 48,
-                        marginRight: 5,
-                        maxHeight: 200,
-                        width: 200,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "flex-start",
+                        justifyContent: "flex-start",
+                        flexWrap: "wrap",
+                        marginTop: 10,
                       }}
                     >
-                      <option value={null}>Select {fieldName}</option>
-                      {values.map((item, index) => {
-                        return (
-                          <option key={index} value={item}>
-                            {item}
-                          </option>
-                        );
-                      })}
-                    </Select>
-                  </Grid>
-                );
-              } else if (type === "textfield") {
-                return (
-                  <Grid
-                    item
-                    xs={12}
-                    md={4}
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "flex-start",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    <TextField
-                      label={field?.label}
-                      variant="outlined"
-                      placeholder={field.placeholder}
-                      fullWidth
-                      style={{ marginTop: 15 }}
-                    />
-                    <Typography className={classes.text3}>{unit}</Typography>
-                  </Grid>
-                );
-              }
-            })}
-          <Grid
-            item
-            xs={12}
-            md={4}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "flex-start",
-            }}
-          ></Grid>
-        </Grid>
-      </FieldsContainer></>
+                      <Typography className={classes.text3}>{label}</Typography>
+                      <Select
+                        native
+                        variant="outlined"
+                        value={state[fieldName]}
+                        onChange={handleChange}
+                        inputProps={{ name: fieldName }}
+                        style={{
+                          height: 48,
+                          marginRight: 5,
+                          maxHeight: 200,
+                          width: 200,
+                        }}
+                      >
+                        <option value={null}>Select {fieldName}</option>
+                        {values.map((item, index) => {
+                          return (
+                            <option key={index} value={item}>
+                              {item}
+                            </option>
+                          );
+                        })}
+                      </Select>
+                    </Grid>
+                  );
+                } else if (type === "textfield") {
+                  return (
+                    <Grid
+                      item
+                      xs={12}
+                      md={4}
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "flex-start",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      <TextField
+                        label={field?.label}
+                        variant="outlined"
+                        placeholder={field.placeholder}
+                        fullWidth
+                        style={{ marginTop: 15 }}
+                      />
+                      <Typography className={classes.text3}>{unit}</Typography>
+                    </Grid>
+                  );
+                }
+              })}
+            <Grid
+              item
+              xs={12}
+              md={4}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "flex-start",
+              }}
+            ></Grid>
+          </Grid>
+        </FieldsContainer>
+      </>
     );
   };
 
@@ -552,118 +552,127 @@ const PropertyCreateUpdate = () => {
    */
   const _renderAreaSection = (section) => {
     const { fields, section: sectionName } = section || {};
-    return (<>
-      <FieldsContainer label={sectionName}>
-        <Grid container>
-          {fields?.length > 0 &&
-            fields?.map((field, index) => {
-              // debugger;
-              const { label, type, units, placeholder } = field || {};
-              if (type === "textfield") {
-                return (
-                  <Grid
-                    item
-                    xs={12}
-                    md={12}
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "flex-start",
-                    }}
-                    key={index}
-                  >
-                    <TextField
-                      label={label}
-                      placeholder={placeholder}
-                      key={label}
-                      style={{ width: 400, marginRight: 15, marginBottom: 15 }}
-                      name={label}
-                      variant="outlined"
-                      onChange={(e) => {
-                        // debugger
-                        onAreaFieldSelect(
-                          e,
-                          propertyUnitSelectRef.current.querySelector("select")
-                            .value
-                        );
-                      }}
-                      value={
-                        state[field?.fieldName.toLowerCase()]
-                          ? state[field?.fieldName.toLowerCase()]["size"]
-                          : ""
-                      }
-                    />
-                    {units && (
-                      <Select
-                        native
-                        variant="outlined"
-                        value={areaUnit["area-unit"]}
-                        ref={propertyUnitSelectRef}
-                        onChange={handleAreaUnitChange}
-                        inputProps={{
-                          name: "area-unit",
-                        }}
-                        style={{ height: 55, marginTop: -15, maxHeight: 200 }}
-                      >
-                        {/* <option value={null}>Select area-unit</option> */}
-                        {units?.map((item, index) => {
-                          return (
-                            <option key={index} value={item}>
-                              {item}
-                            </option>
-                          );
-                        })}
-                      </Select>
-                    )}
-                  </Grid>
-                );
-              } else if (type === "textfields") {
-                return (
-                  <Grid
-                    item
-                    xs={12}
-                    md={12}
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "flex-start",
-                    }}
-                    key={index}
-                  >
-                    <TextField
-                      label={label}
-                      placeholder={placeholder}
+    return (
+      <>
+        <FieldsContainer label={sectionName}>
+          <Grid container>
+            {fields?.length > 0 &&
+              fields?.map((field, index) => {
+                // debugger;
+                const { label, type, units, placeholder } = field || {};
+                if (type === "textfield") {
+                  return (
+                    <Grid
+                      item
+                      xs={12}
+                      md={12}
                       style={{
-                        width: 400,
-                        marginRight: 15,
-                        marginBottom: 15,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "flex-start",
                       }}
-                      name={label}
-                      variant="outlined"
-                      onChange={handleChange}
-                      value={state[field?.fieldName]}
-                    />
-                  </Grid>
-                );
-              } else if (type === "checkbox") {
-                return (
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={state.checkedA}
-                        onChange={handleChange}
+                      key={index}
+                    >
+                      <TextField
+                        label={label}
+                        placeholder={placeholder}
+                        key={label}
+                        type="number"
+                        style={{
+                          width: 400,
+                          marginRight: 15,
+                          marginBottom: 15,
+                        }}
                         name={label}
+                        variant="outlined"
+                        onChange={(e) => {
+                          // debugger
+                          onAreaFieldSelect(
+                            e,
+                            propertyUnitSelectRef.current.querySelector(
+                              "select"
+                            ).value
+                          );
+                        }}
+                        value={
+                          state[field?.fieldName.toLowerCase()]
+                            ? state[field?.fieldName.toLowerCase()]["size"]
+                            : ""
+                        }
                       />
-                    }
-                    label={label}
-                  />
-                );
-              }
-            })}
-        </Grid>
-      </FieldsContainer><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
+                      {units && (
+                        <Select
+                          native
+                          variant="outlined"
+                          value={areaUnit["area-unit"]}
+                          ref={propertyUnitSelectRef}
+                          onChange={handleAreaUnitChange}
+                          inputProps={{
+                            name: "area-unit",
+                          }}
+                          style={{ height: 55, marginTop: -15, maxHeight: 200 }}
+                        >
+                          {/* <option value={null}>Select area-unit</option> */}
+                          {units?.map((item, index) => {
+                            return (
+                              <option key={index} value={item}>
+                                {item}
+                              </option>
+                            );
+                          })}
+                        </Select>
+                      )}
+                    </Grid>
+                  );
+                } else if (type === "textfields") {
+                  return (
+                    <Grid
+                      item
+                      xs={12}
+                      md={12}
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "flex-start",
+                      }}
+                      key={index}
+                    >
+                      <TextField
+                        label={label}
+                        placeholder={placeholder}
+                        style={{
+                          width: 400,
+                          marginRight: 15,
+                          marginBottom: 15,
+                        }}
+                        name={label}
+                        variant="outlined"
+                        type="number"
+                        onChange={handleChange}
+                        value={state[field?.fieldName]}
+                      />
+                    </Grid>
+                  );
+                } else if (type === "checkbox") {
+                  return (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={state.checkedA}
+                          onChange={handleChange}
+                          name={label}
+                        />
+                      }
+                      label={label}
+                    />
+                  );
+                }
+              })}
+          </Grid>
+        </FieldsContainer>
+        <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
       </>
     );
   };
@@ -674,96 +683,118 @@ const PropertyCreateUpdate = () => {
    */
   const _renderTransactionSection = (section) => {
     const { fields, section: sectionName } = section || {};
-    return (<>
-      <FieldsContainer label={sectionName}>
-        <Grid container>
-          {fields?.map((field, index) => {
-            const { label, type, values, fieldName, placeholder, data } =
-              field || {};
-            if (type === "radio") {
-              return (
-                <Grid
-                  item
-                  xs={12}
-                  md={12}
-                  style={{ display: "flex", flexDirection: "column" }}
-                  key={index}
-                >
-                  <Transaction
-                    title={label}
-                    options={values}
-                    values={state[fieldName]}
-                    onOptionSelectListener={onTransactionOptionSelectListener}
-                  />
-                </Grid>
-              );
-            } else if (type === "dropdown") {
-              return (
-                <Grid item xs={12} md={12} key={index}>
-                  <Grid container>
-                    <Grid item xs={12} md={12}>
-                      <Typography className={classes.text3}>{label}</Typography>
-                    </Grid>
-                    {data?.map((d) => {
-                      return (
-                        <Grid item xs={12} md={3}  style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
-                          <Select
-                            native
-                            value={state[d.fieldName]}
-                            variant="outlined"
-                            onChange={handleChange}
-                            inputProps={{
-                              name: d.fieldName,
-                            }}
+    return (
+      <>
+        <FieldsContainer label={sectionName}>
+          <Grid container>
+            {fields?.map((field, index) => {
+              const { label, type, values, fieldName, placeholder, data } =
+                field || {};
+              if (type === "radio") {
+                return (
+                  <Grid
+                    item
+                    xs={12}
+                    md={12}
+                    style={{ display: "flex", flexDirection: "column" }}
+                    key={index}
+                  >
+                    <Transaction
+                      title={label}
+                      options={values}
+                      values={state[fieldName]}
+                      onOptionSelectListener={onTransactionOptionSelectListener}
+                    />
+                  </Grid>
+                );
+              } else if (type === "dropdown") {
+                return (
+                  <Grid item xs={12} md={12} key={index}>
+                    <Grid container>
+                      <Grid item xs={12} md={12}>
+                        <Typography className={classes.text3}>
+                          {label}
+                        </Typography>
+                      </Grid>
+                      {data?.map((d) => {
+                        return (
+                          <Grid
+                            item
+                            xs={12}
+                            md={3}
                             style={{
-                              height: 48,
-                              marginRight: 5,
-                              maxHeight: 200,
-                              width: 200,
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
                             }}
                           >
-                            {/* <option value={null}>Select {d.fieldName}</option> */}
-                            {d.values.map((item, index) => {
-                              return d.fieldName === "available_from_month" ? (
-                                <option key={index} value={index + 1}>
-                                  {item}
-                                </option>
-                              ) : (
-                                <option key={index} value={item}>
-                                  {item}
-                                </option>
-                              );
-                            })}
-                          </Select>
-                          {" "}
-                  <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-                        </Grid>
-                      );
-                    })}
+                            <Select
+                              native
+                              value={state[d.fieldName]}
+                              variant="outlined"
+                              onChange={handleChange}
+                              inputProps={{
+                                name: d.fieldName,
+                              }}
+                              style={{
+                                height: 48,
+                                marginRight: 5,
+                                maxHeight: 200,
+                                width: 200,
+                              }}
+                            >
+                              {/* <option value={null}>Select {d.fieldName}</option> */}
+                              {d.values.map((item, index) => {
+                                return d.fieldName ===
+                                  "available_from_month" ? (
+                                  <option key={index} value={index + 1}>
+                                    {item}
+                                  </option>
+                                ) : (
+                                  <option key={index} value={item}>
+                                    {item}
+                                  </option>
+                                );
+                              })}
+                            </Select>{" "}
+                            <span style={{ color: "red", fontSize: "1.2rem" }}>
+                              *
+                            </span>
+                          </Grid>
+                        );
+                      })}
+                    </Grid>
                   </Grid>
-                </Grid>
-              );
-            } else if (type === "textfield") {
-              return (
-                <Grid item xs={12} md={12} style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
-                  <Box mt={2} />
-                  <TextField
-                    label={label}
-                    variant="outlined"
-                    placeholder={placeholder}
-                    onChange={handleChange}
-                    style={{ width: 300, marginBottom: 15 }}
-                    name={fieldName}
-                  />
-                  {" "}
-                  <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-                </Grid>
-              );
-            }
-          })}
-        </Grid>
-      </FieldsContainer>
-      <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
+                );
+              } else if (type === "textfield") {
+                return (
+                  <Grid
+                    item
+                    xs={12}
+                    md={12}
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Box mt={2} />
+                    <TextField
+                      label={label}
+                      variant="outlined"                      
+                      placeholder={placeholder}
+                      onChange={handleChange}
+                      style={{ width: 300, marginBottom: 15 }}
+                      name={fieldName}
+                    />{" "}
+                    <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
+                  </Grid>
+                );
+              }
+            })}
+          </Grid>
+        </FieldsContainer>
+        <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
       </>
     );
   };
@@ -776,193 +807,230 @@ const PropertyCreateUpdate = () => {
     const { fields, section: sectionName } = section || {};
     return (
       <>
-      <FieldsContainer label={sectionName}>
-        <Grid container>
-          {fields?.map((field) => {
-            const { label, type, values, placeholder, data, fieldName } =
-              field || {};
-            if (type === "textfield" && data) {
-              return data.map((e, index) => {
-                return (
-                  <Grid item xs={12} md={3} key={index} style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
-                    <TextField
-                      label={e.label}
-                      variant="outlined"
-                      placeholder={e.placeholder}
-                      onChange={handleChange}
-                      name={e.fieldName}
-                      style={{ marginBottom: 15 }}
-                      value={state[e.fieldName]}
-                    /> {" "}
-                    <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-                  </Grid>
-                );
-              });
-            } else if (type === "textfield") {
-              return (
-                <Grid item xs={12} md={12} style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
-                  <TextField
-                    label={label}
-                    variant="outlined"
-                    placeholder={placeholder}
-                    onChange={handleChange}
-                    style={{ width: 300, marginBottom: 15 }}
-                    name={fieldName}
-                    value={state[fieldName]}
-                  />{" "}
-                  <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-                </Grid>
-              );
-            } else if (type === "text-dropdown" && field.data) {
-              return field?.data?.map((e, i) => {
-                if (e.type === "textfield") {
+        <FieldsContainer label={sectionName}>
+          <Grid container>
+            {fields?.map((field) => {
+              const { label, type, values, placeholder, data, fieldName } =
+                field || {};
+              if (type === "textfield" && data) {
+                return data.map((e, index) => {
                   return (
-                    <Grid item xs={12} md={4} key={i} style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
+                    <Grid
+                      item
+                      xs={12}
+                      md={3}
+                      key={index}
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
                       <TextField
                         label={e.label}
                         variant="outlined"
-                        name={e.fieldName}
-                        onChange={handleChange}
+                        type="number"
                         placeholder={e.placeholder}
-                        style={{ width: 300, marginBottom: 15 }}
+                        onChange={handleChange}
+                        name={e.fieldName}
+                        style={{ marginBottom: 15 }}
                         value={state[e.fieldName]}
                       />{" "}
-                      <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
+                      <span style={{ color: "red", fontSize: "1.2rem" }}>
+                        *
+                      </span>
                     </Grid>
                   );
-                } else if (e.type === "dropdown") {
-                  return (
-                    <Grid item xs={12} md={4} key={i}>
-                      <Typography className={classes.text3}>
-                        {e.label} 
-                      </Typography>
-                      <Select
-                        native
-                        variant="outlined"
-                        value={state[e.fieldName]}
-                        onChange={handleChange}
-                        inputProps={{
-                          name: e.fieldName,
-                        }}
-                        style={{
-                          height: 55,
-                          marginRight: 5,
-                          maxHeight: 200,
-                          width: 200,
-                        }}
-                      >
-                        <option value={null}>Select Option</option>
-                        {e?.values?.length > 0 &&
-                          e?.values?.map((item, index) => {
-                            return (
-                              <option key={index} value={item}>
-                                {item}
-                              </option>
-                            );
-                          })}
-                      </Select>{" "}
-                      <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-                    </Grid>
-                  );
-                }
-              });
-            } else if (type === "dropdown") {
-              return (
-                <Grid item xs={12} md={12}>
-                  <Typography className={classes.text3}>{label}</Typography>
-                  <Select
-                    native
-                    value={state[fieldName]}
-                    onChange={handleChange}
-                    name={fieldName}
-                    variant="outlined"
-                    inputProps={{
-                      name: fieldName,
-                    }}
+                });
+              } else if (type === "textfield") {
+                return (
+                  <Grid
+                    item
+                    xs={12}
+                    md={12}
                     style={{
-                      height: 48,
-                      marginRight: 5,
-                      maxHeight: 200,
-                      width: 200,
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
                     }}
                   >
-                    <option value={null}>Select Option</option>
-                    {values?.length > 0 &&
-                      values?.map((item, index) => {
-                        return (
-                          <option key={index} value={item}>
-                            {item}
-                          </option>
-                        );
-                      })}
-                  </Select>{" "}
-                  <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-                </Grid>
-              );
-            } else if (type === "checkbox" && field?.fields) {
-              return (
-                <Grid
-                  item
-                  xs={12}
-                  md={12}
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "flex-start",
-                  }}
-                >
-                  <Typography style={{ marginRight: 10 }}>{label}</Typography>
-                  <FormGroup row>
-                    {field?.fields?.length > 0 &&
-                      field?.fields?.map((e, index) => {
-                        return (
-                          <FormControlLabel
-                            key={index}
-                            control={
-                              <Checkbox
-                                value={state[e.fieldName]}
-                                onChange={handleChange}
-                                name={e.fieldName}
-                              />
-                            }
-                            label={e.label}
-                          />
-                        );
-                      })}
-                  </FormGroup>
-                </Grid>
-              );
-            } else if (type === "checkbox") {
-              return (
-                <Grid
-                  item
-                  xs={12}
-                  md={12}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "flex-start",
-                  }}
-                >
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={state[fieldName]}
-                        value={state[fieldName]}
-                        onChange={handleChange}
-                        name={fieldName}
-                      />
-                    }
-                    label={label}
-                  />
-                </Grid>
-              );
-            }
-          })}
-        </Grid>
-      </FieldsContainer>
-      
+                    <TextField
+                      label={label}
+                      variant="outlined"
+                      type="number"
+                      placeholder={placeholder}
+                      onChange={handleChange}
+                      style={{ width: 300, marginBottom: 15 }}
+                      name={fieldName}
+                      value={state[fieldName]}
+                    />{" "}
+                    <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
+                  </Grid>
+                );
+              } else if (type === "text-dropdown" && field.data) {
+                return field?.data?.map((e, i) => {
+                  if (e.type === "textfield") {
+                    return (
+                      <Grid
+                        item
+                        xs={12}
+                        md={4}
+                        key={i}
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                        }}
+                      >
+                        <TextField
+                          label={e.label}
+                          type="number"
+                          variant="outlined"
+                          name={e.fieldName}
+                          onChange={handleChange}
+                          placeholder={e.placeholder}
+                          style={{ width: 300, marginBottom: 15 }}
+                          value={state[e.fieldName]}
+                        />{" "}
+                        <span style={{ color: "red", fontSize: "1.2rem" }}>
+                          *
+                        </span>
+                      </Grid>
+                    );
+                  } else if (e.type === "dropdown") {
+                    return (
+                      <Grid item xs={12} md={4} key={i}>
+                        <Typography className={classes.text3}>
+                          {e.label}
+                        </Typography>
+                        <Select
+                          native
+                          variant="outlined"
+                          value={state[e.fieldName]}
+                          onChange={handleChange}
+                          inputProps={{
+                            name: e.fieldName,
+                          }}
+                          style={{
+                            height: 55,
+                            marginRight: 5,
+                            maxHeight: 200,
+                            width: 200,
+                          }}
+                        >
+                          <option value={null}>Select Option</option>
+                          {e?.values?.length > 0 &&
+                            e?.values?.map((item, index) => {
+                              return (
+                                <option key={index} value={item}>
+                                  {item}
+                                </option>
+                              );
+                            })}
+                        </Select>{" "}
+                        <span style={{ color: "red", fontSize: "1.2rem" }}>
+                          *
+                        </span>
+                      </Grid>
+                    );
+                  }
+                });
+              } else if (type === "dropdown") {
+                return (
+                  <Grid item xs={12} md={12}>
+                    <Typography className={classes.text3}>{label}</Typography>
+                    <Select
+                      native
+                      value={state[fieldName]}
+                      onChange={handleChange}
+                      name={fieldName}
+                      variant="outlined"
+                      inputProps={{
+                        name: fieldName,
+                      }}
+                      style={{
+                        height: 48,
+                        marginRight: 5,
+                        maxHeight: 200,
+                        width: 200,
+                      }}
+                    >
+                      <option value={null}>Select Option</option>
+                      {values?.length > 0 &&
+                        values?.map((item, index) => {
+                          return (
+                            <option key={index} value={item}>
+                              {item}
+                            </option>
+                          );
+                        })}
+                    </Select>{" "}
+                    <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
+                  </Grid>
+                );
+              } else if (type === "checkbox" && field?.fields) {
+                return (
+                  <Grid
+                    item
+                    xs={12}
+                    md={12}
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "flex-start",
+                    }}
+                  >
+                    <Typography style={{ marginRight: 10 }}>{label}</Typography>
+                    <FormGroup row>
+                      {field?.fields?.length > 0 &&
+                        field?.fields?.map((e, index) => {
+                          return (
+                            <FormControlLabel
+                              key={index}
+                              control={
+                                <Checkbox
+                                  value={state[e.fieldName]}
+                                  onChange={handleChange}
+                                  name={e.fieldName}
+                                />
+                              }
+                              label={e.label}
+                            />
+                          );
+                        })}
+                    </FormGroup>
+                  </Grid>
+                );
+              } else if (type === "checkbox") {
+                return (
+                  <Grid
+                    item
+                    xs={12}
+                    md={12}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "flex-start",
+                    }}
+                  >
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={state[fieldName]}
+                          value={state[fieldName]}
+                          onChange={handleChange}
+                          name={fieldName}
+                        />
+                      }
+                      label={label}
+                    />
+                  </Grid>
+                );
+              }
+            })}
+          </Grid>
+        </FieldsContainer>
       </>
     );
   };
@@ -1196,38 +1264,38 @@ const PropertyCreateUpdate = () => {
       !state.address ||
       !state.city ||
       !state.State ||
-      !state.pinCode 
+      !state.pinCode
     )
       return false;
     else return true;
   };
   const validateStep1 = () => {
     debugger;
+    
     // console.log("propertyFeatures", propertyFeatures);
     console.log("currentAreaField", currentAreaField);
-    debugger
+    debugger;
     if (
-      state.Bedrooms==="0"|| 
-      state.Balconies==="0"||
-      state.Floor_No_ ==="0"||
-      state.Total_Floors==="0"||
-      state.Bathrooms==="0"||
-      state.expected_price==="0"||
-      state.expected_price_per_sq_ft==="0"||
-      state.maintenance_charges==="0"||
-      state.booking_token_amount==="0"||
-      state.other_charges==="0"||
-      !state.Furnished_Status||
-      !state.Possession_Status||
-      !description||
-      !state.maintenance_charges_per||
+      state.Bedrooms === "0" ||
+      state.Balconies === "0" ||
+      state.Floor_No_ === "0" ||
+      state.Total_Floors === "0" ||
+      state.Bathrooms === "0" ||
+      state.expected_price === "0" ||
+      state.expected_price_per_sq_ft === "0" ||
+      state.maintenance_charges === "0" ||
+      state.booking_token_amount === "0" ||
+      state.other_charges === "0" ||
+      !state.Furnished_Status ||
+      !state.Possession_Status ||
+      !description ||
+      !state.maintenance_charges_per ||
       !state.Property_Tag
     )
       return false;
     else return true;
   };
   const handleNext = () => {
-
     debugger;
     if (activeStep === 0) {
       // Submit Form Detials
@@ -1283,9 +1351,12 @@ const PropertyCreateUpdate = () => {
 
   const getStepOne = () => {
     return (
-      <div >
+      <div>
         <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-          <FieldsContainer label="Property Amenities" style={{display:"flex",flexDirection:"column"}}>
+          <FieldsContainer
+            label="Property Amenities"
+            style={{ display: "flex", flexDirection: "column" }}
+          >
             {amenities.map((x, i) => {
               // debugger;
               if (state.id == " ") {
@@ -1300,14 +1371,14 @@ const PropertyCreateUpdate = () => {
                       name="amenities"
                       value={x}
                     ></TextField>
-                    <Box mt={2} mb={2}/>
+                    <Box mt={2} mb={2} />
                     <div className="RemoveBtn">
                       {amenities.length !== 1 && (
                         <Button
                           variant="contained"
                           type="button"
                           color="primary"
-                          style={{marginRight:"10px"}}
+                          style={{ marginRight: "10px" }}
                           className={"CanceForm"}
                           onClick={() => handleRemoveAmenitiesClick(i)}
                         >
@@ -1348,7 +1419,7 @@ const PropertyCreateUpdate = () => {
                           variant="contained"
                           type="button"
                           color="primary"
-                          style={{marginRight:"10px"}}
+                          style={{ marginRight: "10px" }}
                           className={"CanceForm"}
                           onClick={() => handleRemoveAmenitiesClick(i)}
                         >
@@ -1375,11 +1446,20 @@ const PropertyCreateUpdate = () => {
           </FieldsContainer>
         </Grid>
 
-        <Grid className="form-group-item" item xs={12} sm={12} md={12} style={{minHeight:"40vh"}}>
-        <Typography>Description <span style={{color:"red",fontSize:"1.2rem"}}>*</span></Typography>
+        <Grid
+          className="form-group-item"
+          item
+          xs={12}
+          sm={12}
+          md={12}
+          style={{ minHeight: "40vh" }}
+        >
+          <Typography>
+            Description{" "}
+            <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
+          </Typography>
           {propertyData?.projectDescription != null ? (
             <>
-
               <ReactQuill
                 onChange={handleChangeTextEditor}
                 value={
@@ -1397,13 +1477,13 @@ const PropertyCreateUpdate = () => {
                 value={description || ""}
                 onChange={handleChangeTextEditor}
                 placeholder="Enter description"
-                theme="snow"                
+                theme="snow"
               />
             </>
           )}
         </Grid>
 
-        <Box style={{marginTop:"10px"}} />
+        <Box style={{ marginTop: "10px" }} />
         <Grid item xs={12} md={12}>
           <FormControl component="fieldset">
             <FormLabel component="legend">Gaurd Room</FormLabel>
@@ -1456,309 +1536,371 @@ const PropertyCreateUpdate = () => {
   };
 
   const getStepZero = () => {
-    debugger
+    debugger;
     return (
       <ValidatorForm>
-      <Grid container spacing={3} className="FormFildes">
-        <Grid item xs={12} sm={6} md={4}>
-          <FieldsContainer label="Personal Details">
-            <Grid container>
-              <Grid item xs={12} md={12}>
-                <Typography>I am</Typography>
-                <Select
-                  native
-                  variant="outlined"
-                  value={state["iAm"]}
-                  onChange={handleChange}
-                  inputProps={{
-                    name: "iAm",
-                    id: "iAm",
-                  }}
-                  style={{
-                    height: 48,
-                    marginRight: 5,
-                    maxHeight: 200,
-                    width: "95%",
-                  }}
-                >
-                  <option value={null}>Select iAm</option>
-                  {personal_details_options?.length > 0 &&
-                    personal_details_options?.map((item, index) => {
-                      return (
-                        <option key={index} value={item}>
-                          {item}
-                        </option>
-                      );
-                    })}
-                </Select>
-                <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-              </Grid>
-              <Grid item xs={12} md={12}>
-                <Typography>For</Typography>
-                <Select
-                  native
-                  variant="outlined"
-                  value={state["for"]}
-                  onChange={onOptionPropertyForSelectListener}
-                  inputProps={{
-                    name: "for",
-                    id: "for",
-                  }}
-                  style={{
-                    height: 48,
-                    marginRight: 5,
-                    maxHeight: 200,
-                    width: "95%",
-                  }}
-                >
-                  <option value={null}>Select For</option>
-                  {property_details_options?.length > 0 &&
-                    property_details_options?.map((item, index) => {
-                      return (
-                        <option key={index} value={item}>
-                          {item}
-                        </option>
-                      );
-                    })}
-                </Select>
-                <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-              </Grid>
-              <Grid item xs={12} md={12}>
-                <Typography>Property Type</Typography>
-                <Select
-                  native
-                  variant="outlined"
-                  value={state["pType"]}
-                  onChange={handleChange}
-                  inputProps={{
-                    name: "pType",
-                    id: "pType",
-                  }}
-                  style={{
-                    height: 48,
-                    marginRight: 5,
-                    maxHeight: 200,
-                    width: "95%",
-                  }}
-                >
-                  <option value={null}>Select Property Type</option>
+        <Grid container spacing={3} className="FormFildes">
+          <Grid item xs={12} sm={6} md={4}>
+            <FieldsContainer label="Personal Details">
+              <Grid container>
+                <Grid item xs={12} md={12}>
+                  <Typography>I am</Typography>
+                  <Select
+                    native
+                    variant="outlined"
+                    value={state["iAm"]}
+                    onChange={handleChange}
+                    inputProps={{
+                      name: "iAm",
+                      id: "iAm",
+                    }}
+                    style={{
+                      height: 48,
+                      marginRight: 5,
+                      maxHeight: 200,
+                      width: "95%",
+                    }}
+                  >
+                    <option value={null}>Select iAm</option>
+                    {personal_details_options?.length > 0 &&
+                      personal_details_options?.map((item, index) => {
+                        return (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        );
+                      })}
+                  </Select>
+                  <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
+                </Grid>
+                <Grid item xs={12} md={12}>
+                  <Typography>For</Typography>
+                  <Select
+                    native
+                    variant="outlined"
+                    value={state["for"]}
+                    onChange={onOptionPropertyForSelectListener}
+                    inputProps={{
+                      name: "for",
+                      id: "for",
+                    }}
+                    style={{
+                      height: 48,
+                      marginRight: 5,
+                      maxHeight: 200,
+                      width: "95%",
+                    }}
+                  >
+                    <option value={null}>Select For</option>
+                    {property_details_options?.length > 0 &&
+                      property_details_options?.map((item, index) => {
+                        return (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        );
+                      })}
+                  </Select>
+                  <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
+                </Grid>
+                <Grid item xs={12} md={12}>
+                  <Typography>Property Type</Typography>
+                  <Select
+                    native
+                    variant="outlined"
+                    value={state["pType"]}
+                    onChange={handleChange}
+                    inputProps={{
+                      name: "pType",
+                      id: "pType",
+                    }}
+                    style={{
+                      height: 48,
+                      marginRight: 5,
+                      maxHeight: 200,
+                      width: "95%",
+                    }}
+                  >
+                    <option value={null}>Select Property Type</option>
 
-                  {propertyOptions?.items?.length > 0 &&
-                    propertyOptions?.items?.map((item, index) => {
-                      return (
-                        <option key={index} value={item.name}>
-                          {item.name}
-                        </option>
-                      );
-                    })}
-                </Select>
-                <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
+                    {propertyOptions?.items?.length > 0 &&
+                      propertyOptions?.items?.map((item, index) => {
+                        return (
+                          <option key={index} value={item.name}>
+                            {item.name}
+                          </option>
+                        );
+                      })}
+                  </Select>
+                  <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
+                </Grid>
               </Grid>
-            </Grid>
-          </FieldsContainer>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <FieldsContainer label="Property Details">
-            <Box mt={2} />
-            {propertyDetail.map((x, i) => {
-              return (
-                <>
-                  <Grid container>
-                    <Grid item xs={12} md={8}>
-                      <TextField
-                        label="Key"
-                        variant="outlined"
-                        placeholder="Enter Key"
-                        style={{ width: "100%" }}
-                        onChange={(e) => handleDetailChange(e, i)}
-                        name="key"
-                        value={x.key}
-                      />
+            </FieldsContainer>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <FieldsContainer label="Property Details">
+              <Box mt={2} />
+              {propertyDetail.map((x, i) => {
+                return (
+                  <>
+                    <Grid container>
+                      <Grid item xs={12} md={8}>
+                        <TextField
+                          label="Key"
+                          variant="outlined"
+                          placeholder="Enter Key"
+                          style={{ width: "100%" }}
+                          onChange={(e) => handleDetailChange(e, i)}
+                          name="key"
+                          value={x.key}
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={4}>
+                        <TextField
+                          label="Value"
+                          variant="outlined"
+                          placeholder="Enter Value"
+                          style={{ width: "100%" }}
+                          onChange={(e) => handleDetailChange(e, i)}
+                          name="Value"
+                          value={x.Value}
+                        ></TextField>
+                      </Grid>
+                      <Box mt={2} />
+                      <div className="RemoveBtn">
+                        {propertyDetail.length !== 1 && (
+                          <Button
+                            variant="contained"
+                            type="button"
+                            color="primary"
+                            className={"CanceForm"}
+                            style={{ marginRight: "10px" }}
+                            onClick={() => handleDetailRemoveClick(i)}
+                          >
+                            Remove
+                          </Button>
+                        )}
+                        {propertyDetail.length - 1 === i && (
+                          <Button
+                            variant="contained"
+                            type="button"
+                            color="primary"
+                            className={"SaveData"}
+                            onClick={handleDetailAddClick}
+                          >
+                            Add More
+                          </Button>
+                        )}
+                      </div>
+                      <Box mt={2} />
                     </Grid>
-                    <Grid item xs={12} md={4}>
-                      <TextField
-                        label="Value"
-                        variant="outlined"
-                        placeholder="Enter Value"
-                        style={{ width: "100%" }}
-                        onChange={(e) => handleDetailChange(e, i)}
-                        name="Value"
-                        value={x.Value}
-                      ></TextField>
-                    </Grid>
-                    <Box mt={2}/>
-                    <div className="RemoveBtn">
-                      {propertyDetail.length !== 1 && (
-                        <Button
-                          variant="contained"
-                          type="button"
-                          color="primary"
-                          className={"CanceForm"}
-                          style={{marginRight:"10px"}}
-                          onClick={() => handleDetailRemoveClick(i)}
-                        >
-                          Remove
-                        </Button>
-                      )}
-                      {propertyDetail.length - 1 === i && (
-                        <Button
-                          variant="contained"
-                          type="button"
-                          color="primary"
-                          className={"SaveData"}
-                          onClick={handleDetailAddClick}
-                        >
-                          Add More
-                        </Button>
-                      )}
-                    </div>
-                    <Box mt={2} />
-                  </Grid>
-                </>
-              );
-            })}
-          </FieldsContainer>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <FieldsContainer label="Property Location">
-            <Grid container>
-              <Grid item xs={12} md={12} className={classes.style1}>
-                <Box style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
-                <TextValidator
-                  label="Longitude"
-                  variant="outlined"
-                  placeholder="Enter Longitude"
-                  onChange={handleChange}
-                  name="longitude"
-                  style={{width:"95%"}}
-                  value={state.longitude}
-                  type="number"
-                  validators={["required"]}
-                  errorMessages={["longitude field is required"]}                  
-                /><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-                </Box>
-                <Box mt={2} />
-                <Box style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
-                <TextValidator
-                  label="Latitude"
-                  variant="outlined"
-                  placeholder="Enter Latitude"
-                  type="number"
-                  style={{ width: "100%" }}
-                  onChange={handleChange}
-                  style={{width:"95%"}}
-                  name="latitude"
-                  value={state.latitude}
-                  validators={["required"]}
-                  errorMessages={["latitude field is required"]}
-                /><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-                </Box>
-                <Box mt={2} />
-                <Box style={{display:"flex",flexDirection:"row",alignItems:"center"}}>                
-                <TextValidator
-                  label="Address"
-                  variant="outlined"
-                  placeholder="Enter Address"
-                  style={{ width: "100%" }}
-                  onChange={handleChange}
-                  name="address"
-                  value={state.address}
-                  style={{width:"95%"}}
-                  validators={["required"]}
-                  errorMessages={["address field is required"]}
-                /><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-                </Box>
-                <Box mt={2} />
-                <Box style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
-                <TextValidator
-                  label="City"
-                  variant="outlined"
-                  placeholder="Enter City"
-                  style={{ width: "100%" }}
-                  onChange={handleChange}
-                  name="city"
-                  style={{width:"95%"}}
-                  value={state.city}
-                  validators={["required"]}
-                  errorMessages={["city field is required"]}
-                /><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-                </Box>
-                <Box mt={2} />
-                <Box style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
-                <TextValidator
-                  label="State"
-                  variant="outlined"
-                  placeholder="Enter State"
-                  style={{ width: "100%" }}
-                  onChange={handleChange}
-                  name="State"
-                  style={{width:"95%"}}
-                  value={state.State}
-                  validators={["required"]}
-                  errorMessages={["State field is required"]}
-                /><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-                </Box>
-                <Box mt={2} />
-                <Box style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
-                <TextValidator
-                  label="PinCode"
-                  variant="outlined"
-                  type="number"
-                  placeholder="Enter PinCode"
-                  style={{ width: "100%" }}
-                  onChange={handleChange}
-                  name="pinCode"
-                  style={{width:"95%"}}
-                  value={state.pinCode}
-                  validators={["required"]}
-                  errorMessages={["pinCode field is required"]}
-                /><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-                </Box>
+                  </>
+                );
+              })}
+            </FieldsContainer>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <FieldsContainer label="Property Location">
+              <Grid container>
+                <Grid item xs={12} md={12} className={classes.style1}>
+                  <Box
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <TextValidator
+                      label="Longitude"
+                      variant="outlined"
+                      placeholder="Enter Longitude"
+                      onChange={handleChange}
+                      name="longitude"
+                      style={{ width: "95%" }}
+                      value={state.longitude}
+                      type="number"
+                      validators={["required"]}
+                      errorMessages={["longitude field is required"]}
+                    />
+                    <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
+                  </Box>
+                  <Box mt={2} />
+                  <Box
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <TextValidator
+                      label="Latitude"
+                      variant="outlined"
+                      placeholder="Enter Latitude"
+                      type="number"
+                      style={{ width: "100%" }}
+                      onChange={handleChange}
+                      style={{ width: "95%" }}
+                      name="latitude"
+                      value={state.latitude}
+                      validators={["required"]}
+                      errorMessages={["latitude field is required"]}
+                    />
+                    <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
+                  </Box>
+                  <Box mt={2} />
+                  <Box
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <TextValidator
+                      label="Address"
+                      variant="outlined"
+                      placeholder="Enter Address"
+                      style={{ width: "100%" }}
+                      onChange={handleChange}
+                      name="address"
+                      value={state.address}
+                      style={{ width: "95%" }}
+                      validators={["required"]}
+                      errorMessages={["address field is required"]}
+                    />
+                    <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
+                  </Box>
+                  <Box mt={2} />
+                  <Box
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <TextValidator
+                      label="City"
+                      variant="outlined"
+                      placeholder="Enter City"
+                      style={{ width: "100%" }}
+                      onChange={handleChange}
+                      name="city"
+                      style={{ width: "95%" }}
+                      value={state.city}
+                      validators={["required"]}
+                      errorMessages={["city field is required"]}
+                    />
+                    <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
+                  </Box>
+                  <Box mt={2} />
+                  <Box
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <TextValidator
+                      label="State"
+                      variant="outlined"
+                      placeholder="Enter State"
+                      style={{ width: "100%" }}
+                      onChange={handleChange}
+                      name="State"
+                      style={{ width: "95%" }}
+                      value={state.State}
+                      validators={["required"]}
+                      errorMessages={["State field is required"]}
+                    />
+                    <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
+                  </Box>
+                  <Box mt={2} />
+                  <Box
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <TextValidator
+                      label="PinCode"
+                      variant="outlined"
+                      type="number"
+                      placeholder="Enter PinCode"
+                      style={{ width: "100%" }}
+                      onChange={handleChange}
+                      name="pinCode"
+                      style={{ width: "95%" }}
+                      value={state.pinCode}
+                      validators={["required"]}
+                      errorMessages={["pinCode field is required"]}
+                    />
+                    <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
+                  </Box>
+                </Grid>
               </Grid>
-            </Grid>
-          </FieldsContainer>
-        </Grid>
+            </FieldsContainer>
+          </Grid>
 
-        <Grid item xs={12} md={12}>
-          <FieldsContainer label="Project Name">
-            <Grid>
-              <Grid item xs={12} md={4} style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
-                <TextValidator
-                  label="Project Name"
-                  variant="outlined"
-                  placeholder="Enter Project Name"
-                  style={{ width: "100%" }}
-                  onChange={handleChange}
-                  name="nameOfProject"
-                  style={{width:"95%"}}
-                  value={state.nameOfProject}
-                  validators={["required"]}
-                  errorMessages={["nameOfProject field is required"]}
-                /><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-                <Box mt={2} />
+          <Grid item xs={12} md={12}>
+            <FieldsContainer label="Project Name">
+              <Grid>
+                <Grid
+                  item
+                  xs={12}
+                  md={4}
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <TextValidator
+                    label="Project Name"
+                    variant="outlined"
+                    placeholder="Enter Project Name"
+                    style={{ width: "100%" }}
+                    onChange={handleChange}
+                    name="nameOfProject"
+                    style={{ width: "95%" }}
+                    value={state.nameOfProject}
+                    validators={["required"]}
+                    errorMessages={["nameOfProject field is required"]}
+                  />
+                  <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
+                  <Box mt={2} />
+                </Grid>
               </Grid>
-            </Grid>
-            <Box mt={2} />
-            <Grid>
-              <Grid item xs={12} md={4} style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
-                <TextValidator
-                  label="Posting As"
-                  variant="outlined"
-                  placeholder="Enter Posting As"
-                  style={{ width: "100%" }}
-                  onChange={handleChange}
-                  name="postingAs"
-                  style={{width:"95%"}}
-                  value={state.postingAs}
-                  validators={["required"]}
-                  errorMessages={["postingAs field is required"]}
-                /><span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-                <Box mt={2} />
+              <Box mt={2} />
+              <Grid>
+                <Grid
+                  item
+                  xs={12}
+                  md={4}
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <TextValidator
+                    label="Posting As"
+                    variant="outlined"
+                    placeholder="Enter Posting As"
+                    style={{ width: "100%" }}
+                    onChange={handleChange}
+                    name="postingAs"
+                    style={{ width: "95%" }}
+                    value={state.postingAs}
+                    validators={["required"]}
+                    errorMessages={["postingAs field is required"]}
+                  />
+                  <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
+                  <Box mt={2} />
+                </Grid>
               </Grid>
-            </Grid>
-          </FieldsContainer>
+            </FieldsContainer>
+          </Grid>
         </Grid>
-      </Grid>
       </ValidatorForm>
     );
   };
@@ -1767,245 +1909,245 @@ const PropertyCreateUpdate = () => {
     return (
       // <ValidatorForm onSubmit={handleSubmit}>
       <ValidatorForm>
-      <>
-        <FieldsContainer label="Property Image">
-          <Grid container>
-            <Grid item xs={12} sm={6} md={4}>
-              <img src={file} height="200px" width="200px" />
-              <Box>
-                <br />
-                <label className="uploadbutton" htmlFor="mainImage">
-                  <Button
-                    color="default"
-                    variant="contained"
-                    component="span"
-                    color="primary"
-                  >
-                    Browse main Image
-                  </Button>
-                </label>
-                <input
-                  style={{ display: "none" }}
-                  id="mainImage"
-                  name="mainImage"
-                  type="file"
-                  onChange={handleMainImageChange}
+        <>
+          <FieldsContainer label="Property Image">
+            <Grid container>
+              <Grid item xs={12} sm={6} md={4}>
+                <img src={file} height="200px" width="200px" />
+                <Box>
+                  <br />
+                  <label className="uploadbutton" htmlFor="mainImage">
+                    <Button
+                      color="default"
+                      variant="contained"
+                      component="span"
+                      color="primary"
+                    >
+                      Browse main Image
+                    </Button>
+                  </label>
+                  <input
+                    style={{ display: "none" }}
+                    id="mainImage"
+                    name="mainImage"
+                    type="file"
+                    onChange={handleMainImageChange}
+                  />
+                </Box>
+              </Grid>
+              <Grid item xs={12} sm={6} md={8}>
+                <Typography variant="subtitle1" gutterBottom>
+                  Exterior View
+                </Typography>
+                {propertyData?.images?.exteriorView?.map((item, index) => {
+                  return (
+                    <img
+                      src={API_ENDPOINTS.BASE_URL + item.path}
+                      height="80px"
+                      width="80px"
+                    />
+                  );
+                })}
+                <Dropzone
+                  onChangeStatus={handleImageExteriorView}
+                  accept="image/*,audio/*,video/*"
                 />
-              </Box>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6} md={8}>
-              <Typography variant="subtitle1" gutterBottom>
-                Exterior View
-              </Typography>
-              {propertyData?.images?.exteriorView?.map((item, index) => {
-                return (
-                  <img
-                    src={API_ENDPOINTS.BASE_URL + item.path}
-                    height="80px"
-                    width="80px"
-                  />
-                );
-              })}
-              <Dropzone
-                onChangeStatus={handleImageExteriorView}
-                accept="image/*,audio/*,video/*"
-              />
-            </Grid>
-          </Grid>
-        </FieldsContainer>
-        <Grid item xs={12} sm={12}>
-          <Grid container>
-            {state.pType == "RESIDENTIAL" ? (
-              <>
-                <Grid item xs={12} sm={6} md={6}>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Living Room
-                  </Typography>
-                  {propertyData?.images?.livingRoom?.map((item, index) => {
-                    return (
-                      <img
-                        src={API_ENDPOINTS.BASE_URL + item.path}
-                        height="80px"
-                        width="80px"
-                      />
-                    );
-                  })}
-                  <Dropzone
-                    xs={12}
-                    sm={6}
-                    md={6}
-                    onChangeStatus={handleImageLivingRoom}
-                    accept="image/*,audio/*,video/*"
-                  />
-                </Grid>
+          </FieldsContainer>
+          <Grid item xs={12} sm={12}>
+            <Grid container>
+              {state.pType == "RESIDENTIAL" ? (
+                <>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <Typography variant="subtitle1" gutterBottom>
+                      Living Room
+                    </Typography>
+                    {propertyData?.images?.livingRoom?.map((item, index) => {
+                      return (
+                        <img
+                          src={API_ENDPOINTS.BASE_URL + item.path}
+                          height="80px"
+                          width="80px"
+                        />
+                      );
+                    })}
+                    <Dropzone
+                      xs={12}
+                      sm={6}
+                      md={6}
+                      onChangeStatus={handleImageLivingRoom}
+                      accept="image/*,audio/*,video/*"
+                    />
+                  </Grid>
 
-                <Grid item xs={12} sm={6} md={6}>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Bedrooms
-                  </Typography>
-                  {propertyData?.images?.badrooms?.map((item, index) => {
-                    return (
-                      <img
-                        src={API_ENDPOINTS.BASE_URL + item.path}
-                        height="80px"
-                        width="80px"
-                      />
-                    );
-                  })}
-                  <Dropzone
-                    onChangeStatus={handleImageBadrooms}
-                    accept="image/*,audio/*,video/*"
-                  />
-                </Grid>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <Typography variant="subtitle1" gutterBottom>
+                      Bedrooms
+                    </Typography>
+                    {propertyData?.images?.badrooms?.map((item, index) => {
+                      return (
+                        <img
+                          src={API_ENDPOINTS.BASE_URL + item.path}
+                          height="80px"
+                          width="80px"
+                        />
+                      );
+                    })}
+                    <Dropzone
+                      onChangeStatus={handleImageBadrooms}
+                      accept="image/*,audio/*,video/*"
+                    />
+                  </Grid>
 
-                <Grid item xs={12} sm={6} md={6}>
-                  <br />
-                  <Typography variant="subtitle1" gutterBottom>
-                    Kitchen
-                  </Typography>
-                  {propertyData?.images?.kitchen?.map((item, index) => {
-                    return (
-                      <img
-                        src={API_ENDPOINTS.BASE_URL + item.path}
-                        height="80px"
-                        width="80px"
-                      />
-                    );
-                  })}
-                  <Dropzone
-                    onChangeStatus={handleImageKitchen}
-                    accept="image/*,audio/*,video/*"
-                  />
-                </Grid>
-              </>
-            ) : (
-              ""
-            )}
-            {state.pType == "COMMERCIAL" ? (
-              <>
-                <Grid item xs={12} sm={6} md={6}>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Rooms
-                  </Typography>
-                  {propertyData?.images?.livingRoom?.map((item, index) => {
-                    return (
-                      <img
-                        src={API_ENDPOINTS.BASE_URL + item.path}
-                        height="80px"
-                        width="80px"
-                      />
-                    );
-                  })}
-                  <Dropzone
-                    onChangeStatus={handleImageRooms}
-                    accept="image/*,audio/*,video/*"
-                  />
-                </Grid>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <br />
+                    <Typography variant="subtitle1" gutterBottom>
+                      Kitchen
+                    </Typography>
+                    {propertyData?.images?.kitchen?.map((item, index) => {
+                      return (
+                        <img
+                          src={API_ENDPOINTS.BASE_URL + item.path}
+                          height="80px"
+                          width="80px"
+                        />
+                      );
+                    })}
+                    <Dropzone
+                      onChangeStatus={handleImageKitchen}
+                      accept="image/*,audio/*,video/*"
+                    />
+                  </Grid>
+                </>
+              ) : (
+                ""
+              )}
+              {state.pType == "COMMERCIAL" ? (
+                <>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <Typography variant="subtitle1" gutterBottom>
+                      Rooms
+                    </Typography>
+                    {propertyData?.images?.livingRoom?.map((item, index) => {
+                      return (
+                        <img
+                          src={API_ENDPOINTS.BASE_URL + item.path}
+                          height="80px"
+                          width="80px"
+                        />
+                      );
+                    })}
+                    <Dropzone
+                      onChangeStatus={handleImageRooms}
+                      accept="image/*,audio/*,video/*"
+                    />
+                  </Grid>
 
-                <Grid item xs={12} sm={6} md={6}>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Visitor Room
-                  </Typography>
-                  {propertyData?.images?.badrooms?.map((item, index) => {
-                    return (
-                      <img
-                        src={API_ENDPOINTS.BASE_URL + item.path}
-                        height="80px"
-                        width="80px"
-                      />
-                    );
-                  })}
-                  <Dropzone
-                    onChangeStatus={handleImageVisitor}
-                    accept="image/*,audio/*,video/*"
-                  />
-                </Grid>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <Typography variant="subtitle1" gutterBottom>
+                      Visitor Room
+                    </Typography>
+                    {propertyData?.images?.badrooms?.map((item, index) => {
+                      return (
+                        <img
+                          src={API_ENDPOINTS.BASE_URL + item.path}
+                          height="80px"
+                          width="80px"
+                        />
+                      );
+                    })}
+                    <Dropzone
+                      onChangeStatus={handleImageVisitor}
+                      accept="image/*,audio/*,video/*"
+                    />
+                  </Grid>
 
-                <Grid item xs={12} sm={6} md={6}>
-                  <br />
-                  <Typography variant="subtitle1" gutterBottom>
-                    Conference Room
-                  </Typography>
-                  {propertyData?.images?.badrooms?.map((item, index) => {
-                    return (
-                      <img
-                        src={API_ENDPOINTS.BASE_URL + item.path}
-                        height="80px"
-                        width="80px"
-                      />
-                    );
-                  })}
-                  <Dropzone
-                    onChangeStatus={handleImageConference}
-                    accept="image/*,audio/*,video/*"
-                  />
-                </Grid>
-              </>
-            ) : (
-              ""
-            )}
+                  <Grid item xs={12} sm={6} md={6}>
+                    <br />
+                    <Typography variant="subtitle1" gutterBottom>
+                      Conference Room
+                    </Typography>
+                    {propertyData?.images?.badrooms?.map((item, index) => {
+                      return (
+                        <img
+                          src={API_ENDPOINTS.BASE_URL + item.path}
+                          height="80px"
+                          width="80px"
+                        />
+                      );
+                    })}
+                    <Dropzone
+                      onChangeStatus={handleImageConference}
+                      accept="image/*,audio/*,video/*"
+                    />
+                  </Grid>
+                </>
+              ) : (
+                ""
+              )}
 
-            <Grid item xs={12} sm={6} md={6}>
-              <br />
-              <Typography variant="subtitle1" gutterBottom>
-                Bathrooms
-              </Typography>
-              {propertyData?.images?.bathrooms?.map((item, index) => {
-                return (
-                  <img
-                    src={API_ENDPOINTS.BASE_URL + item.path}
-                    height="80px"
-                    width="80px"
-                  />
-                );
-              })}
-              <Dropzone
-                onChangeStatus={handleImageBathrooms}
-                accept="image/*,audio/*,video/*"
-              />
-            </Grid>
+              <Grid item xs={12} sm={6} md={6}>
+                <br />
+                <Typography variant="subtitle1" gutterBottom>
+                  Bathrooms
+                </Typography>
+                {propertyData?.images?.bathrooms?.map((item, index) => {
+                  return (
+                    <img
+                      src={API_ENDPOINTS.BASE_URL + item.path}
+                      height="80px"
+                      width="80px"
+                    />
+                  );
+                })}
+                <Dropzone
+                  onChangeStatus={handleImageBathrooms}
+                  accept="image/*,audio/*,video/*"
+                />
+              </Grid>
 
-            <Grid item xs={12} sm={6} md={6}>
-              <br />
-              <Typography variant="subtitle1" gutterBottom>
-                Floor Plan
-              </Typography>
-              {propertyData?.images?.floorPlan?.map((item, index) => {
-                return (
-                  <img
-                    src={API_ENDPOINTS.BASE_URL + item.path}
-                    height="80px"
-                    width="80px"
-                  />
-                );
-              })}
-              <Dropzone
-                onChangeStatus={handleImageFloorPlan}
-                accept="image/*,audio/*,video/*"
-              />
-            </Grid>
+              <Grid item xs={12} sm={6} md={6}>
+                <br />
+                <Typography variant="subtitle1" gutterBottom>
+                  Floor Plan
+                </Typography>
+                {propertyData?.images?.floorPlan?.map((item, index) => {
+                  return (
+                    <img
+                      src={API_ENDPOINTS.BASE_URL + item.path}
+                      height="80px"
+                      width="80px"
+                    />
+                  );
+                })}
+                <Dropzone
+                  onChangeStatus={handleImageFloorPlan}
+                  accept="image/*,audio/*,video/*"
+                />
+              </Grid>
 
-            <Grid item xs={12} sm={6} md={6}>
-              <br />
-              <Typography variant="subtitle1" gutterBottom>
-                Master Plan
-              </Typography>
-              {propertyData?.images?.masterPlan?.map((item, index) => {
-                return (
-                  <img
-                    src={API_ENDPOINTS.BASE_URL + item.path}
-                    height="80px"
-                    width="80px"
-                  />
-                );
-              })}
-              <Dropzone
-                onChangeStatus={handleImageMasterPlan}
-                accept="image/*,audio/*,video/*"
-              />
-            </Grid>
+              <Grid item xs={12} sm={6} md={6}>
+                <br />
+                <Typography variant="subtitle1" gutterBottom>
+                  Master Plan
+                </Typography>
+                {propertyData?.images?.masterPlan?.map((item, index) => {
+                  return (
+                    <img
+                      src={API_ENDPOINTS.BASE_URL + item.path}
+                      height="80px"
+                      width="80px"
+                    />
+                  );
+                })}
+                <Dropzone
+                  onChangeStatus={handleImageMasterPlan}
+                  accept="image/*,audio/*,video/*"
+                />
+              </Grid>
 
-            {/* <Grid item xs={12} sm={6} md={6}>
+              {/* <Grid item xs={12} sm={6} md={6}>
                           <Typography variant="subtitle1" gutterBottom>
                             Location Map
                           </Typography>
@@ -2015,29 +2157,29 @@ const PropertyCreateUpdate = () => {
                           />
                         </Grid> */}
 
-            <Grid item xs={12} sm={6} md={6}>
-              <br />
-              <Typography variant="subtitle1" gutterBottom>
-                Other
-              </Typography>
-              {propertyData?.images?.other?.map((item, index) => {
-                return (
-                  <img
-                    src={API_ENDPOINTS.BASE_URL + item.path}
-                    height="80px"
-                    width="80px"
-                  />
-                );
-              })}
-              <Dropzone
-                onChangeStatus={handleImageOther}
-                accept="image/*,audio/*,video/*"
-              />
+              <Grid item xs={12} sm={6} md={6}>
+                <br />
+                <Typography variant="subtitle1" gutterBottom>
+                  Other
+                </Typography>
+                {propertyData?.images?.other?.map((item, index) => {
+                  return (
+                    <img
+                      src={API_ENDPOINTS.BASE_URL + item.path}
+                      height="80px"
+                      width="80px"
+                    />
+                  );
+                })}
+                <Dropzone
+                  onChangeStatus={handleImageOther}
+                  accept="image/*,audio/*,video/*"
+                />
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-        {/* </ValidatorForm> */}
-      </>
+          {/* </ValidatorForm> */}
+        </>
       </ValidatorForm>
     );
   };
@@ -2103,14 +2245,29 @@ const PropertyCreateUpdate = () => {
         </Stepper>
         <Grid contianer style={{ paddingLeft: 40 }}>
           {activeStep === steps.length ? (
-            <div>
-              <Typography className={classes.instructions}>
-                All steps completed
-              </Typography>
-              {/* <Button onClick={handleReset} className={classes.button}>
+            <>
+              <div>
+                <Typography className={classes.instructions}>
+                  All steps completed
+                </Typography>
+                {/* <Button onClick={handleReset} className={classes.button}>
                               Reset
                           </Button> */}
-            </div>
+              </div>
+              <div>
+                {activeStep !== 0 && (
+                  <Button
+                    onClick={handleBack}
+                    style={{ marginTop: 20 }}
+                    className={classes.button}
+                    variant="contained"
+                    color="primary"
+                  >
+                    Back
+                  </Button>
+                )}
+              </div>{" "}
+            </>
           ) : (
             <div>
               <Typography className={classes.instructions}>

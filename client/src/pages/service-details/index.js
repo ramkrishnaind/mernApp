@@ -14,8 +14,13 @@ import { useLocation } from "react-router-dom";
 import ApiClient from "../../api-client";
 import ReactHtmlParser from "react-html-parser";
 import EnquryFormService from "../../components/enquryFormService/enquryForm";
-import Zoom from "react-medium-image-zoom";
-import "react-medium-image-zoom/dist/styles.css";
+// import Zoom from "react-medium-image-zoom";
+// import "react-medium-image-zoom/dist/styles.css";
+
+import "photoswipe/dist/photoswipe.css";
+import "photoswipe/dist/default-skin/default-skin.css";
+
+import { Gallery, Item } from "react-photoswipe-gallery";
 
 const useStyles = makeStyles((theme) => ({
   text1: {
@@ -217,15 +222,24 @@ const ServiceDetailPage = (props) => {
                   <span style={{ color: "#00afb8" }}>COMPLETED PROJECTS</span>
                 </h2>
                 <Grid container spacing={3}>
-                  {(images || []).map((img) => {
-                    return (
-                      <Grid item xs={4} className="workSpaceImgaes">
-                        <Zoom>
-                          <img src={img} alt="" />
-                        </Zoom>
-                      </Grid>
-                    );
-                  })}
+                  <Gallery>
+                    {(images || []).map((img) => {
+                      return (
+                        <Grid item xs={4} className="workSpaceImgaes">
+                          <Item
+                            original={img}
+                            thumbnail={img}
+                            width="1024"
+                            height="768"
+                          >
+                            {({ ref, open }) => (
+                              <img ref={ref} onClick={open} src={img} />
+                            )}
+                          </Item>
+                        </Grid>
+                      );
+                    })}
+                  </Gallery>
                 </Grid>
               </Box>
             </div>
