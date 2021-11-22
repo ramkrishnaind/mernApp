@@ -136,4 +136,6 @@ module.exports = {
     //getSupplier: require('./SupplierModule/getSupplierModule'),
     deleteSupplier: require('./SupplierModule/deleteSupplierModule'),
 
+    deleteImage: require('./HomeModule/deleteImageModule')
+
 }
