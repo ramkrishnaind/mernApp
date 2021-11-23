@@ -87,7 +87,7 @@ const InvestWithUs = (props) => {
           <Box className="about-page-item">
             <Box className="about-page-content" align="center">
               <Typography variant="h3">
-                Invest Now For Consistent Returns
+                {data.shortDescription||'What We Do'}
               </Typography>
               <Typography>{HtmlParser(data?.shortDescription)}</Typography>
             </Box>
@@ -286,7 +286,7 @@ const InvestWithUs = (props) => {
                     height: "50%",
                     width: "100%",
                     background:
-                      "url('https://images.unsplash.com/photo-1593642633279-1796119d5482?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60'),rgba(0,0,0,.6)",
+                      `url('${img}'),rgba(0,0,0,.6)`,
                     position: "relative",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
@@ -304,7 +304,7 @@ const InvestWithUs = (props) => {
         <Container>
           <Box className="page-section-header" align="center">
             <Box component="h2" className="page-section-title">
-              How We Invest
+              {data.howToInvestTitle||'How We Invest'}
             </Box>
           </Box>
           <Box className="invest-items">
