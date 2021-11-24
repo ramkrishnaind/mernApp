@@ -141,8 +141,8 @@ function updateInvestWithUsHelper(Models) {
       };
       console.log("req.body.whatWeDo is", req.body.whatWeDo)
       console.log("req.body.howToInvest is", req.body.howToInvest)
-      setData.whatWeDo = JSON.parse(req.body.whatWeDo)
-      setData.howToInvest = JSON.parse(req.body.howToInvest)
+      setData.whatWeDo = req.body.whatWeDo;
+      setData.howToInvest = req.body.howToInvest;
       if (req.files) {
         setData.media = req.files;
       }
