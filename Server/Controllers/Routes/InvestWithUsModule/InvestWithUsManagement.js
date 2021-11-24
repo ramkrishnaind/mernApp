@@ -59,6 +59,7 @@ function createInvestWithUsHelper(Models) {
       //image(multer):Image on whatwedo right side
       //bannerImage(multer)
       let InvestWithUsFormData = _.pick(req.body, [
+        "_id",
         "whatWeDoHeader",
         "whatWeDoDescription",
         "howToInvestTitle",
