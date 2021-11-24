@@ -82,8 +82,8 @@ function createInvestWithUsHelper(Models) {
       } else {
         // console.log('InvestWithUsFormData.howToInvest is', InvestWithUsFormData.howToInvest)
         console.log("req.files is", req.files);
-        InvestWithUsFormData.whatWeDo=JSON.parse(req.whatWeDo)
-        setData.howToInvest=JSON.parse(req.howToInvest)
+        InvestWithUsFormData.whatWeDo = JSON.parse(req.whatWeDo)
+        setData.howToInvest = JSON.parse(req.howToInvest)
 
         // InvestWithUsFormData.howToInvest = InvestWithUsFormData.howToInvest;
         InvestWithUsFormData.media = req.files;
@@ -134,18 +134,21 @@ function updateInvestWithUsHelper(Models) {
         "metaKeywords",
         "metaDescription",
       ]);
-
+      console.log('bodyData is', bodyData)
       let setData = {
         ...bodyData,
       };
+      console.log('req is', req)
+      console.log('req.whatWeDo is', req.body.whatWeDo)
+      console.log('req.whatWeDo is', req.body.howToInvest)
       if (req.files) {
         // let InvestWithUsImages = req.files;
-        setData.whatWeDo=JSON.parse(req.whatWeDo)
-        setData.howToInvest=JSON.parse(req.howToInvest)
+        setData.whatWeDo = JSON.parse(req.body.whatWeDo)
+        setData.howToInvest = JSON.parse(req.body.howToInvest)
         setData.media = req.files;
         // setData.bannerImage = InvestWithUsImages.bannerImage;
       }
-
+      console.log('setData 2 is', setData)
       let updateModule = await Models.InvestWithUsDB.findOneAndUpdate(
         { _id: bodyData._id },
         { $set: setData }
