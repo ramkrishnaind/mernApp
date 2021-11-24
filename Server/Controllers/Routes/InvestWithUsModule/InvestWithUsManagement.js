@@ -8,22 +8,22 @@ const CONSTANTSMESSAGE = require("../../../Helper/constantsMessage");
 const { nanoid } = require("nanoid");
 
 const createInvestWithUsSchema = Joi.object({
-  header: Joi.string().trim().required(),
-  title: Joi.string().trim().required(),
-  shortDescription: Joi.string().required(),
-  description: Joi.string().required(),
-  howToInvest: Joi.string().required(),
+  whatWeDoHeader: Joi.string().trim().required(),
+  whatWeDoDescription: Joi.string().trim().required(),
+  howToInvestTitle: Joi.string().required(),
+  whatWeDo:Joi.array().required,  
+  howToInvest: Joi.array().required,
   metaTitle: Joi.string(),
   metaKeywords: Joi.string(),
   metaDescription: Joi.string(),
 });
 const updateInvestWithUsSchema = Joi.object({
   _id: Joi.objectId().trim().required(),
-  header: Joi.string().trim().required(),
-  title: Joi.string().trim().required(),
-  shortDescription: Joi.string().required(),
-  description: Joi.string().required(),
-  howToInvest: Joi.string().required(),
+  whatWeDoHeader: Joi.string().trim().required(),
+  whatWeDoDescription: Joi.string().trim().required(),
+  howToInvestTitle: Joi.string().required(),
+  whatWeDo:Joi.array().required,  
+  howToInvest: Joi.array().required,
   metaTitle: Joi.string(),
   metaKeywords: Joi.string(),
   metaDescription: Joi.string(),
