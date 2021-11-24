@@ -11,20 +11,8 @@ const createInvestWithUsSchema = Joi.object({
   whatWeDoHeader: Joi.string().trim().required(),
   whatWeDoDescription: Joi.string().trim().required(),
   howToInvestTitle: Joi.string().required(),
-  // whatWeDo: Joi.string().required(),
-  // howToInvest: Joi.string().required(),
-  whatWeDo:Joi.array().items(
-    Joi.object({
-        title: Joi.string(),
-        description: Joi.string(),
-    })
-  ),  
-  howToInvest: Joi.array().items(
-    Joi.object({
-        title: Joi.string(),
-        description: Joi.string(),
-    })
-  ), 
+  whatWeDo: Joi.string().required(),
+  howToInvest: Joi.string().required(),
   metaTitle: Joi.string(),
   metaKeywords: Joi.string(),
   metaDescription: Joi.string(),
@@ -34,21 +22,8 @@ const updateInvestWithUsSchema = Joi.object({
   whatWeDoHeader: Joi.string().trim().required(),
   whatWeDoDescription: Joi.string().trim().required(),
   howToInvestTitle: Joi.string().required(),
-  // whatWeDo: Joi.string().required(),
-  // howToInvest: Joi.string().required(),
-
-  whatWeDo:Joi.array().items(
-    Joi.object({
-        title: Joi.string(),
-        description: Joi.string(),
-    })
-  ),  
-  howToInvest: Joi.array().items(
-    Joi.object({
-        title: Joi.string(),
-        description: Joi.string(),
-    })
-  ), 
+  whatWeDo: Joi.string().required(),
+  howToInvest: Joi.string().required(),
   metaTitle: Joi.string(),
   metaKeywords: Joi.string(),
   metaDescription: Joi.string(),
@@ -90,9 +65,7 @@ function createInvestWithUsHelper(Models) {
       let InvestWithUsFormData = _.pick(req.body, [
         "whatWeDoHeader",
         "whatWeDoDescription",
-        "whatWeDo",
         "howToInvestTitle",
-        "howToInvest",
         "metaTitle",
         "metaKeywords",
         "metaDescription",
@@ -108,6 +81,9 @@ function createInvestWithUsHelper(Models) {
       } else {
         // console.log('InvestWithUsFormData.howToInvest is', InvestWithUsFormData.howToInvest)
         console.log("req.files is", req.files);
+        InvestWithUsFormData.whatWeDo=JSON.parse(req.whatWeDo)
+        InvestWithUsFormData.howToInvest=JSON.parse(req.howToInvest)
+
         // InvestWithUsFormData.howToInvest = InvestWithUsFormData.howToInvest;
         InvestWithUsFormData.media = req.files;
         console.log("InvestWithUsFormData is", InvestWithUsFormData);
@@ -152,9 +128,7 @@ function updateInvestWithUsHelper(Models) {
       let bodyData = _.pick(req.body, [
         "whatWeDoHeader",
         "whatWeDoDescription",
-        "whatWeDo",
         "howToInvestTitle",
-        "howToInvest",
         "metaTitle",
         "metaKeywords",
         "metaDescription",
@@ -165,6 +139,8 @@ function updateInvestWithUsHelper(Models) {
       };
       if (req.files) {
         // let InvestWithUsImages = req.files;
+        setData.whatWeDo=JSON.parse(req.whatWeDo)
+        setData.howToInvest=JSON.parse(req.howToInvest)
         setData.media = req.files;
         // setData.bannerImage = InvestWithUsImages.bannerImage;
       }
