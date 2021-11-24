@@ -11,8 +11,8 @@ const createInvestWithUsSchema = Joi.object({
   whatWeDoHeader: Joi.string().trim().required(),
   whatWeDoDescription: Joi.string().trim().required(),
   howToInvestTitle: Joi.string().required(),
-  // whatWeDo: Joi.string().required(),
-  // howToInvest: Joi.string().required(),
+  whatWeDo: Joi.string().required(),
+  howToInvest: Joi.string().required(),
   metaTitle: Joi.string(),
   metaKeywords: Joi.string(),
   metaDescription: Joi.string(),
@@ -22,8 +22,8 @@ const updateInvestWithUsSchema = Joi.object({
   whatWeDoHeader: Joi.string().trim().required(),
   whatWeDoDescription: Joi.string().trim().required(),
   howToInvestTitle: Joi.string().required(),
-  // whatWeDo: Joi.string().required(),
-  // howToInvest: Joi.string().required(),
+  whatWeDo: Joi.string().required(),
+  howToInvest: Joi.string().required(),
   metaTitle: Joi.string(),
   metaKeywords: Joi.string(),
   metaDescription: Joi.string(),
@@ -39,6 +39,10 @@ const updateInvestWithUsStatusSchema = Joi.object({
 function createInvestWithUsHelper(Models) {
   async function createInvestWithUs(req, res) {
     try {
+      let validateData = createInvestWithUsSchema.validate(req.body);
+      if (validateData.error) {
+        throw { status: false, error: validateData, message: "Invalid data" };
+      }
 
       // pick data from req.body
       //whatWeDoHeader: what we do
@@ -59,7 +63,7 @@ function createInvestWithUsHelper(Models) {
       //image(multer):Image on whatwedo right side
       //bannerImage(multer)
       let InvestWithUsFormData = _.pick(req.body, [
-        "id",
+        "_id",
         "whatWeDoHeader",
         "whatWeDoDescription",
         "howToInvestTitle",
@@ -67,12 +71,6 @@ function createInvestWithUsHelper(Models) {
         "metaKeywords",
         "metaDescription",
       ]);
-      InvestWithUsFormData._id=InvestWithUsFormData.id
-      let validateData = createInvestWithUsSchema.validate(InvestWithUsFormData);
-      if (validateData.error) {
-        throw { status: false, error: validateData, message: "Invalid data" };
-      }
-
       let dataExist = await Models.InvestWithUsDB.findOne({ active: true });
       if (dataExist) {
         // if data found check verified or not
@@ -85,7 +83,7 @@ function createInvestWithUsHelper(Models) {
         // console.log('InvestWithUsFormData.howToInvest is', InvestWithUsFormData.howToInvest)
         console.log("req.files is", req.files);
         InvestWithUsFormData.whatWeDo=JSON.parse(req.whatWeDo)
-        InvestWithUsFormData.howToInvest=JSON.parse(req.howToInvest)
+        setData.howToInvest=JSON.parse(req.howToInvest)
 
         // InvestWithUsFormData.howToInvest = InvestWithUsFormData.howToInvest;
         InvestWithUsFormData.media = req.files;
@@ -116,16 +114,7 @@ function createInvestWithUsHelper(Models) {
 function updateInvestWithUsHelper(Models) {
   async function update(req, res) {
     try {
-      let bodyData = _.pick(req.body, [
-        "whatWeDoHeader",
-        "whatWeDoDescription",
-        "howToInvestTitle",
-        "metaTitle",
-        "metaKeywords",
-        "metaDescription",
-      ]);
-
-      let validateData = updateInvestWithUsSchema.validate(bodyData);
+      let validateData = updateInvestWithUsSchema.validate(req.body);
       if (validateData.error) {
         throw {
           status: false,
@@ -137,6 +126,14 @@ function updateInvestWithUsHelper(Models) {
       // pick data from req.body
 
       // let bodyData = _.pick(req.body, ['header', 'title', 'shortDescription', 'description', 'howToInvest', 'metaTitle', 'metaKeywords', 'metaDescription']);
+      let bodyData = _.pick(req.body, [
+        "whatWeDoHeader",
+        "whatWeDoDescription",
+        "howToInvestTitle",
+        "metaTitle",
+        "metaKeywords",
+        "metaDescription",
+      ]);
 
       let setData = {
         ...bodyData,
