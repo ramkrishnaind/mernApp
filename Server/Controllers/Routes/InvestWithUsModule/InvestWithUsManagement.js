@@ -27,6 +27,10 @@ const updateInvestWithUsSchema = Joi.object({
   metaTitle: Joi.string(),
   metaKeywords: Joi.string(),
   metaDescription: Joi.string(),
+  image: Joi.string().allow('null'),
+  bannerImage: Joi.string().allow('null'),
+  whatWeDoImages: Joi.string().allow('null'),
+  howToInvestImages: Joi.string().allow('null')
 });
 const getInvestWithUsSchema = Joi.object({
   _id: Joi.string().trim().required(),
