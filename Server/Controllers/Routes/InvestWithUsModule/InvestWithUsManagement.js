@@ -59,7 +59,7 @@ function createInvestWithUsHelper(Models) {
       //image(multer):Image on whatwedo right side
       //bannerImage(multer)
       let InvestWithUsFormData = _.pick(req.body, [
-        "_id",
+        "id",
         "whatWeDoHeader",
         "whatWeDoDescription",
         "howToInvestTitle",
@@ -67,6 +67,7 @@ function createInvestWithUsHelper(Models) {
         "metaKeywords",
         "metaDescription",
       ]);
+      InvestWithUsFormData._id=InvestWithUsFormData.id
       let validateData = createInvestWithUsSchema.validate(InvestWithUsFormData);
       if (validateData.error) {
         throw { status: false, error: validateData, message: "Invalid data" };
