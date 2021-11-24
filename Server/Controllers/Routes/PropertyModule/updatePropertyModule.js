@@ -41,7 +41,6 @@ const moduleSchema = Joi.object({
     pinCode: Joi.string(),
     propertTag: Joi.string(),
     propertyDetails: Joi.array(),
-    isPostedByAdmin: Joi.boolean(),
     userId: Joi.objectId(),
     totalArea: Joi.number().allow(null),
     propertyTag: Joi.string(),
@@ -78,16 +77,11 @@ function updatePropertyRequest(Models) {
                 "availableFromYear", "ageOfConstruction", "expectedPrice", "pricePerSqFt", "isPLCIncluded",
                 "isCarParkingIncluded", "isClubMemberShipIncluded", "otherCharges", "isStumpDutyRCExcluded",
                 "bookingAmount", "maintenanceCharge", "maintenanceFor", "brokerageCharge", "amenities", "latitude",
-                "longitude", "address", "city", "State", "pinCode", "propertTag", "isPostedByAdmin", "propertyDetails",
+                "longitude", "address", "city", "State", "pinCode", "propertTag", "propertyDetails",
                 "userId", "totalArea", "propertyTag", "description", "gaurdRoom", "buildYear", "conferenceRoom", "vistorRoom",
                 "personalWashroom", "noOfSeats", "meetingRooms", "Pantry", "Noofopensides", "Widthofroad", "IsCornerPlot"]);
             // searching email or mobile already exists or not
             // let findData = await Models.PropertyDB.findOne({ nameOfProject: bodyData.nameOfProject });
-            if (bodyData.isPostedByAdmin) {
-                bodyData.status = 1;
-            } else {
-                bodyData.status = 2;
-            }
             const moduleFeatureSchema = {
                 bedrooms: bodyData.bedrooms,
                 balconies: bodyData.balconies,
@@ -130,7 +124,6 @@ function updatePropertyRequest(Models) {
                 locality: bodyData.locality,
                 pCity: bodyData.city,
                 locality: bodyData.locality,
-                status: bodyData.status,
                 propertyCode: bodyData.propertyCode,
                 propertyDetails: bodyData.propertyDetails,
                 tag: bodyData.tag,

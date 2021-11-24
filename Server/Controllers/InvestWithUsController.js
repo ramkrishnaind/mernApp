@@ -39,9 +39,15 @@ module.exports = function (conn) {
     const requestAuthMiddleware = userAuthMiddlewareFunction.requestAuthMiddleware(db);
 
     const pageMedia = [{
-        name: 'image', maxCount: 2
+        name: 'image', maxCount: 1
     }, {
         name: 'bannerImage', maxCount: 1
+    },
+    {
+        name: 'whatWeDoImages', maxCount: 10
+    },
+    {
+        name: 'howToInvestImages', maxCount: 3,minCount:3
     }];
 
     router.post('/createInvestWithUs', userAuthMiddleware, upload.fields(pageMedia), InvestWithUsFunction.createInvestWithUsFunc(db));
