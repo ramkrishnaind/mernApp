@@ -13,8 +13,18 @@ const createInvestWithUsSchema = Joi.object({
   howToInvestTitle: Joi.string().required(),
   // whatWeDo: Joi.string().required(),
   // howToInvest: Joi.string().required(),
-  whatWeDo:Joi.array(),  
-  howToInvest: Joi.array(),
+  whatWeDo:Joi.array().items(
+    Joi.object({
+        title: Joi.string().required(),
+        description: Joi.string().required(),
+    })
+  ),  
+  howToInvest: Joi.array().items(
+    Joi.object({
+        title: Joi.string().required(),
+        description: Joi.string().required(),
+    })
+  ), 
   metaTitle: Joi.string(),
   metaKeywords: Joi.string(),
   metaDescription: Joi.string(),
@@ -27,8 +37,18 @@ const updateInvestWithUsSchema = Joi.object({
   // whatWeDo: Joi.string().required(),
   // howToInvest: Joi.string().required(),
 
-  whatWeDo:Joi.array(),  
-  howToInvest: Joi.array(),
+  whatWeDo:Joi.array().items(
+    Joi.object({
+        title: Joi.string().required(),
+        description: Joi.string().required(),
+    })
+  ),  
+  howToInvest: Joi.array().items(
+    Joi.object({
+        title: Joi.string().required(),
+        description: Joi.string().required(),
+    })
+  ), 
   metaTitle: Joi.string(),
   metaKeywords: Joi.string(),
   metaDescription: Joi.string(),
