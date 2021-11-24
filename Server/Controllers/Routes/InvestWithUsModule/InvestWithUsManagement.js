@@ -139,6 +139,8 @@ function updateInvestWithUsHelper(Models) {
       let setData = {
         ...bodyData,
       };
+      console.log("req.body.whatWeDo is", req.body.whatWeDo)
+      console.log("req.body.howToInvest is", req.body.howToInvest)
       setData.whatWeDo = JSON.parse(req.body.whatWeDo)
       setData.howToInvest = JSON.parse(req.body.howToInvest)
       if (req.files) {
