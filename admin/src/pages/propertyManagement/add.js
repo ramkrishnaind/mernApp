@@ -1111,6 +1111,7 @@ const PropertyCreateUpdate = (props) => {
   };
 
   const handleImageLivingRoom = (file, status) => {
+    debugger
     let list = image;
     let data = [];
     if (status === "done") {
