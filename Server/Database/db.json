@@ -1,15 +1,11 @@
 {
     "dbcredentials": {
-        "user": "ramkrishnaindal",
-        "password": "Csdem10!@#$%@",
-        "database": "merbApp",
+        "user": "vishalcon_user",
+        "password": "kfh478Fjf84j",
+        "database": "vishalcon_db",
         "address": "localhost",
         "host":"localhost",
         "port": 27017
     }
 
 }
-
-
-
-
