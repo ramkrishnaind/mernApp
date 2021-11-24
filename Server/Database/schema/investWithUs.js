@@ -4,32 +4,26 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const schema = new Schema({
-    header: {
+    whatWeDoHeader: {
         type: String,
-        required: true,
         trim: true
     },
-    shortDescription: {
+    whatWeDoDescription: {
         type: String,
-        required: true,
         trim: true
     },
-    title: {
+    howToInvestTitle: {
         type: String,
-        required: true,
         trim: true
     },
     media: {
         type: Array
     },
-    description: {
-        type: String,
-        required: true,
-        trim: true
-    },
     howToInvest: {
-        type: Array,
-        required: true
+        type: Array
+    },
+    whatWeDo: {
+        type: Array
     },
     date: {
         type: Date,
