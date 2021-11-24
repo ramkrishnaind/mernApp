@@ -6,17 +6,14 @@ var Schema = mongoose.Schema;
 const schema = new Schema({
     header: {
         type: String,
-        required: true,
         trim: true
     },
     shortDescription: {
         type: String,
-        required: true,
         trim: true
     },
     title: {
         type: String,
-        required: true,
         trim: true
     },
     media: {
@@ -24,12 +21,10 @@ const schema = new Schema({
     },
     description: {
         type: String,
-        required: true,
         trim: true
     },
     howToInvest: {
-        type: Array,
-        required: true
+        type: Array
     },
     date: {
         type: Date,
