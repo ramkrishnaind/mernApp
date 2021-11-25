@@ -47,7 +47,7 @@ module.exports = function (conn) {
         name: 'whatWeDoImages', maxCount: 10
     },
     {
-        name: 'howToInvestImages', maxCount: 3,minCount:3
+        name: 'howToInvestImages', maxCount: 3
     }];
 
     router.post('/createInvestWithUs', userAuthMiddleware, upload.fields(pageMedia), InvestWithUsFunction.createInvestWithUsFunc(db));
