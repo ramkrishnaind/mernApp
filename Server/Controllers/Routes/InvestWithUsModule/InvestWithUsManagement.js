@@ -83,8 +83,8 @@ function createInvestWithUsHelper(Models) {
         //   data: dataExist,
         // });
       // } else {
-        InvestWithUsFormData.whatWeDo = JSON.parse(req.body.whatWeDo)
-        InvestWithUsFormData.howToInvest = JSON.parse(req.body.howToInvest)
+        InvestWithUsFormData.whatWeDo = req.body.whatWeDo
+        InvestWithUsFormData.howToInvest = req.body.howToInvest
         if (req.files) {
           InvestWithUsFormData.media = req.files;
         }
