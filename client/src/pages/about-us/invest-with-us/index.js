@@ -87,13 +87,15 @@ const InvestWithUs = (props) => {
           <Box className="about-page-item">
             <Box className="about-page-content" align="center">
               <Typography variant="h3">
-                {data.shortDescription||'What We Do'}
+                {data.whatWeDoHeader||'What We Do'}
               </Typography>
-              <Typography>{HtmlParser(data?.shortDescription)}</Typography>
+              <Typography>{HtmlParser(data?.whatWeDoDescription)}</Typography>
             </Box>
           </Box>
           <Box className="about-page-item">
-            <Grid
+            {data.whatWeDo.map((whatWeDo,index)=>{
+              return <Grid
+              key={whatWeDo.title}
               container
               spacing={3}
               style={{
@@ -123,18 +125,17 @@ const InvestWithUs = (props) => {
                       className={classes.detailImage}
                       style={{ color: "coral", backgroundColor: "cornsilk" }}
                     >
-                      <i class="fas fa-user-tie"></i>
-                    </div>
-                    {/* <img
-                      src="https://api.vishalconstructioncompany.com/uploads/InvestWithUs/image-1633890447529.png"
+                      {/* <i class="fas fa-user-tie"></i> */}
+                      <img src={ApiClient.SERVER_ADDRESS + "/" + data?.media[0]?.whatWeDoImages[index]?.path}
                       className={`${classes.detailImage} box-img`}
-                    /> */}
+                    />                      
+                    </div>
                   </Grid>
                   <Grid item xs={9} md={9} className="">
                     <Box className="about-page-content">
                       <Typography variant="h5">
                         {" "}
-                        {HtmlParser(data?.title)}
+                        {HtmlParser(whatWeDo.title)}
                       </Typography>
                       <div className="box-text">
                         <input
@@ -150,7 +151,7 @@ const InvestWithUs = (props) => {
                           }
                           // checked={checkedState[0]}
                         />
-                        {HtmlParser(data?.description)}
+                        {HtmlParser(whatWeDo.description)}
 
                         <label
                           htmlFor="expanded"
@@ -161,101 +162,6 @@ const InvestWithUs = (props) => {
                         </label>
                       </div>
                       {/* <Typography>{HtmlParser(data?.description)}</Typography> */}
-                    </Box>
-                  </Grid>
-                </Grid>
-
-                <Grid container>
-                  <Grid item xs={3} md={3} style={{ margin: "auto" }}>
-                    <div
-                      className={classes.detailImage}
-                      style={{
-                        color: "cadetblue",
-                        backgroundColor: "lightpink",
-                      }}
-                    >
-                      <i class="fas fa-jedi"></i>
-                    </div>
-
-                    {/* <img
-                      src="https://api.vishalconstructioncompany.com/uploads/InvestWithUs/image-1633890447529.png"
-                      className={`${classes.detailImage} box-img`}
-                    /> */}
-                  </Grid>
-                  <Grid item xs={9} md={9}>
-                    <Box className="about-page-content">
-                      <Typography variant="h5">
-                        {" "}
-                        {HtmlParser(data?.title)}
-                      </Typography>
-                      <div className="box-text">
-                        <input
-                          type="checkbox"
-                          id="expanded1"
-                          defaultChecked={checkedState[1]}
-                          onChange={() =>
-                            setCheckedState((prevChState) => {
-                              // const newState = [...prevChState];
-                              prevChState[1] = !prevChState[1];
-                              return [...prevChState];
-                            })
-                          }
-                          // checked={checkedState[0]}
-                        />
-                        {HtmlParser(data?.description)}
-
-                        <label
-                          htmlFor="expanded1"
-                          role="button"
-                          style={{ cursor: "pointer" }}
-                        >
-                          read {checkedState[1] ? "less" : "more"}
-                        </label>
-                      </div>
-                    </Box>
-                  </Grid>
-                </Grid>
-                <Grid container>
-                  <Grid item xs={3} md={3} style={{ margin: "auto" }}>
-                    <div className={classes.detailImage}>
-                      <i class="fas fa-street-view"></i>
-                    </div>
-
-                    {/* <img
-                      src="https://api.vishalconstructioncompany.com/uploads/InvestWithUs/image-1633890447529.png"
-                      className={`${classes.detailImage} box-img`}
-                    /> */}
-                  </Grid>
-                  <Grid item xs={9} md={9}>
-                    <Box className="about-page-content">
-                      <Typography variant="h5">
-                        {" "}
-                        {HtmlParser(data?.title)}
-                      </Typography>
-                      <div className="box-text">
-                        <input
-                          type="checkbox"
-                          id="expanded2"
-                          defaultChecked={checkedState[2]}
-                          onChange={() =>
-                            setCheckedState((prevChState) => {
-                              // const newState = [...prevChState];
-                              prevChState[2] = !prevChState[2];
-                              return [...prevChState];
-                            })
-                          }
-                          // checked={checkedState[0]}
-                        />
-                        {HtmlParser(data?.description)}
-
-                        <label
-                          htmlFor="expanded2"
-                          role="button"
-                          style={{ cursor: "pointer" }}
-                        >
-                          read {checkedState[2] ? "less" : "more"}
-                        </label>
-                      </div>
                     </Box>
                   </Grid>
                 </Grid>
@@ -286,7 +192,7 @@ const InvestWithUs = (props) => {
                     height: "50%",
                     width: "100%",
                     background:
-                      `url('${img}'),rgba(0,0,0,.6)`,
+                      `url('${data.image}'),rgba(0,0,0,.6)`,
                     position: "relative",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
@@ -296,6 +202,8 @@ const InvestWithUs = (props) => {
                 </Box>
               </Grid>
             </Grid>
+            })}
+            
           </Box>
         </Box>
       </Container>
@@ -313,6 +221,10 @@ const InvestWithUs = (props) => {
                 return (
                   <Grid className="invest-item" item xs={12} md={4}>
                     <Box className="client-block-icon">
+                    <img src={ApiClient.SERVER_ADDRESS + "/" + data?.media[0]?.howToInvestImages[index]?.path}
+                      className={`${classes.detailImage} box-img`}
+                    />                      
+{/* 
                       <i
                         className={`fas ${details.icon}`}
                         style={{
@@ -322,7 +234,7 @@ const InvestWithUs = (props) => {
                           margin: 20,
                         }}
                         aria-hidden="true"
-                      ></i>
+                      ></i> */}
                     </Box>
                     <Typography variant="h4">{details.title}</Typography>
                     <Typography> {details.detail}</Typography>

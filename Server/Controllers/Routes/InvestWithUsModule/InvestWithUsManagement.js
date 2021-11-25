@@ -44,9 +44,9 @@ function createInvestWithUsHelper(Models) {
   async function createInvestWithUs(req, res) {
     try {
       let validateData = createInvestWithUsSchema.validate(req.body);
-      if (validateData.error) {
-        throw { status: false, error: validateData, message: "Invalid data" };
-      }
+      // if (validateData.error) {
+      //   throw { status: false, error: validateData, message: "Invalid data" };
+      // }
 
       // pick data from req.body
       //whatWeDoHeader: what we do
