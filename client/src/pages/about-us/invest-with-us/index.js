@@ -8,12 +8,13 @@ import {
 } from "@material-ui/core";
 import "../about-us.css";
 import PageBanner from "../../../components/page-banner";
-import DescriptionIcon from "@material-ui/icons/Description";
 import ApiClient from "../../../api-client";
 import HtmlParser from "react-html-parser";
 import "./invest-with-us.css";
 const useStyles = makeStyles((theme) => ({
   detailImage: {
+    maxWidth:"100%",
+    maxHeight:"100%",
     borderRadius: "50%",
     width: 100,
     padding: "10px",
@@ -25,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "3em",
     margin: "auto",
     textAlign: "center",
+    width:"150px",
+    height:"150px",
   },
 }));
 const ps = document.querySelectorAll(".box-text >p");
@@ -46,7 +49,7 @@ const InvestWithUs = (props) => {
   useEffect(() => {
     populateInvestWithUsDetails();
   }, []);
-
+  debugger
   const populateInvestWithUsDetails = () => {
     const getData = async () => {
       const response = await ApiClient.call(
@@ -87,21 +90,25 @@ const InvestWithUs = (props) => {
           <Box className="about-page-item">
             <Box className="about-page-content" align="center">
               <Typography variant="h3">
-                {data.whatWeDoHeader||'What We Do'}
+                {data?.whatWeDoHeader||'What We Do'}
               </Typography>
               <Typography>{HtmlParser(data?.whatWeDoDescription)}</Typography>
             </Box>
           </Box>
-          <Box className="about-page-item">
-            {data.whatWeDo.map((whatWeDo,index)=>{
+          <Box className="about-page-item" style={{display:"flex",flexDirection:"row"}}>
+            <Box style={{flexBasis:"60%"}}>
+            {data?.whatWeDo.map((whatWeDo,index)=>{
               return <Grid
               key={whatWeDo.title}
               container
               spacing={3}
+              xs={12}
+                md={12}
               style={{
                 display: "flex",
                 flexDirection: "row",
-                flexWrap: "wrap",
+                // flexWrap: "wrap",
+                flexBasis:"100%",
                 justifyContent: "center",
               }}
             >
@@ -109,8 +116,8 @@ const InvestWithUs = (props) => {
                 className="about-page-summery"
                 item
                 xs={12}
-                md={6}
-                style={{ flexBasis: "60%" }}
+                md={12}
+                // style={{ flexBasis: "60%" }}
               >
                 <Grid
                   container
@@ -166,14 +173,19 @@ const InvestWithUs = (props) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid
+
+            </Grid>
+            
+            })}
+            </Box>
+                        <Grid
                 className="about-page-images"
                 item
                 xs={12}
                 md={6}
                 className={classes.style2}
                 style={{
-                  flexBasis: "30%",
+                  flexBasis: "40%",
                   display:"flex",
                   flexDirection: "row",
                   justifyContent: "center",
@@ -192,7 +204,7 @@ const InvestWithUs = (props) => {
                     height: "50%",
                     width: "100%",
                     background:
-                      `url('${data.image}'),rgba(0,0,0,.6)`,
+                      `url('${ApiClient.SERVER_ADDRESS + "/" + data?.media[0]?.image[0]?.path}'),rgba(0,0,0,.6)`,
                     position: "relative",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
@@ -201,9 +213,7 @@ const InvestWithUs = (props) => {
                   {/* <img src="https://images.unsplash.com/photo-1593642633279-1796119d5482?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60" alt="" /> */}
                 </Box>
               </Grid>
-            </Grid>
-            })}
-            
+  
           </Box>
         </Box>
       </Container>
@@ -212,16 +222,17 @@ const InvestWithUs = (props) => {
         <Container>
           <Box className="page-section-header" align="center">
             <Box component="h2" className="page-section-title">
-              {data.howToInvestTitle||'How We Invest'}
+              {data?.howToInvestTitle||'How We Invest'}
             </Box>
           </Box>
           <Box className="invest-items">
             <Grid container spacing={3}>
               {(data?.howToInvest || []).map((details, i) => {
+                debugger
                 return (
                   <Grid className="invest-item" item xs={12} md={4}>
                     <Box className="client-block-icon">
-                    <img src={ApiClient.SERVER_ADDRESS + "/" + data?.media[0]?.howToInvestImages[index]?.path}
+                    <img src={ApiClient.SERVER_ADDRESS + "/" + data?.media[0]?.howToInvestImages[i]?.path}
                       className={`${classes.detailImage} box-img`}
                     />                      
 {/* 
