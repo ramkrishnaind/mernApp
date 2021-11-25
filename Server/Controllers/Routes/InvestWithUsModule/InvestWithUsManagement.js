@@ -116,14 +116,14 @@ function createInvestWithUsHelper(Models) {
 function updateInvestWithUsHelper(Models) {
   async function update(req, res) {
     try {
-      let validateData = updateInvestWithUsSchema.validate(req.body);
-      if (validateData.error) {
-        throw {
-          status: false,
-          error: validateData,
-          message: CONSTANTSMESSAGE.INVALID_DATA,
-        };
-      }
+      // let validateData = updateInvestWithUsSchema.validate(req.body);
+      // if (validateData.error) {
+      //   throw {
+      //     status: false,
+      //     error: validateData,
+      //     message: CONSTANTSMESSAGE.INVALID_DATA,
+      //   };
+      // }
 
       // pick data from req.body
 
@@ -140,6 +140,7 @@ function updateInvestWithUsHelper(Models) {
       let setData = {
         ...bodyData,
       };
+      console.log('req.files is', req.files)
       console.log("req.body.whatWeDo is", req.body.whatWeDo)
       console.log("req.body.howToInvest is", req.body.howToInvest)
       setData.whatWeDo = JSON.parse(req.body.whatWeDo);
