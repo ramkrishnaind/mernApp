@@ -76,29 +76,30 @@ function createInvestWithUsHelper(Models) {
       ]);
       let dataExist = await Models.InvestWithUsDB.findOne({ active: true });
       // if (dataExist) {
-        // if data found check verified or not
-        // res.send({
-        //   status: false,
-        //   message: "Invest With Us Data Already Exist. Please Edit Existing.",
-        //   data: dataExist,
-        // });
+      // if data found check verified or not
+      // res.send({
+      //   status: false,
+      //   message: "Invest With Us Data Already Exist. Please Edit Existing.",
+      //   data: dataExist,
+      // });
       // } else {
-        InvestWithUsFormData.whatWeDo = JSON.parse(req.body.whatWeDo)
-        InvestWithUsFormData.howToInvest = JSON.parse(req.body.howToInvest)
-        if (req.files) {
-          InvestWithUsFormData.media = req.files;
-        }
-        console.log("InvestWithUsFormData is", InvestWithUsFormData);
-        let saveInvestWithUs = await new Models.InvestWithUsDB(
-          InvestWithUsFormData
-        ).save();
-        console.log("saveInvestWithUs is ", saveInvestWithUs);
-        saveInvestWithUs = saveInvestWithUs.toObject();
+      InvestWithUsFormData.whatWeDo = JSON.parse(req.body.whatWeDo)
+      InvestWithUsFormData.howToInvest = JSON.parse(req.body.howToInvest)
+      console.log('req.files is', req.files)
+      if (req.files) {
+        InvestWithUsFormData.media = req.files;
+      }
+      console.log("InvestWithUsFormData is", InvestWithUsFormData);
+      let saveInvestWithUs = await new Models.InvestWithUsDB(
+        InvestWithUsFormData
+      ).save();
+      console.log("saveInvestWithUs is ", saveInvestWithUs);
+      saveInvestWithUs = saveInvestWithUs.toObject();
 
-        res.send({
-          status: true,
-          message: "New InvestWithUs created successfully",
-        });
+      res.send({
+        status: true,
+        message: "New InvestWithUs created successfully",
+      });
       // }
     } catch (e) {
       console.log("createInvestWithUsHelper err", e);
