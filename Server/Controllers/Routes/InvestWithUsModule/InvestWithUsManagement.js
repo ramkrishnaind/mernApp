@@ -43,7 +43,7 @@ const updateInvestWithUsStatusSchema = Joi.object({
 function createInvestWithUsHelper(Models) {
   async function createInvestWithUs(req, res) {
     try {
-      let validateData = createInvestWithUsSchema.validate(req.body);
+      // let validateData = createInvestWithUsSchema.validate(req.body);
       // if (validateData.error) {
       //   throw { status: false, error: validateData, message: "Invalid data" };
       // }
@@ -75,14 +75,14 @@ function createInvestWithUsHelper(Models) {
         "metaDescription",
       ]);
       let dataExist = await Models.InvestWithUsDB.findOne({ active: true });
-      if (dataExist) {
+      // if (dataExist) {
         // if data found check verified or not
-        res.send({
-          status: false,
-          message: "Invest With Us Data Already Exist. Please Edit Existing.",
-          data: dataExist,
-        });
-      } else {
+        // res.send({
+        //   status: false,
+        //   message: "Invest With Us Data Already Exist. Please Edit Existing.",
+        //   data: dataExist,
+        // });
+      // } else {
         InvestWithUsFormData.whatWeDo = JSON.parse(req.body.whatWeDo)
         InvestWithUsFormData.howToInvest = JSON.parse(req.body.howToInvest)
         if (req.files) {
@@ -99,7 +99,7 @@ function createInvestWithUsHelper(Models) {
           status: true,
           message: "New InvestWithUs created successfully",
         });
-      }
+      // }
     } catch (e) {
       console.log("createInvestWithUsHelper err", e);
       await errorResponseHelper({
