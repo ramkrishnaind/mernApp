@@ -100,9 +100,9 @@ const InvestWithUs = (props) => {
               spacing={3}
               style={{
                 display: "flex",
-                flexDirection: "row",
+                flexDirection: "row",   
                 flexWrap: "wrap",
-                justifyContent: "center",
+                justifyContent: "center"
               }}
             >
               <Grid
