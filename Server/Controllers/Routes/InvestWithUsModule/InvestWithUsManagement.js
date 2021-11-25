@@ -27,6 +27,10 @@ const updateInvestWithUsSchema = Joi.object({
   metaTitle: Joi.string(),
   metaKeywords: Joi.string(),
   metaDescription: Joi.string(),
+  image: Joi.string().allow('null'),
+  bannerImage: Joi.string().allow('null'),
+  whatWeDoImages: Joi.string().allow('null'),
+  howToInvestImages: Joi.string().allow('null')
 });
 const getInvestWithUsSchema = Joi.object({
   _id: Joi.string().trim().required(),
@@ -39,10 +43,10 @@ const updateInvestWithUsStatusSchema = Joi.object({
 function createInvestWithUsHelper(Models) {
   async function createInvestWithUs(req, res) {
     try {
-      let validateData = createInvestWithUsSchema.validate(req.body);
-      if (validateData.error) {
-        throw { status: false, error: validateData, message: "Invalid data" };
-      }
+      // let validateData = createInvestWithUsSchema.validate(req.body);
+      // if (validateData.error) {
+      //   throw { status: false, error: validateData, message: "Invalid data" };
+      // }
 
       // pick data from req.body
       //whatWeDoHeader: what we do
@@ -71,31 +75,32 @@ function createInvestWithUsHelper(Models) {
         "metaDescription",
       ]);
       let dataExist = await Models.InvestWithUsDB.findOne({ active: true });
-      if (dataExist) {
-        // if data found check verified or not
-        res.send({
-          status: false,
-          message: "Invest With Us Data Already Exist. Please Edit Existing.",
-          data: dataExist,
-        });
-      } else {
-        InvestWithUsFormData.whatWeDo = JSON.parse(req.body.whatWeDo)
-        InvestWithUsFormData.howToInvest = JSON.parse(req.body.howToInvest)
-        if (req.files) {
-          InvestWithUsFormData.media = req.files;
-        }
-        console.log("InvestWithUsFormData is", InvestWithUsFormData);
-        let saveInvestWithUs = await new Models.InvestWithUsDB(
-          InvestWithUsFormData
-        ).save();
-        console.log("saveInvestWithUs is ", saveInvestWithUs);
-        saveInvestWithUs = saveInvestWithUs.toObject();
-
-        res.send({
-          status: true,
-          message: "New InvestWithUs created successfully",
-        });
+      // if (dataExist) {
+      // if data found check verified or not
+      // res.send({
+      //   status: false,
+      //   message: "Invest With Us Data Already Exist. Please Edit Existing.",
+      //   data: dataExist,
+      // });
+      // } else {
+      InvestWithUsFormData.whatWeDo = JSON.parse(req.body.whatWeDo)
+      InvestWithUsFormData.howToInvest = JSON.parse(req.body.howToInvest)
+      console.log('req.files is', req.files)
+      if (req.files) {
+        InvestWithUsFormData.media = req.files;
       }
+      console.log("InvestWithUsFormData is", InvestWithUsFormData);
+      let saveInvestWithUs = await new Models.InvestWithUsDB(
+        InvestWithUsFormData
+      ).save();
+      console.log("saveInvestWithUs is ", saveInvestWithUs);
+      saveInvestWithUs = saveInvestWithUs.toObject();
+
+      res.send({
+        status: true,
+        message: "New InvestWithUs created successfully",
+      });
+      // }
     } catch (e) {
       console.log("createInvestWithUsHelper err", e);
       await errorResponseHelper({
@@ -111,14 +116,14 @@ function createInvestWithUsHelper(Models) {
 function updateInvestWithUsHelper(Models) {
   async function update(req, res) {
     try {
-      let validateData = updateInvestWithUsSchema.validate(req.body);
-      if (validateData.error) {
-        throw {
-          status: false,
-          error: validateData,
-          message: CONSTANTSMESSAGE.INVALID_DATA,
-        };
-      }
+      // let validateData = updateInvestWithUsSchema.validate(req.body);
+      // if (validateData.error) {
+      //   throw {
+      //     status: false,
+      //     error: validateData,
+      //     message: CONSTANTSMESSAGE.INVALID_DATA,
+      //   };
+      // }
 
       // pick data from req.body
 
@@ -135,8 +140,11 @@ function updateInvestWithUsHelper(Models) {
       let setData = {
         ...bodyData,
       };
-      setData.whatWeDo = JSON.parse(req.body.whatWeDo)
-      setData.howToInvest = JSON.parse(req.body.howToInvest)
+      console.log('req.files is', req.files)
+      console.log("req.body.whatWeDo is", req.body.whatWeDo)
+      console.log("req.body.howToInvest is", req.body.howToInvest)
+      setData.whatWeDo = JSON.parse(req.body.whatWeDo);
+      setData.howToInvest = JSON.parse(req.body.howToInvest);
       if (req.files) {
         setData.media = req.files;
       }
