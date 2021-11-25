@@ -27,6 +27,10 @@ const updateInvestWithUsSchema = Joi.object({
   metaTitle: Joi.string(),
   metaKeywords: Joi.string(),
   metaDescription: Joi.string(),
+  image: Joi.string().allow('null'),
+  bannerImage: Joi.string().allow('null'),
+  whatWeDoImages: Joi.string().allow('null'),
+  howToInvestImages: Joi.string().allow('null')
 });
 const getInvestWithUsSchema = Joi.object({
   _id: Joi.string().trim().required(),
@@ -63,7 +67,6 @@ function createInvestWithUsHelper(Models) {
       //image(multer):Image on whatwedo right side
       //bannerImage(multer)
       let InvestWithUsFormData = _.pick(req.body, [
-        "_id",
         "whatWeDoHeader",
         "whatWeDoDescription",
         "howToInvestTitle",
@@ -80,13 +83,11 @@ function createInvestWithUsHelper(Models) {
           data: dataExist,
         });
       } else {
-        // console.log('InvestWithUsFormData.howToInvest is', InvestWithUsFormData.howToInvest)
-        console.log("req.files is", req.files);
-        InvestWithUsFormData.whatWeDo=JSON.parse(req.whatWeDo)
-        setData.howToInvest=JSON.parse(req.howToInvest)
-
-        // InvestWithUsFormData.howToInvest = InvestWithUsFormData.howToInvest;
-        InvestWithUsFormData.media = req.files;
+        InvestWithUsFormData.whatWeDo = JSON.parse(req.body.whatWeDo)
+        InvestWithUsFormData.howToInvest = JSON.parse(req.body.howToInvest)
+        if (req.files) {
+          InvestWithUsFormData.media = req.files;
+        }
         console.log("InvestWithUsFormData is", InvestWithUsFormData);
         let saveInvestWithUs = await new Models.InvestWithUsDB(
           InvestWithUsFormData
@@ -127,6 +128,7 @@ function updateInvestWithUsHelper(Models) {
 
       // let bodyData = _.pick(req.body, ['header', 'title', 'shortDescription', 'description', 'howToInvest', 'metaTitle', 'metaKeywords', 'metaDescription']);
       let bodyData = _.pick(req.body, [
+        "_id",
         "whatWeDoHeader",
         "whatWeDoDescription",
         "howToInvestTitle",
@@ -134,18 +136,16 @@ function updateInvestWithUsHelper(Models) {
         "metaKeywords",
         "metaDescription",
       ]);
-
       let setData = {
         ...bodyData,
       };
+      console.log("req.body.whatWeDo is", req.body.whatWeDo)
+      console.log("req.body.howToInvest is", req.body.howToInvest)
+      setData.whatWeDo = req.body.whatWeDo;
+      setData.howToInvest = req.body.howToInvest;
       if (req.files) {
-        // let InvestWithUsImages = req.files;
-        setData.whatWeDo=JSON.parse(req.whatWeDo)
-        setData.howToInvest=JSON.parse(req.howToInvest)
         setData.media = req.files;
-        // setData.bannerImage = InvestWithUsImages.bannerImage;
       }
-
       let updateModule = await Models.InvestWithUsDB.findOneAndUpdate(
         { _id: bodyData._id },
         { $set: setData }
