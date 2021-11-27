@@ -356,7 +356,7 @@ function ApplyJobs(props) {
           <TextField
             type="file"
             variant="outlined"
-            label="Select File"
+            // label="Select File"
             onChange={handleResumeFile}
             InputProps={{
               classes: {
