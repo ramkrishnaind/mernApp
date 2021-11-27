@@ -7,24 +7,15 @@ import DateRangeIcon from "@material-ui/icons/DateRange";
 import "./index.css";
 import PageBanner from "../../components/page-banner";
 import bannerImage from "../../images/clientbg.jpeg";
-import Workspace1 from "../../images/carrer_img/about_carrier.png";
-import Workspace2 from "../../images/carrer_img/about_carrier2.png";
-import Workspace3 from "../../images/carrer_img/about_carrier3.png";
-import Workspace4 from "../../images/carrer_img/about_carrier4.png";
-import Workspace5 from "../../images/carrer_img/about_carrier6.png";
-import Workspace6 from "../../images/carrer_img/about_carrier7.png";
 import ApplyJobs from "../../components/apply-jobs/apply-jobs";
 import ApiClient from "../../api-client";
 import { useDispatch } from "react-redux";
 import * as Snackbar from "../../redux/actions/SnackbarActions";
 
-// import Zoom from "react-medium-image-zoom";
-// import "react-medium-image-zoom/dist/styles.css";
-
 import "photoswipe/dist/photoswipe.css";
 import "photoswipe/dist/default-skin/default-skin.css";
 
-import { Gallery, Item } from "react-photoswipe-gallery";
+// import { Gallery, Item } from "react-photoswipe-gallery";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,38 +62,38 @@ export default function Carrer() {
     }
   };
 
-  const checkOtpValidOrNot = async (value) => {
-    try {
-      const response = await ApiClient.call(
-        ApiClient.REQUEST_METHOD.POST,
-        "/otp/verifyOTP",
-        { mobile: "", otp: value },
-        {},
-        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
-        false
-      );
-      if (response.status) {
-        setIsOtpVerified(true);
-        dispatch(Snackbar.showSuccessSnackbar("Otp Verified SuccessFully"));
-      } else {
-        setIsOtpVerified(false);
-        dispatch(Snackbar.showFailSnackbar("Please type Valid otp."));
-      }
-    } catch (error) {
-      setIsOtpVerified(false);
-      dispatch(
-        Snackbar.showFailSnackbar(
-          "We are facing some issue Please try again later."
-        )
-      );
-    }
-  };
-  const reset = () => {
-    setVerifyLoader(false);
-    setIsOtpVerified(false);
-    setEnableOtpField(false);
-    setOtp("");
-  };
+  // const checkOtpValidOrNot = async (value) => {
+  //   try {
+  //     const response = await ApiClient.call(
+  //       ApiClient.REQUEST_METHOD.POST,
+  //       "/otp/verifyOTP",
+  //       { mobile: "", otp: value },
+  //       {},
+  //       { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+  //       false
+  //     );
+  //     if (response.status) {
+  //       setIsOtpVerified(true);
+  //       dispatch(Snackbar.showSuccessSnackbar("Otp Verified SuccessFully"));
+  //     } else {
+  //       setIsOtpVerified(false);
+  //       dispatch(Snackbar.showFailSnackbar("Please type Valid otp."));
+  //     }
+  //   } catch (error) {
+  //     setIsOtpVerified(false);
+  //     dispatch(
+  //       Snackbar.showFailSnackbar(
+  //         "We are facing some issue Please try again later."
+  //       )
+  //     );
+  //   }
+  // };
+  // const reset = () => {
+  //   setVerifyLoader(false);
+  //   setIsOtpVerified(false);
+  //   setEnableOtpField(false);
+  //   setOtp("");
+  // };
 
   useEffect(() => {
     populateBlogList();
