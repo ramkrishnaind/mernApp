@@ -23,7 +23,7 @@ function getUserIdPropertyList(Models) {
             let findData = await Models.PropertyDB.aggregate([
                 {
                     $match: {
-                        userId: bodyData.userId
+                        userId: ObjectId(bodyData.userId)
                     }
                 },
                 {
@@ -42,6 +42,15 @@ function getUserIdPropertyList(Models) {
                         localField: '_id',
                         foreignField: 'propertyId',
                         as: 'images'
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'pprices',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'price'
                     }
                 }
             ]).sort({ _id: -1 });
