@@ -7,24 +7,15 @@ import DateRangeIcon from "@material-ui/icons/DateRange";
 import "./index.css";
 import PageBanner from "../../components/page-banner";
 import bannerImage from "../../images/clientbg.jpeg";
-import Workspace1 from "../../images/carrer_img/about_carrier.png";
-import Workspace2 from "../../images/carrer_img/about_carrier2.png";
-import Workspace3 from "../../images/carrer_img/about_carrier3.png";
-import Workspace4 from "../../images/carrer_img/about_carrier4.png";
-import Workspace5 from "../../images/carrer_img/about_carrier6.png";
-import Workspace6 from "../../images/carrer_img/about_carrier7.png";
 import ApplyJobs from "../../components/apply-jobs/apply-jobs";
 import ApiClient from "../../api-client";
 import { useDispatch } from "react-redux";
 import * as Snackbar from "../../redux/actions/SnackbarActions";
 
-// import Zoom from "react-medium-image-zoom";
-// import "react-medium-image-zoom/dist/styles.css";
-
 import "photoswipe/dist/photoswipe.css";
 import "photoswipe/dist/default-skin/default-skin.css";
 
-import { Gallery, Item } from "react-photoswipe-gallery";
+// import { Gallery, Item } from "react-photoswipe-gallery";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,61 +62,61 @@ export default function Carrer() {
     }
   };
 
-  const checkOtpValidOrNot = async (value) => {
-    try {
-      const response = await ApiClient.call(
-        ApiClient.REQUEST_METHOD.POST,
-        "/otp/verifyOTP",
-        { mobile: "", otp: value },
-        {},
-        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
-        false
-      );
-      if (response.status) {
-        setIsOtpVerified(true);
-        dispatch(Snackbar.showSuccessSnackbar("Otp Verified SuccessFully"));
-      } else {
-        setIsOtpVerified(false);
-        dispatch(Snackbar.showFailSnackbar("Please type Valid otp."));
-      }
-    } catch (error) {
-      setIsOtpVerified(false);
-      dispatch(
-        Snackbar.showFailSnackbar(
-          "We are facing some issue Please try again later."
-        )
-      );
-    }
-  };
-  const reset = () => {
-    setVerifyLoader(false);
-    setIsOtpVerified(false);
-    setEnableOtpField(false);
-    setOtp("");
-  };
+  // const checkOtpValidOrNot = async (value) => {
+  //   try {
+  //     const response = await ApiClient.call(
+  //       ApiClient.REQUEST_METHOD.POST,
+  //       "/otp/verifyOTP",
+  //       { mobile: "", otp: value },
+  //       {},
+  //       { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+  //       false
+  //     );
+  //     if (response.status) {
+  //       setIsOtpVerified(true);
+  //       dispatch(Snackbar.showSuccessSnackbar("Otp Verified SuccessFully"));
+  //     } else {
+  //       setIsOtpVerified(false);
+  //       dispatch(Snackbar.showFailSnackbar("Please type Valid otp."));
+  //     }
+  //   } catch (error) {
+  //     setIsOtpVerified(false);
+  //     dispatch(
+  //       Snackbar.showFailSnackbar(
+  //         "We are facing some issue Please try again later."
+  //       )
+  //     );
+  //   }
+  // };
+  // const reset = () => {
+  //   setVerifyLoader(false);
+  //   setIsOtpVerified(false);
+  //   setEnableOtpField(false);
+  //   setOtp("");
+  // };
 
   useEffect(() => {
     populateBlogList();
-    fetchServiceDetails();
+    // fetchServiceDetails();
   }, []);
 
-  const fetchServiceDetails = () => {
-    const getData = async () => {
-      const response = await ApiClient.call(
-        ApiClient.REQUEST_METHOD.POST,
-        "/home/getServiceDetails",
-        { _id: "6159b9015b1c61746b42e0ea" },
-        {},
-        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
-        false
-      );
+  // const fetchServiceDetails = () => {
+  //   const getData = async () => {
+  //     const response = await ApiClient.call(
+  //       ApiClient.REQUEST_METHOD.POST,
+  //       "/home/getServiceDetails",
+  //       { _id: "6159b9015b1c61746b42e0ea" },
+  //       {},
+  //       { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+  //       false
+  //     );
 
-      //   console.log("Service Details Info ", response.data);
-      setWorkSpaceDetail(response.data);
-      //   setViewDetails(true);
-    };
-    getData();
-  };
+  //     //   console.log("Service Details Info ", response.data);
+  //     setWorkSpaceDetail(response.data);
+  //     //   setViewDetails(true);
+  //   };
+  //   getData();
+  // };
 
   const populateBlogList = () => {
     const getData = async () => {
@@ -144,19 +135,19 @@ export default function Carrer() {
   };
 
   let images = [];
-  if (
-    workSpaceDetail !== {} &&
-    workSpaceDetail.media &&
-    workSpaceDetail.media.length > 0 &&
-    workSpaceDetail.media[0].image &&
-    workSpaceDetail.media[0].image.length > 0
-  ) {
-    // img1 = ApiClient.SERVER_ADDRESS + "/" + workSpaceDetail.media[0].image[0].path;
+  // if (
+  //   workSpaceDetail !== {} &&
+  //   workSpaceDetail.media &&
+  //   workSpaceDetail.media.length > 0 &&
+  //   workSpaceDetail.media[0].image &&
+  //   workSpaceDetail.media[0].image.length > 0
+  // ) {
+  //   // img1 = ApiClient.SERVER_ADDRESS + "/" + workSpaceDetail.media[0].image[0].path;
 
-    images = workSpaceDetail.media[0].image.map((imgInfo) => {
-      return ApiClient.SERVER_ADDRESS + "/" + imgInfo.path;
-    });
-  }
+  //   images = workSpaceDetail.media[0].image.map((imgInfo) => {
+  //     return ApiClient.SERVER_ADDRESS + "/" + imgInfo.path;
+  //   });
+  // }
   //   console.log("workSpaceDetail", workSpaceDetail);
 
   return (
@@ -231,7 +222,7 @@ export default function Carrer() {
               <h2>
                 Vishal <span style={{ color: "#00afb8" }}>Work Space</span>
               </h2>
-              <Grid container spacing={3}>
+              {/* <Grid container spacing={3}>
                 <Gallery>
                   {(images || []).map((img) => {
                     //   {workSpaceDetail?.media[0]?.image?.map((imgInfo) => {
@@ -257,7 +248,7 @@ export default function Carrer() {
                     );
                   })}
                 </Gallery>
-              </Grid>
+              </Grid> */}
               {/* <Grid container spacing={3}>
                 <Grid item xs={4} className="workSpaceImgaes">
                   <Zoom>

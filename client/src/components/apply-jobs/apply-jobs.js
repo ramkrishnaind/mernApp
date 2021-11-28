@@ -319,9 +319,9 @@ function ApplyJobs(props) {
                     notchedOutline: classes.notchedOutline
                   }
                 }}
-                InputLabelProps={{
-                  style: {color: '#FFFFFF'}
-                }}
+                // InputLabelProps={{
+                //   style: {color: '#FFFFFF'}
+                // }}
                 fullWidth >
               </TextField>
               {mobile.length === 10 && !enableOtpField ? <Button style={{width: '20%'}} onClick={otpHandler} variant="contained" style={{background: "green", height: " 30px", top: " 10px", left: "5px", color: '#fff'}}
@@ -331,9 +331,9 @@ function ApplyJobs(props) {
               className="EmiInputs"
               placeholder="Otp"
 
-              style={{width: '100%', marginTop: 15}}
+              style={{width: '70%', marginTop: 15}}
 
-              fullWidth
+              
               value={otp}
               disabled={isOtpVerified}
               onChange={inputChange}
@@ -349,6 +349,26 @@ function ApplyJobs(props) {
                 style: {color: '#FFFFFF'}
               }}
             />}
+            
+            {!isOtpVerified && enableOtpField && (
+                    <Button
+                      style={{ width: "23%" }}
+                      onClick={otpHandler}
+                      variant="contained"
+                      style={{
+                        background: "green",
+                        height: "30px",
+                        display: "inline-block",
+                        marginTop: "27px",
+                        marginLeft:"15px",
+                        // top: " 10px",
+                        // left: "5px",
+                        color: "#fff",
+                      }}
+                    >
+                      Resend OTP
+                    </Button>
+                  )}
           </div>
         </Box>
 
@@ -356,7 +376,7 @@ function ApplyJobs(props) {
           <TextField
             type="file"
             variant="outlined"
-            label="Select File"
+            // label="Select File"
             onChange={handleResumeFile}
             InputProps={{
               classes: {
@@ -380,7 +400,9 @@ function ApplyJobs(props) {
         </Grid>
         <DialogActions>
           <Box className="JobButton">
-            <Button onClick={(e) => handleData(e)}>Send</Button>
+            <Button 
+            disabled={!isOtpVerified}
+            onClick={(e) => handleData(e)}>Send</Button>
           </Box>
         </DialogActions>
       </Dialog>
