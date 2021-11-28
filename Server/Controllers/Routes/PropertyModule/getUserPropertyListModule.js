@@ -25,7 +25,7 @@ function getUserIdPropertyList(Models) {
             let findData = await Models.PropertyDB.aggregate([
                 {
                     $match: {
-                        userId: ObjectId(bodyData.userId)
+                        userId:{ $toObjectId: bodyData.userId }
                     }
                 },
                 {
