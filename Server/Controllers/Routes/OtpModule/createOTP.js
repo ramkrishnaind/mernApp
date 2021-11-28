@@ -21,7 +21,7 @@ function createOTP(Models) {
 
             // pick data from req.body
             let bodyData = _.pick(req.body, ['mobile']);
-            let OTP = otpGenerator.generate(6, { alphabets: false, upperCase: false, specialChars: false });
+            let OTP = Math.floor(100000 + Math.random() * 900000);
             let ExpireAllOTP = await Models.OtpDB.updateMany({ mobile: bodyData.mobile },
                 { $set: { "isExpired": true } });
             let dataToSave = {
@@ -40,7 +40,8 @@ function createOTP(Models) {
                     mobile: bodyData.mobile,
                     message: message,
                 };
-                await SendMessage(msgObj);
+                let smsResult = await SendMessage(msgObj);
+                console.log('smsResult', smsResult)
             }
             res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE });
         }

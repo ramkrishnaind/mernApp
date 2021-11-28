@@ -1,12 +1,14 @@
 const _ = require('lodash');
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi)
-const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
+const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage');
+const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
 
 const errorResponseHelper = require('../../../Helper/errorResponse');
 
 const moduleSchema = Joi.object({
-    userId: Joi.string().required()
+    userId: Joi.objectId().required()
 });
 
 function getUserIdPropertyList(Models) {
@@ -23,7 +25,7 @@ function getUserIdPropertyList(Models) {
             let findData = await Models.PropertyDB.aggregate([
                 {
                     $match: {
-                        userId: bodyData.userId
+                        userId:{ $toObjectId: bodyData.userId }
                     }
                 },
                 {
@@ -42,6 +44,15 @@ function getUserIdPropertyList(Models) {
                         localField: '_id',
                         foreignField: 'propertyId',
                         as: 'images'
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'pprices',
+                        localField: '_id',
+                        foreignField: 'propertyId',
+                        as: 'price'
                     }
                 }
             ]).sort({ _id: -1 });
