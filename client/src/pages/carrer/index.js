@@ -219,9 +219,9 @@ export default function Carrer() {
               </div>
             </Box>
             <Box className="work-space">
-              <h2>
+              {/* <h2>
                 Vishal <span style={{ color: "#00afb8" }}>Work Space</span>
-              </h2>
+              </h2> */}
               {/* <Grid container spacing={3}>
                 <Gallery>
                   {(images || []).map((img) => {

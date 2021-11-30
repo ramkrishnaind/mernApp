@@ -3,6 +3,8 @@ import DashboardLayout from "../components/dashboard-layout";
 import MainLayout from "../components/main-layout";
 
 //Pages
+import DropzoneWrapperTest from "../common/DropzoneWrapper/DropZoneWrapperTest";
+import AddInvestWithUs from "../pages/investwithusManagement/addInvestWithUs";
 import LoginPage from "../pages/login";
 import RegisterPage from "../pages/register";
 import HomePage from "../pages/home";
@@ -297,6 +299,8 @@ const Routes = (props) => {
         {
           path: "/investwithus/add",
           element: isAuth ? <AddInvestwithusList /> : <Navigate to="/login" />,
+          // element: isAuth ? <DropzoneWrapperTest /> : <Navigate to="/login" />,
+          
         },
         {
           path: "/newsletter",
