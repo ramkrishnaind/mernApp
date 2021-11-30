@@ -31,6 +31,8 @@
     "express-async-handler": "^1.1.4",
     "express-jwt": "^6.0.0",
     "express-session": "^1.17.2",
+    "forever": "^4.0.1",
+    "forver": "0.0.6",
     "fs": "0.0.1-security",
     "google-maps-react": "^2.0.6",
     "handlebars": "^4.7.7",
