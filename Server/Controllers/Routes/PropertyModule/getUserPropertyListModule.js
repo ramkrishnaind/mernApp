@@ -8,7 +8,7 @@ const ObjectId = mongoose.Types.ObjectId;
 const errorResponseHelper = require('../../../Helper/errorResponse');
 
 const moduleSchema = Joi.object({
-    userId: Joi.objectId().required()
+    userId: Joi.string().required()
 });
 
 function getUserIdPropertyList(Models) {
@@ -22,10 +22,11 @@ function getUserIdPropertyList(Models) {
             // pick data from req.body
 
             let bodyData = _.pick(req.body, ["userId"]);
+            // let uID = mongoose.Types.ObjectId(bodyData.userId);
             let findData = await Models.PropertyDB.aggregate([
                 {
                     $match: {
-                        userId:{ $toObjectId: bodyData.userId }
+                        userId: new ObjectId(bodyData.userId)
                     }
                 },
                 {
