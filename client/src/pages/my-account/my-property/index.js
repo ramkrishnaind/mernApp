@@ -148,7 +148,7 @@ const MyProperty = (props) => {
                     <Box className="box-header">
                       <h5 className="box-title">My Property Lists</h5>
                     </Box>
-                    <Box style={{ display: "flex", flexWrap: "wrap" }}>
+                    <Box>
                       {propertyList.map((property) => {
                         debugger;
                         let mainImage = property?.images[0]?.mainImage || [];
