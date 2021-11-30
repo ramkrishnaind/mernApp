@@ -628,7 +628,7 @@ function getPropertyByType(Models) {
             if (bodyData.type == "RESIDENTIAL" || bodyData.type == "COMMERCIAL") {
                 console.log('i am in out', bodyData.type)
                 let data = await Models.PropertyDB.find({
-                    $match: { $and: [{ status: 1 }, { pType: bodyData.type }] },
+                    $and: [{ status: 1 }, { pType: bodyData.type }],
                 }).sort({ _id: -1 }).lean();
                 res.send({ status: true, message: "Property List.", data });
             } else {
