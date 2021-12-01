@@ -16,7 +16,7 @@ const moduleSchema = Joi.object({
     metaDescription: Joi.string().allow(null).allow(''),
     pageSortDescription: Joi.string().allow(null).allow(''),
     pageDescription: Joi.string().allow(null).allow(''),
-    image: Joi.string()
+    image: Joi.string().allow(null).allow('')
 });
 
 function createCMS(Models) {
