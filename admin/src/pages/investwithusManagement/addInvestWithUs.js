@@ -1,26 +1,65 @@
-import React, { useState, useEffect } from "react";
+// import DropzoneWrapper from "./index";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { Button, Grid, Typography, Box, Link } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-
-import * as InvestwithusAction from "../../redux/actions/InvestwithusAction";
-import { useDispatch } from "react-redux";
 import FormHeader from "../../common/form-header";
 import BreadCrumbs from "../../common/bread-crumbs";
-import "./blogManagement.css";
 import SubHeading from "../../common/SubHeadingBox";
-import { Link as RouterLink, useLocation } from "react-router-dom";
-import { connect } from "react-redux";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import Dropzone from "react-dropzone-uploader";
-import "react-dropzone-uploader/dist/styles.css";
-import API_ENDPOINTS from "../../constants/api-endpoints";
-// import API_ENDPOINTS from "./../../constants/api-endpoints";
-
+import { Link as RouterLink } from "react-router-dom";
+import React, { useState, useEffect, useReducer } from "react";
+import * as InvestwithusAction from "../../redux/actions/InvestwithusAction";
 import DropzoneWrapper from "../../common/DropzoneWrapper";
-const InvestCreateUpdate = (props) => {
-  // return null
-  let investwithusData = props?.investwithus?.investwithusData;
+const initialState = {
+  whatWeDoHeader: "",
+  whatWeDoDescription: "",
+  whatWeDo: [
+    { title: "", description: "" },
+    { title: "", description: "" },
+    { title: "", description: "" },
+  ],
+  howToInvestTitle: "",
+  howToInvest: [
+    { title: "", description: "" },
+    { title: "", description: "" },
+    { title: "", description: "" },
+  ],
+  metaTitle: "",
+  metaKeywords: "",
+  metaDescription: "",
+  imageUrl: [],
+  bannerImageUrl: [],
+  whatWeDoImageUrls: [],
+  howToInvestImageUrls: [],
+  image: [],
+  bannerImage: [],
+  whatWeDoImages: [],
+  howToInvestImages: [],
+  id: null,
+};
+// const initialState = {
+//   files: null,
+// };
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "REPLACE_STATE":
+      state = action.payload;
+      return { ...state };
+    case "SET_VALUE":
+      const { name, value } = action.payload;
+      return { ...state, [name]: value };
+    default:
+      return state;
+  }
+};
+const AddInvestWithUs = () => {
+  const [state, dispatchReducer] = useReducer(reducer, initialState);
+  const investwithus = useSelector((st) => st.investwithus);
+  let investwithusData = investwithus?.investwithusData;
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
   let query = useQuery();
   let id = query.get("id");
   // const [, setRefresh] = useState(false);
@@ -33,322 +72,45 @@ const InvestCreateUpdate = (props) => {
       dispatch(InvestwithusAction.InvestwithusDataRequestAsync(data));
     }
   }, [id, dispatch]);
-
-  const getFileBlob = async (url, filename) => {
-    // const
-    const response = await fetch(url);
-    const blob = await response.blob();
-    const file = new File([blob], filename, { type: blob.type });
-    return file;
-  };
-  const initialState = {
-    whatWeDoHeader: investwithusData?.whatWeDoHeader || "",
-    whatWeDoDescription: investwithusData?.whatWeDoDescription || "",
-    whatWeDo: investwithusData?.whatWeDo
-      ? investwithusData.whatWeDo
-      : [
-          { title: "", description: "" },
-          { title: "", description: "" },
-          { title: "", description: "" },
-        ],
-    howToInvestTitle: investwithusData?.howToInvestTitle || "",
-    howToInvest: investwithusData?.howToInvest
-      ? investwithusData?.howToInvest
-      : [
-          { title: "", description: "" },
-          { title: "", description: "" },
-          { title: "", description: "" },
-        ],
-    metaTitle: investwithusData?.metaTitle || "",
-    metaKeywords: investwithusData?.metaKeywords || "",
-    metaDescription: investwithusData?.metaDescription || "",
-    image: investwithusData?.media[0]?.image || [],
-    bannerImage: investwithusData?.media[0]?.bannerImage || [],
-    // whatWeDoImages: investwithusData?.media[0]?.whatWeDoImages || [],
-    // howToInvestImages: investwithusData?.media[0]?.howToInvestImages || [],
-    id: id,
-  };
-
-  //
-  const [state, setState] = useState(initialState);
-  const [whatWeDoImages, setWhatWeDoImages] = useState([]);
-  const [howToInvestImages, setHowToInvestImages] = useState([]);
-  // const { whatWeDoImages, howToInvestImages } = state;
   useEffect(() => {
-    if (props.investwithus.success) {
-      // setRefresh(true);
-      // const;
-      setState(initialState);
+    if (investwithusData) {
+      dispatchReducer({
+        type: "REPLACE_STATE",
+        payload: {
+          whatWeDoHeader: investwithusData?.whatWeDoHeader || "",
+          whatWeDoDescription: investwithusData?.whatWeDoDescription || "",
+          whatWeDo: investwithusData?.whatWeDo
+            ? investwithusData.whatWeDo
+            : [
+                { title: "", description: "" },
+                { title: "", description: "" },
+                { title: "", description: "" },
+              ],
+          howToInvestTitle: investwithusData?.howToInvestTitle || "",
+          howToInvest: investwithusData?.howToInvest
+            ? investwithusData?.howToInvest
+            : [
+                { title: "", description: "" },
+                { title: "", description: "" },
+                { title: "", description: "" },
+              ],
+          metaTitle: investwithusData?.metaTitle || "",
+          metaKeywords: investwithusData?.metaKeywords || "",
+          metaDescription: investwithusData?.metaDescription || "",
+          imageUrl: investwithusData?.media[0]?.image || [],
+          bannerImageUrl: investwithusData?.media[0]?.bannerImage || [],
+          whatWeDoImageUrls: investwithusData?.media[0]?.whatWeDoImages || [],
+          howToInvestImageUrls:
+            investwithusData?.media[0]?.howToInvestImages || [],
+          image: [],
+          bannerImage: [],
+          whatWeDoImages: [],
+          howToInvestImages: [],
+          id: id,
+        },
+      });
     }
-    // }, [investwithusData]);
-  }, [investwithusData, whatWeDoImages, howToInvestImages]);
-  // const [image, setImage] = useState([])
-  // const [bannerImage, setBannerImage] = useState([])
-  // const { image, bannerImage } = state;
-
-  useEffect(() => {
-    // const invokeBannerImage = async () => {
-    //   if (investwithusData?.media[0].bannerImage?.length > 0) {
-    //     // const
-    //     const fileObject = await getFileBlob(
-    //       API_ENDPOINTS.BASE_URL +
-    //         investwithusData?.media[0].bannerImage[0]?.path,
-    //       investwithusData?.media[0].bannerImage[0].filename
-    //     );
-    //     setState((prevState) => {
-    //       return { ...prevState, bannerImage: [fileObject] };
-    //     });
-    //   }
-    // };
-    // invokeBannerImage();
-    // const invokeImage = async () => {
-    //   if (investwithusData?.media[0].image?.length > 0) {
-    //     // const
-    //     const fileObject = await getFileBlob(
-    //       API_ENDPOINTS.BASE_URL + investwithusData?.media[0].image[0]?.path,
-    //       investwithusData?.media[0].image[0].filename
-    //     );
-    //     setState((prevState) => {
-    //       return { ...prevState, image: [fileObject] };
-    //     });
-    //   }
-    // };
-    // invokeImage();
-    // const invokehowToInvestImages = async () => {
-    //   if (investwithusData && investwithusData?.media[0]?.howToInvestImages) {
-    //     const howToInvestImgs = [];
-    //     // let counter = 0;
-
-    //     await investwithusData?.media[0]?.howToInvestImages?.forEach(
-    //       async (image, index) => {
-    //         debugger;
-    //         // const [fileObject,i]
-    //         // const
-    //         const fileObject = await getFileBlob(
-    //           API_ENDPOINTS.BASE_URL + image.path,
-    //           image.filename
-    //         );
-    //         howToInvestImgs.push(fileObject);
-
-    //         // currWhatWeDoImages[i]=fileObject
-    //         // const;
-    //         if (
-    //           index ===
-    //           investwithusData?.media[0]?.howToInvestImages.length - 1
-    //         ) {
-    //           debugger;
-    //           setHowToInvestImages(howToInvestImgs);
-    //           // setState((prevState) => {
-    //           //   return { ...prevState, howToInvestImages: howToInvestImgs };
-    //           // });
-    //         }
-    //         // counter++;
-    //       }
-    //     );
-    //     // setWhatWeDoImages(whatwedos);
-    //   }
-    // };
-    // debugger;
-    // invokehowToInvestImages();
-    // const invokeWhatWeDoImages = async () => {
-    //   if (investwithusData && investwithusData?.media[0]?.whatWeDoImages) {
-    //     const whatwedos = [];
-    //     // let counter = 0;
-    //     await investwithusData?.media[0]?.whatWeDoImages?.forEach(
-    //       async (image, index) => {
-    //         // const [fileObject,i]
-    //         // const
-    //         const fileObject = await getFileBlob(
-    //           API_ENDPOINTS.BASE_URL + image.path,
-    //           image.filename
-    //         );
-    //         whatwedos.push(fileObject);
-
-    //         // currWhatWeDoImages[i]=fileObject
-    //         // const;
-    //         if (
-    //           index ===
-    //           investwithusData?.media[0]?.whatWeDoImages.length - 1
-    //         ) {
-    //           setWhatWeDoImages(whatwedos);
-    //           // setState((prevState) => {
-    //           //   return { ...prevState, whatWeDoImages: whatwedos };
-    //           // });
-    //         }
-    //         // counter++;
-    //       }
-    //     );
-    //     // setWhatWeDoImages(whatwedos);
-    //   }
-    // };
-    // invokeWhatWeDoImages();
   }, [investwithusData]);
-
-  // useEffect(() => {
-  //   if (investwithusData && investwithusData?.media[0]?.whatWeDoImages) {
-  //     const whatwedos = new Array(investwithusData?.media[0]?.whatWeDoImages.length).fill(null);
-  //     let counter=0
-  //     investwithusData?.media[0]?.whatWeDoImages?.forEach((image,index) => {
-  //       getFileObjectIndexed(index,image.filename,
-  //         API_ENDPOINTS.BASE_URL + image.path,
-  //          (fileObject,i) =>{
-
-  //           // const
-  //           // whatwedos.push(fileObject);
-  //           whatwedos[i]=fileObject
-  //           // currWhatWeDoImages[i]=fileObject
-  //           if(i===counter)
-  //           {
-  //             setWhatWeDoImages(whatwedos)
-  //           }
-  //           counter++
-  //         }
-  //       );
-  //     });
-  //   }
-
-  // }, [investwithusData]);
-  // useEffect(() => {
-  //   const howToInvestImgs = new Array(3).fill(null);;
-
-  //   if (investwithusData && investwithusData?.media[0]?.howToInvestImages) {
-  //     const
-  //     // let counter=0
-  //     investwithusData?.media[0]?.howToInvestImages?.forEach((image,index) => {
-  //       getFileObjectIndexed(index,image.filename,
-  //         API_ENDPOINTS.BASE_URL + image.path,
-  //          (fileObject,i)=> {
-  //           const
-  //           howToInvestImgs[i]=fileObject
-  //           // currWhatWeDoImages[i]=fileObject
-  //           // if(i===counter)
-  //           // {
-  //           //   setHowToInvestImages(howToInvestImgs)
-  //           // }
-  //           // if(counter===investwithusData?.media[0]?.howToInvestImages.length-1)
-  //           // {
-  //           // }
-  //           // counter++
-  //         }
-  //       );
-  //     });
-  //   }
-  //   setHowToInvestImages(howToInvestImgs)
-  // }, [investwithusData]);
-  const inputChange = (e) => {
-    let { name, value } = e.target;
-
-    setState({ ...state, [name]: value });
-  };
-  const whatToDoDetailTitleChange = (index, e) => {
-    // let { name, value } = e.target;
-    // const;
-    const whatWeDos = [...state.whatWeDo];
-    whatWeDos[index].title = e.target.value;
-    setState({ ...state, whatWeDo: whatWeDos });
-  };
-  const howToInvestTitleChange = (index, e) => {
-    // let { name, value } = e.target;
-    const howToInvests = [...state.howToInvest];
-    howToInvests[index].title = e.target.value;
-    setState({ ...state, howToInvest: howToInvests });
-  };
-  const deleteWhatWeDoHandler = (index) => {
-    const imgs = [...whatWeDoImages];
-    imgs.splice(index, 1);
-    setWhatWeDoImages(imgs);
-    // setState((prevState) => {
-    //   return { ...prevState, whatWeDoImages: imgs };
-    // });
-    const whatWeDos = [...state.whatWeDo];
-    if (whatWeDos.length === 0) {
-      whatWeDos[0] = { title: "", description: "" };
-    } else {
-      whatWeDos.splice(index, 1);
-    }
-    setState({ ...state, whatWeDo: whatWeDos });
-  };
-  console.log("whatwedo", state.whatWeDo);
-  // console.log("bannerImage", state.bannerImage);
-  // console.log("image", state.image);
-
-  const addWhatWeDoHandler = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    let imgs = [...whatWeDoImages];
-    imgs.push(null);
-    // setState((prevState) => {
-    //   return { ...prevState, whatWeDoImages, imgs };
-    // });
-    setWhatWeDoImages(imgs);
-    const whatWeDos = [...state.whatWeDo];
-    whatWeDos.push({ title: "", description: "" });
-    // const;
-    setState({ ...state, whatWeDo: whatWeDos });
-  };
-  console.log("state.whatWeDo", state.whatWeDo);
-  const handleWhatWeDoImagesUpload = (index, file, status) => {
-    //
-    let imgs = [...whatWeDoImages];
-    if (status === "removed") {
-      imgs[index] = null;
-      setWhatWeDoImages(imgs);
-      // setState((prevState) => {
-      //   return { ...prevState, whatWeDoImages: imgs };
-      // });
-    } else {
-      if (status === "done") {
-        imgs[index] = file.file;
-        setWhatWeDoImages(imgs);
-        // setState((prevState) => {
-        //   return { ...prevState, whatWeDoImages: imgs };
-        // });
-      }
-    }
-  };
-  const handleChangedFiles=(index,files)=>{
-    let imgs = [...howToInvestImages];
-    // if (status === "removed") {
-      // const;
-      // imgs[index] = null;
-      // setState((prevState) => {
-      //   return { ...prevState, howToInvestImages: imgs };
-      // });
-      // setHowToInvestImages(imgs);
-    // } else {
-      // if (status === "done") {
-        // const;
-        imgs[index] = files[0];
-        // setState((prevState) => {
-        //   return { ...prevState, howToInvestImages: imgs };
-        // });
-
-        setHowToInvestImages(imgs);
-      // }
-    // }
-  }
-  // const handleHowToInvestImagesUpload = (index, file, status) => {
-  //   debugger;
-  //   let imgs = [...howToInvestImages];
-  //   if (status === "removed") {
-  //     // const;
-  //     imgs[index] = null;
-  //     // setState((prevState) => {
-  //     //   return { ...prevState, howToInvestImages: imgs };
-  //     // });
-  //     setHowToInvestImages(imgs);
-  //   } else {
-  //     if (status === "done") {
-  //       // const;
-  //       imgs[index] = file.file;
-  //       // setState((prevState) => {
-  //       //   return { ...prevState, howToInvestImages: imgs };
-  //       // });
-
-  //       setHowToInvestImages(imgs);
-  //     }
-  //   }
-  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -364,8 +126,8 @@ const InvestCreateUpdate = (props) => {
       metaDescription,
       image,
       bannerImage,
-      // whatWeDoImages,
-      // howToInvestImages,
+      whatWeDoImages,
+      howToInvestImages,
     } = state;
     const data = new FormData();
     if (id == null) {
@@ -378,7 +140,7 @@ const InvestCreateUpdate = (props) => {
       data.append("metaTitle", metaTitle);
       data.append("metaKeywords", metaKeywords);
       data.append("metaDescription", metaDescription);
-      debugger
+      debugger;
       bannerImage.forEach((b) => {
         data.append("bannerImage", b);
       });
@@ -386,14 +148,18 @@ const InvestCreateUpdate = (props) => {
         data.append("image", i);
       });
       whatWeDoImages.forEach((w) => {
-        data.append("whatWeDoImages", w); //array
+        w.forEach(item=>{
+        data.append("whatWeDoImages", item); //array
+        })        
       });
       howToInvestImages.forEach((w) => {
-        data.append("howToInvestImages", w); //array
+        w.forEach(item=>{
+            data.append("howToInvestImages", item); //array
+        })        
       });
       dispatch(InvestwithusAction.InvestwithusAddRequestAsync(data));
     } else {
-      debugger
+      debugger;
       data.append("whatWeDoHeader", whatWeDoHeader);
       data.append("whatWeDoDescription", whatWeDoDescription);
       data.append("whatWeDo", JSON.stringify(whatWeDo)); //array
@@ -407,10 +173,14 @@ const InvestCreateUpdate = (props) => {
         data.append("image", i);
       });
       whatWeDoImages.forEach((w) => {
-        data.append("whatWeDoImages", w); //array
+        w.forEach(item=>{
+        data.append("whatWeDoImages", item); //array
+        })        
       });
       howToInvestImages.forEach((w) => {
-        data.append("howToInvestImages", w); //array
+        w.forEach(item=>{
+            data.append("howToInvestImages", item); //array
+        })        
       });
       data.append("metaTitle", metaTitle);
       data.append("metaKeywords", metaKeywords);
@@ -419,45 +189,135 @@ const InvestCreateUpdate = (props) => {
       dispatch(InvestwithusAction.InvestwithusUpdateRequestAsync(data));
     }
   };
-
-  function useQuery() {
-    return new URLSearchParams(useLocation().search);
-  }
+  const onBannerImageChangeFiles = (files) => {
+    dispatchReducer({
+      type: "SET_VALUE",
+      payload: { name: "bannerImage", value: files },
+    });
+  };
+  const onImageChangeFiles = (files) => {
+    dispatchReducer({
+      type: "SET_VALUE",
+      payload: { name: "image", value: files },
+    });
+  };
+  const onWhatWeDoChangeFiles = (index, files) => {
+    const whatWeDoImgs = [...state.whatWeDoImages];
+    whatWeDoImgs[index] = files;
+    dispatchReducer({
+      type: "SET_VALUE",
+      payload: { name: "whatWeDoImages", value: whatWeDoImgs },
+    });
+  };
+  const onHowToInvestImagesFiles = (index, files) => {
+    const howToInvestImgs = [...state.howToInvestImages];
+    howToInvestImgs[index] = files;
+    dispatchReducer({
+      type: "SET_VALUE",
+      payload: { name: "howToInvestImages", value: howToInvestImgs },
+    });
+  };
   const handleWhatWeDoDetailTextEditor = (index, content, editor) => {
     // const;
     const whatWeDos = state.whatWeDo ? [...state.whatWeDo] : [];
     whatWeDos[index].description = content;
-    setState((prevState) => {
-      return { ...prevState, whatWeDo: whatWeDos };
+    dispatchReducer({
+      type: "SET_VALUE",
+      payload: { name: "whatWeDo", value: whatWeDos },
     });
+    // setState((prevState) => {
+    //   return { ...prevState, whatWeDo: whatWeDos };
+    // });
   };
   const handleHowToInvestTextEditor = (index, content, editor) => {
     const howToInvests = state.howToInvest ? [...state.howToInvest] : [];
     howToInvests[index].description = content;
-    setState((prevState) => {
-      return { ...prevState, howToInvest: howToInvests };
+    dispatchReducer({
+      type: "SET_VALUE",
+      payload: { name: "howToInvest", value: howToInvests },
     });
+
+    // setState((prevState) => {
+    //   return { ...prevState, howToInvest: howToInvests };
+    // });
   };
   const handleChangeWhatWeDoTextEditor = (content, editor) => {
-    setState((prevState) => {
-      return { ...prevState, whatWeDoDescription: content };
+    // setState((prevState) => {
+    //   return { ...prevState, whatWeDoDescription: content };
+    // });
+    dispatchReducer({
+      type: "SET_VALUE",
+      payload: { name: "whatWeDoDescription", value: content },
     });
   };
-  const handleImageUpload = (file, status) => {
-    if (status === "done") {
-      // setImage([file.file] )
-      setState({ ...state, image: [file.file] });
-    }
+  //   if(state.whatWeDoDescription)
+  //   {
+  //       debugger
+  //   }
+  const inputChange = (e) => {
+    let { name, value } = e.target;
+    dispatchReducer({ type: "SET_VALUE", payload: { name: [name], value } });
+    // setState({ ...state, [name]: value });
   };
-
-  const handleBannerImageUpload = (file, status) => {
-    if (status === "done") {
-      // setBannerImage([file.file])
-      setState({ ...state, bannerImage: [file.file] });
-    }
+  const whatToDoDetailTitleChange = (index, e) => {
+    // let { name, value } = e.target;
+    // const;
+    const whatWeDos = [...state.whatWeDo];
+    whatWeDos[index].title = e.target.value;
+    dispatchReducer({
+      type: "SET_VALUE",
+      payload: { name: "whatWeDo", value: whatWeDos },
+    });
+    // setState({ ...state, whatWeDo: whatWeDos });
   };
-
-  return (
+  const deleteWhatWeDoHandler = (index) => {
+    // const imgs = [...whatWeDoImages];
+    // imgs.splice(index, 1);
+    // setWhatWeDoImages(imgs);
+    // setState((prevState) => {
+    //   return { ...prevState, whatWeDoImages: imgs };
+    // });
+    const whatWeDos = [...state.whatWeDo];
+    if (whatWeDos.length === 0) {
+      whatWeDos[0] = { title: "", description: "" };
+    } else {
+      whatWeDos.splice(index, 1);
+    }
+    // setState({ ...state, whatWeDo: whatWeDos });
+    dispatchReducer({
+      type: "SET_VALUE",
+      payload: { name: "whatWeDo", value: whatWeDos },
+    });
+  };
+  const addWhatWeDoHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // let imgs = [...whatWeDoImages];
+    // imgs.push(null);
+    // setState((prevState) => {
+    //   return { ...prevState, whatWeDoImages, imgs };
+    // });
+    // setWhatWeDoImages(imgs);
+    const whatWeDos = [...state.whatWeDo];
+    whatWeDos.push({ title: "", description: "" });
+    // const;
+    // setState({ ...state, whatWeDo: whatWeDos });
+    dispatchReducer({
+      type: "SET_VALUE",
+      payload: { name: "whatWeDo", value: whatWeDos },
+    });
+  };
+  const howToInvestTitleChange = (index, e) => {
+    // let { name, value } = e.target;
+    const howToInvests = [...state.howToInvest];
+    howToInvests[index].title = e.target.value;
+    // setState({ ...state, howToInvest: howToInvests });
+    dispatchReducer({
+      type: "SET_VALUE",
+      payload: { name: "howToInvest", value: howToInvests },
+    });
+  };
+  const content = (
     <Box className="MenuManagement_Data investWithUs">
       <FormHeader
         heading1={"Invest With Us Module Management"}
@@ -506,12 +366,22 @@ const InvestCreateUpdate = (props) => {
                 style={{ padding: "15px" }}
               >
                 <Typography>Banner Image </Typography>
-                <Dropzone
+                {/* <Dropzone
                   maxFiles="1"
                   multiple={false}
                   initialFiles={state?.bannerImage || []}
                   onChangeStatus={handleBannerImageUpload}
                   accept="image/*"
+                /> */}
+                <DropzoneWrapper
+                  preLoaded
+                  urls={investwithusData?.media[0]?.bannerImage.map(
+                    (m) => m.path
+                  )}
+                  fileNames={investwithusData?.media[0]?.bannerImage.map(
+                    (m) => m.originalname
+                  )}
+                  changeFiles={onBannerImageChangeFiles}
                 />
               </Grid>
               <Grid
@@ -613,22 +483,32 @@ const InvestCreateUpdate = (props) => {
                 <Grid className="form-group-item" item xs={12} sm={6} md={5}>
                   <Typography>Image </Typography>
 
-                  <Dropzone
+                  {/* <Dropzone
                     maxFiles="1"
                     multiple={false}
                     initialFiles={state?.image || []}
                     onChangeStatus={handleImageUpload}
                     accept="image/*"
+                  />*/}
+                  <DropzoneWrapper
+                    preLoaded
+                    urls={investwithusData?.media[0]?.image.map((m) => m.path)}
+                    fileNames={investwithusData?.media[0]?.image.map(
+                      (m) => m.originalname
+                    )}
+                    changeFiles={onImageChangeFiles}
                   />
                 </Grid>
 
                 <Grid className="form-group-item" item xs={12} sm={12} md={12}>
-                  <ReactQuill
-                    onChange={handleChangeWhatWeDoTextEditor}
-                    value={state.whatWeDoDescription || ""}
-                    placeholder="What we do description"
-                    theme="snow"
-                  />
+                  {state.whatWeDoDescription && (
+                    <ReactQuill
+                      onChange={handleChangeWhatWeDoTextEditor}
+                      defaultValue={state.whatWeDoDescription || ""}
+                      placeholder="What we do description"
+                      theme="snow"
+                    />
+                  )}
                 </Grid>
               </Grid>
 
@@ -651,6 +531,7 @@ const InvestCreateUpdate = (props) => {
                       return (
                         <Grid
                           className="form-group-item"
+                          key={whatWeDoItem.title}
                           item
                           xs={12}
                           sm={12}
@@ -671,16 +552,43 @@ const InvestCreateUpdate = (props) => {
                             name="title"
                             // id="whatWeDoHeader"
                           />
-                          <ReactQuill
-                            onChange={handleWhatWeDoDetailTextEditor.bind(
-                              this,
-                              index
-                            )}
-                            value={whatWeDoItem?.description || ""}
-                            placeholder="Enter description"
-                            theme="snow"
-                          />
-                          {whatWeDoImages.length === state.whatWeDo.length && (
+                          {whatWeDoItem?.description && (
+                            <ReactQuill
+                              onChange={handleWhatWeDoDetailTextEditor.bind(
+                                this,
+                                index
+                              )}
+                              defaultValue={whatWeDoItem?.description || ""}
+                              placeholder="Enter description"
+                              theme="snow"
+                            />
+                          )}
+                          {investwithusData?.media[0]?.whatWeDoImages &&
+                          investwithusData?.media[0]?.whatWeDoImages.length >
+                            index + 1 ? (
+                            <DropzoneWrapper
+                              preLoaded
+                              urls={[investwithusData?.media[0]?.whatWeDoImages[
+                                index
+                              ].path]}
+                              fileNames={[investwithusData?.media[0]?.whatWeDoImages[
+                                index
+                              ].originalname]}
+                              changeFiles={onWhatWeDoChangeFiles.bind(
+                                this,
+                                index
+                              )}
+                            />
+                          ) : (
+                            <DropzoneWrapper
+                              preLoaded={false}
+                              changeFiles={onWhatWeDoChangeFiles.bind(
+                                this,
+                                index
+                              )}
+                            />
+                          )}
+                          {/* {whatWeDoImages.length === state.whatWeDo.length && (
                             <Dropzone
                               maxFiles="1"
                               multiple={false}
@@ -695,7 +603,7 @@ const InvestCreateUpdate = (props) => {
                               )}
                               accept="image/*"
                             />
-                          )}
+                          )} */}
                           <div style={{ display: "flex" }}>
                             <Button
                               variant="contained"
@@ -762,6 +670,7 @@ const InvestCreateUpdate = (props) => {
                       return (
                         <Grid
                           className="form-group-item"
+                          key={howToInvestItem.title}
                           item
                           xs={12}
                           sm={12}
@@ -778,53 +687,75 @@ const InvestCreateUpdate = (props) => {
                             onChange={howToInvestTitleChange.bind(this, index)}
                             name="howToInvestDetailTitle"
                           />
-                          <ReactQuill
-                            onChange={handleHowToInvestTextEditor.bind(
-                              this,
-                              index
-                            )}
-                            value={howToInvestItem?.description || ""}
-                            placeholder="Enter description"
-                            theme="snow"
-                          />
-                          {/* {investwithusData?.media[0]?.whatWeDoImages[index]
-                            ?.filename && ( */}
-                            <DropzoneWrapper
-                              preLoaded={true}
-                              urls={[
-                                investwithusData?.media[0]?.whatWeDoImages[
-                                  index
-                                ]?.path,
-                              ]}
-                              fileNames={[
-                                investwithusData?.media[0]?.whatWeDoImages[
-                                  index
-                                ]?.filename,
-                              ]}
-                              changeFiles={handleChangedFiles.bind(
+                          {howToInvestItem?.description && (
+                            <ReactQuill
+                              onChange={handleHowToInvestTextEditor.bind(
                                 this,
                                 index
                               )}
+                              defaultValue={howToInvestItem?.description || ""}
+                              placeholder="Enter description"
+                              theme="snow"
                             />
+                          )}
+                          {/* {investwithusData?.media[0]?.whatWeDoImages[index]
+                        ?.filename && ( */}
+                          {/* <DropzoneWrapper
+                            preLoaded={true}
+                            urls={[
+                              investwithusData?.media[0]?.whatWeDoImages[index]
+                                ?.path,
+                            ]}
+                            fileNames={[
+                              investwithusData?.media[0]?.whatWeDoImages[index]
+                                ?.filename,
+                            ]}
+                            changeFiles={handleChangedFiles.bind(this, index)}
+                          /> */}
                           {/* )} */}
                           {/* {howToInvestImages.length === state.howToInvest.length  && (<>
-                            <Dropzone
-                              maxFiles="1"
-                              multiple={false}
-                              initialFiles={
-                                howToInvestImages[index] > 0
-                                  ? [howToInvestImages[index]]
-                                  : []
-                              }
-                              onChangeStatus={handleHowToInvestImagesUpload.bind(
+                        <Dropzone
+                          maxFiles="1"
+                          multiple={false}
+                          initialFiles={
+                            howToInvestImages[index] > 0
+                              ? [howToInvestImages[index]]
+                              : []
+                          }
+                          onChangeStatus={handleHowToInvestImagesUpload.bind(
+                            this,
+                            index
+                          )}
+                          accept="image/*"
+                        />
+                        
+                        </>
+                      )} */}
+                          {investwithusData?.media[0]?.howToInvestImages &&
+                          investwithusData?.media[0]?.howToInvestImages.length >
+                            index + 1 ? (
+                            <DropzoneWrapper
+                              preLoaded
+                              urls={[investwithusData?.media[0]?.howToInvestImages[
+                                index
+                              ].path]}
+                              fileNames={[investwithusData?.media[0]?.howToInvestImages[
+                                index
+                              ].originalname]}
+                              changeFiles={onHowToInvestImagesFiles.bind(
                                 this,
                                 index
                               )}
-                              accept="image/*"
                             />
-                            
-                            </>
-                          )} */}
+                          ) : (
+                            <DropzoneWrapper
+                              preLoaded={false}
+                              changeFiles={onHowToInvestImagesFiles.bind(
+                                this,
+                                index
+                              )}
+                            />
+                          )}
                         </Grid>
                       );
                     })}
@@ -861,12 +792,20 @@ const InvestCreateUpdate = (props) => {
       </Grid>
     </Box>
   );
+  debugger;
+  return investwithusData ? content : null;
+  //   return investwithusData?.media[0]?.whatWeDoImages
+  //     ? investwithusData?.media[0]?.whatWeDoImages.map((item, index) => {
+  //         debugger;
+  //         return (
+  //           <DropzoneWrapper
+  //             preLoaded
+  //             urls={[i[index]]}
+  //             fileNames={[names[index]]}
+  //             changeFiles={(files)=>{}}
+  //           />
+  //         );
+  //       })
+  //     : null;
 };
-
-function mapStateToProps(state) {
-  const { investwithus } = state;
-  return {
-    investwithus,
-  };
-}
-export default connect(mapStateToProps)(InvestCreateUpdate);
+export default AddInvestWithUs;

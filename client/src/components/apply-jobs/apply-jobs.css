@@ -34,10 +34,11 @@
     background-color: #00afb8;
     color: #fff;
 }  
-.JobFormData .jobInputs{
-    width: 48%;
+.JobFormData .jobInputs {
+    width: 100%;
     margin-right: 2%;
-}     
+}
+
 #customized-dialog-title button{
     top: 0px;
     right: 0px;
@@ -57,4 +58,10 @@
     border-radius: 4px;
     padding: 5px 20px;
     text-align: right;
+}
+@media only screen and (min-width: 767px) {
+    .JobFormData .jobInputs{
+        width: 48%;
+        margin-right: 2%;
+    }     
 }

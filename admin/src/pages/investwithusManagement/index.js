@@ -109,10 +109,11 @@ const InvestwithusList = (props) => {
               className="table-header"
               title="Invest With Us List"
               data={investwithus.list.map((item, index) => {
+                debugger
                 return [
                   index + 1,
-                  item.title,
-                  item.description,
+                  item.whatWeDoHeader,
+                  item.whatWeDoDescription,
                   item.active,
                   item._id,
                 ];

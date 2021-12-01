@@ -1,14 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, makeStyles, Box, TextField, Button } from '@material-ui/core';
-import PageBanner from '../../../components/page-banner';
-import '../my-account.css';
+import React, { useEffect, useState } from "react";
+import {
+  Container,
+  Grid,
+  Typography,
+  makeStyles,
+  Box,
+  TextField,
+  Button,
+} from "@material-ui/core";
+import PageBanner from "../../../components/page-banner";
+import "../my-account.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import LocalHotelIcon from '@material-ui/icons/LocalHotel';
-import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
-import BathtubIcon from '@material-ui/icons/Bathtub';
-
+import LocalHotelIcon from "@material-ui/icons/LocalHotel";
+import ZoomOutMapIcon from "@material-ui/icons/ZoomOutMap";
+import BathtubIcon from "@material-ui/icons/Bathtub";
+import API_ENDPOINTS from "./../../../constants/api-endpoints";
+import ApiClient from "./../../../api-client/index";
+import { Link, useHistory } from "react-router-dom";
 const settings1 = {
   dots: false,
   arrows: false,
@@ -18,20 +28,51 @@ const settings1 = {
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
-  cssEase: 'linear',
+  cssEase: "linear",
 };
 
-const useStyles = makeStyles((theme) => ({
-
-}));
-
+const useStyles = makeStyles((theme) => ({}));
+function handleNull(val) {
+  return val || " --";
+}
 const MyProperty = (props) => {
+  const history = useHistory();
+  const [propertyList, setPropertyList] = useState([]);
+  // const populatePropertyListDetails = () => {
+  const propertyClickHandler = (propertyId) => {
+    history.push({
+      pathname: "/home-detail",
+      // search: "?update=true", // query string
+      state: propertyId,
+    });
+  };
+  const getData = async () => {
+    debugger;
+    const user = JSON.parse(localStorage.getItem("user"));
 
+    const response = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      API_ENDPOINTS.USER_PROPERTY_LIST_ENDPOINT,
+      { userId: user._id },
+      {},
+      { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+      true
+    );
 
+    setPropertyList(response?.data?.list || []);
+    // console.log('About us details', aboutUsInfo, aboutSection);
+  };
+  // };
+  useEffect(() => {
+    getData();
+  }, []);
+  // if(property.length>0){
+  //   debugger
+  // }
   return (
     <div>
       <PageBanner
-        bgImage={'/about_us.jpeg'}
+        bgImage={"/about_us.jpeg"}
         title="My Property"
         currentPage="My Property"
       />
@@ -42,21 +83,58 @@ const MyProperty = (props) => {
             <Grid item xs={12} md={3} className="sidebar-section">
               <Box className="box-item">
                 <Box className="box-wrap box-border-bottom box-radius">
-                  <Box className="user-intro box-body">
-                    <Box className="user-icon">  <img src="images/profile-img.jpg" alt="" /> </Box>
+                  {/* <Box className="user-intro box-body">
+                    <Box className="user-icon">
+                      {" "}
+                      <img src="images/profile-img.jpg" alt="" />{" "}
+                    </Box>
                     <Box className="user-info">
                       <h4> Arjun Singh</h4>
                       <p>Permium</p>
                     </Box>
-                  </Box>
+                  </Box> */}
                   <Box className="box-body p-0">
                     <ul className="sidebar-account-menu">
-                      <li><a href="/my-account"> <i className="fas fa-house-user"></i>My Account </a> </li>
-                      <li> <a href="/my-profile"> <i className="far fa-user"></i>My Profile </a> </li>
-                      <li className="active"> <a href="/my-property"> <i className="fas fa-building"></i>My Property </a> </li>
-                      <li> <a href="/my-booking"> <i className="far fa-list-alt"></i>My Booking </a> </li>
-                      <li> <a href="my-favorite"> <i className="far fa-heart"></i>My Favorite </a> </li>
-                      <li> <a className="logout" href="#"><i className="fas fa-sign-out-alt"></i>Log out</a> </li>
+                      <li>
+                        <Link to="/my-account">
+                          {" "}
+                          <i className="fas fa-house-user"></i>My Account{" "}
+                        </Link>{" "}
+                      </li>
+                      <li>
+                        {" "}
+                        <Link to="/my-profile">
+                          {" "}
+                          <i className="far fa-user"></i>My Profile{" "}
+                        </Link>{" "}
+                      </li>
+                      <li className="active">
+                        {" "}
+                        <Link to="/my-property">
+                          {" "}
+                          <i className="fas fa-building"></i>My Property{" "}
+                        </Link>{" "}
+                      </li>
+                      <li>
+                        {" "}
+                        <Link to="/my-booking">
+                          {" "}
+                          <i className="far fa-list-alt"></i>My Booking{" "}
+                        </Link>{" "}
+                      </li>
+                      <li>
+                        {" "}
+                        <Link to="/my-favorite">
+                          {" "}
+                          <i className="far fa-heart"></i>My Favorite{" "}
+                        </Link>{" "}
+                      </li>
+                      {/* <li>
+                        {" "}
+                        <Link className="logout" to="#">
+                          <i className="fas fa-sign-out-alt"></i>Log out
+                        </Link>{" "}
+                      </li> */}
                     </ul>
                   </Box>
                 </Box>
@@ -67,186 +145,138 @@ const MyProperty = (props) => {
               <Box className="content-section">
                 <Box className="box-item">
                   <Box className="box-wrap box-border-bottom box-radius">
-                    <Box className="box-header"><h5 className="box-title">My Property Lists</h5></Box>
-                    <Box className="box-body">
-                      <Grid container spacing={2} className="my-property-wrapper">
-                        <Grid item xs={12} sm={6} md={4}>
-                          <Box className="property-item my-property-item">
-                            <Grid contaienr className="property-wrap">
-                              <Grid className="property-image">
-                                <Slider {...settings1}>
-                                  <Box className="property-image-thumb">
-                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
-                                  </Box>
-                                  <Box className="property-image-thumb">
-                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
-                                  </Box>
-                                  <Box className="property-image-thumb">
-                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
-                                  </Box>
-                                </Slider>
-                              </Grid>
-                              <Grid className="property-summery">
-                                <Box component="span" className="property-tag">RESIDENTIAL</Box>
-                                <Typography variant="h3" className="property-title">VISHAL HEAVENS</Typography>
-                                <Grid container className="property-information">
-                                  <Grid item xs={6} md={6} className="property-feature">
-                                    <ZoomOutMapIcon />
-                                    <Typography>1200 Sq-Ft</Typography>
+                    <Box className="box-header">
+                      <h5 className="box-title">My Property Lists</h5>
+                    </Box>
+                    <Box>
+                      {propertyList.map((property) => {
+                        debugger;
+                        let mainImage = property?.images[0]?.mainImage || [];
+                        const exteriorView =
+                          property?.images[0]?.exteriorView || [];
+                        mainImage = [...mainImage, ...exteriorView];
+                        return (
+                          <Box className="box-body" key={property._id}>
+                            <Grid
+                              container
+                              spacing={2}
+                              className="my-property-wrapper"
+                            >
+                              <Grid item xs={12} sm={6} md={4}>
+                                <Box className="property-item my-property-item">
+                                  <Grid contaienr className="property-wrap">
+                                    <Grid className="property-image">
+                                      <Slider {...settings1}>
+                                        {mainImage.map((image) => {
+                                          return (
+                                            <Box className="property-image-thumb">
+                                              <img
+                                                src={
+                                                  ApiClient.SERVER_ADDRESS +
+                                                  "/" +
+                                                  image.path
+                                                }
+                                              />
+                                            </Box>
+                                          );
+                                        })}
+                                      </Slider>
+                                    </Grid>
+                                    <Grid className="property-summery">
+                                      <Box
+                                        component="span"
+                                        className="property-tag"
+                                      >
+                                        {property?.pType || ""}
+                                      </Box>
+                                      <Typography
+                                        variant="h3"
+                                        className="property-title"
+                                      >
+                                        {property?.nameOfProject || ""}
+                                      </Typography>
+                                      <Grid
+                                        container
+                                        className="property-information"
+                                      >
+                                        <Grid
+                                          item
+                                          xs={6}
+                                          md={6}
+                                          className="property-feature"
+                                        >
+                                          <Typography>
+                                            BEDROOMS {property?.bedrooms}
+                                          </Typography>
+                                        </Grid>
+                                        <Grid
+                                          item
+                                          xs={6}
+                                          md={6}
+                                          className="property-feature"
+                                        >
+                                          <LocalHotelIcon />
+                                          <Typography>
+                                            BATHROOMS {property?.bathrooms}
+                                          </Typography>
+                                        </Grid>
+                                        <Grid
+                                          item
+                                          xs={6}
+                                          md={6}
+                                          className="property-feature"
+                                        >
+                                          <LocalHotelIcon />
+                                          <Typography>
+                                            BALCONY {property?.balconies}
+                                          </Typography>
+                                        </Grid>
+                                        <Grid
+                                          item
+                                          xs={6}
+                                          md={6}
+                                          className="property-feature"
+                                        >
+                                          <BathtubIcon />
+                                          <Typography>
+                                            STATUS {property?.possessionStatus}
+                                          </Typography>
+                                        </Grid>
+                                        <Grid
+                                          item
+                                          xs={6}
+                                          md={6}
+                                          className="property-feature"
+                                        >
+                                          <BathtubIcon />
+                                          <Typography>
+                                            FURNISHING{" "}
+                                            {property?.furnishedStatus}
+                                          </Typography>
+                                        </Grid>
+                                      </Grid>
+                                    </Grid>
+                                    <Grid container className="property-button">
+                                      <button
+                                        onClick={propertyClickHandler.bind(
+                                          null,
+                                          property?._id
+                                        )}
+                                        state={property?._id}
+                                        className="btn btn-primary"
+                                      >
+                                        {/* <a className="btn btn-primary" to="/"> */}{" "}
+                                        MORE DETAIL
+                                        {/* </a> */}
+                                      </button>
+                                    </Grid>
                                   </Grid>
-                                  <Grid item xs={6} md={6} className="property-feature">
-                                    <LocalHotelIcon />
-                                    <Typography >2 Bedrooms</Typography>
-                                  </Grid>
-                                  <Grid item xs={6} md={6} className="property-feature">
-                                    <LocalHotelIcon />
-                                    <Typography>1 Balconies</Typography>
-                                  </Grid>
-                                  <Grid item xs={6} md={6} className="property-feature">
-                                    <BathtubIcon />
-                                    <Typography>2 Bathroom</Typography>
-                                  </Grid>
-                                </Grid>
-                              </Grid>
-                              <Grid container className="property-button">
-                                <a className="btn btn-primary" href="/"> MORE DETAIL</a>
-                              </Grid>
-                            </Grid>
-                          </Box>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                          <Box className="property-item my-property-item">
-                            <Grid contaienr className="property-wrap">
-                              <Grid className="property-image">
-                                <Slider {...settings1}>
-                                  <Box className="property-image-thumb">
-                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
-                                  </Box>
-                                  <Box className="property-image-thumb">
-                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
-                                  </Box>
-                                  <Box className="property-image-thumb">
-                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
-                                  </Box>
-                                </Slider>
-                              </Grid>
-                              <Grid className="property-summery">
-                                <Box component="span" className="property-tag">RESIDENTIAL</Box>
-                                <Typography variant="h3" className="property-title">VISHAL HEAVENS</Typography>
-                                <Grid container className="property-information">
-                                  <Grid item xs={6} md={6} className="property-feature">
-                                    <ZoomOutMapIcon />
-                                    <Typography>1200 Sq-Ft</Typography>
-                                  </Grid>
-                                  <Grid item xs={6} md={6} className="property-feature">
-                                    <LocalHotelIcon />
-                                    <Typography >2 Bedrooms</Typography>
-                                  </Grid>
-                                  <Grid item xs={6} md={6} className="property-feature">
-                                    <LocalHotelIcon />
-                                    <Typography>1 Balconies</Typography>
-                                  </Grid>
-                                  <Grid item xs={6} md={6} className="property-feature">
-                                    <BathtubIcon />
-                                    <Typography>2 Bathroom</Typography>
-                                  </Grid>
-                                </Grid>
-                              </Grid>
-                              <Grid container className="property-button">
-                                <a className="btn btn-primary" href="/"> MORE DETAIL</a>
-                              </Grid>
-                            </Grid>
-                          </Box>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                          <Box className="property-item  my-property-item">
-                            <Grid contaienr className="property-wrap">
-                              <Grid className="property-image">
-                                <Slider {...settings1}>
-                                  <Box className="property-image-thumb">
-                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
-                                  </Box>
-                                  <Box className="property-image-thumb">
-                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
-                                  </Box>
-                                  <Box className="property-image-thumb">
-                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
-                                  </Box>
-                                </Slider>
-                              </Grid>
-                              <Grid className="property-summery">
-                                <Box component="span" className="property-tag">RESIDENTIAL</Box>
-                                <Typography variant="h3" className="property-title">VISHAL HEAVENS</Typography>
-                                <Grid container className="property-information">
-                                  <Grid item xs={6} md={6} className="property-feature">
-                                    <ZoomOutMapIcon />
-                                    <Typography>1200 Sq-Ft</Typography>
-                                  </Grid>
-                                  <Grid item xs={6} md={6} className="property-feature">
-                                    <LocalHotelIcon />
-                                    <Typography >2 Bedrooms</Typography>
-                                  </Grid>
-                                  <Grid item xs={6} md={6} className="property-feature">
-                                    <LocalHotelIcon />
-                                    <Typography>1 Balconies</Typography>
-                                  </Grid>
-                                  <Grid item xs={6} md={6} className="property-feature">
-                                    <BathtubIcon />
-                                    <Typography>2 Bathroom</Typography>
-                                  </Grid>
-                                </Grid>
-                              </Grid>
-                              <Grid container className="property-button">
-                                <a className="btn btn-primary" href="/"> MORE DETAIL</a>
+                                </Box>
                               </Grid>
                             </Grid>
                           </Box>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                          <Box className="property-item  my-property-item">
-                            <Grid contaienr className="property-wrap">
-                              <Grid className="property-image">
-                                <Slider {...settings1}>
-                                  <Box className="property-image-thumb">
-                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
-                                  </Box>
-                                  <Box className="property-image-thumb">
-                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
-                                  </Box>
-                                  <Box className="property-image-thumb">
-                                    <img src={process.env.PUBLIC_URL + '/property_img3.jpeg'} />
-                                  </Box>
-                                </Slider>
-                              </Grid>
-                              <Grid className="property-summery">
-                                <Box component="span" className="property-tag">RESIDENTIAL</Box>
-                                <Typography variant="h3" className="property-title">VISHAL HEAVENS</Typography>
-                                <Grid container className="property-information">
-                                  <Grid item xs={6} md={6} className="property-feature">
-                                    <ZoomOutMapIcon />
-                                    <Typography>1200 Sq-Ft</Typography>
-                                  </Grid>
-                                  <Grid item xs={6} md={6} className="property-feature">
-                                    <LocalHotelIcon />
-                                    <Typography >2 Bedrooms</Typography>
-                                  </Grid>
-                                  <Grid item xs={6} md={6} className="property-feature">
-                                    <LocalHotelIcon />
-                                    <Typography>1 Balconies</Typography>
-                                  </Grid>
-                                  <Grid item xs={6} md={6} className="property-feature">
-                                    <BathtubIcon />
-                                    <Typography>2 Bathroom</Typography>
-                                  </Grid>
-                                </Grid>
-                              </Grid>
-                              <Grid container className="property-button">
-                                <a className="btn btn-primary" href="/"> MORE DETAIL</a>
-                              </Grid>
-                            </Grid>
-                          </Box>
-                        </Grid>
-                      </Grid>
+                        );
+                      })}
                     </Box>
                   </Box>
                 </Box>
@@ -256,7 +286,6 @@ const MyProperty = (props) => {
           </Grid>
         </Box>
       </Container>
-
     </div>
   );
 };
