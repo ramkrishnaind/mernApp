@@ -201,7 +201,7 @@ const MyFavorite = (props) => {
                                   >
                                     <a
                                       onClick={() =>
-                                        handleDeleteFavourite(item?.propertyId)
+                                        handleDeleteFavourite(item?.propertyId._id)
                                       }
                                       class="remove remove-from-favorite"
                                       title="Remove this Property"
