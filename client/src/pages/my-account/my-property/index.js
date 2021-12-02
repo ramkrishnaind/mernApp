@@ -19,6 +19,7 @@ import BathtubIcon from "@material-ui/icons/Bathtub";
 import API_ENDPOINTS from "./../../../constants/api-endpoints";
 import ApiClient from "./../../../api-client/index";
 import { Link, useHistory } from "react-router-dom";
+import "../my-account.css";
 const settings1 = {
   dots: false,
   arrows: false,
@@ -144,28 +145,46 @@ const MyProperty = (props) => {
             <Grid item xs={12} md={9} className="content-area">
               <Box className="content-section">
                 <Box className="box-item">
-                  <Box className="box-wrap box-border-bottom box-radius">
+                  <Box className="box-wrap box-border-bottom box-radius ">
                     <Box className="box-header">
                       <h5 className="box-title">My Property Lists</h5>
                     </Box>
-                    <Box>
-                      {propertyList.map((property) => {
-                        debugger;
-                        let mainImage = property?.images[0]?.mainImage || [];
-                        const exteriorView =
-                          property?.images[0]?.exteriorView || [];
-                        mainImage = [...mainImage, ...exteriorView];
-                        return (
-                          <Box className="box-body" key={property._id}>
-                            <Grid
-                              container
-                              spacing={2}
-                              className="my-property-wrapper"
-                            >
+                    <Box className="box-body">
+                      <Grid
+                        container
+                        spacing={2}
+                        className="my-property-wrapper"
+                      >
+                        {propertyList.map((property) => {
+                          debugger;
+                          let mainImage = property?.images[0]?.mainImage || [];
+                          const exteriorView =
+                            property?.images[0]?.exteriorView || [];
+                          mainImage = [...mainImage, ...exteriorView];
+                          return (
+                            <>
                               <Grid item xs={12} sm={6} md={4}>
                                 <Box className="property-item my-property-item">
                                   <Grid contaienr className="property-wrap">
                                     <Grid className="property-image">
+                                      <Slider {...settings1}>
+                                        {mainImage?.map((img) => (
+                                          <Box className="property-image-thumb">
+                                            <img
+                                              src={
+                                                img?.path
+                                                  ? ApiClient.SERVER_ADDRESS +
+                                                    "/" +
+                                                    img?.path
+                                                  : "/no-image-available-icon-6.png"
+                                              }
+                                            />
+                                          </Box>
+                                        ))}
+                                      </Slider>
+                                    </Grid>
+
+                                    {/* <Grid className="property-image">
                                       <Slider {...settings1}>
                                         {mainImage.map((image) => {
                                           return (
@@ -181,7 +200,7 @@ const MyProperty = (props) => {
                                           );
                                         })}
                                       </Slider>
-                                    </Grid>
+                                    </Grid> */}
                                     <Grid className="property-summery">
                                       <Box
                                         component="span"
@@ -273,10 +292,11 @@ const MyProperty = (props) => {
                                   </Grid>
                                 </Box>
                               </Grid>
-                            </Grid>
-                          </Box>
-                        );
-                      })}
+                            </>
+                            // </Box>
+                          );
+                        })}
+                      </Grid>
                     </Box>
                   </Box>
                 </Box>

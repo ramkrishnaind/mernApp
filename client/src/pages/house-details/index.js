@@ -195,7 +195,7 @@ const HouseDetailPage = (props) => {
   const [viewDetails, setViewDetails] = React.useState(false);
   let token = query.get("token");
   const [PropertyDetail, setPropertyDetail] = React.useState({});
-  debugger
+  debugger;
   const propertyListItem = useSelector((state) => state.PropertyDetail.data);
   const [bookNow, setBookNow] = useState(false);
   const [reviews, setReviews] = useState([]);
@@ -206,12 +206,12 @@ const HouseDetailPage = (props) => {
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
-  
+
   console.log("PropertyDetail", PropertyDetail);
-  console.log("item",item)
-  useEffect(()=>{
+  console.log("item", item);
+  useEffect(() => {
     window.scrollTo(0, 0);
-  },[])
+  }, []);
   useEffect(() => {
     const isbookNowActive = localStorage.getItem("bookNow");
     // console.log("isBookNow", typeof isbookNowActive, isbookNowActive);
@@ -221,11 +221,15 @@ const HouseDetailPage = (props) => {
       // console.log('setBookNow(true);', bookNow);
       localStorage.setItem("bookNow", false);
     }
-    dispatch(PropertyAction.ResetPropertyDetail())
+    dispatch(PropertyAction.ResetPropertyDetail());
   }, []);
-  const pId=location?.state
+  const pId = location?.state;
+  debugger;
+  const { isFavorite: isFavoriteState } = propertyListItem?.data || {
+    isFavorite: false,
+  };
   useEffect(() => {
-    debugger
+    debugger;
     reset();
     let reqData = {
       propertyId: location?.state,
@@ -234,7 +238,7 @@ const HouseDetailPage = (props) => {
     };
     // console.log('GetPropertyDetailRequestAsync');
     dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
-  }, [propertyDetail,pId]);
+  }, [propertyDetail, pId, isFavoriteState]);
   const reset = () => {
     setVerifyLoader(false);
     setIsOtpVerified(false);
@@ -245,7 +249,7 @@ const HouseDetailPage = (props) => {
     setEmailFeedback("");
     setMessage("");
     setViewDetails(false);
-    setPropertyDetail({})
+    setPropertyDetail({});
   };
   const inputChange = (e) => {
     let { name, value } = e.target;
@@ -472,8 +476,8 @@ const HouseDetailPage = (props) => {
     imagesData = createImagePath({ imgs: Images, value: null });
     propertyPlan = [...masterPlan, ...floorPlan];
   }
-  const handleFavourite = async (itemId,isFavorite, e) => {
-    debugger
+  const handleFavourite = async (itemId, isFavorite, e) => {
+    debugger;
     e.stopPropagation();
     console.log(e);
     let userDetails = localStorage.getItem("user");
@@ -482,7 +486,7 @@ const HouseDetailPage = (props) => {
     }
     const endPoint = isFavorite ? "removeFromWishList" : "addToWishList";
     try {
-      userDetails=JSON.parse(userDetails)
+      userDetails = JSON.parse(userDetails);
       const body = {
         userId: userDetails._id,
         propertyId: itemId,
@@ -504,7 +508,6 @@ const HouseDetailPage = (props) => {
       };
       // console.log('GetPropertyDetailRequestAsync');
       dispatch(PropertyAction.GetPropertyDetailRequestAsync(reqData));
-  
     } catch (error) {
       console.error("this is the error::", error);
       dispatch(
@@ -571,7 +574,13 @@ const HouseDetailPage = (props) => {
                   {PropertyDetail?.address?.pinCode}
                 </Typography>
               </Grid>
-              <Grid item xs={12} md={4} className={classes.style3} style={{flexDirection:"column",alignItems:"flex-end"}}>
+              <Grid
+                item
+                xs={12}
+                md={4}
+                className={classes.style3}
+                style={{ flexDirection: "column", alignItems: "flex-end" }}
+              >
                 <div
                   class="fs-2 mb-3"
                   onClick={(e) =>
@@ -621,7 +630,8 @@ const HouseDetailPage = (props) => {
                       ></path>
                     </svg>
                   )}
-                </div><br/>
+                </div>
+                <br />
                 <Rating
                   name="half-rating-read"
                   defaultValue={PropertyDetail?.rating}
@@ -751,8 +761,8 @@ const HouseDetailPage = (props) => {
                     <Typography className={classes.text1}>
                       Property Code : {handleNull(PropertyDetail?.propertyCode)}
                     </Typography>
-                    </Grid>
-                    <Grid
+                  </Grid>
+                  <Grid
                     item
                     xs={12}
                     md={4}
@@ -787,19 +797,20 @@ const HouseDetailPage = (props) => {
                       Property status : For {handleNull(PropertyDetail?.for)}
                     </Typography>
                   </Grid>
-                  {PropertyDetail.propertyDetails.map(prop=>{
-                    return  <Grid
-                    key={prop.key}
-                    item
-                    xs={12}
-                    md={4}
-                    style={{ display: "flex", flexDirection: "row" }}
-                  >
-                    <Typography className={classes.text1}>
-                      {prop.key} : {prop.Value}
-                    </Typography>
-                  </Grid>
-
+                  {PropertyDetail?.propertyDetails.map((prop) => {
+                    return (
+                      <Grid
+                        key={prop.key}
+                        item
+                        xs={12}
+                        md={4}
+                        style={{ display: "flex", flexDirection: "row" }}
+                      >
+                        <Typography className={classes.text1}>
+                          {prop.key} : {prop.Value}
+                        </Typography>
+                      </Grid>
+                    );
                   })}
                 </Grid>
               </InfoCard>
@@ -807,13 +818,14 @@ const HouseDetailPage = (props) => {
               <InfoCard item={{ title: "Amenities" }}>
                 <Grid container>
                   {(PropertyDetail?.amenities || []).map((amenities) => {
-                    debugger
+                    debugger;
                     return (
                       <Grid item xs={12} md={4}>
                         <Aminities
                           icon={""}
                           title={
-                            amenities[0]?.toUpperCase() + (amenities[0]? amenities.slice(1):"")
+                            amenities[0]?.toUpperCase() +
+                            (amenities[0] ? amenities.slice(1) : "")
                           }
                         />
                       </Grid>
@@ -1081,64 +1093,112 @@ const HouseDetailPage = (props) => {
                   <Paper style={{ padding: 20 }}>
                     <Grid container>
                       <Grid item xs={12} md={12} className={classes.style1}>
-                      <Box item xs={12} md={12} className={classes.box1} style={{display:"flex",justifyContent:"space-between",width:"100%"}}>
-                      <Typography  >
-                          Location
-                        </Typography>
-                        <Typography >
-                          <Button variant="contained" className={classes.btn1}>
-                            <a
-                              target="_blank"
-                              style={{ color: "#fff", textDecoration: "none" }}
-                              href={`https://www.google.com/maps/search/?api=1&query=${PropertyDetail?.address?.latitude},${PropertyDetail?.address?.longitude}`}
-                              class="location-map"
+                        <Box
+                          item
+                          xs={12}
+                          md={12}
+                          className={classes.box1}
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            width: "100%",
+                          }}
+                        >
+                          <Typography>Location</Typography>
+                          <Typography>
+                            <Button
+                              variant="contained"
+                              className={classes.btn1}
                             >
-                              View Map <i class="far fa-map-marker-alt"></i>
-                            </a>
-                          </Button>
-                        </Typography>
-                      </Box>
-                      <Box item  className={classes.box1}  style={{display:"flex",width:"100%"}}>
-                        
-                        <Typography xs={6} md={6} style={{flexBasis:"20%"}} className={classes.text1}>
-                          Address :
-                        </Typography>
-                        <Typography xs={6} md={6} className={classes.text1}>
-                          {handleNull(PropertyDetail?.address?.address)}
-                        </Typography>
+                              <a
+                                target="_blank"
+                                style={{
+                                  color: "#fff",
+                                  textDecoration: "none",
+                                }}
+                                href={`https://www.google.com/maps/search/?api=1&query=${PropertyDetail?.address?.latitude},${PropertyDetail?.address?.longitude}`}
+                                class="location-map"
+                              >
+                                View Map <i class="far fa-map-marker-alt"></i>
+                              </a>
+                            </Button>
+                          </Typography>
                         </Box>
-                        <Box item  className={classes.box1} style={{display:"flex",width:"100%"}}>
-                        <Typography style={{flexBasis:"25%"}}  xs={6} md={6}  className={classes.text1}>
-                          State/county :
-                        </Typography>
-                        <Typography  xs={6} md={6}  className={classes.text1}>
-                          {handleNull(PropertyDetail?.address?.State)}
-                        </Typography>
+                        <Box
+                          item
+                          className={classes.box1}
+                          style={{ display: "flex", width: "100%" }}
+                        >
+                          <Typography
+                            xs={6}
+                            md={6}
+                            style={{ flexBasis: "20%" }}
+                            className={classes.text1}
+                          >
+                            Address :
+                          </Typography>
+                          <Typography xs={6} md={6} className={classes.text1}>
+                            {handleNull(PropertyDetail?.address?.address)}
+                          </Typography>
+                        </Box>
+                        <Box
+                          item
+                          className={classes.box1}
+                          style={{ display: "flex", width: "100%" }}
+                        >
+                          <Typography
+                            style={{ flexBasis: "25%" }}
+                            xs={6}
+                            md={6}
+                            className={classes.text1}
+                          >
+                            State/county :
+                          </Typography>
+                          <Typography xs={6} md={6} className={classes.text1}>
+                            {handleNull(PropertyDetail?.address?.State)}
+                          </Typography>
                         </Box>
                         {/* <Typography className={classes.text1}>
                           Neighborhood
                         </Typography> */}
-                        <Box item  className={classes.box1} style={{display:"flex",width:"100%"}}>
-                        <Typography style={{flexBasis:"32%"}} xs={6} md={6} className={classes.text1}>
-                          Zip/Postal Code :
-                        </Typography>
-                        <Typography xs={6} md={6} className={classes.text1}>
-                          {handleNull(PropertyDetail?.address?.pinCode)}
-                        </Typography>
+                        <Box
+                          item
+                          className={classes.box1}
+                          style={{ display: "flex", width: "100%" }}
+                        >
+                          <Typography
+                            style={{ flexBasis: "32%" }}
+                            xs={6}
+                            md={6}
+                            className={classes.text1}
+                          >
+                            Zip/Postal Code :
+                          </Typography>
+                          <Typography xs={6} md={6} className={classes.text1}>
+                            {handleNull(PropertyDetail?.address?.pinCode)}
+                          </Typography>
                         </Box>
                         {/* <Typography className={classes.text1}>
                           Country
                         </Typography> */}
-                        <Box item  className={classes.box1} style={{display:"flex",width:"100%"}}>
-                        <Typography style={{flexBasis:"10%"}} xs={6} md={6} className={classes.text1}>
-                          City :
-                        </Typography>
-                        <Typography xs={6} md={6} className={classes.text1}>
-                          {handleNull(PropertyDetail?.address?.city)}
-                        </Typography>
+                        <Box
+                          item
+                          className={classes.box1}
+                          style={{ display: "flex", width: "100%" }}
+                        >
+                          <Typography
+                            style={{ flexBasis: "10%" }}
+                            xs={6}
+                            md={6}
+                            className={classes.text1}
+                          >
+                            City :
+                          </Typography>
+                          <Typography xs={6} md={6} className={classes.text1}>
+                            {handleNull(PropertyDetail?.address?.city)}
+                          </Typography>
                         </Box>
                       </Grid>
-
                     </Grid>
                   </Paper>
                 </Grid>

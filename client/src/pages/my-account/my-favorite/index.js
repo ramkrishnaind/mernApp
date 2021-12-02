@@ -58,7 +58,7 @@ const MyFavorite = (props) => {
         { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
         true
       );
-
+      debugger;
       setBookingList(response?.data || []);
       // console.log('About us details', aboutUsInfo, aboutSection);
     };
@@ -73,7 +73,8 @@ const MyFavorite = (props) => {
   };
 
   const handleDeleteFavourite = async (e) => {
-    let userDetails = localStorage.getItem("user");
+    debugger;
+    let userDetails = JSON.parse(localStorage.getItem("user"));
     if (!userDetails) {
       window.location.href = "/signin";
     }
@@ -92,6 +93,7 @@ const MyFavorite = (props) => {
       );
 
       dispatch(Snackbar.showSuccessSnackbar(response.message));
+      populateDirectorDetails();
     } catch (error) {
       console.error("this is the error::", error);
       dispatch(
@@ -117,13 +119,13 @@ const MyFavorite = (props) => {
               <Box className="box-item">
                 <Box className="box-wrap box-border-bottom box-radius">
                   <Box className="user-intro box-body">
-                    <Box className="user-icon">
+                    {/* <Box className="user-icon">
                       {" "}
                       <img src="images/profile-img.jpg" alt="" />{" "}
-                    </Box>
+                    </Box> */}
                     <Box className="user-info">
                       <h4> {name}</h4>
-                      <p>Permium</p>
+                      {/* <p>Permium</p> */}
                     </Box>
                   </Box>
                   <Box className="box-body p-0">
@@ -187,121 +189,127 @@ const MyFavorite = (props) => {
                         spacing={2}
                         className="my-property-wrapper"
                       >
-                        {favorite?.map((item, index) => (
-                          <Grid item xs={12} sm={6} md={4}>
-                            <Box className="property-item my-property-item">
-                              <Grid contaienr className="property-wrap">
-                                <Grid class="property-favorite-remove">
-                                  <a
-                                    onClick={() =>
-                                      handleDeleteFavourite(item?._id)
-                                    }
-                                    class="remove remove-from-favorite"
-                                    title="Remove this Property"
-                                  >
-                                    ×
-                                  </a>
-                                </Grid>
-                                <Grid className="property-image">
-                                  <Slider {...settings1}>
-                                    {item?.images?.map((img) => (
-                                      <Box className="property-image-thumb">
-                                        <img
-                                          src={
-                                            img?.path
-                                              ? ApiClient.SERVER_ADDRESS +
-                                                "/" +
-                                                img?.path
-                                              : "/no-image-available-icon-6.png"
-                                          }
-                                        />
-                                      </Box>
-                                    ))}
-                                  </Slider>
-                                </Grid>
-                                <Grid className="property-summery">
-                                  <Box
-                                    component="span"
-                                    className="property-tag"
-                                  >
-                                    {item?.propertyId?.pType}
-                                  </Box>
-                                  <Typography
-                                    variant="h3"
-                                    className="property-title"
-                                  >
-                                    {item?.propertyId?.nameOfProject}
-                                  </Typography>
+                        {favorite?.map((item, index) => {
+                          debugger;
+                          return (
+                            <Grid item xs={12} sm={6} md={4}>
+                              <Box className="property-item my-property-item">
+                                <Grid contaienr className="property-wrap">
                                   <Grid
-                                    container
-                                    className="property-information"
+                                    class="property-favorite-remove"
+                                    style={{ cursor: "pointer" }}
                                   >
-                                    <Grid
-                                      item
-                                      xs={6}
-                                      md={6}
-                                      className="property-feature"
+                                    <a
+                                      onClick={() =>
+                                        handleDeleteFavourite(item?._id)
+                                      }
+                                      class="remove remove-from-favorite"
+                                      title="Remove this Property"
                                     >
-                                      <ZoomOutMapIcon />
-                                      <Typography>
-                                        {item?.Features?.carpetArea}
-                                      </Typography>
-                                    </Grid>
-                                    <Grid
-                                      item
-                                      xs={6}
-                                      md={6}
-                                      className="property-feature"
+                                      ×
+                                    </a>
+                                  </Grid>
+                                  <Grid className="property-image">
+                                    <Slider {...settings1}>
+                                      {item?.images?.map((img) => (
+                                        <Box className="property-image-thumb">
+                                          <img
+                                            src={
+                                              img?.path
+                                                ? ApiClient.SERVER_ADDRESS +
+                                                  "/" +
+                                                  img?.path
+                                                : "/no-image-available-icon-6.png"
+                                            }
+                                          />
+                                        </Box>
+                                      ))}
+                                    </Slider>
+                                  </Grid>
+                                  <Grid className="property-summery">
+                                    <Box
+                                      component="span"
+                                      className="property-tag"
                                     >
-                                      <LocalHotelIcon />
-                                      <Typography>
-                                        {item?.Features?.bedrooms} Bedrooms
-                                      </Typography>
-                                    </Grid>
-                                    <Grid
-                                      item
-                                      xs={6}
-                                      md={6}
-                                      className="property-feature"
+                                      {item?.propertyId?.pType}
+                                    </Box>
+                                    <Typography
+                                      variant="h3"
+                                      className="property-title"
                                     >
-                                      <LocalHotelIcon />
-                                      <Typography>
-                                        {item?.Features?.balconies} Balconies
-                                      </Typography>
-                                    </Grid>
+                                      {item?.propertyId?.nameOfProject}
+                                    </Typography>
                                     <Grid
-                                      item
-                                      xs={6}
-                                      md={6}
-                                      className="property-feature"
+                                      container
+                                      className="property-information"
                                     >
-                                      <BathtubIcon />
-                                      <Typography>
-                                        {item?.Features?.bathrooms} Bathroom
-                                      </Typography>
+                                      <Grid
+                                        item
+                                        xs={6}
+                                        md={6}
+                                        className="property-feature"
+                                      >
+                                        <ZoomOutMapIcon />
+                                        <Typography>
+                                          {item?.Features?.carpetArea}
+                                        </Typography>
+                                      </Grid>
+                                      <Grid
+                                        item
+                                        xs={6}
+                                        md={6}
+                                        className="property-feature"
+                                      >
+                                        <LocalHotelIcon />
+                                        <Typography>
+                                          {item?.Features?.bedrooms} Bedrooms
+                                        </Typography>
+                                      </Grid>
+                                      <Grid
+                                        item
+                                        xs={6}
+                                        md={6}
+                                        className="property-feature"
+                                      >
+                                        <LocalHotelIcon />
+                                        <Typography>
+                                          {item?.Features?.balconies} Balconies
+                                        </Typography>
+                                      </Grid>
+                                      <Grid
+                                        item
+                                        xs={6}
+                                        md={6}
+                                        className="property-feature"
+                                      >
+                                        <BathtubIcon />
+                                        <Typography>
+                                          {item?.Features?.bathrooms} Bathroom
+                                        </Typography>
+                                      </Grid>
                                     </Grid>
                                   </Grid>
-                                </Grid>
-                                <Grid container className="property-button">
-                                  {/* <a className="btn btn-primary" href="/">
+                                  <Grid container className="property-button">
+                                    {/* <a className="btn btn-primary" href="/">
                                     {" "}
                                     MORE DETAIL
                                   </a> */}
-                                  <Button
-                                    className="btn btn-primary"
-                                    component={RouterLink}
-                                    to={{
-                                      pathname: "/home-detail",
-                                      state: item?.Features?.propertyId,
-                                    }}
-                                  >
-                                    MORE DETAIL
-                                  </Button>
+                                    <Button
+                                      className="btn btn-primary"
+                                      component={RouterLink}
+                                      to={{
+                                        pathname: "/home-detail",
+                                        state: item?.Features?.propertyId,
+                                      }}
+                                    >
+                                      MORE DETAIL
+                                    </Button>
+                                  </Grid>
                                 </Grid>
-                              </Grid>
-                            </Box>
-                          </Grid>
-                        ))}
+                              </Box>
+                            </Grid>
+                          );
+                        })}
                       </Grid>
                     </Box>
                   </Box>

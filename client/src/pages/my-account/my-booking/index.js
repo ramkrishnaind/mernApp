@@ -67,13 +67,13 @@ const MyBooking = (props) => {
               <Box className="box-item">
                 <Box className="box-wrap box-border-bottom box-radius">
                   <Box className="user-intro box-body">
-                    <Box className="user-icon">
+                    {/* <Box className="user-icon">
                       {" "}
                       <img src="images/profile-img.jpg" alt="" />{" "}
-                    </Box>
+                    </Box> */}
                     <Box className="user-info">
                       <h4> {name}</h4>
-                      <p>Permium</p>
+                      {/* <p>Permium</p> */}
                     </Box>
                   </Box>
                   <Box className="box-body p-0">
@@ -132,60 +132,63 @@ const MyBooking = (props) => {
                       <h5 className="box-title">My Booking Lists</h5>
                     </Box>
                     <Box class="box-body">
-                      {booking?.map((item, index) => (
-                        <Box class="booking-table">
-                          <Box class="tabel-row">
-                            <Box class="table-cell">
-                              Booking No.-{item?._id}
+                      {booking?.map((item, index) => {
+                        debugger;
+                        return (
+                          <Box class="booking-table">
+                            <Box class="tabel-row">
+                              <Box class="table-cell">
+                                Booking No.-{item?._id}
+                              </Box>
+                              <Box class="table-cell text-right">
+                                {item?.created}
+                              </Box>
                             </Box>
-                            <Box class="table-cell text-right">
-                              {item?.created}
+                            <Box class="tabel-row">
+                              <Box class="table-cell booking-img">
+                                <a href="#">
+                                  <img
+                                    src={
+                                      item?.images[0]?.mainImage[0]?.path
+                                        ? ApiClient.SERVER_ADDRESS +
+                                          "/" +
+                                          item?.images[0]?.mainImage[0]?.path
+                                        : "/no-image-available-icon-6.png"
+                                    }
+                                    width="75"
+                                    height="75"
+                                  />
+                                </a>
+                              </Box>
+                              <Box class="table-cell">
+                                <p class="booking-title">
+                                  {item?.propertyId?.nameOfProject}
+                                </p>
+                                <p class="booking-status booking-sucess">
+                                  Booking Sucessfully!
+                                </p>
+                              </Box>
+                              <Box class="table-cell text-right booking-total">
+                                <p class="booking-price">
+                                  <i class="fas fa-rupee-sign"></i>{" "}
+                                  {item?.bookingAmount}
+                                </p>
+                                <p class="booking-view">
+                                  <Button
+                                    component={RouterLink}
+                                    to={{
+                                      pathname: "/home-detail",
+                                      state: item?._id,
+                                    }}
+                                  >
+                                    View
+                                  </Button>
+                                </p>
+                              </Box>
                             </Box>
                           </Box>
-                          <Box class="tabel-row">
-                            <Box class="table-cell booking-img">
-                              <a href="#">
-                                <img
-                                  src={
-                                    item?.images[0]?.mainImage[0]?.path
-                                      ? ApiClient.SERVER_ADDRESS +
-                                        "/" +
-                                        item?.images[0]?.mainImage[0]?.path
-                                      : "/no-image-available-icon-6.png"
-                                  }
-                                  width="75"
-                                  height="75"
-                                />
-                              </a>
-                            </Box>
-                            <Box class="table-cell">
-                              <p class="booking-title">
-                                {item?.propertyId?.nameOfProject}
-                              </p>
-                              <p class="booking-status booking-sucess">
-                                Booking Sucessfully!
-                              </p>
-                            </Box>
-                            <Box class="table-cell text-right booking-total">
-                              <p class="booking-price">
-                                <i class="fas fa-rupee-sign"></i>{" "}
-                                {item?.bookingAmount}
-                              </p>
-                              <p class="booking-view">
-                                <Button
-                                  component={RouterLink}
-                                  to={{
-                                    pathname: "/home-detail",
-                                    state: item?._id,
-                                  }}
-                                >
-                                  View
-                                </Button>
-                              </p>
-                            </Box>
-                          </Box>
-                        </Box>
-                      ))}
+                        );
+                      })}
                     </Box>
                   </Box>
                 </Box>
