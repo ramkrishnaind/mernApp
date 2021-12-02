@@ -311,6 +311,24 @@ const MenuCreateUpdate = (props) => {
                         id="pageUrl"
                       />
                     </Grid>
+                    <Grid
+                      className="form-group-item"
+                      item
+                      xs={12}
+                      sm={6}
+                      md={4}
+                    >
+                      <TextValidator
+                        className="form-control-item"
+                        variant="outlined"
+                        label="Page Name*"
+                        fullWidth
+                        value={state.pageName}
+                        onChange={inputChange}
+                        name="pageName"
+                        id="pageName"
+                      />
+                    </Grid>
                   </>
                 )}
 
