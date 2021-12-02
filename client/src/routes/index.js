@@ -1,8 +1,8 @@
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import CartPage from "../pages/cart";
 import HomePage from "../pages/home";
 import BookOnline from "../pages/online-form";
-
+import CmsPageDetails from "../pages/cms-page-details";
 import PropertyListPage from "../pages/property-list";
 import PropertyDetailPage from "../pages/property-detail";
 import ContactUsPage from "../pages/contact-us";
@@ -21,9 +21,9 @@ import AboutDirectors from "../pages/about-us/about-director/index";
 import InvestWithUs from "../pages/about-us/invest-with-us/index";
 import ConstructionProcess from "../pages/about-us/construction-process/index";
 import Finance from "../pages/finance";
-import ServiceDetailPage from '../pages/service-details/index';
-import SupplierFormPage from '../pages/supplier-form/index';
-import DealingInItemDetailPage from '../pages/dealingIn-details/index';
+import ServiceDetailPage from "../pages/service-details/index";
+import SupplierFormPage from "../pages/supplier-form/index";
+import DealingInItemDetailPage from "../pages/dealingIn-details/index";
 import SearchPropertyList from "../pages/search-property-list/index";
 import MyAccount from "../pages/my-account";
 import MyProfile from "../pages/my-account/my-profile";
@@ -31,13 +31,17 @@ import MyBooking from "../pages/my-account/my-booking";
 import MyFavorite from "../pages/my-account/my-favorite";
 import MyProperty from "../pages/my-account/my-property";
 
-
 const routes = [
   {
     exact: true,
     path: "/",
     render: (props) => <HomePage {...props} />,
   },
+  {
+    path: "/cms-page-details",
+    render: (props) => <CmsPageDetails {...props} />,
+  },
+
   {
     path: "/property-list",
     render: (props) => <PropertyListPage {...props} />,
@@ -73,7 +77,7 @@ const routes = [
       if (props.isAuth) {
         return <CartPage />;
       }
-      return <Redirect to={{pathname: "/"}} />;
+      return <Redirect to={{ pathname: "/" }} />;
     },
   },
   {
@@ -82,7 +86,7 @@ const routes = [
       if (props.isAuth) {
         return <BookOnline />;
       }
-      return <Redirect to={{pathname: "/"}} />;
+      return <Redirect to={{ pathname: "/" }} />;
     },
   },
   {
@@ -91,7 +95,7 @@ const routes = [
   },
   {
     path: "/register",
-    exact : 'true',
+    exact: "true",
     render: (props) => <RegisterPage {...props} />,
   },
   {
@@ -105,7 +109,7 @@ const routes = [
   {
     path: "/verification",
     render: (props) => <Verification {...props} />,
-  }, 
+  },
   {
     path: "/home-detail",
     render: (props) => <HouseDetailPage {...props} />,
@@ -133,8 +137,7 @@ const routes = [
   {
     path: "/service-details",
     render: (props) => <ServiceDetailPage {...props} />,
-  }
-  ,
+  },
   {
     path: "/supplier-form",
     render: (props) => <SupplierFormPage {...props} />,
