@@ -201,7 +201,7 @@ const MyFavorite = (props) => {
                                   >
                                     <a
                                       onClick={() =>
-                                        handleDeleteFavourite(item?._id)
+                                        handleDeleteFavourite(item?.propertyId)
                                       }
                                       class="remove remove-from-favorite"
                                       title="Remove this Property"
@@ -217,8 +217,8 @@ const MyFavorite = (props) => {
                                             src={
                                               img?.path
                                                 ? ApiClient.SERVER_ADDRESS +
-                                                  "/" +
-                                                  img?.path
+                                                "/" +
+                                                img?.path
                                                 : "/no-image-available-icon-6.png"
                                             }
                                           />
