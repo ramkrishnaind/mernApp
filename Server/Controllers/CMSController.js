@@ -41,6 +41,7 @@ module.exports = function (conn) {
     router.post('/createCMS', userAuthMiddleware, upload.fields(pageMedia), createCMS(allCollection))
     router.post('/getCMSList', userAuthMiddleware, getCMSList(allCollection))
     router.post('/getCMSDetail', userAuthMiddleware, getCMS(allCollection))
+    router.post('/getDetailData', requestAuthMiddleware, getCMS(allCollection))
     router.post('/deleteCMS', userAuthMiddleware, deleteCMS(allCollection))
     router.post('/getLocationPages', requestAuthMiddleware, getCMSPages(allCollection, 'Location'))
     router.post('/getBottomPages', requestAuthMiddleware, getCMSPages(allCollection, 'Bottom'))

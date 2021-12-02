@@ -6,16 +6,16 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const moduleSchema = Joi.object({
     position: Joi.string().required(),
-    pageName: Joi.string().allow(null),
-    type: Joi.string().allow(null),
-    pageUrl: Joi.string().allow(null),
-    pageTitle: Joi.string().allow(null),
-    metaTitle: Joi.string().allow(null),
-    metaKeywords: Joi.string().allow(null),
-    metaDescription: Joi.string().allow(null),
-    pageSortDescription: Joi.string().allow(null),
-    pageDescription: Joi.string().allow(null),
-    image: Joi.string()
+    pageName: Joi.string(),
+    type: Joi.string(),
+    pageUrl: Joi.string().allow(null).allow(''),
+    pageTitle: Joi.string().allow(null).allow(''),
+    metaTitle: Joi.string().allow(null).allow(''),
+    metaKeywords: Joi.string().allow(null).allow(''),
+    metaDescription: Joi.string().allow(null).allow(''),
+    pageSortDescription: Joi.string().allow(null).allow(''),
+    pageDescription: Joi.string().allow(null).allow(''),
+    image: Joi.string().allow(null).allow('')
 });
 
 function createCMS(Models) {
