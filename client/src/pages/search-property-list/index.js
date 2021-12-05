@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import CircularProgress from "@mui/material/CircularProgress";
+
 import {
   Container,
   Grid,
@@ -17,8 +17,8 @@ import { useLocation } from "react-router-dom";
 import ApiClient from "../../api-client";
 import PropertyListCard from "../../components/property-list-card";
 import { CustomNoRowsOverlay } from "../../components/no-data-found/no-data-found";
-import { DoubleArrowIcon } from '@material-ui/icons/DoubleArrow';
-
+import { DoubleArrowIcon } from "@material-ui/icons/DoubleArrow";
+import { NoDataAvailable } from "./../../components/no-details-available/no-details-available";
 const useStyles = makeStyles((theme) => ({
   text1: {
     fontFamily: '"Open Sans",sans-serif',
@@ -180,22 +180,22 @@ const SearchPropertyList = (props) => {
       setSearchPayload(payload);
     }
   }, [params]);
-const changeHandler=()=>{
-  // console.log("params changed", params);
-  const type = new URLSearchParams(location.search).get("type");
+  const changeHandler = () => {
+    // console.log("params changed", params);
+    const type = new URLSearchParams(location.search).get("type");
 
-  if (type === "Rent" || type === "Sell") {
-    // console.log("type is ^^^ ", type);
-    const payload = {
-      type: type,
-      pType: "",
-      minAmount: "",
-      maxAmount: "",
-    };
-    populateProperties(payload);
-    setSearchPayload(payload);
-  }
-}
+    if (type === "Rent" || type === "Sell") {
+      // console.log("type is ^^^ ", type);
+      const payload = {
+        type: type,
+        pType: "",
+        minAmount: "",
+        maxAmount: "",
+      };
+      populateProperties(payload);
+      setSearchPayload(payload);
+    }
+  };
   const populateProperties = (payload) => {
     // console.log("property details payload", payload);
     const getData = async () => {
@@ -217,7 +217,7 @@ const changeHandler=()=>{
 
   // console.log("view Details", viewDetails);
   // console.log("property details *** ", propertyListItem);
-  
+
   return (
     <div style={{ background: "#F7F7F7" }}>
       <Box
@@ -231,18 +231,20 @@ const changeHandler=()=>{
       </Box>
 
       {/* <Gallery /> */}
-      
+
       {viewDetails ? (
         <Container>
           <Paper elevation={0}>
             <Grid item xs={12} md={12} style={{ padding: 20, marginTop: 20 }}>
               <Container style={{ paddingBottom: 40 }}>
                 {propertyListItems.length > 0 ? (
-                  propertyListItems.map((pl) => <PropertyListCard item={pl} onChange={changeHandler}/>)
+                  propertyListItems.map((pl) => (
+                    <PropertyListCard item={pl} onChange={changeHandler} />
+                  ))
                 ) : (
                   // <CustomNoRowsOverlay />
-                  <Box sx={{ display: "flex",justifyContent:"center"}}>
-                    <CircularProgress />
+                  <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    {NoDataAvailable("Details Unavailable")}
                   </Box>
                 )}
               </Container>
