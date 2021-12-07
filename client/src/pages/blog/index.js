@@ -41,8 +41,9 @@ export default function Blog() {
         { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
         false
       );
+      debugger;
       const data = response.data.filter((d) => d.active);
-      setBlogList(response.data);
+      setBlogList(data);
       console.log("blog details", response.data);
     };
     getData();
