@@ -76,8 +76,8 @@ function getDashBoardData(Models) {
     async function closeServicesEnquiry() {
         return closeServicesEnquiry = await Models.ServiceEnquiryDB.countDocuments({ active: false });
     }
-    getFun.bind(null, totalUsers)
-    async function getFun(totalUsers, req, res) {
+
+    return async function getFun(req, res) {
         try {
             let totalUsersCount = await totalUsers();
             let activeUsersCount = await activeUsers();
@@ -140,7 +140,7 @@ function getDashBoardData(Models) {
             await errorResponseHelper({ res, error: e, defaultMessage: "Error in Dashboard Details" });
         }
     }
-    return getFun;
+    //return getFun;
 
 }
 module.exports = getDashBoardData;
