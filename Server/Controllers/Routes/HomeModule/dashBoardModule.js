@@ -9,16 +9,16 @@ const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 function getDashBoardData(Models) {
     async function getFun(req, res) {
         try {
-            // let totalUsersCount = await totalUsers();
-            // let activeUsersCount = await activeUsers();
-            // let inActiveCount = totalUsersCount - activeUsersCount;
+            let totalUsersCount = await totalUsers();
+            let activeUsersCount = await activeUsers();
+            let inActiveCount = totalUsersCount - activeUsersCount;
 
             let results = {
-                // users: {
-                //     total: totalUsersCount,
-                //     active: activeUsersCount,
-                //     inActive: inActiveCount
-                // },
+                users: {
+                    total: totalUsersCount,
+                    active: activeUsersCount,
+                    inActive: inActiveCount
+                },
                 properties: {
                     sell: {
                         residential: await sellResidential(),
@@ -70,7 +70,7 @@ function getDashBoardData(Models) {
             await errorResponseHelper({ res, error: e, defaultMessage: "Error in Dashboard Details" });
         }
     }
-    return getFun;
+
     async function totalUsers() {
         return totalUsers = await Models.UserDB.countDocuments({});
     }
@@ -140,7 +140,7 @@ function getDashBoardData(Models) {
     async function closeServicesEnquiry() {
         return closeServicesEnquiry = await Models.ServiceEnquiryDB.countDocuments({ active: false });
     }
-
+    return getFun;
 
 }
 module.exports = getDashBoardData;
