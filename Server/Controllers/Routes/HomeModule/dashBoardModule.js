@@ -77,8 +77,33 @@ function getDashBoardData(Models) {
         return closeServicesEnquiry = await Models.ServiceEnquiryDB.countDocuments({ active: false });
     }
 
-    async function getFun(totalUsers, req, res) {
+    async function getFun(obj, req, res) {
         try {
+            let {
+                totalUsers,
+                activeUsers,
+                sellResidential,
+                sellCommercial,
+                rentResidential,
+                rentCommercial,
+                totalBookings,
+                openEnquiry,
+                closeEnquiry,
+                openSiteVisit,
+                closeSiteVisit,
+                openCallBack,
+                closeCallBack,
+                openContactWithUs,
+                closeContactWithUs,
+                allJobApplications,
+                openJobApplications,
+                closeJobApplications,
+                rejectedJobApplications,
+                openSuppliers,
+                closeSuppliers,
+                openServicesEnquiry,
+                closeServicesEnquiry
+            } = obj;
             let totalUsersCount = await totalUsers();
             let activeUsersCount = await activeUsers();
             let inActiveCount = totalUsersCount - activeUsersCount;
@@ -140,7 +165,32 @@ function getDashBoardData(Models) {
             await errorResponseHelper({ res, error: e, defaultMessage: "Error in Dashboard Details" });
         }
     }
-    return getFun.bind(null, totalUsers);
+    let obj = {
+        totalUsers,
+        activeUsers,
+        sellResidential,
+        sellCommercial,
+        rentResidential,
+        rentCommercial,
+        totalBookings,
+        openEnquiry,
+        closeEnquiry,
+        openSiteVisit,
+        closeSiteVisit,
+        openCallBack,
+        closeCallBack,
+        openContactWithUs,
+        closeContactWithUs,
+        allJobApplications,
+        openJobApplications,
+        closeJobApplications,
+        rejectedJobApplications,
+        openSuppliers,
+        closeSuppliers,
+        openServicesEnquiry,
+        closeServicesEnquiry
+    }
+    return getFun.bind(null, obj);
 
 }
 module.exports = getDashBoardData;
