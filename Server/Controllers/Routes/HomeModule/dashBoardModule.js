@@ -9,16 +9,16 @@ const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 function getDashBoardData(Models) {
     async function getFun(req, res) {
         try {
-            let totalUsersCount = await totalUsers();
-            let activeUsersCount = await activeUsers();
-            let inActiveCount = totalUsersCount - activeUsersCount;
+            // let totalUsersCount = await totalUsers();
+            // let activeUsersCount = await activeUsers();
+            // let inActiveCount = totalUsersCount - activeUsersCount;
 
             let results = {
-                users: {
-                    total: totalUsersCount,
-                    active: activeUsersCount,
-                    inActive: inActiveCount
-                },
+                // users: {
+                //     total: totalUsersCount,
+                //     active: activeUsersCount,
+                //     inActive: inActiveCount
+                // },
                 properties: {
                     sell: {
                         residential: await sellResidential(),
