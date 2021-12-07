@@ -1,4 +1,4 @@
-import {Link as RouterLink} from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
   AppBar,
@@ -6,19 +6,18 @@ import {
   Hidden,
   IconButton,
   Toolbar,
+  Typography,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import HomeIcon from '@material-ui/icons/Home';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import HomeIcon from "@material-ui/icons/Home";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import history from "../history";
-const Idle = require('react-idle').default;
+const Idle = require("react-idle").default;
 
-const DashboardNavbar = ({onMobileNavOpen, ...rest}) => {
-
+const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
   function handlelogout() {
-
     window.localStorage.removeItem("user");
-    history.push('/login');
+    history.push("/login");
     window.location.reload();
   }
 
@@ -28,7 +27,7 @@ const DashboardNavbar = ({onMobileNavOpen, ...rest}) => {
         <RouterLink to="/">
           <HomeIcon />
         </RouterLink>
-        <Box sx={{flexGrow: 1}} />
+        <Box sx={{ flexGrow: 1 }} />
         <Hidden lgDown>
           <IconButton color="inherit">
             <ExitToAppIcon />
@@ -41,26 +40,43 @@ const DashboardNavbar = ({onMobileNavOpen, ...rest}) => {
         </Hidden>
         <Idle
           timeout={15 * 60 * 1000}
-          render={({idle}) =>
+          render={({ idle }) => (
             <h1>
-              {idle
-                ? handlelogout()
-                : <ExitToAppIcon
-                  onClick={() => handlelogout()}
-                  className="logoutBtn"
-                />
-              }
+              {idle ? (
+                handlelogout()
+              ) : (
+                <Box
+                  onClick={handlelogout}
+                  style={{
+                    cursor: "pointer",
+                    color: "white",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    style={{
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    Logout
+                  </Typography>
+                  <ExitToAppIcon className="logoutBtn" />
+                </Box>
+              )}
             </h1>
-          }
+          )}
         />
-
       </Toolbar>
     </AppBar>
   );
 };
 
 DashboardNavbar.propTypes = {
-  onMobileNavOpen: PropTypes.func
+  onMobileNavOpen: PropTypes.func,
 };
 
 export default DashboardNavbar;

@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
   },
   selectedOptionStyle: {
-    backgroundColor: "#FBE9E8",
+    backgroundColor: "#e0a8a6", //"#FBE9E8",
   },
 }));
 

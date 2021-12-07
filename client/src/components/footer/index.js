@@ -80,6 +80,9 @@ const Footer = (props) => {
   const classes = useStyles();
   const [footerDetails, setFooterDetails] = useState({});
   const [socialLinks, setSocialLinks] = useState({});
+  const [detailsData, setDetailsData] = useState();
+  const [locationPages, setLocationPages] = useState();
+  const [bottomPages, setBottomPages] = useState();
   const [hide, setHide] = useState(true);
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
@@ -90,8 +93,13 @@ const Footer = (props) => {
       setFooterDetails(JSON.parse(company_detials));
     }
     populateSocialMediaLinks();
+    // populateDetailData();
+    populateLocationPages();
+    populateBottomPages();
   }, []);
-
+  detailsData && console.log("detailsData", detailsData);
+  locationPages && console.log("locationPages", locationPages);
+  bottomPages && console.log("bottomPages", bottomPages);
   const populateSocialMediaLinks = () => {
     const getData = async () => {
       const response = await ApiClient.call(
@@ -108,6 +116,61 @@ const Footer = (props) => {
     };
     getData();
   };
+  // const onBottomPageHandler = (bpIndex) => {
+  //   debugger;
+  //   populateDetailData(bpIndex);
+  // };
+  // const populateDetailData = (bpId) => {
+  //   const getData = async () => {
+  //     const response = await ApiClient.call(
+  //       ApiClient.REQUEST_METHOD.POST,
+  //       "/cms/getDetailData",
+  //       { _id: bpId },
+  //       {},
+  //       null,
+  //       false
+  //     );
+  //     debugger;
+  //     console.log("detail data", response.data);
+  //     // setDetailsData(response.data);
+  //     // localStorage.setItem("social-links", JSON.stringify(response.data));
+  //     // console.log("populateSocialMediaLinks details", response.data);
+  //   };
+  //   getData();
+  // };
+  const populateLocationPages = () => {
+    const getData = async () => {
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        "/cms/getLocationPages",
+        {},
+        {},
+        null,
+        false
+      );
+      setLocationPages(response.data);
+      // localStorage.setItem("social-links", JSON.stringify(response.data));
+      // console.log("populateSocialMediaLinks details", response.data);
+    };
+    getData();
+  };
+  const populateBottomPages = () => {
+    const getData = async () => {
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        "/cms/getBottomPages",
+        {},
+        {},
+        null,
+        false
+      );
+      setBottomPages(response.data);
+      // localStorage.setItem("social-links", JSON.stringify(response.data));
+      // console.log("populateSocialMediaLinks details", response.data);
+    };
+    getData();
+  };
+
   const populateFooterDetails = () => {
     console.log("populateFooterDetails");
     const getData = async () => {
@@ -235,7 +298,7 @@ const Footer = (props) => {
             style={{ width: "100%", display: "flex", marginTop: 10 }}
           >
             <Grid item xs={6} md={6}>
-              <Box style={{lineHeight:"30px"}}>
+              <Box style={{ lineHeight: "30px" }}>
                 <Typography
                   className={`${classes.text3} links`}
                   component={RouterLink}
@@ -246,7 +309,7 @@ const Footer = (props) => {
                   Home
                 </Typography>
               </Box>
-              <Box style={{lineHeight:"30px"}}>
+              <Box style={{ lineHeight: "30px" }}>
                 <Typography
                   className={`${classes.text3} links`}
                   component={RouterLink}
@@ -257,7 +320,7 @@ const Footer = (props) => {
                   About Us
                 </Typography>
               </Box>
-              <Box style={{lineHeight:"30px"}}>
+              <Box style={{ lineHeight: "30px" }}>
                 <Typography
                   className={`${classes.text3} links`}
                   component={RouterLink}
@@ -268,7 +331,7 @@ const Footer = (props) => {
                   Properties
                 </Typography>
               </Box>
-              <Box style={{lineHeight:"30px"}}>
+              <Box style={{ lineHeight: "30px" }}>
                 <Typography
                   className={`${classes.text3} links`}
                   component={RouterLink}
@@ -279,7 +342,7 @@ const Footer = (props) => {
                   Careers
                 </Typography>
               </Box>
-              <Box style={{lineHeight:"30px"}}>
+              <Box style={{ lineHeight: "30px" }}>
                 <Typography
                   className={`${classes.text3} links`}
                   component={RouterLink}
@@ -290,7 +353,7 @@ const Footer = (props) => {
                   Blog
                 </Typography>
               </Box>
-              <Box style={{lineHeight:"30px"}}>
+              <Box style={{ lineHeight: "30px" }}>
                 <Typography
                   className={`${classes.text3} links`}
                   component={RouterLink}
@@ -301,7 +364,7 @@ const Footer = (props) => {
                   Supplier Form
                 </Typography>
               </Box>
-              <Box style={{lineHeight:"30px"}}>
+              <Box style={{ lineHeight: "30px" }}>
                 <Typography
                   className={`${classes.text3} links`}
                   component={RouterLink}
@@ -314,21 +377,19 @@ const Footer = (props) => {
               </Box>
             </Grid>
             <Grid item xs={6} md={6}>
-              <Typography className={`${classes.text3} links`}>
-                Jagatpura
-              </Typography>
-              <Typography className={`${classes.text3} links`}>
-                Ajmer Road
-              </Typography>
-              <Typography className={`${classes.text3} links`}>
-                Mansarovar
-              </Typography>
-              <Typography className={`${classes.text3} links`}>
-                Tonk Road
-              </Typography>
-              <Typography className={`${classes.text3} links`}>
-                Facility Management
-              </Typography>
+              {locationPages &&
+                locationPages.map((lp) => (
+                  <Typography
+                    className={`${classes.text3} links`}
+                    component={RouterLink}
+                    to={{
+                      pathname: "/cms-page-details",
+                      state: lp._id,
+                    }}
+                  >
+                    {lp.pageName || ""}
+                  </Typography>
+                ))}
             </Grid>
           </Grid>
         </Grid>
@@ -452,13 +513,30 @@ const Footer = (props) => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid container style={{ marginTop: 40 }} spacing={2}>
-        <Grid xs={12} md={2}>
-          <Typography className={classes.text4}>
-            1BHK Flats in Jaipur
-          </Typography>
-        </Grid>
-        <Grid xs={12} md={2}>
+      <Grid
+        container
+        style={{ marginTop: 40, display: "flex", flexWrap: "wrap" }}
+        spacing={2}
+      >
+        {bottomPages &&
+          bottomPages.map((bp) => (
+            <Grid
+              xs={12}
+              md={2}
+              mb={2}
+              component={RouterLink}
+              // onClick={onBottomPageHandler.bind(this, bp._id)}
+              to={{
+                pathname: "/cms-page-details",
+                state: bp._id,
+              }}
+            >
+              <Typography className={classes.text4}>
+                {bp.pageName || ""}
+              </Typography>
+            </Grid>
+          ))}
+        {/* <Grid xs={12} md={2}>
           <Typography className={classes.text4}>
             2BHK Flats in Jaipur
           </Typography>
@@ -480,7 +558,7 @@ const Footer = (props) => {
         </Grid>
         <Grid xs={12} md={2}>
           <Typography className={classes.text4}>Villas in Jaipur</Typography>
-        </Grid>
+        </Grid> */}
       </Grid>
       <Grid container style={{ marginTop: 40 }} spacing={2}>
         <Grid

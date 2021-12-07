@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom:"10px"
+    marginBottom: "10px",
   },
   gridStyle3: {
     display: "flex",
@@ -133,24 +133,22 @@ const LoginPage = (props) => {
     debugger;
     let currState = { ...state };
     let { name, value } = e.target;
-    
+
     setOtp(value);
     // if (name === "otp" && value.length === 6 && !isOtpVerified) {
     //   checkOtpValidOrNot(value);
     // }
-    
+
     if (name === "email") {
       if (!isNaN(value) && value !== "") {
         currState = { ...state, mobile: value };
-      }
-      else{
-        currState.mobile=""
+      } else {
+        currState.mobile = "";
       }
     }
     currState = { ...currState, [name]: value };
-    if(currState.mobile.length===10 && name === "email")
-    {
-      otpHandler()
+    if (currState.mobile.length === 10 && name === "email") {
+      otpHandler();
     }
     setState(currState);
   };
@@ -166,7 +164,7 @@ const LoginPage = (props) => {
         "/otp/createOTP",
         { mobile: state.mobile },
         {},
-        null,
+        { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
         false
       );
       setEnableOtpField(true);
@@ -291,7 +289,7 @@ const LoginPage = (props) => {
                   Verify
                 </Button>
               ) */}
-              {/* // : (
+            {/* // : (
               //   isOtpVerified && (
               //     <div onClick={reset}>
               //       {" "}

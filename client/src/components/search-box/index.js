@@ -52,7 +52,7 @@ const SearchBox = (props) => {
   const handleSubmit = (e) => {
     // e.preventDefault();
     // handleClose();
-    console.log("s");
+    console.log("k", keyword);
   };
 
   useEffect(() => {
@@ -101,7 +101,7 @@ const SearchBox = (props) => {
       // }
 
       setBudgetList(budgetArr);
-    //   console.log("populateSocialMediaLinks details", response.data);
+      //   console.log("populateSocialMediaLinks details", response.data);
       console.log("budgetArr", budgetArr);
     };
     getData();
@@ -130,6 +130,7 @@ const SearchBox = (props) => {
         false
       );
       const data = processData(response.data || []);
+      debugger;
       setCityOptions(data);
       console.log("setkeyword", response);
     };
@@ -206,7 +207,7 @@ const SearchBox = (props) => {
       label: "50 Lac",
     },
   ];
-  console.log("type is ", type);
+  console.log("keyword", keyword);
 
   return (
     <Box id="search-box" className="search-container">
@@ -244,11 +245,13 @@ const SearchBox = (props) => {
                     className="search-form-group"
                     id="city-locality"
                     variant="filled"
+                    freeSolo
                     options={cityOptions}
-                    value={keyword}
-                    onChange={(e) =>
-                      setkeyword(cityOptions[e.target.value]?.label)
-                    }
+                    // value={keyword}
+                    onInputChange={(e) => {
+                      debugger;
+                      setkeyword(e.target.value);
+                    }}
                     // sx={{width: 300}}
                     renderInput={(params) => (
                       <TextField
@@ -386,7 +389,13 @@ const SearchBox = (props) => {
                 component={RouterLink}
                 to={{
                   pathname: "/search-property-details",
-                  state: { keyword, pType, maxAmount:maxAmount===""?0:+maxAmount,minAmount: minAmount===""?0:+minAmount, type },
+                  state: {
+                    keyword,
+                    pType,
+                    maxAmount: maxAmount === "" ? 0 : +maxAmount,
+                    minAmount: minAmount === "" ? 0 : +minAmount,
+                    type,
+                  },
                 }}
                 variant="contained"
                 color="primary"
