@@ -81,6 +81,7 @@
 .MuiInputBase-root:hover {
   border-bottom: 1px solid #fff;
 }
+
 .OutformP .BookButton:disabled {
   background-color: #aeb2b3;
   color: rgb(17, 16, 16);

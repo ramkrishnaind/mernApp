@@ -197,6 +197,7 @@ const SearchPropertyList = (props) => {
     }
   };
   const populateProperties = (payload) => {
+    debugger;
     // console.log("property details payload", payload);
     const getData = async () => {
       const response = await ApiClient.call(

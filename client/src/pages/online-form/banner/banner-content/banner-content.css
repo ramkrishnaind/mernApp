@@ -48,10 +48,15 @@
   color: #fff;
 }
 @media only screen and (min-width: 768px) {
+  .onlineFormHeader {
+    align-items: center;
+    /* background-color: #e0a8a6, */
+  }
   .bannerContainer {
     position: absolute;
     top: 46%;
-    left: 5%;
+    justify-content: center;
+    /* left: 5%; */
     text-align: center;
     background-color: transparent;
   }

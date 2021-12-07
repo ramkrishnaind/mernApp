@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
   },
   selectedOptionStyle: {
-    backgroundColor: "#FBE9E8",
+    backgroundColor: "#e0a8a6",
   },
 }));
 
@@ -87,11 +87,18 @@ const Option = (props) => {
   return (
     <>
       <Grid container style={{ marginTop: 20 }}>
-        <Grid item xs={12} md={12} style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
-          <Typography className={classes.text2}>{label}</Typography>
-          {" "}
-          <span style={{color:"red",fontSize:"1.2rem"}}>*</span>
-
+        <Grid
+          item
+          xs={12}
+          md={12}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Typography className={classes.text2}>{label}</Typography>{" "}
+          <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>
         </Grid>
         <Grid item xs={12} md={12} className={classes.style2}>
           {allItemsExceptLast?.map((item, index) => {
