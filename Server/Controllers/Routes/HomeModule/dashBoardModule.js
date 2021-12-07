@@ -76,7 +76,8 @@ function getDashBoardData(Models) {
     async function closeServicesEnquiry() {
         return closeServicesEnquiry = await Models.ServiceEnquiryDB.countDocuments({ active: false });
     }
-    async function getFun(req, res) {
+    getFun.bind(null, totalUsers)
+    async function getFun(totalUsers, req, res) {
         try {
             let totalUsersCount = await totalUsers();
             let activeUsersCount = await activeUsers();
