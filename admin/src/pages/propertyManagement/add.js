@@ -296,7 +296,7 @@ const PropertyCreateUpdate = (props) => {
   };
   const handleSubmit = () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    
+
     if (state.id == " ") {
       let reqData = {
         iAm: state.iAm,
@@ -332,7 +332,7 @@ const PropertyCreateUpdate = (props) => {
         propertyTag: state.Property_Tag,
         transactionType: state.Transaction_Type,
         propertyDetails: propertyDetail,
-        description: description||propertyData.description,
+        description: description || propertyData.description,
         gaurdRoom: state.gaurdRoom,
         buildYear: state.build_year,
         bedrooms: state.Bedrooms,
@@ -404,7 +404,7 @@ const PropertyCreateUpdate = (props) => {
         propertyTag: state.Property_Tag,
         transactionType: state.Transaction_Type,
         propertyDetails: propertyDetail,
-        description: description||propertyData.description,
+        description: description || propertyData.description,
         gaurdRoom: state.gaurdRoom,
         buildYear: state.build_year,
         bedrooms: state.Bedrooms,
@@ -919,12 +919,12 @@ const PropertyCreateUpdate = (props) => {
             } else if (type === "dropdown") {
               if (fieldName === "brokerage") {
                 brokerageValue = state[fieldName];
-                if (brokerageValue==="") {
+                if (brokerageValue === "") {
                   setState((prevState) => {
                     return { ...prevState, brokerage: "0" };
                   });
                   brokerageValue = "0";
-                }                
+                }
               }
               return (
                 <Grid item xs={12} md={12}>
@@ -1037,6 +1037,7 @@ const PropertyCreateUpdate = (props) => {
     setAmenities(list);
   };
   const handleAminitiesInputChange = (e, index) => {
+    debugger;
     const { value } = e.target;
     const list = [...amenities];
     list[index] = value;
@@ -1045,7 +1046,7 @@ const PropertyCreateUpdate = (props) => {
 
   // handle click event of the Add button
   const handleAddAminitiesClick = () => {
-    setAmenities([...amenities, "" ]);
+    setAmenities([...amenities, ""]);
   };
 
   // handle input change
@@ -1079,7 +1080,7 @@ const PropertyCreateUpdate = (props) => {
 
   // handle click event of the Add button
   const handleDetailAddClick = () => {
-    debugger
+    debugger;
     const list = [...propertyDetail];
     // list.push({ key: "", Value: "" });
     setPropertyDetail([...propertyDetail, { key: "", Value: "" }]);
@@ -1111,7 +1112,7 @@ const PropertyCreateUpdate = (props) => {
   };
 
   const handleImageLivingRoom = (file, status) => {
-    debugger
+    debugger;
     let list = image;
     let data = [];
     if (status === "done") {
@@ -1424,7 +1425,7 @@ const PropertyCreateUpdate = (props) => {
                   <FieldsContainer label="Property Details">
                     <Box mt={2} />
                     {propertyDetail.map((x, i) => {
-                      debugger
+                      debugger;
                       return (
                         <>
                           <Grid container>
@@ -1610,7 +1611,7 @@ const PropertyCreateUpdate = (props) => {
                                   handleAminitiesInputChange(e, i)
                                 }
                                 name="amenities"
-                                value={x[i]}
+                                defaultValue={x[i]}
                               ></TextField>
 
                               <div className="RemoveBtn">
@@ -1653,7 +1654,7 @@ const PropertyCreateUpdate = (props) => {
                                   handleAminitiesInputChange(e, i)
                                 }
                                 name="amenities"
-                                value={x}
+                                defaultValue={x[i]}
                               ></TextField>
 
                               <div className="RemoveBtn">

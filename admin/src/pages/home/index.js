@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { CardActionArea, getRadioUtilityClass } from "@mui/material";
+import { CardActionArea, Box } from "@mui/material";
 import { Typography, Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import * as DashboardAction from "../../redux/actions/DashboardAction";
@@ -73,7 +73,7 @@ const styles = (theme) => ({
 });
 
 const HomePage = withStyles(styles)((props) => {
-  // const history = useHistory();
+  const navigate = useNavigate();
   const { classes } = props;
   const dashboard = useSelector((state) => state.dashboard.list);
   console.log("dashboard", dashboard);
@@ -89,6 +89,12 @@ const HomePage = withStyles(styles)((props) => {
   // 		JavaScript: "GFG"
   // 	}
   // };
+  function handlelogout() {
+    debugger;
+    window.localStorage.removeItem("user");
+    navigate("/login");
+    window.location.reload();
+  }
 
   // Declare a flatten function that takes
   // object as parameter and returns the
@@ -151,7 +157,7 @@ const HomePage = withStyles(styles)((props) => {
     </>
   );
   const body = (key, value) => (
-    <Link to={getUrl(key)} >
+    <Link to={getUrl(key)}>
       <Grid
         item
         style={{
@@ -161,7 +167,7 @@ const HomePage = withStyles(styles)((props) => {
           justifyContent: "center",
         }}
       >
-        <Grid style={{cursor:"pointer"}}>
+        <Grid style={{ cursor: "pointer" }}>
           <Typography
             variant="h6"
             style={{
@@ -173,7 +179,7 @@ const HomePage = withStyles(styles)((props) => {
             {key}
           </Typography>
         </Grid>
-        <Grid style={{cursor:"pointer"}}>
+        <Grid style={{ cursor: "pointer" }}>
           <Typography
             style={{ textAlign: "center", color: "white" }}
             variant="h6"
@@ -194,21 +200,21 @@ const HomePage = withStyles(styles)((props) => {
       case "properties":
         return "/property";
       case "booking":
-        return "/booking"
+        return "/booking";
       case "enquiry":
-        return "/enquiry"
+        return "/enquiry";
       case "sitevisit":
-        return "/site-visit"
+        return "/site-visit";
       case "callback":
-        return "/callback"
+        return "/callback";
       case "contactwithus":
-        return "/contactus"
+        return "/contactus";
       case "jobapplications":
-        return "/career"
+        return "/career";
       case "suppliers":
-        return "/supplier"
+        return "/supplier";
       case "servicesEnquiry":
-        return "/enquiry"
+        return "/enquiry";
       case "properties":
         return "/property";
       default:
@@ -249,6 +255,7 @@ const HomePage = withStyles(styles)((props) => {
                 backgroundColor: "#D4B499",
               }}
             >
+              {/* <Box style={{ display: "flex", justifyContent: "space-between" }}> */}
               <Typography
                 gutterBottom
                 variant="h2"
@@ -261,6 +268,8 @@ const HomePage = withStyles(styles)((props) => {
               >
                 {prevKey}
               </Typography>
+
+              {/* </Box> */}
               <Grid
                 style={{
                   display: "flex",
