@@ -7,70 +7,6 @@ const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 
 
 function getDashBoardData(Models) {
-    async function getFun(req, res) {
-        try {
-            let totalUsersCount = await totalUsers();
-            let activeUsersCount = await activeUsers();
-            let inActiveCount = totalUsersCount - activeUsersCount;
-
-            let results = {
-                users: {
-                    total: totalUsersCount,
-                    active: activeUsersCount,
-                    inActive: inActiveCount
-                },
-                properties: {
-                    sell: {
-                        residential: await sellResidential(),
-                        commercial: await sellCommercial()
-                    },
-                    rent: {
-                        residential: await rentResidential(),
-                        commercial: await rentCommercial()
-                    }
-                },
-                booking: await totalBookings(),
-                enquiry: {
-                    open: await openEnquiry(),
-                    close: await closeEnquiry()
-                },
-                siteVisit: {
-                    open: await openSiteVisit(),
-                    close: await closeSiteVisit()
-                },
-                callBack: {
-                    open: await openCallBack(),
-                    close: await closeCallBack()
-                },
-                contactWithUs: {
-                    open: await openContactWithUs(),
-                    close: await closeContactWithUs()
-                },
-                jobApplications: {
-                    all: await allJobApplications(),
-                    open: await openJobApplications(),
-                    close: await closeJobApplications(),
-                    rejected: await rejectedJobApplications()
-                },
-                suppliers: {
-                    open: await openSuppliers(),
-                    close: await closeSuppliers()
-                },
-                servicesEnquiry: {
-                    open: await openServicesEnquiry(),
-                    close: await closeServicesEnquiry()
-                }
-            }
-            res.send({ status: true, message: "Dashboard Details", data: results });
-
-
-        }
-        catch (e) {
-            console.log('Dashboard Details err', e);
-            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Dashboard Details" });
-        }
-    }
-
     async function totalUsers() {
         return totalUsers = await Models.UserDB.countDocuments({});
     }
@@ -139,6 +75,69 @@ function getDashBoardData(Models) {
     }
     async function closeServicesEnquiry() {
         return closeServicesEnquiry = await Models.ServiceEnquiryDB.countDocuments({ active: false });
+    }
+    async function getFun(req, res) {
+        try {
+            let totalUsersCount = await totalUsers();
+            let activeUsersCount = await activeUsers();
+            let inActiveCount = totalUsersCount - activeUsersCount;
+
+            let results = {
+                users: {
+                    total: totalUsersCount,
+                    active: activeUsersCount,
+                    inActive: inActiveCount
+                },
+                properties: {
+                    sell: {
+                        residential: await sellResidential(),
+                        commercial: await sellCommercial()
+                    },
+                    rent: {
+                        residential: await rentResidential(),
+                        commercial: await rentCommercial()
+                    }
+                },
+                booking: await totalBookings(),
+                enquiry: {
+                    open: await openEnquiry(),
+                    close: await closeEnquiry()
+                },
+                siteVisit: {
+                    open: await openSiteVisit(),
+                    close: await closeSiteVisit()
+                },
+                callBack: {
+                    open: await openCallBack(),
+                    close: await closeCallBack()
+                },
+                contactWithUs: {
+                    open: await openContactWithUs(),
+                    close: await closeContactWithUs()
+                },
+                jobApplications: {
+                    all: await allJobApplications(),
+                    open: await openJobApplications(),
+                    close: await closeJobApplications(),
+                    rejected: await rejectedJobApplications()
+                },
+                suppliers: {
+                    open: await openSuppliers(),
+                    close: await closeSuppliers()
+                },
+                servicesEnquiry: {
+                    open: await openServicesEnquiry(),
+                    close: await closeServicesEnquiry()
+                }
+            }
+            res.send({ status: true, message: "Dashboard Details", data: results });
+
+
+        }
+        catch (e) {
+            console.log('Dashboard Details err', e);
+            await errorResponseHelper({ res, error: e, defaultMessage: "Error in Dashboard Details" });
+        }
     }
     return getFun;
 
