@@ -28,12 +28,12 @@ function getSearchPropertyList(Models) {
             let Obj = [{ for: bodyData.type }, { status: 1 }]
             if (bodyData.pType != "")
                 Obj.push({ pType: bodyData.pType })
-            if (bodyData.keyword != "")
-                Obj.push({
-                    $or: [{ 'nameOfProject': { '$regex': bodyData.keyword, '$options': 'i' } },
-                    { 'pCity': { '$regex': bodyData.keyword, '$options': 'i' } },
-                    { 'locality': { '$regex': bodyData.keyword, '$options': 'i' } }]
-                })
+            // if (bodyData.keyword != "")
+            //     Obj.push({
+            //         $or: [{ 'nameOfProject': { '$regex': bodyData.keyword, '$options': 'i' } },
+            //         { 'pCity': { '$regex': bodyData.keyword, '$options': 'i' } },
+            //         { 'locality': { '$regex': bodyData.keyword, '$options': 'i' } }]
+            //     })
 
 
             let agQuery;
