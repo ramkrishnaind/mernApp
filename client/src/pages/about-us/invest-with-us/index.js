@@ -30,25 +30,49 @@ const useStyles = makeStyles((theme) => ({
     height: "150px",
   },
 }));
-const ps = document.querySelectorAll(".box-text >p");
-const observer = new ResizeObserver((entries) => {
-  for (let entry of entries) {
-    entry.target.classList[
-      entry.target.scrollHeight > entry.contentRect.height ? "add" : "remove"
-    ]("truncated");
-  }
-});
 
-ps.forEach((p) => {
-  observer.observe(p);
-});
+// const ps = document.querySelectorAll(".box-text >p");
+// const observer = new ResizeObserver((entries) => {
+//   for (let entry of entries) {
+//     debugger;
+//     entry.target.classList[
+//       entry.target.scrollHeight > entry.contentRect.height ? "add" : "remove"
+//     ]("truncated");
+//   }
+// });
+
+// ps.forEach((p) => {
+//   observer.observe(p);
+// });
 const InvestWithUs = (props) => {
   const classes = useStyles();
+  const [readMore, setReadMore] = useState();
   const [data, setData] = useState(null);
   const [checkedState, setCheckedState] = useState([false, false, false]);
   useEffect(() => {
     populateInvestWithUsDetails();
   }, []);
+  const onReadClickHandler = (index, entry) => {
+    debugger;
+    const readMoreTemp = [...readMore];
+    let readMode = readMoreTemp[index];
+    readMode = !readMode;
+    if (readMode) {
+      entry.target.classList["add"]("truncated");
+    } else {
+      entry.target.classList["remove"]("truncated");
+    }
+    readMoreTemp[index] = readMode;
+    setReadMore(readMoreTemp);
+
+    // if (!entry.contentRect) {
+    //   entry.target.classList["add"]("truncated");
+    // } else {
+    //   entry.target.classList[
+    //     entry.target.scrollHeight > entry.contentRect.height ? "add" : "remove"
+    //   ]("truncated");
+    // }
+  };
   debugger;
   const populateInvestWithUsDetails = () => {
     const getData = async () => {
@@ -62,6 +86,7 @@ const InvestWithUs = (props) => {
       );
 
       setData(response.data);
+      setReadMore(Array(data?.whatWeDo.length).fill(false));
       // console.log('About us details', aboutUsInfo, aboutSection);
     };
     getData();
@@ -159,7 +184,7 @@ const InvestWithUs = (props) => {
                             <div className="box-text">
                               <input
                                 type="checkbox"
-                                id="expanded"
+                                id={`expanded${index}`}
                                 defaultChecked={checkedState[0]}
                                 onChange={() =>
                                   setCheckedState((prevChState) => {
@@ -173,11 +198,17 @@ const InvestWithUs = (props) => {
                               {HtmlParser(whatWeDo.description)}
 
                               <label
-                                htmlFor="expanded"
+                                htmlFor={`expanded${index}`}
                                 role="button"
                                 style={{ cursor: "pointer" }}
+                                onClick={onReadClickHandler.bind(null, index)}
                               >
-                                read {checkedState[0] ? "less" : "more"}
+                                read{" "}
+                                {readMore
+                                  ? readMore[index]
+                                    ? "less"
+                                    : "more"
+                                  : "more"}
                               </label>
                             </div>
                             {/* <Typography>{HtmlParser(data?.description)}</Typography> */}
@@ -198,9 +229,9 @@ const InvestWithUs = (props) => {
               style={{
                 flexBasis: "40%",
                 display: "flex",
-                flexDirection: "row",   
+                flexDirection: "row",
                 flexWrap: "wrap",
-                justifyContent: "center"
+                justifyContent: "center",
               }}
             >
               <Box
