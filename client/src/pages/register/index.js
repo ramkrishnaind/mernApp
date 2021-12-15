@@ -250,7 +250,8 @@ const RegisterPage = (props) => {
       otp: "",
     });
   };
-console.log(`
+  console.log(
+    `
 states?.phone?.length == 10 &&
                   states.email.length !== 0 &&
                   states.email.includes("@") &&
@@ -260,15 +261,16 @@ states?.phone?.length == 10 &&
                   states.lname.length === 0 &&
                   states.cpassword.length !== 0 &&                  
                   enableOtpField && 
-`,states?.phone?.length == 10 &&
-states.email.length !== 0 &&
-states.email.includes("@") &&
-states.password.length !== 0 &&
-states.password === states.cpassword &&
-states.fname.length === 0 &&
-states.lname.length === 0 &&
-states.cpassword.length !== 0             
-)
+`,
+    states?.phone?.length == 10 &&
+      states.email.length !== 0 &&
+      states.email.includes("@") &&
+      states.password.length !== 0 &&
+      states.password === states.cpassword &&
+      states.fname.length === 0 &&
+      states.lname.length === 0 &&
+      states.cpassword.length !== 0
+  );
   return (
     <div
       className={`${classes.bannerContainer}`}
@@ -392,7 +394,7 @@ states.cpassword.length !== 0
             </div>
             <Box style={{ height: 20 }} />
             <Grid container spacing={1}>
-              <Grid item xs={12} sm={2}>
+              <Grid item xs={2} sm={2}>
                 <PhoneInput
                   className={classes.PhoneInput}
                   international
@@ -403,7 +405,7 @@ states.cpassword.length !== 0
                   onChange={setCountry}
                 />
               </Grid>
-              <Grid item xs={12} sm={10}>
+              <Grid item xs={10} sm={10}>
                 <div style={{ display: "flex" }}>
                   <TextField
                     className={classes.textField}
@@ -430,7 +432,7 @@ states.cpassword.length !== 0
                   states.password === states.cpassword &&
                   states.fname.length !== 0 &&
                   states.lname.length !== 0 &&
-                  states.cpassword.length !== 0 &&                  
+                  states.cpassword.length !== 0 &&
                   !enableOtpField ? (
                     <Button
                       onClick={otpHandler}
@@ -441,7 +443,7 @@ states.cpassword.length !== 0
                         height: "30px",
                         color: "#fff",
                       }}
-                >
+                    >
                       Verify
                     </Button>
                   ) : (
@@ -460,13 +462,13 @@ states.cpassword.length !== 0
                   states.password === states.cpassword &&
                   states.fname.length !== 0 &&
                   states.lname.length !== 0 &&
-                  states.cpassword.length !== 0 &&                  
+                  states.cpassword.length !== 0 &&
                   enableOtpField && (
                     <>
                       <TextField
                         className={classes.textField}
                         placeholder="Otp"
-                        style={{ marginTop: "10px",marginBottom:"10px" }}
+                        style={{ marginTop: "10px", marginBottom: "10px" }}
                         variant="outlined"
                         fullWidth
                         value={states.otp}
@@ -491,8 +493,8 @@ states.cpassword.length !== 0
                             top: " 10px",
                             left: "5px",
                             color: "#fff",
-                            margin:"auto",
-                            display:"block"
+                            margin: "auto",
+                            display: "block",
                           }}
                         >
                           Resend OTP

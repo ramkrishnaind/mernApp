@@ -244,8 +244,14 @@ const LoginPage = (props) => {
       }}
     >
       <Paper className={classes.main}>
-        <Grid container>
-          <Grid item sm={12} md={12} className={classes.login}>
+        <Grid container style={{ flexDirection: "column" }}>
+          <Grid
+            item
+            sm={12}
+            md={12}
+            className={`${classes.login} ${classes.gridStyle2}`}
+            style={{ flexDirection: "column" }}
+          >
             <Typography className={classes.text1}>Login In</Typography>
             <TextField
               className={classes.textField}
