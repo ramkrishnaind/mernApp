@@ -117,7 +117,7 @@ const CmsPageDetails = (props) => {
                   <Box className="about-page-content">
                     <Typography>{HtmlParser(data.pageUrl)}</Typography>
                   </Box>
-                </Grid>
+                </Grid> 
               )} */}
               <Grid className="about-page-summery" item xs={12} md={12}>
                 <Box className="about-page-content">
