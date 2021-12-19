@@ -23,6 +23,7 @@ const CmsPageDetails = (props) => {
   const location = useLocation();
   // let query = useQuery();
   const [data, setData] = useState();
+  const [bgImage, setBgImage] = useState("");
   const { state: id } = location;
   React.useEffect(() => {
     populateAboutUsDetails(id);
@@ -39,20 +40,27 @@ const CmsPageDetails = (props) => {
         {},
         false
       );
-
       setData(response.data || null);
-      // console.log('About us details', aboutUsInfo, aboutSection);
+      if (
+        response.data?.image &&
+        response.data?.image.length > 0 &&
+        response.data?.image[0].image &&
+        response.data?.image[0].image[0]
+      ) {
+        setBgImage(
+          API_ENDPOINTS.BASE_URL + response.data?.image[0]?.image[0]?.path
+        );
+      }
     };
     getData();
   };
-  data && console.log("data", data);
-  debugger;
+
   return (
     <div style={{ background: "#fff" }}>
       <PageBanner
-        bgImage={"/cms-page-details.jpeg"}
-        title="CMS Page details"
-        currentPage="CMS PAGE DETAILS"
+        bgImage={bgImage}
+        title={HtmlParser(data?.pageName)}
+        currentPage={HtmlParser(data?.pageName)}
       />
 
       {data ? (
@@ -67,61 +75,49 @@ const CmsPageDetails = (props) => {
                 flexWrap: "wrap",
               }}
             >
-              <Grid className="about-page-summery" item xs={12} md={6}>
-                <Box className="about-page-content">
-                  {/* <Typography variant="h4">Why Us</Typography> */}
+              {/*<Grid className="about-page-summery" item xs={12} md={6}>
+                 <Box className="about-page-content">
                   <Typography variant="h3">Page position</Typography>
-                </Box>
+                </Box> 
                 <Box className="about-page-content">
                   <Typography>{HtmlParser(data.position)}</Typography>
                 </Box>
               </Grid>
+              
               <Grid className="about-page-summery" item xs={12} md={6}>
                 <Box className="about-page-content">
-                  {/* <Typography variant="h4">Why Us</Typography> */}
                   <Typography variant="h3">Page name</Typography>
                 </Box>
                 <Box className="about-page-content">
                   <Typography>{HtmlParser(data.pageName)}</Typography>
                 </Box>
               </Grid>
-
-              <Grid className="about-page-summery" item xs={12} md={6}>
+              */}
+              <Grid className="about-page-summery" item xs={12} md={12}>
                 <Box className="about-page-content">
-                  {/* <Typography variant="h4">Why Us</Typography> */}
-                  <Typography variant="h3">Page title</Typography>
-                </Box>
-                <Box className="about-page-content">
-                  <Typography>{HtmlParser(data.pageTitle)}</Typography>
+                  <Typography variant="h2">
+                    {HtmlParser(data.pageTitle)}
+                  </Typography>
                 </Box>
               </Grid>
-              <Grid className="about-page-summery" item xs={12} md={6}>
-                <Box className="about-page-content">
-                  {/* <Typography variant="h4">Why Us</Typography> */}
-                  <Typography variant="h3">Page short description</Typography>
-                </Box>
+              <Grid className="about-page-summery" item xs={12} md={12}>
                 <Box className="about-page-content">
                   <Typography>
                     {HtmlParser(data.pageSortDescription)}
                   </Typography>
                 </Box>
               </Grid>
-              {data?.pageUrl && (
+              {/* {data?.pageUrl && (
                 <Grid className="about-page-summery" item xs={12} md={6}>
                   <Box className="about-page-content">
-                    {/* <Typography variant="h4">Why Us</Typography> */}
                     <Typography variant="h3">Page URL</Typography>
                   </Box>
                   <Box className="about-page-content">
                     <Typography>{HtmlParser(data.pageUrl)}</Typography>
                   </Box>
                 </Grid>
-              )}
-              <Grid className="about-page-summery" item xs={12} md={6}>
-                <Box className="about-page-content">
-                  {/* <Typography variant="h4">Why Us</Typography> */}
-                  <Typography variant="h3">Page description</Typography>
-                </Box>
+              )} */}
+              <Grid className="about-page-summery" item xs={12} md={12}>
                 <Box className="about-page-content">
                   <Typography>{HtmlParser(data.pageDescription)}</Typography>
                 </Box>

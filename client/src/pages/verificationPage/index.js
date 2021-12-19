@@ -1,11 +1,5 @@
-import React, { useEffect } from 'react';
-import {
-  Grid,
-  Typography,
-  Paper,
-  makeStyles,
-  Link
-} from '@material-ui/core';
+import React, { useEffect } from "react";
+import { Grid, Typography, Paper, makeStyles, Link } from "@material-ui/core";
 import bannerImage from "../../images/banner-2.jpeg";
 import { connect } from "react-redux";
 import * as VerificationAction from "../../redux/actions/VerificationAction";
@@ -21,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: '"Open Sans",sans-serif',
     color: "#4B2353",
     fontSize: 30,
-    marginBottom: 20
+    marginBottom: 20,
   },
   text2: {
     fontFamily: '"Open Sans",sans-serif',
@@ -41,27 +35,27 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
   },
   login: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center'
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
   gridStyle2: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   gridStyle3: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 10
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
   },
   textField: {
     borderRadius: 5,
-    borderColor: '#FFFFFF',
+    borderColor: "#FFFFFF",
   },
   notchedOutline: {
     borderWidth: "1px",
@@ -71,17 +65,17 @@ const useStyles = makeStyles((theme) => ({
   },
   btn2: {
     borderRadius: 20,
-    background: '#FF7601',
-    color: '#FFFFFF',
-    textTransform: 'none',
-    fontFamily: 'Open Sans,sans-serif',
+    background: "#FF7601",
+    color: "#FFFFFF",
+    textTransform: "none",
+    fontFamily: "Open Sans,sans-serif",
     paddingLeft: 30,
-    paddingRight: 30
+    paddingRight: 30,
   },
   iconContainer: {
     borderRadius: 40,
     padding: 10,
-    cursor: 'pointer'
+    cursor: "pointer",
   },
   icon: {
     width: 25,
@@ -94,11 +88,11 @@ const useStyles = makeStyles((theme) => ({
     padding: 40,
     paddingTop: 40,
     paddingBottom: 40,
-    borderRadius: 10
-  }
+    borderRadius: 10,
+  },
 }));
 
-const VerificationPage = props => {
+const VerificationPage = (props) => {
   const classes = useStyles();
 
   let query = useQuery();
@@ -106,8 +100,8 @@ const VerificationPage = props => {
 
   useEffect(() => {
     let data = {
-      token: token
-    }
+      token: token,
+    };
     if (token != null) {
       props.dispatch(VerificationAction.VerificationRequestAsync(data));
     }
@@ -125,12 +119,13 @@ const VerificationPage = props => {
         // height: 326,
         overflow: "hidden",
         textAlign: "center",
-        backgroundSize: 'cover',
+        backgroundSize: "cover",
         position: "relative",
         backgroundPosition: "center",
-      }}>
+      }}
+    >
       <Paper className={classes.main}>
-        <Grid container>
+        <Grid container style={{ flexDirection: "column" }}>
           <Grid item sm={12} md={12} className={classes.login}>
             <Typography className={classes.text1}>User Verification</Typography>
 
@@ -139,20 +134,20 @@ const VerificationPage = props => {
             </Typography>
           </Grid>
 
-
-
           <Grid item xs={12} md={12} className={classes.gridStyle3}>
-            <Link component={RouterLink} to="/signin">Back to login</Link>
+            <Link component={RouterLink} to="/signin">
+              Back to login
+            </Link>
           </Grid>
         </Grid>
       </Paper>
     </div>
   );
-}
+};
 
 function mapStateToProps(state) {
   const { verification } = state;
-  console.log('state', verification);
+  console.log("state", verification);
   return {
     verification,
   };

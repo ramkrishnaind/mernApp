@@ -230,7 +230,7 @@ const Header = (props) => {
     } else {
       setUserdata(false);
     }
-  });
+  }, []);
 
   useEffect(() => {
     const company_detials = localStorage.getItem("company_detials");
@@ -511,7 +511,7 @@ const Header = (props) => {
         <Box className={`emiForm`}>
           <TextField
             className="EmiInputs"
-            style={{ marginTop: 15,color: "#FFFFFF" }}
+            style={{ marginTop: 15, color: "#FFFFFF" }}
             variant="outlined"
             label="Your Name"
             name="Name"
@@ -521,7 +521,7 @@ const Header = (props) => {
               classes: {
                 notchedOutline: classes.notchedOutline,
               },
-              style: { color: "#FFFFFF" }
+              style: { color: "#FFFFFF" },
             }}
             InputLabelProps={{
               style: { color: "#FFFFFF" },
@@ -530,7 +530,7 @@ const Header = (props) => {
           ></TextField>
           <TextField
             className="EmiInputs"
-            style={{ marginTop: 15,color: "#FFFFFF"}}
+            style={{ marginTop: 15, color: "#FFFFFF" }}
             variant="outlined"
             label="Email Address"
             type="email"
@@ -544,7 +544,7 @@ const Header = (props) => {
               classes: {
                 notchedOutline: classes.notchedOutline,
               },
-              style: { color: "#FFFFFF" }
+              style: { color: "#FFFFFF" },
             }}
             InputLabelProps={{
               style: { color: "#FFFFFF" },
@@ -559,128 +559,125 @@ const Header = (props) => {
               width:"100%"
             }}
           > */}
-            <NativeSelect
-              className="EmiInputs selectInput"
-              style={{width:"48%",boxSizing:"border-box"}}
-              onChange={(e) => setTime(e.target.value)}
-            >
-              <option value="">Choose Time</option>
-              <option value="8:00 AM">8:00 AM</option>
-              <option value="9:00 AM">9:00 AM</option>
-              <option value="10:00 AM">10:00 AM</option>
-              <option value="11:00 AM">11:00 AM</option>
-              <option value="12:00 AM">12:00 AM</option>
-              <option value="1:00 PM">1:00 PM</option>
-              <option value="2:00 PM">2:00 PM</option>
-              <option value="3:00 PM">3:00 PM</option>
-              <option value="4:00 PM">4:00 PM</option>
-              <option value="5:00 PM">5:00 PM</option>
-              <option value="6:00 PM">6:00 PM</option>
-              <option value="7:00 PM">7:00 PM</option>
-            </NativeSelect>
-            {/* </div> */}
-            <TextField
-              className="EmiInputs"
-              style={{ marginTop: 15,width:"48%" ,color: "#FFFFFF"}}
-              variant="outlined"
-              label="Phone Number"
-              name="Phone"
-              disabled={isOtpVerified}
-              type="number"
-              min="1000000"
-              max="9999999999"
-              value={mobile}
-              onChange={(e) => {
-                if (enableOtpField) {
-                  setEnableOtpField(false);
-                }
-                if (e.target.value.length <= 10) setMobile(e.target.value);
-              }}
-              InputProps={{
-                classes: {
-                  notchedOutline: classes.notchedOutline,
-                },
-                style: { color: "#FFFFFF" }
-              }}
-              InputLabelProps={{
-                style: { color: "#FFFFFF" },
-              }}
-              // fullWidth
-            ></TextField>
-            {
-              mobile.length === 10 &&
-                name.length > 0 &&
-                emailValid &&
-                time.length > 0 &&
-                !enableOtpField && (
-                  <Button
-                    style={{ width: "23%" }}
-                    onClick={otpHandler}
-                    variant="contained"
-                    style={{
-                      background: "green",
-                      height: " 30px",
-                      top: " 10px",
-                      left: "5px",
-                      color: "#fff",
-                    }}
-                  >
-                    Verify
-                  </Button>
-                )
-              // : (
-              //   isOtpVerified && (
-              //     <div onClick={reset}>
-              //       {" "}
-              //       <EditIcon />{" "}
-              //     </div>
-              //   )
-              // )
-            }
-            {enableOtpField &&
+          <NativeSelect
+            className="EmiInputs selectInput"
+            style={{ width: "48%", boxSizing: "border-box" }}
+            onChange={(e) => setTime(e.target.value)}
+          >
+            <option value="">Choose Time</option>
+            <option value="8:00 AM">8:00 AM</option>
+            <option value="9:00 AM">9:00 AM</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+            <option value="12:00 AM">12:00 AM</option>
+            <option value="1:00 PM">1:00 PM</option>
+            <option value="2:00 PM">2:00 PM</option>
+            <option value="3:00 PM">3:00 PM</option>
+            <option value="4:00 PM">4:00 PM</option>
+            <option value="5:00 PM">5:00 PM</option>
+            <option value="6:00 PM">6:00 PM</option>
+            <option value="7:00 PM">7:00 PM</option>
+          </NativeSelect>
+          {/* </div> */}
+          <TextField
+            className="EmiInputs"
+            style={{ marginTop: 15, width: "48%", color: "#FFFFFF" }}
+            variant="outlined"
+            label="Phone Number"
+            name="Phone"
+            disabled={isOtpVerified}
+            type="number"
+            min="1000000"
+            max="9999999999"
+            value={mobile}
+            onChange={(e) => {
+              if (enableOtpField) {
+                setEnableOtpField(false);
+              }
+              if (e.target.value.length <= 10) setMobile(e.target.value);
+            }}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline,
+              },
+              style: { color: "#FFFFFF" },
+            }}
+            InputLabelProps={{
+              style: { color: "#FFFFFF" },
+            }}
+            // fullWidth
+          ></TextField>
+          {
+            mobile.length === 10 &&
               name.length > 0 &&
               emailValid &&
-              time.length > 0 && (
-                <>
-                  <TextField
-                    className="EmiInputs"
-                    placeholder="Otp"
-                    style={{ width: "50%",color: "#FFFFFF" }}
-                    fullWidth
-                    value={otp}
-                    disabled={isOtpVerified}
-                    onChange={inputChange}
-                    name="otp"
-                    type="number"
-                    variant="outlined"
-                    InputProps={{
-                      classes: {
-                        notchedOutline: classes.notchedOutline,
-                      },
-                      style: { color: "#FFFFFF" }
-                    }}
-                    InputLabelProps={{
-                      style: { color: "#FFFFFF" },
-                    }}
-                  />
-                  {!isOtpVerified && (
-                    <Button
-                      style={{ width: "23%" }}
-                      onClick={otpHandler}
-                      variant="contained"
-                      style={{
-                        background: "green",
-                        height: " 30px",
-                        top: " 10px",
-                        left: "5px",
-                        color: "#fff",
-                      }}
-                    >
-                      Resend OTP
-                    </Button>
-                  )}
-                </>
+              time.length > 0 &&
+              !enableOtpField && (
+                <Button
+                  style={{ width: "23%" }}
+                  onClick={otpHandler}
+                  variant="contained"
+                  style={{
+                    background: "green",
+                    height: " 30px",
+                    top: " 10px",
+                    left: "5px",
+                    color: "#fff",
+                  }}
+                >
+                  Verify
+                </Button>
+              )
+            // : (
+            //   isOtpVerified && (
+            //     <div onClick={reset}>
+            //       {" "}
+            //       <EditIcon />{" "}
+            //     </div>
+            //   )
+            // )
+          }
+          {enableOtpField && name.length > 0 && emailValid && time.length > 0 && (
+            <>
+              <TextField
+                className="EmiInputs"
+                placeholder="Otp"
+                style={{ width: "50%", color: "#FFFFFF" }}
+                fullWidth
+                value={otp}
+                disabled={isOtpVerified}
+                onChange={inputChange}
+                name="otp"
+                type="number"
+                variant="outlined"
+                InputProps={{
+                  classes: {
+                    notchedOutline: classes.notchedOutline,
+                  },
+                  style: { color: "#FFFFFF" },
+                }}
+                InputLabelProps={{
+                  style: { color: "#FFFFFF" },
+                }}
+              />
+              {!isOtpVerified && (
+                <Button
+                  style={{ width: "23%" }}
+                  onClick={otpHandler}
+                  variant="contained"
+                  style={{
+                    background: "green",
+                    height: " 30px",
+                    top: " 10px",
+                    left: "5px",
+                    color: "#fff",
+                  }}
+                >
+                  Resend OTP
+                </Button>
               )}
+            </>
+          )}
         </Box>
         <DialogActions>
           <Box className="ParentButton">
