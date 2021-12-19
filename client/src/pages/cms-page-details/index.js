@@ -91,18 +91,12 @@ const CmsPageDetails = (props) => {
               */}
               <Grid className="about-page-summery" item xs={12} md={12}>
                 <Box className="about-page-content">
-                  {/* <Typography variant="h4">Why Us</Typography> */}
-                  <Typography variant="h3">Title</Typography>
-                </Box>
-                <Box className="about-page-content">
-                  <Typography>{HtmlParser(data.pageTitle)}</Typography>
+                  <Typography variant="h2">
+                    {HtmlParser(data.pageTitle)}
+                  </Typography>
                 </Box>
               </Grid>
               <Grid className="about-page-summery" item xs={12} md={12}>
-                <Box className="about-page-content">
-                  {/* <Typography variant="h4">Why Us</Typography> */}
-                  <Typography variant="h3">Short Description</Typography>
-                </Box>
                 <Box className="about-page-content">
                   <Typography>
                     {HtmlParser(data.pageSortDescription)}
@@ -120,10 +114,6 @@ const CmsPageDetails = (props) => {
                 </Grid>
               )} */}
               <Grid className="about-page-summery" item xs={12} md={12}>
-                <Box className="about-page-content">
-                  {/* <Typography variant="h4">Why Us</Typography> */}
-                  <Typography variant="h3"> Description</Typography>
-                </Box>
                 <Box className="about-page-content">
                   <Typography>{HtmlParser(data.pageDescription)}</Typography>
                 </Box>
