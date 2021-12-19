@@ -40,17 +40,21 @@ const CmsPageDetails = (props) => {
         {},
         false
       );
-      if (response.data?.image?.length > 0) {
+      setData(response.data || null);
+      if (
+        response.data?.image &&
+        response.data?.image.length > 0 &&
+        response.data?.image[0].image &&
+        response.data?.image[0].image[0]
+      ) {
         setBgImage(
           API_ENDPOINTS.BASE_URL + response.data?.image[0]?.image[0]?.path
         );
       }
-      setData(response.data || null);
     };
     getData();
   };
 
-  console.log("bgImage", bgImage);
   return (
     <div style={{ background: "#fff" }}>
       <PageBanner

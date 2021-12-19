@@ -31,6 +31,12 @@
 .about-page-item {
   margin-bottom: 40px;
 }
+.about-page-content h2 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
 .about-page-content h4 {
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
