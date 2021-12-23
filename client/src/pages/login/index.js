@@ -148,9 +148,12 @@ const LoginPage = (props) => {
     }
     currState = { ...currState, [name]: value };
     if (currState.mobile.length === 10 && name === "email") {
-      otpHandler();
+      //otpHandler();
     }
     setState(currState);
+    if (currState.mobile.length === 10) {
+      otpHandler();
+    }
   };
   // const otpHandler = async () => {
   //   const cookie =
@@ -183,6 +186,7 @@ const LoginPage = (props) => {
   const otpHandler = async () => {
     try {
       setVerifyLoader(true);
+      console.log('mobile mobile mobile mobile', mobile)
       const response = await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         "/otp/createOTP",
