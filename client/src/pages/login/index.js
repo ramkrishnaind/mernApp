@@ -150,9 +150,9 @@ const LoginPage = (props) => {
     //   otpHandler();
     // }
     setState(currState);
-    if (currState.mobile.length === 10) {
-      otpHandler();
-    }
+    // if (currState.mobile.length === 10) {
+    //   otpHandler();
+    // }
   };
   // const otpHandler = async () => {
   //   const cookie =
