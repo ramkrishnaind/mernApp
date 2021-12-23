@@ -152,7 +152,7 @@ const LoginPage = (props) => {
     }
     setState(currState);
     if (currState.mobile.length === 10) {
-      otpHandler();
+      await otpHandler();
     }
   };
   // const otpHandler = async () => {
