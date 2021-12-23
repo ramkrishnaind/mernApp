@@ -186,11 +186,11 @@ const LoginPage = (props) => {
   const otpHandler = async () => {
     try {
       setVerifyLoader(true);
-      console.log('mobile mobile mobile mobile', mobile)
+      console.log('mobile mobile mobile mobile', state.mobile)
       const response = await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         "/otp/createOTP",
-        { mobile: mobile },
+        { mobile: state.mobile },
         {},
         { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
         false
