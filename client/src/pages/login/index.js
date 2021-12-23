@@ -152,17 +152,41 @@ const LoginPage = (props) => {
     }
     setState(currState);
   };
+  // const otpHandler = async () => {
+  //   const cookie =
+  //     "connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI";
+  //   const authorization =
+  //     "Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs";
+  //   try {
+  //     setVerifyLoader(true);
+  //     const response = await ApiClient.call(
+  //       ApiClient.REQUEST_METHOD.POST,
+  //       "/otp/createOTP",
+  //       { mobile: state.mobile },
+  //       {},
+  //       { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
+  //       false
+  //     );
+  //     setEnableOtpField(true);
+  //     setVerifyLoader(false);
+  //     dispatch(Snackbar.showSuccessSnackbar("Otp sent successfully"));
+  //   } catch (error) {
+  //     console.error("this is the error::", error);
+  //     dispatch(
+  //       Snackbar.showFailSnackbar(
+  //         "We are facing some issue Please try again later."
+  //       )
+  //     );
+  //     setVerifyLoader(false);
+  //   }
+  // };
   const otpHandler = async () => {
-    const cookie =
-      "connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI";
-    const authorization =
-      "Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs";
     try {
       setVerifyLoader(true);
       const response = await ApiClient.call(
         ApiClient.REQUEST_METHOD.POST,
         "/otp/createOTP",
-        { mobile: state.mobile },
+        { mobile: mobile },
         {},
         { Cookie: ApiClient.cookie, Authorization: ApiClient.authorization },
         false
