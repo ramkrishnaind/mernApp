@@ -120,22 +120,22 @@ const sendMessageToAdmin = async (Models, bodyData) => {
     // let PropertyData = await getPropertyDetails(Models, bodyData.propertyId);
     // console.log('PropertyData in sendMessage is', PropertyData)
     let message = 'Hello Vishal Properties, \n';
-    message += bodyData.name + 'Requested a Service Enquiry. \n';
+    message += bodyData.name + ' Requested a Service Enquiry. \n';
     //message += ' Please call back (Mobile:-  ' + bodyData.mobile + ' )  \n';
     message += 'Email:  ' + bodyData.email + ' \n';
     message += 'Property Type:  ' + bodyData.propertyType + ' \n';
-    message += 'Property Address: ' + bodyData.city + ' \n';
-    message += 'Customer Address: ' + bodyData.state + '  \n';
-    message += 'Customer City: ' + bodyData.pinCode + ' \n';
-    message += 'Customer State: ' + bodyData.country + ' \n';
+    message += 'Property Address: ' + bodyData.address + ' \n';
+    message += 'Customer Address: ' + bodyData.address + '  \n';
+    message += 'Customer City: ' + bodyData.city + ' \n';
+    message += 'Customer State: ' + bodyData.state + ' \n';
     message += 'Property Details:- \n';
-    message += 'Property City: ' + bodyData.city + '\n';
-    message += 'Property State: ' + bodyData.state + ' \n';
-    message += 'Property Location : ' + bodyData.pinCode + ' \n';
+    message += 'Property City: ' + bodyData.propertyCity + '\n';
+    message += 'Property State: ' + bodyData.propertyState + ' \n';
+    message += 'Property Location : ' + bodyData.propertyLocation + ' \n';
     message += 'Budget: ' + bodyData.country + ' \n';
     message += 'Total Area: ' + bodyData.city + ' \n';
     message += 'Floor: ' + bodyData.state + '  \n';
-    message += 'Message: ' + bodyData.pinCode + ' \n';
+    message += 'Message: ' + bodyData.message + ' \n';
     message += 'Regards, \n';
     message += 'Vishal Construction Company';
     message += 'VCCFLT';
@@ -144,7 +144,7 @@ const sendMessageToAdmin = async (Models, bodyData) => {
     await SendMessage({
         senderID: 'VCCFLT',
         templateID: '1207163679298339487',
-        mobile: 9802953333,
+        mobile: mobile,
         message
     });
 };
