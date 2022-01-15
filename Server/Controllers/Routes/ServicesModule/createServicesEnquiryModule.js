@@ -6,6 +6,9 @@ const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
 const SendMessage = require('../../../Helper/sendSms');
 
+const path = require('path');
+const sendSupplierMailHelper = require('../../../Helper/sendSupplierMailHelper');
+
 const moduleSchema = Joi.object({
     propertyType: Joi.string().required(),
     name: Joi.string().required(),
