@@ -38,7 +38,7 @@ function createOTP(Models) {
                     senderID: 'VCCFLT',
                     templateID: '1207163549200843594',
                     mobile: bodyData.mobile,
-                    message: message,
+                    message,
                 };
                 let smsResult = await SendMessage(msgObj);
                 console.log('smsResult', smsResult)

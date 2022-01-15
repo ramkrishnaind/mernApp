@@ -112,8 +112,8 @@ const sendMessageToClient = async (Models, bodyData) => {
 
 const sendMessageToAdmin = async (Models, bodyData) => {
     let mobile = await siteMobile(Models);
-    let PropertyData = await getPropertyDetails(Models, bodyData.propertyId);
-    console.log('PropertyData in sendMessage is', PropertyData)
+    // let PropertyData = await getPropertyDetails(Models, bodyData.propertyId);
+    // console.log('PropertyData in sendMessage is', PropertyData)
     let message = 'Hello Vishal Properties, \n';
     message += bodyData.name + 'Requested a Service Enquiry. \n';
     //message += ' Please call back (Mobile:-  ' + bodyData.mobile + ' )  \n';
