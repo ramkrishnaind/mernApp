@@ -4,6 +4,8 @@ Joi.objectId = require('joi-objectid')(Joi)
 
 const errorResponseHelper = require('../../../Helper/errorResponse');
 const CONSTANTSMESSAGE = require('../../../Helper/constantsMessage')
+const SendMessage = require('../../../Helper/sendSms');
+
 const moduleSchema = Joi.object({
     propertyType: Joi.string().required(),
     name: Joi.string().required(),
