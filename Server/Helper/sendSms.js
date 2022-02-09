@@ -23,6 +23,7 @@ async function sendsms(obj) {
         console.log('configrations is', configrations.url)
         let smsResponse = await axios(configrations);
         console.log('smsResponse is', smsResponse)
+        return { status: smsResponse.status, statusText: smsResponse.statusText, }
     } catch (e) {
         console.log('Error while sending sms is', e)
     }
