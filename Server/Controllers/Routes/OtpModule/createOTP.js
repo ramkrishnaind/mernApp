@@ -42,8 +42,8 @@ function createOTP(Models) {
                 };
                 let smsResult = await SendMessage(msgObj);
                 console.log('smsResult', smsResult)
+                res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE, smsResult: smsResult.statusText });
             }
-            res.send({ status: true, message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE, smsResult: smsResult.statusText });
         }
         catch (e) {
             console.log('OTP err', e);
