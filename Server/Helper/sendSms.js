@@ -10,18 +10,23 @@ const configrations = {
     }
 }
 async function sendsms(obj) {
-    console.log('i am in send sms', obj)
-    let key = process.env.SMS_GATEWAY_KEY;
-    let campaign = process.env.SMS_GATEWAY_CAMPAIGN;
-    let routeID = process.env.SMS_GATEWAY_ROUTEID;
-    let senderID = obj.senderID;
-    let templateID = obj.templateID;
+    try {
+        console.log('i am in send sms', obj)
+        let key = process.env.SMS_GATEWAY_KEY;
+        let campaign = process.env.SMS_GATEWAY_CAMPAIGN;
+        let routeID = process.env.SMS_GATEWAY_ROUTEID;
+        let senderID = obj.senderID;
+        let templateID = obj.templateID;
 
-    configrations.url = configrations.url + 'key=' + key + '&campaign=' + campaign + '&routeid=' + routeID +
-        '&type=text&contacts=' + obj.mobile + '&senderid=' + senderID + '&msg=' + obj.message + '&template_id=' + templateID;
-    console.log('configrations is', configrations.url)
-    let smsResponse = await axios(configrations);
-    //console.log('smsResponse is', smsResponse)
+        configrations.url = configrations.url + 'key=' + key + '&campaign=' + campaign + '&routeid=' + routeID +
+            '&type=text&contacts=' + obj.mobile + '&senderid=' + senderID + '&msg=' + obj.message + '&template_id=' + templateID;
+        console.log('configrations is', configrations.url)
+        let smsResponse = await axios(configrations);
+        console.log('smsResponse is', smsResponse)
+    } catch (e) {
+        console.log('Error while sending sms is', e)
+    }
+
 
 }
 // sendsms({
