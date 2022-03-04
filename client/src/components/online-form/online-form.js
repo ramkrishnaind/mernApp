@@ -40,8 +40,8 @@ const useStyles = makeStyles((theme) => ({
 export default function OnlineBooking(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const initialState={
-    acknowledge:"",
+  const initialState = {
+    acknowledge: "",
     name: "",
     email: "",
     mobile: "",
@@ -66,7 +66,13 @@ export default function OnlineBooking(props) {
   const [mobile, setMobile] = useState(
     JSON.parse(localStorage.getItem("user"))?.mobile
   );
+  useEffect(() => {
+    let userDetails = JSON.parse(window.localStorage.getItem("user"));
 
+    if (!localStorage.getItem("user")) {
+      window.location.href = "/signin";
+    }
+  }, [])
   const otpHandler = async () => {
     try {
       setVerifyLoader(true);
@@ -156,8 +162,8 @@ export default function OnlineBooking(props) {
   const inputChange = (e) => {
     debugger
     let { name, value } = e.target;
-    if(e.target.name==="acknowledge"){
-      value=!!!state.acknowledge
+    if (e.target.name === "acknowledge") {
+      value = !!!state.acknowledge
     }
     setOtp(value);
     if (name === "otp" && value.length === 6 && !isOtpVerified) {
@@ -224,8 +230,8 @@ export default function OnlineBooking(props) {
       console.log("form state", state);
     }
   }, []);
-console.log("state",state)
-console.log("emailValid",emailValid)
+  console.log("state", state)
+  console.log("emailValid", emailValid)
   return (
     <div class="client-bgform">
       <div className={classes.root}>
@@ -245,7 +251,7 @@ console.log("emailValid",emailValid)
           <Box className="WholeCont">
             <Grid container spacing={3} className="onlineFormControl">
               <Grid item xs={3}>
-                <FormControl className={classes.margin} className="FormControl">
+                <FormControl className={`${classes.margin} FormControl`} >
                   <NativeSelect
                     className="SelectBox"
                     id="demo-customized-select-native"
@@ -260,7 +266,7 @@ console.log("emailValid",emailValid)
                       style: { color: "#FFFFFF" },
                     }}
 
-                    // input={<BootstrapInput />}
+                  // input={<BootstrapInput />}
                   >
                     <option value="">Select Property Type</option>
                     <option value="RESIDENTIAL">Residential</option>
@@ -270,7 +276,7 @@ console.log("emailValid",emailValid)
               </Grid>
 
               <Grid item xs={3}>
-                <FormControl className={classes.margin} className="FormControl">
+                <FormControl className={`${classes.margin} FormControl`}>
                   <NativeSelect
                     className="SelectBox"
                     id="demo-customized-select-native"
@@ -297,8 +303,7 @@ console.log("emailValid",emailValid)
 
               <Grid item xs={3} className="TextfildGrid">
                 <form
-                  className={classes.root}
-                  className="OutForm"
+                  className={`${classes.root} OutForm`}
                   noValidate
                   autoComplete="off"
                 >
@@ -324,8 +329,7 @@ console.log("emailValid",emailValid)
               </Grid>
               <Grid item xs={3} className="TextfildGrid">
                 <form
-                  className={classes.root}
-                  className="OutForm"
+                  className={`${classes.root} OutForm`}
                   noValidate
                   autoComplete="off"
                 >
@@ -354,8 +358,7 @@ console.log("emailValid",emailValid)
               </Grid>
               <Grid item xs={3} className="TextfildGrid">
                 <form
-                  className={classes.root}
-                  className="OutForm"
+                  className={`${classes.root} OutForm`}
                   noValidate
                   autoComplete="off"
                 >
@@ -381,8 +384,7 @@ console.log("emailValid",emailValid)
               </Grid>
               <Grid item xs={3} className="TextfildGrid">
                 <form
-                  className={classes.root}
-                  className="OutForm"
+                  className={`${classes.root} OutForm`}
                   noValidate
                   autoComplete="off"
                 >
@@ -409,8 +411,7 @@ console.log("emailValid",emailValid)
 
               <Grid item xs={3} className="TextfildGrid">
                 <form
-                  className={classes.root}
-                  className="OutForm"
+                  className={`${classes.root} OutForm`}
                   noValidate
                   autoComplete="off"
                 >
@@ -437,8 +438,7 @@ console.log("emailValid",emailValid)
 
               <Grid item xs={3} className="TextfildGrid">
                 <form
-                  className={classes.root}
-                  className="OutForm"
+                  className={`${classes.root} OutForm`}
                   noValidate
                   autoComplete="off"
                 >
@@ -464,8 +464,7 @@ console.log("emailValid",emailValid)
               </Grid>
               <Grid item xs={3} className="TextfildGrid">
                 <form
-                  className={classes.root}
-                  className="OutForm"
+                  className={`${classes.root} OutForm`}
                   noValidate
                   autoComplete="off"
                 >
@@ -492,8 +491,7 @@ console.log("emailValid",emailValid)
               </Grid>
               <Grid item xs={3} className="TextfildGrid">
                 <form
-                  className={classes.root}
-                  className="OutForm"
+                  className={`${classes.root} OutForm`}
                   noValidate
                   autoComplete="off"
                 >
@@ -520,8 +518,7 @@ console.log("emailValid",emailValid)
               </Grid>
               <Grid item xs={3} className="TextfildGrid">
                 <form
-                  className={classes.root}
-                  className="OutForm"
+                  className={`${classes.root} OutForm`}
                   noValidate
                   autoComplete="off"
                 >
@@ -543,7 +540,7 @@ console.log("emailValid",emailValid)
                             setEnableOtpField(false);
                           }
                           if (e.target.value.length <= 10)
-                          inputChange(e);
+                            inputChange(e);
                         }}
                         InputProps={{
                           classes: {
@@ -571,10 +568,10 @@ console.log("emailValid",emailValid)
                         state.country.length > 0 &&
                         state.propertyId.length > 0 && (
                           <Button
-                            style={{ width: "20%" }}
                             onClick={otpHandler}
                             variant="contained"
                             style={{
+                              width: "20%",
                               background: "green",
                               height: " 30px",
                               top: " 10px",
@@ -634,10 +631,10 @@ console.log("emailValid",emailValid)
                       />
                       {!isOtpVerified && (
                         <Button
-                          style={{ width: "23%" }}
                           onClick={otpHandler}
                           variant="contained"
                           style={{
+                            width: "23%",
                             background: "green",
                             height: " 30px",
                             top: " 10px",
@@ -689,7 +686,7 @@ console.log("emailValid",emailValid)
                     propertyOptions.length === 0 ||
                     state.country.length === 0 ||
                     state.propertyId.length === 0 ||
-                    state.acknowledge!==true
+                    state.acknowledge !== true
 
                   }
                   onClick={(e) => handleData(e)}
