@@ -144,7 +144,7 @@ const PropertyList = (props) => {
                             }
                           />
 
-                          {tableMeta.rowData[6] === 5 ? (
+                          {/* {tableMeta.rowData[6] === 5 ? (
                             <Select
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined-label"
@@ -167,28 +167,28 @@ const PropertyList = (props) => {
                               <option value="2">Pending </option>
                               <option value="3">Rejected </option>
                             </Select>
-                          ) : (
-                            <Select
-                              labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined-label"
-                              label="Role"
-                              native
-                              name="rating"
-                              inputProps={{
-                                name: "rating",
-                                id: "age-native-simple",
-                              }}
-                              onChange={(e) =>
-                                onDisable(tableMeta.rowData[7], e)
-                              }
-                              value={tableMeta.rowData[6]}
-                            >
-                              <option value="0">Inactive </option>
-                              <option value="1">Active </option>
-                              <option value="2">Pending </option>
-                              <option value="3">Rejected </option>
-                            </Select>
-                          )}
+                          ) : ( */}
+                          <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined-label"
+                            label="Role"
+                            native
+                            name="rating"
+                            inputProps={{
+                              name: "rating",
+                              id: "age-native-simple",
+                            }}
+                            onChange={(e) =>
+                              onDisable(tableMeta.rowData[7], e)
+                            }
+                            value={tableMeta.rowData[6]}
+                          >
+                            <option value="0">Inactive </option>
+                            <option value="1">Active </option>
+                            <option value="2">Pending </option>
+                            <option value="3">Rejected </option>
+                          </Select>
+
 
                           <DeleteIcon
                             style={{ color: "#bd2130", cursor: "pointer" }}

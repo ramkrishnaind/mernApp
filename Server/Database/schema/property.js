@@ -25,10 +25,11 @@ const schema = new Schema({
         type: String
     },
     for: {
-        type: String
+        type: String,
+        default: "Sell"
     },
     pType: {
-        type: String
+        type: String,
     },
     postingAs: {
         type: String
@@ -53,7 +54,7 @@ const schema = new Schema({
     },
     status: {
         type: Number,
-        default: 0
+        default: 5
     }
 }, {
     timestamps: {
