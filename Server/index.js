@@ -9,7 +9,7 @@ const path = require('path');
 require('dotenv').config();
 
 var app = express();
-var PORT = process.env.PORT || 3334;
+var PORT = process.env.PORT || 3333;
 var config = require('./config.json');
 
 app.disable("x-powered-by");
