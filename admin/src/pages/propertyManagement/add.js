@@ -97,11 +97,11 @@ const PropertyCreateUpdate = (props) => {
 
     expected_price: propertyData?.price?.expectedPrice || "",
     expected_price_per_sq_ft: propertyData?.price?.pricePerSqft || "",
-    other_charges: propertyData?.price?.otherCharges || "",
+    other_charges: propertyData?.price?.otherCharges || "0",
     stamp_duty_registration_charges_excluded:
       propertyData?.price?.isStumpDutyRCExcluded || "",
     booking_token_amount: propertyData?.price?.bookingAmount || "",
-    maintenance_charges: propertyData?.price?.maintenanceCharge || "",
+    maintenance_charges: propertyData?.price?.maintenanceCharge || "0",
     maintenance_charges_per: propertyData?.price?.maintenanceFor || "",
     brokerage: propertyData?.price?.brokerage || "",
     build_year: propertyData?.buildYear || "2005",
