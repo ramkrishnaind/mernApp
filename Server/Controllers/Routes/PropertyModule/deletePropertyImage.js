@@ -63,7 +63,7 @@ function deletePropertyImageRequest(Models) {
       });
       res.send({
         status: true,
-        propertyId: saveModule._id,
+        propertyId: bodyDataPropImage.propertyId,
         message: CONSTANTSMESSAGE.CREATE_SUCCESS_MESSAGE,
       });
     } catch (e) {
