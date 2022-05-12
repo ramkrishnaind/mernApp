@@ -47,7 +47,9 @@ function deletePropertyImageRequest(Models) {
           message: "invalid Image key",
         };
       }
-      const pImageData = await Models.PImageDB.findById(propertyId);
+      const pImageData = await Models.PImageDB.findById(
+        bodyDataPropImage.propertyId
+      );
       console.log("pImageData", pImageData);
       pImageData[bodyDataPropImage.imageKey] = pImageData[
         bodyDataPropImage.imageKey
