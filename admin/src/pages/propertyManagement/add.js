@@ -15,6 +15,7 @@ import {
   FormLabel,
   FormControl,
 } from "@material-ui/core";
+import ApiClient from "../../api-client";
 import _ from "lodash";
 import classes from "./makeStyles";
 import FieldsContainer from "./components/fields-container";
@@ -148,6 +149,7 @@ const PropertyCreateUpdate = (props) => {
     { key: "", Value: "" },
   ]);
   const [file, setFile] = useState("");
+  const [filename, setFilename] = useState("");
 
   const [image, setImageState] = useState(imageState);
   useEffect(() => {
@@ -218,6 +220,9 @@ const PropertyCreateUpdate = (props) => {
       setFile(
         API_ENDPOINTS.BASE_URL + propertyData?.images?.mainImage[0]?.path
       );
+      setFilename(
+        API_ENDPOINTS.BASE_URL + propertyData?.images?.mainImage[0]?.filename
+      );
     }
 
     // amenities
@@ -257,7 +262,23 @@ const PropertyCreateUpdate = (props) => {
       [name]: feature.item,
     });
   };
-
+  const mainFileClickHandler=()=>{
+    const cookie =
+      "connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI";
+    const authorization =
+      "Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs";
+    
+      const response = await ApiClient.call(
+        ApiClient.REQUEST_METHOD.POST,
+        "/property/deletePropertyImage",
+        {propertyId:id,imageKey:"mainImage",fileName:filename},
+        {},
+        { Cookie: cookie, Authorization: authorization },
+        true
+      );
+    setFile(null);
+    setFilename(null)
+  }
   const onAreaFieldSelect = (e) => {
     e.preventDefault();
     const fieldName = e.target.name;
@@ -1777,7 +1798,22 @@ const PropertyCreateUpdate = (props) => {
                   <FieldsContainer label="Property Image">
                     <Grid container>
                       <Grid item xs={12} sm={6} md={4}>
-                        <img src={file} height="200px" width="200px" />
+                        <Box style={{ position: "relative" }}>
+                          <div
+                            style={{
+                              borderRadius: "50%",
+                              border: "1px solid black",
+                              color: "black",
+                              position: "absolute",
+                              right: 10,
+                              top: 10,
+                            }}
+                            onClick={mainFileClickHandler}
+                          >
+                            X
+                          </div>
+                          <img src={file} height="200px" width="200px" />
+                        </Box>
                         <Box>
                           <br />
                           <label className="uploadbutton" htmlFor="mainImage">
