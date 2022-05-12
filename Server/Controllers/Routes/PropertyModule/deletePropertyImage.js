@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
-
+const ObjectId = mongoose.Types.ObjectId;
 const errorResponseHelper = require("../../../Helper/errorResponse");
 const CONSTANTSMESSAGE = require("../../../Helper/constantsMessage");
 const moduleSchema = Joi.object({
@@ -47,9 +47,9 @@ function deletePropertyImageRequest(Models) {
           message: "invalid Image key",
         };
       }
-      const pImageData = await Models.PImageDB.findById(
-        bodyDataPropImage.propertyId
-      );
+      const pImageData = await Models.PImageDB.findOne({
+        propertyId: new ObjectId(bodyDataPropImage.propertyId),
+      });
       console.log("pImageData", pImageData);
       pImageData[bodyDataPropImage.imageKey] = pImageData[
         bodyDataPropImage.imageKey

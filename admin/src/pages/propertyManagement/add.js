@@ -220,9 +220,7 @@ const PropertyCreateUpdate = (props) => {
       setFile(
         API_ENDPOINTS.BASE_URL + propertyData?.images?.mainImage[0]?.path
       );
-      setFilename(
-        API_ENDPOINTS.BASE_URL + propertyData?.images?.mainImage[0]?.filename
-      );
+      setFilename(propertyData?.images?.mainImage[0]?.filename);
     }
 
     // amenities
@@ -262,23 +260,23 @@ const PropertyCreateUpdate = (props) => {
       [name]: feature.item,
     });
   };
-  const mainFileClickHandler=()=>{
+  const mainFileClickHandler = async () => {
+    setFile("");
+    setFilename("");
     const cookie =
       "connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI";
     const authorization =
       "Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs";
-    
-      const response = await ApiClient.call(
-        ApiClient.REQUEST_METHOD.POST,
-        "/property/deletePropertyImage",
-        {propertyId:id,imageKey:"mainImage",fileName:filename},
-        {},
-        { Cookie: cookie, Authorization: authorization },
-        true
-      );
-    setFile(null);
-    setFilename(null)
-  }
+
+    const response = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      "/property/deletePropertyImage",
+      { propertyId: id, imageKey: "mainImage", fileName: filename },
+      {},
+      { Cookie: cookie, Authorization: authorization },
+      true
+    );
+  };
   const onAreaFieldSelect = (e) => {
     e.preventDefault();
     const fieldName = e.target.name;
@@ -1805,8 +1803,13 @@ const PropertyCreateUpdate = (props) => {
                               border: "1px solid black",
                               color: "black",
                               position: "absolute",
-                              right: 10,
-                              top: 10,
+                              left: 200,
+                              top: -30,
+                              width: 50,
+                              height: 50,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
                             }}
                             onClick={mainFileClickHandler}
                           >
