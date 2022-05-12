@@ -1810,6 +1810,7 @@ const PropertyCreateUpdate = (props) => {
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
+                              cursor: "pointer",
                             }}
                             onClick={mainFileClickHandler}
                           >
