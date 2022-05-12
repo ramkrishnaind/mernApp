@@ -59,9 +59,14 @@ function deletePropertyImageRequest(Models) {
         "pImageData[bodyDataPropImage.imageKey]",
         pImageData[bodyDataPropImage.imageKey]
       );
-      await Models.PImageDB.findByIdAndUpdate(bodyDataPropImage.propertyId, {
-        [bodyDataPropImage.imageKey]: pImageData[bodyDataPropImage.imageKey],
-      });
+      await Models.PImageDB.findOneAndUpdate(
+        {
+          propertyId: new ObjectId(bodyDataPropImage.propertyId),
+        },
+        {
+          [bodyDataPropImage.imageKey]: pImageData[bodyDataPropImage.imageKey],
+        }
+      );
       res.send({
         status: true,
         propertyId: bodyDataPropImage.propertyId,
