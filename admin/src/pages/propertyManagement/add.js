@@ -1797,27 +1797,30 @@ const PropertyCreateUpdate = (props) => {
                     <Grid container>
                       <Grid item xs={12} sm={6} md={4}>
                         <Box style={{ position: "relative" }}>
-                          <div
-                            style={{
-                              borderRadius: "50%",
-                              border: "1px solid black",
-                              color: "black",
-                              position: "absolute",
-                              left: 200,
-                              top: -30,
-                              width: 50,
-                              height: 50,
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              cursor: "pointer",
-                            }}
-                            onClick={mainFileClickHandler}
-                          >
-                            X
-                          </div>
+                          {filename && (
+                            <div
+                              style={{
+                                borderRadius: "50%",
+                                border: "1px solid black",
+                                color: "black",
+                                position: "absolute",
+                                left: 200,
+                                top: -20,
+                                width: 25,
+                                height: 25,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                cursor: "pointer",
+                              }}
+                              onClick={mainFileClickHandler}
+                            >
+                              X
+                            </div>
+                          )}
                           <img src={file} height="200px" width="200px" />
                         </Box>
+
                         <Box>
                           <br />
                           <label className="uploadbutton" htmlFor="mainImage">
@@ -1825,7 +1828,6 @@ const PropertyCreateUpdate = (props) => {
                               color="default"
                               variant="contained"
                               component="span"
-                              color="primary"
                             >
                               Browse main Image
                             </Button>
