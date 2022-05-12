@@ -48,10 +48,14 @@ function deletePropertyImageRequest(Models) {
         };
       }
       const pImageData = await Models.PImageDB.findById(propertyId);
+      console.log("pImageData", pImageData);
       pImageData[bodyDataPropImage.imageKey] = pImageData[
         bodyDataPropImage.imageKey
       ].filter((imageObj) => imageObj.filename !== bodyDataPropImage.fileName);
-
+      console.log(
+        "pImageData[bodyDataPropImage.imageKey]",
+        pImageData[bodyDataPropImage.imageKey]
+      );
       await Models.PImageDB.findByIdAndUpdate(propertyId, {
         [bodyDataPropImage.imageKey]: pImageData[bodyDataPropImage.imageKey],
       });
