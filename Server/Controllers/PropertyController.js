@@ -55,7 +55,7 @@ module.exports = function (conn) {
   const requestAuthMiddleware =
     userAuthMiddlewareFunction.requestAuthMiddleware(allCollection);
   router.post(
-    "/createProperty",
+    "/createPropertyRequest",
     requestAuthMiddleware,
     createPropertyRequest(allCollection)
   );

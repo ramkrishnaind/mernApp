@@ -261,6 +261,7 @@ const PropertyCreateUpdate = (props) => {
     });
   };
   const mainFileClickHandler = async () => {
+    if (!id) return;
     setFile("");
     setFilename("");
     const cookie =
@@ -276,6 +277,30 @@ const PropertyCreateUpdate = (props) => {
       { Cookie: cookie, Authorization: authorization },
       true
     );
+  };
+  const imageClickHandler = async (key, fileNamePassed) => {
+    if (!id) return;
+    setFile("");
+    setFilename("");
+    const cookie =
+      "connect.sid=s%3AOTR7JRcRLkCbykuoWLRX4yOvqEZu20Is.4utrypcpaXicNe3A0foHiWeVNP8fQDryd6%2FdCibio%2BI";
+    const authorization =
+      "Bearer eyJhbGciOiJIUzI1NiJ9.VmlrcmFtSmVldFNpbmdoSkk.MaACpq-fK6F02rVz3vEAUgAYvTqDAEVKpq9zNbmWCPs";
+
+    const response = await ApiClient.call(
+      ApiClient.REQUEST_METHOD.POST,
+      "/property/deletePropertyImage",
+      { propertyId: id, imageKey: key, fileName: fileNamePassed },
+      {},
+      { Cookie: cookie, Authorization: authorization },
+      true
+    );
+    let data = {
+      propertyId: id,
+    };
+    if (id != null) {
+      dispatch(PropertyAction.PropertyDataRequestAsync(data));
+    }
   };
   const onAreaFieldSelect = (e) => {
     e.preventDefault();
@@ -351,7 +376,7 @@ const PropertyCreateUpdate = (props) => {
         propertyTag: state.Property_Tag,
         transactionType: state.Transaction_Type,
         propertyDetails: propertyDetail,
-        description: description || propertyData.description,
+        description: description || propertyData?.description,
         gaurdRoom: state.gaurdRoom,
         buildYear: state.build_year,
         bedrooms: state.Bedrooms,
@@ -1111,7 +1136,13 @@ const PropertyCreateUpdate = (props) => {
   const handleMainImageChange = (event) => {
     // this.setState({
     setState({ ...state, ["mainImage"]: event.target.files[0] });
-    setFile(URL.createObjectURL(event.target.files[0]));
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.addEventListener("load", (e) => {
+      const data = e.target.result;
+      console.log("data", data);
+      setFile(data);
+    });
 
     // })
   };
@@ -1797,7 +1828,7 @@ const PropertyCreateUpdate = (props) => {
                     <Grid container>
                       <Grid item xs={12} sm={6} md={4}>
                         <Box style={{ position: "relative" }}>
-                          {filename && (
+                          {filename && id && (
                             <div
                               style={{
                                 borderRadius: "50%",
@@ -1847,12 +1878,41 @@ const PropertyCreateUpdate = (props) => {
                         </Typography>
                         {propertyData?.images?.exteriorView?.map(
                           (item, index) => {
+                            console.log("item", item);
                             return (
-                              <img
-                                src={API_ENDPOINTS.BASE_URL + item.path}
-                                height="80px"
-                                width="80px"
-                              />
+                              <div style={{ position: "relative" }}>
+                                {item?.filename && (
+                                  <div
+                                    style={{
+                                      borderRadius: "50%",
+                                      border: "1px solid black",
+                                      color: "black",
+                                      position: "absolute",
+                                      left: 80,
+                                      top: -10,
+                                      width: 20,
+                                      height: 20,
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                      cursor: "pointer",
+                                    }}
+                                    onClick={() => {
+                                      imageClickHandler(
+                                        "exteriorView",
+                                        item?.filename
+                                      );
+                                    }}
+                                  >
+                                    X
+                                  </div>
+                                )}
+                                <img
+                                  src={API_ENDPOINTS.BASE_URL + item.path}
+                                  height="80px"
+                                  width="80px"
+                                />
+                              </div>
                             );
                           }
                         )}
@@ -1876,11 +1936,39 @@ const PropertyCreateUpdate = (props) => {
                           {propertyData?.images?.livingRoom?.map(
                             (item, index) => {
                               return (
-                                <img
-                                  src={API_ENDPOINTS.BASE_URL + item.path}
-                                  height="80px"
-                                  width="80px"
-                                />
+                                <div style={{ position: "relative" }}>
+                                  {item?.filename && id && (
+                                    <div
+                                      style={{
+                                        borderRadius: "50%",
+                                        border: "1px solid black",
+                                        color: "black",
+                                        position: "absolute",
+                                        left: 80,
+                                        top: -10,
+                                        width: 20,
+                                        height: 20,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        cursor: "pointer",
+                                      }}
+                                      onClick={() => {
+                                        imageClickHandler(
+                                          "livingRoom",
+                                          item?.filename
+                                        );
+                                      }}
+                                    >
+                                      X
+                                    </div>
+                                  )}
+                                  <img
+                                    src={API_ENDPOINTS.BASE_URL + item.path}
+                                    height="80px"
+                                    width="80px"
+                                  />
+                                </div>
                               );
                             }
                           )}
@@ -1895,16 +1983,44 @@ const PropertyCreateUpdate = (props) => {
 
                         <Grid item xs={12} sm={6} md={6}>
                           <Typography variant="subtitle1" gutterBottom>
-                            Badrooms
+                            Bedrooms
                           </Typography>
                           {propertyData?.images?.badrooms?.map(
                             (item, index) => {
                               return (
-                                <img
-                                  src={API_ENDPOINTS.BASE_URL + item.path}
-                                  height="80px"
-                                  width="80px"
-                                />
+                                <div style={{ position: "relative" }}>
+                                  {item?.filename && id && (
+                                    <div
+                                      style={{
+                                        borderRadius: "50%",
+                                        border: "1px solid black",
+                                        color: "black",
+                                        position: "absolute",
+                                        left: 80,
+                                        top: -10,
+                                        width: 20,
+                                        height: 20,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        cursor: "pointer",
+                                      }}
+                                      onClick={() => {
+                                        imageClickHandler(
+                                          "badrooms",
+                                          item?.filename
+                                        );
+                                      }}
+                                    >
+                                      X
+                                    </div>
+                                  )}
+                                  <img
+                                    src={API_ENDPOINTS.BASE_URL + item.path}
+                                    height="80px"
+                                    width="80px"
+                                  />
+                                </div>
                               );
                             }
                           )}
@@ -1921,11 +2037,39 @@ const PropertyCreateUpdate = (props) => {
                           </Typography>
                           {propertyData?.images?.kitchen?.map((item, index) => {
                             return (
-                              <img
-                                src={API_ENDPOINTS.BASE_URL + item.path}
-                                height="80px"
-                                width="80px"
-                              />
+                              <div style={{ position: "relative" }}>
+                                {item?.filename && id && (
+                                  <div
+                                    style={{
+                                      borderRadius: "50%",
+                                      border: "1px solid black",
+                                      color: "black",
+                                      position: "absolute",
+                                      left: 80,
+                                      top: -10,
+                                      width: 20,
+                                      height: 20,
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                      cursor: "pointer",
+                                    }}
+                                    onClick={() => {
+                                      imageClickHandler(
+                                        "kitchen",
+                                        item?.filename
+                                      );
+                                    }}
+                                  >
+                                    X
+                                  </div>
+                                )}
+                                <img
+                                  src={API_ENDPOINTS.BASE_URL + item.path}
+                                  height="80px"
+                                  width="80px"
+                                />
+                              </div>
                             );
                           })}
                           <Dropzone
@@ -1946,11 +2090,39 @@ const PropertyCreateUpdate = (props) => {
                           {propertyData?.images?.livingRoom?.map(
                             (item, index) => {
                               return (
-                                <img
-                                  src={API_ENDPOINTS.BASE_URL + item.path}
-                                  height="80px"
-                                  width="80px"
-                                />
+                                <div style={{ position: "relative" }}>
+                                  {item?.filename && id && (
+                                    <div
+                                      style={{
+                                        borderRadius: "50%",
+                                        border: "1px solid black",
+                                        color: "black",
+                                        position: "absolute",
+                                        left: 80,
+                                        top: -10,
+                                        width: 20,
+                                        height: 20,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        cursor: "pointer",
+                                      }}
+                                      onClick={() => {
+                                        imageClickHandler(
+                                          "livingRoom",
+                                          item?.filename
+                                        );
+                                      }}
+                                    >
+                                      X
+                                    </div>
+                                  )}
+                                  <img
+                                    src={API_ENDPOINTS.BASE_URL + item.path}
+                                    height="80px"
+                                    width="80px"
+                                  />
+                                </div>
                               );
                             }
                           )}
@@ -1967,11 +2139,39 @@ const PropertyCreateUpdate = (props) => {
                           {propertyData?.images?.badrooms?.map(
                             (item, index) => {
                               return (
-                                <img
-                                  src={API_ENDPOINTS.BASE_URL + item.path}
-                                  height="80px"
-                                  width="80px"
-                                />
+                                <div style={{ position: "relative" }}>
+                                  {item?.filename && id && (
+                                    <div
+                                      style={{
+                                        borderRadius: "50%",
+                                        border: "1px solid black",
+                                        color: "black",
+                                        position: "absolute",
+                                        left: 80,
+                                        top: -10,
+                                        width: 20,
+                                        height: 20,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        cursor: "pointer",
+                                      }}
+                                      onClick={() => {
+                                        imageClickHandler(
+                                          "badrooms",
+                                          item?.filename
+                                        );
+                                      }}
+                                    >
+                                      X
+                                    </div>
+                                  )}
+                                  <img
+                                    src={API_ENDPOINTS.BASE_URL + item.path}
+                                    height="80px"
+                                    width="80px"
+                                  />
+                                </div>
                               );
                             }
                           )}
@@ -1989,11 +2189,39 @@ const PropertyCreateUpdate = (props) => {
                           {propertyData?.images?.badrooms?.map(
                             (item, index) => {
                               return (
-                                <img
-                                  src={API_ENDPOINTS.BASE_URL + item.path}
-                                  height="80px"
-                                  width="80px"
-                                />
+                                <div style={{ position: "relative" }}>
+                                  {item?.filename && id && (
+                                    <div
+                                      style={{
+                                        borderRadius: "50%",
+                                        border: "1px solid black",
+                                        color: "black",
+                                        position: "absolute",
+                                        left: 80,
+                                        top: -10,
+                                        width: 20,
+                                        height: 20,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        cursor: "pointer",
+                                      }}
+                                      onClick={() => {
+                                        imageClickHandler(
+                                          "badrooms",
+                                          item?.filename
+                                        );
+                                      }}
+                                    >
+                                      X
+                                    </div>
+                                  )}
+                                  <img
+                                    src={API_ENDPOINTS.BASE_URL + item.path}
+                                    height="80px"
+                                    width="80px"
+                                  />
+                                </div>
                               );
                             }
                           )}
@@ -2014,11 +2242,39 @@ const PropertyCreateUpdate = (props) => {
                       </Typography>
                       {propertyData?.images?.bathrooms?.map((item, index) => {
                         return (
-                          <img
-                            src={API_ENDPOINTS.BASE_URL + item.path}
-                            height="80px"
-                            width="80px"
-                          />
+                          <div style={{ position: "relative" }}>
+                            {item?.filename && id && (
+                              <div
+                                style={{
+                                  borderRadius: "50%",
+                                  border: "1px solid black",
+                                  color: "black",
+                                  position: "absolute",
+                                  left: 80,
+                                  top: -10,
+                                  width: 20,
+                                  height: 20,
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => {
+                                  imageClickHandler(
+                                    "bathrooms",
+                                    item?.filename
+                                  );
+                                }}
+                              >
+                                X
+                              </div>
+                            )}
+                            <img
+                              src={API_ENDPOINTS.BASE_URL + item.path}
+                              height="80px"
+                              width="80px"
+                            />
+                          </div>
                         );
                       })}
                       <Dropzone
@@ -2034,11 +2290,39 @@ const PropertyCreateUpdate = (props) => {
                       </Typography>
                       {propertyData?.images?.floorPlan?.map((item, index) => {
                         return (
-                          <img
-                            src={API_ENDPOINTS.BASE_URL + item.path}
-                            height="80px"
-                            width="80px"
-                          />
+                          <div style={{ position: "relative" }}>
+                            {item?.filename && id && (
+                              <div
+                                style={{
+                                  borderRadius: "50%",
+                                  border: "1px solid black",
+                                  color: "black",
+                                  position: "absolute",
+                                  left: 80,
+                                  top: -10,
+                                  width: 20,
+                                  height: 20,
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => {
+                                  imageClickHandler(
+                                    "floorPlan",
+                                    item?.filename
+                                  );
+                                }}
+                              >
+                                X
+                              </div>
+                            )}
+                            <img
+                              src={API_ENDPOINTS.BASE_URL + item.path}
+                              height="80px"
+                              width="80px"
+                            />
+                          </div>
                         );
                       })}
                       <Dropzone
@@ -2054,11 +2338,39 @@ const PropertyCreateUpdate = (props) => {
                       </Typography>
                       {propertyData?.images?.masterPlan?.map((item, index) => {
                         return (
-                          <img
-                            src={API_ENDPOINTS.BASE_URL + item.path}
-                            height="80px"
-                            width="80px"
-                          />
+                          <div style={{ position: "relative" }}>
+                            {item?.filename && id && (
+                              <div
+                                style={{
+                                  borderRadius: "50%",
+                                  border: "1px solid black",
+                                  color: "black",
+                                  position: "absolute",
+                                  left: 80,
+                                  top: -10,
+                                  width: 20,
+                                  height: 20,
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => {
+                                  imageClickHandler(
+                                    "masterPlan",
+                                    item?.filename
+                                  );
+                                }}
+                              >
+                                X
+                              </div>
+                            )}
+                            <img
+                              src={API_ENDPOINTS.BASE_URL + item.path}
+                              height="80px"
+                              width="80px"
+                            />
+                          </div>
                         );
                       })}
                       <Dropzone
@@ -2084,11 +2396,36 @@ const PropertyCreateUpdate = (props) => {
                       </Typography>
                       {propertyData?.images?.other?.map((item, index) => {
                         return (
-                          <img
-                            src={API_ENDPOINTS.BASE_URL + item.path}
-                            height="80px"
-                            width="80px"
-                          />
+                          <div style={{ position: "relative" }}>
+                            {item?.filename && id && (
+                              <div
+                                style={{
+                                  borderRadius: "50%",
+                                  border: "1px solid black",
+                                  color: "black",
+                                  position: "absolute",
+                                  left: 80,
+                                  top: -10,
+                                  width: 20,
+                                  height: 20,
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => {
+                                  imageClickHandler("other", item?.filename);
+                                }}
+                              >
+                                X
+                              </div>
+                            )}
+                            <img
+                              src={API_ENDPOINTS.BASE_URL + item.path}
+                              height="80px"
+                              width="80px"
+                            />
+                          </div>
                         );
                       })}
                       <Dropzone
