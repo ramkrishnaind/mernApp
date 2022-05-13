@@ -100,7 +100,7 @@ const PropertyCreateUpdate = (props) => {
     expected_price_per_sq_ft: propertyData?.price?.pricePerSqft || "",
     other_charges: propertyData?.price?.otherCharges || "0",
     stamp_duty_registration_charges_excluded:
-      propertyData?.price?.isStumpDutyRCExcluded || "",
+      propertyData?.price?.isStumpDutyRCExcluded || false,
     booking_token_amount: propertyData?.price?.bookingAmount || "",
     maintenance_charges: propertyData?.price?.maintenanceCharge || "0",
     maintenance_charges_per: propertyData?.price?.maintenanceFor || "",
@@ -238,6 +238,12 @@ const PropertyCreateUpdate = (props) => {
           : event.target.value,
     });
   };
+  useEffect(() => {
+    setState({
+      ...state,
+      ["iAm"]: personal_details_options[0],
+    });
+  }, [id]);
 
   const onOptionPropertyForSelectListener = (event) => {
     let option = event.target.value;
@@ -361,7 +367,8 @@ const PropertyCreateUpdate = (props) => {
         expectedPrice: state.expected_price,
         pricePerSqFt: state.expected_price_per_sq_ft,
         otherCharges: state.other_charges,
-        isStumpDutyRCExcluded: state.stamp_duty_registration_charges_excluded,
+        isStumpDutyRCExcluded:
+          state.stamp_duty_registration_charges_excluded || false,
         bookingAmount: state.booking_token_amount,
         maintenanceCharge: state.maintenance_charges,
         maintenanceFor: state.maintenance_charges_per,
@@ -433,7 +440,8 @@ const PropertyCreateUpdate = (props) => {
         expectedPrice: state.expected_price,
         pricePerSqFt: state.expected_price_per_sq_ft,
         otherCharges: state.other_charges,
-        isStumpDutyRCExcluded: state.stamp_duty_registration_charges_excluded,
+        isStumpDutyRCExcluded:
+          state.stamp_duty_registration_charges_excluded || false,
         bookingAmount: state.booking_token_amount,
         maintenanceCharge: state.maintenance_charges,
         maintenanceFor: state.maintenance_charges_per,
